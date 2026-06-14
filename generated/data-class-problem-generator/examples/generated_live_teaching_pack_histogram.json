@@ -1,0 +1,19 @@
+{
+  "id": "live-histogram-demo",
+  "type": "liveTeaching",
+  "title": "Clase en vivo: Histograma para Fraude bancario",
+  "concept": "Histograma",
+  "estimatedDuration": "20 minutos",
+  "objective": "Enseñar histogramas con una demo visual reproducible.",
+  "classFlow": [
+    {
+      "minute": "0-3",
+      "teacherAction": "Preguntar qué patrón ven.",
+      "studentAction": "Describir la forma.",
+      "visualAction": "Mostrar histograma inicial.",
+      "expectedInsight": "La altura representa frecuencia."
+    }
+  ],
+  "codexPrompt": "Crea un HTML reproducible para enseñar histogramas con datos sintéticos, bins interactivos y criterios de aceptación.",
+  "geminiPrompt": "Ayúdame a explicar histogramas paso a paso con preguntas socráticas, errores comunes y plan B offline."
+}

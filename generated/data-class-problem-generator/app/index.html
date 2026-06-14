@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DataClass Forge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #07111F;
+      --bg-soft: #0B1628;
+      --surface: #101E33;
+      --surface-2: #16263F;
+      --card: #111D2F;
+      --primary: #2F80ED;
+      --cyan: #22D3EE;
+      --green: #27AE60;
+      --yellow: #F2C94C;
+      --orange: #F2994A;
+      --red: #EB5757;
+      --text: #F4F7FB;
+      --text-muted: #AAB7C8;
+      --border: rgba(255, 255, 255, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(34, 211, 238, 0.18), transparent 28rem),
+        radial-gradient(circle at 85% 10%, rgba(47, 128, 237, 0.18), transparent 30rem),
+        linear-gradient(180deg, #07111F 0%, #08101D 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .glass {
+      background: linear-gradient(180deg, rgba(17, 29, 47, 0.94), rgba(11, 22, 40, 0.88));
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(16px);
+    }
+    .panel {
+      background: rgba(16, 30, 51, 0.84);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .glow { box-shadow: 0 0 28px rgba(34, 211, 238, 0.2); }
+    .view { display: none; }
+    .view.active { display: block; }
+    .nav-btn, .action-btn, select, button { transition: transform 150ms ease, border-color 150ms ease, background 150ms ease; }
+    .nav-btn:hover, .action-btn:hover { transform: translateY(-1px); }
+    .nav-btn.active {
+      background: rgba(34, 211, 238, 0.14);
+      border-color: rgba(34, 211, 238, 0.5);
+      color: var(--cyan);
+    }
+    .visual-box {
+      min-height: 330px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar {
+      transform-origin: bottom;
+      animation: growBar 700ms cubic-bezier(.2,.8,.2,1) both;
+    }
+    @keyframes growBar {
+      from { transform: scaleY(0.05); opacity: .25; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+    .float-in {
+      animation: floatIn 620ms cubic-bezier(.2,.8,.2,1) both;
+    }
+    @keyframes floatIn {
+      from { transform: translateY(-18px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .choice.correct { border-color: rgba(39, 174, 96, .9); background: rgba(39, 174, 96, .14); }
+    .choice.wrong { border-color: rgba(235, 87, 87, .9); background: rgba(235, 87, 87, .12); }
+    .svg-label { fill: #AAB7C8; font-size: 12px; }
+    .codebox {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    @media (max-width: 768px) {
+      .visual-box { min-height: 280px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="max-w-7xl mx-auto px-4 py-5 md:px-6">
+    <header class="glass rounded-lg p-4 md:p-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between sticky top-3 z-20">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-lg bg-cyan-400/15 border border-cyan-300/30 grid place-items-center glow">
+          <span class="text-cyan-300 font-black">DF</span>
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-black">DataClass Forge</h1>
+          <p class="text-sm text-slate-300">Aprende, practica y enseña ciencia de datos con experiencias visuales.</p>
+        </div>
+      </div>
+      <nav class="flex flex-wrap gap-2">
+        <button class="nav-btn active px-3 py-2 rounded-md border border-white/10 text-sm" data-view="dashboard">Dashboard</button>
+        <button class="nav-btn px-3 py-2 rounded-md border border-white/10 text-sm" data-view="generator">Generador</button>
+        <button class="nav-btn px-3 py-2 rounded-md border border-white/10 text-sm" data-view="learn">Aprender</button>
+        <button class="nav-btn px-3 py-2 rounded-md border border-white/10 text-sm" data-view="practice">Ejercitar</button>
+        <button class="nav-btn px-3 py-2 rounded-md border border-white/10 text-sm" data-view="live">Enseñar en vivo</button>
+        <button class="nav-btn px-3 py-2 rounded-md border border-white/10 text-sm" data-view="library">Biblioteca</button>
+      </nav>
+    </header>
+
+    <main class="mt-6">
+      <section id="dashboard" class="view active">
+        <div class="glass rounded-lg p-6 md:p-8">
+          <p class="text-cyan-300 text-sm font-semibold">MVP local sin backend ni API keys</p>
+          <h2 class="text-3xl md:text-5xl font-black max-w-4xl mt-3 leading-tight">Generador de módulos, ejercicios y clases en vivo de ciencia de datos.</h2>
+          <p class="text-slate-300 max-w-3xl mt-4">DataClass Forge crea experiencias educativas visuales a partir de conceptos, plantillas y datos sintéticos. No ejecuta IA dentro del navegador, pero prepara prompts y paquetes listos para usar con Codex, Gemini o notebooks.</p>
+        </div>
+        <div class="grid lg:grid-cols-3 gap-4 mt-5">
+          <article class="panel p-5 glow">
+            <p class="text-cyan-300 font-bold">Aprender un concepto</p>
+            <h3 class="text-2xl font-black mt-2">Módulo explicativo visual</h3>
+            <p class="text-slate-300 mt-3">Crea un módulo explicativo visual para que el alumno entienda la intuición antes de resolver ejercicios.</p>
+            <button class="action-btn mt-5 px-4 py-3 rounded-md bg-cyan-400 text-slate-950 font-black" data-mode-jump="learn">Generar módulo explicativo</button>
+          </article>
+          <article class="panel p-5 glow">
+            <p class="text-green-300 font-bold">Ejercitar lo aprendido</p>
+            <h3 class="text-2xl font-black mt-2">Caso interactivo</h3>
+            <p class="text-slate-300 mt-3">Genera un caso interactivo con preguntas, feedback y visualizaciones obligatorias.</p>
+            <button class="action-btn mt-5 px-4 py-3 rounded-md bg-green-400 text-slate-950 font-black" data-mode-jump="practice">Generar ejercicio</button>
+          </article>
+          <article class="panel p-5 glow">
+            <p class="text-yellow-300 font-bold">Enseñar en vivo</p>
+            <h3 class="text-2xl font-black mt-2">Paquete para profesor</h3>
+            <p class="text-slate-300 mt-3">Genera un paquete para profesor con guion de clase, visualización, prompt para Codex/Gemini y notebook sugerido.</p>
+            <button class="action-btn mt-5 px-4 py-3 rounded-md bg-yellow-300 text-slate-950 font-black" data-mode-jump="liveTeaching">Generar clase en vivo</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="generator" class="view">
+        <div class="grid lg:grid-cols-[390px_1fr] gap-5">
+          <aside class="glass rounded-lg p-5">
+            <h2 class="text-2xl font-black">Generador</h2>
+            <p class="text-sm text-slate-300 mt-1">Selecciona modo, concepto y contexto. Todo se genera localmente.</p>
+            <div class="grid gap-4 mt-5">
+              <label class="grid gap-2 text-sm">Modo
+                <select id="modeSelect" class="bg-slate-950/40 border border-white/10 rounded-md px-3 py-2">
+                  <option value="learn">Aprender</option>
+                  <option value="practice">Ejercitar</option>
+                  <option value="liveTeaching">Enseñar en vivo</option>
+                </select>
+              </label>
+              <label class="grid gap-2 text-sm">Concepto
+                <select id="conceptSelect" class="bg-slate-950/40 border border-white/10 rounded-md px-3 py-2"></select>
+              </label>
+              <label class="grid gap-2 text-sm">Nivel
+                <select id="levelSelect" class="bg-slate-950/40 border border-white/10 rounded-md px-3 py-2">
+                  <option>Principiante</option>
+                  <option>Intermedio</option>
+                  <option>Avanzado</option>
+                </select>
+              </label>
+              <label class="grid gap-2 text-sm">Contexto
+                <select id="contextSelect" class="bg-slate-950/40 border border-white/10 rounded-md px-3 py-2"></select>
+              </label>
+              <label class="grid gap-2 text-sm">Intensidad visual
+                <select id="visualIntensitySelect" class="bg-slate-950/40 border border-white/10 rounded-md px-3 py-2">
+                  <option>Simple</option>
+                  <option selected>Media</option>
+                  <option>Llamativa</option>
+                </select>
+              </label>
+              <label class="grid gap-2 text-sm">Duración sugerida
+                <select id="durationSelect" class="bg-slate-950/40 border border-white/10 rounded-md px-3 py-2">
+                  <option>5 minutos</option>
+                  <option selected>10 minutos</option>
+                  <option>20 minutos</option>
+                  <option>45 minutos</option>
+                </select>
+              </label>
+              <label class="grid gap-2 text-sm">Tipo de datos
+                <select id="dataModeSelect" class="bg-slate-950/40 border border-white/10 rounded-md px-3 py-2">
+                  <option>Sintéticos</option>
+                  <option>Pegados por el profesor</option>
+                  <option>Estructura sugerida para datos reales</option>
+                </select>
+              </label>
+              <button id="generateBtn" class="action-btn bg-cyan-400 text-slate-950 rounded-md px-4 py-3 font-black">Generar módulo explicativo</button>
+            </div>
+          </aside>
+          <div class="glass rounded-lg p-5">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+              <div>
+                <p id="generatedType" class="text-sm text-cyan-300 font-bold"></p>
+                <h2 id="generatedTitle" class="text-3xl font-black mt-1"></h2>
+                <p id="generatedSummary" class="text-slate-300 mt-3"></p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button class="action-btn px-3 py-2 rounded-md border border-white/10" data-view-target="learn">Ver aprender</button>
+                <button class="action-btn px-3 py-2 rounded-md border border-white/10" data-view-target="practice">Ver ejercicio</button>
+                <button class="action-btn px-3 py-2 rounded-md border border-white/10" data-view-target="live">Ver clase</button>
+              </div>
+            </div>
+            <div id="generatorVisual" class="visual-box panel p-4 mt-5"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="learn" class="view">
+        <div class="glass rounded-lg p-5">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+            <div>
+              <p id="learnMeta" class="text-sm text-cyan-300 font-bold"></p>
+              <h2 id="learnTitle" class="text-3xl font-black mt-1"></h2>
+              <p id="learnObjective" class="text-slate-300 mt-3 max-w-3xl"></p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button id="toPracticeBtn" class="action-btn px-4 py-3 rounded-md bg-green-400 text-slate-950 font-black">Pasar a ejercitar</button>
+              <button id="copyModuleJsonBtn" class="action-btn px-4 py-3 rounded-md border border-cyan-300/30 font-bold">Copiar JSON del módulo</button>
+            </div>
+          </div>
+          <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-5 mt-5">
+            <div>
+              <div id="learnVisual" class="visual-box panel p-4"></div>
+              <div id="miniCheckpoint" class="panel p-5 mt-4"></div>
+            </div>
+            <aside class="grid gap-4">
+              <div class="panel p-5">
+                <h3 class="font-black text-cyan-200">Intuición</h3>
+                <p id="learnIntuition" class="text-slate-300 mt-2"></p>
+              </div>
+              <div id="learnSections" class="grid gap-3"></div>
+              <div class="panel p-5 border-yellow-300/30">
+                <h3 class="font-black text-yellow-200">Error común</h3>
+                <p id="learnMisconception" class="text-slate-300 mt-2"></p>
+              </div>
+              <div class="panel p-5 border-green-400/30">
+                <h3 class="font-black text-green-300">Resumen final</h3>
+                <ul id="learnTakeaways" class="text-slate-300 mt-2 list-disc pl-5"></ul>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="practice" class="view">
+        <div class="grid lg:grid-cols-[300px_1fr] gap-5">
+          <aside class="glass rounded-lg p-5">
+            <p id="practiceLevel" class="text-xs uppercase tracking-wider text-cyan-300 font-bold"></p>
+            <h2 id="practiceTitle" class="text-2xl font-black mt-1"></h2>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span id="conceptBadge" class="px-2 py-1 rounded bg-cyan-400/15 border border-cyan-300/25 text-cyan-200 text-xs"></span>
+              <span id="visualBadge" class="px-2 py-1 rounded bg-green-400/15 border border-green-300/25 text-green-200 text-xs"></span>
+            </div>
+            <div class="mt-4 rounded-md bg-blue-400/10 border border-blue-300/20 p-3">
+              <p class="text-sm text-slate-400">Rol</p>
+              <p id="practiceRole" class="font-semibold"></p>
+            </div>
+            <div class="mt-3 rounded-md bg-yellow-300/10 border border-yellow-300/20 p-3">
+              <p class="text-sm text-yellow-200 font-semibold">Pistas</p>
+              <ul id="practiceHints" class="text-sm text-slate-200 mt-2 list-disc pl-4"></ul>
+            </div>
+            <div class="mt-4 grid gap-2">
+              <button class="action-btn px-3 py-2 rounded-md border border-white/10" data-view-target="learn">Ver explicación previa</button>
+              <button class="action-btn px-3 py-2 rounded-md border border-white/10" data-view-target="live">Modo profesor</button>
+              <button id="copyPracticeJsonBtn" class="action-btn px-3 py-2 rounded-md bg-cyan-400 text-slate-950 font-bold">Copiar JSON del ejercicio</button>
+            </div>
+          </aside>
+          <div class="glass rounded-lg p-5">
+            <h2 id="practiceStoryTitle" class="text-2xl font-black"></h2>
+            <p id="practiceStory" class="text-slate-300 mt-2"></p>
+            <button id="revealEvidenceBtn" class="action-btn mt-4 px-4 py-3 rounded-md bg-yellow-300 text-slate-950 font-bold">Revelar evidencia visual</button>
+            <div id="practiceVisual" class="visual-box panel p-4 mt-5 hidden"></div>
+            <div id="practiceQuestion" class="mt-5"></div>
+            <div id="practiceFeedback" class="mt-4"></div>
+            <div id="practiceConclusion" class="panel p-5 mt-5 hidden border-green-400/30"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="live" class="view">
+        <div class="glass rounded-lg p-5">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+            <div>
+              <p id="liveMeta" class="text-sm text-yellow-300 font-bold"></p>
+              <h2 id="liveTitle" class="text-3xl font-black mt-1"></h2>
+              <p id="liveObjective" class="text-slate-300 mt-3 max-w-3xl"></p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button id="downloadPackBtn" class="action-btn px-4 py-3 rounded-md bg-yellow-300 text-slate-950 font-black">Descargar paquete JSON</button>
+              <button id="downloadIpynbBtn" class="action-btn px-4 py-3 rounded-md border border-yellow-300/30 font-bold">Descargar notebook .ipynb</button>
+            </div>
+          </div>
+          <div id="liveTabs" class="flex flex-wrap gap-2 mt-5"></div>
+          <div class="grid xl:grid-cols-[1fr_390px] gap-5 mt-5">
+            <div id="liveTabContent" class="panel p-5 min-h-[520px]"></div>
+            <aside class="panel p-5">
+              <h3 class="text-xl font-black">Acciones rápidas</h3>
+              <p class="text-sm text-slate-400 mt-1">Copia artefactos listos para preparar o enseñar la clase.</p>
+              <div id="liveQuickActions" class="grid gap-2 mt-4"></div>
+              <div class="panel p-4 mt-4 bg-slate-950/30">
+                <p class="text-sm text-slate-400">Último artefacto copiado o seleccionado</p>
+                <pre id="packPreview" class="codebox text-xs text-slate-200 mt-3 max-h-[360px] overflow-auto"></pre>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="library" class="view">
+        <div class="glass rounded-lg p-5">
+          <h2 class="text-3xl font-black">Biblioteca visual de conceptos</h2>
+          <p class="text-slate-300 mt-2">Cada tarjeta muestra cómo se aprende, practica y enseña en vivo el concepto.</p>
+          <div id="conceptCards" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-6"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const LEARNING_EXPERIENCE_TYPES = {
+      learn: "Módulo explicativo",
+      practice: "Ejercicio interactivo",
+      liveTeaching: "Clase en vivo"
+    };
+
+    const APP_CONFIG = {
+      productName: "DataClass Forge",
+      tagline: "Aprende, practica y enseña ciencia de datos con experiencias visuales.",
+      contexts: ["Fraude bancario", "Tacos / negocio local", "Salud", "Marketing", "Control de calidad", "Finanzas personales", "Streaming / entretenimiento", "Emergencias urbanas", "Educación", "Recursos humanos"],
+      levels: ["Principiante", "Intermedio", "Avanzado"],
+      durations: ["5 minutos", "10 minutos", "20 minutos", "45 minutos"],
+      dataModes: ["Sintéticos", "Pegados por el profesor", "Estructura sugerida para datos reales"]
+    };
+
+    const CONCEPT_LIBRARY = {
+      histogram: concept("histogram", "Histograma", "Muestra cómo se distribuyen valores numéricos agrupados en intervalos.", "Sirve para ver concentración, forma y valores atípicos.", "Úsalo cuando quieres entender la forma de una variable numérica.", "Creer que cada barra es una categoría independiente.", "Cubetas que acumulan datos que caen en rangos.", ["barras", "bins", "frecuencia", "pico o outlier"], "histogram"),
+      correlation: concept("correlation", "Correlación", "Describe cómo dos variables se mueven juntas.", "La intuición es mirar la nube de puntos: sube, baja o no tiene dirección.", "Úsala para explorar relación entre dos variables.", "Creer que correlación prueba causalidad.", "Una nube que se inclina como una pendiente visual.", ["puntos", "tendencia", "fuerza de relación"], "scatter"),
+      regression: concept("regression", "Regresión lineal", "Ajusta una línea para estimar una variable numérica.", "La línea resume una tendencia y los residuales muestran errores.", "Úsala para predicción simple y explicación de tendencia.", "Creer que todos los puntos deben caer sobre la línea.", "Una regla que atraviesa puntos con errores visibles.", ["puntos", "línea ajustada", "residuales"], "regression"),
+      classification: concept("classification", "Clasificación", "Asigna observaciones a clases.", "Una frontera separa regiones de decisión.", "Úsala para decidir entre etiquetas como sí/no o riesgo/no riesgo.", "Creer que la frontera nunca comete errores.", "Una línea de seguridad que divide territorios.", ["dos clases", "frontera", "errores"], "classification"),
+      clustering: concept("clustering", "Clustering", "Encuentra grupos sin etiquetas previas.", "Puntos cercanos suelen formar segmentos.", "Úsalo para explorar grupos naturales.", "Creer que los clusters son clases verdaderas.", "Islas de puntos alrededor de centros.", ["puntos", "grupos", "centroides"], "clusters"),
+      decisionTree: concept("decisionTree", "Árbol de decisión", "Toma decisiones siguiendo reglas.", "Cada nodo pregunta algo y cada rama reduce opciones.", "Úsalo para explicar decisiones secuenciales.", "Creer que todas las ramas se aplican a la vez.", "Un mapa de caminos con bifurcaciones.", ["raíz", "ramas", "hojas", "ruta resaltada"], "tree"),
+      confusionMatrix: concept("confusionMatrix", "Matriz de confusión", "Resume aciertos y errores de un clasificador.", "Cada celda cuenta un tipo de resultado.", "Úsala para diagnosticar modelos de clasificación.", "Confundir falsos positivos con falsos negativos.", "Un tablero 2x2 de consecuencias.", ["VP", "FP", "FN", "VN"], "matrix"),
+      outliers: concept("outliers", "Outliers", "Detecta valores extremos que pueden distorsionar análisis.", "Un punto lejano puede mover el promedio.", "Úsalo para revisar anomalías y calidad de datos.", "Borrar siempre todo valor extremo.", "Un dato que se aleja del grupo y jala la media.", ["puntos", "extremo", "media"], "boxplot"),
+      timeSeries: concept("timeSeries", "Series de tiempo", "Muestra cambios ordenados en el tiempo.", "La línea revela tendencia, estacionalidad y anomalías.", "Úsala para estudiar evolución temporal.", "Creer que todo pico implica causalidad.", "Una historia dibujada en una línea temporal.", ["línea", "tendencia", "pico", "evento"], "line"),
+      abTesting: concept("abTesting", "A/B testing", "Compara dos variantes con una métrica.", "No basta ver una barra más alta; importa incertidumbre.", "Úsalo para comparar experiencias o campañas.", "Declarar ganador solo por diferencia visual.", "Dos caminos compitiendo con margen de duda.", ["grupo A", "grupo B", "conversión", "incertidumbre"], "bars")
+    };
+
+    function concept(id, name, shortDefinition, intuition, whenToUse, commonMisconception, visualMetaphor, requiredVisualElements, type) {
+      return {
+        id,
+        name,
+        shortDefinition,
+        intuition,
+        whenToUse,
+        commonMisconception,
+        visualMetaphor,
+        requiredVisualElements,
+        supportedModes: ["learn", "practice", "liveTeaching"],
+        visualSpec: {
+          type,
+          visualGoal: `Explicar ${name} con una representación visual mínima y accionable.`,
+          interaction: "Clic o control simple para revelar evidencia visual.",
+          simplificationStrategy: "Usar datos sintéticos pequeños, etiquetas claras y una interacción con propósito pedagógico."
+        }
+      };
+    }
+
+    const VISUAL_CONCEPT_LIBRARY = Object.fromEntries(Object.values(CONCEPT_LIBRARY).map(c => [c.id, c.visualSpec]));
+
+    const MODULE_TEMPLATES = {
+      opening: "Primero mira la forma visual antes de memorizar definiciones.",
+      sectionTitles: ["Intuición visual", "Cómo leer la evidencia", "Error común a evitar"]
+    };
+
+    const PRACTICE_TEMPLATES = {
+      roles: {
+        "Fraude bancario": "Analista antifraude",
+        "Tacos / negocio local": "Consultor de operaciones",
+        "Salud": "Analista clínico",
+        "Marketing": "Estratega de crecimiento",
+        "Control de calidad": "Inspector de procesos",
+        "Finanzas personales": "Asesor financiero",
+        "Streaming / entretenimiento": "Analista de contenido",
+        "Emergencias urbanas": "Coordinador urbano",
+        "Educación": "Diseñador instruccional",
+        "Recursos humanos": "Analista de talento"
+      },
+      formats: ["Caso detectivesco", "Reto de consultoría", "Misión operativa", "Diagnóstico visual", "Decisión de negocio"]
+    };
+
+    const LIVE_TEACHING_TEMPLATES = {
+      flow: [
+        ["0-3", "Activar intuición con una pregunta visual.", "Hacer predicción rápida.", "Mostrar visual inicial.", "El concepto tiene una forma visible."],
+        ["3-8", "Manipular o explicar la visualización.", "Describir qué cambia.", "Resaltar elementos clave.", "La representación guía la interpretación."],
+        ["8-15", "Lanzar una pregunta de diagnóstico.", "Responder y justificar.", "Comparar opciones.", "Los distractores revelan errores comunes."],
+        ["15-20", "Cerrar con regla práctica.", "Escribir takeaway.", "Mostrar resumen.", "El concepto se puede aplicar a otro contexto."]
+      ]
+    };
+
+    const STATE = {
+      activeView: "dashboard",
+      selectedMode: "learn",
+      selectedConcept: "histogram",
+      selectedLevel: "Principiante",
+      selectedContext: "Fraude bancario",
+      visualIntensity: "Media",
+      duration: "10 minutos",
+      dataMode: "Sintéticos",
+      currentModule: null,
+      currentPractice: null,
+      currentLivePack: null,
+      liveTab: "summary",
+      hints: [],
+      charts: {}
+    };
+
+    const $ = id => document.getElementById(id);
+    const values = obj => Object.values(obj);
+    const conceptById = id => CONCEPT_LIBRARY[id] || CONCEPT_LIBRARY.histogram;
+    const makeId = text => text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const sample = arr => arr[Math.floor(Math.random() * arr.length)];
+
+    function generateLearningModule({ concept, level, context, visualIntensity, duration }) {
+      const c = conceptById(concept);
+      return {
+        id: `learn-${c.id}-${Date.now().toString(36)}`,
+        type: "learn",
+        title: `${c.name}: intuición visual para ${context}`,
+        concept: c.name,
+        conceptId: c.id,
+        level,
+        context,
+        objective: `Entender la intuición de ${c.name} antes de resolver ejercicios.`,
+        estimatedDuration: duration,
+        introHook: `${MODULE_TEMPLATES.opening} En ${context.toLowerCase()}, este concepto ayuda a tomar mejores decisiones con datos.`,
+        intuition: c.intuition,
+        visualExplanation: c.visualMetaphor,
+        visualSpec: c.visualSpec,
+        data: buildData(c.id),
+        sections: MODULE_TEMPLATES.sectionTitles.map((title, i) => ({
+          title,
+          explanation: i === 0 ? c.shortDefinition : i === 1 ? `Observa: ${c.requiredVisualElements.join(", ")}.` : c.commonMisconception,
+          visualFocus: i === 0 ? c.visualMetaphor : i === 1 ? c.visualSpec.visualGoal : "Detectar el error común antes de practicar.",
+          teacherTip: i === 0 ? "Pide al alumno describir lo que ve sin fórmulas." : i === 1 ? "Conecta cada elemento visual con una decisión." : "Contrasta la respuesta correcta con el malentendido.",
+          misconceptionWarning: c.commonMisconception
+        })),
+        miniCheckpoints: [{
+          question: `¿Cuál es la idea central de ${c.name}?`,
+          options: [
+            `Usar la visualización para interpretar ${c.requiredVisualElements[0]}.`,
+            "Ignorar la forma visual y memorizar una regla.",
+            "Sacar conclusiones sin mirar los datos."
+          ],
+          correctAnswer: 0,
+          feedback: "Correcto: la intuición nace de mirar la evidencia visual primero."
+        }],
+        conclusion: {
+          keyTakeaways: [c.shortDefinition, c.intuition, `Error a evitar: ${c.commonMisconception}`],
+          nextPracticeSuggestion: `Pasa a un ejercicio de ${c.name} en contexto de ${context}.`
+        }
+      };
+    }
+
+    function generatePracticeCase({ concept, level, context, format = "Diagnóstico visual", steps = 2, visualIntensity }) {
+      const c = conceptById(concept);
+      const role = PRACTICE_TEMPLATES.roles[context] || "Analista de datos";
+      return {
+        id: `practice-${c.id}-${Date.now().toString(36)}`,
+        type: "practice",
+        title: `${format}: ${c.name} en ${context}`,
+        concept: c.name,
+        conceptId: c.id,
+        level,
+        context,
+        format,
+        role,
+        objective: `Aplicar ${c.name} usando evidencia visual.`,
+        introText: `Como ${role}, debes interpretar una señal visual y tomar una decisión explicable.`,
+        visualSpec: c.visualSpec,
+        data: buildData(c.id),
+        problems: Array.from({ length: Math.max(1, Math.min(Number(steps) || 2, 3)) }, (_, i) => ({
+          id: i + 1,
+          storyTitle: i === 0 ? "La evidencia aparece" : i === 1 ? "La decisión se vuelve visual" : "Cierre del caso",
+          storyText: `El equipo de ${context.toLowerCase()} necesita una lectura rápida.`,
+          title: `${c.name}: paso ${i + 1}`,
+          narrative: `Observa ${c.requiredVisualElements.join(", ")} y evita este error: ${c.commonMisconception}`,
+          question: questionFor(c),
+          options: optionsFor(c)
+        })),
+        conclusion: {
+          learnings: [c.shortDefinition, c.intuition, `La visualización mínima obligatoria fue: ${c.requiredVisualElements.join(", ")}.`],
+          warning: "Este ejercicio es educativo y usa datos sintéticos.",
+          teacherNote: `Pide a la clase justificar su respuesta señalando elementos visibles de ${c.name}.`
+        }
+      };
+    }
+
+    function generateLiveTeachingPack({ concept, level, context, visualIntensity, duration, dataMode }) {
+      const c = conceptById(concept);
+      const dataset = datasetSpecFor(c, context, dataMode);
+      const pythonCode = pythonCodeFor(c, dataset);
+      const objective = `Enseñar ${c.name} con una demostración visual reproducible, preguntas guiadas y plan de contingencia.`;
+      const socraticQuestions = [
+        `¿Qué parte de la visualización te da la primera pista sobre ${c.name}?`,
+        `¿Qué conclusión sería tentadora pero incorrecta?`,
+        `¿Cómo cambiaría tu interpretación si los datos fueran reales?`,
+        `¿Qué decisión podemos tomar y cuál todavía no?`
+      ];
+      const commonStudentErrors = [
+        c.commonMisconception,
+        "Confundir una simplificación visual con una prueba definitiva.",
+        "Responder por intuición de negocio sin citar evidencia del gráfico."
+      ];
+      const codexPrompt = `Actúa como ingeniero frontend educativo o creador de notebooks para una clase de ciencia de datos.
+
+Elige una de estas salidas y entrégala completa:
+1. HTML demo autocontenido.
+2. Notebook Python reproducible.
+3. Mini app educativa local.
+
+Concepto: ${c.name}
+Nivel: ${level}
+Contexto: ${context}
+Objetivo: ${objective}
+
+Dataset:
+Columnas: ${dataset.columns.join(", ")}
+Tipos: ${dataset.types.join(", ")}
+Primeras filas:
+${datasetToCSV(dataset.sampleRows)}
+
+Visualización requerida: ${c.visualSpec.type}
+Elementos visuales obligatorios: ${c.requiredVisualElements.join(", ")}
+Interacciones requeridas: ${c.visualSpec.interaction}
+
+Restricciones técnicas:
+- Sin backend.
+- Sin API keys.
+- Sin datos externos.
+- Si haces HTML, debe ser autocontenido.
+- Si haces notebook, usa pandas, numpy, matplotlib y scikit-learn solo si es necesario.
+- Explica en español.
+
+Criterios de aceptación:
+1. La visualización representa correctamente ${c.name}.
+2. Incluye explicación paso a paso.
+3. Incluye al menos una pregunta para alumnos.
+4. Incluye feedback o discusión esperada.
+5. Advierte el error común: ${c.commonMisconception}.
+
+Qué NO hacer:
+- No conectar APIs.
+- No usar datos reales.
+- No prometer causalidad o precisión no soportada.
+- No convertir la demo en una app compleja.`;
+      const geminiPrompt = `Actúa como asistente docente para una clase en vivo sobre ${c.name}.
+
+No inventes datos: usa el dataset proporcionado abajo.
+
+Concepto: ${c.name}
+Nivel: ${level}
+Contexto: ${context}
+Objetivo: ${objective}
+Intuición: ${c.intuition}
+Analogía sugerida: ${c.visualMetaphor}
+Error común: ${c.commonMisconception}
+
+Dataset:
+${datasetToCSV(dataset.sampleRows)}
+
+Genera una salida estructurada con:
+1. Explicación paso a paso.
+2. Analogía breve.
+3. Preguntas socráticas.
+4. Posibles respuestas de alumnos.
+5. Correcciones para respuestas equivocadas.
+6. Mini demostración con los datos.
+7. Actividad de 5 minutos.
+8. Cierre pedagógico.
+9. Plan B si el cálculo, notebook o demo falla.`;
+      const notebookBlueprint = notebookBlueprintFor(c, dataset, objective, pythonCode, socraticQuestions);
+      const classFlow = classFlowFor(c, duration);
+      return {
+        id: `live-${c.id}-${Date.now().toString(36)}`,
+        type: "liveTeaching",
+        title: `Clase en vivo: ${c.name} para ${context}`,
+        concept: c.name,
+        conceptId: c.id,
+        level,
+        context,
+        objective,
+        estimatedDuration: duration,
+        teacherExplanation: `${c.shortDefinition} La intuición clave es: ${c.intuition} Usa la visualización como evidencia antes de introducir fórmulas.`,
+        socraticQuestions,
+        visualSpec: c.visualSpec,
+        data: buildData(c.id),
+        classFlow,
+        liveDemoPlan: {
+          visualToBuild: `${c.visualSpec.type} con ${c.requiredVisualElements.join(", ")}`,
+          datasetNeeded: dataset.columns.join(", "),
+          interactionPlan: c.visualSpec.interaction,
+          possibleStudentQuestions: socraticQuestions,
+          instructorWarnings: commonStudentErrors
+        },
+        syntheticDatasetSpec: dataset,
+        pythonCode,
+        notebookBlueprint,
+        codexPrompt,
+        geminiPrompt,
+        htmlDemoPrompt: `${codexPrompt}\n\nFormato solicitado: HTML demo autocontenido con estilos simples, datos embebidos y una interacción visual.`,
+        exercisePrompt: `Crea 3 ejercicios adicionales sobre ${c.name} usando el mismo dataset. Cada ejercicio debe tener pregunta, 3 opciones, respuesta correcta, feedback y una pista visual. No inventes datos nuevos salvo que expliques la variación.`,
+        assessmentPrompt: `Crea 3 preguntas cortas para evaluar si el alumno entendió ${c.name}. Para cada pregunta incluye objetivo, respuesta correcta, dos distractores plausibles y feedback educativo. Las preguntas deben poder responderse mirando la visualización.`,
+        fallbackOfflinePlan: `Si falla la IA, el notebook o la conexión, dibuja en pizarra la estructura mínima (${c.requiredVisualElements.join(", ")}) y usa las primeras 5 filas del dataset. Pide a los alumnos identificar qué evidencia visual sostiene la conclusión y qué error común deben evitar.`,
+        beforeClassChecklist: [
+          "Abrir la app y generar este paquete.",
+          "Copiar o descargar el dataset sintético.",
+          "Probar el código Python si se usará notebook.",
+          "Tener lista una explicación sin IA.",
+          "Elegir una pregunta socrática de apertura."
+        ],
+        duringClassChecklist: [
+          "Mostrar primero el visual, no la definición.",
+          "Pedir a los alumnos describir lo que ven.",
+          "Ejecutar o explicar la demo paso a paso.",
+          "Contrastar una respuesta correcta con un error común.",
+          "Cerrar con una regla práctica transferible."
+        ],
+        commonStudentErrors,
+        closingScript: `Cierre sugerido: "${c.name} nos ayuda a ${c.whenToUse.toLowerCase()} La clave no es memorizar el gráfico, sino justificar una interpretación con evidencia visual. El error a evitar es: ${c.commonMisconception}"`,
+        exportNotes: "Este paquete es local y copiable. No ejecuta Codex, Gemini ni ningún LLM dentro del navegador."
+      };
+    }
+
+    function questionFor(c) {
+      return `¿Qué interpretación es más correcta para ${c.name} según la visualización?`;
+    }
+
+    function optionsFor(c) {
+      return [
+        { text: c.commonMisconception, correct: false, feedback: "Es un error común: parece plausible, pero contradice la evidencia visual." },
+        { text: c.intuition, correct: true, feedback: "Correcto. La respuesta usa la intuición visual del concepto." },
+        { text: "No se puede aprender nada sin un modelo complejo.", correct: false, feedback: "No. El MVP busca intuición visual antes de modelos complejos." }
+      ];
+    }
+
+    function datasetSpecFor(c, context, dataMode) {
+      return {
+        columns: c.id === "timeSeries" ? ["periodo", "valor", "evento"] : ["x", "y", "categoria", "valor"],
+        types: c.id === "timeSeries" ? ["str", "float", "str"] : ["float", "float", "str", "float"],
+        rowCount: c.id === "histogram" ? 36 : 24,
+        generationLogic: `${dataMode}: datos pequeños para representar ${c.name} en contexto de ${context}.`,
+        sampleRows: [
+          { x: 1, y: 24, categoria: "A", valor: 42 },
+          { x: 2, y: 31, categoria: "B", valor: 56 },
+          { x: 3, y: 47, categoria: "A", valor: 73 }
+        ]
+      };
+    }
+
+    function datasetToCSV(rows) {
+      if (!rows || !rows.length) return "";
+      const headers = Object.keys(rows[0]);
+      return [headers.join(","), ...rows.map(row => headers.map(h => row[h]).join(","))].join("\n");
+    }
+
+    function classFlowFor(c, duration) {
+      const longClass = duration === "45 minutos";
+      const base = [
+        { minute: "0-3", teacherAction: "Presentar el contexto y pedir una predicción visual.", studentAction: "Decir qué espera ver antes de mirar datos.", visualAction: "Mostrar la visualización vacía o inicial.", expectedInsight: "Primero se activa intuición." },
+        { minute: "3-8", teacherAction: `Explicar ${c.name} desde la metáfora visual.`, studentAction: "Nombrar elementos visibles.", visualAction: `Resaltar ${c.requiredVisualElements.join(", ")}.`, expectedInsight: "El concepto tiene piezas observables." },
+        { minute: "8-14", teacherAction: "Ejecutar o narrar la demo con dataset sintético.", studentAction: "Interpretar evidencia.", visualAction: c.visualSpec.interaction, expectedInsight: "La interacción cambia la lectura del dato." },
+        { minute: "14-18", teacherAction: "Plantear pregunta socrática y discutir distractores.", studentAction: "Justificar respuesta con el visual.", visualAction: "Marcar el elemento visual clave.", expectedInsight: "La respuesta debe citar evidencia." },
+        { minute: "18-20", teacherAction: "Cerrar con regla práctica y error común.", studentAction: "Escribir un takeaway.", visualAction: "Mostrar resumen visual.", expectedInsight: "El alumno puede transferir la idea." }
+      ];
+      if (!longClass) return base;
+      return base.concat([
+        { minute: "20-32", teacherAction: "Pedir a equipos modificar un parámetro o supuesto.", studentAction: "Comparar resultados.", visualAction: "Mostrar variación del visual.", expectedInsight: "Cambiar datos o parámetros cambia interpretación." },
+        { minute: "32-42", teacherAction: "Guiar mini-ejercicio aplicado.", studentAction: "Responder y explicar.", visualAction: "Revisar respuestas sobre el visual.", expectedInsight: "El concepto se usa para decidir." },
+        { minute: "42-45", teacherAction: "Cierre y puente a práctica individual.", studentAction: "Nombrar un error a evitar.", visualAction: "Volver al visual inicial.", expectedInsight: "Cierre pedagógico explícito." }
+      ]);
+    }
+
+    function pythonCodeFor(c, dataset) {
+      const header = `# Demo local para ${c.name}\n# Dataset sintético: no requiere archivos externos\n`;
+      if (c.id === "histogram") return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(7)\nvalues = np.concatenate([np.random.normal(65, 9, 80), np.random.normal(95, 3, 14)])\nplt.hist(values, bins=8, color="#22D3EE", edgecolor="white")\nplt.title("${c.name}: frecuencia por intervalo")\nplt.xlabel("valor")\nplt.ylabel("frecuencia")\nplt.show()\n`;
+      if (c.id === "correlation") return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(7)\nx = np.arange(1, 31)\ny = 12 + 2.4 * x + np.random.normal(0, 8, size=len(x))\nplt.scatter(x, y, color="#22D3EE")\nplt.title("${c.name}: nube de puntos")\nplt.xlabel("x")\nplt.ylabel("y")\nplt.show()\nprint("Correlación aproximada:", np.corrcoef(x, y)[0, 1].round(2))\n`;
+      if (c.id === "regression") return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(7)\nx = np.arange(1, 26)\ny = 20 + 3 * x + np.random.normal(0, 9, size=len(x))\nslope, intercept = np.polyfit(x, y, 1)\ny_hat = slope * x + intercept\nplt.scatter(x, y, color="#22D3EE")\nplt.plot(x, y_hat, color="#F2C94C")\nfor xi, yi, yh in zip(x, y, y_hat):\n    plt.plot([xi, xi], [yi, yh], color="#EB5757", alpha=0.35)\nplt.title("${c.name}: línea y residuales")\nplt.show()\n`;
+      if (c.id === "classification") return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(7)\nclass_a = np.random.normal([35, 55], [10, 12], size=(30, 2))\nclass_b = np.random.normal([68, 48], [11, 12], size=(30, 2))\nplt.scatter(class_a[:,0], class_a[:,1], label="clase A", color="#27AE60")\nplt.scatter(class_b[:,0], class_b[:,1], label="clase B", color="#EB5757")\nplt.axvline(52, color="#22D3EE", linestyle="--", label="frontera simple")\nplt.legend()\nplt.title("${c.name}: frontera de decisión")\nplt.show()\n`;
+      if (c.id === "clustering") return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(7)\ncenters = np.array([[25,30], [70,35], [50,75]])\npoints = np.vstack([center + np.random.normal(0, 7, size=(20, 2)) for center in centers])\nlabels = np.repeat([0,1,2], 20)\nplt.scatter(points[:,0], points[:,1], c=labels, cmap="viridis")\nplt.scatter(centers[:,0], centers[:,1], marker="x", s=120, color="white")\nplt.title("${c.name}: grupos y centroides")\nplt.show()\n# Si scikit-learn está disponible, prueba KMeans sobre points.\n`;
+      if (c.id === "decisionTree") return `${header}rules = [\n    ("valor > 500", "revisar riesgo"),\n    ("cliente nuevo", "pedir validación extra"),\n    ("historial confiable", "aprobar")\n]\nfor condition, decision in rules:\n    print(f"Si {condition}: {decision}")\nprint("Dibuja estas reglas como árbol: raíz -> ramas -> hojas")\n`;
+      if (c.id === "confusionMatrix") return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nmatrix = np.array([[42, 9], [7, 58]])\nlabels = [["VP", "FP"], ["FN", "VN"]]\nplt.imshow(matrix, cmap="Blues")\nfor i in range(2):\n    for j in range(2):\n        plt.text(j, i, f"{labels[i][j]}\\n{matrix[i,j]}", ha="center", va="center", color="black")\nplt.xticks([0,1], ["Pred +", "Pred -"])\nplt.yticks([0,1], ["Real +", "Real -"])\nplt.title("${c.name}: tipos de acierto y error")\nplt.show()\n`;
+      if (c.id === "outliers") return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nvalues = np.array([48,51,52,53,49,50,54,52,51,96])\nprint("Media con outlier:", values.mean().round(2))\nprint("Media sin outlier:", values[values < 80].mean().round(2))\nplt.scatter(range(len(values)), values, color=["#EB5757" if v > 80 else "#22D3EE" for v in values])\nplt.axhline(values.mean(), color="#F2C94C", label="media con outlier")\nplt.legend()\nplt.title("${c.name}: efecto en la media")\nplt.show()\n`;
+      if (c.id === "timeSeries") return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nmonths = np.arange(1, 13)\ntrend = 40 + months * 3\nseason = 8 * np.sin(months / 12 * 2 * np.pi)\nvalues = trend + season\nvalues[9] += 24\nplt.plot(months, values, marker="o", color="#22D3EE")\nplt.scatter([10], [values[9]], color="#EB5757", label="evento")\nplt.legend()\nplt.title("${c.name}: tendencia, estacionalidad y pico")\nplt.show()\n`;
+      return `${header}import numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(7)\nn_a, n_b = 420, 430\nconv_a = np.random.binomial(n_a, 0.124)\nconv_b = np.random.binomial(n_b, 0.168)\nrates = [conv_a / n_a * 100, conv_b / n_b * 100]\nplt.bar(["A", "B"], rates, color=["#2F80ED", "#22D3EE"])\nplt.ylabel("conversión %")\nplt.title("${c.name}: comparación A/B")\nplt.show()\nprint({"A": rates[0], "B": rates[1]})\n`;
+    }
+
+    function notebookBlueprintFor(c, dataset, objective, pythonCode, socraticQuestions) {
+      return {
+        title: `${c.name}: demo visual`,
+        objective,
+        cells: [
+          { type: "markdown", title: "Título y objetivo", content: `# ${c.name}: demo visual\n\n${objective}` },
+          { type: "markdown", title: "Intuición", content: `${c.intuition}\n\nAnalogía: ${c.visualMetaphor}` },
+          { type: "code", title: "Crear datos y visualización", content: pythonCode },
+          { type: "markdown", title: "Preguntas para alumnos", content: socraticQuestions.map((q, i) => `${i + 1}. ${q}`).join("\n") },
+          { type: "markdown", title: "Experimento interactivo", content: `Modificar un parámetro visual relacionado con ${c.requiredVisualElements.join(", ")} y discutir qué cambia.` },
+          { type: "markdown", title: "Cierre", content: `Regla práctica: ${c.whenToUse}\n\nError a evitar: ${c.commonMisconception}` },
+          { type: "markdown", title: "Ejercicios", content: `Crear un ejemplo nuevo de ${c.name} con otro contexto y justificar la interpretación visual.` }
+        ]
+      };
+    }
+
+    function buildData(id) {
+      if (id === "histogram") return { values: [42,45,49,51,53,56,58,59,61,62,63,64,66,67,68,70,71,72,73,74,76,78,79,81,83,86,88,91,95,98,100,101,102] };
+      if (id === "correlation") return { points: Array.from({ length: 24 }, (_, i) => ({ x: i + 1, y: Math.round(18 + i * 2.2 + Math.random() * 12) })) };
+      if (id === "regression") return { points: Array.from({ length: 18 }, (_, i) => ({ x: i + 1, y: Math.round(24 + i * 3.1 + Math.random() * 14) })), slope: 3.1, intercept: 24 };
+      if (id === "classification") return { points: Array.from({ length: 30 }, (_, i) => ({ x: Math.random() * 100, y: Math.random() * 100, cls: i % 2 ? "riesgo" : "seguro" })), threshold: 52 };
+      if (id === "clustering") {
+        const centers = [{ x: 25, y: 30 }, { x: 70, y: 35 }, { x: 50, y: 75 }];
+        return { centers, points: centers.flatMap((c, ci) => Array.from({ length: 10 }, () => ({ x: c.x + Math.random() * 18 - 9, y: c.y + Math.random() * 18 - 9, cluster: ci }))) };
+      }
+      if (id === "decisionTree") return { selectedPath: "alto-valor" };
+      if (id === "confusionMatrix") return { matrix: { vp: 42, fp: 9, fn: 7, vn: 58 } };
+      if (id === "outliers") return { points: Array.from({ length: 18 }, (_, i) => ({ x: i + 1, y: 48 + Math.random() * 12 })).concat([{ x: 20, y: 96, outlier: true }]), includeOutlier: true };
+      if (id === "timeSeries") return { values: [42,45,49,46,52,58,61,63,71,95,76,82], labels: ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"], eventIndex: 9 };
+      if (id === "abTesting") return { groups: [{ label: "A", conversion: 12.4, n: 420 }, { label: "B", conversion: 16.8, n: 430 }] };
+      return {};
+    }
+
+    function destroyChart(id) {
+      if (STATE.charts[id]) {
+        STATE.charts[id].destroy();
+        delete STATE.charts[id];
+      }
+    }
+
+    function renderVisual(experience, containerId, mode = "learn") {
+      const container = $(containerId);
+      if (!container || !experience) return;
+      destroyChart(containerId);
+      container.innerHTML = "";
+      const spec = experience.visualSpec;
+      if (!spec) {
+        container.innerHTML = `<div class="p-4 text-red-200">Este concepto todavía no tiene una representación visual. No se puede generar un problema de calidad.</div>`;
+        return;
+      }
+      if (spec.type === "histogram") return renderHistogram(container, experience.data);
+      if (spec.type === "scatter") return renderScatter(container, experience.data, containerId);
+      if (spec.type === "regression") return renderRegression(container, experience.data, containerId);
+      if (spec.type === "classification") return renderClassification(container, experience.data);
+      if (spec.type === "clusters") return renderClusters(container, experience.data);
+      if (spec.type === "tree") return renderTree(container, experience.data);
+      if (spec.type === "matrix") return renderMatrix(container, experience.data);
+      if (spec.type === "boxplot") return renderOutlier(container, experience.data);
+      if (spec.type === "line") return renderLine(container, experience.data, containerId);
+      if (spec.type === "bars") return renderAB(container, experience.data, containerId);
+      container.innerHTML = `<div class="p-4 text-red-200">Este concepto todavía no tiene una representación visual. No se puede generar un problema de calidad.</div>`;
+    }
+
+    function hint(text) {
+      STATE.hints = Array.from(new Set([text].concat(STATE.hints))).slice(0, 5);
+      renderHints();
+    }
+
+    function renderHistogram(container, data) {
+      const values = data.values || [];
+      const min = Math.min(...values), max = Math.max(...values), bins = 7, width = (max - min) / bins;
+      const counts = Array.from({ length: bins }, (_, b) => values.filter(v => v >= min + b * width && v < min + (b + 1) * width).length);
+      counts[counts.length - 1] += values.filter(v => v === max).length;
+      const peak = Math.max(...counts);
+      container.innerHTML = `<p class="font-bold text-cyan-200">Histograma: datos que caen en bins</p><p class="text-xs text-slate-400 mt-1">Clic en una barra para revelar pista.</p><div class="flex items-end gap-2 min-h-[245px] mt-4">${counts.map((c, i) => `<button class="bar flex-1 rounded-t-md ${c === peak ? "bg-red-400/80" : "bg-cyan-300/70"} hover:bg-yellow-300" style="height:${Math.max(12, c / peak * 95)}%" data-hint="Este bin contiene ${c} valores. La altura representa frecuencia."><span class="sr-only">bin ${i + 1}</span></button>`).join("")}</div>`;
+      bindHints(container);
+    }
+
+    function chart(container, id, config, fallback) {
+      const canvas = document.createElement("canvas");
+      container.appendChild(canvas);
+      if (window.Chart) STATE.charts[id] = new Chart(canvas, config);
+      else container.innerHTML = `<div class="p-5 text-yellow-200">${fallback}</div>`;
+    }
+
+    function darkScales() {
+      return { x: { ticks: { color: "#AAB7C8" }, grid: { color: "rgba(255,255,255,.08)" } }, y: { ticks: { color: "#AAB7C8" }, grid: { color: "rgba(255,255,255,.08)" } } };
+    }
+
+    function renderScatter(container, data, id) {
+      container.innerHTML = `<p class="font-bold text-cyan-200 mb-3">Nube de puntos con tendencia</p>`;
+      chart(container, id, { type: "scatter", data: { datasets: [{ label: "observaciones", data: data.points, backgroundColor: "#22D3EE" }] }, options: { plugins: { legend: { labels: { color: "#F4F7FB" } } }, scales: darkScales(), onClick: () => hint("La nube sugiere relación, pero no causalidad.") } }, "Chart.js no cargó.");
+    }
+
+    function renderRegression(container, data, id) {
+      const line = data.points.map(p => ({ x: p.x, y: data.intercept + data.slope * p.x }));
+      container.innerHTML = `<p class="font-bold text-cyan-200 mb-3">Línea ajustada y residuales</p>`;
+      chart(container, id, { type: "scatter", data: { datasets: [{ label: "datos", data: data.points, backgroundColor: "#22D3EE" }, { label: "línea", data: line, type: "line", borderColor: "#F2C94C", pointRadius: 0 }] }, options: { plugins: { legend: { labels: { color: "#F4F7FB" } } }, scales: darkScales(), onClick: () => hint("El residual es la distancia entre observación y predicción.") } }, "Chart.js no cargó.");
+    }
+
+    function renderClassification(container, data) {
+      const t = data.threshold || 52;
+      container.innerHTML = svgFrame(data.points.map(p => {
+        const wrong = (p.x > t && p.cls === "seguro") || (p.x <= t && p.cls === "riesgo");
+        return `<circle class="float-in" cx="${p.x * 3.2 + 20}" cy="${310 - p.y * 2.5}" r="${wrong ? 6 : 4}" fill="${p.cls === "riesgo" ? "#EB5757" : "#27AE60"}" stroke="${wrong ? "#F2C94C" : "transparent"}" data-hint="${wrong ? "Punto mal clasificado cerca de la frontera." : "Punto clasificado por región."}" />`;
+      }).join("") + `<line x1="${t * 3.2 + 20}" y1="35" x2="${t * 3.2 + 20}" y2="315" stroke="#22D3EE" stroke-width="3" stroke-dasharray="8 8"/><text x="${t * 3.2 + 28}" y="55" class="svg-label">frontera</text>`);
+      bindHints(container);
+    }
+
+    function renderClusters(container, data) {
+      const colors = ["#22D3EE", "#F2C94C", "#EB5757"];
+      container.innerHTML = svgFrame(data.points.map(p => `<circle class="float-in" cx="${p.x * 3.2 + 20}" cy="${320 - p.y * 2.7}" r="5" fill="${colors[p.cluster]}" data-hint="Puntos cercanos al mismo centroide forman un cluster." />`).join("") + data.centers.map((c, i) => `<circle cx="${c.x * 3.2 + 20}" cy="${320 - c.y * 2.7}" r="9" fill="none" stroke="${colors[i]}" stroke-width="3"/><text x="${c.x * 3.2 + 32}" y="${320 - c.y * 2.7}" class="svg-label">centroide</text>`).join(""));
+      bindHints(container);
+    }
+
+    function renderTree(container) {
+      container.innerHTML = svgFrame(`
+        <line x1="220" y1="70" x2="120" y2="160" stroke="#22D3EE" stroke-width="3"/>
+        <line x1="220" y1="70" x2="320" y2="160" stroke="#22D3EE" stroke-width="3"/>
+        <line x1="120" y1="160" x2="80" y2="250" stroke="#22D3EE" stroke-width="3"/>
+        <line x1="120" y1="160" x2="170" y2="250" stroke="#22D3EE" stroke-width="3"/>
+        ${treeNode(220,70,"¿Valor alto?")} ${treeNode(120,160,"¿Riesgo?")} ${treeNode(320,160,"Aprobar")} ${treeNode(80,250,"Revisar")} ${treeNode(170,250,"Bloquear")}`);
+      bindHints(container);
+    }
+
+    function treeNode(x, y, label) {
+      return `<g data-hint="Este nodo representa una regla; la ruta explica la decisión."><rect x="${x-62}" y="${y-24}" width="124" height="48" rx="8" fill="#16263F" stroke="#22D3EE"/><text x="${x}" y="${y+4}" text-anchor="middle" class="svg-label">${label}</text></g>`;
+    }
+
+    function renderMatrix(container, data) {
+      const m = data.matrix;
+      const cells = [["VP", m.vp, "Verdaderos positivos."], ["FP", m.fp, "Falsos positivos."], ["FN", m.fn, "Falsos negativos."], ["VN", m.vn, "Verdaderos negativos."]];
+      container.innerHTML = `<div class="grid grid-cols-2 gap-3 min-h-[280px]">${cells.map(([label, value, h]) => `<button class="rounded-lg border border-white/10 p-5 text-left bg-cyan-400/10 hover:bg-cyan-400/20" data-hint="${h}"><p class="text-sm text-slate-300">${label}</p><p class="text-4xl font-black text-cyan-200">${value}</p></button>`).join("")}</div>`;
+      bindHints(container);
+    }
+
+    function renderOutlier(container, data) {
+      const points = data.points;
+      const avg = points.reduce((s, p) => s + p.y, 0) / points.length;
+      container.innerHTML = svgFrame(points.map(p => `<circle cx="${p.x * 18}" cy="${330 - p.y * 2.7}" r="${p.outlier ? 8 : 5}" fill="${p.outlier ? "#EB5757" : "#22D3EE"}" data-hint="${p.outlier ? "Este outlier puede mover la media." : "Punto dentro del patrón."}" />`).join("") + `<line x1="30" y1="${330 - avg * 2.7}" x2="410" y2="${330 - avg * 2.7}" stroke="#F2C94C" stroke-width="3"/><text x="315" y="${320 - avg * 2.7}" class="svg-label">media</text>`);
+      bindHints(container);
+    }
+
+    function renderLine(container, data, id) {
+      container.innerHTML = `<p class="font-bold text-cyan-200 mb-3">Serie temporal con anomalía</p>`;
+      chart(container, id, { type: "line", data: { labels: data.labels, datasets: [{ label: "valor", data: data.values, borderColor: "#22D3EE", backgroundColor: "rgba(34,211,238,.12)", tension: .35, fill: true, pointBackgroundColor: data.values.map((_, i) => i === data.eventIndex ? "#EB5757" : "#22D3EE") }] }, options: { plugins: { legend: { labels: { color: "#F4F7FB" } } }, scales: darkScales(), onClick: () => hint("Un pico aislado sugiere evento o anomalía; no prueba causalidad.") } }, "Chart.js no cargó.");
+    }
+
+    function renderAB(container, data, id) {
+      container.innerHTML = `<p class="font-bold text-cyan-200 mb-3">A/B testing: conversión e incertidumbre</p>`;
+      chart(container, id, { type: "bar", data: { labels: data.groups.map(g => `Grupo ${g.label}`), datasets: [{ label: "conversión %", data: data.groups.map(g => g.conversion), backgroundColor: ["#2F80ED", "#22D3EE"] }] }, options: { plugins: { legend: { labels: { color: "#F4F7FB" } } }, scales: darkScales(), onClick: () => hint("Una barra más alta no basta; revisa tamaño de muestra e incertidumbre.") } }, "Chart.js no cargó.");
+    }
+
+    function svgFrame(inner) {
+      return `<svg viewBox="0 0 440 340" class="w-full h-full min-h-[300px]" role="img"><rect x="1" y="1" width="438" height="338" rx="12" fill="rgba(7,17,31,.45)" stroke="rgba(255,255,255,.08)"/><g>${inner}</g></svg>`;
+    }
+
+    function bindHints(container) {
+      container.querySelectorAll("[data-hint]").forEach(el => el.addEventListener("click", () => hint(el.dataset.hint)));
+    }
+
+    function generateAll() {
+      const params = currentParams();
+      STATE.currentModule = generateLearningModule(params);
+      STATE.currentPractice = generatePracticeCase({ ...params, format: "Diagnóstico visual", steps: 2 });
+      STATE.currentLivePack = generateLiveTeachingPack(params);
+      renderAll();
+      setView(params.mode === "learn" ? "learn" : params.mode === "practice" ? "practice" : "live");
+    }
+
+    function currentParams() {
+      STATE.selectedMode = $("modeSelect").value;
+      STATE.selectedConcept = $("conceptSelect").value;
+      STATE.selectedLevel = $("levelSelect").value;
+      STATE.selectedContext = $("contextSelect").value;
+      STATE.visualIntensity = $("visualIntensitySelect").value;
+      STATE.duration = $("durationSelect").value;
+      STATE.dataMode = $("dataModeSelect").value;
+      return { mode: STATE.selectedMode, concept: STATE.selectedConcept, level: STATE.selectedLevel, context: STATE.selectedContext, visualIntensity: STATE.visualIntensity, duration: STATE.duration, dataMode: STATE.dataMode };
+    }
+
+    function renderAll() {
+      if (!STATE.currentModule) {
+        const params = { concept: STATE.selectedConcept, level: STATE.selectedLevel, context: STATE.selectedContext, visualIntensity: STATE.visualIntensity, duration: STATE.duration, dataMode: STATE.dataMode };
+        STATE.currentModule = generateLearningModule(params);
+        STATE.currentPractice = generatePracticeCase({ ...params, format: "Diagnóstico visual", steps: 2 });
+        STATE.currentLivePack = generateLiveTeachingPack(params);
+      }
+      renderGeneratorSummary();
+      renderLearn();
+      renderPractice();
+      renderLive();
+      renderLibrary();
+      renderHints();
+    }
+
+    function renderGeneratorSummary() {
+      const mode = LEARNING_EXPERIENCE_TYPES[STATE.selectedMode];
+      $("generatedType").textContent = mode;
+      const exp = STATE.selectedMode === "learn" ? STATE.currentModule : STATE.selectedMode === "practice" ? STATE.currentPractice : STATE.currentLivePack;
+      $("generatedTitle").textContent = exp.title;
+      $("generatedSummary").textContent = exp.objective;
+      renderVisual(exp, "generatorVisual", STATE.selectedMode);
+    }
+
+    function renderLearn() {
+      const m = STATE.currentModule;
+      $("learnMeta").textContent = `${m.concept} · ${m.level} · ${m.estimatedDuration}`;
+      $("learnTitle").textContent = m.title;
+      $("learnObjective").textContent = m.objective;
+      $("learnIntuition").textContent = m.intuition;
+      $("learnMisconception").textContent = m.sections[2].misconceptionWarning;
+      $("learnSections").innerHTML = m.sections.map(s => `<div class="panel p-4"><h3 class="font-black text-cyan-200">${s.title}</h3><p class="text-slate-300 mt-2">${s.explanation}</p><p class="text-xs text-yellow-200 mt-3">Tip docente: ${s.teacherTip}</p></div>`).join("");
+      $("learnTakeaways").innerHTML = m.conclusion.keyTakeaways.map(x => `<li>${x}</li>`).join("");
+      const q = m.miniCheckpoints[0];
+      $("miniCheckpoint").innerHTML = `<h3 class="font-black text-green-300">Mini-checkpoint</h3><p class="text-slate-200 mt-2">${q.question}</p><div class="grid gap-2 mt-3">${q.options.map((o, i) => `<button class="checkpoint text-left rounded-md border border-white/10 p-3" data-correct="${i === q.correctAnswer}" data-feedback="${q.feedback}">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}</div><div id="checkpointFeedback" class="text-sm text-slate-300 mt-3"></div>`;
+      document.querySelectorAll(".checkpoint").forEach(btn => btn.addEventListener("click", () => {
+        btn.classList.add(btn.dataset.correct === "true" ? "correct" : "wrong");
+        $("checkpointFeedback").textContent = btn.dataset.correct === "true" ? q.feedback : "Revisa la intuición visual y vuelve a mirar el gráfico.";
+      }));
+      renderVisual(m, "learnVisual", "learn");
+    }
+
+    function renderPractice() {
+      const p = STATE.currentPractice;
+      const problem = p.problems[0];
+      $("practiceLevel").textContent = `${p.level} · ${p.context}`;
+      $("practiceTitle").textContent = p.title;
+      $("conceptBadge").textContent = `Concepto: ${p.concept}`;
+      $("visualBadge").textContent = `Visual obligatoria: ${p.visualSpec.type}`;
+      $("practiceRole").textContent = p.role;
+      $("practiceStoryTitle").textContent = problem.storyTitle;
+      $("practiceStory").textContent = `${problem.storyText} ${problem.narrative}`;
+      $("practiceVisual").classList.add("hidden");
+      $("practiceFeedback").innerHTML = "";
+      $("practiceConclusion").classList.add("hidden");
+      $("practiceQuestion").innerHTML = `<div class="panel p-5"><h3 class="text-xl font-black">${problem.question}</h3><div class="grid gap-2 mt-4">${problem.options.map((o, i) => `<button class="choice text-left rounded-md border border-white/10 p-3 hover:border-cyan-300/50" data-correct="${o.correct}" data-feedback="${o.feedback}">${String.fromCharCode(65+i)}. ${o.text}</button>`).join("")}</div></div>`;
+      document.querySelectorAll(".choice").forEach(btn => btn.addEventListener("click", () => {
+        const ok = btn.dataset.correct === "true";
+        btn.classList.add(ok ? "correct" : "wrong");
+        $("practiceFeedback").innerHTML = `<div class="panel p-4 ${ok ? "border-green-400/40" : "border-red-400/40"}"><p class="font-black ${ok ? "text-green-300" : "text-red-300"}">${ok ? "Correcto" : "Buen distractor para discutir"}</p><p class="text-slate-300 mt-1">${btn.dataset.feedback}</p><button id="showConclusionBtn" class="mt-3 px-3 py-2 rounded-md bg-cyan-400 text-slate-950 font-bold">Ver conclusión</button></div>`;
+        $("showConclusionBtn").addEventListener("click", () => {
+          $("practiceConclusion").classList.remove("hidden");
+          $("practiceConclusion").innerHTML = `<h3 class="font-black text-green-300">Conclusión</h3><ul class="list-disc pl-5 mt-2 text-slate-300">${p.conclusion.learnings.map(x => `<li>${x}</li>`).join("")}</ul><p class="text-yellow-200 mt-3">${p.conclusion.teacherNote}</p>`;
+        });
+      }));
+    }
+
+    function renderLive() {
+      const pack = STATE.currentLivePack;
+      $("liveMeta").textContent = `${pack.concept} · ${pack.level} · ${pack.estimatedDuration}`;
+      $("liveTitle").textContent = pack.title;
+      $("liveObjective").textContent = pack.objective;
+      $("classFlow").innerHTML = pack.classFlow.map(step => `<div class="panel p-3"><p class="text-yellow-200 font-black">${step.minute}</p><p class="text-sm text-slate-300"><b>Profesor:</b> ${step.teacherAction}</p><p class="text-sm text-slate-300"><b>Alumnos:</b> ${step.studentAction}</p><p class="text-sm text-cyan-200"><b>Visual:</b> ${step.visualAction}</p></div>`).join("");
+      $("liveDemoPlan").innerHTML = `<p><b>Construir:</b> ${pack.liveDemoPlan.visualToBuild}</p><p class="mt-2"><b>Interacción:</b> ${pack.liveDemoPlan.interactionPlan}</p><p class="mt-2"><b>Preguntas:</b></p><ul class="list-disc pl-5">${pack.liveDemoPlan.possibleStudentQuestions.map(q => `<li>${q}</li>`).join("")}</ul>`;
+      $("datasetSpec").innerHTML = `<p><b>Columnas:</b> ${pack.syntheticDatasetSpec.columns.join(", ")}</p><p><b>Filas:</b> ${pack.syntheticDatasetSpec.rowCount}</p><p><b>Lógica:</b> ${pack.syntheticDatasetSpec.generationLogic}</p>`;
+      $("offlinePlan").textContent = pack.fallbackOfflinePlan;
+      $("teacherPrepChecklist").innerHTML = [
+        "Abrir visual antes de explicar la definición.",
+        "Tener dataset sintético visible.",
+        "Probar el prompt de Codex antes de clase si se usará código.",
+        "Usar Gemini solo como apoyo externo, no como dependencia de la app.",
+        "Preparar plan offline con tabla pequeña."
+      ].map(x => `<li class="flex gap-2"><span class="text-green-400">✓</span><span>${x}</span></li>`).join("");
+      $("packPreview").textContent = pack.codexPrompt;
+      renderVisual(pack, "liveVisual", "liveTeaching");
+    }
+
+    function renderLibrary() {
+      $("conceptCards").innerHTML = values(CONCEPT_LIBRARY).map(c => `<article class="panel p-5 hover:border-cyan-300/40">
+        <div class="flex items-start justify-between gap-3"><h3 class="text-xl font-black">${c.name}</h3><span class="text-xs px-2 py-1 rounded bg-green-400/10 text-green-300">implementado</span></div>
+        <p class="text-sm text-slate-300 mt-3"><b>Qué aprende:</b> ${c.shortDefinition}</p>
+        <p class="text-sm text-slate-300 mt-2"><b>Cómo se enseña visualmente:</b> ${c.visualMetaphor}</p>
+        <p class="text-sm text-slate-300 mt-2"><b>Cómo se practica:</b> caso con pregunta sobre ${c.requiredVisualElements[0]}.</p>
+        <p class="text-sm text-slate-300 mt-2"><b>Cómo se enseña en vivo:</b> guion, prompt y notebook blueprint.</p>
+        <p class="text-sm text-cyan-200 mt-2"><b>Visual mínimo:</b> ${c.requiredVisualElements.join(", ")}</p>
+        <p class="text-sm text-yellow-200 mt-2"><b>Visual avanzado:</b> controles y comparación de escenarios.</p>
+      </article>`).join("");
+    }
+
+    function renderHints() {
+      $("practiceHints").innerHTML = (STATE.hints.length ? STATE.hints : ["Revela evidencia visual o haz clic en el gráfico para desbloquear pistas."]).map(h => `<li>${h}</li>`).join("");
+    }
+
+    function setView(view) {
+      STATE.activeView = view;
+      document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === view));
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+      renderAll();
+    }
+
+    function copyText(text) {
+      const value = typeof text === "string" ? text : JSON.stringify(text, null, 2);
+      if (navigator.clipboard) navigator.clipboard.writeText(value).then(() => hint("Contenido copiado."));
+      else {
+        const area = document.createElement("textarea");
+        area.value = value;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        hint("Contenido copiado.");
+      }
+    }
+
+    function downloadJSON(filename, data) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function notebookIpynb(pack) {
+      return {
+        cells: [
+          { cell_type: "markdown", metadata: {}, source: [`# ${pack.title}\n`, `${pack.objective}\n`] },
+          { cell_type: "markdown", metadata: {}, source: [pack.notebookBlueprint] },
+          { cell_type: "code", execution_count: null, metadata: {}, outputs: [], source: ["# Crear datos sintéticos aquí\n", `sample_rows = ${JSON.stringify(pack.syntheticDatasetSpec.sampleRows, null, 2)}\n`, "sample_rows\n"] }
+        ],
+        metadata: { kernelspec: { display_name: "Python 3", language: "python", name: "python3" }, language_info: { name: "python" } },
+        nbformat: 4,
+        nbformat_minor: 5
+      };
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function liveTabDefs() {
+      return [
+        ["summary", "Resumen"],
+        ["script", "Guion"],
+        ["dataset", "Dataset"],
+        ["notebook", "Notebook"],
+        ["codex", "Codex"],
+        ["gemini", "Gemini"],
+        ["htmlDemo", "HTML demo"],
+        ["assessment", "Evaluación"],
+        ["fallback", "Plan B"],
+        ["export", "Exportar"]
+      ];
+    }
+
+    function renderLive() {
+      const pack = STATE.currentLivePack;
+      if (!pack) return;
+      $("liveMeta").textContent = `${pack.concept} · ${pack.level} · ${pack.estimatedDuration}`;
+      $("liveTitle").textContent = pack.title;
+      $("liveObjective").textContent = pack.objective;
+      renderLiveTabs();
+      renderLiveTabContent();
+      renderLiveQuickActions();
+    }
+
+    function renderLiveTabs() {
+      $("liveTabs").innerHTML = liveTabDefs().map(([id, label]) => `<button class="live-tab action-btn px-3 py-2 rounded-md border ${STATE.liveTab === id ? "border-yellow-300/60 bg-yellow-300/15 text-yellow-100" : "border-white/10"} text-sm" data-live-tab="${id}">${label}</button>`).join("");
+      document.querySelectorAll(".live-tab").forEach(btn => btn.addEventListener("click", () => {
+        STATE.liveTab = btn.dataset.liveTab;
+        renderLiveTabs();
+        renderLiveTabContent();
+      }));
+    }
+
+    function renderLiveTabContent() {
+      const pack = STATE.currentLivePack;
+      const content = liveTabHTML(pack, STATE.liveTab);
+      $("liveTabContent").innerHTML = `<div class="flex items-start justify-between gap-3 mb-4"><div><p class="text-sm text-yellow-300 font-bold">${content.label}</p><h3 class="text-2xl font-black">${content.title}</h3></div><button class="copy-live-section action-btn px-3 py-2 rounded-md bg-cyan-400 text-slate-950 font-bold" data-copy="${content.copyKey}">Copiar</button></div>${content.html}`;
+      $("liveTabContent").querySelector(".copy-live-section").addEventListener("click", (event) => copyText(liveCopyValue(pack, event.currentTarget.dataset.copy)));
+      if (STATE.liveTab === "summary") renderVisual(pack, "liveInlineVisual", "liveTeaching");
+      bindLiveInlineActions();
+    }
+
+    function liveTabHTML(pack, tab) {
+      const dataset = pack.syntheticDatasetSpec;
+      const rowsHTML = dataset.sampleRows.map(row => `<tr>${Object.values(row).map(v => `<td class="px-3 py-2 border-t border-white/10">${escapeHTML(v)}</td>`).join("")}</tr>`).join("");
+      const notebookCells = pack.notebookBlueprint.cells.map((cell, i) => `<div class="panel p-4"><p class="text-xs text-slate-400">Celda ${i + 1} · ${cell.type}</p><h4 class="font-black text-cyan-200 mt-1">${cell.title}</h4><pre class="codebox text-xs text-slate-200 mt-3 max-h-56 overflow-auto">${escapeHTML(cell.content)}</pre></div>`).join("");
+      const map = {
+        summary: {
+          label: "Resumen",
+          title: "Paquete listo para clase",
+          copyKey: "summary",
+          html: `<div class="grid lg:grid-cols-[1fr_.9fr] gap-5"><div id="liveInlineVisual" class="visual-box panel p-4"></div><div class="grid gap-4"><div class="panel p-4"><h4 class="font-black text-cyan-200">Explicación docente</h4><p class="text-slate-300 mt-2">${pack.teacherExplanation}</p></div><div class="panel p-4"><h4 class="font-black text-yellow-200">Errores comunes del alumno</h4><ul class="list-disc pl-5 mt-2 text-slate-300">${pack.commonStudentErrors.map(e => `<li>${e}</li>`).join("")}</ul></div><div class="panel p-4"><h4 class="font-black text-green-300">Cómo cerrar la clase</h4><p class="text-slate-300 mt-2">${pack.closingScript}</p></div></div></div>`
+        },
+        script: {
+          label: "Guion",
+          title: "Minuto a minuto para enseñar en vivo",
+          copyKey: "classFlow",
+          html: `<div class="grid gap-3">${pack.classFlow.map(step => `<div class="panel p-4"><p class="text-yellow-200 font-black">${step.minute}</p><p class="text-sm text-slate-300"><b>Profesor:</b> ${step.teacherAction}</p><p class="text-sm text-slate-300"><b>Alumno:</b> ${step.studentAction}</p><p class="text-sm text-cyan-200"><b>Visual:</b> ${step.visualAction}</p><p class="text-sm text-green-200"><b>Insight:</b> ${step.expectedInsight}</p></div>`).join("")}</div>`
+        },
+        dataset: {
+          label: "Dataset",
+          title: "Datos sintéticos para demo",
+          copyKey: "syntheticDatasetSpec",
+          html: `<div class="grid lg:grid-cols-2 gap-4"><div class="panel p-4"><p><b>Columnas:</b> ${dataset.columns.join(", ")}</p><p class="mt-2"><b>Tipos:</b> ${dataset.types.join(", ")}</p><p class="mt-2"><b>Filas sugeridas:</b> ${dataset.rowCount}</p><p class="mt-2"><b>Lógica:</b> ${dataset.generationLogic}</p><div class="flex flex-wrap gap-2 mt-4"><button class="dataset-copy action-btn px-3 py-2 rounded-md border border-cyan-300/30" data-dataset-copy="csv">Copiar CSV</button><button class="dataset-copy action-btn px-3 py-2 rounded-md border border-cyan-300/30" data-dataset-copy="python">Copiar código Python para generar dataset</button></div></div><div class="panel p-4 overflow-auto"><table class="w-full text-sm text-slate-300"><thead><tr>${Object.keys(dataset.sampleRows[0]).map(h => `<th class="text-left px-3 py-2">${h}</th>`).join("")}</tr></thead><tbody>${rowsHTML}</tbody></table></div></div>`
+        },
+        notebook: {
+          label: "Notebook",
+          title: "Blueprint de notebook reproducible",
+          copyKey: "notebookBlueprint",
+          html: `<div class="grid gap-3">${notebookCells}</div>`
+        },
+        codex: {
+          label: "Codex",
+          title: "Prompt técnico para HTML, notebook o mini app",
+          copyKey: "codexPrompt",
+          html: `<pre class="codebox text-sm text-slate-200 max-h-[560px] overflow-auto">${escapeHTML(pack.codexPrompt)}</pre>`
+        },
+        gemini: {
+          label: "Gemini",
+          title: "Prompt docente para clase en vivo",
+          copyKey: "geminiPrompt",
+          html: `<pre class="codebox text-sm text-slate-200 max-h-[560px] overflow-auto">${escapeHTML(pack.geminiPrompt)}</pre>`
+        },
+        htmlDemo: {
+          label: "HTML demo",
+          title: "Prompt para demo autocontenida",
+          copyKey: "htmlDemoPrompt",
+          html: `<pre class="codebox text-sm text-slate-200 max-h-[560px] overflow-auto">${escapeHTML(pack.htmlDemoPrompt)}</pre>`
+        },
+        assessment: {
+          label: "Evaluación",
+          title: "Preguntas, actividad y ejercicios adicionales",
+          copyKey: "assessmentPrompt",
+          html: `<div class="grid gap-4"><div class="panel p-4"><h4 class="font-black text-cyan-200">Preguntas socráticas</h4><ul class="list-disc pl-5 mt-2 text-slate-300">${pack.socraticQuestions.map(q => `<li>${q}</li>`).join("")}</ul></div><div class="panel p-4"><h4 class="font-black text-cyan-200">Prompt de evaluación</h4><pre class="codebox text-sm text-slate-200 mt-2">${escapeHTML(pack.assessmentPrompt)}</pre></div><div class="panel p-4"><h4 class="font-black text-cyan-200">Prompt para ejercicios adicionales</h4><pre class="codebox text-sm text-slate-200 mt-2">${escapeHTML(pack.exercisePrompt)}</pre></div></div>`
+        },
+        fallback: {
+          label: "Plan B",
+          title: "Clase sin IA, sin notebook o sin conexión",
+          copyKey: "fallbackOfflinePlan",
+          html: `<div class="grid md:grid-cols-2 gap-4"><div class="panel p-4"><h4 class="font-black text-yellow-200">Plan B sin IA</h4><p class="text-slate-300 mt-2">${pack.fallbackOfflinePlan}</p></div><div class="panel p-4"><h4 class="font-black text-green-300">Checklist antes de clase</h4><ul class="list-disc pl-5 mt-2 text-slate-300">${pack.beforeClassChecklist.map(x => `<li>${x}</li>`).join("")}</ul></div><div class="panel p-4 md:col-span-2"><h4 class="font-black text-green-300">Checklist durante clase</h4><ul class="list-disc pl-5 mt-2 text-slate-300">${pack.duringClassChecklist.map(x => `<li>${x}</li>`).join("")}</ul></div></div>`
+        },
+        export: {
+          label: "Exportar",
+          title: "JSON, notebook y artefactos copiables",
+          copyKey: "fullPack",
+          html: `<div class="grid md:grid-cols-2 gap-3"><button id="tabDownloadPackBtn" class="action-btn px-4 py-3 rounded-md bg-yellow-300 text-slate-950 font-black">Descargar paquete JSON</button><button id="tabDownloadNotebookBtn" class="action-btn px-4 py-3 rounded-md border border-yellow-300/30 font-bold">Descargar notebook .ipynb</button><button class="copy-pack action-btn px-4 py-3 rounded-md border border-cyan-300/30 text-left" data-field="codexPrompt">Copiar Codex</button><button class="copy-pack action-btn px-4 py-3 rounded-md border border-cyan-300/30 text-left" data-field="geminiPrompt">Copiar Gemini</button><button class="copy-pack action-btn px-4 py-3 rounded-md border border-cyan-300/30 text-left" data-field="pythonCode">Copiar Python</button><button class="copy-pack action-btn px-4 py-3 rounded-md border border-cyan-300/30 text-left" data-field="classFlow">Copiar guion</button></div><pre class="codebox text-xs text-slate-300 mt-4 max-h-80 overflow-auto">${escapeHTML(JSON.stringify(pack, null, 2))}</pre>`
+        }
+      };
+      return map[tab] || map.summary;
+    }
+
+    function liveCopyValue(pack, key) {
+      if (key === "summary") return `${pack.title}\n\n${pack.objective}\n\n${pack.teacherExplanation}\n\nCierre:\n${pack.closingScript}`;
+      if (key === "fullPack") return pack;
+      return pack[key];
+    }
+
+    function bindLiveInlineActions() {
+      document.querySelectorAll(".dataset-copy").forEach(btn => btn.addEventListener("click", () => {
+        const pack = STATE.currentLivePack;
+        copyText(btn.dataset.datasetCopy === "csv" ? datasetToCSV(pack.syntheticDatasetSpec.sampleRows) : pack.pythonCode);
+      }));
+      document.querySelectorAll(".copy-pack").forEach(btn => btn.addEventListener("click", () => {
+        const value = STATE.currentLivePack[btn.dataset.field];
+        $("packPreview").textContent = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+        copyText(value);
+      }));
+      if ($("tabDownloadPackBtn")) $("tabDownloadPackBtn").addEventListener("click", () => downloadJSON(`${makeId(STATE.currentLivePack.title)}.json`, STATE.currentLivePack));
+      if ($("tabDownloadNotebookBtn")) $("tabDownloadNotebookBtn").addEventListener("click", () => downloadJSON(`${makeId(STATE.currentLivePack.title)}.ipynb`, notebookIpynb(STATE.currentLivePack)));
+    }
+
+    function renderLiveQuickActions() {
+      const actions = [
+        ["codexPrompt", "Copiar prompt para Codex"],
+        ["geminiPrompt", "Copiar prompt para Gemini"],
+        ["pythonCode", "Copiar código Python"],
+        ["notebookBlueprint", "Copiar notebook blueprint"],
+        ["htmlDemoPrompt", "Copiar prompt HTML demo"],
+        ["exercisePrompt", "Copiar ejercicios adicionales"],
+        ["syntheticDatasetSpec", "Copiar dataset sintético"],
+        ["classFlow", "Copiar guion de clase"]
+      ];
+      $("liveQuickActions").innerHTML = actions.map(([field, label]) => `<button class="copy-pack action-btn px-3 py-2 rounded-md border border-cyan-300/30 text-left" data-field="${field}">${label}</button>`).join("");
+      bindLiveInlineActions();
+    }
+
+    function notebookIpynb(pack) {
+      return {
+        cells: pack.notebookBlueprint.cells.map(cell => cell.type === "code"
+          ? { cell_type: "code", metadata: {}, execution_count: null, outputs: [], source: cell.content.split("\n").map(line => `${line}\n`) }
+          : { cell_type: "markdown", metadata: {}, source: cell.content.split("\n").map(line => `${line}\n`) }
+        ),
+        metadata: { kernelspec: { display_name: "Python 3", language: "python", name: "python3" }, language_info: { name: "python" } },
+        nbformat: 4,
+        nbformat_minor: 5
+      };
+    }
+
+    function datasetSpecFor(c, context, dataMode) {
+      const specs = {
+        timeSeries: {
+          columns: ["periodo", "valor", "evento"],
+          types: ["str", "float", "str"],
+          sampleRows: [
+            { periodo: "Ene", valor: 42, evento: "normal" },
+            { periodo: "Feb", valor: 45, evento: "normal" },
+            { periodo: "Mar", valor: 49, evento: "campaña" }
+          ]
+        },
+        confusionMatrix: {
+          columns: ["real", "predicho", "cantidad", "tipo_error"],
+          types: ["str", "str", "int", "str"],
+          sampleRows: [
+            { real: "positivo", predicho: "positivo", cantidad: 42, tipo_error: "VP" },
+            { real: "negativo", predicho: "positivo", cantidad: 9, tipo_error: "FP" },
+            { real: "positivo", predicho: "negativo", cantidad: 7, tipo_error: "FN" }
+          ]
+        },
+        abTesting: {
+          columns: ["grupo", "usuarios", "conversiones", "conversion_rate"],
+          types: ["str", "int", "int", "float"],
+          sampleRows: [
+            { grupo: "A", usuarios: 420, conversiones: 52, conversion_rate: 0.124 },
+            { grupo: "B", usuarios: 430, conversiones: 72, conversion_rate: 0.168 },
+            { grupo: "A", usuarios: 380, conversiones: 46, conversion_rate: 0.121 }
+          ]
+        }
+      };
+      const base = specs[c.id] || {
+        columns: ["x", "y", "categoria", "valor"],
+        types: ["float", "float", "str", "float"],
+        sampleRows: [
+          { x: 1, y: 24, categoria: "A", valor: 42 },
+          { x: 2, y: 31, categoria: "B", valor: 56 },
+          { x: 3, y: 47, categoria: "A", valor: 73 }
+        ]
+      };
+      return {
+        ...base,
+        rowCount: c.id === "histogram" ? 36 : 24,
+        generationLogic: `${dataMode}: datos pequeños y sintéticos para representar ${c.name} en contexto de ${context}.`
+      };
+    }
+
+    function init() {
+      $("conceptSelect").innerHTML = values(CONCEPT_LIBRARY).map(c => `<option value="${c.id}">${c.name}</option>`).join("");
+      $("contextSelect").innerHTML = APP_CONFIG.contexts.map(c => `<option>${c}</option>`).join("");
+      document.querySelectorAll("[data-view], [data-view-target]").forEach(btn => btn.addEventListener("click", () => setView(btn.dataset.view || btn.dataset.viewTarget)));
+      document.querySelectorAll("[data-mode-jump]").forEach(btn => btn.addEventListener("click", () => {
+        $("modeSelect").value = btn.dataset.modeJump;
+        STATE.selectedMode = btn.dataset.modeJump;
+        $("generateBtn").textContent = buttonLabel(btn.dataset.modeJump);
+        setView("generator");
+      }));
+      $("modeSelect").addEventListener("change", () => {
+        STATE.selectedMode = $("modeSelect").value;
+        $("generateBtn").textContent = buttonLabel(STATE.selectedMode);
+        renderGeneratorSummary();
+      });
+      $("generateBtn").addEventListener("click", generateAll);
+      $("toPracticeBtn").addEventListener("click", () => setView("practice"));
+      $("copyModuleJsonBtn").addEventListener("click", () => copyText(STATE.currentModule));
+      $("revealEvidenceBtn").addEventListener("click", () => { $("practiceVisual").classList.remove("hidden"); renderVisual(STATE.currentPractice, "practiceVisual", "practice"); hint(STATE.currentPractice.visualSpec.interaction); });
+      $("copyPracticeJsonBtn").addEventListener("click", () => copyText(STATE.currentPractice));
+      $("downloadPackBtn").addEventListener("click", () => downloadJSON(`${makeId(STATE.currentLivePack.title)}.json`, STATE.currentLivePack));
+      $("downloadIpynbBtn").addEventListener("click", () => downloadJSON(`${makeId(STATE.currentLivePack.title)}.ipynb`, notebookIpynb(STATE.currentLivePack)));
+      document.querySelectorAll(".copy-pack").forEach(btn => btn.addEventListener("click", () => {
+        const field = btn.dataset.field;
+        const value = STATE.currentLivePack[field];
+        $("packPreview").textContent = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+        copyText(value);
+      }));
+      renderAll();
+    }
+
+    function buttonLabel(mode) {
+      if (mode === "learn") return "Generar módulo explicativo";
+      if (mode === "practice") return "Generar ejercicio";
+      return "Generar clase en vivo";
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "id": "matriz-confusion-demo",
+  "title": "Mision operativa: Matriz de confusion en Salud",
+  "concept": "Matriz de confusión",
+  "level": "intermedio",
+  "context": "Salud",
+  "format": "Mision operativa",
+  "role": "Analista de datos clinicos",
+  "objective": "Distinguir verdaderos positivos, falsos positivos, falsos negativos y verdaderos negativos.",
+  "introText": "Un detector simplificado clasifica casos que requieren revision medica.",
+  "visualSpec": {
+    "type": "matrix",
+    "visualGoal": "Comparar aciertos y errores de un clasificador.",
+    "interaction": "Clic en celda para explicacion.",
+    "requiredElements": ["VP", "FP", "FN", "VN"],
+    "simplificationStrategy": "Usar cuadricula 2x2 con intensidades de color."
+  },
+  "data": {
+    "matrix": { "vp": 42, "fp": 9, "fn": 7, "vn": 58 }
+  },
+  "problems": [
+    {
+      "id": 1,
+      "storyTitle": "El error mas caro",
+      "storyText": "El equipo necesita saber que error merece mas atencion.",
+      "title": "Falsos negativos",
+      "narrative": "Observa la celda de positivos reales no detectados.",
+      "question": "Que celda muestra casos positivos que el modelo no detecto?",
+      "options": [
+        { "text": "Falsos positivos.", "correct": false, "feedback": "No. Esos son negativos reales marcados como positivos." },
+        { "text": "Falsos negativos.", "correct": true, "feedback": "Correcto. Son positivos reales que el modelo dejo pasar." },
+        { "text": "Verdaderos negativos.", "correct": false, "feedback": "No. Esa celda muestra aciertos en casos negativos." }
+      ]
+    }
+  ],
+  "conclusion": {
+    "learnings": ["La matriz separa aciertos y errores.", "Los falsos negativos pueden ser criticos en salud.", "Cada celda tiene implicacion operativa distinta."],
+    "warning": "El caso es educativo y no representa criterio clinico real.",
+    "teacherNote": "Pide a la clase discutir que error es mas costoso segun el contexto."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "learn-histogram-demo",
+  "type": "learn",
+  "title": "Histograma: intuición visual para Fraude bancario",
+  "concept": "Histograma",
+  "level": "Principiante",
+  "context": "Fraude bancario",
+  "objective": "Entender cómo un histograma agrupa valores en intervalos.",
+  "estimatedDuration": "10 minutos",
+  "introHook": "Primero mira la forma visual antes de memorizar definiciones.",
+  "intuition": "Los bins funcionan como cubetas donde caen valores numéricos.",
+  "visualSpec": {
+    "type": "histogram",
+    "visualGoal": "Explicar concentración y frecuencia por intervalo.",
+    "interaction": "Clic en una barra para revelar frecuencia.",
+    "simplificationStrategy": "Pocos bins y un pico visible."
+  }
+}

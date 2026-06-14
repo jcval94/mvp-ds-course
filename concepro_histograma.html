@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cómo se crea un Histograma de Edades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animaciones personalizadas */
+        .bar-transition {
+            transition: height 0.3s ease-out, background-color 0.2s;
+        }
+        
+        .dato-burbuja {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        /* Nuevas clases para interactividad de la Campana de Gauss */
+        .gauss-tooltip {
+            position: absolute;
+            background: rgba(17, 24, 39, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            transform: translate(-50%, -100%);
+            margin-top: -8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 20;
+        }
+        .rule-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .rule-card:hover {
+            transform: translateX(8px);
+            border-left-width: 4px;
+            border-left-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .highlight-axis { box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5); border-radius: 4px; background-color: rgba(59, 130, 246, 0.1); }
+        .highlight-bar { filter: brightness(1.2) contrast(1.2); outline: 2px solid #fbbf24; outline-offset: -2px; z-index: 10;}
+        .highlight-borders > div > div { border-right: 2px solid #fbbf24; border-left: 2px solid #fbbf24; }
+
+        /* Ocultar scrollbar de forma limpia pero permitir scroll */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm border-b border-gray-200 py-4 px-6 z-10 relative">
+        <h1 class="text-2xl font-bold text-gray-900">¿Cómo se distribuyen las edades en un grupo?</h1>
+        <p class="text-gray-600 mt-1">
+            Imagina que cada punto es una <strong>persona</strong>. El histograma nos ayuda a ver cuántas personas hay en diferentes <strong>rangos de edad</strong>.
+        </p>
+    </header>
+
+    <!-- Controles -->
+    <section id="main-controls" class="p-6 bg-white border-b border-gray-200 flex flex-wrap gap-4 items-center justify-between transition-all duration-500 z-10 relative">
+        <div class="space-x-2">
+            <button id="btn-paso-a-paso" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded shadow transition-colors">
+                ▶️ Ver la historia paso a paso
+            </button>
+            <button id="btn-add-1" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow transition-colors">
+                + Llega 1 persona
+            </button>
+            <button id="btn-add-50" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-4 rounded shadow transition-colors">
+                + Llega un grupo (50 personas)
+            </button>
+            <button id="btn-japon" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded shadow transition-colors">
+                🎌 Grupo de Japón (Mayor edad)
+            </button>
+            <button id="btn-next-shapes" class="hidden bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded shadow transition-colors animate-bounce">
+                Siguiente: Otras Formas de Histogramas ➡️
+            </button>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="text-sm text-gray-500">
+                Total de personas: <span id="total-count" class="font-bold text-gray-800 text-lg">0</span>
+            </div>
+            <button id="btn-reset" class="text-red-500 hover:text-red-700 hover:bg-red-50 font-medium py-2 px-4 rounded border border-red-200 transition-colors">
+                Reiniciar
+            </button>
+        </div>
+    </section>
+
+    <!-- Área de Animación Principal -->
+    <main id="view-main" class="flex-grow p-6 flex flex-col items-center transition-all duration-500">
+        <div class="w-full max-w-5xl bg-white border border-gray-200 shadow-lg rounded-xl flex flex-col relative overflow-hidden" style="height: 500px;">
+            
+            <div class="text-center py-4 text-gray-400 font-medium tracking-widest text-sm uppercase">
+                Frecuencia (Número de personas)
+            </div>
+
+            <div id="anim-container" class="absolute top-12 left-0 right-0 bottom-12 pointer-events-none"></div>
+
+            <div id="chart-area" class="flex-grow flex items-end px-8 pb-0 space-x-1 relative z-0"></div>
+
+            <div id="x-axis" class="h-12 border-t border-gray-300 flex px-8 space-x-1 items-center bg-gray-50 z-0 text-xs sm:text-sm text-gray-600 font-medium relative"></div>
+        </div>
+        <div class="mt-2 text-gray-500 font-medium text-sm uppercase tracking-widest">
+            Rangos de Edad (años)
+        </div>
+    </main>
+
+    <!-- Nueva sección de formas -->
+    <main id="shapes-view" class="hidden flex-grow p-6 flex flex-col items-center w-full transition-all duration-500 overflow-y-auto">
+        <div class="w-full max-w-6xl pb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2 text-center">Los histogramas pueden tener distintas "formas"</h2>
+            <p class="text-gray-600 text-center mb-8 text-lg">La distribución nos cuenta una historia sobre cómo se comportan los datos en la vida real.</p>
+            
+            <!-- NUEVA SECCIÓN: Campana de Gauss y Reglas -->
+            <div class="bg-white border border-gray-200 shadow-xl rounded-2xl p-8 mb-12 flex flex-col lg:flex-row gap-10">
+                <!-- Izquierda: Gráfica -->
+                <div class="flex-1 flex flex-col justify-center relative pl-6 pb-6">
+                    <h3 class="text-2xl font-bold text-blue-800 text-center mb-1">La famosa Campana de Gauss</h3>
+                    <p class="text-sm text-gray-500 text-center mb-6">(en la naturaleza hay muchas variables con esta forma)</p>
+                    
+                    <!-- Contenedor del Eje Y y Gráfica -->
+                    <div class="flex h-64 relative mt-4">
+                        <!-- Eje Y -->
+                        <div id="gauss-y-axis" class="flex flex-col justify-between items-end pr-2 py-1 text-xs text-gray-500 font-medium border-r-2 border-gray-800 transition-all duration-300 w-8">
+                            <span>100</span>
+                            <span>50</span>
+                            <span>0</span>
+                        </div>
+                        
+                        <!-- Gráfica -->
+                        <div id="gauss-chart" class="flex-1 flex items-end border-b-2 border-gray-800 relative bg-gray-50">
+                            <!-- Tooltip -->
+                            <div id="gauss-tooltip" class="gauss-tooltip">0 registros</div>
+                            <!-- Barras y SVG inyectados por JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Eje X -->
+                    <div id="gauss-x-axis" class="ml-8 flex justify-between pr-2 mt-2 text-xs text-gray-500 font-medium transition-all duration-300">
+                        <span>0</span>
+                        <span>20</span>
+                        <span>40</span>
+                        <span>60</span>
+                        <span>80</span>
+                        <span>100</span>
+                    </div>
+                    
+                    <!-- Etiquetas de los Ejes para resaltar -->
+                    <div id="gauss-y-label" class="absolute -left-2 top-1/2 transform -translate-y-1/2 -rotate-90 text-sm font-bold text-gray-700 tracking-wider transition-all duration-300 px-2 rounded">Frecuencia (Y)</div>
+                    <div id="gauss-x-label" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-sm font-bold text-gray-700 tracking-wider transition-all duration-300 px-2 rounded">Variable Continua (X)</div>
+                </div>
+
+                <!-- Derecha: Reglas de un Histograma -->
+                <div class="flex-1 flex flex-col justify-center">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Un histograma debe cumplir con:</h3>
+                    <p class="text-sm text-blue-600 mb-4 font-medium animate-pulse">💡 Pasa el ratón por cada punto para iluminar la gráfica.</p>
+                    <div class="space-y-3">
+                        <div class="rule-card p-3 rounded-lg border border-gray-100 bg-gray-50 text-sm" data-target="punto1">
+                            <strong class="text-blue-700 block mb-1">1. Representa Datos Cuantitativos y Continuos</strong>
+                            A diferencia de los gráficos de barras (que se usan para categorías como "color de ojos"), los histogramas se utilizan exclusivamente para variables numéricas continuas (edad, altura, ingresos).
+                        </div>
+                        <div class="rule-card p-3 rounded-lg border border-gray-100 bg-gray-50 text-sm" data-target="punto2">
+                            <strong class="text-blue-700 block mb-1">2. Ejes Específicos</strong>
+                            <strong>Eje X (Horizontal):</strong> Muestra la escala de la variable, dividida en rangos o intervalos consecutivos (bins).<br>
+                            <strong>Eje Y (Vertical):</strong> Representa la frecuencia, es decir, la cantidad de veces que los datos caen dentro de cada intervalo.
+                        </div>
+                        <div class="rule-card p-3 rounded-lg border border-gray-100 bg-gray-50 text-sm" data-target="punto3">
+                            <strong class="text-blue-700 block mb-1">3. Barras Adyacentes (Sin Espacios)</strong>
+                            Esta es su característica visual más distintiva: las barras deben estar lo más pegadas entre sí. Como el eje X es continuo, no tiene sentido dejar huecos a menos que haya una frecuencia de cero.
+                        </div>
+                        <div class="rule-card p-3 rounded-lg border border-gray-100 bg-gray-50 text-sm" data-target="punto4">
+                            <strong class="text-blue-700 block mb-1">4. Área Proporcional a la Frecuencia</strong>
+                            En un histograma real, es el tamaño de la barra representa la frecuencia. El ancho de las bases debe ser igual, y la altura puede representarse como el total de casos ó el porcentaje.
+                        </div>
+                        <div class="rule-card p-3 rounded-lg border border-gray-100 bg-gray-50 text-sm" data-target="punto5">
+                            <strong class="text-blue-700 block mb-1">5. Propósito Visual: Mostrar la Distribución</strong>
+                            El objetivo principal no es comparar elementos individuales, sino mostrar la "forma" general de los datos para identificar rápidamente si tienen una forma extraña.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full h-px bg-gray-300 my-10"></div>
+            <h3 class="text-2xl font-bold text-gray-800 text-center mb-8">Otras formas comunes de encontrar en los datos:</h3>
+
+            <!-- Fila 1 de Formas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+                <div class="bg-white border border-gray-200 shadow-lg rounded-xl p-6 flex flex-col h-80 relative transform transition hover:-translate-y-2">
+                    <h3 class="text-xl font-bold text-purple-700 text-center mb-1">Bimodal (Dos picos)</h3>
+                    <p class="text-sm text-gray-600 text-center mb-4">Ej. Altura de hombres y mujeres en un mismo grupo</p>
+                    <div id="chart-bimodal" class="flex-grow flex items-end space-x-1"></div>
+                </div>
+                <div class="bg-white border border-gray-200 shadow-lg rounded-xl p-6 flex flex-col h-80 relative transform transition hover:-translate-y-2">
+                    <h3 class="text-xl font-bold text-teal-700 text-center mb-1">Uniforme (Plana)</h3>
+                    <p class="text-sm text-gray-600 text-center mb-4">Ej. Las caras al lanzar un dado muchas veces</p>
+                    <div id="chart-uniform" class="flex-grow flex items-end space-x-1"></div>
+                </div>
+                <div class="bg-white border border-gray-200 shadow-lg rounded-xl p-6 flex flex-col h-80 relative transform transition hover:-translate-y-2">
+                    <h3 class="text-xl font-bold text-amber-700 text-center mb-1">Sesgada a la derecha</h3>
+                    <p class="text-sm text-gray-600 text-center mb-4">Ej. Salarios en una empresa (pocos ganan mucho)</p>
+                    <div id="chart-skewed" class="flex-grow flex items-end space-x-1"></div>
+                </div>
+            </div>
+
+            <!-- Explicación Intermedia -->
+            <div class="my-10 text-center bg-blue-50 py-6 px-4 rounded-xl border border-blue-100 shadow-inner">
+                <p class="text-xl text-blue-900 font-medium">
+                    <span class="text-2xl">💡</span> Algunas de estas formas ya tienen un nombre matemático formal en estadística: <br>
+                    <strong class="text-blue-700">Distribución Uniforme, Exponencial, Normal (o Campana de Gauss), Gamma, etc.</strong>
+                </p>
+            </div>
+
+            <!-- Fila 2 de Formas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+                <div class="bg-white border border-gray-200 shadow-lg rounded-xl p-6 flex flex-col h-80 relative transform transition hover:-translate-y-2">
+                    <h3 class="text-xl font-bold text-pink-600 text-center mb-1">Multimodal</h3>
+                    <p class="text-sm text-gray-600 text-center mb-4">Múltiples grupos combinados (Varios picos)</p>
+                    <div id="chart-multimodal" class="flex-grow flex items-end space-x-1"></div>
+                </div>
+                <div class="bg-white border border-gray-200 shadow-lg rounded-xl p-6 flex flex-col h-80 relative transform transition hover:-translate-y-2">
+                    <h3 class="text-xl font-bold text-indigo-600 text-center mb-1">De Colas Pesadas</h3>
+                    <p class="text-sm text-gray-600 text-center mb-4">Ej. Cambios bruscos en la bolsa de valores</p>
+                    <div id="chart-heavy" class="flex-grow flex items-end space-x-1"></div>
+                </div>
+                <div class="bg-white border border-gray-200 shadow-lg rounded-xl p-6 flex flex-col h-80 relative transform transition hover:-translate-y-2">
+                    <h3 class="text-xl font-bold text-rose-600 text-center mb-1">Con Valores Atípicos</h3>
+                    <p class="text-sm text-gray-600 text-center mb-4">Ej. Un dato erróneo o un caso extremadamente raro</p>
+                    <div id="chart-outliers" class="flex-grow flex items-end space-x-1 relative">
+                        <!-- Círculo para señalar el valor atípico -->
+                        <div class="absolute right-2 bottom-8 w-8 h-8 border-4 border-red-500 rounded-full animate-ping opacity-75"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center gap-6 mt-4">
+                <button id="btn-back-main" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-8 rounded-full shadow transition-colors">
+                    ⬅️ Volver a la animación
+                </button>
+                <button id="btn-next-advanced" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors animate-bounce">
+                    Siguiente: Características e Interactividad ➡️
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Nueva sección Avanzada (Características) -->
+    <main id="advanced-view" class="hidden flex-grow p-6 flex flex-col items-center w-full transition-all duration-500 overflow-y-auto">
+        <div class="w-full max-w-5xl pb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2 text-center">Características de un Histograma</h2>
+            <p class="text-gray-600 text-center mb-8 text-lg">Experimenta con un conjunto de <strong>500 datos</strong> para ver cómo cambia la forma del gráfico.</p>
+
+            <div class="bg-white border border-gray-200 shadow-lg rounded-xl p-8 mb-8">
+                <!-- Controles Interactivos -->
+                <div class="flex flex-col md:flex-row gap-8 mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="flex-1">
+                        <label class="block text-gray-700 font-bold mb-2">
+                            1. Número de "Chunks" (Intervalos / Bins): <span id="bin-val-display" class="text-blue-600 text-xl">15</span>
+                        </label>
+                        <p class="text-xs text-gray-500 mb-3">Cambiar la cantidad de barras altera cuánto detalle vemos. Muy pocas ocultan patrones, demasiadas crean "ruido".</p>
+                        <input type="range" id="bin-slider" min="5" max="50" value="15" class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col justify-center">
+                        <label class="block text-gray-700 font-bold mb-2">2. Línea de tendencia (Suavizado)</label>
+                        <p class="text-xs text-gray-500 mb-3">Los histogramas se pueden "suavizar" con una línea de densidad para aproximar la verdadera forma sin importar el número de barras.</p>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="smooth-toggle" class="sr-only peer">
+                            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            <span class="ml-3 text-sm font-medium text-gray-900">Mostrar línea suavizada</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Gráfico Interactivo -->
+                <div id="adv-chart-container" class="relative w-full h-96 flex items-end px-4 border-b border-l border-gray-300 pt-8 pb-0 space-x-[2px]">
+                    <!-- Aquí van las barras dinámicas -->
+                    
+                    <!-- SVG Overlay para la línea suavizada -->
+                    <svg id="adv-svg" class="absolute top-0 left-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
+                        <path id="adv-smooth-line" d="" fill="none" stroke="#2563eb" stroke-width="0.8" stroke-linejoin="round" class="transition-all duration-300 opacity-0" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button id="btn-back-shapes" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors">
+                    ⬅️ Volver a las Formas
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Resumen -->
+    <div id="summary-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-lg mx-4 transform scale-95 transition-transform duration-300" id="summary-modal-content">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center gap-2">🎌 Resumen</h2>
+            <p class="text-gray-700 mb-4 text-lg">
+                Como pudiste observar, el <strong>pico del histograma</strong> (donde se agrupa la mayoría) se encuentra mucho más a la derecha en comparación con nuestro primer grupo.
+            </p>
+            <p class="text-gray-700 mb-6 text-lg">
+                Esto refleja visualmente que la media de edad en Japón es mayor. ¡Para esto sirven los histogramas! Nos permiten comparar diferentes poblaciones de un solo vistazo.
+            </p>
+            <div class="flex justify-end">
+                <button id="btn-show-overlap" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-transform hover:scale-105">
+                    📊 Comparar ambos grupos juntos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explicación dinámica flotante -->
+    <div id="status-text" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl opacity-0 transition-opacity duration-500 text-center font-medium pointer-events-none z-50 w-11/12 md:w-auto">
+        Esperando a que lleguen las personas...
+    </div>
+
+    <script>
+        // CONFIGURACIÓN PRINCIPAL
+        const BINS = 10;
+        const MIN_VAL = 0;
+        const MAX_VAL = 100;
+        const BIN_WIDTH = (MAX_VAL - MIN_VAL) / BINS;
+        
+        const THEMES = {
+            blue: { main: 'bg-blue-500', hover: 'group-hover:bg-blue-400', impact: 'bg-emerald-400', light: 'bg-blue-50' },
+            red: { main: 'bg-red-500', hover: 'group-hover:bg-red-400', impact: 'bg-orange-400', light: 'bg-red-50' }
+        };
+        
+        let currentTheme = THEMES.blue;
+        let currentDist = { mean: 40, stdDev: 15 };
+
+        let frecuencias = new Array(BINS).fill(0);
+        let savedFrecuenciasBlue = new Array(BINS).fill(0);
+        let maxFrecuencia = 10;
+        let totalDatos = 0;
+        let isAnimatingStepByStep = false;
+
+        // Referencias del DOM
+        const chartArea = document.getElementById('chart-area');
+        const xAxis = document.getElementById('x-axis');
+        const animContainer = document.getElementById('anim-container');
+        const totalCountEl = document.getElementById('total-count');
+        const statusText = document.getElementById('status-text');
+
+        // ==== LÓGICA DE VISTA PRINCIPAL (ANIMACIÓN) ====
+        function initChart(themeKey = 'blue') {
+            if (themeKey === 'red' && totalDatos > 0) {
+                savedFrecuenciasBlue = [...frecuencias];
+            }
+
+            currentTheme = THEMES[themeKey];
+            
+            if (themeKey === 'blue') {
+                currentDist = { mean: 40, stdDev: 15 };
+            } else if (themeKey === 'red') {
+                currentDist = { mean: 75, stdDev: 12 };
+            }
+
+            chartArea.innerHTML = '';
+            xAxis.innerHTML = '';
+            frecuencias.fill(0);
+            maxFrecuencia = 10;
+            totalDatos = 0;
+            updateTotalCount();
+
+            for (let i = 0; i < BINS; i++) {
+                const min = i * BIN_WIDTH;
+                const max = (i + 1) * BIN_WIDTH;
+
+                const col = document.createElement('div');
+                col.className = 'flex-1 flex flex-col justify-end h-full relative group border-x border-dashed border-gray-100 transition-colors duration-300';
+                col.id = `col-${i}`;
+                
+                const bar = document.createElement('div');
+                bar.className = `w-full ${currentTheme.main} rounded-t-sm bar-transition relative opacity-90 ${currentTheme.hover}`;
+                bar.style.height = '0%';
+                bar.id = `bar-${i}`;
+
+                const labelCount = document.createElement('div');
+                labelCount.className = 'absolute -top-6 w-full text-center text-sm font-bold text-gray-600 opacity-0 transition-opacity';
+                labelCount.innerText = '0';
+                labelCount.id = `count-${i}`;
+                
+                bar.appendChild(labelCount);
+                col.appendChild(bar);
+                chartArea.appendChild(col);
+
+                const label = document.createElement('div');
+                label.className = 'flex-1 text-center truncate';
+                label.innerText = `${min}-${max}`;
+                xAxis.appendChild(label);
+            }
+        }
+
+        function generateDataWithDistribution(mean, stdDev) {
+            let u = 0, v = 0;
+            while(u === 0) u = Math.random();
+            while(v === 0) v = Math.random();
+            let z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+            let val = Math.floor(z * stdDev + mean);
+            
+            if (val < 0 || val >= 100) return generateDataWithDistribution(mean, stdDev);
+            return val;
+        }
+
+        function showStatus(text, duration = 3000) {
+            statusText.innerText = text;
+            statusText.style.opacity = '1';
+            
+            if(window.statusTimeout) clearTimeout(window.statusTimeout);
+            
+            if(duration > 0) {
+                window.statusTimeout = setTimeout(() => {
+                    statusText.style.opacity = '0';
+                }, duration);
+            }
+        }
+
+        async function animateDataDrop(valor, fastMode = false) {
+            return new Promise((resolve) => {
+                let binIndex = Math.floor(valor / BIN_WIDTH);
+                if (binIndex >= BINS) binIndex = BINS - 1; 
+
+                const datoBubble = document.createElement('div');
+                datoBubble.className = `dato-burbuja ${currentTheme.main}`;
+                datoBubble.innerText = valor;
+                animContainer.appendChild(datoBubble);
+
+                const containerRect = animContainer.getBoundingClientRect();
+                const targetCol = document.getElementById(`col-${binIndex}`);
+                const colRect = targetCol.getBoundingClientRect();
+                
+                const startX = containerRect.width / 2 - 20; 
+                const startY = 0;
+                const targetX = (colRect.left - containerRect.left) + (colRect.width / 2) - 20; 
+                
+                const currentFrecuencia = frecuencias[binIndex];
+                const chartHeight = chartArea.clientHeight;
+                const currentBarHeightPx = (currentFrecuencia / maxFrecuencia) * chartHeight;
+                const targetY = chartHeight - currentBarHeightPx - 40; 
+
+                const duracionAparicion = fastMode ? 0 : 300;
+                const duracionMovimientoX = fastMode ? 0 : 800;
+                const duracionCaidaY = fastMode ? 400 : 800;
+
+                if (!fastMode) {
+                    targetCol.classList.add(currentTheme.light);
+                    showStatus(`Llega una persona de ${valor} años. Pertenece al grupo de ${binIndex * 10}-${(binIndex+1)*10} años.`, 3500);
+                }
+
+                const appearAnim = datoBubble.animate([
+                    { transform: `translate(${startX}px, ${startY}px) scale(0)`, opacity: 0 },
+                    { transform: `translate(${startX}px, ${startY}px) scale(1)`, opacity: 1 }
+                ], { duration: duracionAparicion, fill: 'forwards', easing: 'ease-out' });
+
+                appearAnim.onfinish = () => {
+                    const moveXAnim = datoBubble.animate([
+                        { transform: `translate(${startX}px, ${startY}px) scale(1)` },
+                        { transform: `translate(${targetX}px, ${startY}px) scale(1)` }
+                    ], { duration: duracionMovimientoX, fill: 'forwards', easing: 'ease-in-out' });
+
+                    moveXAnim.onfinish = () => {
+                        const dropAnim = datoBubble.animate([
+                            { transform: `translate(${targetX}px, ${startY}px) scale(1)` },
+                            { transform: `translate(${targetX}px, ${targetY}px) scale(1)` }
+                        ], { duration: duracionCaidaY, fill: 'forwards', easing: 'ease-in' });
+
+                        dropAnim.onfinish = () => {
+                            animContainer.removeChild(datoBubble);
+                            if (!fastMode) {
+                                targetCol.classList.remove(currentTheme.light);
+                            }
+                            incrementBar(binIndex);
+                            resolve(); 
+                        };
+                    };
+                };
+            });
+        }
+
+        function incrementBar(binIndex) {
+            frecuencias[binIndex]++;
+            totalDatos++;
+            updateTotalCount();
+
+            if (frecuencias[binIndex] > maxFrecuencia) {
+                maxFrecuencia = maxFrecuencia + 5; 
+                actualizarAlturasDeTodasLasBarras();
+            }
+
+            const bar = document.getElementById(`bar-${binIndex}`);
+            const heightPercent = (frecuencias[binIndex] / maxFrecuencia) * 100;
+            bar.style.height = `${heightPercent}%`;
+            
+            bar.classList.replace(currentTheme.main, currentTheme.impact);
+            setTimeout(() => bar.classList.replace(currentTheme.impact, currentTheme.main), 200);
+
+            const countLabel = document.getElementById(`count-${binIndex}`);
+            countLabel.innerText = frecuencias[binIndex];
+            countLabel.style.opacity = '1';
+        }
+
+        function actualizarAlturasDeTodasLasBarras() {
+            for (let i = 0; i < BINS; i++) {
+                const bar = document.getElementById(`bar-${i}`);
+                const heightPercent = (frecuencias[i] / maxFrecuencia) * 100;
+                bar.style.height = `${heightPercent}%`;
+            }
+        }
+
+        function updateTotalCount() {
+            totalCountEl.innerText = totalDatos;
+        }
+
+        document.getElementById('btn-add-1').addEventListener('click', () => {
+            if (isAnimatingStepByStep) return;
+            const valor = generateDataWithDistribution(currentDist.mean, currentDist.stdDev);
+            animateDataDrop(valor, false);
+        });
+
+        document.getElementById('btn-add-50').addEventListener('click', async () => {
+            if (isAnimatingStepByStep) return;
+            showStatus("¡Llega un grupo grande de personas!", 3000);
+            for (let i = 0; i < 50; i++) {
+                const valor = generateDataWithDistribution(currentDist.mean, currentDist.stdDev);
+                animateDataDrop(valor, true); 
+                await new Promise(r => setTimeout(r, 40)); 
+            }
+        });
+
+        document.getElementById('btn-reset').addEventListener('click', () => {
+            initChart('blue');
+            showStatus("Histograma reiniciado. Esperando personas...", 2000);
+            isAnimatingStepByStep = false;
+        });
+
+        document.getElementById('btn-paso-a-paso').addEventListener('click', async () => {
+            if (isAnimatingStepByStep) return;
+            isAnimatingStepByStep = true;
+            initChart('blue'); 
+
+            showStatus("¡Mira! Llega la primera persona. ¿Qué edad tendrá?", -1);
+            await new Promise(r => setTimeout(r, 3000)); 
+            await animateDataDrop(45, false);
+            
+            showStatus("¡Tiene 45 años! Se ubica en el grupo de 40 a 50 años. La barra crece para contarla.", -1);
+            await new Promise(r => setTimeout(r, 7000)); 
+
+            showStatus("Llegan dos personas más, tómate tu tiempo para ver dónde caen...", -1);
+            await new Promise(r => setTimeout(r, 2000));
+            await animateDataDrop(22, false); 
+            await new Promise(r => setTimeout(r, 1500)); 
+            await animateDataDrop(78, false); 
+            
+            showStatus("Las personas se van agrupando. La altura de la barra nos dice cuántas hay en ese rango.", -1);
+            await new Promise(r => setTimeout(r, 6500)); 
+
+            showStatus("Si llega mucha gente, empezamos a ver el patrón de edades de este grupo.", -1);
+            await new Promise(r => setTimeout(r, 3500));
+            
+            for (let i = 0; i < 35; i++) {
+                const valor = generateDataWithDistribution(currentDist.mean, currentDist.stdDev);
+                animateDataDrop(valor, true);
+                await new Promise(r => setTimeout(r, 80));
+            }
+
+            setTimeout(() => {
+                showStatus("¡Este es el histograma! Muestra qué rangos de edad son los más comunes aquí.", 7000);
+                isAnimatingStepByStep = false;
+            }, 3000);
+        });
+
+        document.getElementById('btn-japon').addEventListener('click', async () => {
+            if (isAnimatingStepByStep) return;
+            isAnimatingStepByStep = true;
+            initChart('red'); 
+
+            showStatus("Ahora imaginemos que estamos analizando a un grupo de personas de Japón...", -1);
+            await new Promise(r => setTimeout(r, 5000));
+            showStatus("Japón es famoso por tener una población con mayor esperanza de vida.", -1);
+            await new Promise(r => setTimeout(r, 5000));
+            showStatus("¡Veamos cómo se ve su histograma cuando llega el grupo!", -1);
+            await new Promise(r => setTimeout(r, 3000));
+            
+            for (let i = 0; i < 60; i++) {
+                const valor = generateDataWithDistribution(currentDist.mean, currentDist.stdDev);
+                animateDataDrop(valor, true);
+                await new Promise(r => setTimeout(r, 60));
+            }
+
+            setTimeout(() => {
+                showStatus("¿Notas la diferencia? El 'pico' de edades se desplazó hacia la derecha (personas mayores).", -1);
+                setTimeout(() => {
+                    const modal = document.getElementById('summary-modal');
+                    const content = document.getElementById('summary-modal-content');
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.classList.remove('opacity-0');
+                        content.classList.remove('scale-95');
+                    }, 50);
+                }, 3000);
+                isAnimatingStepByStep = false;
+            }, 4000);
+        });
+
+        // ==== NAVEGACIÓN Y SUPERPOSICIÓN ====
+        document.getElementById('btn-show-overlap').addEventListener('click', () => {
+            const modal = document.getElementById('summary-modal');
+            const content = document.getElementById('summary-modal-content');
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+
+            renderOverlap();
+            
+            document.getElementById('btn-paso-a-paso').classList.add('hidden');
+            document.getElementById('btn-add-1').classList.add('hidden');
+            document.getElementById('btn-add-50').classList.add('hidden');
+            document.getElementById('btn-japon').classList.add('hidden');
+            document.getElementById('btn-next-shapes').classList.remove('hidden');
+        });
+
+        function renderOverlap() {
+            chartArea.innerHTML = ''; 
+            let maxOverlap = Math.max(...savedFrecuenciasBlue, ...frecuencias);
+            if (maxOverlap < 10) maxOverlap = 10;
+            
+            for (let i = 0; i < BINS; i++) {
+                const col = document.createElement('div');
+                col.className = 'flex-1 flex justify-center items-end h-full relative group border-x border-dashed border-gray-100';
+                
+                const blueBar = document.createElement('div');
+                blueBar.className = 'absolute bottom-0 bg-blue-500 bg-opacity-50 rounded-t-sm w-full border-t-2 border-blue-600 transition-all duration-1000';
+                blueBar.style.height = '0%';
+                
+                const redBar = document.createElement('div');
+                redBar.className = 'absolute bottom-0 bg-red-500 bg-opacity-50 rounded-t-sm w-full border-t-2 border-red-600 transition-all duration-1000 mix-blend-multiply';
+                redBar.style.height = '0%';
+                
+                col.appendChild(blueBar);
+                col.appendChild(redBar);
+                chartArea.appendChild(col);
+
+                setTimeout(() => {
+                    blueBar.style.height = `${(savedFrecuenciasBlue[i] / maxOverlap) * 100}%`;
+                    redBar.style.height = `${(frecuencias[i] / maxOverlap) * 100}%`;
+                }, 100);
+            }
+            showStatus("Comparación: Grupo General (Azul) vs Japón (Rojo). ¡Las áreas solapadas ayudan a comparar!", -1);
+        }
+
+        // Transición a la vista de Formas
+        document.getElementById('btn-next-shapes').addEventListener('click', () => {
+            document.getElementById('view-main').classList.add('hidden');
+            document.getElementById('main-controls').classList.add('hidden');
+            document.getElementById('shapes-view').classList.remove('hidden');
+            showStatus("", 0); 
+            renderShapes();
+        });
+
+        // Transición a la vista Principal
+        document.getElementById('btn-back-main').addEventListener('click', () => {
+            document.getElementById('shapes-view').classList.add('hidden');
+            document.getElementById('view-main').classList.remove('hidden');
+            document.getElementById('main-controls').classList.remove('hidden');
+            
+            document.getElementById('btn-next-shapes').classList.add('hidden');
+            document.getElementById('btn-paso-a-paso').classList.remove('hidden');
+            document.getElementById('btn-add-1').classList.remove('hidden');
+            document.getElementById('btn-add-50').classList.remove('hidden');
+            document.getElementById('btn-japon').classList.remove('hidden');
+            
+            document.getElementById('btn-reset').click();
+        });
+
+        // Transición a la vista Avanzada
+        document.getElementById('btn-next-advanced').addEventListener('click', () => {
+            document.getElementById('shapes-view').classList.add('hidden');
+            document.getElementById('advanced-view').classList.remove('hidden');
+            initAdvancedView();
+        });
+
+        // Volver de Avanzada a Formas
+        document.getElementById('btn-back-shapes').addEventListener('click', () => {
+            document.getElementById('advanced-view').classList.add('hidden');
+            document.getElementById('shapes-view').classList.remove('hidden');
+            renderShapes(); // Repintar animaciones
+        });
+
+        // ==== LÓGICA DE FORMAS ====
+        function renderShapes() {
+            // Renderizar y preparar la Campana de Gauss y su interactividad
+            renderGaussChart();
+
+            const renderMiniChart = (containerId, dataArray, colorClass) => {
+                const container = document.getElementById(containerId);
+                container.innerHTML = '';
+                const maxVal = Math.max(...dataArray);
+                
+                dataArray.forEach((val, i) => {
+                    const col = document.createElement('div');
+                    col.className = 'flex-1 flex flex-col justify-end h-full group relative';
+                    
+                    const bar = document.createElement('div');
+                    bar.className = `w-full ${colorClass} rounded-t-sm opacity-80 transition-all duration-1000 group-hover:opacity-100 border-x border-white`;
+                    bar.style.height = `0%`; 
+                    
+                    col.appendChild(bar);
+                    container.appendChild(col);
+
+                    setTimeout(() => { bar.style.height = `${(val / maxVal) * 100}%`; }, i * 60); 
+                });
+            };
+
+            // Fila 1
+            renderMiniChart('chart-bimodal', [2, 6, 14, 18, 9, 6, 10, 17, 19, 8], 'bg-purple-500');
+            renderMiniChart('chart-uniform', [10, 11, 9, 10, 12, 10, 11, 9, 10, 11], 'bg-teal-500');
+            renderMiniChart('chart-skewed', [35, 45, 20, 10, 5, 3, 2, 1, 0, 0], 'bg-amber-500');
+            
+            // Fila 2 (Nuevas)
+            renderMiniChart('chart-multimodal', [3, 12, 18, 6, 4, 15, 20, 7, 5, 16], 'bg-pink-500');
+            renderMiniChart('chart-heavy', [6, 4, 8, 25, 45, 25, 8, 4, 6], 'bg-indigo-500');
+            renderMiniChart('chart-outliers', [35, 40, 30, 20, 5, 2, 0, 0, 0, 12], 'bg-rose-500');
+        }
+
+        // Renderiza la gran campana de gauss e inyecta tooltips
+        function renderGaussChart() {
+            const container = document.getElementById('gauss-chart');
+            const tooltip = document.getElementById('gauss-tooltip');
+            
+            // Limpiar contenedor (excepto el tooltip)
+            Array.from(container.children).forEach(child => {
+                if (child.id !== 'gauss-tooltip') child.remove();
+            });
+
+            // Distribución Normal perfecta para visualización (Campana de Gauss)
+            const gaussData = [2, 6, 18, 45, 80, 100, 80, 45, 18, 6, 2];
+            const maxVal = 100;
+            const points = []; 
+
+            gaussData.forEach((val, i) => {
+                const col = document.createElement('div');
+                // Sin espacios, barras adyacentes
+                col.className = 'flex-1 h-full flex flex-col justify-end group gauss-bar-container relative cursor-crosshair';
+                
+                const bar = document.createElement('div');
+                bar.className = 'w-full bg-blue-500 border-x border-blue-600 transition-all duration-300 opacity-90 group-hover:opacity-100 group-hover:bg-blue-400 relative overflow-hidden';
+                bar.style.height = '0%'; // Inicia colapsado para la animación
+                
+                col.appendChild(bar);
+                container.appendChild(col);
+
+                // Calcular puntos para la línea SVG de distribución
+                const xCenter = ((i + 0.5) / gaussData.length) * 100;
+                const heightPct = (val / maxVal) * 100;
+                points.push({x: xCenter, y: 100 - heightPct});
+
+                // Lógica del Tooltip
+                col.addEventListener('mouseenter', () => {
+                    tooltip.innerText = `${val} registros`;
+                    tooltip.style.opacity = '1';
+                    
+                    const rect = col.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+                    
+                    const left = rect.left - containerRect.left + (rect.width / 2);
+                    const top = containerRect.height - (rect.height * (val/maxVal));
+                    
+                    tooltip.style.left = `${left}px`;
+                    tooltip.style.top = `${top}px`;
+                });
+                
+                col.addEventListener('mouseleave', () => {
+                    tooltip.style.opacity = '0';
+                });
+
+                // Animación de entrada en cascada
+                setTimeout(() => {
+                    bar.style.height = `${heightPct}%`;
+                }, i * 40);
+            });
+
+            // SVG para el Punto 5 (Forma de la distribución)
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('class', 'absolute top-0 left-0 w-full h-full pointer-events-none opacity-0 transition-opacity duration-500');
+            svg.setAttribute('preserveAspectRatio', 'none');
+            svg.setAttribute('viewBox', '0 0 100 100');
+            svg.id = 'gauss-svg-curve';
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            let d = `M ${points[0].x} ${points[0].y} `;
+            for (let i = 0; i < points.length - 1; i++) {
+                const p1 = points[i];
+                const p2 = points[i + 1];
+                const midX = (p1.x + p2.x) / 2;
+                const midY = (p1.y + p2.y) / 2;
+                if (i === 0) d += `L ${midX} ${midY} `;
+                else d += `Q ${p1.x} ${p1.y} ${midX} ${midY} `;
+            }
+            d += `L ${points[points.length-1].x} ${points[points.length-1].y}`;
+            
+            path.setAttribute('d', d);
+            path.setAttribute('fill', 'rgba(59, 130, 246, 0.3)');
+            path.setAttribute('stroke', '#1e3a8a');
+            path.setAttribute('stroke-width', '1.5');
+            path.setAttribute('stroke-linejoin', 'round');
+            
+            svg.appendChild(path);
+            container.appendChild(svg);
+
+            setupGaussInteractions();
+        }
+
+        function setupGaussInteractions() {
+            const rules = document.querySelectorAll('.rule-card');
+            const xAxis = document.getElementById('gauss-x-axis');
+            const yAxis = document.getElementById('gauss-y-axis');
+            const xLabel = document.getElementById('gauss-x-label');
+            const yLabel = document.getElementById('gauss-y-label');
+            const chart = document.getElementById('gauss-chart');
+            const svgCurve = document.getElementById('gauss-svg-curve');
+
+            rules.forEach(rule => {
+                rule.addEventListener('mouseenter', () => {
+                    const target = rule.getAttribute('data-target');
+                    
+                    // Resetear estilos anteriores
+                    chart.classList.remove('highlight-borders');
+                    svgCurve.style.opacity = '0';
+                    xAxis.classList.remove('highlight-axis');
+                    yAxis.classList.remove('highlight-axis');
+                    xLabel.classList.remove('bg-blue-100', 'text-blue-800');
+                    yLabel.classList.remove('bg-blue-100', 'text-blue-800');
+                    
+                    const bars = chart.querySelectorAll('.gauss-bar-container > div');
+                    bars.forEach(b => {
+                        b.classList.remove('highlight-bar');
+                        b.innerHTML = ''; // Limpiar textos inyectados
+                    });
+
+                    // Iluminar según el punto seleccionado
+                    if (target === 'punto1') {
+                        // Cuantitativo y continuo: Ilumina Eje X
+                        xAxis.classList.add('highlight-axis');
+                        xLabel.classList.add('bg-blue-100', 'text-blue-800');
+                    } 
+                    else if (target === 'punto2') {
+                        // Ejes Específicos: Eje X e Y
+                        xAxis.classList.add('highlight-axis');
+                        yAxis.classList.add('highlight-axis');
+                        xLabel.classList.add('bg-blue-100', 'text-blue-800');
+                        yLabel.classList.add('bg-blue-100', 'text-blue-800');
+                    }
+                    else if (target === 'punto3') {
+                        // Barras Adyacentes (bordes amarillos brillantes)
+                        chart.classList.add('highlight-borders');
+                    }
+                    else if (target === 'punto4') {
+                        // Área Proporcional: Resaltar la barra central gigante
+                        const middleBarIdx = Math.floor(bars.length / 2);
+                        if (bars[middleBarIdx]) {
+                            bars[middleBarIdx].classList.add('highlight-bar');
+                            bars[middleBarIdx].innerHTML = '<div class="absolute inset-0 flex items-center justify-center text-yellow-100 font-bold text-xs" style="text-shadow: 0 1px 2px rgba(0,0,0,0.8);">ÁREA =<br>FREC.</div>';
+                        }
+                    }
+                    else if (target === 'punto5') {
+                        // Propósito Visual: Forma (Aparece SVG Curva)
+                        svgCurve.style.opacity = '1';
+                    }
+                });
+
+                rule.addEventListener('mouseleave', () => {
+                    // Limpiar todo al salir
+                    chart.classList.remove('highlight-borders');
+                    svgCurve.style.opacity = '0';
+                    xAxis.classList.remove('highlight-axis');
+                    yAxis.classList.remove('highlight-axis');
+                    xLabel.classList.remove('bg-blue-100', 'text-blue-800');
+                    yLabel.classList.remove('bg-blue-100', 'text-blue-800');
+                    
+                    const bars = chart.querySelectorAll('.gauss-bar-container > div');
+                    bars.forEach(b => {
+                        b.classList.remove('highlight-bar');
+                        b.innerHTML = '';
+                    });
+                });
+            });
+        }
+
+        // ==== LÓGICA DE VISTA AVANZADA (INTERACTIVA) ====
+        let advancedDataset = [];
+        const advChartContainer = document.getElementById('adv-chart-container');
+        const binSlider = document.getElementById('bin-slider');
+        const binValDisplay = document.getElementById('bin-val-display');
+        const smoothToggle = document.getElementById('smooth-toggle');
+        const smoothLine = document.getElementById('adv-smooth-line');
+
+        function initAdvancedView() {
+            // Generar 500 datos de una distribución normal mezclada (para que sea interesante)
+            advancedDataset = [];
+            for(let i=0; i<350; i++) advancedDataset.push(generateDataWithDistribution(40, 12));
+            for(let i=0; i<150; i++) advancedDataset.push(generateDataWithDistribution(75, 10)); // Un segundo pico más pequeño
+            
+            drawAdvancedChart();
+        }
+
+        function drawAdvancedChart() {
+            const currentBins = parseInt(binSlider.value);
+            binValDisplay.innerText = currentBins;
+            
+            // Limpiar barras anteriores (preservando el SVG overlay)
+            Array.from(advChartContainer.children).forEach(child => {
+                if(child.tagName !== 'svg' && child.tagName !== 'SVG') {
+                    child.remove();
+                }
+            });
+
+            const binWidth = 100 / currentBins;
+            let freqs = new Array(currentBins).fill(0);
+
+            // Calcular frecuencias
+            advancedDataset.forEach(val => {
+                let idx = Math.floor(val / binWidth);
+                if (idx >= currentBins) idx = currentBins - 1;
+                freqs[idx]++;
+            });
+
+            let maxFreq = Math.max(...freqs);
+            if (maxFreq === 0) maxFreq = 1; // Prevenir división por 0
+
+            // Dibujar barras dinámicas
+            const points = []; // Para la línea suavizada
+
+            for(let i=0; i<currentBins; i++) {
+                const col = document.createElement('div');
+                col.className = 'flex-1 flex flex-col justify-end h-full relative group transition-all duration-300';
+                
+                const bar = document.createElement('div');
+                bar.className = `w-full bg-blue-300 rounded-t-sm border border-blue-400 transition-all duration-300 group-hover:bg-blue-400`;
+                const heightPct = (freqs[i] / maxFreq) * 100;
+                bar.style.height = `${heightPct}%`;
+                
+                col.appendChild(bar);
+                advChartContainer.insertBefore(col, document.getElementById('adv-svg'));
+
+                // Calcular puntos para la línea SVG (coordenadas 0-100%)
+                const xCenter = ((i + 0.5) / currentBins) * 100; 
+                const yCenter = 100 - heightPct; // SVG Y axis is inverted
+                points.push({x: xCenter, y: yCenter});
+            }
+
+            drawSmoothLine(points);
+        }
+
+        function drawSmoothLine(points) {
+            if (!smoothToggle.checked) {
+                smoothLine.classList.add('opacity-0');
+                return;
+            }
+            smoothLine.classList.remove('opacity-0');
+
+            // Crear un path suave (Curva Bézier cuadrática) conectando los puntos superiores de las barras
+            if(points.length === 0) return;
+            
+            let d = `M ${points[0].x} ${points[0].y} `;
+            
+            for (let i = 0; i < points.length - 1; i++) {
+                const p1 = points[i];
+                const p2 = points[i + 1];
+                const midX = (p1.x + p2.x) / 2;
+                const midY = (p1.y + p2.y) / 2;
+                
+                // Si es el primero, línea recta al primer punto medio
+                if (i === 0) {
+                    d += `L ${midX} ${midY} `;
+                } else {
+                    // Curva cuadrática usando p1 como control hasta el siguiente midpoint
+                    d += `Q ${p1.x} ${p1.y} ${midX} ${midY} `;
+                }
+            }
+            // Línea final
+            d += `L ${points[points.length-1].x} ${points[points.length-1].y}`;
+            
+            smoothLine.setAttribute('d', d);
+        }
+
+        // Eventos del slider y checkbox
+        binSlider.addEventListener('input', drawAdvancedChart);
+        smoothToggle.addEventListener('change', drawAdvancedChart);
+
+        // Inicializar
+        initChart('blue');
+
+    </script>
+</body>
+</html>

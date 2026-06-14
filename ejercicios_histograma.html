@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataCase Lab | Casos de Análisis de Datos</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dcl-bg: #07111F;
+            --dcl-bg-soft: #0B1628;
+            --dcl-surface: #101E33;
+            --dcl-surface-2: #16263F;
+            --dcl-card: #111D2F;
+
+            --dcl-primary: #2F80ED;
+            --dcl-primary-soft: #56CCF2;
+            --dcl-primary-dark: #1B4E9B;
+
+            --dcl-cyan: #22D3EE;
+            --dcl-green: #27AE60;
+            --dcl-yellow: #F2C94C;
+            --dcl-orange: #F2994A;
+            --dcl-red: #EB5757;
+
+            --dcl-text: #F4F7FB;
+            --dcl-text-muted: #AAB7C8;
+            --dcl-border: rgba(255, 255, 255, 0.12);
+
+            --dcl-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            --dcl-glow-blue: 0 0 28px rgba(47, 128, 237, 0.35);
+            --dcl-glow-red: 0 0 28px rgba(235, 87, 87, 0.35);
+            --dcl-glow-green: 0 0 28px rgba(39, 174, 96, 0.35);
+        }
+
+        body {
+            font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+            background-color: var(--dcl-bg);
+            color: var(--dcl-text);
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dcl-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--dcl-surface-2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--dcl-primary-dark); }
+
+        /* Utility Classes */
+        .glass-panel {
+            background-color: var(--dcl-card);
+            border: 1px solid var(--dcl-border);
+            box-shadow: var(--dcl-shadow);
+        }
+
+        .btn-primary {
+            background-color: var(--dcl-primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: var(--dcl-glow-blue);
+            background-color: #3B8AF0;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--dcl-border);
+            color: var(--dcl-text);
+            transition: all 0.3s ease;
+            background-color: var(--dcl-surface);
+        }
+        .btn-outline:hover:not(:disabled) {
+            border-color: var(--dcl-cyan);
+            color: var(--dcl-cyan);
+            background-color: rgba(34, 211, 238, 0.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease forwards; }
+        
+        @keyframes pulse-dot { 0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(34, 211, 238, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); } }
+        .status-dot { animation: pulse-dot 2s infinite; }
+
+        .chart-container { position: relative; height: 40vh; min-height: 300px; width: 100%; }
+        
+        .option-card {
+            border: 1px solid var(--dcl-border);
+            background: var(--dcl-surface);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .option-card:hover { border-color: var(--dcl-primary-soft); background: var(--dcl-surface-2); }
+        .option-card.selected { border-color: var(--dcl-cyan); background: rgba(34, 211, 238, 0.1); }
+        .option-card.correct { border-color: var(--dcl-green); background: rgba(39, 174, 96, 0.1); box-shadow: var(--dcl-glow-green); }
+        .option-card.incorrect { border-color: var(--dcl-red); background: rgba(235, 87, 87, 0.1); }
+
+        .case-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+        .case-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dcl-cyan);
+            box-shadow: var(--dcl-glow-blue);
+        }
+
+        /* Branding Colors */
+        .text-cyan { color: var(--dcl-cyan); }
+        .text-green { color: var(--dcl-green); }
+        .text-yellow { color: var(--dcl-yellow); }
+        .text-orange { color: var(--dcl-orange); }
+        .text-red { color: var(--dcl-red); }
+        .text-muted { color: var(--dcl-text-muted); }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+
+    <!-- App Configuration & Data Logic -->
+    <script>
+        // CONFIGURACIÓN GLOBAL Y CATÁLOGO DE CASOS
+        const APP_CONFIG = {
+            brand: {
+                name: "DataCase Lab",
+                tagline: "Aprende ciencia de datos resolviendo casos reales."
+            },
+            cases: [
+                {
+                    id: "fraude_cuentas",
+                    title: "El Caso de las Cuentas Fantasma",
+                    topic: "Detección visual de anomalías (Picos Anormales)",
+                    level: "Principiante",
+                    context: "Fraude bancario",
+                    role: "Auditor de Fraude",
+                    objective: "Entender e interpretar un histograma para detectar transacciones anómalas.",
+                    introText: "El sistema central del banco ha reportado una actividad inusual. Millones de movimientos diminutos están ocurriendo de madrugada. Tu trabajo es descubrir si es ruido normal... o la primera pista de un fraude masivo.",
+                    badge: "Detective Financiero",
+                    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
+                    data: {
+                        labels: ['-5 a -4', '-4 a -3', '-3 a -2', '-2 a -1', '-1 a 0', '0 a 1', '1 a 2', '2 a 3', '3 a 4', '4 a 5'],
+                        normal: [10, 25, 50, 100, 150, 160, 110, 60, 30, 15],
+                        anomalous: [12, 28, 48, 105, 950, 155, 108, 65, 25, 10], // Pico masivo en -1 a 0
+                        xAxisLabel: "Rango de Monto (MXN)",
+                        yAxisLabel: "Nº de Transacciones",
+                        anomalousIndices: [4], // Índice del pico (para pintarlo rojo)
+                        clickTargetIndex: 4 // Índice donde el usuario debe hacer click
+                    },
+                    problems: [
+                        {
+                            id: 1,
+                            storyTitle: "El turno de madrugada",
+                            storyText: "Son las 3:00 AM. La sala de servidores del banco central está en silencio. Tu primera tarea como auditor es revisar la volumetría base. Antes de cazar anomalías, necesitas conocer cómo se ve el terreno cuando la operativa es completamente normal.",
+                            storyImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+                            title: "1. Leer la evidencia base",
+                            narrative: "No estamos buscando una barra bonita. Estamos buscando entender el tablero. Antes de investigar el incidente, debes comprender qué estás viendo en una gráfica normal.",
+                            question: "¿Qué representa la altura de cada barra en este gráfico?",
+                            options: [
+                                { text: "El monto exacto de una sola transacción.", correct: false, feedback: "Incorrecto. Este gráfico agrupa muchas transacciones." },
+                                { text: "La cantidad de transacciones dentro de ese rango.", correct: true, feedback: "¡Correcto! El eje Y representa la 'frecuencia' o cantidad de eventos." },
+                                { text: "El saldo total de la cuenta auditada.", correct: false, feedback: "Incorrecto. Los montos son muy pequeños para ser saldos." }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            storyTitle: "El ruido en el silencio",
+                            storyText: "El sistema arroja la muestra de datos exacta de esta madrugada. Algo en la forma de estos datos no encaja con el comportamiento orgánico de nuestros clientes. El aparente silencio oculta un ruido sistemático.",
+                            storyImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+                            title: "2. Comparar contra lo normal",
+                            narrative: "Un dato aislado no dice mucho, pero comparado con la normalidad... grita. Usa los botones para comparar.",
+                            question: "¿Qué patrón en la evidencia actual merece una investigación inmediata?",
+                            options: [
+                                { text: "Las barras están relativamente parejas entre 0 y 2.", correct: false, feedback: "Incorrecto. Eso es normal (campana de Gauss)." },
+                                { text: "Un pico aislado y demasiado alto entre -1 y 0.", correct: true, feedback: "¡Exacto! Esa concentración rompe la distribución esperada." },
+                                { text: "Una variación pequeña en los extremos de la gráfica.", correct: false, feedback: "Incorrecto. Las colas bajas son normales." }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            storyTitle: "Aislando el vector de ataque",
+                            storyText: "El patrón es claro: alguien está inyectando transacciones artificiales. El fraude moderno roba un centavo cien millones de veces. Tienes la gráfica frente a ti. Aísla la anomalía.",
+                            storyImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+                            title: "3. Resolver el caso",
+                            narrative: "Cuando los datos se amontonan de forma artificial, el gráfico te señala el problema. Haz clic en la barra anómala de la gráfica para extraer la evidencia.",
+                            question: "Basado en la pista descubierta, ¿cuál es el siguiente paso correcto?",
+                            options: [
+                                { text: "Ignorar el patrón porque son montos de centavos.", correct: false, feedback: "Error crítico. Así funciona el ataque salami." },
+                                { text: "Investigar las cuentas que emitieron esos micro-movimientos.", correct: true, feedback: "¡Excelente! El histograma te dice exactamente dónde buscar." },
+                                { text: "Concluir automáticamente que los empleados robaron el dinero.", correct: false, feedback: "Peligroso. Necesitas evidencias concretas, no solo una anomalía." }
+                            ]
+                        }
+                    ],
+                    conclusion: {
+                        learnings: [
+                            "En un histograma, la altura de la barra representa frecuencia (cuántas veces ocurrió).",
+                            "Un pico aislado y extremo en medio de una distribución normal suele revelar procesos automatizados o fraude."
+                        ],
+                        warning: "Un gráfico señala el síntoma, no el culpable. Úsalo para justificar una investigación profunda."
+                    }
+                },
+                {
+                    id: "lote_404",
+                    title: "El Misterio del Lote 404",
+                    topic: "Distribuciones Bimodales y Subpoblaciones",
+                    level: "Intermedio",
+                    context: "Control de Calidad Automotriz",
+                    role: "Ingeniero de Confiabilidad",
+                    objective: "Interpretar un histograma bimodal para identificar una mezcla de poblaciones en un lote de producción.",
+                    introText: "Las alarmas de la planta ensambladora se han disparado. Los motores del 'Lote 404' están fallando las pruebas de calor. ¿Es un error genérico de diseño o hay un lote corrupto escondido entre los motores sanos?",
+                    badge: "Maestro de Calidad",
+                    thumbnail: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=600&q=80",
+                    data: {
+                        labels: ['75-80°', '80-85°', '85-90°', '90-95°', '95-100°', '100-105°', '105-110°', '110-115°', '115-120°'],
+                        normal: [2, 10, 40, 100, 40, 10, 2, 0, 0], // Campana perfecta centrada en 90-95
+                        anomalous: [2, 10, 40, 100, 40, 15, 30, 80, 25], // Bimodal: Segundo pico en 110-115
+                        xAxisLabel: "Temperatura Alcanzada (°C)",
+                        yAxisLabel: "Cantidad de Motores",
+                        anomalousIndices: [6, 7, 8], // Índices de la segunda joroba
+                        clickTargetIndex: 7 // Índice del pico más alto de la anomalía
+                    },
+                    problems: [
+                        {
+                            id: 1,
+                            storyTitle: "El Motor Perfecto",
+                            storyText: "Has llegado a la zona de pruebas de la fábrica. Antes de mirar los motores averiados, necesitas revisar la telemetría de los motores perfectos de la semana pasada. Estos pasaron el control de calidad sin problemas.",
+                            storyImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
+                            title: "1. Conocer la línea base",
+                            narrative: "Observa la distribución normal de temperaturas (Campana de Gauss). La mayoría de los motores se agrupan en el centro.",
+                            question: "¿Cuál es el comportamiento térmico estándar de un motor sano?",
+                            options: [
+                                { text: "Operan a temperaturas aleatorias sin patrón claro.", correct: false, feedback: "Incorrecto. Existe un agrupamiento muy claro en el centro del gráfico." },
+                                { text: "La gran mayoría opera entre los 85°C y los 100°C.", correct: true, feedback: "¡Correcto! Los datos se agrupan simétricamente alrededor del rango 90-95°C." },
+                                { text: "Siempre superan los 115°C.", correct: false, feedback: "Incorrecto. De hecho, ningún motor sano llega a esas temperaturas." }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            storyTitle: "La Telemetría del Lote 404",
+                            storyText: "Descargas los datos del Lote 404 que reporta fallos masivos. Al graficar los datos térmicos, notas que la forma de la campana se ha deformado. El problema no parece afectar a todos los motores por igual.",
+                            storyImage: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=800&q=80",
+                            title: "2. Detectar la Distribución Bimodal",
+                            narrative: "Compara el comportamiento normal contra el del Lote 404. La nueva gráfica presenta una forma muy particular conocida en estadística como 'Bimodal'.",
+                            question: "¿Qué característica visual define a este nuevo histograma?",
+                            options: [
+                                { text: "La campana principal simplemente se movió a la derecha.", correct: false, feedback: "Míralo bien. La campana en 90°C sigue ahí, pero apareció algo más." },
+                                { text: "La gráfica es completamente plana y uniforme.", correct: false, feedback: "Incorrecto. Los datos no están repartidos por igual." },
+                                { text: "Tiene dos 'jorobas' (picos) claramente separados.", correct: true, feedback: "¡Exacto! Esto se llama distribución bimodal y es una alerta roja en control de calidad." }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            storyTitle: "Dos mundos mezclados",
+                            storyText: "En ciencia de datos, una distribución bimodal casi siempre significa una cosa: dos poblaciones diferentes se han mezclado por accidente. No tenemos 'motores defectuosos', tenemos motores normales... y un submundo de motores distintos.",
+                            storyImage: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=800&q=80",
+                            title: "3. Aislar la subpoblación",
+                            narrative: "Haz clic en el pico más alto de la segunda 'joroba' del gráfico para aislar a la población de motores sobrecalentados.",
+                            question: "Sabiendo que hay dos 'grupos' en el mismo lote, ¿cuál es la mejor hipótesis?",
+                            options: [
+                                { text: "El diseño general del motor es un fracaso y debe rediseñarse.", correct: false, feedback: "Incorrecto. La primera joroba demuestra que la mayoría de motores sí funcionan bien." },
+                                { text: "Se utilizaron piezas de dos proveedores distintos en la misma línea.", correct: true, feedback: "¡Brillante! Un grupo de motores tiene piezas sanas, el otro grupo (la segunda joroba) tiene componentes defectuosos." },
+                                { text: "El termómetro de pruebas está descompuesto.", correct: false, feedback: "Poco probable. Un sensor roto no suele crear distribuciones perfectas bimodales." }
+                            ]
+                        }
+                    ],
+                    conclusion: {
+                        learnings: [
+                            "Un histograma con dos picos se denomina 'Distribución Bimodal'.",
+                            "En control de calidad, una distribución bimodal indica fuertemente que dos grupos con características distintas se han mezclado.",
+                            "En lugar de tratar todo el lote como defectuoso, el análisis permite separar y estudiar solo la subpoblación anómala."
+                        ],
+                        warning: "No asumas que el promedio te dice la verdad. En una distribución bimodal, ¡el promedio a menudo cae en un valle vacío donde no hay datos!"
+                    }
+                },
+                {
+                    id: "tacos_don_chuy",
+                    title: "El Puesto de Tacos",
+                    topic: "Optimización de Horarios",
+                    level: "Intermedio",
+                    context: "Gastronomía Local",
+                    role: "Consultor de Datos",
+                    objective: "Analizar la distribución de ventas mediante interacción para recomendar el horario pico.",
+                    introText: "Don Chuy probó abrir su puesto en diferentes horarios durante un mes. Te ha entregado su libreta de ventas y necesita una respuesta definitiva: ¿A qué hora exacta debe tener más carne en el asador?",
+                    badge: "Taquero Data-Driven",
+                    thumbnail: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80",
+                    data: {
+                        labels: ['17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00'],
+                        normal: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
+                        anomalous: [10, 40, 85, 150, 320, 410, 380, 120, 50, 15], 
+                        xAxisLabel: "Horario de Operación",
+                        yAxisLabel: "Tacos Vendidos",
+                        anomalousIndices: [4, 5, 6],
+                        clickTargetIndex: 5
+                    },
+                    problems: [
+                        {
+                            id: 1,
+                            storyTitle: "La Libreta de Don Chuy",
+                            storyText: "El olor a carne asada inunda la calle. Don Chuy te entrega una libreta grasienta donde anotó sus ventas. Lo primero es digitalizar esto y observar la forma de los datos a lo largo de la noche.",
+                            storyImage: "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=800&q=80",
+                            title: "1. Visualizar las ventas",
+                            narrative: "Observa la distribución general a lo largo del eje del tiempo.",
+                            question: "¿Qué nos indica la forma general del histograma de Don Chuy?",
+                            options: [
+                                { text: "Vende exactamente la misma cantidad a todas horas.", correct: false, feedback: "Incorrecto. Las barras tendrían que ser todas del mismo tamaño." },
+                                { text: "Las ventas crecen, alcanzan un pico, y luego disminuyen.", correct: true, feedback: "¡Correcto! El flujo de clientes obedece a una curva clara de comportamiento." },
+                                { text: "Las ventas son aleatorias y no tienen ningún patrón.", correct: false, feedback: "Incorrecto. Hay una tendencia visible muy clara en el centro." }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            storyTitle: "Identificando la Zona Fría/Caliente",
+                            storyText: "Pagar ayudantes cuando no hay clientes es perder dinero. Mirando los extremos de la gráfica (las Zonas Frías), debes evaluar si vale la pena mantener abierto el puesto en esos horarios marginales.",
+                            storyImage: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80",
+                            title: "2. La Zona Fría/Caliente",
+                            narrative: "Los extremos de la jornada muestran muy poca actividad en comparación con el bloque central.",
+                            question: "¿Daría igual si Don Chuy empieza a las 5 (17:00) en lugar de las 6 (18:00), o si cierra a la 1 (01:00) en lugar de las 2 (02:00)?",
+                            options: [
+                                { text: "No, perdería muchísimos clientes porque las madrugadas son su principal fuente de ingresos.", correct: false, feedback: "Incorrecto. Si observas la gráfica, las ventas después de la 1:00 AM caen drásticamente." },
+                                { text: "Sí, las ventas en esos horarios extremos son mínimas.", correct: true, feedback: "¡Correcto! Sí, Don Chuy solo vende el ~5% de todas sus ventas antes de las 6 y después de la 1, por lo que podría emplear ese tiempo en preparar mejores salsas, limpiar el local, o simplemente en descansar." },
+                                { text: "Da igual, el horario no afecta porque los clientes llegarían más tarde o temprano.", correct: false, feedback: "Incorrecto. El comportamiento del consumidor no funciona así; la gente cena a ciertas horas por un motivo." }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            inputType: "text",
+                            storyTitle: "La Recomendación Final",
+                            storyText: "Es el momento de la verdad. Don Chuy necesita saber a qué hora exacta asar la mayor cantidad de carne para no hacer esperar a los clientes y no desperdiciar producto.",
+                            storyImage: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80",
+                            title: "3. Interactuar y Decidir",
+                            narrative: "Haz clic en las barras de la gráfica para ver exactamente los números. Cuando descubras la hora pico, escribe tu respuesta abajo.",
+                            question: "¿A qué hora exacta alcanza Don Chuy su pico máximo de ventas?",
+                            correctAnswers: ["22:00", "22", "10:00", "10 pm", "diez", "22 hrs"],
+                            feedbackCorrect: "¡Excelente! Haciendo clic comprobaste que a las 22:00 se venden 410 tacos, el punto máximo. Don Chuy preparará el trompo para esa hora.",
+                            feedbackIncorrect: "Ese no es el pico máximo. Interactúa con la gráfica haciendo clic en la barra más alta para descubrir la hora correcta."
+                        }
+                    ],
+                    conclusion: {
+                        learnings: [
+                            "Los histogramas son excelentes para visualizar concentración de demanda a lo largo del tiempo.",
+                            "La interactividad permite descubrir los valores crudos detrás de una visualización general.",
+                            "Identificar el 'pico' en una gráfica permite optimizar recursos operativos y maximizar rentabilidad."
+                        ],
+                        warning: "El horario pico de este mes podría no ser el mismo el próximo mes. ¡Los datos deben revisarse periódicamente!"
+                    }
+                }
+            ]
+        };
+
+        // ESTADO DE LA APLICACIÓN
+        let STATE = {
+            currentCase: null,
+            currentStep: 0,
+            score: 0,
+            cluesUnlocked: 0,
+            chartInstance: null,
+            attempts: 0,
+            clueDiscovered: false
+        };
+    </script>
+
+    <!-- Header Fijo -->
+    <header class="glass-panel border-b border-t-0 border-x-0 border-dcl-border z-10 px-6 py-4 flex justify-between items-center sticky top-0">
+        <div class="flex flex-col">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="returnToDashboard()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" y1="22" x2="12" y2="12"></line></svg>
+                <h1 class="text-xl font-bold tracking-tight" id="brand-name">DataCase Lab</h1>
+            </div>
+            <span class="text-xs text-muted" id="brand-tagline">Aprende ciencia de datos resolviendo casos reales.</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex flex-col items-end">
+                <span class="text-xs text-muted uppercase tracking-wider">Nivel</span>
+                <span class="text-sm font-medium text-cyan" id="header-level">--</span>
+            </div>
+            <div class="flex flex-col items-end">
+                <span class="text-xs text-muted uppercase tracking-wider">Puntuación</span>
+                <span class="text-xl font-bold text-yellow" id="header-score">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal Layout -->
+    <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+        
+        <!-- PANEL DE SELECCIÓN DE CASOS (Dashboard) -->
+        <div id="view-dashboard" class="absolute inset-0 bg-dcl-bg z-20 overflow-y-auto p-6 md:p-12">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold mb-2">Expedientes Abiertos</h2>
+                <p class="text-muted mb-10">Selecciona un caso para comenzar tu investigación analítica.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="cases-grid">
+                    <!-- Las tarjetas de casos se generan aquí por JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Lateral (Misión) -->
+        <aside class="glass-panel w-full lg:w-80 flex-shrink-0 p-6 flex flex-col gap-6 overflow-y-auto border-r border-y-0 border-l-0 border-dcl-border z-10 hidden" id="sidebar-panel">
+            <div>
+                <h2 class="text-xs font-bold text-muted uppercase tracking-widest mb-2">Estado del Caso</h2>
+                <div class="flex items-center gap-2">
+                    <div id="status-indicator" class="w-2 h-2 rounded-full bg-dcl-text-muted"></div>
+                    <span id="status-text" class="text-sm font-medium">Sin iniciar</span>
+                </div>
+                <div class="w-full bg-dcl-surface-2 h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div id="progress-bar" class="bg-dcl-cyan h-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xs font-bold text-muted uppercase tracking-widest mb-2">Rol Asignado</h2>
+                <p class="text-sm text-cyan font-medium flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span id="sidebar-role">--</span>
+                </p>
+            </div>
+
+            <div>
+                <h2 class="text-xs font-bold text-muted uppercase tracking-widest mb-2">Objetivo</h2>
+                <p class="text-sm text-dcl-text leading-relaxed" id="sidebar-objective">--</p>
+            </div>
+
+            <div class="flex-1">
+                <h2 class="text-xs font-bold text-muted uppercase tracking-widest mb-2">Pistas (<span id="clue-count">0</span>/3)</h2>
+                <ul id="clues-list" class="space-y-3 text-sm">
+                    <li class="text-muted italic text-xs">Las pistas aparecerán aquí.</li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Área Principal de Contenido (Para el caso activo) -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-8 relative hidden" id="main-content">
+            
+            <!-- VIEW: INTRODUCCIÓN -->
+            <div id="view-intro" class="max-w-3xl mx-auto mt-8 md:mt-12 animate-fade-in hidden">
+                <div class="inline-block px-3 py-1 rounded-full bg-dcl-surface-2 border border-dcl-border text-cyan text-xs font-bold tracking-widest mb-6">
+                    CASO ASIGNADO
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight" id="intro-title">Título</h1>
+                <p class="text-xl text-muted mb-8" id="intro-topic">Tema</p>
+                
+                <div class="glass-panel rounded-xl p-6 md:p-8 mb-8 border-l-4 border-l-cyan">
+                    <p class="text-lg leading-relaxed" id="intro-text">Texto</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <button onclick="startMission()" class="btn-primary px-8 py-4 rounded-lg font-bold text-lg shadow-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        Iniciar Investigación
+                    </button>
+                    <button onclick="returnToDashboard()" class="btn-outline px-6 py-4 rounded-lg font-semibold flex items-center gap-2">
+                        Volver al menú
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW: PROBLEMA INTERACTIVO -->
+            <div id="view-problem" class="hidden max-w-5xl mx-auto animate-fade-in pb-20">
+                
+                <!-- PANEL DE STORYTELLING ANTES DE LA GRÁFICA -->
+                <div id="problem-story" class="glass-panel rounded-xl p-8 md:p-12 mb-8 border-l-4 border-l-cyan flex flex-col items-center text-center animate-fade-in">
+                    <div class="w-16 h-16 rounded-full bg-dcl-surface-2 border border-dcl-cyan flex items-center justify-center mb-6 shadow-[0_0_28px_rgba(34,211,238,0.25)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--dcl-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-9 5 18 3-9h5"></path></svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white" id="story-title">Título</h2>
+                    <img id="story-image" src="" alt="Evidencia visual" class="w-full max-w-2xl h-48 md:h-72 object-cover rounded-xl border border-dcl-border mb-6 shadow-lg object-center bg-dcl-surface-2" onerror="this.style.display='none'">
+                    <p class="text-lg text-muted leading-relaxed mb-8 max-w-2xl" id="story-text">Texto</p>
+                    <button onclick="revealEvidence()" class="btn-primary px-6 py-3 rounded-lg font-bold text-lg shadow-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        Inspeccionar Evidencia
+                    </button>
+                </div>
+
+                <!-- ÁREA DE TRABAJO Y GRÁFICAS -->
+                <div id="problem-workspace" class="hidden flex-col xl:flex-row gap-6 animate-fade-in">
+                    <!-- Columna Izquierda: Gráfica -->
+                    <div class="w-full xl:w-7/12 flex flex-col gap-4">
+                        <div class="glass-panel rounded-xl p-5 flex-1 flex flex-col relative">
+                            <h3 class="text-sm font-bold text-muted uppercase tracking-widest mb-4">Evidencia Visual</h3>
+                            <div class="chart-container flex-1">
+                                <canvas id="mainChart"></canvas>
+                            </div>
+                            <div id="interaction-zone" class="mt-4 pt-4 border-t border-dcl-border flex flex-wrap gap-3 justify-center">
+                                <!-- Botones inyectados aquí -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha: Decisión -->
+                    <div class="w-full xl:w-5/12 flex flex-col gap-4">
+                        <div class="glass-panel rounded-xl p-6 bg-gradient-to-b from-dcl-surface to-dcl-bg">
+                            <h2 class="text-xl font-bold mb-2 text-cyan" id="problem-title">Paso</h2>
+                            <p class="text-dcl-text mb-6 leading-relaxed" id="problem-narrative">Narrativa</p>
+                            
+                            <div class="bg-dcl-surface-2 p-4 rounded-lg border border-dcl-border mb-6">
+                                <h4 class="font-semibold text-yellow mb-2 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                    Pregunta de Análisis
+                                </h4>
+                                <p class="text-sm font-medium" id="problem-question">¿Pregunta?</p>
+                            </div>
+
+                            <div class="space-y-3" id="options-container">
+                                <!-- Opciones inyectadas -->
+                            </div>
+                        </div>
+
+                        <!-- Feedback -->
+                        <div id="feedback-panel" class="hidden glass-panel rounded-xl p-5 border-l-4">
+                            <h4 id="feedback-title" class="font-bold text-lg mb-2">Resultado</h4>
+                            <p id="feedback-text" class="text-sm mb-4">Explicación</p>
+                            <button id="btn-next" onclick="nextStep()" class="btn-primary w-full py-3 rounded-lg font-bold">Continuar Investigación</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: CONCLUSIÓN -->
+            <div id="view-conclusion" class="hidden max-w-3xl mx-auto mt-8 md:mt-12 animate-fade-in pb-12">
+                <div class="text-center mb-10">
+                    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-dcl-surface border-4 border-dcl-green mb-4 shadow-[0_0_30px_rgba(39,174,96,0.3)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--dcl-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2">Caso Resuelto</h1>
+                    <p class="text-lg text-muted">Has completado el análisis con éxito.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="glass-panel rounded-xl p-6 flex flex-col items-center justify-center text-center">
+                        <span class="text-xs text-muted uppercase tracking-widest mb-1">Puntuación Final</span>
+                        <span class="text-5xl font-bold text-yellow mb-2" id="final-score">0</span>
+                        <span class="text-sm text-cyan">Puntos de Análisis</span>
+                    </div>
+                    <div class="glass-panel rounded-xl p-6 flex flex-col items-center justify-center text-center bg-gradient-to-br from-dcl-surface to-dcl-surface-2 border-cyan">
+                        <span class="text-xs text-muted uppercase tracking-widest mb-2">Insignia Desbloqueada</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--dcl-cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3"><path d="M12 15v5s3-2 3-5v-5h-6v5c0 3 3 5 3 5z"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <span class="font-bold text-lg text-dcl-text" id="final-badge">--</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl p-6 mb-8">
+                    <h3 class="text-lg font-bold text-cyan mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                        Aprendizajes Clave
+                    </h3>
+                    <ul class="space-y-3" id="learnings-list"></ul>
+                </div>
+
+                <div class="glass-panel rounded-xl p-6 mb-8 border-l-4 border-l-orange bg-[rgba(242,153,74,0.05)]">
+                    <h3 class="text-sm font-bold text-orange uppercase tracking-widest mb-2">Advertencia Metodológica</h3>
+                    <p class="text-sm" id="methodological-warning">--</p>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="returnToDashboard()" class="btn-outline px-6 py-3 rounded-lg font-semibold flex items-center gap-2 mx-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
+                        Volver al Panel de Casos
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- LÓGICA PRINCIPAL -->
+    <script>
+        const DOM = {
+            views: {
+                dashboard: document.getElementById('view-dashboard'),
+                intro: document.getElementById('view-intro'),
+                problem: document.getElementById('view-problem'),
+                conclusion: document.getElementById('view-conclusion')
+            },
+            sidebar: document.getElementById('sidebar-panel'),
+            mainContent: document.getElementById('main-content'),
+            casesGrid: document.getElementById('cases-grid'),
+            problemInfo: {
+                optionsContainer: document.getElementById('options-container'),
+                interactionZone: document.getElementById('interaction-zone'),
+                feedbackPanel: document.getElementById('feedback-panel')
+            }
+        };
+
+        function initApp() {
+            Chart.defaults.color = '#AAB7C8';
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            renderDashboard();
+        }
+
+        function renderDashboard() {
+            DOM.casesGrid.innerHTML = '';
+            APP_CONFIG.cases.forEach((c, index) => {
+                DOM.casesGrid.innerHTML += `
+                    <div class="glass-panel rounded-xl overflow-hidden case-card flex flex-col" onclick="selectCase(${index})">
+                        <div class="h-48 w-full relative">
+                            <img src="${c.thumbnail}" alt="${c.title}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dcl-surface to-transparent"></div>
+                            <div class="absolute bottom-3 left-4 bg-dcl-bg-soft px-2 py-1 rounded border border-dcl-border text-xs font-bold text-cyan tracking-wider">
+                                ${c.level}
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <span class="text-xs text-muted mb-1 uppercase tracking-widest">${c.context}</span>
+                            <h3 class="text-xl font-bold mb-2">${c.title}</h3>
+                            <p class="text-sm text-muted mb-4 flex-1">${c.topic}</p>
+                            <div class="flex items-center text-sm font-medium text-cyan gap-2 mt-auto">
+                                Investigar Caso
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function returnToDashboard() {
+            destroyChart();
+            DOM.views.dashboard.classList.remove('hidden');
+            DOM.sidebar.classList.add('hidden');
+            DOM.mainContent.classList.add('hidden');
+            DOM.views.intro.classList.add('hidden');
+            DOM.views.problem.classList.add('hidden');
+            DOM.views.conclusion.classList.add('hidden');
+            STATE.currentCase = null;
+        }
+
+        function selectCase(index) {
+            STATE = {
+                currentCase: APP_CONFIG.cases[index],
+                currentStep: 0,
+                score: 0,
+                cluesUnlocked: 0,
+                chartInstance: null,
+                attempts: 0,
+                clueDiscovered: false
+            };
+
+            const c = STATE.currentCase;
+
+            // Update Header & Sidebar
+            document.getElementById('header-level').innerText = c.level;
+            document.getElementById('header-score').innerText = '0';
+            document.getElementById('sidebar-role').innerText = c.role;
+            document.getElementById('sidebar-objective').innerText = c.objective;
+            
+            // Update Intro View
+            document.getElementById('intro-title').innerText = c.title;
+            document.getElementById('intro-topic').innerText = `Tema: ${c.topic}`;
+            document.getElementById('intro-text').innerText = c.introText;
+            
+            // Switch Views
+            DOM.views.dashboard.classList.add('hidden');
+            DOM.sidebar.classList.remove('hidden');
+            DOM.mainContent.classList.remove('hidden');
+            
+            DOM.views.intro.classList.remove('hidden');
+            DOM.views.problem.classList.add('hidden');
+            DOM.views.conclusion.classList.add('hidden');
+            
+            // Reset Sidebar UI
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('status-text').innerText = 'Sin iniciar';
+            document.getElementById('status-indicator').className = 'w-2 h-2 rounded-full bg-dcl-text-muted';
+            document.getElementById('clue-count').innerText = '0';
+            document.getElementById('clues-list').innerHTML = '<li class="text-muted italic text-xs">Las pistas aparecerán aquí.</li>';
+            
+            DOM.mainContent.scrollTop = 0;
+        }
+
+        function startMission() {
+            STATE.currentStep = 1;
+            document.getElementById('status-text').innerText = 'Analizando evidencia';
+            document.getElementById('status-indicator').className = 'w-2 h-2 rounded-full bg-dcl-cyan status-dot';
+            
+            DOM.views.intro.classList.add('hidden');
+            DOM.views.problem.classList.remove('hidden');
+            
+            updateProgress();
+            renderProblem(1);
+        }
+
+        function updateProgress() {
+            const totalSteps = STATE.currentCase.problems.length + 1;
+            const percentage = ((STATE.currentStep - 1) / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+        }
+
+        function updateScore(points) {
+            STATE.score += points;
+            const scoreEl = document.getElementById('header-score');
+            scoreEl.innerText = STATE.score;
+            scoreEl.classList.add('text-green');
+            scoreEl.classList.remove('text-yellow');
+            setTimeout(() => {
+                scoreEl.classList.remove('text-green');
+                scoreEl.classList.add('text-yellow');
+            }, 500);
+        }
+
+        function addClue(text) {
+            STATE.cluesUnlocked++;
+            document.getElementById('clue-count').innerText = STATE.cluesUnlocked;
+            const list = document.getElementById('clues-list');
+            if (STATE.cluesUnlocked === 1) list.innerHTML = ''; 
+            
+            list.innerHTML += `
+                <li class="text-sm text-cyan flex items-start gap-2 animate-fade-in bg-dcl-surface-2 p-2 rounded border border-dcl-border">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span>${text}</span>
+                </li>
+            `;
+        }
+
+        function destroyChart() {
+            if (STATE.chartInstance) STATE.chartInstance.destroy();
+            const existing = Chart.getChart('mainChart');
+            if (existing) existing.destroy();
+        }
+
+        function initChart(dataArray, titleText, showHighlights = true) {
+            destroyChart();
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            const cData = STATE.currentCase.data;
+            const isAnomalous = dataArray === cData.anomalous;
+
+            STATE.chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: cData.labels,
+                    datasets: [{
+                        label: cData.yAxisLabel,
+                        data: dataArray,
+                        // Color red if it's the anomalous dataset AND the index matches the specific anomalous indices AND showHighlights is true
+                        backgroundColor: dataArray.map((val, i) => (showHighlights && isAnomalous && cData.anomalousIndices.includes(i)) ? '#EB5757' : '#2F80ED'),
+                        borderColor: dataArray.map((val, i) => (showHighlights && isAnomalous && cData.anomalousIndices.includes(i)) ? '#FF7676' : '#56CCF2'),
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        barPercentage: 1.0,
+                        categoryPercentage: 0.95
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: { display: true, text: titleText, color: '#F4F7FB', font: { size: 14, weight: 'bold' }, padding: { bottom: 20 } },
+                        tooltip: {
+                            backgroundColor: '#16263F', titleColor: '#22D3EE', bodyColor: '#F4F7FB', borderColor: 'rgba(255,255,255,0.12)', borderWidth: 1, padding: 10,
+                            callbacks: { title: ctx => `Rango: ${ctx[0].label}`, label: ctx => `${ctx.raw} registros` }
+                        }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: cData.xAxisLabel, color: '#AAB7C8' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                        y: { title: { display: true, text: cData.yAxisLabel, color: '#AAB7C8' }, grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true }
+                    },
+                    onClick: handleChartClick
+                }
+            });
+        }
+
+        function handleChartClick(evt, elements) {
+            if (STATE.currentStep === 3 && elements.length > 0) {
+                const index = elements[0].index;
+                const cData = STATE.currentCase.data;
+                
+                // Interacción visual: Resaltar la barra seleccionada
+                const ds = STATE.chartInstance.data.datasets[0];
+                
+                // Reset colors: si es el caso de los tacos, el fondo general es azul sin rojas
+                if (STATE.currentCase.id === "tacos_don_chuy") {
+                    ds.backgroundColor = ds.data.map((val, i) => '#2F80ED');
+                } else {
+                    ds.backgroundColor = ds.data.map((val, i) => (cData.anomalousIndices.includes(i)) ? '#EB5757' : '#2F80ED'); // Reset
+                }
+                
+                ds.backgroundColor[index] = '#F2C94C'; // Highlight amarillo al hacer clic
+                STATE.chartInstance.update();
+                
+                // Si es un problema que requiere escribir respuesta, extraemos la data como pista
+                if (STATE.currentCase.problems[2].inputType === 'text') {
+                    addClue(`Inspección de datos: A las ${cData.labels[index]} se vendieron ${ds.data[index]} tacos.`);
+                    return;
+                }
+
+                if (!STATE.clueDiscovered && index === cData.clickTargetIndex) {
+                    STATE.clueDiscovered = true;
+                    addClue("Anomalía aislada correctamente para su extracción y análisis.");
+                    
+                    ds.backgroundColor[index] = '#FF0000'; // Resaltar más
+                    STATE.chartInstance.update();
+
+                    const options = DOM.problemInfo.optionsContainer.querySelectorAll('.option-card');
+                    options.forEach(opt => opt.classList.remove('opacity-50', 'pointer-events-none'));
+                }
+            }
+        }
+
+        function revealEvidence() {
+            document.getElementById('problem-story').classList.add('hidden');
+            document.getElementById('problem-workspace').classList.remove('hidden');
+            document.getElementById('problem-workspace').classList.add('flex');
+            if (STATE.chartInstance) STATE.chartInstance.resize();
+        }
+
+        function renderProblem(stepIndex) {
+            const prob = STATE.currentCase.problems[stepIndex - 1];
+            STATE.attempts = 0;
+            STATE.clueDiscovered = false;
+            
+            // Storytelling mode UI
+            document.getElementById('problem-workspace').classList.add('hidden');
+            document.getElementById('problem-workspace').classList.remove('flex');
+            document.getElementById('problem-story').classList.remove('hidden');
+            
+            document.getElementById('story-title').innerText = prob.storyTitle;
+            document.getElementById('story-text').innerText = prob.storyText;
+            document.getElementById('story-image').src = prob.storyImage;
+            document.getElementById('story-image').style.display = 'block';
+
+            // Reset interaction UI
+            DOM.problemInfo.feedbackPanel.classList.add('hidden');
+            DOM.problemInfo.optionsContainer.innerHTML = '';
+            DOM.problemInfo.interactionZone.innerHTML = '';
+            
+            document.getElementById('problem-title').innerText = prob.title;
+            document.getElementById('problem-narrative').innerText = prob.narrative;
+            document.getElementById('problem-question').innerText = prob.question;
+
+            // Render Options or Input Text
+            if (prob.inputType === 'text') {
+                const inputDiv = document.createElement('div');
+                inputDiv.className = 'flex flex-col gap-3 mt-4';
+                inputDiv.innerHTML = `
+                    <input type="text" id="user-text-input" class="w-full bg-dcl-surface-2 border border-dcl-border rounded-lg p-4 text-dcl-text focus:border-dcl-cyan focus:ring-1 focus:ring-dcl-cyan outline-none transition-all text-lg" placeholder="Escribe el horario (Ej: 22:00)">
+                    <button id="btn-submit-text" class="btn-primary w-full py-3 rounded-lg font-bold shadow-lg">Verificar Recomendación</button>
+                `;
+                DOM.problemInfo.optionsContainer.appendChild(inputDiv);
+
+                document.getElementById('btn-submit-text').onclick = () => {
+                    const val = document.getElementById('user-text-input').value.trim().toLowerCase();
+                    if (!val) return;
+                    const isCorrect = prob.correctAnswers.some(ans => val.includes(ans.toLowerCase()));
+                    handleTextInputResult(isCorrect, prob);
+                };
+            } else {
+                prob.options.forEach((opt, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'option-card p-4 rounded-lg flex items-center gap-3';
+                    if (stepIndex === 3) div.classList.add('opacity-50', 'pointer-events-none');
+                    
+                    div.innerHTML = `<div class="w-6 h-6 rounded-full border border-dcl-border flex items-center justify-center flex-shrink-0 text-xs font-bold text-muted">${['A', 'B', 'C'][index]}</div><span class="text-sm font-medium">${opt.text}</span>`;
+                    div.onclick = () => selectOption(div, opt, prob);
+                    DOM.problemInfo.optionsContainer.appendChild(div);
+                });
+            }
+
+            // Specific interactions per step
+            const cData = STATE.currentCase.data;
+            if (STATE.currentCase.id === "tacos_don_chuy") {
+                if (stepIndex === 1) {
+                    initChart(cData.anomalous, 'Distribución de Ventas del Mes', false);
+                    const btnX = document.createElement('button'); btnX.className = 'btn-outline px-4 py-2 rounded text-xs font-bold'; btnX.innerText = 'Ver Eje X (Horas)';
+                    const btnY = document.createElement('button'); btnY.className = 'btn-outline px-4 py-2 rounded text-xs font-bold'; btnY.innerText = 'Ver Eje Y (Ventas)';
+                    btnX.onclick = () => { STATE.chartInstance.options.scales.x.grid.color = 'rgba(34,211,238,0.3)'; STATE.chartInstance.options.scales.y.grid.color = 'rgba(255,255,255,0.05)'; STATE.chartInstance.update(); };
+                    btnY.onclick = () => { STATE.chartInstance.options.scales.y.grid.color = 'rgba(34,211,238,0.3)'; STATE.chartInstance.options.scales.x.grid.color = 'rgba(255,255,255,0.05)'; STATE.chartInstance.update(); };
+                    DOM.problemInfo.interactionZone.append(btnX, btnY);
+                    addClue("Visualizando las ventas totales por bloque horario.");
+                } else if (stepIndex === 2) {
+                    initChart(cData.anomalous, 'Identificando la Zona Fría/Caliente', false);
+                    const btnPeak = document.createElement('button'); btnPeak.className = 'btn-outline border-cyan text-cyan bg-[rgba(34,211,238,0.05)] px-4 py-2 rounded text-xs font-bold'; btnPeak.innerText = 'Resaltar Horas Pico';
+                    btnPeak.onclick = () => { 
+                        const ds = STATE.chartInstance.data.datasets[0];
+                        ds.backgroundColor = ds.data.map((val, i) => cData.anomalousIndices.includes(i) ? '#EB5757' : '#2F80ED');
+                        ds.borderColor = ds.data.map((val, i) => cData.anomalousIndices.includes(i) ? '#FF7676' : '#56CCF2');
+                        STATE.chartInstance.update();
+                    };
+                    DOM.problemInfo.interactionZone.append(btnPeak);
+                } else if (stepIndex === 3) {
+                    initChart(cData.anomalous, 'Análisis de Horario Pico (Interactúa con la gráfica)', false);
+                    const instruction = document.createElement('p'); instruction.className = 'text-xs text-yellow text-center w-full animate-pulse'; instruction.innerText = 'INTERACCIÓN: Haz clic en las barras de la gráfica para ver su valor exacto y tomar tu decisión.';
+                    DOM.problemInfo.interactionZone.appendChild(instruction);
+                }
+            } else {
+                if (stepIndex === 1) {
+                    initChart(cData.normal, 'Distribución de Operación Normal');
+                    const btnX = document.createElement('button'); btnX.className = 'btn-outline px-4 py-2 rounded text-xs font-bold'; btnX.innerText = 'Resaltar Eje X';
+                    const btnY = document.createElement('button'); btnY.className = 'btn-outline px-4 py-2 rounded text-xs font-bold'; btnY.innerText = 'Resaltar Eje Y';
+                    
+                    btnX.onclick = () => { STATE.chartInstance.options.scales.x.grid.color = 'rgba(34,211,238,0.3)'; STATE.chartInstance.options.scales.y.grid.color = 'rgba(255,255,255,0.05)'; STATE.chartInstance.update(); };
+                    btnY.onclick = () => { STATE.chartInstance.options.scales.y.grid.color = 'rgba(34,211,238,0.3)'; STATE.chartInstance.options.scales.x.grid.color = 'rgba(255,255,255,0.05)'; STATE.chartInstance.update(); };
+                    
+                    DOM.problemInfo.interactionZone.append(btnX, btnY);
+                    addClue("El Eje X clasifica, el Eje Y cuantifica.");
+                } 
+                else if (stepIndex === 2) {
+                    initChart(cData.anomalous, 'Evidencia Actual (Muestra Sospechosa)');
+                    const btnNormal = document.createElement('button'); btnNormal.className = 'btn-outline px-4 py-2 rounded text-xs font-bold'; btnNormal.innerText = 'Comparar con Normalidad';
+                    const btnSuspect = document.createElement('button'); btnSuspect.className = 'btn-outline border-cyan text-cyan bg-[rgba(34,211,238,0.05)] px-4 py-2 rounded text-xs font-bold'; btnSuspect.innerText = 'Ver Evidencia Actual';
+
+                    btnNormal.onclick = () => { initChart(cData.normal, 'Distribución Normal Esperada'); btnNormal.className = 'btn-outline border-cyan text-cyan bg-[rgba(34,211,238,0.05)] px-4 py-2 rounded text-xs font-bold'; btnSuspect.className = 'btn-outline px-4 py-2 rounded text-xs font-bold'; };
+                    btnSuspect.onclick = () => { initChart(cData.anomalous, 'Evidencia Actual (Muestra Sospechosa)'); btnSuspect.className = 'btn-outline border-red text-red bg-[rgba(235,87,87,0.05)] px-4 py-2 rounded text-xs font-bold'; btnNormal.className = 'btn-outline px-4 py-2 rounded text-xs font-bold'; };
+
+                    DOM.problemInfo.interactionZone.append(btnNormal, btnSuspect);
+                }
+                else if (stepIndex === 3) {
+                    initChart(cData.anomalous, 'Foco en la Anomalía (Haz clic para aislar)');
+                    const instruction = document.createElement('p'); instruction.className = 'text-xs text-yellow text-center w-full animate-pulse'; instruction.innerText = 'INTERACCIÓN REQUERIDA: Haz clic sobre el pico principal de la anomalía roja para extraer los datos.';
+                    DOM.problemInfo.interactionZone.appendChild(instruction);
+                }
+            }
+        }
+
+        function selectOption(element, option, prob) {
+            STATE.attempts++;
+            const options = DOM.problemInfo.optionsContainer.querySelectorAll('.option-card');
+            options.forEach(opt => { opt.classList.remove('selected', 'correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+
+            element.classList.add('selected');
+            DOM.problemInfo.feedbackPanel.classList.remove('hidden');
+            document.getElementById('feedback-text').innerText = option.feedback;
+            const btnNext = document.getElementById('btn-next');
+            const fTitle = document.getElementById('feedback-title');
+
+            if (option.correct) {
+                element.classList.replace('selected', 'correct');
+                DOM.problemInfo.feedbackPanel.className = 'glass-panel rounded-xl p-5 border-l-4 border-l-green bg-[rgba(39,174,96,0.05)] animate-fade-in';
+                fTitle.innerText = "¡Análisis Correcto!"; fTitle.className = "font-bold text-lg mb-2 text-green flex items-center gap-2";
+                
+                btnNext.innerText = STATE.currentStep === STATE.currentCase.problems.length ? "Concluir Investigación" : "Siguiente Evidencia";
+                btnNext.classList.remove('hidden');
+
+                if (STATE.attempts === 1) updateScore(100); else if (STATE.attempts === 2) updateScore(50); else updateScore(25);
+            } else {
+                element.classList.replace('selected', 'incorrect');
+                DOM.problemInfo.feedbackPanel.className = 'glass-panel rounded-xl p-5 border-l-4 border-l-red bg-[rgba(235,87,87,0.05)] animate-fade-in';
+                fTitle.innerText = "Error Analítico"; fTitle.className = "font-bold text-lg mb-2 text-red flex items-center gap-2";
+                btnNext.classList.add('hidden');
+
+                setTimeout(() => { options.forEach(opt => { if (!opt.classList.contains('incorrect')) opt.style.pointerEvents = 'auto'; }); }, 1000);
+            }
+        }
+
+        function handleTextInputResult(isCorrect, prob) {
+            STATE.attempts++;
+            DOM.problemInfo.feedbackPanel.classList.remove('hidden');
+            const btnNext = document.getElementById('btn-next');
+            const fTitle = document.getElementById('feedback-title');
+            const inputEl = document.getElementById('user-text-input');
+            const submitBtn = document.getElementById('btn-submit-text');
+            
+            inputEl.disabled = true;
+            submitBtn.disabled = true;
+
+            if (isCorrect) {
+                DOM.problemInfo.feedbackPanel.className = 'glass-panel rounded-xl p-5 border-l-4 border-l-green bg-[rgba(39,174,96,0.05)] animate-fade-in';
+                fTitle.innerText = "¡Recomendación Correcta!"; fTitle.className = "font-bold text-lg mb-2 text-green flex items-center gap-2";
+                document.getElementById('feedback-text').innerText = prob.feedbackCorrect;
+                
+                btnNext.innerText = STATE.currentStep === STATE.currentCase.problems.length ? "Concluir Investigación" : "Siguiente Evidencia";
+                btnNext.classList.remove('hidden');
+
+                if (STATE.attempts === 1) updateScore(100); else if (STATE.attempts === 2) updateScore(50); else updateScore(25);
+            } else {
+                DOM.problemInfo.feedbackPanel.className = 'glass-panel rounded-xl p-5 border-l-4 border-l-red bg-[rgba(235,87,87,0.05)] animate-fade-in';
+                fTitle.innerText = "Error de Análisis"; fTitle.className = "font-bold text-lg mb-2 text-red flex items-center gap-2";
+                document.getElementById('feedback-text').innerText = prob.feedbackIncorrect;
+                btnNext.classList.add('hidden');
+
+                setTimeout(() => { 
+                    inputEl.disabled = false; 
+                    submitBtn.disabled = false; 
+                    inputEl.focus(); 
+                }, 1500);
+            }
+        }
+
+        function nextStep() {
+            if (STATE.currentStep < STATE.currentCase.problems.length) {
+                STATE.currentStep++;
+                updateProgress();
+                renderProblem(STATE.currentStep);
+            } else {
+                finishCase();
+            }
+        }
+
+        function finishCase() {
+            document.getElementById('progress-bar').style.width = '100%';
+            document.getElementById('status-text').innerText = 'Caso Resuelto';
+            document.getElementById('status-indicator').className = 'w-2 h-2 rounded-full bg-dcl-green';
+            
+            document.getElementById('final-score').innerText = STATE.score;
+            document.getElementById('final-badge').innerText = STATE.currentCase.badge;
+            document.getElementById('methodological-warning').innerText = STATE.currentCase.conclusion.warning;
+
+            const learningsList = document.getElementById('learnings-list');
+            learningsList.innerHTML = '';
+            STATE.currentCase.conclusion.learnings.forEach(learning => {
+                learningsList.innerHTML += `<li class="flex items-start gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--dcl-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 flex-shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-sm text-dcl-text">${learning}</span></li>`;
+            });
+
+            DOM.views.problem.classList.add('hidden');
+            DOM.views.conclusion.classList.remove('hidden');
+            DOM.mainContent.scrollTop = 0;
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>

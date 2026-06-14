@@ -1,0 +1,41 @@
+{
+  "id": "histograma-demo",
+  "title": "Caso detectivesco: Histograma en Fraude bancario",
+  "concept": "Histograma",
+  "level": "principiante",
+  "context": "Fraude bancario",
+  "format": "Caso detectivesco",
+  "role": "Analista antifraude",
+  "objective": "Interpretar un histograma para detectar concentraciones inusuales.",
+  "introText": "Un equipo antifraude observa transacciones agrupadas por monto. El objetivo es identificar si hay un intervalo que merece investigacion.",
+  "visualSpec": {
+    "type": "histogram",
+    "visualGoal": "Mostrar como se agrupan valores numericos en intervalos.",
+    "interaction": "Clic en una barra para explicar su intervalo.",
+    "requiredElements": ["barras", "intervalos", "pico resaltado", "outlier"],
+    "simplificationStrategy": "Usar pocos bins y una distribucion sintetica con pico visible."
+  },
+  "data": {
+    "values": [42, 45, 49, 51, 53, 56, 58, 59, 61, 62, 63, 64, 66, 67, 68, 70, 71, 72, 73, 74, 76, 78, 79, 81, 83, 86, 88, 91, 95, 98, 99, 100, 100, 101, 102]
+  },
+  "problems": [
+    {
+      "id": 1,
+      "storyTitle": "La senal aparece",
+      "storyText": "Como analista antifraude, revisas montos normalizados de transacciones.",
+      "title": "Histograma: pico inusual",
+      "narrative": "Busca si una barra concentra demasiadas transacciones.",
+      "question": "Que deberias concluir al ver un pico alto en un intervalo del histograma?",
+      "options": [
+        { "text": "Los datos cambiaron automaticamente.", "correct": false, "feedback": "No. El histograma agrupa los mismos datos en intervalos." },
+        { "text": "Hay una concentracion inusual de valores en ese intervalo; conviene investigarla.", "correct": true, "feedback": "Correcto. La altura representa frecuencia dentro del intervalo." },
+        { "text": "Cada barra es una categoria sin relacion numerica.", "correct": false, "feedback": "No. En histogramas los intervalos vienen de una escala numerica." }
+      ]
+    }
+  ],
+  "conclusion": {
+    "learnings": ["Un histograma agrupa valores numericos.", "La altura de la barra representa frecuencia.", "Un pico puede sugerir un patron a investigar."],
+    "warning": "No confirma fraude por si solo.",
+    "teacherNote": "Pide al grupo comparar frecuencia e intervalo antes de hablar de fraude."
+  }
+}

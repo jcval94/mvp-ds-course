@@ -1,0 +1,44 @@
+{
+  "id": "correlacion-demo",
+  "title": "Reto de consultoria: Correlacion en Marketing",
+  "concept": "Correlación",
+  "level": "principiante",
+  "context": "Marketing",
+  "format": "Reto de consultoria",
+  "role": "Estratega de crecimiento",
+  "objective": "Interpretar una nube de puntos sin confundir correlacion con causalidad.",
+  "introText": "Un equipo compara inversion semanal en marketing contra ventas.",
+  "visualSpec": {
+    "type": "scatter",
+    "visualGoal": "Mostrar relacion positiva, negativa o nula.",
+    "interaction": "Cambiar fuerza de correlacion.",
+    "requiredElements": ["puntos", "tendencia", "nube"],
+    "simplificationStrategy": "Usar puntos sinteticos y una tendencia visual simple."
+  },
+  "data": {
+    "points": [
+      { "x": 1, "y": 22 }, { "x": 2, "y": 27 }, { "x": 3, "y": 31 },
+      { "x": 4, "y": 35 }, { "x": 5, "y": 37 }, { "x": 6, "y": 43 }
+    ]
+  },
+  "problems": [
+    {
+      "id": 1,
+      "storyTitle": "La nube toma forma",
+      "storyText": "El equipo quiere saber si mas inversion coincide con mas ventas.",
+      "title": "Correlacion positiva",
+      "narrative": "Observa la direccion general de los puntos.",
+      "question": "Que indica una nube de puntos con tendencia ascendente?",
+      "options": [
+        { "text": "Una variable causa necesariamente la otra.", "correct": false, "feedback": "No. Correlacion no prueba causalidad." },
+        { "text": "A medida que una variable aumenta, la otra tiende a aumentar tambien.", "correct": true, "feedback": "Correcto. Esa es la lectura visual de una relacion positiva." },
+        { "text": "No hay relacion porque los puntos no son identicos.", "correct": false, "feedback": "No. Los puntos pueden variar y aun asi mostrar tendencia." }
+      ]
+    }
+  ],
+  "conclusion": {
+    "learnings": ["La direccion de la nube comunica relacion.", "Correlacion no implica causalidad.", "La dispersion tambien importa."],
+    "warning": "No uses la grafica para afirmar causalidad sin diseno experimental.",
+    "teacherNote": "Contrasta relacion visual con causalidad para evitar el error comun."
+  }
+}
