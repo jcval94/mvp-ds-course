@@ -1,71 +1,57 @@
 # PRD
 
-## Instrucciones
-
-El PRD debe permitir construir una vertical slice sin pedir contexto basico adicional.
-Los campos entre corchetes son guias de plantilla; no deben quedar en documentos finales.
-
 ## Contexto
 
-[Contexto resumido del MVP.]
+[Contexto del material educativo.]
 
 ## Objetivos
 
-- [Objetivo medible]
+- [Objetivo medible.]
 
 ## Usuarios
 
-- [Usuario principal]
+- Principal: [usuario operador].
+- Audiencia: [estudiantes].
 
 ## Casos de uso
 
-1. [Caso de uso principal]
+1. [Caso principal.]
 
-## Historias de usuario
+## Modos
 
-- Como [usuario], quiero [accion], para [resultado].
+- Aprender: [comportamiento].
+- Ejercitar: [comportamiento].
+- Enseñar en vivo: [comportamiento].
 
-## Funcionalidades MVP
+## Interfaces
 
-- [Funcionalidad esencial]
-
-## Vertical slice MVP
-
-**Usuario:** [Usuario principal]
-
-**Entrada:** [Dato, formulario, archivo o accion inicial]
-
-**Flujo:** [Pasos minimos]
-
-**Salida:** [Resultado observable]
-
-**Prueba manual:** [Como verificar la slice]
-
-## Funcionalidades post-MVP
-
-- [Funcionalidad diferida]
+- `ConceptSpec`: [campos relevantes].
+- `LearningModule`: [campos relevantes].
+- `PracticeExercise`: [campos relevantes].
+- `LiveTeachingPack`: [campos relevantes].
 
 ## Requisitos funcionales
 
-- [El sistema debe...]
+- [Requisito verificable.]
 
 ## Requisitos no funcionales
 
-- [Simplicidad, rendimiento, privacidad u otro requisito.]
+- [Precisión, privacidad, formato o accesibilidad.]
 
-## Metricas de exito
+## Vertical slice
 
-- [Metrica de uso]
-- [Metrica de resultado]
+- Usuario: [usuario].
+- Entrada: [entrada].
+- Flujo: [pasos].
+- Salida: [salida].
+- Prueba manual: [prueba].
+- Definition of Done: [criterios].
+- No objetivos: [límites].
 
-## Definition of Done
+## Métricas
 
-- [Criterio verificable]
+- [Métrica.]
 
 ## Riesgos
 
-- [Riesgo]
-
-## Preguntas abiertas
-
-- [Pregunta no bloqueante o bloqueante]
+- [Riesgo.]

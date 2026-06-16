@@ -1,43 +1,40 @@
 # Eval Suite
 
-## Proposito
+## Propósito
 
-[Que calidad se valida.]
+[Calidad educativa que se valida.]
 
-Los campos entre corchetes son guias de plantilla; no deben quedar en evals finales.
+## Dimensiones
+
+- Alcance.
+- Progresión.
+- Exactitud.
+- Visualización.
+- Interacción.
+- Práctica.
+- Feedback.
+- Preparación docente.
+- Coherencia.
+- Viabilidad.
 
 ## Casos felices
 
-- [Caso donde todo esta claro.]
+- [Caso que debe aprobar.]
 
-## Casos limite
+## Casos límite
 
-- [Caso con informacion incompleta pero inferible.]
+- [Caso inferible.]
 
 ## Casos de fallo
 
 - [Caso que debe reprobar.]
 
-## Rubrica 1 a 5
+## Bloqueos
 
-| Puntaje | Descripcion |
-| --- | --- |
-| 1 | [Falla critica] |
-| 3 | [Aceptable con riesgos] |
-| 5 | [Excelente] |
+- [Condición automática.]
 
-## Checklist
+## Criterio de paso
 
-- [ ] [Criterio]
-
-## Bloqueos automaticos
-
-- [Condicion que marca el paquete como no listo.]
-
-## Ejemplo bueno
-
-[Salida breve que debe aprobar.]
-
-## Ejemplo malo
-
-[Salida breve que debe reprobar.]
+- Promedio de 4 o más.
+- Ninguna dimensión en 1.
+- Prueba manual reproducible.

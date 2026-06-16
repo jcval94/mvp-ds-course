@@ -1,152 +1,137 @@
 #!/usr/bin/env python3
-"""Create a minimal MVP project structure without external dependencies."""
+"""Create a documentation-first DataClass Forge project."""
 
 from pathlib import Path
 import argparse
+import shutil
 import sys
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 IDEA_TEMPLATE = """# IDEA.md
 
-Puedes dejar campos incompletos. El agente debe inferir lo razonable y preguntar solo si algo bloquea el avance.
+## Nombre
 
-## Nombre provisional
+{name}
 
+## Concepto o bloque
 
-## Idea en una frase
-
-
-## Problema que resuelve
-
+Describe el concepto de ciencia de datos que quieres enseñar.
 
 ## Usuario objetivo
 
+Profesor o creador de cursos de ciencia de datos.
 
-## Resultado esperado
+## Audiencia estudiante
 
+Principiantes, salvo que se indique otro nivel.
+
+## Resultado de aprendizaje
+
+Describe qué podrá explicar, interpretar o hacer el estudiante.
 
 ## Contexto
 
+Indica duración, dominio aplicado y restricciones.
 
-## Plataforma deseada
+## Modos requeridos
 
-
-## Restricciones
-
+- Aprender.
+- Ejercitar.
+- Enseñar en vivo.
 
 ## Inspiraciones
 
+Describe experiencias cuyo nivel de profundidad sea útil, sin pedir que se copien.
 
-## Lo que NO debe incluir el MVP
+## No objetivos
 
-
-## Preguntas abiertas
-
+- No LMS.
+- No cuentas.
+- No backend.
+- No código de producto antes de validar documentos.
 
 ## Supuestos permitidos
 
-- Si falta informacion no critica, crear supuestos razonables y documentarlos.
-- Si el alcance es grande, reducir a una vertical slice construible.
+- Usar datos sintéticos.
+- Asumir nivel principiante.
+- Reducir a un objetivo principal.
 """
 
 
 README_TEMPLATE = """# {name}
 
-Proyecto MVP generado con mvp-agent-factory.
+Proyecto de material educativo generado con DataClass Forge.
 
-## Flujo recomendado
+## Flujo
 
-1. Completa IDEA.md.
-2. Ejecuta Codex o Claude Code con AGENTS.md.
-3. Genera documentos en docs/.
-4. Valida con evals/.
-5. Define vertical slice.
-6. Construye solo despues de aprobar documentos.
+1. Completa `IDEA.md`.
+2. Revisa `docs/CURRICULUM_MAP.md`.
+3. Ejecuta las skills de `.agents/skills`.
+4. Genera ConceptSpec, LearningModule, PracticeExercise y LiveTeachingPack.
+5. Valida con `evals/`.
+6. Usa `app/` solo después de aprobar la vertical slice documental.
 """
 
 
 AGENTS_TEMPLATE = """# AGENTS.md
 
-Este proyecto debe trabajar primero sobre documentos. Lee IDEA.md antes de crear codigo.
+Este proyecto crea material educativo de ciencia de datos.
 
-## Orden de trabajo
+1. Lee `IDEA.md` y `docs/CURRICULUM_MAP.md`.
+2. Define nivel, prerrequisitos y un objetivo observable.
+3. Usa `.agents/skills`.
+4. Genera primero documentos en `docs/packages/`.
+5. Valida con `evals/`.
+6. No programes una app sin aprobación explícita.
 
-1. Leer IDEA.md.
-2. Crear supuestos razonables.
-3. Generar docs/PRODUCT_BRIEF.md.
-4. Generar docs/PRD.md.
-5. Definir vertical slice.
-6. Validar contra evals/.
-7. Solo programar producto si el usuario lo pide explicitamente.
+La salida final debe incluir archivos, supuestos, riesgos, validación y próxima vertical slice.
 """
 
 
 CLAUDE_TEMPLATE = """# CLAUDE.md
 
-Lee IDEA.md antes de actuar. No programes producto hasta que existan Product Brief, PRD, evals y vertical slice aprobada.
-
-Mantiene todos los outputs en español. Si falta informacion no bloqueante, infiere supuestos razonables y documentalos. Si hay sobreingenieria, reduce alcance.
+Lee `AGENTS.md`, `IDEA.md` y `docs/CURRICULUM_MAP.md`.
+Mantén el trabajo en español y enfocado en ciencia de datos.
+Exige visualización significativa, práctica dependiente de evidencia y feedback específico.
+No construyas producto antes de validar el paquete documental.
 """
 
 
-RUBRIC_TEMPLATE = """# Rubrica minima
+DOCS_README = """# docs
 
-- [ ] Usuario objetivo claro.
-- [ ] Problema concreto.
-- [ ] MVP pequeno.
-- [ ] No objetivos definidos.
-- [ ] Vertical slice construible.
-- [ ] Metricas observables.
+- `CURRICULUM_MAP.md`: progresión y prerrequisitos.
+- `packages/`: artefactos por concepto.
 """
 
 
-MVP_CHECKLIST_TEMPLATE = """# MVP Quality Checklist
+PACKAGES_README = """# packages
 
-- [ ] Usuario inicial especifico.
-- [ ] Problema en una frase.
-- [ ] Resultado observable.
-- [ ] Vertical slice con entrada, flujo y salida.
-- [ ] No objetivos definidos.
-- [ ] Post-MVP separado.
-- [ ] Prueba manual definida.
+Crea una carpeta por concepto con:
+
+- `CONCEPT_SPEC.md`
+- `LEARNING_MODULE.md`
+- `PRACTICE_EXERCISE.md`
+- `LIVE_TEACHING_PACK.md`
+- `VALIDATION_REPORT.md`
 """
 
 
-DOCUMENT_CHECKLIST_TEMPLATE = """# Document Quality Checklist
+EXAMPLES_README = """# examples
 
-- [ ] Brief y PRD tienen el mismo usuario.
-- [ ] No hay placeholders fuera de templates.
-- [ ] El PRD respeta los no objetivos.
-- [ ] Las metricas son observables.
-- [ ] El plan no inicia codigo antes de evals.
+Guarda entradas, datasets sintéticos y outputs de referencia.
 """
 
 
-DOCS_README_TEMPLATE = """# docs
+APP_README = """# app
 
-Aqui se generan Product Brief, PRD, Agent Operating Spec, Skill Map, Eval Suite, Harness Spec, Implementation Plan y prompts.
+Reservado para una vertical slice técnica aprobada. No crear código antes de completar documentos y evals.
 """
 
 
-SKILLS_README_TEMPLATE = """# skills
-
-Agrega aqui skills especificas del MVP cuando el paquete documental las requiera.
-"""
-
-
-EXAMPLES_README_TEMPLATE = """# examples
-
-Guarda ejemplos de ideas, datos ficticios o salidas esperadas que ayuden a validar el MVP.
-"""
-
-
-APP_README_TEMPLATE = """# app
-
-Esta carpeta queda reservada para codigo de producto. No la uses hasta aprobar documentos, evals y vertical slice.
-"""
-
-
-GITIGNORE_TEMPLATE = """__pycache__/
+GITIGNORE = """__pycache__/
 .pytest_cache/
 .venv/
 venv/
@@ -157,15 +142,21 @@ venv/
 
 def validate_project_name(name: str) -> None:
     if not name.strip():
-        raise ValueError("El nombre del proyecto no puede estar vacio.")
+        raise ValueError("El nombre del proyecto no puede estar vacío.")
     invalid = set('/\\:*?"<>|')
     if any(char in invalid for char in name):
-        raise ValueError("El nombre contiene caracteres invalidos para una carpeta.")
+        raise ValueError("El nombre contiene caracteres inválidos para una carpeta.")
 
 
 def write_file(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
+
+
+def copy_directory(source: Path, destination: Path) -> None:
+    if not source.exists():
+        raise FileNotFoundError(f"No existe la fuente requerida: {source}")
+    shutil.copytree(source, destination, dirs_exist_ok=True)
 
 
 def scaffold(name: str) -> Path:
@@ -174,35 +165,42 @@ def scaffold(name: str) -> Path:
     if root.exists():
         raise FileExistsError(f"La carpeta ya existe: {root}")
 
-    folders = [
-        root / "docs",
+    for folder in [
+        root / "docs" / "packages",
         root / "evals",
         root / ".agents" / "skills",
+        root / "templates",
         root / "examples",
         root / "app",
-    ]
-    for folder in folders:
+    ]:
         folder.mkdir(parents=True, exist_ok=False)
 
     write_file(root / "README.md", README_TEMPLATE.format(name=name))
-    write_file(root / "IDEA.md", IDEA_TEMPLATE)
+    write_file(root / "IDEA.md", IDEA_TEMPLATE.format(name=name))
     write_file(root / "AGENTS.md", AGENTS_TEMPLATE)
     write_file(root / "CLAUDE.md", CLAUDE_TEMPLATE)
-    write_file(root / ".gitignore", GITIGNORE_TEMPLATE)
-    write_file(root / "evals" / "rubric.md", RUBRIC_TEMPLATE)
-    write_file(root / "evals" / "mvp_quality_checklist.md", MVP_CHECKLIST_TEMPLATE)
-    write_file(root / "evals" / "document_quality_checklist.md", DOCUMENT_CHECKLIST_TEMPLATE)
-    write_file(root / "docs" / "README.md", DOCS_README_TEMPLATE)
-    write_file(root / ".agents" / "skills" / "README.md", SKILLS_README_TEMPLATE)
-    write_file(root / "examples" / "README.md", EXAMPLES_README_TEMPLATE)
-    write_file(root / "app" / "README.md", APP_README_TEMPLATE)
+    write_file(root / ".gitignore", GITIGNORE)
+    write_file(root / "docs" / "README.md", DOCS_README)
+    write_file(root / "docs" / "packages" / "README.md", PACKAGES_README)
+    write_file(root / "examples" / "README.md", EXAMPLES_README)
+    write_file(root / "app" / "README.md", APP_README)
+
+    shutil.copy2(
+        REPO_ROOT / "docs" / "CURRICULUM_MAP.md",
+        root / "docs" / "CURRICULUM_MAP.md",
+    )
+    copy_directory(REPO_ROOT / "evals", root / "evals")
+    copy_directory(REPO_ROOT / "templates", root / "templates")
+    copy_directory(REPO_ROOT / ".agents" / "skills", root / ".agents" / "skills")
 
     return root
 
 
 def main(argv: list[str]) -> int:
-    parser = argparse.ArgumentParser(description="Crea una estructura minima para un nuevo MVP.")
-    parser.add_argument("project_name", help="Nombre de la carpeta del nuevo MVP.")
+    parser = argparse.ArgumentParser(
+        description="Crea un proyecto documental de material educativo de ciencia de datos."
+    )
+    parser.add_argument("project_name", help="Nombre de la carpeta del proyecto.")
     args = parser.parse_args(argv)
 
     try:
@@ -212,12 +210,12 @@ def main(argv: list[str]) -> int:
         return 1
 
     print(f"Proyecto creado: {root}")
-    print("Proximos pasos:")
+    print("Próximos pasos:")
     print(f"1. Entra a la carpeta: cd {root}")
-    print("2. Edita IDEA.md con tu idea inicial.")
-    print("3. Abre Codex o Claude Code en la carpeta creada.")
-    print("4. Pide: Lee AGENTS.md e IDEA.md y genera el paquete documental.")
-    print("5. Valida con evals/ antes de escribir codigo de producto.")
+    print("2. Completa IDEA.md.")
+    print("3. Genera el paquete documental con AGENTS.md.")
+    print("4. Valida con evals/.")
+    print("5. Usa app/ solo después de aprobación explícita.")
     return 0
 
 

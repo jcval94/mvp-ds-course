@@ -1,137 +1,132 @@
 # Implementation Plan
 
+## Objetivo
+
+Mantener DataClass Forge como fábrica documental y publicar automáticamente
+dos niveles educativos validados, sin backend ni ejecución de IA desde el navegador.
+
 ## Gates de calidad
 
 Cada fase debe cerrar con:
 
-- Entregable versionado.
-- Supuestos nuevos documentados.
-- Riesgos actualizados.
-- Validacion minima contra evals relevantes.
-- Decision: avanzar, ajustar o bloquear.
+- entregable versionado;
+- supuestos y riesgos actualizados;
+- trazabilidad con decisiones anteriores;
+- evals relevantes ejecutados;
+- decisión de avanzar, corregir o bloquear.
 
-## Fase 0: Captura de idea
+## Fase 0: Reenfoque de la fábrica
 
-**Objetivo:** obtener contexto suficiente sin bloquear al usuario.
+**Entregables:** `IDEA.md`, Brief, PRD, mapa curricular y guías raíz.
 
-**Tareas:** completar `IDEA.md`, listar restricciones, aceptar supuestos permitidos.
+**Aceptación:** usuario, problema, tres modos y no objetivos coinciden.
 
-**Entregables:** `IDEA.md` inicial.
+**Riesgo:** conservar lenguaje o flujos de la fábrica genérica.
 
-**Criterios de aceptacion:** hay al menos idea en una frase, problema probable y resultado esperado o supuestos para inferirlos.
+## Fase 1: Arquitectura curricular
 
-**Riesgos:** idea demasiado amplia.
+**Entregables:** `docs/CURRICULUM_MAP.md` y contrato de `ConceptSpec`.
 
-**Complejidad:** baja.
+**Tareas:**
 
-## Fase 1: Documentos base
+- ordenar bloques y niveles;
+- declarar prerrequisitos;
+- mantener los diez conceptos existentes;
+- agregar fundamentos, inferencia, evaluación, ética y proyectos;
+- priorizar vertical slice y segunda ola.
 
-**Objetivo:** crear claridad de producto.
+**Aceptación:** cada concepto nuevo puede ubicarse sin inventar una progresión.
 
-**Tareas:** generar Product Brief y PRD.
+## Fase 2: Sistema de skills
 
-**Entregables:** `docs/PRODUCT_BRIEF.md`, `docs/PRD.md`.
+**Entregables:** Agent Spec, Skill Map, Skill Contracts y `.agents/skills/*`.
 
-**Criterios de aceptacion:** usuario, problema, valor, alcance y metricas estan conectados.
+**Tareas:**
 
-**Riesgos:** requisitos inflados.
+- enrutar currículo, concepto y tres modos;
+- separar revisión técnica de pedagógica;
+- definir propagación de cambios;
+- validar frontmatter y nombres.
 
-**Complejidad:** media.
+**Aceptación:** cada skill tiene input, output, límites y criterio de fallo.
 
-## Fase 2: Diseño de agente
+## Fase 3: Evals y harness
 
-**Objetivo:** definir como debe operar el agente principal.
+**Entregables:** Eval Suite, checklists, regresiones y Harness Spec.
 
-**Tareas:** crear reglas de inferencia, preguntas, limites y salida.
+**Tareas:**
 
-**Entregables:** `docs/AGENT_OPERATING_SPEC.md`.
+- evaluar progresión, exactitud, visual, práctica y feedback;
+- bloquear visuales decorativos y causalidad injustificada;
+- definir reintentos desde la decisión raíz;
+- mantener el harness basado en archivos.
 
-**Criterios de aceptacion:** el agente sabe que hacer sin pedir instrucciones extra.
+**Aceptación:** una salida estructuralmente completa pero pedagógicamente débil reprueba.
 
-**Riesgos:** reglas ambiguas.
+## Fase 4: Nivel 1 publicado
 
-**Complejidad:** media.
+**Salida:** 18 conceptos, 18 ejercicios, 54 prompts y cuatro laboratorios.
 
-## Fase 3: Diseño de skills
+**Estado:** completado y validado.
 
-**Objetivo:** dividir responsabilidades especializadas.
+## Fase 5: Nivel 2 publicado
 
-**Tareas:** crear mapa y contratos.
+**Usuario:** profesor de introducción a ciencia de datos.
 
-**Entregables:** `docs/SKILL_MAP.md`, `docs/SKILL_CONTRACTS.md`, `.agents/skills/*/SKILL.md`.
+**Entrada:** uno de 21 conceptos de descripción y visualización.
 
-**Criterios de aceptacion:** cada skill tiene activador, inputs, outputs y limites.
+**Flujo principal:**
 
-**Riesgos:** skills duplicadas o genericas.
+1. Cargar snapshot público y metadatos.
+2. Crear `ConceptSpec`, módulo, dos ejercicios y paquete en vivo.
+3. Generar tres prompts con roles complementarios.
+4. Ejecutar revisión técnica y pedagógica.
+5. Publicar el laboratorio solo si pasa el gate.
 
-**Complejidad:** media.
+**Salida:** 21 conceptos, 42 ejercicios, 63 prompts y cuatro laboratorios.
 
-## Fase 4: Diseño de evals
+**Definition of Done:**
 
-**Objetivo:** evaluar calidad antes de codigo.
+- Los snapshots tienen fuente, licencia, fecha y SHA-256.
+- Cada concepto tiene dos ejercicios dependientes de evidencia.
+- Codex y Gemini/ChatGPT tienen responsabilidades distintas.
+- Existe plan offline.
+- Promedio de 4 o más, sin dimensiones en 1.
 
-**Tareas:** crear rubricas, checklists y regresiones.
+## Fase 6: Portal y publicación
 
-**Entregables:** `docs/EVAL_SUITE.md`, `evals/*.md`.
+1. Validar manifests, conteos, hashes y estados.
+2. Construir `_site/` desde `site/`, niveles y datasets.
+3. Probar búsqueda, filtros, enlaces y responsive.
+4. Publicar mediante GitHub Actions en cada push a `main`.
 
-**Criterios de aceptacion:** una salida mala puede fallar claramente.
+**Aceptación:** el catálogo muestra 39 conceptos y 60 ejercicios, y no publica
+ningún paquete sin validación aprobada.
 
-**Riesgos:** evals superficiales.
+## Fase 7: Expansión controlada
 
-**Complejidad:** media.
+La próxima vertical slice cubre Muestreo e incertidumbre. Cada nuevo concepto
+debe pasar el mismo gate antes de aparecer en GitHub Pages.
 
-## Fase 5: Diseño de arnes
+## Riesgos y mitigaciones
 
-**Objetivo:** definir orquestacion minima.
+| Riesgo | Mitigación |
+| --- | --- |
+| Mucho catálogo, poca profundidad | Dos ejercicios, revisión y gate por concepto |
+| Copiar patrones de histograma | Validar mecanismo específico por concepto |
+| Narrativa sin evidencia | Ejercicio debe fallar sin visual |
+| Inconsistencia entre modos | Una `ConceptSpec` común |
+| Error técnico propagado | QA técnica antes de QA pedagógica |
+| Dataset remoto cambia | Snapshot fijo y SHA-256 |
+| Salida de IA incorrecta | Roles acotados y verificación humana |
+| Publicación de borradores | Build rechaza validaciones no aprobadas |
 
-**Tareas:** documentar routing, permisos, logs, validaciones y errores.
+## Criterio de cierre documental
 
-**Entregables:** `docs/HARNESS_SPEC.md`.
+La fábrica está lista para producir la vertical slice cuando:
 
-**Criterios de aceptacion:** el flujo puede ejecutarse manualmente o con script simple.
-
-**Riesgos:** sobreingenieria.
-
-**Complejidad:** media.
-
-## Fase 6: Vertical slice
-
-**Objetivo:** elegir el primer flujo construible.
-
-**Tareas:** definir usuario, entrada, procesamiento, salida, DoD, prueba manual y no objetivos de la slice.
-
-**Entregables:** seccion de vertical slice en PRD y plan, mas prompt de implementacion inicial.
-
-**Criterios de aceptacion:** se puede construir en pocos dias con riesgo bajo.
-
-**Riesgos:** elegir una slice demasiado grande.
-
-**Complejidad:** baja.
-
-## Fase 7: MVP tecnico
-
-**Objetivo:** construir solo lo necesario para probar la vertical slice.
-
-**Tareas:** crear estructura de app, implementar flujo principal, pruebas minimas.
-
-**Entregables:** codigo de producto en proyecto derivado.
-
-**Criterios de aceptacion:** cumple DoD y metricas iniciales.
-
-**Riesgos:** agregar features post-MVP.
-
-**Complejidad:** alta.
-
-## Fase 8: Iteracion
-
-**Objetivo:** mejorar con evidencia.
-
-**Tareas:** recoger feedback, actualizar docs, ajustar evals, priorizar siguiente slice.
-
-**Entregables:** version nueva del paquete documental y backlog.
-
-**Criterios de aceptacion:** cada cambio responde a evidencia o riesgo.
-
-**Riesgos:** perder trazabilidad.
-
-**Complejidad:** media.
+- todos los documentos canónicos coinciden;
+- las skills son válidas;
+- los evals detectan los casos de regresión;
+- no hay placeholders;
+- la rubrica documental alcanza promedio 4 o más.

@@ -2,190 +2,128 @@
 
 ## Contrato universal
 
-Toda skill de este repositorio debe cumplir:
+Toda skill debe:
 
-- Tener un activador observable.
-- Leer al menos un input documentado.
-- Producir un output nombrado.
-- Declarar que no debe hacer.
-- Incluir validaciones que puedan fallar.
-- Mantener foco MVP y separar post-MVP.
-- Escribir en español claro.
+- tener activador observable;
+- leer inputs nombrados;
+- producir un artefacto verificable;
+- declarar supuestos y límites;
+- incluir criterios de aceptación y rechazo;
+- mantener un objetivo principal;
+- preservar precisión técnica;
+- separar MVP de post-MVP;
+- escribir en español claro.
 
-Si una skill no cumple este contrato, debe corregirse antes de usarse.
+## `curriculum-architect`
 
-## `mvp-product-strategist`
+**Propósito:** ubicar conceptos dentro de una progresión y evitar saltos de prerrequisitos.
 
-**Descripcion:** transforma una idea vaga en un MVP concreto.
+**Inputs:** `docs/CURRICULUM_MAP.md`, audiencia, nivel, objetivo solicitado y duración.
 
-**Cuando usar:** al iniciar un proyecto, al cambiar alcance o al detectar una idea demasiado amplia.
+**Output:** bloque, nivel, prerrequisitos, objetivo priorizado, conceptos anterior/siguiente y alcance recomendado.
 
-**Inputs:** `IDEA.md`, restricciones, inspiraciones, preguntas abiertas.
+**No debe hacer:** convertir una lección en curso completo ni incluir formalismo no necesario.
 
-**Outputs:** supuestos razonables, usuario objetivo, problema, propuesta de valor, alcance MVP, no objetivos, vertical slice, riesgos.
+**Aceptación:** el objetivo es observable y puede enseñarse con los prerrequisitos disponibles.
 
-**No debe hacer:** escribir codigo, inventar usuarios multiples sin prioridad, ampliar alcance.
+**Rechazo:** mezcla más de un objetivo central o requiere conceptos no declarados.
 
-**Validaciones:** usuario claro, problema concreto, resultado observable, no objetivos presentes.
+## `concept-spec-designer`
 
-**Ejemplo de uso:** "Con esta idea de dashboard, define el MVP minimo y una vertical slice".
+**Propósito:** crear la fuente de verdad conceptual compartida por todos los modos.
 
-**Fallos comunes:** convertir el MVP en plataforma completa; omitir riesgos; no declarar supuestos.
+**Inputs:** salida curricular, contexto, nivel y restricciones.
 
-**Criterios de aceptacion:** el brief permite decidir que construir primero y que dejar fuera.
+**Output:** `ConceptSpec` con definición, intuición, errores, `visualSpec`,
+dataset, procedencia/licencia cuando aplica, dominio y límites.
 
-**Criterios de rechazo:** no hay usuario principal, no hay no objetivos o la vertical slice incluye mas de un flujo central.
+**No debe hacer:** inventar hechos, usar una analogía que contradiga el concepto o aprobar un visual decorativo.
 
-## `prd-writer`
+**Aceptación:** otra skill puede generar los tres modos sin reinterpretar el concepto.
 
-**Descripcion:** crea PRDs claros, accionables y orientados a MVP.
+**Rechazo:** falta objetivo, prerrequisito, error común, visual o criterio de dominio.
 
-**Cuando usar:** despues de definir brief y alcance.
+## `learning-module-designer`
 
-**Inputs:** Product Brief, supuestos, usuario, vertical slice.
+**Propósito:** producir una explicación visual progresiva.
 
-**Outputs:** PRD completo, historias de usuario, requisitos funcionales, requisitos no funcionales, metricas, Definition of Done.
+**Inputs:** `ConceptSpec`, duración y restricciones docentes.
 
-**No debe hacer:** agregar funcionalidades post-MVP al alcance MVP.
+**Output:** `LearningModule` con activación previa, intuición, etapas, interacción, error común, checkpoint y cierre.
 
-**Validaciones:** cada requisito se conecta con un caso de uso; las metricas son medibles.
+**No debe hacer:** comenzar con una pared de fórmulas ni duplicar una definición en varias secciones.
 
-**Ejemplo de uso:** "Crea el PRD para el MVP educativo de histogramas".
+**Aceptación:** el estudiante puede explicar el mecanismo central y superar el checkpoint usando el módulo.
 
-**Fallos comunes:** historias vagas; requisitos sin criterio de aceptacion; metricas de vanidad.
+**Rechazo:** la interacción no cambia nada significativo o el checkpoint puede contestarse por pistas de redacción.
 
-**Criterios de aceptacion:** un desarrollador puede estimar la vertical slice sin pedir contexto basico.
+## `practice-exercise-designer`
 
-**Criterios de rechazo:** requisitos no verificables, metricas vagas o funcionalidades post-MVP mezcladas con MVP.
+**Propósito:** generar una práctica donde la evidencia visual sea necesaria.
 
-## `agent-architect`
+**Inputs:** `ConceptSpec`, contexto, visual y dificultad.
 
-**Descripcion:** disena el comportamiento del agente principal.
+**Output:** `PracticeExercise` guiado y de transferencia desde Nivel 2, con rol,
+historia, pasos, evidencia, preguntas, opciones, pistas, feedback y conclusión.
 
-**Cuando usar:** cuando se requiere que Codex, Claude o Cursor sigan un flujo estable.
+**No debe hacer:** premiar adivinanza, usar distractores absurdos ni pedir una decisión no sustentada.
 
-**Inputs:** PRD, Product Brief, riesgos, restricciones.
+**Aceptación:** existe una respuesta defendible, los distractores corresponden a errores plausibles y cada feedback corrige razonamiento.
 
-**Outputs:** Agent Operating Spec, reglas de inferencia, reglas de preguntas, flujo operativo, limites y guardrails.
+**Rechazo:** el ejercicio puede resolverse sin mirar la evidencia o la conclusión excede los datos.
 
-**No debe hacer:** crear prompts largos sin estructura ni permitir acciones fuera de alcance.
+## `live-teaching-pack-builder`
 
-**Validaciones:** el agente sabe cuando inferir, preguntar, activar skills y detenerse.
+**Propósito:** preparar una clase reproducible y operable por un docente.
 
-**Ejemplo de uso:** "Define como debe operar el agente para generar documentos sin programar producto".
+**Inputs:** `ConceptSpec`, `LearningModule`, `PracticeExercise`, duración y formato técnico preferido.
 
-**Fallos comunes:** reglas ambiguas; no definir salida esperada; ignorar human-in-the-loop.
+**Output:** `LiveTeachingPack` con guion, dataset, demo, preguntas, evaluación,
+blueprint, prompt técnico para Codex, prompts de facilitación para Gemini y
+ChatGPT, verificación humana, privacidad, plan offline y checklists.
 
-**Criterios de aceptacion:** el agente puede ejecutar el flujo obligatorio sin instrucciones extra.
+**No debe hacer:** depender de ejecutar IA, descargar datos externos durante clase o dejar al docente completar secciones.
 
-**Criterios de rechazo:** no define cuando detenerse, no contiene human-in-the-loop o permite codigo prematuro.
+**Aceptación:** otro docente puede impartir la sesión con ajustes menores y ejecutar el plan offline.
 
-## `skill-designer`
+**Rechazo:** no hay tiempos, datos reproducibles, cierre o contingencia.
 
-**Descripcion:** crea mapas y contratos de skills.
+## `technical-content-reviewer`
 
-**Cuando usar:** cuando el MVP necesita tareas especializadas o delegables.
+**Propósito:** verificar exactitud conceptual, numérica y estadística.
 
-**Inputs:** Agent Spec, PRD, documentos objetivo.
+**Inputs:** `ConceptSpec` y artefactos generados.
 
-**Outputs:** Skill Map, Skill Contracts, inputs/outputs, activadores, validaciones, fallos comunes.
+**Output:** lista de hallazgos con severidad, evidencia, impacto y corrección aplicada o requerida.
 
-**No debe hacer:** crear skills genericas sin criterio de activacion.
+**No debe hacer:** aprobar por estilo ni corregir números aislados sin revisar sus dependencias.
 
-**Validaciones:** cada skill tiene proposito, limites, ejemplos y criterios de aceptacion.
+**Aceptación:** unidad de análisis, variables, datos, visuales, métricas y conclusiones son consistentes.
 
-**Ejemplo de uso:** "Disena skills para producto, PRD, evals y QA".
+**Rechazo:** hay afirmaciones falsas, escalas engañosas, leakage, causalidad injustificada o métricas mal interpretadas.
 
-**Fallos comunes:** duplicar responsabilidades; crear demasiadas skills; no definir dependencias.
+## `pedagogy-eval-reviewer`
 
-**Criterios de aceptacion:** el mapa permite enrutar tareas sin confusion.
+**Propósito:** cerrar el ciclo con evaluación pedagógica y documental.
 
-**Criterios de rechazo:** skills duplicadas, activadores ambiguos o ausencia de criterios de aceptacion.
+**Inputs:** paquete completo, `docs/EVAL_SUITE.md` y `evals/`.
 
-## `eval-designer`
+**Output:** puntaje por dimensión, bloqueos, correcciones y decisión `Listo`, `Listo con ajustes menores` o `No listo`.
 
-**Descripcion:** crea evaluaciones y rubricas para revisar calidad.
+**No debe hacer:** aprobar solo porque todas las secciones existen.
 
-**Cuando usar:** antes de cerrar documentos o al agregar un nuevo tipo de MVP.
+**Aceptación:** promedio de 4 o más, ninguna dimensión en 1 y prueba manual ejecutable.
 
-**Inputs:** Docs, riesgos, no objetivos, criterios de exito.
+**Rechazo:** falta trazabilidad, dependencia de evidencia, feedback útil o coherencia entre modos.
 
-**Outputs:** Eval Suite, casos de prueba, rubricas 1 a 5, checklists, pruebas de regresion.
+## Contrato de propagación
 
-**No debe hacer:** limitarse a revisar estilo.
+Si cambia una decisión raíz:
 
-**Validaciones:** los evals pueden detectar contradicciones, alcance excesivo y falta de metricas.
+1. Actualizar `ConceptSpec`.
+2. Revisar los tres modos.
+3. Revisar datos y visualizaciones.
+4. Reejecutar QA técnica.
+5. Reejecutar QA pedagógica.
 
-**Ejemplo de uso:** "Crea evals para validar que el PRD sea construible".
-
-**Fallos comunes:** checklists faciles de aprobar; casos de fallo inexistentes.
-
-**Criterios de aceptacion:** una salida mala recibe puntuacion baja con razones concretas.
-
-**Criterios de rechazo:** evals puramente estilisticos o sin casos de fallo.
-
-## `harness-designer`
-
-**Descripcion:** disena el arnes minimo para orquestar el flujo.
-
-**Cuando usar:** cuando se define como se ejecutan skills, validaciones y salidas.
-
-**Inputs:** Skill Map, Eval Suite, Agent Spec.
-
-**Outputs:** Harness Spec, routing, permisos, logs, validaciones, reintentos, manejo de errores, human-in-the-loop.
-
-**No debe hacer:** proponer infraestructura compleja sin necesidad.
-
-**Validaciones:** el arnes puede ejecutarse manualmente o con script simple.
-
-**Ejemplo de uso:** "Define un arnes minimo para generar docs desde IDEA.md".
-
-**Fallos comunes:** colas, bases de datos o servicios cuando basta Markdown.
-
-**Criterios de aceptacion:** describe orquestacion suficiente para el MVP y deja fuera lo demas.
-
-**Criterios de rechazo:** requiere base de datos, colas, servicios externos o despliegue para la fase documental.
-
-## `codex-prompt-builder`
-
-**Descripcion:** crea prompts ejecutables para Codex, Claude Code o Cursor.
-
-**Cuando usar:** al preparar tareas por fase, QA, refactor o vertical slice.
-
-**Inputs:** Docs, objetivos, archivos objetivo, restricciones.
-
-**Outputs:** prompts por fase, prompts de QA, prompts de refactor, prompts de vertical slice, prompts de revision.
-
-**No debe hacer:** escribir prompts genericos como "mejora esto".
-
-**Validaciones:** cada prompt incluye contexto, archivos, restricciones, salida esperada y criterio de aceptacion.
-
-**Ejemplo de uso:** "Crea un prompt para revisar sobreingenieria en el PRD".
-
-**Fallos comunes:** pedir demasiadas tareas a la vez; omitir archivos fuente.
-
-**Criterios de aceptacion:** el prompt puede copiarse y ejecutarse sin explicacion adicional.
-
-**Criterios de rechazo:** prompt sin archivos fuente, salida esperada o criterio de aceptacion.
-
-## `qa-reviewer`
-
-**Descripcion:** revisa consistencia y calidad del paquete documental.
-
-**Cuando usar:** al final de cada ciclo o antes de iniciar codigo.
-
-**Inputs:** todos los docs, evals, templates y outputs generados.
-
-**Outputs:** contradicciones, problemas de alcance, metricas faltantes, skills debiles, evals debiles, arnes sobreingenierizado, placeholders vacios.
-
-**No debe hacer:** reescribir todo sin explicar hallazgos.
-
-**Validaciones:** cada hallazgo incluye archivo, problema, impacto y recomendacion.
-
-**Ejemplo de uso:** "Revisa si estos documentos estan listos para desarrollo".
-
-**Fallos comunes:** aprobar sin verificar no objetivos; ignorar vertical slice.
-
-**Criterios de aceptacion:** entrega decision clara: listo, listo con ajustes menores o no listo.
-
-**Criterios de rechazo:** no revisa vertical slice, no identifica impacto o aprueba documentos con placeholders.
+No se permite corregir únicamente el documento donde apareció el síntoma.

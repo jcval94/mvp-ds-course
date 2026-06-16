@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Resultados validados de DataClass Forge: conceptos, ejercicios, datasets y laboratorios de ciencia de datos.">
+  <title>Resultados | DataClass Forge</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="DataClass Forge, inicio">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <strong>DataClass Forge</strong>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#datasets">Datasets</a>
+      <a href="#validacion">Validación</a>
+      <a href="https://github.com/jcval94/mvp-ds-course">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <h1>Resultados educativos de DataClass Forge</h1>
+      <p>Conceptos, ejercicios y paquetes para enseñar ciencia de datos con evidencia, datos públicos y revisión técnica.</p>
+      <dl class="summary-rail" id="summaryRail" aria-label="Resumen de cobertura"></dl>
+      <div class="hero-links">
+        <a class="primary-link" href="#catalogo">Explorar catálogo</a>
+        <a href="methodology.html">Ver metodología</a>
+      </div>
+    </section>
+
+    <section id="catalogo" class="section">
+      <div class="section-heading">
+        <div><h2>Cobertura publicada</h2><p>Material validado por nivel, bloque y concepto.</p></div>
+      </div>
+      <div class="filters" aria-label="Filtros del catálogo">
+        <div id="levelFilters"></div>
+        <label><span class="sr-only">Buscar concepto</span><input id="search" type="search" placeholder="Buscar concepto"></label>
+      </div>
+      <div id="catalog"></div>
+      <p class="publication-note">Solo se publican paquetes que pasan los evals técnicos y pedagógicos.</p>
+    </section>
+
+    <section id="datasets" class="section">
+      <div class="section-heading">
+        <div><h2>Datasets públicos</h2><p>Snapshots fijos, pequeños y reproducibles, con fuente y licencia visibles.</p></div>
+      </div>
+      <div class="data-table" id="datasetTable" role="table" aria-label="Datasets públicos"></div>
+    </section>
+
+    <section id="validacion" class="section validation-section">
+      <div class="section-heading">
+        <div><h2>Validación</h2><p>La página publica únicamente resultados que pasan los gates del repositorio.</p></div>
+      </div>
+      <dl class="validation-list" id="validationList"></dl>
+      <div class="validation-links">
+        <a href="methodology.html">Abrir reporte</a>
+        <a href="https://github.com/jcval94/mvp-ds-course/tree/main/evals">Ver evals</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>DataClass Forge</strong>
+    <p>Generado desde el repositorio y publicado automáticamente con GitHub Actions.</p>
+    <a href="https://github.com/jcval94/mvp-ds-course">github.com/jcval94/mvp-ds-course</a>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

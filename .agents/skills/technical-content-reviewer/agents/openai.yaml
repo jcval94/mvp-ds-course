@@ -1,0 +1,4 @@
+interface:
+  display_name: "Revisor técnico"
+  short_description: "Revisa exactitud de contenido, datos y métricas"
+  default_prompt: "Revisa la exactitud técnica y numérica de este paquete educativo."

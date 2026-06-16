@@ -1,86 +1,124 @@
 # Product Brief
 
-Este documento es una version inicial generica. Al ejecutar la fabrica sobre una idea real, debe reemplazarse con informacion derivada de `IDEA.md`.
+## Nombre
 
-## Nombre provisional
-
-Fabrica de MVP asistida por agentes.
+DataClass Forge.
 
 ## Resumen ejecutivo
 
-El proyecto convierte una idea vaga en un paquete documental listo para desarrollo. El MVP recomendado no intenta construir el producto final; primero produce claridad: brief, PRD, arquitectura de agente, skills, evals, arnes minimo, plan de implementacion y prompts ejecutables.
+DataClass Forge es una fábrica documental para crear material educativo de ciencia de datos con agentes. Convierte un concepto curricular en tres artefactos relacionados: un módulo para aprender, un ejercicio para practicar y un paquete para enseñar en vivo. El MVP valida calidad pedagógica, precisión técnica y trazabilidad antes de construir una aplicación final.
 
 ## Problema
 
-Los equipos comienzan MVPs con requisitos incompletos, alcance excesivo y prompts ambiguos. Esto genera retrabajo, prototipos fragiles y discusiones tardias sobre producto.
+Los docentes y creadores de cursos invierten demasiado tiempo ensamblando explicaciones, visualizaciones, datos, ejercicios y guías. Las salidas generadas sin una arquitectura educativa común suelen ser genéricas, técnicamente frágiles o desconectadas del objetivo de aprendizaje.
 
 ## Usuario objetivo
 
-Founders, product managers, builders independientes y equipos pequenos que quieren usar agentes para acelerar el descubrimiento y la preparacion de MVPs.
+Profesor o creador de cursos que prepara clases introductorias e intermedias de ciencia de datos en español.
+
+El estudiante es beneficiario del material, pero no es el operador principal de la fábrica en el MVP.
 
 ## Propuesta de valor
 
-Pasar de una idea informal a un paquete claro y validado en menos tiempo, con menos ambiguedad y menor riesgo de sobreconstruccion.
+Pasar de un concepto a un paquete educativo coherente y revisable en menos de 20 minutos, con visualización obligatoria, práctica alineada, feedback y guía docente.
 
-## Jobs to be Done
+## Jobs to Be Done
 
-- Cuando tengo una idea difusa, quiero estructurarla para decidir si vale construirla.
-- Cuando uso Codex o Claude Code, quiero instrucciones claras para que no programe antes de tiempo.
-- Cuando preparo un MVP, quiero una vertical slice pequena y verificable.
+- Cuando preparo una clase, quiero partir de un objetivo y recibir materiales conectados para no ensamblarlos manualmente.
+- Cuando explico un concepto abstracto, quiero una interacción visual que haga observable la idea central.
+- Cuando diseño ejercicios, quiero que las preguntas dependan de la evidencia y que el feedback enseñe.
+- Cuando uso agentes, quiero contratos y evaluaciones que impidan contenido superficial o técnicamente incorrecto.
 
-## Resultado esperado para el usuario
+## Salidas del producto
 
-El usuario obtiene documentos coherentes, un alcance MVP reducido, criterios de exito y prompts listos para iniciar desarrollo.
+1. **Aprender:** objetivo, prerrequisitos, intuición, visualización, explicación progresiva, error común, checkpoint y cierre.
+2. **Ejercitar:** rol, contexto, evidencia visual, pregunta, respuesta esperada, distractores, pistas, feedback y conclusión.
+3. **Enseñar en vivo:** guion, dataset, demostración, preguntas socráticas, blueprint de notebook o HTML, evaluación, plan offline y checklist docente.
 
 ## MVP recomendado
 
-Una fabrica basada en Markdown con plantillas, skills, evals, ejemplos y un script simple para iniciar nuevos proyectos. No requiere backend, UI ni dependencias externas.
+Una fábrica basada en Markdown, templates, skills y evals que especifica,
+valida y publica materiales para un catálogo curricular. La cobertura inicial
+aprobada incluye Nivel 1 y Nivel 2 completos.
 
-## Vertical slice recomendada
+## Vertical slice publicada
 
-Entrada: una idea escrita en `IDEA.md`.
+**Usuario:** profesor de introducción a ciencia de datos.
 
-Proceso: el agente lee instrucciones, selecciona skills, genera Product Brief y PRD, valida con checklists y propone una vertical slice.
+**Entrada:** uno de los 39 conceptos publicados, contexto aplicado y duración de 30 a 90 minutos.
 
-Salida: un paquete documental minimo con decisiones trazables y una recomendacion clara de desarrollo.
+**Flujo principal:**
 
-Prueba manual: usar `examples/educational_data_app/IDEA.md` como entrada y verificar que el output no proponga una plataforma educativa completa.
+1. Crear o seleccionar una `ConceptSpec`.
+2. Diseñar una explicación visual.
+3. Generar módulo, ejercicio y paquete docente.
+4. Validar precisión, alineación y dependencia de la evidencia.
+5. Entregar artefactos y reporte de calidad.
+
+**Salida:** paquete educativo completo, laboratorio HTML y registro de validación.
+
+**Prueba manual:** un docente recorre los ocho laboratorios, ejecuta la
+interacción, resuelve los ejercicios y usa los prompts sin completar secciones.
+
+**Definition of Done:**
+
+- Cada concepto tiene objetivo, prerrequisitos, visual, error común y dataset.
+- Los tres modos comparten la misma intención conceptual.
+- El ejercicio no puede resolverse correctamente ignorando la visualización.
+- El feedback explica por qué cada opción es correcta o incorrecta.
+- El paquete docente incluye plan offline y criterio de cierre.
+- Cada paquete obtiene promedio de 4 o más sin dimensiones en 1.
+- La cobertura publicada suma 39 conceptos, 60 ejercicios y 117 prompts.
+- Los snapshots públicos registran fuente, licencia, fecha y SHA-256.
+
+**No objetivos de la slice:**
+
+- Construir una app con backend.
+- Cubrir todos los niveles curriculares.
+- Ejecutar un LLM desde el navegador.
+- Gestionar estudiantes o calificaciones.
 
 ## Diferenciador
 
-El sistema combina pensamiento de producto, arquitectura de agentes y evaluacion documental antes de escribir codigo.
+La fábrica no se limita a generar texto. Exige una línea de trazabilidad entre objetivo, visualización, actividad, feedback y evaluación, inspirada en experiencias educativas ricas como los demos de histograma sin convertirlos en una plantilla rígida.
 
 ## Supuestos razonables
 
-- El usuario acepta trabajar con Markdown.
-- El primer valor esta en la claridad documental, no en automatizacion completa.
-- Los agentes pueden inferir informacion no critica.
-- La vertical slice debe ser construible por una persona o un agente en pocos dias.
+- El idioma inicial es español.
+- Nivel 1 conserva datos sintéticos etiquetados; Nivel 2 usa snapshots públicos
+  fijos, pequeños y reproducibles.
+- El profesor revisa el material antes de usarlo.
+- Un concepto puede tener varias experiencias, pero cada entrega persigue un objetivo principal.
+- La profundidad pedagógica es más importante que maximizar la cantidad de temas generados.
 
 ## No objetivos
 
-- No construir una aplicacion SaaS.
-- No implementar un orquestador de agentes completo.
-- No entrenar modelos propios.
-- No depender de servicios externos en el MVP documental.
+- LMS, cuentas, pagos o analítica de estudiantes.
+- Personalización adaptativa automática.
+- Publicación directa sin revisión.
+- Datos sensibles o dependencias externas obligatorias.
+- Curso completo generado en una sola solicitud.
 
 ## Riesgos
 
-- Los documentos pueden volverse demasiado largos si no se controla alcance.
-- Las skills pueden quedar genericas si no tienen contratos verificables.
-- Los evals pueden convertirse en checklist superficial si no incluyen casos de fallo.
+- **Contenido correcto pero superficial:** bloquear módulos sin interacción, error común o checkpoint.
+- **Visualización decorativa:** exigir que una pregunta o experimento dependa de ella.
+- **Temario demasiado amplio:** publicar por niveles completos y exigir el mismo
+  gate por concepto.
+- **Inconsistencia entre modos:** compartir una `ConceptSpec` y validar trazabilidad.
+- **Errores técnicos:** incluir revisión disciplinar y fuentes o supuestos cuando corresponda.
+
+## Métricas iniciales
+
+- Tiempo mediano para obtener un paquete revisable: 20 minutos o menos.
+- Cobertura de contratos en la vertical slice: 100%.
+- Promedio de evaluación pedagógica y técnica: 4 o más.
+- Paquetes que requieren reescritura estructural tras revisión docente: menos de 1 de cada 3.
 
 ## Criterios de salida
 
-- Hay usuario, problema y resultado esperado.
-- Hay vertical slice con entrada, proceso y salida.
-- Hay no objetivos suficientemente claros para bloquear sobrealcance.
-- Los riesgos tienen mitigacion o decision pendiente.
-- El PRD puede escribirse sin reabrir discovery completo.
-
-## Proximos pasos
-
-1. Completar `IDEA.md` con una idea real.
-2. Ejecutar el flujo obligatorio de `AGENTS.md`.
-3. Validar con `evals/rubric.md`.
-4. Elegir una vertical slice.
+- El PRD puede escribirse sin reabrir el objetivo del producto.
+- Existe mapa curricular con prerrequisitos y prioridades.
+- La vertical slice es manualmente verificable y solo requiere HTML/JavaScript
+  estático; no necesita backend ni una aplicación final.
+- Los no objetivos impiden que la fábrica se convierta en una plataforma educativa completa.

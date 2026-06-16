@@ -1,67 +1,59 @@
 # CLAUDE.md
 
-Este archivo contiene instrucciones para Claude Code cuando trabaje en este repositorio.
+## Misión
 
-## Mision
-
-Convertir una idea inicial de MVP en un paquete documental listo para desarrollo con agentes o equipos humanos. No construir el producto antes de completar la documentacion y la validacion.
+Ayudar a operar DataClass Forge: una fábrica documental para crear material educativo visual y evaluable de ciencia de datos.
 
 ## Reglas principales
 
-- Lee primero `IDEA.md`.
-- Lee tambien `AGENTS.md` para mantener el mismo flujo que Codex.
-- No programes producto antes de generar y validar documentos.
-- Usa `.agents/skills` como referencia para decidir enfoque, contenido y validaciones.
-- Mantiene todos los outputs en español.
-- Detecta y reduce sobreingenieria.
-- Propone una vertical slice pequena y construible.
-- Revisa consistencia narrativa, pedagogica, tecnica y de producto.
-- Documenta supuestos cuando falte informacion.
-- Pregunta solo si una decision bloquea el trabajo.
+- Lee `AGENTS.md` e `IDEA.md`.
+- Consulta `docs/CURRICULUM_MAP.md` antes de diseñar contenido.
+- Usa `.agents/skills` según el artefacto solicitado.
+- No programes producto antes de validar la vertical slice documental.
+- Mantén outputs en español.
+- Declara nivel, prerrequisitos, objetivo y supuestos.
+- Prefiere snapshots públicos no sensibles con licencia, fecha y hash; etiqueta
+  cualquier dato sintético.
+- Exige que la visualización represente el mecanismo.
+- Exige que el ejercicio dependa de evidencia.
+- Desde Nivel 2 exige ejercicio guiado y ejercicio de transferencia.
+- En vivo, Codex trabaja con código y Gemini/ChatGPT facilita o revisa.
+- Separa revisión técnica de revisión pedagógica.
+- Reduce sobrealcance a un objetivo principal.
 
 ## Flujo recomendado
 
-1. Entender la idea.
-2. Identificar usuario, problema y resultado esperado.
-3. Crear `PRODUCT_BRIEF.md`.
-4. Crear `PRD.md`.
-5. Definir comportamiento del agente en `AGENT_OPERATING_SPEC.md`.
-6. Mapear skills y contratos.
-7. Crear evals y arnes minimo.
-8. Redactar plan de implementacion.
-9. Crear prompts ejecutables.
-10. Validar consistencia y reportar riesgos.
+1. Encuadrar usuario, concepto y nivel.
+2. Ubicar el concepto en el mapa curricular.
+3. Crear o validar `ConceptSpec`.
+4. Generar Aprender, Ejercitar y Enseñar en vivo.
+5. Revisar datos, métricas y conclusiones.
+6. Ejecutar todos los evals.
+7. Corregir decisiones raíz.
+8. Reportar artefactos, supuestos, riesgos y siguiente slice.
 
 ## Criterios de calidad
 
-Un buen resultado:
+- Objetivo observable.
+- Prerrequisitos explícitos.
+- Intuición antes de formalismo para principiantes.
+- Interacción significativa.
+- Distractores plausibles.
+- Feedback específico.
+- Guion y plan offline.
+- Coherencia entre modos.
+- Promedio de 4 o más y ninguna dimensión en 1.
 
-- Reduce la idea a un MVP claro.
-- Explica que queda fuera.
-- Tiene metricas de exito observables.
-- Incluye historias de usuario accionables.
-- Define limites del agente.
-- Tiene skills con inputs y outputs concretos.
-- Tiene evals que pueden fallar.
-- Incluye una vertical slice.
-- Mantiene trazabilidad entre idea, brief, PRD, agente, skills, evals, arnes y plan.
+## Bloqueos
 
-## Señales de sobreingenieria
+- Error técnico.
+- Visualización engañosa.
+- Causalidad injustificada.
+- Ejercicio de memoria desconectado del visual.
+- Datos inconsistentes.
+- Placeholder fuera de templates.
+- Solicitud de app antes de aprobación documental.
 
-- Autenticacion compleja antes de validar valor.
-- Multiples roles sin evidencia de necesidad.
-- Integraciones externas en la primera version.
-- Arquitectura distribuida sin carga real.
-- Modelos entrenados desde cero cuando bastaria reglas o LLM.
-- Evals que revisan estilo pero no decisiones de producto.
+## Cierre
 
-## Validacion antes de cerrar
-
-Revisa estos puntos y corrige antes de responder:
-
-- No hay placeholders fuera de `/templates`.
-- El PRD no contradice el Product Brief.
-- La vertical slice tiene entrada, proceso, salida y prueba manual.
-- Las skills tienen activadores claros.
-- El arnes no requiere infraestructura para la fase documental.
-- Los prompts se pueden copiar y ejecutar sin explicacion adicional.
+Reporta archivos, artefactos, supuestos, validaciones, riesgos y próxima vertical slice.

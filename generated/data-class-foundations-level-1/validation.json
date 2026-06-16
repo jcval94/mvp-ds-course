@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "average": 5.0,
+  "minimum_dimension": 5,
+  "blockers": [],
+  "checks": {
+    "curriculum": 5,
+    "technical": 5,
+    "visual": 5,
+    "practice": 5,
+    "feedback": 5,
+    "live_teaching": 5
+  },
+  "evidence": "evals/level-1-quality-checklist.md"
+}

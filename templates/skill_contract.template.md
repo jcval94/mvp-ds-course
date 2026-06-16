@@ -1,49 +1,30 @@
-# Skill Contract
+---
+name: [skill-name]
+description: [Qué hace y en qué solicitudes debe activarse.]
+---
 
-## Nombre
-
-`[nombre-de-la-skill]`
-
-Los campos entre corchetes son guias de plantilla; no deben quedar en contratos finales.
-
-## Descripcion
-
-[Que hace la skill y que problema resuelve.]
-
-## Cuando usar
-
-- [Activador concreto.]
+# [Skill Name]
 
 ## Inputs
 
-- [Archivo, dato o contexto requerido.]
+- [Archivo o artefacto.]
 
-## Outputs
+## Workflow
 
-- [Documento, decision o artefacto producido.]
+1. [Paso verificable.]
 
-## No debe hacer
+## Output
 
-- [Limite explicito.]
+[Artefacto nombrado.]
 
-## Validaciones
+## Límites
 
-- [Criterio verificable.]
+- [Acción prohibida.]
 
-## Criterios de rechazo
+## Aceptación
 
-- [Condicion que invalida la salida.]
+- [Criterio observable.]
 
-## Ejemplo de uso
+## Rechazo
 
-```text
-[Prompt o tarea breve.]
-```
-
-## Fallos comunes
-
-- [Fallo]
-
-## Criterios de aceptacion
-
-- [Condicion para aceptar el resultado.]
+- [Condición de fallo.]

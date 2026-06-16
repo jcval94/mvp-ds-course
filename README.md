@@ -1,129 +1,117 @@
-# mvp-agent-factory
+# DataClass Forge
 
-`mvp-agent-factory` es una fabrica de documentacion y arquitectura para convertir ideas vagas de MVP en paquetes listos para desarrollo con agentes, Codex, Claude Code, Cursor o equipos humanos.
+DataClass Forge es una fábrica documental asistida por agentes para crear material educativo de ciencia de datos.
 
-No es una aplicacion final. Es un sistema versionado para pensar, reducir alcance, documentar, evaluar y preparar un MVP antes de escribir codigo de producto.
+No es un LMS. Define currículo, conceptos, experiencias, evaluaciones y prompts,
+y publica los resultados validados como laboratorios estáticos.
 
-## Problema que resuelve
+## Qué genera
 
-Muchas ideas de MVP empiezan con entusiasmo y poca claridad: usuario impreciso, alcance inflado, criterios de exito ambiguos, agentes sin limites y prompts dificiles de repetir. Este repo fuerza un flujo simple:
+Para un concepto de ciencia de datos produce:
+
+1. **ConceptSpec:** objetivo, prerrequisitos, intuición, errores, visual y dataset.
+2. **Aprender:** módulo explicativo visual y progresivo.
+3. **Ejercitar:** caso con evidencia, interacción y feedback.
+4. **Enseñar en vivo:** guion, datos, demo, preguntas, evaluación y plan offline.
+
+## Usuario inicial
+
+Profesor o creador de cursos introductorios e intermedios de ciencia de datos en español.
+
+## Flujo
 
 ```text
-1. Escribe tu idea en IDEA.md
-2. Ejecuta Codex con AGENTS.md
-3. Genera documentos en /docs
-4. Valida con /evals
-5. Define vertical slice
-6. Construye MVP
-7. Itera
+1. Define el concepto o solicitud en IDEA.md
+2. Ubícalo en docs/CURRICULUM_MAP.md
+3. Ejecuta las skills de .agents/skills
+4. Genera los artefactos educativos
+5. Valida con evals/
+6. Corrige hasta obtener promedio 4+
+7. Construye código solo con aprobación explícita
 ```
 
-El resultado esperado es un paquete documental coherente, pequeno y accionable.
+## Temario
 
-## Para que sirve
+El mapa curricular incluye:
 
-- Transformar una idea incompleta en un `PRODUCT_BRIEF.md`.
-- Crear un `PRD.md` claro antes de programar.
-- Definir como debe operar el agente principal.
-- Disenar skills especializadas con contratos verificables.
-- Crear evals y rubricas para revisar calidad.
-- Proponer una vertical slice pequena.
-- Preparar prompts ejecutables para Codex, Claude Code o Cursor.
+- fundamentos y calidad de datos;
+- estadística descriptiva y visualización;
+- probabilidad, muestreo e inferencia;
+- relaciones y correlación;
+- regresión y clasificación;
+- evaluación de modelos;
+- clustering y anomalías;
+- series de tiempo;
+- A/B testing;
+- ética, comunicación y reproducibilidad;
+- mini-proyectos.
 
-## Como se usa
+Consulta [docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md).
 
-1. Edita `IDEA.md` con lo que sepas. Puedes dejar campos incompletos.
-2. Abre Codex, Claude Code o Cursor en la raiz del repo.
-3. Pide al agente: "Lee AGENTS.md e IDEA.md y genera el paquete documental inicial".
-4. Revisa los documentos creados en `docs/`.
-5. Ejecuta la revision contra `evals/`.
-6. Ajusta alcance y vertical slice.
-7. Solo entonces crea codigo de producto en un proyecto derivado.
+## Cobertura publicada
+
+- **Nivel 1 · Fundamentos:** 18 conceptos y 18 ejercicios.
+- **Nivel 2 · Descripción y visualización:** 21 conceptos y 42 ejercicios.
+- **Total:** 39 conceptos, 60 ejercicios y 117 prompts para Codex, Gemini y ChatGPT.
+
+Cada concepto conserva Aprender, Ejercitar y Enseñar en vivo, además de revisión
+técnica y pedagógica.
+
+## Inspiraciones
+
+`concepro_histograma.html` y `ejercicios_histograma.html` muestran el nivel de profundidad esperado: construcción visual, comparación, narrativa, interacción y feedback. Son referencias de inspiración, no plantillas ni dependencias.
+
+## Estructura
+
+- `IDEA.md`: misión y decisiones iniciales.
+- `docs/`: brief, PRD, currículo, specs, plan y prompts.
+- `.agents/skills/`: skills ejecutables.
+- `evals/`: rubricas, checklists y regresiones.
+- `templates/`: estructuras reutilizables.
+- `examples/`: casos de entrada y salidas esperadas.
+- `generated/`: prototipos y proyectos derivados históricos.
+- `datasets/`: snapshots públicos, metadatos, licencias y hashes.
+- `site/`: portal minimalista de resultados.
+- `.github/workflows/pages.yml`: validación, build y publicación automática.
+- `reference/`: referencias no bloqueantes.
+- `scripts/`: utilidades de la fábrica.
+
+## Uso con Codex
+
+```text
+Lee AGENTS.md, IDEA.md y docs/CURRICULUM_MAP.md. Usa .agents/skills para crear
+un paquete educativo del concepto solicitado. Prefiere un snapshot público con
+licencia, genera dos ejercicios dependientes de evidencia y prepara roles
+complementarios para Codex y Gemini/ChatGPT. Valida con evals/.
+```
 
 ## Definition of Ready
 
-Un MVP esta listo para pasar a desarrollo cuando:
+Un paquete está listo cuando:
 
-- El usuario objetivo, problema y resultado esperado son explicitos.
-- El PRD contiene una vertical slice con entrada, proceso, salida y prueba manual.
-- Los no objetivos bloquean al menos tres tentaciones de sobrealcance.
-- Las skills necesarias tienen activadores, inputs, outputs y criterios de aceptacion.
-- La rubrica de `evals/rubric.md` alcanza promedio 4 o superior.
-- No hay secciones vacias, `TBD`, "pendiente" ni decisiones sin supuesto documentado.
+- tiene objetivo, nivel y prerrequisitos;
+- los tres modos comparten una `ConceptSpec`;
+- el visual representa el mecanismo;
+- el ejercicio depende de evidencia;
+- cada distractor tiene feedback;
+- el paquete docente tiene plan offline;
+- la revisión técnica no detecta errores;
+- el promedio es 4 o más sin dimensiones en 1;
+- no hay placeholders fuera de templates.
 
-## Uso recomendado con Codex
+## No objetivos
 
-Usa este prompt inicial:
+- LMS.
+- Cuentas o calificaciones.
+- Backend o base de datos.
+- Ejecución de LLMs desde los laboratorios.
+- Publicación de material que no haya pasado los evals.
+- Curso completo en una sola ejecución.
 
-```text
-Lee AGENTS.md e IDEA.md. Usa las plantillas de /templates y las skills de .agents/skills. Genera o actualiza los documentos de /docs siguiendo el orden obligatorio. Valida contra /evals y termina con archivos modificados, supuestos, riesgos y proxima vertical slice recomendada.
+## Crear un proyecto derivado
+
+```powershell
+python scripts/scaffold_mvp.py mi-material-ds
 ```
 
-Codex debe trabajar primero sobre documentos. Si una decision no bloquea el avance, debe inferir un supuesto razonable y documentarlo.
-
-## Uso recomendado con Claude Code
-
-Usa este prompt inicial:
-
-```text
-Lee CLAUDE.md, AGENTS.md e IDEA.md. No programes producto todavia. Genera el paquete documental para el MVP, revisa consistencia narrativa, tecnica y de producto, y propone una vertical slice pequena.
-```
-
-Claude Code debe usar las skills como referencia operativa, aunque no las cargue automaticamente como herramientas.
-
-## Documentos que genera
-
-- `docs/PRODUCT_BRIEF.md`: decision de producto, usuario, valor y alcance.
-- `docs/PRD.md`: requisitos, historias, metricas y Definition of Done.
-- `docs/AGENT_OPERATING_SPEC.md`: reglas del agente principal.
-- `docs/SKILL_MAP.md`: mapa de skills necesarias.
-- `docs/SKILL_CONTRACTS.md`: contratos detallados por skill.
-- `docs/EVAL_SUITE.md`: suite de evaluacion documental.
-- `docs/HARNESS_SPEC.md`: arnes minimo para orquestar agentes.
-- `docs/PROJECT_STRUCTURE.md`: estructura del repo y de proyectos generados.
-- `docs/IMPLEMENTATION_PLAN.md`: fases de ejecucion.
-- `docs/CODEX_CLAUDE_PROMPTS.md`: prompts listos para usar.
-
-## Que son las skills
-
-Las skills son instrucciones especializadas para agentes. Cada skill vive en `.agents/skills/<nombre>/SKILL.md` y define cuando usarse, que entradas necesita, que salidas produce y que no debe hacer.
-
-Este repo incluye skills para estrategia de MVP, PRD, arquitectura de agente, diseno de skills, evals, arnes, prompts y QA.
-
-## Que son los evals
-
-Los evals son rubricas, checklists y casos de regresion para validar que el paquete documental sea claro, pequeno, consistente y listo para desarrollo. No prueban una app final; prueban la calidad de la metodologia y de los documentos.
-
-La validacion minima debe responder tres preguntas:
-
-1. Que se construye primero?
-2. Como sabemos que funciono?
-3. Que queda explicitamente fuera?
-
-## Crear un nuevo proyecto MVP
-
-Puedes iniciar una estructura minima con:
-
-```bash
-python scripts/scaffold_mvp.py my-new-mvp
-```
-
-Esto crea carpetas base, un `IDEA.md` editable y archivos iniciales para documentacion, evals, skills, ejemplos y app.
-
-El script no copia una app ni instala dependencias. Deja `app/` como carpeta reservada para despues de aprobar la vertical slice.
-
-## Mejorar la fabrica con el tiempo
-
-- Agrega nuevos casos en `examples/` cuando encuentres patrones repetibles.
-- Refina `evals/regression_cases.md` si una salida mala se cuela.
-- Endurece `docs/SKILL_CONTRACTS.md` cuando una skill produzca resultados ambiguos.
-- Versiona cambios de metodologia como si fueran cambios de producto.
-- Mantiene el foco: menos alcance, mejores decisiones, prompts mas claros.
-
-## Anti-patrones
-
-- Usar la fabrica para saltar directo a codigo.
-- Tratar el PRD como documento final y no como herramienta de decision.
-- Crear skills que no producen un artefacto verificable.
-- Aprobar evals que solo revisan estilo.
-- Agregar infraestructura antes de probar la vertical slice.
+El script crea una base documental. La carpeta `app/` queda reservada hasta aprobar la vertical slice.

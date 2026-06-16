@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "average": 4.5,
+  "minimum_dimension": 4,
+  "blockers": [],
+  "checks": {
+    "curriculum": 5,
+    "technical": 4,
+    "visual": 4,
+    "practice": 4,
+    "feedback": 5,
+    "live_teaching": 5
+  },
+  "basis": "Revisión interna respaldada por validación estructural, procedencia de datos y QA de interacciones; requiere aprobación docente.",
+  "evidence": "evals/level-2-quality-checklist.md"
+}

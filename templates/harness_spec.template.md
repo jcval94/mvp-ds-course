@@ -2,44 +2,44 @@
 
 ## Responsabilidad
 
-[Que coordina el arnes.]
+[Qué coordina el harness documental.]
 
-Los campos entre corchetes son guias de plantilla; no deben quedar en specs finales.
+## Entrada
+
+- Concepto.
+- Nivel.
+- Contexto.
+- Modo.
+- Duración.
+
+## Estado
+
+- Solicitud.
+- Decisión curricular.
+- `ConceptSpec`.
+- Artefactos.
+- Validación.
 
 ## Flujo
 
-1. [Leer entrada]
-2. [Activar skill]
-3. [Validar salida]
+1. Normalizar entrada.
+2. Enrutar currículo y concepto.
+3. Generar modos.
+4. Ejecutar QA.
+5. Corregir y cerrar.
 
 ## Routing
 
-- [Condicion] -> [Skill]
-
-## Permisos
-
-- [Permiso minimo]
-
-## Logs
-
-- [Evento a registrar]
+- [Condición] -> [skill].
 
 ## Reintentos
 
-- [Cuando reintentar]
-
-## Manejo de errores
-
-- [Error] -> [Accion]
+- [Fallo] -> [decisión raíz a corregir].
 
 ## Human-in-the-loop
 
-- [Decision que requiere humano]
+- [Decisión humana.]
 
 ## Fuera del MVP
 
-- [Elemento no necesario]
-
-## Criterio de paso
-
-- [Condicion minima para recomendar desarrollo.]
+- [Infraestructura excluida.]

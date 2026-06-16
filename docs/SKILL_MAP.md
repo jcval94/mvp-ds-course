@@ -1,45 +1,56 @@
 # Skill Map
 
-## Core skills
+## Skills principales
 
-| Skill | Proposito | Cuando se activa | Inputs | Outputs | Dependencias | Prioridad MVP | Prioridad post-MVP |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `mvp-product-strategist` | Convertir idea vaga en MVP concreto | Inicio del flujo o cambios de alcance | `IDEA.md`, contexto del usuario | Brief, supuestos, vertical slice | Ninguna | Alta | Alta |
-| `prd-writer` | Crear PRD claro y accionable | Despues del brief | Brief, supuestos, no objetivos | PRD, historias, requisitos, metricas | `mvp-product-strategist` | Alta | Alta |
-| `agent-architect` | Definir comportamiento del agente principal | Al disenar flujo de agentes | PRD, brief, restricciones | Agent Operating Spec | `prd-writer` | Alta | Media |
-| `skill-designer` | Crear mapa y contratos de skills | Cuando hay tareas especializadas | Agent Spec, PRD | Skill Map, Skill Contracts | `agent-architect` | Alta | Alta |
+| Skill | Propósito | Activador | Input | Output | Prioridad |
+| --- | --- | --- | --- | --- | --- |
+| `curriculum-architect` | Ordenar conceptos y prerrequisitos | Nuevo tema, bloque o expansión del temario | `CURRICULUM_MAP.md`, audiencia, nivel | Ruta curricular y objetivo priorizado | Alta |
+| `concept-spec-designer` | Crear la fuente conceptual común | Concepto nuevo o ficha incompleta | Ruta curricular y contexto | `ConceptSpec` validable | Alta |
+| `learning-module-designer` | Diseñar el modo Aprender | Solicitud de explicación o módulo | `ConceptSpec`, duración | `LearningModule` | Alta |
+| `practice-exercise-designer` | Diseñar práctica dependiente de evidencia | Solicitud de ejercicio o caso | `ConceptSpec`, visual, contexto | Ejercicio guiado y transferencia | Alta |
+| `live-teaching-pack-builder` | Preparar una clase reproducible | Solicitud docente o de clase en vivo | `ConceptSpec`, módulo, ejercicio | Guion, roles de IA, prompts y plan offline | Alta |
 
-## Support skills
+## Skills de calidad
 
-| Skill | Proposito | Cuando se activa | Inputs | Outputs | Dependencias | Prioridad MVP | Prioridad post-MVP |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `eval-designer` | Crear evaluaciones y rubricas | Antes de cerrar documentacion | Docs generados, riesgos | Eval Suite, casos, checklists | Brief, PRD | Alta | Alta |
-| `harness-designer` | Disenar arnes minimo | Cuando el flujo requiere orquestacion | Skill Map, Evals | Harness Spec | `skill-designer`, `eval-designer` | Media | Alta |
-| `codex-prompt-builder` | Redactar prompts ejecutables | Al preparar trabajo con agentes | Docs, fases, criterios | Prompts por fase y QA | Todos los docs | Alta | Alta |
+| Skill | Propósito | Activador | Input | Output | Prioridad |
+| --- | --- | --- | --- | --- | --- |
+| `technical-content-reviewer` | Revisar exactitud y coherencia de datos | Antes del cierre de cualquier paquete | Todos los artefactos | Hallazgos técnicos y correcciones | Alta |
+| `pedagogy-eval-reviewer` | Evaluar alineación y profundidad | Cierre obligatorio | Paquete y evals | Puntajes, bloqueos y decisión | Alta |
 
-## QA skills
+## Dependencias
 
-| Skill | Proposito | Cuando se activa | Inputs | Outputs | Dependencias | Prioridad MVP | Prioridad post-MVP |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `qa-reviewer` | Revisar consistencia y calidad | Al final de cada ciclo | Todos los documentos y evals | Hallazgos, correcciones, decision go/no-go | Todas | Alta | Alta |
+```text
+curriculum-architect
+        |
+concept-spec-designer
+   /         |          \
+Aprender  Ejercitar  Enseñar en vivo
+   \         |          /
+ technical-content-reviewer
+             |
+  pedagogy-eval-reviewer
+```
 
 ## Reglas de routing
 
-- Si una tarea toca producto y requisitos, activar primero producto y luego PRD.
-- Si una tarea toca agente, activar `agent-architect` antes de skills.
-- Si una tarea toca calidad, activar `eval-designer` y cerrar con `qa-reviewer`.
-- Si hay duda entre dos skills, elegir la que produzca el documento mas temprano en el flujo.
+- Todo concepto nuevo pasa primero por currículo y `ConceptSpec`.
+- Una solicitud de paquete completo activa las cinco skills principales.
+- Un cambio en la definición conceptual obliga a regenerar o revisar los tres modos.
+- Un cambio solo editorial puede revisarse en el modo afectado, pero siempre vuelve a QA.
+- Contenido técnico avanzado activa revisión de prerrequisitos antes de generación.
+- QA técnica ocurre antes de QA pedagógica final.
+- Todo snapshot público pasa por procedencia, licencia y hash.
+- Codex asume el rol técnico; Gemini y ChatGPT facilitan o revisan.
 
-## Reglas de prioridad
+## Señales de skill débil
 
-- MVP primero: usar solo skills necesarias para generar documentos y validar vertical slice.
-- Post-MVP despues: automatizacion, CLI avanzada e integraciones no deben activar skills nuevas en el primer ciclo.
-- QA siempre al cierre: `qa-reviewer` es obligatorio antes de aprobar desarrollo.
+- Produce texto libre sin esquema verificable.
+- No declara inputs o límites.
+- No puede fallar.
+- Duplica otra responsabilidad.
+- No vincula su output con objetivo, evidencia o evaluación.
+- Permite aprobar contenido sin visualización cuando el concepto es visualizable.
 
-## Señales de skill demasiado generica
+## Artefactos físicos
 
-- No especifica archivo de entrada.
-- No produce artefacto verificable.
-- No define que queda fuera.
-- No tiene criterio de fallo.
-- Puede aplicarse a cualquier proyecto sin cambios.
+Las instrucciones ejecutables viven en `.agents/skills/<nombre>/SKILL.md`. Este mapa y `SKILL_CONTRACTS.md` son la fuente de diseño; los archivos de skill deben mantenerse sincronizados.

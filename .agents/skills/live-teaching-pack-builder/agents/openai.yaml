@@ -1,0 +1,4 @@
+interface:
+  display_name: "Constructor de clases"
+  short_description: "Prepara paquetes reproducibles para enseñar en vivo"
+  default_prompt: "Prepara un LiveTeachingPack completo para este concepto."

@@ -1,123 +1,110 @@
 # Eval Suite
 
-## Proposito
+## Propósito
 
-Validar que el paquete documental convierta una idea vaga en un MVP claro, pequeno, coherente y listo para desarrollo asistido por agentes.
+Validar que DataClass Forge produzca material educativo de ciencia de datos preciso, progresivo, visual, practicable y listo para revisión docente.
 
-## Como ejecutar la evaluacion
+## Orden de evaluación
 
-1. Leer `IDEA.md`.
-2. Revisar `docs/PRODUCT_BRIEF.md` y `docs/PRD.md`.
-3. Completar checklists de MVP, documentos, skills y arnes.
-4. Puntuar cada dimension con la rubrica 1 a 5.
-5. Revisar regression cases si aplica.
-6. Emitir decision: listo, listo con ajustes menores o no listo.
+1. Verificar alcance y usuario.
+2. Revisar posición curricular y prerrequisitos.
+3. Revisar `ConceptSpec`.
+4. Revisar Aprender.
+5. Revisar Ejercitar.
+6. Revisar Enseñar en vivo.
+7. Revisar precisión técnica.
+8. Revisar consistencia documental y placeholders.
+9. Emitir puntaje y decisión.
 
-## Condiciones de bloqueo automatico
+## Dimensiones
 
-- No hay vertical slice.
-- Hay placeholders fuera de `/templates`.
-- El MVP incluye una funcionalidad marcada como no objetivo.
-- El arnes requiere infraestructura externa para la fase documental.
-- Las skills no tienen activadores o outputs verificables.
-- El promedio de rubrica es menor a 4.
+| Dimensión | Pregunta |
+| --- | --- |
+| Alcance | ¿El paquete enseña un objetivo principal verificable? |
+| Progresión | ¿Respeta nivel y prerrequisitos? |
+| Exactitud | ¿Definiciones, datos, métricas y conclusiones son correctos? |
+| Visualización | ¿El visual representa el mecanismo y evita engaños? |
+| Interacción | ¿Manipular o comparar revela el concepto? |
+| Práctica | ¿La respuesta depende de evidencia? |
+| Feedback | ¿Corrige el razonamiento de cada respuesta? |
+| Enseñanza | ¿El docente puede operar la clase y su contingencia? |
+| Coherencia | ¿Los tres modos comparten objetivo, términos y datos? |
+| Viabilidad | ¿El MVP evita infraestructura y alcance innecesarios? |
+| Procedencia | ¿Los datos públicos tienen fuente, licencia, fecha y hash? |
+| Publicación | ¿Solo se publican paquetes aprobados y enlaces válidos? |
+
+## Rubrica
+
+- **1:** incorrecto, contradictorio o inutilizable.
+- **2:** estructura parcial con fallos sustantivos.
+- **3:** usable con correcciones importantes.
+- **4:** claro, correcto y listo con ajustes menores.
+- **5:** preciso, profundo, transferible y listo para uso supervisado.
+
+## Bloqueos automáticos
+
+- Objetivo no observable o más de un objetivo principal sin prioridad.
+- Prerrequisito crítico omitido.
+- Afirmación técnica falsa o causalidad injustificada.
+- Concepto visualizable sin `visualSpec`.
+- Visualización engañosa o decorativa.
+- Ejercicio respondible sin observar la evidencia.
+- Ausencia de feedback específico.
+- Datos inconsistentes entre artefactos.
+- Snapshot público sin licencia, procedencia o hash válido.
+- Paquete docente sin plan offline.
+- Prompts sin restricciones o criterios de aceptación.
+- Codex y Gemini/ChatGPT con roles indistinguibles o sin verificación humana.
+- Alguna dimensión en 1.
+- Promedio menor a 4.
+- Placeholder fuera de `/templates`.
+- Código de producto incluido sin autorización posterior a la fase documental.
 
 ## Casos felices
 
-- Idea con usuario y problema claros genera brief, PRD y vertical slice sin preguntas.
-- Idea incompleta genera supuestos razonables y preguntas no bloqueantes.
-- Idea con alcance amplio se reduce a un flujo principal.
+- Histograma con construcción de bins, comparación de formas y práctica de interpretación.
+- Correlación con scatterplot manipulable, outlier y advertencia causal.
+- Matriz de confusión conectada con costos diferentes de falsos positivos y falsos negativos.
 
-## Casos limite
+## Casos límite
 
-- Usuario objetivo ambiguo pero inferible.
-- Plataforma no definida.
-- Inspiraciones contradictorias.
-- Restricciones de tiempo muy agresivas.
+- Tema avanzado solicitado para principiantes: reducir objetivo y declarar prerrequisitos.
+- Concepto con poca interacción natural: usar comparación, anotación o predicción antes de revelar.
+- Datos reales no disponibles o sin licencia clara: crear dataset sintético y etiquetarlo.
+- Clase sin internet: usar plan offline y activos locales.
 
 ## Casos de fallo
 
-- No se puede identificar problema ni usuario.
-- El agente intenta construir producto antes de documentos.
-- El PRD contradice el Product Brief.
-- No hay vertical slice.
-- Los evals no incluyen casos de fallo.
+- Definición larga seguida de quiz de memoria.
+- Historia atractiva cuya pregunta no depende de la gráfica.
+- Visual que cambia colores, pero no una variable conceptual.
+- A/B testing que declara ganador solo por una barra más alta.
+- Clustering que presenta grupos como clases verdaderas.
+- Outlier eliminado automáticamente.
+- Matriz de confusión sin explicar consecuencias del dominio.
 
-## Rubrica de evaluacion 1 a 5
+## Evidencia requerida
 
-| Puntaje | Criterio |
-| --- | --- |
-| 1 | Confuso, contradictorio o no accionable. |
-| 2 | Tiene estructura, pero faltan decisiones clave. |
-| 3 | Aceptable, aunque con supuestos debiles o alcance amplio. |
-| 4 | Claro, coherente, pequeno y validable. |
-| 5 | Excelente: decisiones nitidas, riesgos explicitos, vertical slice lista. |
+Cada puntaje debe citar:
 
-## Hoja de puntuacion sugerida
+- archivo o artefacto;
+- sección;
+- observación;
+- impacto;
+- corrección requerida si el puntaje es menor a 4.
 
-| Dimension | Puntaje | Evidencia | Correccion requerida |
-| --- | --- | --- | --- |
-| Claridad MVP | Registrar 1-5 | Citar seccion evaluada | Indicar ajuste o "sin ajuste" |
-| PRD | Registrar 1-5 | Citar seccion evaluada | Indicar ajuste o "sin ajuste" |
-| Agente | Registrar 1-5 | Citar seccion evaluada | Indicar ajuste o "sin ajuste" |
-| Skills | Registrar 1-5 | Citar seccion evaluada | Indicar ajuste o "sin ajuste" |
-| Evals | Registrar 1-5 | Citar seccion evaluada | Indicar ajuste o "sin ajuste" |
-| Arnes | Registrar 1-5 | Citar seccion evaluada | Indicar ajuste o "sin ajuste" |
-| Prompts | Registrar 1-5 | Citar seccion evaluada | Indicar ajuste o "sin ajuste" |
+## Decisión
 
-## Checklist de documentos
+- `Listo`: promedio 4 o más, sin bloqueos.
+- `Listo con ajustes menores`: promedio 4 o más y solo cambios editoriales o de precisión menor.
+- `No listo`: cualquier bloqueo o promedio menor a 4.
 
-- [ ] Cada documento tiene proposito claro.
-- [ ] No hay placeholders vacios.
-- [ ] Los supuestos se repiten de forma consistente.
-- [ ] El PRD refleja el Product Brief.
-- [ ] El plan no contradice no objetivos.
+## Prueba manual de la cobertura publicada
 
-## Checklist de MVP
-
-- [ ] Usuario inicial definido.
-- [ ] Problema concreto.
-- [ ] Resultado observable.
-- [ ] Funcionalidad principal unica.
-- [ ] Post-MVP separado.
-- [ ] Vertical slice construible.
-
-## Checklist de skills
-
-- [ ] Cada skill tiene frontmatter.
-- [ ] Cada skill tiene activador claro.
-- [ ] Cada skill define inputs y outputs.
-- [ ] Cada skill dice que no debe hacer.
-- [ ] Hay skill de QA.
-
-## Checklist de arnes
-
-- [ ] Define routing entre skills.
-- [ ] Define permisos minimos.
-- [ ] Incluye logs y validaciones.
-- [ ] Tiene manejo de errores.
-- [ ] Mantiene human-in-the-loop.
-- [ ] No propone infraestructura innecesaria.
-
-## Pruebas de regresion
-
-Revisar `evals/regression_cases.md` despues de cambios importantes en templates, skills o prompts.
-
-## Ejemplos de outputs buenos
-
-- "El MVP sera una web local que recibe un CSV, calcula prioridad simple y muestra razones por lead. Quedan fuera CRM, login y modelos predictivos."
-- "Supuesto: el primer usuario es un coordinador comercial. Si esto cambia, se debe revalidar el PRD."
-- "Vertical slice: cargar 10 leads de ejemplo, mostrar top 5 y permitir exportar recomendaciones."
-
-## Ejemplos de outputs malos
-
-- "Construiremos una plataforma integral con IA, dashboard, login, pagos y automatizaciones."
-- "El usuario son todas las empresas que quieran mejorar."
-- "Metricas: que sea util y bonito."
-- "Pendiente completar despues."
-
-## Decision final
-
-- `Listo`: promedio 4 o mayor, sin bloqueos automaticos.
-- `Listo con ajustes menores`: promedio 4 o mayor, con problemas de redaccion o precision no bloqueantes.
-- `No listo`: cualquier bloqueo automatico o promedio menor a 4.
+1. Confirmar 39 conceptos, 60 ejercicios y 117 prompts.
+2. Recorrer los ocho laboratorios en desktop y móvil.
+3. Resolver cada ejercicio usando el visual.
+4. Simular el guion docente y el plan offline.
+5. Verificar hashes, licencias, datos y conclusiones.
+6. Probar búsqueda, filtros y enlaces del portal.
+7. Corregir hasta alcanzar el criterio de paso.

@@ -1,0 +1,9 @@
+id,edad,genero,ciudad,satisfaccion,espera_min
+1001,25,Femenino,Bogotá,4,18
+1002,34,Masculino,Medellín,5,12
+1003,,Femenino,Cali,3,25
+1004,29,Masculino,Bogotá,,30
+1002,34,Masculino,Medellín,5,12
+1005,-5,Femenino,Barranquilla,2,40
+1006,41,Masculino,Cali,4,45
+1007,120,Femenino,Bogotá,3,60

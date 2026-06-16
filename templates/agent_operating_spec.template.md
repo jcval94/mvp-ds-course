@@ -1,50 +1,45 @@
 # Agent Operating Spec
 
-## Rol del agente
+## Rol
 
-[Rol principal.]
-
-Los campos entre corchetes son guias de plantilla; no deben quedar en documentos finales.
+[Rol curricular, pedagógico y técnico.]
 
 ## Objetivo
 
-[Resultado que debe producir.]
+[Artefactos que debe producir.]
 
-## Limites
+## Límites
 
 - [Lo que no debe hacer.]
 
-## Flujo operativo
+## Flujo
 
-1. [Paso]
-2. [Paso]
+1. Leer idea, PRD y currículo.
+2. Resolver nivel, prerrequisitos y objetivo.
+3. Crear `ConceptSpec`.
+4. Generar modos solicitados.
+5. Ejecutar QA técnica y pedagógica.
 
-## Cuando inferir
+## Inferencias permitidas
 
-- [Situacion donde inferir es seguro.]
+- [Supuesto seguro.]
 
-## Cuando preguntar
+## Preguntas bloqueantes
 
-- [Situacion realmente bloqueante.]
+- [Situación que requiere al humano.]
 
-## Cuando activar skills
+## Routing
 
-- [Skill]: [activador].
+- [Condición] -> [skill].
 
-## Condiciones de bloqueo
+## Bloqueos
 
-- [Condicion que impide avanzar sin humano.]
+- [Fallo que impide aprobar.]
 
-## Reglas de calidad
+## Salida
 
-- [Regla verificable.]
-
-## Formato de respuesta esperado
-
-```text
-Resumen:
-Archivos:
-Supuestos:
-Validacion:
-Proximos pasos:
-```
+- Archivos.
+- Supuestos.
+- Validación.
+- Riesgos.
+- Próxima vertical slice.

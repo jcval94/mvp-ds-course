@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diseñador de conceptos"
+  short_description: "Crea ConceptSpecs educativas y visuales"
+  default_prompt: "Crea una ConceptSpec completa para este concepto de ciencia de datos."

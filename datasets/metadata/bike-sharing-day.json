@@ -1,0 +1,22 @@
+{
+  "id": "bike-sharing-day",
+  "name": "Bike Sharing Dataset · UCI",
+  "path": "snapshots/bike_sharing_day.csv",
+  "source_url": "https://archive.ics.uci.edu/static/public/275/bike+sharing+dataset.zip",
+  "source_page": "https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citation": "Fanaee-T, H. (2013). Bike Sharing [Dataset]. UCI Machine Learning Repository.",
+  "snapshot_date": "2026-06-14",
+  "rows": 731,
+  "columns": 16,
+  "snapshot_label": "731 días",
+  "license_display": "CC BY 4.0",
+  "portal_use": "Distribuciones",
+  "sha256": "537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a",
+  "uses": [
+    "distribuciones",
+    "histogramas",
+    "forma y bins"
+  ]
+}

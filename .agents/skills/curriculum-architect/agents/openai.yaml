@@ -1,0 +1,4 @@
+interface:
+  display_name: "Arquitecto curricular"
+  short_description: "Ordena conceptos y prerrequisitos de ciencia de datos"
+  default_prompt: "Define la ruta curricular y el objetivo principal para este material."

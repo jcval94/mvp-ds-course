@@ -2,138 +2,235 @@
 
 ## Contexto
 
-Este PRD describe el MVP de la fabrica documental, no una app final generada por la fabrica. El producto inicial es un repositorio versionable que guia a agentes y humanos para transformar ideas vagas en planes de MVP.
+DataClass Forge es una fábrica documental especializada en material educativo de ciencia de datos. La fase actual define cómo los agentes convierten un concepto curricular en experiencias coherentes y evaluables. No construye todavía la aplicación final.
 
 ## Objetivos
 
-- Estandarizar la captura de ideas en `IDEA.md`.
-- Generar documentos de producto y arquitectura en `docs/`.
-- Definir skills reutilizables para agentes.
-- Validar calidad con evals simples.
-- Proponer una vertical slice antes de escribir codigo de producto.
+- Reducir a menos de 20 minutos la preparación inicial de un paquete educativo revisable.
+- Garantizar alineación entre objetivo, visualización, ejercicio, feedback y guía docente.
+- Mantener un temario progresivo con prerrequisitos explícitos.
+- Producir artefactos reutilizables por Codex, Claude Code, notebooks o una futura web local.
+- Detectar contenido superficial, incorrecto o sobreconstruido antes de desarrollo.
 
 ## Usuarios
 
-- Builder individual que usa Codex o Claude Code.
-- PM que necesita alinear alcance antes de desarrollo.
-- Equipo pequeno que quiere documentacion suficiente sin burocracia.
+**Principal:** profesor o creador de cursos introductorios e intermedios de ciencia de datos.
+
+**Secundarios:** instructor de talleres, mentor y estudiante autónomo que consume los materiales.
 
 ## Casos de uso
 
-1. Convertir una idea incompleta en un brief accionable.
-2. Crear un PRD MVP con requisitos claros.
-3. Disenar un agente principal y sus skills.
-4. Revisar sobreingenieria antes de implementar.
-5. Preparar prompts ejecutables para desarrollo.
+1. Convertir un concepto en una explicación visual progresiva.
+2. Crear una práctica que exija interpretar evidencia.
+3. Preparar una clase en vivo con datos, guion, preguntas y contingencias.
+4. Ampliar el temario sin romper prerrequisitos ni criterios pedagógicos.
+5. Revisar un paquete generado antes de usarlo o implementarlo.
 
 ## Historias de usuario
 
-- Como founder, quiero escribir una idea incompleta para recibir un alcance MVP razonable.
-- Como PM, quiero ver no objetivos para evitar expansion de alcance.
-- Como agente, quiero instrucciones ordenadas para saber que documento generar primero.
-- Como revisor, quiero evals concretos para detectar contradicciones.
+- Como docente, quiero seleccionar concepto y nivel para recibir una experiencia adecuada a mis estudiantes.
+- Como creador de cursos, quiero que cada actividad se conecte con un objetivo para evitar contenido de relleno.
+- Como instructor, quiero un guion y un plan offline para impartir la clase sin depender de una herramienta externa.
+- Como revisor, quiero criterios de fallo claros para detectar visualizaciones decorativas y ejercicios triviales.
+- Como agente, quiero contratos estructurados para producir artefactos consistentes.
 
-## Funcionalidades MVP
+## Modos obligatorios
 
-- Plantilla editable de idea.
-- Instrucciones para Codex y Claude Code.
-- Documentos base en `docs/`.
-- Skills con frontmatter y contratos.
-- Evals con rubricas y casos de regresion.
-- Script simple para iniciar nuevos proyectos.
+### Aprender
 
-## Vertical slice MVP
+Produce una explicación conceptual visual, breve y progresiva.
 
-**Usuario:** builder o PM que quiere convertir una idea educativa en un paquete documental inicial.
+### Ejercitar
 
-**Entrada:** `examples/educational_data_app/IDEA.md`.
+Produce un caso aplicado con evidencia, interacción, pregunta, pistas y feedback específico.
 
-**Flujo principal:**
+### Enseñar en vivo
 
-1. El agente lee `AGENTS.md` y la idea de ejemplo.
-2. Genera Product Brief y PRD alineados.
-3. Propone skills y evals necesarios.
-4. Valida contra la rubrica y checklists.
-5. Reporta una vertical slice de producto educativo.
+Produce un paquete docente con guion, datos, demostración, preguntas, evaluación, plan offline y artefactos copiables.
 
-**Salida:** documentos coherentes que recomiendan una app autocontenida para enseñar histogramas, sin login, LMS ni curso completo.
+## Interfaces documentales
 
-**Prueba manual:** revisar que el resultado incluya dataset de ejemplo, cambio de bins, explicacion narrativa y no objetivos.
+### `ConceptSpec`
 
-**Definition of Done de la slice:**
+- `id` y nombre estable.
+- Bloque curricular y nivel.
+- Prerrequisitos.
+- Objetivo de aprendizaje observable.
+- Definición e intuición.
+- Errores comunes.
+- `visualSpec`: representación, elementos, interacción y simplificación.
+- Snapshot público versionado o dataset sintético etiquetado.
+- Criterios de dominio y límites del concepto.
 
-- Product Brief y PRD tienen el mismo usuario.
-- El MVP no incluye funcionalidades post-MVP.
-- La rubrica promedio es 4 o mayor.
-- No hay placeholders fuera de plantillas.
+### `LearningModule`
 
-## Matriz de trazabilidad
+- Referencia a `ConceptSpec`.
+- Objetivo y duración.
+- Activación de conocimiento previo.
+- Intuición y visualización principal.
+- Explicación por etapas.
+- Experimento o control interactivo.
+- Error común.
+- Mini-checkpoint con respuesta explicada.
+- Resumen y transición a práctica.
 
-| Decision | Fuente | Documento donde debe aparecer | Validacion |
-| --- | --- | --- | --- |
-| Usuario inicial | `IDEA.md` | Brief, PRD, Plan | Checklists de MVP y documentos |
-| Resultado esperado | `IDEA.md` | Brief, PRD | Metricas y DoD |
-| No objetivos | Brief | PRD, Plan, Prompts | Revision de sobreingenieria |
-| Vertical slice | Brief y PRD | Plan, Prompts | Rubrica mayor o igual a 4 |
-| Skills necesarias | Agent Spec | Skill Map, Contracts | Skill checklist |
-| Riesgos | Brief y PRD | Evals, Harness | Casos de fallo |
+### `PracticeExercise`
 
-## Funcionalidades post-MVP
+- Referencia a `ConceptSpec`.
+- Rol, historia y decisión.
+- Evidencia visual necesaria.
+- Secuencia de uno a tres pasos.
+- Pregunta o acción observable.
+- Respuesta correcta y distractores plausibles.
+- Pistas graduadas.
+- Feedback específico por respuesta.
+- Conclusión y aprendizaje transferible.
 
-- CLI con validacion automatica de documentos.
-- Generacion interactiva de preguntas bloqueantes.
-- Reporte de consistencia entre documentos.
-- Exportacion a formatos externos.
-- Integracion con repositorios remotos.
+### `LiveTeachingPack`
+
+- Referencia a `ConceptSpec`.
+- Objetivo, audiencia y duración.
+- Guion minuto a minuto.
+- Dataset con esquema, tipos, filas y lógica de generación.
+- Demostración visual y experimento.
+- Preguntas socráticas y errores anticipados.
+- Blueprint de notebook o demo HTML.
+- Prompts técnicos y docentes copiables.
+- Evaluación rápida, cierre y extensión.
+- Plan offline y checklists antes/durante la clase.
 
 ## Requisitos funcionales
 
-- El repo debe poder usarse solo con Markdown.
-- Cada skill debe definir inputs, outputs y limites.
-- Los prompts deben ser copiables y ejecutables.
-- Los evals deben incluir ejemplos buenos y malos.
-- El script debe crear una estructura minima sin dependencias externas.
+- Leer `IDEA.md` y `docs/CURRICULUM_MAP.md` antes de generar material.
+- Seleccionar un solo objetivo principal por paquete.
+- Resolver o documentar prerrequisitos.
+- Reutilizar una `ConceptSpec` común para los tres modos.
+- Preferir snapshots públicos no sensibles con fuente, licencia, fecha y hash.
+- Generar datos sintéticos reproducibles y etiquetados cuando no exista una
+  fuente pública adecuada o se necesite aislar un mecanismo.
+- Exigir visualización para conceptos visualizables.
+- Justificar explícitamente cualquier concepto sin visualización.
+- Incluir feedback explicativo, no solo correcto/incorrecto.
+- Etiquetar supuestos, nivel y limitaciones.
+- Validar cada artefacto antes de declararlo listo.
+- Mantener prompts ejecutables con archivos, restricciones, salida y aceptación.
+- Generar dos ejercicios por concepto desde Nivel 2.
+- Separar roles en vivo: Codex modifica o verifica código; Gemini o ChatGPT
+  facilita, critica e interpreta.
+- Publicar únicamente paquetes cuyo `validation.json` esté aprobado.
 
 ## Requisitos no funcionales
 
-- Simplicidad por encima de automatizacion completa.
-- Compatibilidad con GitHub.
-- Textos en español.
-- Cero dependencias obligatorias.
-- Estructura facil de extender.
+- Documentos en español claro y Markdown.
+- Sin dependencias externas obligatorias en la fase documental.
+- Trazabilidad auditable entre todos los artefactos.
+- Datasets sin información sensible.
+- Material usable en desktop o proyección cuando llegue a implementarse.
+- Precisión técnica prioritaria sobre estilo narrativo.
 
-## Restricciones
+## Temario
 
-- No crear producto final.
-- No agregar frameworks.
-- No depender de red.
-- No dejar archivos vacios.
+El catálogo canónico vive en `docs/CURRICULUM_MAP.md`. Incluye fundamentos de datos, estadística descriptiva, probabilidad, inferencia, relaciones, regresión, clasificación, aprendizaje no supervisado, evaluación de modelos, series de tiempo, experimentación, ética y proyectos.
 
-## Metricas de exito
+Los diez conceptos del prototipo existente se mantienen dentro de una progresión más amplia:
 
-- Una idea incompleta produce al menos 8 documentos coherentes.
-- El revisor puede identificar vertical slice en menos de 5 minutos.
-- La rubrica alcanza promedio 4 o superior antes de iniciar codigo.
-- No existen placeholders vacios en documentos finales.
+- Histograma.
+- Correlación.
+- Regresión lineal.
+- Clasificación.
+- Clustering.
+- Árbol de decisión.
+- Matriz de confusión.
+- Outliers.
+- Series de tiempo.
+- A/B testing.
 
-## Definition of Done
+## Cobertura publicada
 
-- `IDEA.md` tiene suficiente contexto o supuestos documentados.
-- Todos los documentos de `docs/` estan completos y consistentes.
-- Skills y evals estan alineados con el MVP.
-- Existe vertical slice recomendada.
-- El plan separa MVP tecnico de post-MVP.
-- La matriz de trazabilidad no tiene huecos criticos.
+**Usuario:** profesor de introducción a ciencia de datos.
+
+**Entrada:** uno de 39 conceptos de Nivel 1 o Nivel 2, contexto aplicado y
+duración de 30 a 90 minutos.
+
+**Cobertura:**
+
+1. Nivel 1 · Fundamentos: 18 conceptos, 18 ejercicios y 54 prompts.
+2. Nivel 2 · Descripción y visualización: 21 conceptos, 42 ejercicios y 63 prompts.
+
+**Flujo principal:**
+
+1. Leer la `ConceptSpec`, prerrequisitos y procedencia del dataset.
+2. Diseñar una visualización con al menos una interacción significativa.
+3. Generar Aprender, dos ejercicios desde Nivel 2 y Enseñar en vivo.
+4. Ejecutar evals pedagógicos, técnicos, documentales y de datasets.
+5. Corregir la decisión raíz si falla algún modo.
+6. Construir el catálogo estático desde manifests aprobados.
+7. Publicar automáticamente mediante GitHub Actions.
+
+**Salida:** 39 paquetes conceptuales trazables, ocho laboratorios, catálogo
+estático, snapshots y reportes de validación.
+
+**Prueba manual:** un docente recorre los ocho laboratorios, responde los 60
+ejercicios usando la evidencia, copia prompts y verifica el plan offline.
+
+**Definition of Done:**
+
+- Existen 39 conceptos, 60 ejercicios y 117 prompts.
+- Cada artefacto usa la `ConceptSpec` correspondiente.
+- Cada ejercicio depende de evidencia visual.
+- Cada distractor tiene feedback específico.
+- No hay contradicciones entre objetivo, datos, visual y conclusión.
+- Cada concepto obtiene promedio de 4 o más y ninguna dimensión obtiene 1.
+- No hay placeholders fuera de templates.
+- Cada snapshot público tiene fuente, licencia, fecha, dimensiones y SHA-256.
+- GitHub Pages solo incluye manifests con estado `published` y validación aprobada.
+
+**No objetivos:**
+
+- LMS, autenticación, persistencia o backend.
+- Integración con APIs de IA desde los HTML.
+- Cubrir niveles posteriores al Nivel 2 en esta entrega.
+- Evaluación formal o seguimiento del estudiante.
+
+## Funcionalidades post-MVP
+
+- Generador web local.
+- Exportación HTML y `.ipynb`.
+- Variaciones asistidas por LLM con revisión.
+- Importación de datos del docente.
+- Biblioteca versionada de paquetes.
+- Adaptación por audiencia y duración basada en evidencia de uso.
+
+## Métricas de éxito
+
+- Paquete inicial generado en 20 minutos o menos.
+- 100% de campos obligatorios presentes en la vertical slice.
+- Promedio de rubrica de 4 o más.
+- Al menos 2 de 3 docentes consideran utilizable el paquete con ajustes menores.
+- Cero afirmaciones técnicas críticas sin respaldo, supuesto o advertencia.
+
+## Matriz de trazabilidad
+
+| Decisión | Fuente | Artefactos dependientes | Validación |
+| --- | --- | --- | --- |
+| Usuario docente | `IDEA.md` | Brief, PRD, prompts | Checklist MVP |
+| Tres modos | Brief | Agent Spec, Skills, Harness | Eval Suite |
+| Temario progresivo | `CURRICULUM_MAP.md` | ConceptSpec, Plan | Rubrica curricular |
+| Visual obligatorio | Demos de inspiración y Brief | Skills, ejercicios, evals | Checklist pedagógico |
+| Dos niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
+| Snapshots públicos fijos | Solicitud de usuario | Datasets, skills y evals | Hash, licencia y procedencia |
+| GitHub Pages automático | Solicitud de usuario | `site/` y workflow | Build en `main` |
+| Sin app en fase documental | `AGENTS.md` y PRD | Harness y Plan | Revisión de sobreingeniería |
 
 ## Riesgos
 
-- Ambiguedad excesiva en ideas iniciales.
-- Documentacion larga sin decisiones.
-- Prompts que permiten construir demasiado pronto.
-- Evals que no detectan contradicciones.
+- Generalizar el patrón de histograma a conceptos donde no corresponde.
+- Confundir narrativa atractiva con aprendizaje verificable.
+- Crear demasiados temas con poca profundidad.
+- Usar datos o métricas inconsistentes entre modos.
+- Generar material técnicamente correcto pero inadecuado para el nivel.
 
 ## Preguntas abiertas
 
-- Que formato de reporte automatico conviene para una version futura?
-- La fabrica debe copiar skills completas a proyectos generados o solo referencias?
-- Conviene mantener ejemplos por industria o por patron de MVP?
+- Priorizar HTML, notebook o ambos como primer formato técnico después de validar documentos.
+- Elegir el siguiente bloque de referencia según feedback docente de la vertical slice.

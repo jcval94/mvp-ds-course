@@ -2,39 +2,39 @@
 
 ## Objetivo
 
-[Que debe lograr Codex.]
+[Artefacto educativo que debe producir.]
 
-Los campos entre corchetes son guias de plantilla; reemplazalos antes de ejecutar el prompt.
+## Fuentes
 
-## Contexto
+- `IDEA.md`
+- `docs/PRD.md`
+- `docs/CURRICULUM_MAP.md`
+- [ConceptSpec u otros archivos.]
 
-Lee estos archivos:
+## Skill
 
-- `[archivo]`
+[Skill que debe activarse.]
 
 ## Restricciones
 
-- No programes producto salvo instruccion explicita.
-- Mantiene outputs en español.
-- Documenta supuestos.
+- No construir app.
+- Usar datos no sensibles.
+- Mantener un objetivo principal.
+- Documentar supuestos.
+- Exigir evidencia visual cuando aplique.
 
 ## Tarea
 
-[Instruccion accionable y especifica.]
+[Instrucción específica.]
 
-## Salida esperada
+## Salida
 
-- Archivos modificados.
-- Supuestos.
-- Validacion.
-- Riesgos.
-- Proximos pasos.
+- [Archivo o contrato.]
 
-## Criterio de aceptacion
+## Criterios de aceptación
 
-[Como saber que la tarea esta bien hecha.]
+- [Criterio verificable.]
 
 ## Bloqueos
 
-- Si faltan archivos fuente, detenerse y pedirlos.
-- Si la tarea pide codigo antes de documentos aprobados, reportar bloqueo.
+- [Condición que exige detenerse.]

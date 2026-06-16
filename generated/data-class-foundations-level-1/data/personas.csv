@@ -1,0 +1,6 @@
+id,edad,genero,ingresos_mxn,ciudad,minutos_traslado
+101,28,Femenino,42500,Bogotá,35
+102,35,Masculino,55000,Medellín,48
+103,22,Femenino,31200,Cali,25
+104,42,Masculino,,Barranquilla,60
+105,29,Femenino,47800,Bucaramanga,42

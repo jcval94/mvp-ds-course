@@ -1,61 +1,73 @@
 # Codex y Claude Code Prompts
 
-## 1. Generar documentos desde `IDEA.md`
+## 1. Generar un paquete educativo
 
 ```text
-Lee AGENTS.md e IDEA.md. Usa /templates y .agents/skills como referencia. Genera o actualiza todos los documentos de /docs en el orden obligatorio. No programes producto. Si falta informacion no bloqueante, crea supuestos razonables y documentalos. No dejes placeholders fuera de /templates. Termina con: archivos modificados, supuestos, riesgos, validacion contra cada archivo de /evals, puntaje estimado y vertical slice con usuario, entrada, flujo, salida, prueba manual y Definition of Done.
+Lee AGENTS.md, IDEA.md, docs/PRODUCT_BRIEF.md, docs/PRD.md y docs/CURRICULUM_MAP.md. Usa las skills de .agents/skills. Para el concepto solicitado, define nivel, prerrequisitos y un objetivo observable; crea ConceptSpec, LearningModule, dos PracticeExercise desde Nivel 2 y LiveTeachingPack. Prefiere un snapshot público con licencia, fecha y hash; usa sintéticos etiquetados solo cuando corresponda. Valida con docs/EVAL_SUITE.md y evals/. Corrige bloqueos antes de reportar archivos, supuestos, puntajes, riesgos y siguiente slice.
 ```
 
-## 2. Revisar consistencia entre documentos
+## 2. Expandir el temario
 
 ```text
-Revisa docs/PRODUCT_BRIEF.md, docs/PRD.md, docs/AGENT_OPERATING_SPEC.md, docs/SKILL_MAP.md, docs/SKILL_CONTRACTS.md, docs/EVAL_SUITE.md, docs/HARNESS_SPEC.md, docs/IMPLEMENTATION_PLAN.md y docs/CODEX_CLAUDE_PROMPTS.md. Detecta contradicciones, alcance inflado, metricas faltantes, terminos inconsistentes y decisiones sin soporte. Corrige lo necesario. Reporta hallazgos por archivo con impacto y correccion aplicada.
+Activa curriculum-architect. Lee docs/CURRICULUM_MAP.md y docs/PRD.md. Agrega o reorganiza conceptos sin romper la progresión. Para cada cambio declara bloque, nivel, prerrequisitos, objetivo observable, concepto anterior y siguiente, prioridad y tipo de visualización esperada. No conviertas el mapa en una lista enciclopédica. Actualiza documentos dependientes y valida con evals/curriculum_quality_checklist.md.
 ```
 
-## 3. Crear o mejorar skills
+## 3. Crear una ConceptSpec
 
 ```text
-Lee docs/SKILL_MAP.md y docs/SKILL_CONTRACTS.md. Revisa .agents/skills/*/SKILL.md. Asegura que cada skill tenga frontmatter valido, activadores claros, inputs, outputs, limites, validaciones, fallos comunes y criterios de aceptacion. No crees skills nuevas salvo que haya una responsabilidad no cubierta. Reporta cambios y razon.
+Activa concept-spec-designer. Crea una ConceptSpec para [concepto] dirigida a [audiencia] con nivel [nivel]. Incluye objetivo, prerrequisitos, definición, intuición, errores comunes, límites, visualSpec, interacción significativa, dataset público versionado o sintético etiquetado y criterio de dominio. Verifica que los datos y el visual permitan generar Aprender, Ejercitar y Enseñar en vivo sin reinterpretar el concepto.
 ```
 
-## 4. Crear evals
+## 4. Diseñar el modo Aprender
 
 ```text
-Lee docs/EVAL_SUITE.md, evals/rubric.md, evals/mvp_quality_checklist.md, evals/document_quality_checklist.md y evals/regression_cases.md. Mejora las evaluaciones para que puedan detectar salidas malas, contradicciones, falta de vertical slice y sobreingenieria. Incluye casos felices, limite y fallo. Mantiene los evals simples y ejecutables manualmente.
+Activa learning-module-designer. Usa la ConceptSpec de [concepto]. Diseña una experiencia de [duración] que active conocimiento previo, presente intuición visual, explique por etapas, permita manipular una variable conceptual, compare escenarios, corrija un error común y termine con checkpoint explicado. La interacción no puede limitarse a estilo o color.
 ```
 
-## 5. Diseñar arnes minimo
+## 5. Diseñar el modo Ejercitar
 
 ```text
-Lee docs/AGENT_OPERATING_SPEC.md, docs/SKILL_MAP.md y docs/EVAL_SUITE.md. Diseña o ajusta docs/HARNESS_SPEC.md para describir el arnes minimo de orquestacion documental: routing, permisos, memoria, logs, validaciones, reintentos, errores y human-in-the-loop. No propongas infraestructura compleja si Markdown y ejecucion manual bastan.
+Activa practice-exercise-designer. Usa la ConceptSpec y el visual de [concepto]. Crea un ejercicio guiado y otro de transferencia, ambos con rol, decisión y evidencia. Incluye respuesta defendible, distractores derivados de errores comunes, pistas graduadas y feedback específico. Comprueba que ambos pierdan sentido si se oculta la visualización.
 ```
 
-## 6. Crear vertical slice
+## 6. Preparar Enseñar en vivo
 
 ```text
-Lee IDEA.md, docs/PRODUCT_BRIEF.md y docs/PRD.md. Define una vertical slice de MVP que incluya entrada, usuario, flujo principal, salida, datos de prueba, criterios de aceptacion, prueba manual y no objetivos. Debe poder construirse en pocos dias. Actualiza docs/IMPLEMENTATION_PLAN.md y el PRD si hace falta.
+Activa live-teaching-pack-builder. Usa ConceptSpec, LearningModule y PracticeExercise. Crea un LiveTeachingPack con guion, snapshot local, demostración, preguntas, evaluación, cierre, blueprint y plan offline. Codex modifica o verifica código reproducible; Gemini y ChatGPT facilitan o revisan la interpretación. Incluye verificación humana y privacidad. No ejecutes IA desde el HTML ni descargues datos durante clase.
 ```
 
-## 7. Revisar sobreingenieria
+## 7. Revisar precisión técnica
 
 ```text
-Revisa todos los documentos en /docs. Busca autenticacion prematura, integraciones innecesarias, modelos propios, arquitectura distribuida, dashboards extensos, roles multiples o features post-MVP dentro del MVP. Mueve lo que no sea esencial a post-MVP y explica cada reduccion de alcance.
+Activa technical-content-reviewer. Revisa unidad de análisis, variables, tipos, valores, totales, escalas, visualizaciones, métricas, supuestos y conclusiones de todos los artefactos. Detecta causalidad injustificada, leakage, errores temporales y contradicciones entre modos. Reporta severidad, evidencia, impacto y corrección. Bloquea el paquete ante cualquier error crítico.
 ```
 
-## 8. Preparar proyecto para desarrollo
+## 8. Ejecutar QA pedagógica
 
 ```text
-Valida que el paquete documental este listo para iniciar codigo de producto. Usa evals/rubric.md y ambos checklists. Si el promedio es menor a 4, corrige documentos antes de aprobar. Si esta listo, genera un resumen de desarrollo con vertical slice, archivos iniciales recomendados y primer prompt de implementacion. No escribas codigo todavia.
+Activa pedagogy-eval-reviewer. Lee docs/EVAL_SUITE.md y evals/. Puntúa alcance, progresión, exactitud, diseño conceptual, visual, práctica, feedback, preparación docente, coherencia, viabilidad y trazabilidad. Cita evidencia por puntaje. Corrige decisiones raíz y repite la evaluación hasta obtener promedio de 4 o más sin dimensiones en 1, o declara No listo.
 ```
 
-## 9. Crear README final
+## 9. Construir un nivel publicable
 
 ```text
-Con base en IDEA.md y docs/, crea o actualiza README.md para un proyecto MVP derivado. Debe explicar problema, usuario, alcance MVP, vertical slice, como ejecutar el proyecto cuando exista codigo, limitaciones y roadmap post-MVP. No incluyas claims no validados.
+Crea un nivel completo de DataClass Forge. Para cada concepto genera ConceptSpec, LearningModule, ejercicios y LiveTeachingPack. Genera manifest y validation, ejecuta todos los evals y publica únicamente si el promedio es 4 o más, ninguna dimensión está en 1 y los snapshots tienen licencia y hash.
 ```
 
-## 10. Hacer revision QA
+## 10. Evaluar preparación para código
 
 ```text
-Actua como qa-reviewer. Revisa contradicciones entre documentos, exceso de alcance, falta de metricas, skills genericas, evals debiles, arnes sobreingenierizado, ausencia de vertical slice y placeholders vacios. Usa evals/rubric.md, evals/mvp_quality_checklist.md, evals/document_quality_checklist.md y evals/regression_cases.md. Entrega decision: listo, listo con ajustes menores o no listo. Incluye hallazgos con archivo, impacto, correccion aplicada o recomendada, y puntaje por dimension.
+Revisa IDEA.md, docs/, .agents/skills, manifests y evals/. Confirma conteos, hashes, promedio 4 o más, ausencia de bloqueos y placeholders. Si falla, corrige documentos y paquetes. Si pasa, construye `_site/` y verifica el portal.
+```
+
+## 11. Implementar una vertical slice técnica futura
+
+```text
+Este prompt solo puede ejecutarse después de aprobación humana explícita. Lee el paquete documental validado de Histograma y construye una experiencia local autocontenida que conserve objetivo, datos, visual, interacción, práctica y feedback. Incluye cambio de bins, comparación de distribuciones y guía docente. No agregues login, backend, LMS, APIs de IA ni catálogo completo. Prueba en desktop y móvil contra los criterios del paquete.
+```
+
+## 12. Revisión de sobreingeniería
+
+```text
+Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente o cobertura completa del temario. Mantén la fábrica documental, dos niveles estáticos y publicación automática de resultados validados.
 ```

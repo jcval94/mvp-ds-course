@@ -1,0 +1,22 @@
+{
+  "id": "wine-quality",
+  "name": "Wine Quality · UCI",
+  "path": "snapshots/wine_quality.csv",
+  "source_url": "https://archive.ics.uci.edu/static/public/186/wine+quality.zip",
+  "source_page": "https://archive.ics.uci.edu/dataset/186/wine+quality",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "citation": "Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009). Wine Quality [Dataset]. UCI.",
+  "snapshot_date": "2026-06-14",
+  "rows": 6497,
+  "columns": 13,
+  "snapshot_label": "6,497 muestras",
+  "license_display": "CC BY 4.0",
+  "portal_use": "Variación y outliers",
+  "sha256": "7493fdea860730843deab246f51e180382fd7d26a24614ef5e63e39e3a26fe3d",
+  "uses": [
+    "variación",
+    "valores atípicos",
+    "casos raros válidos"
+  ]
+}

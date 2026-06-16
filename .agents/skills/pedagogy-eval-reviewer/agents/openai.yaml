@@ -1,0 +1,4 @@
+interface:
+  display_name: "Revisor pedagógico"
+  short_description: "Evalúa alineación, evidencia, feedback y viabilidad"
+  default_prompt: "Evalúa este paquete contra los evals pedagógicos y emite una decisión."

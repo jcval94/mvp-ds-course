@@ -1,55 +1,54 @@
 # Product Brief
 
-## Instrucciones
+## Nombre
 
-Completa lo que sepas. Si falta informacion, agrega supuestos razonables en la seccion correspondiente.
-Los campos entre corchetes son guias de plantilla; deben resolverse al generar un documento final.
-
-## Nombre provisional
-
-[Nombre corto del MVP]
+[Nombre del material o generador]
 
 ## Resumen ejecutivo
 
-[Una descripcion de 3 a 5 lineas del problema, usuario y solucion minima.]
-
-Ejemplo: "Una herramienta web simple para que docentes expliquen histogramas con datos de ejemplo y narrativa guiada".
-
-## Problema
-
-[Dolor concreto que el MVP resuelve.]
+[Usuario, problema educativo, concepto y solución mínima.]
 
 ## Usuario objetivo
 
-[Primer usuario, no todos los posibles usuarios.]
+[Docente o creador principal y audiencia estudiante.]
+
+## Problema
+
+[Trabajo pedagógico que hoy consume tiempo o produce baja calidad.]
 
 ## Propuesta de valor
 
-[Por que este MVP es valioso ahora.]
+[Resultado observable para el docente.]
+
+## Salidas
+
+- Aprender: [resultado].
+- Ejercitar: [resultado].
+- Enseñar en vivo: [resultado].
 
 ## MVP recomendado
 
-[Una version pequena, construible y verificable.]
+[Paquete documental pequeño y verificable.]
 
-## No objetivos
+## Vertical slice
 
-- [Elemento que queda fuera]
-- [Elemento que queda fuera]
+- Usuario: [usuario].
+- Entrada: [concepto, nivel, contexto y duración].
+- Flujo: [ConceptSpec -> artefactos -> evals].
+- Salida: [paquete].
+- Prueba manual: [verificación].
+- Definition of Done: [criterios].
+- No objetivos: [límites].
 
-## Supuestos razonables
+## Supuestos
 
-- [Supuesto y por que es aceptable]
+- [Supuesto razonable.]
 
 ## Riesgos
 
-- [Riesgo y mitigacion]
+- [Riesgo y mitigación.]
 
-## Proximos pasos
+## Métricas
 
-1. [Siguiente accion]
-
-## Criterio de aceptacion
-
-- El brief permite escribir un PRD sin reabrir discovery completo.
-- Hay una vertical slice implicita o explicita.
-- Los no objetivos reducen alcance real.
+- [Métrica de uso.]
+- [Métrica de calidad.]

@@ -1,0 +1,21 @@
+{
+  "id": "palmer-penguins",
+  "name": "Palmer Penguins",
+  "path": "snapshots/palmer_penguins.csv",
+  "source_url": "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins.csv",
+  "source_page": "https://allisonhorst.github.io/palmerpenguins/",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "citation": "Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago penguin data.",
+  "snapshot_date": "2026-06-14",
+  "rows": 344,
+  "columns": 8,
+  "snapshot_label": "344 filas",
+  "license_display": "CC0",
+  "portal_use": "Resumen y comparación",
+  "sha256": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+  "uses": [
+    "resumen numérico",
+    "comparación visual"
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diseñador de módulos"
+  short_description: "Diseña módulos visuales para aprender ciencia de datos"
+  default_prompt: "Diseña el modo Aprender para esta ConceptSpec."

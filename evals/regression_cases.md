@@ -1,60 +1,92 @@
 # Regression Cases
 
-Estos casos aseguran que la fabrica siga funcionando cuando cambian templates, skills o prompts.
+## Caso 1: Histograma
 
-## Caso 1: App educativa de ciencia de datos
+**Solicitud:** enseñar histogramas a principiantes.
 
-**Idea:** app autocontenida para enseñar histogramas con storytelling.
+**Debe producir:** construcción de bins, forma de distribución, comparación de escenarios, error histograma vs. barras, ejercicio dependiente del visual y feedback.
 
-**Debe producir:** usuario docente o estudiante inicial, flujo de exploracion guiada, dataset pequeno de ejemplo, no objetivos como cuentas, LMS e IA generativa compleja.
+**Debe fallar si:** copia el demo de referencia, solo define el concepto o afirma que existe un número universal de bins.
 
-**Debe fallar si:** propone plataforma educativa completa o cursos multiusuario.
+## Caso 2: Correlación
 
-**Puntaje esperado:** 4 o 5 si la vertical slice es una sola leccion interactiva.
+**Solicitud:** explicar correlación con un caso aplicado.
 
-## Caso 2: Herramienta de contenido con IA
+**Debe producir:** scatterplot, dirección y fuerza, efecto de outlier, diferencia con causalidad y práctica de interpretación.
 
-**Idea:** convertir ideas de videos en guiones cortos y miniaturas.
+**Debe fallar si:** afirma causalidad, usa solo un coeficiente sin visual o ignora relaciones no lineales.
 
-**Debe producir:** flujo idea -> guion -> propuesta de miniatura, revision humana, limites de estilo y no publicacion automatica.
+## Caso 3: Matriz de confusión
 
-**Debe fallar si:** automatiza publicacion sin aprobacion o promete viralidad garantizada.
+**Solicitud:** preparar una clase de métricas de clasificación.
 
-**Puntaje esperado:** 4 o 5 si separa asistencia creativa de publicacion.
+**Debe producir:** TP, TN, FP y FN conectados al dominio, cambio de umbral y costo de errores.
 
-## Caso 3: Dashboard analitico
+**Debe fallar si:** presenta accuracy como métrica universal o intercambia precision y recall.
 
-**Idea:** dashboard interno para priorizar leads comerciales.
+## Caso 4: Clustering
 
-**Debe producir:** carga CSV, scoring simple, razones por lead, exportacion basica, no CRM completo.
+**Solicitud:** crear ejercicio de segmentación.
 
-**Debe fallar si:** requiere integracion Salesforce, modelo predictivo entrenado o permisos complejos en MVP.
+**Debe producir:** escala o distancia, elección de grupos, incertidumbre y clusters como hipótesis.
 
-**Puntaje esperado:** 4 o 5 si el scoring es explicable y revisable.
+**Debe fallar si:** llama clases verdaderas a los clusters o asigna significado causal.
 
-## Caso 4: Automatizacion interna
+## Caso 5: A/B testing
 
-**Idea:** resumir solicitudes internas y asignarlas a responsables.
+**Solicitud:** explicar si B ganó.
 
-**Debe producir:** bandeja simple, clasificacion asistida, humano aprueba asignacion, logs basicos.
+**Debe producir:** tamaños de muestra, efecto, incertidumbre, guardrails y relevancia práctica.
 
-**Debe fallar si:** asigna automaticamente tareas criticas sin revision.
+**Debe fallar si:** declara ganador solo porque una barra es más alta.
 
-**Puntaje esperado:** 4 si mantiene human-in-the-loop y logs simples.
+## Caso 6: Tema demasiado amplio
 
-## Caso 5: Producto SaaS pequeño
+**Solicitud:** enseñar machine learning completo en una clase.
 
-**Idea:** herramienta para freelancers que genera propuestas comerciales desde notas de una llamada.
+**Debe producir:** reducción a un objetivo inicial, prerrequisitos y ruta posterior.
 
-**Debe producir:** plantilla de propuesta, editor, exportacion, no pagos ni multiempresa en MVP.
+**Debe fallar si:** genera un curso superficial o mezcla regresión, clasificación y clustering sin progresión.
 
-**Debe fallar si:** incluye suscripciones, marketplace o CRM en primera version.
+## Caso 7: Narrativa sin aprendizaje
 
-**Puntaje esperado:** 4 o 5 si el flujo termina en propuesta exportable.
+**Solicitud:** crear un caso emocionante de fraude.
 
-## Como usar estos casos
+**Debe producir:** evidencia suficiente, decisión limitada y advertencia de que anomalía no prueba fraude.
 
-1. Copia una idea del caso a `IDEA.md`.
-2. Ejecuta el prompt de generacion documental.
-3. Revisa condiciones "debe producir" y "debe fallar si".
-4. Agrega un nuevo caso cuando una mala salida no sea detectada.
+**Debe fallar si:** la historia permite adivinar la respuesta o acusa a una persona sin evidencia.
+
+## Uso
+
+1. Ejecutar el flujo documental con la solicitud.
+2. Revisar condiciones de éxito y fallo.
+3. Puntuar con `rubric.md`.
+4. Agregar un caso cuando una salida mala pase inadvertida.
+
+## Caso 8: Dataset público sin procedencia
+
+**Solicitud:** usar un CSV encontrado en internet.
+
+**Debe producir:** fuente oficial, licencia, cita, fecha, dimensiones, snapshot y SHA-256.
+
+**Debe fallar si:** enlaza un recurso cambiante durante clase, omite licencia o
+modifica filas sin documentarlo.
+
+## Caso 9: Roles de IA indistinguibles
+
+**Solicitud:** usar Codex y Gemini o ChatGPT durante una clase.
+
+**Debe producir:** Codex para ejecutar o modificar código; Gemini/ChatGPT para
+facilitar, cuestionar o revisar; verificación humana y plan offline.
+
+**Debe fallar si:** ambos reciben el mismo prompt genérico o la clase depende de
+que un modelo responda.
+
+## Caso 10: Publicación de borradores
+
+**Solicitud:** mostrar resultados en GitHub Pages.
+
+**Debe producir:** build desde manifests, validación aprobada, enlaces y hashes.
+
+**Debe fallar si:** un paquete con `status != published`, promedio menor a 4 o
+una dimensión en 1 aparece en `_site/`.

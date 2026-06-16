@@ -1,0 +1,110 @@
+# Paquete: Moda
+
+## Supuestos
+
+- Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
+- Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
+- Dataset: snapshot público fijo `Palmer Penguins`.
+- La IA se usa de forma externa y toda salida requiere verificación humana.
+
+## ConceptSpec
+
+- **ID:** `mode`.
+- **Bloque:** Resumen numérico.
+- **Nivel:** 2, Descripción y visualización.
+- **Prerrequisitos:** variable numérica, datos faltantes, orden y operaciones aritméticas básicas.
+- **Concepto anterior:** Mediana.
+- **Concepto siguiente:** Rango.
+- **Objetivo:** Identificar el valor o categoría con mayor frecuencia.
+- **Definición:** La moda es el valor o categoría que aparece más veces.
+- **Intuición:** Es la opción que acumula más marcas en un conteo.
+- **Error común:** Afirmar que todo conjunto tiene una única moda informativa.
+- **Visual:** Agrupa las masas con varios anchos y localiza el conteo más alto.
+- **Interacción:** Cambiar agrupación.
+- **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
+- **Variables:** `body_mass_g`, numérica continua en gramos.
+- **Dataset:** Palmer Penguins, 344 filas, licencia CC0-1.0.
+- **Fuente:** https://allisonhorst.github.io/palmerpenguins/.
+- **Fecha del snapshot:** 2026-06-14.
+- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Límite:** la visualización describe el snapshot; no identifica causas.
+- **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
+
+## LearningModule
+
+1. Predecir el resultado antes de activar la interacción.
+2. Observar el estado inicial y nombrar la unidad de análisis.
+3. Ejecutar **Cambiar agrupación** y describir qué cambió.
+4. Contrastar la observación con el error común.
+5. Explicar qué conclusión sí permite el snapshot y cuál no.
+
+## PracticeExercise
+
+### Ejercicio guiado
+
+**Evidencia requerida:** Compara las barras de frecuencia y localiza el máximo para la agrupación activa.
+
+**Pregunta:** ¿Qué evidencia identifica la moda en el gráfico de frecuencias?
+
+| Opción | Correcta | Feedback |
+| --- | --- | --- |
+| La barra con mayor conteo. | Sí | La moda corresponde a la frecuencia máxima. |
+| El punto medio del eje. | No | El centro geométrico no determina la frecuencia. |
+| La distancia entre mínimo y máximo. | No | Esa distancia describe el rango. |
+
+**Pista:** Compara alturas, no posiciones centrales.
+
+### Ejercicio de transferencia
+
+**Evidencia requerida:** Cambia el ancho de agrupación y verifica si aparece uno o más máximos.
+
+**Pregunta:** Si dos categorías empatan con el mayor conteo, ¿cómo se describe el resultado?
+
+| Opción | Correcta | Feedback |
+| --- | --- | --- |
+| El conjunto es bimodal para esa variable. | Sí | Dos máximos compartidos producen dos modas. |
+| La moda es el promedio de las categorías. | No | Promediar etiquetas puede carecer de sentido. |
+| No existe ninguna frecuencia. | No | Los conteos siguen existiendo aunque haya empate. |
+
+**Pista:** Busca cuántos máximos hay.
+
+## LiveTeachingPack
+
+| Minutos | Actividad |
+| --- | --- |
+| 0-5 | Presentar fuente, licencia, unidad de análisis y pregunta |
+| 5-12 | Pedir predicción y ejecutar la interacción local |
+| 12-20 | Usar Codex para modificar o verificar la demo |
+| 20-27 | Usar Gemini o ChatGPT para cuestionar la interpretación |
+| 27-33 | Resolver los dos ejercicios con evidencia |
+| 33-35 | Cierre y límite de la conclusión |
+
+### Roles de IA
+
+- **Codex:** ejecuta o modifica código reproducible sin cambiar el snapshot.
+- **Gemini o ChatGPT:** facilita, critica e interpreta la evidencia; no ejecuta la decisión.
+- **Verificación humana:** revisar cálculos, fuente, supuestos y conclusión antes de proyectar.
+- **Privacidad:** no pegar datos sensibles ni credenciales.
+- **Plan offline:** usar el HTML, el CSV local y las preguntas impresas.
+
+### Prompts
+
+**Codex**
+
+> Trabaja como programador en vivo. Usa el snapshot público indicado y crea una demo local reproducible para «Moda». Objetivo: Identificar el valor o categoría con mayor frecuencia. Muestra primero una predicción, luego modifica un único parámetro, conserva la fuente y licencia visibles y añade una comprobación automática. No uses APIs ni inventes filas. Termina enumerando archivos, supuestos y criterios de aceptación.
+
+**Gemini**
+
+> Facilita una discusión socrática sobre «Moda». Objetivo: Identificar el valor o categoría con mayor frecuencia. Usa únicamente la evidencia visible del snapshot. Formula cuatro preguntas progresivas, espera una predicción antes de explicar, detecta dos errores plausibles y pide contrastar la salida de Codex. No afirmes causalidad.
+
+**ChatGPT**
+
+> Actúa como revisor pedagógico durante una clase sobre «Moda». Objetivo: Identificar el valor o categoría con mayor frecuencia. Revisa la explicación y la demo producida por Codex, señala cualquier conclusión que exceda los datos y propone dos preguntas de transferencia con respuesta esperada y feedback. No sustituyas la decisión del grupo.
+
+## Validación
+
+- Los dos ejercicios requieren observar el visual.
+- Cada opción recibe feedback específico.
+- La fuente y licencia son visibles.
+- No se afirma causalidad.
+- Existe una ruta completa sin IA ni red.

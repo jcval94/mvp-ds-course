@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diseñador de ejercicios"
+  short_description: "Crea prácticas basadas en evidencia y feedback"
+  default_prompt: "Diseña un ejercicio que requiera interpretar la evidencia visual."

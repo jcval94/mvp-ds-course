@@ -1,75 +1,88 @@
 # Project Structure
 
-## Estructura de esta fabrica
+## Estructura de DataClass Forge
 
 ```text
-mvp-agent-factory/
-├── README.md
-├── IDEA.md
-├── AGENTS.md
-├── CLAUDE.md
-├── .gitignore
-├── docs/
-├── templates/
-├── .agents/
-│   └── skills/
-├── evals/
-├── examples/
-└── scripts/
+mvp-ds-course/
+|-- README.md
+|-- IDEA.md
+|-- AGENTS.md
+|-- CLAUDE.md
+|-- docs/
+|   |-- PRODUCT_BRIEF.md
+|   |-- PRD.md
+|   |-- CURRICULUM_MAP.md
+|   |-- AGENT_OPERATING_SPEC.md
+|   |-- SKILL_MAP.md
+|   |-- SKILL_CONTRACTS.md
+|   |-- EVAL_SUITE.md
+|   |-- HARNESS_SPEC.md
+|   |-- IMPLEMENTATION_PLAN.md
+|   `-- CODEX_CLAUDE_PROMPTS.md
+|-- .agents/skills/
+|-- evals/
+|-- templates/
+|-- examples/
+|-- generated/
+|-- datasets/
+|   |-- registry.json
+|   |-- metadata/
+|   `-- snapshots/
+|-- site/
+|-- .github/workflows/pages.yml
+|-- reference/
+`-- scripts/
 ```
 
-## Proposito de cada carpeta
+## Responsabilidades
 
-- `README.md`: explicacion general y flujo de uso.
-- `IDEA.md`: entrada editable para una idea de MVP.
-- `AGENTS.md`: instrucciones principales para Codex.
-- `CLAUDE.md`: instrucciones equivalentes para Claude Code.
-- `.gitignore`: exclusiones basicas para Python, entornos locales y archivos temporales.
-- `docs/`: documentos base y outputs esperados.
-- `templates/`: plantillas reutilizables para nuevos MVPs.
-- `.agents/skills/`: skills especializadas para agentes.
-- `evals/`: rubricas, checklists y regresiones.
-- `examples/`: ideas de ejemplo y resumen esperado.
-- `scripts/`: utilidades simples sin dependencias.
+- `IDEA.md`: misión, usuario, restricciones e inspiración.
+- `docs/CURRICULUM_MAP.md`: temario, niveles y prerrequisitos.
+- `.agents/skills/`: flujos ejecutables por artefacto.
+- `evals/`: gates curriculares, técnicos, pedagógicos y documentales.
+- `templates/`: esqueletos para nuevos paquetes.
+- `examples/`: entradas y resultados de referencia.
+- `generated/`: proyectos derivados; no son fuente canónica.
+- `datasets/`: snapshots públicos fijos, metadatos, licencias y hashes.
+- `site/`: fuente del portal minimalista de resultados.
+- `_site/`: build descartable para GitHub Pages.
+- `.github/workflows/pages.yml`: validación y despliegue automático.
+- `reference/`: demos históricas o contexto no bloqueante.
+- `scripts/`: scaffolding y validaciones simples.
 
-## Estructura recomendada para proyectos generados
+## Estructura de un proyecto derivado
 
 ```text
-new-mvp-project/
-├── README.md
-├── IDEA.md
-├── AGENTS.md
-├── CLAUDE.md
-├── .gitignore
-├── docs/
-├── .agents/
-│   └── skills/
-├── evals/
-├── examples/
-└── app/
+material-project/
+|-- README.md
+|-- IDEA.md
+|-- AGENTS.md
+|-- CLAUDE.md
+|-- docs/
+|   |-- CURRICULUM_MAP.md
+|   `-- packages/
+|       `-- concept-name/
+|           |-- CONCEPT_SPEC.md
+|           |-- LEARNING_MODULE.md
+|           |-- PRACTICE_EXERCISE.md
+|           `-- LIVE_TEACHING_PACK.md
+|-- .agents/skills/
+|-- evals/
+|-- examples/
+`-- app/
 ```
 
-## Criterio de separacion
+## Regla de separación
 
-- La fabrica define metodologia.
-- El proyecto generado aplica la metodologia a una idea concreta.
-- La carpeta `app/` solo debe aparecer en proyectos derivados cuando se apruebe construir producto.
-- El MVP documental puede existir sin `app/`.
+- La raíz define metodología y temario.
+- Los paquetes documentales aplican la metodología.
+- `generated/` conserva derivados o prototipos.
+- `app/` solo se usa después de aprobación explícita.
 
-## Estructura minima que crea el script
+## Convenciones
 
-`scripts/scaffold_mvp.py` crea una base ligera con:
-
-- `README.md`, `IDEA.md`, `AGENTS.md`, `CLAUDE.md` y `.gitignore`.
-- `docs/README.md` como destino documental.
-- `evals/rubric.md`, `evals/mvp_quality_checklist.md` y `evals/document_quality_checklist.md`.
-- `.agents/skills/README.md` para skills futuras.
-- `examples/README.md`.
-- `app/README.md` reservado para codigo de producto aprobado.
-
-## Reglas para mantener orden
-
-- No mezclar ejemplos con documentos finales.
-- No duplicar instrucciones entre `AGENTS.md` y cada skill salvo reglas criticas.
-- Mantener evals pequenos pero exigentes.
-- Versionar cambios de plantillas junto con actualizacion de ejemplos.
+- Un directorio por concepto cuando existan artefactos reales.
+- Una `ConceptSpec` compartida por los tres modos.
+- Snapshots públicos registrados y datos sintéticos etiquetados.
+- Evals versionados junto con cambios de contratos.
+- Nada en `generated/` reemplaza una decisión de `docs/`.

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "level": 1,
+  "title": "Fundamentos",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 18,
+  "exercise_count": 18,
+  "prompt_count": 54,
+  "blocks": [
+    {
+      "id": "literacy",
+      "title": "Alfabetización de datos",
+      "href": "alfabetizacion.html",
+      "concept_count": 5,
+      "exercise_count": 5
+    },
+    {
+      "id": "types",
+      "title": "Tipos de variables",
+      "href": "tipos-variables.html",
+      "concept_count": 5,
+      "exercise_count": 5
+    },
+    {
+      "id": "quality",
+      "title": "Calidad de datos",
+      "href": "calidad-datos.html",
+      "concept_count": 4,
+      "exercise_count": 4
+    },
+    {
+      "id": "preparation",
+      "title": "Preparación básica",
+      "href": "preparacion-basica.html",
+      "concept_count": 4,
+      "exercise_count": 4
+    }
+  ],
+  "datasets": [],
+  "validation": "validation.json",
+  "updated_at": "2026-06-14"
+}

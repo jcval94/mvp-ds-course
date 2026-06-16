@@ -1,86 +1,150 @@
 # AGENTS.md
 
-Este repositorio no es un producto final. Es una fabrica de documentacion y arquitectura para MVPs construidos con agentes.
+Este repositorio es una fábrica documental para crear material educativo de ciencia de datos con agentes. No es un LMS ni una aplicación final.
 
-Tu trabajo principal es producir documentos claros, consistentes y accionables antes de generar codigo de producto. No programes una aplicacion final salvo que el usuario lo solicite explicitamente despues de completar y validar los documentos.
+Tu trabajo principal es transformar conceptos curriculares en materiales claros, visuales, técnicamente correctos y accionables antes de generar código de producto.
 
 ## Principios
 
-- Lee `IDEA.md` antes de generar o modificar documentos.
+- Lee `IDEA.md` antes de actuar.
+- Usa `docs/CURRICULUM_MAP.md` para nivel y prerrequisitos.
 - Usa `/templates` como base estructural.
-- Usa `.agents/skills` cuando la tarea coincida con una skill.
-- Valida los documentos contra `/evals`.
-- Evita codigo de producto salvo solicitud explicita.
-- Documenta supuestos en cada documento relevante.
-- Prefiere MVPs pequenos, verificables y construibles.
+- Activa `.agents/skills` cuando la tarea coincida con una skill.
+- Valida contra `/evals`.
+- Evita código de producto salvo solicitud explícita después de validar documentos.
+- Documenta supuestos en cada artefacto relevante.
+- Prefiere una lección profunda y verificable sobre muchos temas superficiales.
+- Mantén consistencia entre objetivo, visualización, ejercicio, feedback y guía docente.
 - Genera siempre una vertical slice recomendada.
-- Mantiene consistencia entre brief, PRD, spec de agente, skills, evals y plan.
-- No dejes placeholders vacios ni secciones sin criterio.
-- Pregunta solo cuando una decision bloquee el avance o pueda causar dano material.
-- Termina cada tarea con resumen de archivos modificados y proximos pasos.
-- Mantiene una linea de trazabilidad: `IDEA.md` -> Product Brief -> PRD -> Agent Spec -> Skills -> Evals -> Harness -> Plan -> Prompts.
+- No dejes placeholders vacíos ni secciones sin criterio.
+- Pregunta solo cuando una decisión bloquee el avance o pueda causar daño material.
+
+## Línea de trazabilidad
+
+```text
+IDEA.md
+-> Product Brief
+-> PRD
+-> Curriculum Map
+-> Agent Spec
+-> Skills
+-> Evals
+-> Harness
+-> Implementation Plan
+-> Prompts
+-> ConceptSpec
+-> LearningModule / PracticeExercise / LiveTeachingPack
+```
 
 ## Orden obligatorio de trabajo
 
 1. Leer `IDEA.md`.
-2. Identificar tipo de MVP.
+2. Identificar usuario, concepto, nivel y resultado de aprendizaje.
 3. Crear supuestos razonables.
-4. Generar o actualizar `PRODUCT_BRIEF.md`.
-5. Generar o actualizar `PRD.md`.
-6. Generar o actualizar `AGENT_OPERATING_SPEC.md`.
-7. Generar o actualizar `SKILL_MAP.md`.
-8. Generar o actualizar `SKILL_CONTRACTS.md`.
-9. Generar o actualizar `EVAL_SUITE.md`.
-10. Generar o actualizar `HARNESS_SPEC.md`.
-11. Generar `IMPLEMENTATION_PLAN.md`.
-12. Generar `CODEX_CLAUDE_PROMPTS.md`.
-13. Validar consistencia.
-14. Reportar resultado.
+4. Generar o actualizar `docs/PRODUCT_BRIEF.md`.
+5. Generar o actualizar `docs/PRD.md`.
+6. Generar o actualizar `docs/CURRICULUM_MAP.md`.
+7. Generar o actualizar `docs/AGENT_OPERATING_SPEC.md`.
+8. Generar o actualizar `docs/SKILL_MAP.md`.
+9. Generar o actualizar `docs/SKILL_CONTRACTS.md`.
+10. Sincronizar `.agents/skills/*/SKILL.md`.
+11. Generar o actualizar `docs/EVAL_SUITE.md` y `/evals`.
+12. Generar o actualizar `docs/HARNESS_SPEC.md`.
+13. Generar `docs/IMPLEMENTATION_PLAN.md`.
+14. Generar `docs/CODEX_CLAUDE_PROMPTS.md`.
+15. Validar consistencia, precisión técnica y pedagogía.
+16. Reportar resultado.
 
-## Como inferir
+## Artefactos educativos
 
-Si falta informacion, crea un supuesto razonable y marcalo como supuesto. Ejemplos:
+### `ConceptSpec`
 
-- Si el usuario objetivo es difuso, elige el usuario que sufre el problema con mayor frecuencia.
-- Si la plataforma no esta definida, sugiere la opcion mas barata de validar.
-- Si el alcance es grande, reduce a una tarea principal y un resultado medible.
-- Si falta metrica, propone una metrica de uso y una metrica de resultado.
+Fuente de verdad del concepto: bloque, nivel, prerrequisitos, objetivo, definición, intuición, errores, visual, interacción, dataset y criterio de dominio.
 
-## Validacion obligatoria
+### `LearningModule`
+
+Modo Aprender: activación previa, intuición, explicación progresiva, visualización, experimento, error común, checkpoint y cierre.
+
+### `PracticeExercise`
+
+Modo Ejercitar: rol, contexto, evidencia visual, pregunta, distractores plausibles, pistas, feedback específico y conclusión.
+
+### `LiveTeachingPack`
+
+Modo Enseñar en vivo: guion, dataset, demo, preguntas, evaluación, blueprint, prompts, checklists y plan offline.
+
+## Cómo inferir
+
+Si falta información no crítica:
+
+- Asume profesor o creador de cursos como usuario principal.
+- Asume nivel principiante.
+- Usa una duración de 30 a 45 minutos.
+- Prefiere un snapshot público pequeño con fuente, licencia, fecha y SHA-256;
+  usa un dataset sintético etiquetado cuando no exista una alternativa adecuada.
+- Reduce a un objetivo de aprendizaje principal.
+- Propón una interacción que revele el mecanismo del concepto.
+- Marca cada inferencia como supuesto.
+
+## Inspiración de complejidad
+
+`concepro_histograma.html` y `ejercicios_histograma.html` son inspiración, no base.
+
+Extrae patrones:
+
+- construcción visual paso a paso;
+- manipulación de parámetros;
+- comparación de escenarios;
+- narrativa al servicio de una decisión;
+- preguntas dependientes de evidencia;
+- feedback por error plausible.
+
+No copies estructura, textos, casos ni estética como solución universal.
+
+## Validación obligatoria
 
 Antes de reportar listo, revisa:
 
-- `evals/rubric.md`: ninguna dimension puede quedar en 1 y el promedio objetivo es 4 o mas.
-- `evals/mvp_quality_checklist.md`: debe existir usuario, problema, resultado, no objetivos y vertical slice.
-- `evals/document_quality_checklist.md`: no debe haber contradicciones entre brief, PRD, plan y prompts.
-- `evals/regression_cases.md`: si la idea se parece a un caso, respeta sus condiciones de fallo.
+- `evals/rubric.md`: ninguna dimensión en 1 y promedio de 4 o más.
+- `evals/mvp_quality_checklist.md`: usuario, problema, resultado, no objetivos y vertical slice.
+- `evals/document_quality_checklist.md`: ausencia de contradicciones.
+- `evals/curriculum_quality_checklist.md`: nivel y prerrequisitos.
+- `evals/pedagogy_quality_checklist.md`: visual, práctica y feedback.
+- `evals/technical_content_checklist.md`: datos, métricas y conclusiones.
+- Verifica procedencia, licencia y hash de cada snapshot público.
+- `evals/regression_cases.md`: condiciones específicas por concepto.
 
-Si una validacion falla, corrige documentos antes de pedir aprobacion.
+Si una validación falla, corrige la decisión raíz y propaga el cambio antes de pedir aprobación.
 
 ## Reglas anti-placeholder
 
-No dejes secciones con `TBD`, "pendiente", "por definir", corchetes sin resolver o contenido vacio fuera de `/templates`. Si falta informacion, escribe un supuesto razonable o una pregunta bloqueante claramente marcada.
+No dejes `TBD`, "pendiente", "por definir", corchetes sin resolver o contenido vacío fuera de `/templates`. Si falta información, escribe un supuesto razonable o una pregunta bloqueante claramente marcada.
 
-## Cuando preguntar
+## Cuándo preguntar
 
 Pregunta solo si:
 
-- Hay dos direcciones incompatibles y ambas cambian el MVP.
-- Falta informacion legal, medica, financiera o de seguridad critica.
-- El usuario pide una integracion que requiere credenciales reales.
-- No se puede definir usuario, problema ni resultado con la informacion disponible.
+- dos objetivos incompatibles cambian el material;
+- faltan datos reales requeridos o permisos;
+- existe riesgo legal, médico, financiero, de privacidad o seguridad;
+- se solicita evaluación formal automatizada;
+- no puede definirse concepto, usuario ni resultado.
 
-## Reglas de salida
+## Prohibiciones
 
-Cada respuesta final debe incluir:
+- No crear una app completa durante la fase documental.
+- No agregar LMS, cuentas, pagos o seguimiento de estudiantes.
+- No agregar dependencias innecesarias.
+- No ejecutar IA desde una futura app local en el MVP.
+- No publicar paquetes cuyo manifest o validación no estén aprobados.
+- No aceptar visualizaciones decorativas.
+- No producir ejercicios respondibles sin mirar la evidencia.
+- No usar feedback limitado a correcto o incorrecto.
+- No afirmar causalidad sin diseño o evidencia suficiente.
+- No producir prompts vagos.
+- No aceptar documentos contradictorios.
 
-- Archivos creados o modificados.
-- Supuestos principales.
-- Riesgos relevantes.
-- Resultado de validacion contra evals.
-- Proxima vertical slice recomendada.
-
-## Formato minimo de vertical slice
+## Formato mínimo de vertical slice
 
 Toda vertical slice debe incluir:
 
@@ -90,12 +154,14 @@ Toda vertical slice debe incluir:
 - Salida.
 - Prueba manual.
 - Definition of Done.
-- No objetivos de la slice.
+- No objetivos.
 
-## Prohibiciones
+## Reglas de salida
 
-- No crear apps completas durante la fase documental.
-- No agregar dependencias innecesarias.
-- No sobreingenierizar con microservicios, colas, modelos propios o autenticacion si el MVP no lo requiere.
-- No producir prompts vagos.
-- No aceptar documentos contradictorios.
+Cada respuesta final debe incluir:
+
+- archivos creados o modificados;
+- supuestos principales;
+- riesgos relevantes;
+- resultado de validación contra evals;
+- próxima vertical slice recomendada.

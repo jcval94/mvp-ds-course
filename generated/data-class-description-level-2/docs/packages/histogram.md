@@ -1,0 +1,110 @@
+# Paquete: Histograma
+
+## Supuestos
+
+- Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
+- Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
+- Dataset: snapshot público fijo `Bike Sharing Dataset · UCI`.
+- La IA se usa de forma externa y toda salida requiere verificación humana.
+
+## ConceptSpec
+
+- **ID:** `histogram`.
+- **Bloque:** Distribuciones.
+- **Nivel:** 2, Descripción y visualización.
+- **Prerrequisitos:** variable numérica, frecuencia, rango y lectura de ejes.
+- **Concepto anterior:** Percentiles.
+- **Concepto siguiente:** Densidad.
+- **Objetivo:** Construir e interpretar frecuencias de una variable numérica por intervalos.
+- **Definición:** Un histograma agrupa valores numéricos continuos en intervalos contiguos.
+- **Intuición:** Es una vista comprimida de cuántas observaciones caen en cada tramo.
+- **Error común:** Confundirlo con barras categóricas o leer cada barra como una observación.
+- **Visual:** Ajusta el número de bins sin cambiar los 731 días observados.
+- **Interacción:** Cambiar intervalos.
+- **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
+- **Variables:** `cnt`, conteo entero de alquileres diarios.
+- **Dataset:** Bike Sharing Dataset · UCI, 731 filas, licencia CC BY 4.0.
+- **Fuente:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset.
+- **Fecha del snapshot:** 2026-06-14.
+- **SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`.
+- **Límite:** la visualización describe el snapshot; no identifica causas.
+- **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
+
+## LearningModule
+
+1. Predecir el resultado antes de activar la interacción.
+2. Observar el estado inicial y nombrar la unidad de análisis.
+3. Ejecutar **Cambiar intervalos** y describir qué cambió.
+4. Contrastar la observación con el error común.
+5. Explicar qué conclusión sí permite el snapshot y cuál no.
+
+## PracticeExercise
+
+### Ejercicio guiado
+
+**Evidencia requerida:** Compara 7, 12 y 22 bins y verifica que n=731 permanezca constante.
+
+**Pregunta:** Al pasar de pocos a muchos bins, ¿qué permanece igual?
+
+| Opción | Correcta | Feedback |
+| --- | --- | --- |
+| El dataset y sus 731 días. | Sí | Solo cambia la agrupación visual. |
+| La altura de cada barra. | No | Las frecuencias se redistribuyen entre más barras. |
+| El ancho de cada intervalo. | No | Más bins producen intervalos más estrechos. |
+
+**Pista:** Distingue datos de representación.
+
+### Ejercicio de transferencia
+
+**Evidencia requerida:** Usa la altura de las barras del extremo derecho para justificar la frecuencia de alquileres altos.
+
+**Pregunta:** ¿Qué evidencia permite afirmar que los alquileres altos son poco frecuentes?
+
+| Opción | Correcta | Feedback |
+| --- | --- | --- |
+| Las barras del extremo alto tienen conteos pequeños. | Sí | La altura representa frecuencia por intervalo. |
+| El eje usa color teal. | No | El color no aporta frecuencia. |
+| La primera barra está a la izquierda. | No | La posición sola no indica cuántos días hay. |
+
+**Pista:** Combina posición y altura.
+
+## LiveTeachingPack
+
+| Minutos | Actividad |
+| --- | --- |
+| 0-5 | Presentar fuente, licencia, unidad de análisis y pregunta |
+| 5-12 | Pedir predicción y ejecutar la interacción local |
+| 12-20 | Usar Codex para modificar o verificar la demo |
+| 20-27 | Usar Gemini o ChatGPT para cuestionar la interpretación |
+| 27-33 | Resolver los dos ejercicios con evidencia |
+| 33-35 | Cierre y límite de la conclusión |
+
+### Roles de IA
+
+- **Codex:** ejecuta o modifica código reproducible sin cambiar el snapshot.
+- **Gemini o ChatGPT:** facilita, critica e interpreta la evidencia; no ejecuta la decisión.
+- **Verificación humana:** revisar cálculos, fuente, supuestos y conclusión antes de proyectar.
+- **Privacidad:** no pegar datos sensibles ni credenciales.
+- **Plan offline:** usar el HTML, el CSV local y las preguntas impresas.
+
+### Prompts
+
+**Codex**
+
+> Trabaja como programador en vivo. Usa el snapshot público indicado y crea una demo local reproducible para «Histograma». Objetivo: Construir e interpretar frecuencias de una variable numérica por intervalos. Muestra primero una predicción, luego modifica un único parámetro, conserva la fuente y licencia visibles y añade una comprobación automática. No uses APIs ni inventes filas. Termina enumerando archivos, supuestos y criterios de aceptación.
+
+**Gemini**
+
+> Facilita una discusión socrática sobre «Histograma». Objetivo: Construir e interpretar frecuencias de una variable numérica por intervalos. Usa únicamente la evidencia visible del snapshot. Formula cuatro preguntas progresivas, espera una predicción antes de explicar, detecta dos errores plausibles y pide contrastar la salida de Codex. No afirmes causalidad.
+
+**ChatGPT**
+
+> Actúa como revisor pedagógico durante una clase sobre «Histograma». Objetivo: Construir e interpretar frecuencias de una variable numérica por intervalos. Revisa la explicación y la demo producida por Codex, señala cualquier conclusión que exceda los datos y propone dos preguntas de transferencia con respuesta esperada y feedback. No sustituyas la decisión del grupo.
+
+## Validación
+
+- Los dos ejercicios requieren observar el visual.
+- Cada opción recibe feedback específico.
+- La fuente y licencia son visibles.
+- No se afirma causalidad.
+- Existe una ruta completa sin IA ni red.

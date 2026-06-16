@@ -1,143 +1,143 @@
 # Harness Spec
 
-## Responsabilidad del arnes
+## Responsabilidad
 
-El arnes minimo coordina el flujo documental: leer idea, enrutar skills, generar documentos, validar calidad y producir una recomendacion de vertical slice.
+El harness coordina la generación documental de material educativo: recibe una solicitud, resuelve currículo y concepto, enruta skills, valida artefactos y entrega un paquete revisable. En el MVP es un protocolo auditable basado en archivos, no un servidor.
 
-En el MVP, el arnes es una especificacion operativa y una lista de pasos auditables. No necesita runtime, servidor, base de datos ni cola de tareas.
+## Entrada mínima
 
-## Flujo de orquestacion
+- Concepto o resultado deseado.
+- Nivel o supuesto de nivel principiante.
+- Modo solicitado.
+- Contexto o autorización para inferirlo.
+- Duración o supuesto de 30 a 45 minutos.
 
-1. Leer `IDEA.md`.
-2. Detectar tipo de MVP.
-3. Seleccionar skills necesarias.
-4. Generar documentos en orden.
-5. Ejecutar checklists de `evals/`.
-6. Registrar supuestos, riesgos y validaciones.
-7. Emitir salida final.
+## Estado mínimo
 
-## Estado minimo
+- `request`: solicitud normalizada.
+- `curriculumDecision`: bloque, nivel y prerrequisitos.
+- `conceptSpec`: fuente conceptual.
+- `artifacts`: Aprender, Ejercitar y/o Enseñar en vivo.
+- `assumptions`: inferencias explícitas.
+- `validation`: puntajes, bloqueos y correcciones.
+- `status`: borrador, en revisión, listo o no listo.
 
-El arnes solo necesita mantener estos estados en archivos:
+## Flujo
 
-- Idea leida.
-- Supuestos creados.
-- Documentos generados.
-- Evals ejecutados.
-- Ajustes pendientes.
-- Vertical slice aprobada o bloqueada.
+1. Leer fuentes canónicas.
+2. Normalizar entrada y supuestos.
+3. Ejecutar `curriculum-architect`.
+4. Crear o cargar `ConceptSpec`.
+5. Enrutar a las skills de modo.
+6. Ejecutar revisión técnica.
+7. Ejecutar revisión pedagógica.
+8. Si falla, corregir la decisión raíz y regenerar dependencias.
+9. Emitir paquete y reporte.
 
-## Routing entre skills
+## Routing
 
-- Producto: `mvp-product-strategist`.
-- Requisitos: `prd-writer`.
-- Agente: `agent-architect`.
-- Skills: `skill-designer`.
-- Evals: `eval-designer`.
-- Arnes: `harness-designer`.
-- Prompts: `codex-prompt-builder`.
-- QA: `qa-reviewer`.
+- Temario o prerrequisitos -> `curriculum-architect`.
+- Concepto nuevo o modificado -> `concept-spec-designer`.
+- Aprender -> `learning-module-designer`.
+- Ejercitar -> `practice-exercise-designer`.
+- Enseñar en vivo -> `live-teaching-pack-builder`.
+- Cualquier paquete -> `technical-content-reviewer`.
+- Cierre -> `pedagogy-eval-reviewer`.
 
 ## Permisos
 
-MVP:
+Permitido:
 
-- Leer y escribir archivos Markdown del proyecto.
-- Crear carpetas documentales.
-- Ejecutar script local sin red.
+- leer y escribir Markdown del repositorio;
+- leer ejemplos y demos como inspiración;
+- crear datos sintéticos;
+- leer snapshots públicos versionados y sus metadatos;
+- ejecutar validaciones locales;
+- generar prompts y blueprints no ejecutados.
 
-Fuera del MVP:
+Requiere aprobación:
 
-- Modificar repos remotos.
-- Usar credenciales.
-- Desplegar servicios.
+- escribir código de producto;
+- descargar o renovar datos reales;
+- acceder a red o servicios externos;
+- publicar material;
+- modificar repositorios remotos.
 
-## Memoria
+## Memoria y trazabilidad
 
-La memoria minima vive en archivos versionados:
+- `IDEA.md`: misión y restricciones.
+- `PRODUCT_BRIEF.md`: usuario y valor.
+- `PRD.md`: contratos y slice.
+- `CURRICULUM_MAP.md`: progresión.
+- `SKILL_*`: responsabilidades.
+- `evals/`: criterios de paso.
+- `IMPLEMENTATION_PLAN.md`: secuencia.
+- `CODEX_CLAUDE_PROMPTS.md`: ejecución reproducible.
 
-- `IDEA.md` para contexto inicial.
-- `docs/` para decisiones.
-- `evals/` para criterios.
-- Resumen final de cada ejecucion en respuesta del agente.
+Cada artefacto debe registrar su concepto, objetivo, nivel y supuestos.
 
 ## Logs
 
-Registrar en la respuesta final:
+El reporte final registra:
 
-- Skills usadas.
-- Archivos modificados.
-- Supuestos creados.
-- Validaciones ejecutadas.
-- Riesgos pendientes.
-
-## Validaciones
-
-- Checklist documental.
-- Checklist de MVP.
-- Rubrica 1 a 5.
-- Revision de contradicciones.
-- Verificacion de vertical slice.
-
-## Criterio de paso
-
-El arnes puede recomendar desarrollo solo si:
-
-- No hay bloqueos automaticos de `docs/EVAL_SUITE.md`.
-- El promedio de rubrica es 4 o mayor.
-- La vertical slice tiene prueba manual.
-- El humano aprueba iniciar codigo.
+- skills activadas;
+- archivos modificados;
+- supuestos;
+- validaciones y puntajes;
+- bloqueos encontrados y correcciones;
+- riesgos restantes;
+- siguiente vertical slice.
 
 ## Reintentos
 
-Si una validacion falla:
+Si falla una evaluación:
 
-1. Identificar documento afectado.
-2. Corregir la decision raiz.
-3. Propagar cambios a documentos dependientes.
-4. Repetir QA.
+1. Identificar la decisión raíz.
+2. Corregir currículo o `ConceptSpec`.
+3. Regenerar artefactos dependientes.
+4. Repetir revisión técnica.
+5. Repetir revisión pedagógica.
+
+Máximo recomendado: dos reintentos automáticos antes de solicitar revisión humana por ambigüedad o conflicto.
 
 ## Manejo de errores
 
-- Si falta informacion no bloqueante, inferir y documentar.
-- Si falta informacion bloqueante, preguntar con una sola pregunta clara.
-- Si hay contradiccion, priorizar documentos tempranos del flujo.
-- Si el alcance crece, moverlo a post-MVP.
-
-## Guardrails
-
-- No construir producto antes de documentos.
-- No crear dependencias externas.
-- No introducir automatizaciones irreversibles.
-- No aprobar documentos sin evals.
+- Falta de nivel -> asumir principiante.
+- Falta de dataset -> elegir un snapshot público licenciado; si no existe,
+  generar uno sintético reproducible y etiquetado.
+- Tema demasiado amplio -> elegir el primer objetivo curricular.
+- Concepto sin visual útil -> proponer comparación, simulación o predicción antes de revelar; si sigue sin aplicar, justificar.
+- Contradicción entre modos -> priorizar `ConceptSpec` y regenerar.
+- Error técnico -> bloquear publicación y corregir todas las dependencias.
 
 ## Human-in-the-loop
 
-El humano debe aprobar:
+El humano confirma:
 
-- Supuestos criticos.
-- Vertical slice.
-- Inicio de codigo de producto.
-- Uso de datos reales.
-- Cambios de alcance.
+- audiencia y objetivo cuando cambian el alcance;
+- precisión en dominios de alto impacto;
+- uso de datos reales;
+- licencias y renovación de snapshots;
+- aceptación de la vertical slice;
+- transición de documentación a código.
 
-## Salida final esperada
+## Fuera del MVP
 
-```text
-Paquete documental generado.
-Skills usadas:
-Validaciones:
-Puntaje estimado:
-Vertical slice recomendada:
-Riesgos:
-Proximos pasos:
-```
-
-## Fuera del arnes en el MVP
-
-- Interfaz visual.
+- Base de datos.
 - Cola de tareas.
-- Persistencia en base de datos.
-- Multiagente automatico.
-- Despliegue.
-- Integraciones con LLM externas.
+- Autenticación.
+- Telemetría de estudiantes.
+- Orquestación multiagente autónoma.
+- Ejecución de LLMs o notebooks desde una app.
+
+## Criterio de paso
+
+El harness recomienda uso o desarrollo solo cuando:
+
+- todos los artefactos requeridos existen;
+- no hay bloqueos automáticos;
+- el promedio es 4 o más;
+- ninguna dimensión obtiene 1;
+- la prueba manual es reproducible;
+- el humano aprueba la siguiente fase.
+- el manifest tiene estado `published` y su `validation.json` está aprobado.

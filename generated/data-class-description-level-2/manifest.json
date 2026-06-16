@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "level": 2,
+  "title": "Descripción y visualización",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 21,
+  "exercise_count": 42,
+  "prompt_count": 63,
+  "blocks": [
+    {
+      "id": "summary",
+      "title": "Resumen numérico",
+      "href": "resumen-numerico.html",
+      "concept_count": 7,
+      "exercise_count": 14
+    },
+    {
+      "id": "distribution",
+      "title": "Distribuciones",
+      "href": "distribuciones.html",
+      "concept_count": 6,
+      "exercise_count": 12
+    },
+    {
+      "id": "comparison",
+      "title": "Comparación visual",
+      "href": "comparacion-visual.html",
+      "concept_count": 4,
+      "exercise_count": 8
+    },
+    {
+      "id": "outliers",
+      "title": "Valores atípicos",
+      "href": "valores-atipicos.html",
+      "concept_count": 4,
+      "exercise_count": 8
+    }
+  ],
+  "concepts": [
+    {
+      "id": "mean",
+      "title": "Media",
+      "block": "Resumen numérico",
+      "href": "resumen-numerico.html?concept=mean",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "median",
+      "title": "Mediana",
+      "block": "Resumen numérico",
+      "href": "resumen-numerico.html?concept=median",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "mode",
+      "title": "Moda",
+      "block": "Resumen numérico",
+      "href": "resumen-numerico.html?concept=mode",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "range",
+      "title": "Rango",
+      "block": "Resumen numérico",
+      "href": "resumen-numerico.html?concept=range",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "variance",
+      "title": "Varianza",
+      "block": "Resumen numérico",
+      "href": "resumen-numerico.html?concept=variance",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "standard-deviation",
+      "title": "Desviación estándar",
+      "block": "Resumen numérico",
+      "href": "resumen-numerico.html?concept=standard-deviation",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "percentiles",
+      "title": "Percentiles",
+      "block": "Resumen numérico",
+      "href": "resumen-numerico.html?concept=percentiles",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "histogram",
+      "title": "Histograma",
+      "block": "Distribuciones",
+      "href": "distribuciones.html?concept=histogram",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "density",
+      "title": "Densidad",
+      "block": "Distribuciones",
+      "href": "distribuciones.html?concept=density",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "shape",
+      "title": "Forma",
+      "block": "Distribuciones",
+      "href": "distribuciones.html?concept=shape",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "skew",
+      "title": "Sesgo",
+      "block": "Distribuciones",
+      "href": "distribuciones.html?concept=skew",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "multimodality",
+      "title": "Multimodalidad",
+      "block": "Distribuciones",
+      "href": "distribuciones.html?concept=multimodality",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "bins",
+      "title": "Bins",
+      "block": "Distribuciones",
+      "href": "distribuciones.html?concept=bins",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "bar-chart",
+      "title": "Gráfico de barras",
+      "block": "Comparación visual",
+      "href": "comparacion-visual.html?concept=bar-chart",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "boxplot",
+      "title": "Boxplot",
+      "block": "Comparación visual",
+      "href": "comparacion-visual.html?concept=boxplot",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "violin-plot",
+      "title": "Violin plot",
+      "block": "Comparación visual",
+      "href": "comparacion-visual.html?concept=violin-plot",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "ecdf",
+      "title": "ECDF",
+      "block": "Comparación visual",
+      "href": "comparacion-visual.html?concept=ecdf",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "outliers",
+      "title": "Outliers",
+      "block": "Valores atípicos",
+      "href": "valores-atipicos.html?concept=outliers",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "wine-quality"
+    },
+    {
+      "id": "leverage",
+      "title": "Leverage",
+      "block": "Valores atípicos",
+      "href": "valores-atipicos.html?concept=leverage",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "wine-quality"
+    },
+    {
+      "id": "capture-error",
+      "title": "Error de captura",
+      "block": "Valores atípicos",
+      "href": "valores-atipicos.html?concept=capture-error",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "wine-quality"
+    },
+    {
+      "id": "rare-valid",
+      "title": "Caso raro válido",
+      "block": "Valores atípicos",
+      "href": "valores-atipicos.html?concept=rare-valid",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "wine-quality"
+    }
+  ],
+  "datasets": [
+    "palmer-penguins",
+    "bike-sharing-day",
+    "wine-quality"
+  ],
+  "validation": "validation.json",
+  "updated_at": "2026-06-15"
+}
