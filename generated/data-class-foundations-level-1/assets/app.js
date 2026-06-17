@@ -2,9 +2,12 @@
   const modules = window.DCF_MODULES;
   const moduleId = document.body.dataset.module;
   const currentModule = modules[moduleId];
+  const params = new URLSearchParams(location.search);
   let lessonIndex = 0;
-  let teacherMode = "live";
+  let teacherEnabled = params.get("teacher") === "1";
+  let teacherMode = "learn";
   let animationStep = 0;
+  let hasInteracted = false;
 
   const people = [
     ["101", "28", "Femenino", "42,500", "Bogotá"],
@@ -97,7 +100,7 @@
             </div>
             <div class="visual-area" id="visualArea"></div>
             <div class="practice-panel">
-              <div class="question"><h2>Decisión basada en evidencia</h2><p></p><div class="options"></div></div>
+              <div class="question"><h2>Decisión basada en evidencia</h2><div class="practice-story"></div><p></p><div class="options"></div></div>
               <div class="feedback"><h2>Retroalimentación</h2><p>Selecciona una respuesta y revisa la evidencia visual.</p></div>
             </div>
           </section>
@@ -106,7 +109,7 @@
           <div class="teacher-tabs">
             <button class="teacher-tab" data-mode="learn">Aprender</button>
             <button class="teacher-tab" data-mode="practice">Ejercitar</button>
-            <button class="teacher-tab active" data-mode="live">En vivo</button>
+            <button class="teacher-tab" data-mode="live" ${teacherEnabled ? "" : "hidden"}>En vivo</button>
           </div>
           <div class="teacher-content"></div>
         </aside>
@@ -115,6 +118,7 @@
 
   function renderLesson() {
     animationStep = 0;
+    hasInteracted = false;
     const lesson = currentModule.lessons[lessonIndex];
     document.title = `${lesson.title} | DataClass Forge`;
     $(".lesson-count").textContent = `Módulo ${currentModule.number} de 4 · Lección ${lessonIndex + 1} de ${currentModule.lessons.length}`;
@@ -126,16 +130,29 @@
     $(".lesson-intro p").textContent = lesson.objective;
     $(".visual-title").textContent = currentModule.datasetName;
     $("#animateVisual span").textContent = lesson.visual.action;
-    $(".question p").textContent = lesson.practice.question;
-    $(".options").innerHTML = displayOptions(lesson.practice.options).map(({ item, sourceIndex }, displayIndex) => `
-      <button class="option" data-option="${sourceIndex}"><span class="option-dot"></span><span>${String.fromCharCode(65 + displayIndex)}. ${item.text}</span></button>`).join("");
-    $(".feedback").className = "feedback";
-    $(".feedback p").textContent = "Selecciona una respuesta y revisa la evidencia visual.";
     $("#prevLesson").disabled = lessonIndex === 0;
     $("#nextLesson").innerHTML = lessonIndex === currentModule.lessons.length - 1 ? `Volver al portal ${icon("chevronRight")}` : `Siguiente ${icon("chevronRight")}`;
     renderVisual(lesson);
+    renderPractice(lesson);
     renderTeacher(lesson);
     bindLessonEvents();
+  }
+
+  function renderPractice(lesson) {
+    const story = lesson.practiceStory.cases[0];
+    $(".practice-story").innerHTML = `<p class="story-kicker">${story.storyTitle}</p>
+      <strong>${story.protagonist}</strong>
+      <p>${story.context}. ${story.problem} ${story.pressure}.</p>
+      <p><b>Decisión:</b> ${story.decision}.</p>
+      <ol>${story.scenes.map(scene => `<li>${scene}</li>`).join("")}</ol>
+      <p class="story-close">${hasInteracted ? story.closing : "Primero ejecuta la animación; las respuestas están bloqueadas hasta ver la evidencia."}</p>`;
+    $(".question > p").textContent = lesson.practice.question;
+    $(".options").innerHTML = displayOptions(lesson.practice.options).map(({ item, sourceIndex }, displayIndex) => `
+      <button class="option" data-option="${sourceIndex}" ${hasInteracted ? "" : "disabled"}><span class="option-dot"></span><span>${String.fromCharCode(65 + displayIndex)}. ${item.text}</span></button>`).join("");
+    $(".feedback").className = "feedback";
+    $(".feedback h2").textContent = "Retroalimentación";
+    $(".feedback p").textContent = hasInteracted ? "Selecciona una respuesta y revisa la evidencia visual." : `Ejecuta «${lesson.visual.action}» antes de responder.`;
+    bindOptionEvents();
   }
 
   function tableMarkup(rows, headers, className = "") {
@@ -256,6 +273,8 @@
     } else if (lesson.visual.type === "prepare") {
       animatePreparation(lesson.visual.focus);
     }
+    hasInteracted = true;
+    renderPractice(lesson);
   }
 
   function animatePreparation(focus) {
@@ -289,7 +308,11 @@
   }
 
   function renderTeacher(lesson) {
-    $$(".teacher-tab").forEach(tab => tab.classList.toggle("active", tab.dataset.mode === teacherMode));
+    if (!teacherEnabled && teacherMode === "live") teacherMode = "learn";
+    $$(".teacher-tab").forEach(tab => {
+      if (tab.dataset.mode === "live") tab.hidden = !teacherEnabled;
+      tab.classList.toggle("active", tab.dataset.mode === teacherMode);
+    });
     const content = $(".teacher-content");
     if (teacherMode === "learn") {
       content.innerHTML = `<p class="teacher-intro"><strong>Definición.</strong> ${lesson.definition}</p>
@@ -299,32 +322,32 @@
       return;
     }
     if (teacherMode === "practice") {
-      content.innerHTML = `<p class="teacher-intro">La práctica debe resolverse observando la evidencia, no por memoria.</p>
-        <div class="tool-section"><div class="tool-head"><span class="tool-logo">1</span><strong>Predicción</strong></div><p class="teacher-cue">Oculta el resultado y pide una predicción antes de ejecutar la animación.</p></div>
-        <div class="tool-section"><div class="tool-head"><span class="tool-logo">2</span><strong>Contraste</strong></div><p class="teacher-cue">Compara la predicción con el estado final y solicita una justificación visual.</p></div>
-        <div class="tool-section"><div class="tool-head"><span class="tool-logo">3</span><strong>Transferencia</strong></div><p class="teacher-cue">Pide otro contexto donde la misma regla produzca una decisión distinta.</p></div>`;
+      const story = lesson.practiceStory.cases[0];
+      content.innerHTML = `<p class="teacher-intro">La práctica cuenta un caso distinto y debe resolverse observando la evidencia, no por memoria.</p>
+        <div class="tool-section"><div class="tool-head"><span class="tool-logo">1</span><strong>Protagonista</strong></div><p class="teacher-cue">${story.protagonist}</p></div>
+        <div class="tool-section"><div class="tool-head"><span class="tool-logo">2</span><strong>Presión</strong></div><p class="teacher-cue">${story.pressure}</p></div>
+        <div class="tool-section"><div class="tool-head"><span class="tool-logo">3</span><strong>Escenas</strong></div><p class="teacher-cue">${story.scenes.join(" ")}</p></div>`;
       return;
     }
+    const live = lesson.liveTeachingPack;
     const tools = [
       ["Codex", lesson.prompts.codex, "Genera una demo o script reproducible y verifica sus criterios."],
       ["Gemini", lesson.prompts.gemini, "Facilita preguntas socráticas sin sustituir el razonamiento del grupo."],
       ["ChatGPT", lesson.prompts.chatgpt, "Crea variaciones y preguntas; revisa exactitud antes de usarlas."]
     ];
-    content.innerHTML = `<p class="teacher-intro">Copia el prompt en la herramienta elegida. No se envían datos desde este HTML.</p>
+    content.innerHTML = `<p class="teacher-intro">Modo docente oculto. ${live.visibilityNotice}</p>
+      <section class="tool-section"><div class="tool-head"><span class="tool-logo">D</span><strong>Snapshot real</strong></div><p class="teacher-cue">${live.dataset.name}: ${live.dataset.rows.toLocaleString("es-MX")} filas, ${live.dataset.columns} columnas, licencia ${live.dataset.license}. Fuente: ${live.dataset.source_page}. SHA-256: ${live.dataset.sha256}</p></section>
+      <section class="tool-section"><div class="tool-head"><span class="tool-logo">G</span><strong>Guion</strong></div><p class="teacher-cue">${live.teacherScript.join(" ")}</p></section>
       ${tools.map(([name, prompt, cue], index) => `<section class="tool-section">
         <div class="tool-head"><span class="tool-logo">${index === 0 ? "&gt;_" : index === 1 ? "G" : "AI"}</span><strong>${name}</strong>
         <button class="copy-btn" data-copy="${encodeURIComponent(prompt)}">${icon("copy")} Copiar</button></div>
         <div class="prompt-box">${prompt}</div><p class="teacher-cue"><strong>Pista docente:</strong> ${cue}</p>
       </section>`).join("")}
-      <div class="offline"><strong>Sin conexión: plan B.</strong> Usa la animación local, solicita predicciones y construye un ejemplo nuevo en la pizarra. Cierra con la pregunta de evidencia del laboratorio.</div>`;
+      <div class="offline"><strong>Sin conexión: plan B.</strong> ${live.offlinePlan} ${live.humanCheck}</div>`;
     bindCopyButtons();
   }
 
-  function bindLessonEvents() {
-    $$(".step button").forEach(button => button.addEventListener("click", () => {
-      lessonIndex = +button.dataset.lesson;
-      renderLesson();
-    }));
+  function bindOptionEvents() {
     $$(".option").forEach(button => button.addEventListener("click", () => {
       const lesson = currentModule.lessons[lessonIndex];
       const selected = lesson.practice.options[+button.dataset.option];
@@ -334,6 +357,13 @@
       feedback.className = `feedback ${selected.correct ? "success" : "error"}`;
       feedback.querySelector("h2").textContent = selected.correct ? "Correcto" : "Revisa la evidencia";
       feedback.querySelector("p").textContent = selected.feedback;
+    }));
+  }
+
+  function bindLessonEvents() {
+    $$(".step button").forEach(button => button.addEventListener("click", () => {
+      lessonIndex = +button.dataset.lesson;
+      renderLesson();
     }));
   }
 
@@ -370,8 +400,15 @@
       teacherMode = tab.dataset.mode;
       renderTeacher(currentModule.lessons[lessonIndex]);
     }));
+    document.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "t") {
+        teacherEnabled = true;
+        teacherMode = "live";
+        renderTeacher(currentModule.lessons[lessonIndex]);
+      }
+    });
     $("#helpButton").addEventListener("click", () => {
-      alert("Elige una lección, ejecuta la animación, responde con evidencia y abre En vivo para usar Codex, Gemini o ChatGPT.");
+      alert("Elige una lección, ejecuta la animación, responde con evidencia y usa el modo docente solo para preparar la clase en vivo.");
     });
   }
 

@@ -46,6 +46,7 @@ Cada fase debe cerrar con:
 - enrutar currículo, concepto y tres modos;
 - separar revisión técnica de pedagógica;
 - definir propagación de cambios;
+- declarar separación estricta de Aprender, Ejercitar narrativo y En vivo docente;
 - validar frontmatter y nombres.
 
 **Aceptación:** cada skill tiene input, output, límites y criterio de fallo.
@@ -58,6 +59,8 @@ Cada fase debe cerrar con:
 
 - evaluar progresión, exactitud, visual, práctica y feedback;
 - bloquear visuales decorativos y causalidad injustificada;
+- bloquear práctica sin storytelling aplicado, sin animación o respondible antes de revelar evidencia;
+- bloquear En vivo con datos sintéticos como fuente principal o visible sin modo docente;
 - definir reintentos desde la decisión raíz;
 - mantener el harness basado en archivos.
 
@@ -78,7 +81,7 @@ Cada fase debe cerrar con:
 **Flujo principal:**
 
 1. Cargar snapshot público y metadatos.
-2. Crear `ConceptSpec`, módulo, dos ejercicios y paquete en vivo.
+2. Crear `ConceptSpec`, módulo, dos ejercicios narrativos animados y paquete en vivo docente.
 3. Generar tres prompts con roles complementarios.
 4. Ejecutar revisión técnica y pedagógica.
 5. Publicar el laboratorio solo si pasa el gate.
@@ -89,8 +92,9 @@ Cada fase debe cerrar con:
 
 - Los snapshots tienen fuente, licencia, fecha y SHA-256.
 - Cada concepto tiene dos ejercicios dependientes de evidencia.
+- Cada ejercicio cuenta un caso profesional o de negocio y revela evidencia con animación antes de responder.
 - Codex y Gemini/ChatGPT tienen responsabilidades distintas.
-- Existe plan offline.
+- En vivo está oculto por defecto para estudiantes, usa snapshot público real y existe plan offline.
 - Promedio de 4 o más, sin dimensiones en 1.
 
 ## Fase 6: Portal y publicación
@@ -115,6 +119,7 @@ debe pasar el mismo gate antes de aparecer en GitHub Pages.
 | Mucho catálogo, poca profundidad | Dos ejercicios, revisión y gate por concepto |
 | Copiar patrones de histograma | Validar mecanismo específico por concepto |
 | Narrativa sin evidencia | Ejercicio debe fallar sin visual |
+| Modo En vivo confundido con contenido estudiantil | UI oculta por defecto y aviso de no autenticación |
 | Inconsistencia entre modos | Una `ConceptSpec` común |
 | Error técnico propagado | QA técnica antes de QA pedagógica |
 | Dataset remoto cambia | Snapshot fijo y SHA-256 |

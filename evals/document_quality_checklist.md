@@ -6,13 +6,15 @@
 - [ ] Los tres documentos describen el mismo problema y resultado.
 - [ ] `CURRICULUM_MAP.md` cubre los conceptos citados en el PRD.
 - [ ] Todos los documentos coinciden en 39 conceptos, 60 ejercicios y dos niveles publicados.
-- [ ] Los modos tienen los mismos nombres y propósito.
+- [ ] Los modos tienen los mismos nombres, propósito compartido y contenido separado.
 - [ ] Los no objetivos no reaparecen como requisitos MVP.
 - [ ] El plan respeta la fase documental.
 
 ## Contratos
 
 - [ ] `ConceptSpec`, `LearningModule`, `PracticeExercise` y `LiveTeachingPack` son consistentes.
+- [ ] `PracticeExercise` exige storytelling aplicado, decisión y evidencia animada.
+- [ ] `LiveTeachingPack` exige snapshot público real y modo docente oculto.
 - [ ] Cada skill produce un artefacto nombrado.
 - [ ] El harness enruta todas las skills.
 - [ ] Los evals cubren los riesgos del brief y PRD.

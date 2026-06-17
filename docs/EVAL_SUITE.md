@@ -25,9 +25,9 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 | Exactitud | ¿Definiciones, datos, métricas y conclusiones son correctos? |
 | Visualización | ¿El visual representa el mecanismo y evita engaños? |
 | Interacción | ¿Manipular o comparar revela el concepto? |
-| Práctica | ¿La respuesta depende de evidencia? |
+| Práctica | ¿La historia aplicada y la respuesta dependen de evidencia animada? |
 | Feedback | ¿Corrige el razonamiento de cada respuesta? |
-| Enseñanza | ¿El docente puede operar la clase y su contingencia? |
+| Enseñanza | ¿El docente puede operar la clase con snapshot real, modo oculto y contingencia? |
 | Coherencia | ¿Los tres modos comparten objetivo, términos y datos? |
 | Viabilidad | ¿El MVP evita infraestructura y alcance innecesarios? |
 | Procedencia | ¿Los datos públicos tienen fuente, licencia, fecha y hash? |
@@ -49,9 +49,13 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 - Concepto visualizable sin `visualSpec`.
 - Visualización engañosa o decorativa.
 - Ejercicio respondible sin observar la evidencia.
+- Ejercitar reutiliza la explicación de Aprender en vez de contar un caso aplicado.
+- Ejercitar carece de protagonista, presión realista, decisión o animación de evidencia.
 - Ausencia de feedback específico.
 - Datos inconsistentes entre artefactos.
 - Snapshot público sin licencia, procedencia o hash válido.
+- LiveTeachingPack con dataset sintético como fuente principal.
+- Modo En vivo visible como pestaña estudiantil sin activación docente.
 - Paquete docente sin plan offline.
 - Prompts sin restricciones o criterios de aceptación.
 - Codex y Gemini/ChatGPT con roles indistinguibles o sin verificación humana.
@@ -70,13 +74,16 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 
 - Tema avanzado solicitado para principiantes: reducir objetivo y declarar prerrequisitos.
 - Concepto con poca interacción natural: usar comparación, anotación o predicción antes de revelar.
-- Datos reales no disponibles o sin licencia clara: crear dataset sintético y etiquetarlo.
+- Datos reales no disponibles o sin licencia clara para Aprender/Ejercitar: crear dataset sintético y etiquetarlo.
+- Datos reales no disponibles o sin licencia clara para En vivo: bloquear y buscar otro snapshot público.
 - Clase sin internet: usar plan offline y activos locales.
 
 ## Casos de fallo
 
 - Definición larga seguida de quiz de memoria.
 - Historia atractiva cuya pregunta no depende de la gráfica.
+- Historia que revela la respuesta sin ejecutar la animación.
+- En vivo presentado como contenido para estudiantes o como seguridad real en frontend.
 - Visual que cambia colores, pero no una variable conceptual.
 - A/B testing que declara ganador solo por una barra más alta.
 - Clustering que presenta grupos como clases verdaderas.

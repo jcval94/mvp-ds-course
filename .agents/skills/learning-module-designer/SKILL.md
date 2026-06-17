@@ -17,6 +17,10 @@ Usar una `ConceptSpec` validada y producir:
 8. Mini-checkpoint con respuesta explicada.
 9. Resumen y transición a práctica.
 
+El modo Aprender debe limitarse a enseñar el mecanismo: no debe resolver el caso
+narrativo de Ejercitar ni mostrar el guion docente de En vivo. Puede anticipar
+la transferencia, pero la práctica debe sentirse como una experiencia separada.
+
 Evitar paredes de texto, definiciones repetidas y controles puramente decorativos.
 
 Rechazar si el checkpoint se responde por memoria superficial o si el estudiante no puede explicar qué cambió en la visualización.

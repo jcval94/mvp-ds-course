@@ -13,7 +13,9 @@
 ## Ejercitar
 
 - [ ] Desde Nivel 2 hay ejercicio guiado y ejercicio de transferencia.
-- [ ] El rol y contexto sirven al objetivo.
+- [ ] El rol, protagonista, contexto y presión realista sirven al objetivo.
+- [ ] La historia es distinta de Aprender y no revela la respuesta por sí sola.
+- [ ] La animación revela evidencia antes de habilitar la respuesta.
 - [ ] La evidencia es necesaria.
 - [ ] La respuesta correcta es defendible.
 - [ ] Los distractores son plausibles.
@@ -24,7 +26,8 @@
 ## Enseñar en vivo
 
 - [ ] El guion tiene tiempos.
-- [ ] El dataset es reproducible.
+- [ ] El dataset es snapshot público real reproducible con fuente, licencia, fecha y SHA-256.
+- [ ] El modo docente está oculto por defecto y aclara que no es autenticación real.
 - [ ] La demo puede ejecutarse o simularse.
 - [ ] Hay preguntas socráticas.
 - [ ] Hay evaluación rápida.
@@ -39,3 +42,4 @@
 - La interacción solo cambia estilo.
 - El feedback se limita a correcto o incorrecto.
 - La narrativa afirma más de lo que muestran los datos.
+- En vivo usa dataset sintético como fuente principal.

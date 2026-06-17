@@ -9,9 +9,9 @@ Evalúa cada dimensión de 1 a 5 y cita evidencia.
 | Exactitud técnica | Contiene errores | Correcto con ambigüedades | Preciso, consistente y con límites claros |
 | Diseño conceptual | Solo definición | Incluye intuición parcial | Objetivo, intuición, errores y dominio coherentes |
 | Calidad visual | Decorativo o engañoso | Representa el resultado | Revela el mecanismo mediante interacción |
-| Calidad de práctica | Quiz de memoria | Aplica parcialmente el concepto | Exige interpretar evidencia y transferir |
+| Calidad de práctica | Quiz de memoria | Aplica parcialmente el concepto | Cuenta una historia aplicada, revela evidencia animada y exige transferir |
 | Calidad del feedback | Solo correcto/incorrecto | Explica la respuesta correcta | Corrige cada razonamiento plausible |
-| Preparación docente | No impartible | Requiere completar partes | Guion, datos, evaluación y plan offline listos |
+| Preparación docente | No impartible | Requiere completar partes | Guion, snapshot real, evaluación, modo docente oculto y plan offline listos |
 | Coherencia entre modos | Se contradicen | Comparten tema, no decisiones | Comparten ConceptSpec, datos y criterio de dominio |
 | Skills y harness | Genéricos o pesados | Funcionan con dudas | Routing mínimo, contratos verificables y QA |
 | Viabilidad | Requiere plataforma completa | Construible con riesgo | Validable documentalmente y slice pequeña |
@@ -31,6 +31,7 @@ Evalúa cada dimensión de 1 a 5 y cita evidencia.
 - No existe vertical slice con usuario, entrada, flujo, salida, prueba manual, DoD y no objetivos.
 - Concepto visualizable sin visual.
 - Ejercicio respondible sin evidencia.
+- Práctica sin protagonista, decisión o evidencia animada.
 - Feedback no explicativo.
 - Error técnico o causalidad injustificada.
 - Prerrequisito crítico omitido.
@@ -38,6 +39,8 @@ Evalúa cada dimensión de 1 a 5 y cita evidencia.
 - Plan que inicia app antes de validar documentos.
 - Placeholder fuera de `/templates`.
 - Snapshot público sin licencia o hash válido.
+- LiveTeachingPack con dataset sintético como fuente principal.
+- En vivo visible para estudiantes sin modo docente.
 - Manifest publicado con validación fallida.
 
 ## Evidencia requerida

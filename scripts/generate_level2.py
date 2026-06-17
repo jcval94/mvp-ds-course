@@ -934,6 +934,123 @@ def enrich_concepts() -> None:
         )
         for exercise, evidence in zip(item["exercises"], EVIDENCE[slug]):
             exercise["evidence"] = evidence
+        item["learningModule"] = learning_module_for(item)
+        item["practiceStory"] = practice_story_for(block, item)
+
+
+def learning_module_for(item: dict[str, object]) -> dict[str, object]:
+    return {
+        "mode": "Aprender",
+        "activation": "Antes de calcular, predice qué rasgo cambiará al activar la visualización.",
+        "visualFocus": item["visual"]["cue"],
+        "experiment": item["visual"]["action"],
+        "checkpoint": (
+            "Explica con tus palabras qué cambió en la evidencia visual y qué "
+            "conclusión todavía no se puede afirmar."
+        ),
+        "transition": (
+            "La práctica usará una historia distinta: resolver una decisión con la "
+            "evidencia recién aprendida."
+        ),
+    }
+
+
+def practice_story_for(
+    block: dict[str, object], item: dict[str, object]
+) -> dict[str, object]:
+    title = item["title"]
+    evidence = [exercise["evidence"] for exercise in item["exercises"]]
+    if block["id"] == "summary":
+        protagonist = "Lucía, analista de operaciones de una clínica"
+        context = "debe resumir mediciones de pacientes antes de una junta de 15 minutos"
+        pressure = "si elige un resumen equivocado, el director comprará equipo para el problema incorrecto"
+        decision = f"decidir qué lectura de {title.lower()} sostiene una recomendación prudente"
+    elif block["id"] == "distribution":
+        protagonist = "Don José, dueño de una tienda de barrio"
+        context = "quiere decidir a qué hora abrir sin revisar cientos de días en Excel"
+        pressure = "la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal"
+        decision = f"usar {title.lower()} para leer concentración, forma o sensibilidad de la demanda"
+    elif block["id"] == "comparison":
+        protagonist = "Mariana, bióloga que prepara un reporte para visitantes de un museo"
+        context = "necesita comparar especies sin ocultar diferencias importantes"
+        pressure = "un promedio bonito puede volver invisible una diferencia que el público sí debe ver"
+        decision = f"elegir una comparación visual que use {title.lower()} sin exagerar conclusiones"
+    else:
+        protagonist = "Roberto, analista de calidad de una bodega"
+        context = "recibe miles de registros y una alerta antes de presentar el lote semanal"
+        pressure = "Excel se congela al filtrar todo y borrar rápido podría eliminar un caso válido"
+        decision = f"decidir cómo investigar {title.lower()} sin inventar una explicación"
+    cases = []
+    for index, exercise in enumerate(item["exercises"]):
+        guided = index == 0
+        cases.append(
+            {
+                "kind": "guiado" if guided else "transferencia",
+                "storyTitle": (
+                    "La primera señal aparece" if guided else "La decisión se mueve de contexto"
+                ),
+                "protagonist": protagonist,
+                "context": context,
+                "problem": (
+                    f"{protagonist.split(',')[0]} necesita resolver una decisión real con {title.lower()}, "
+                    "no memorizar una definición."
+                ),
+                "pressure": pressure,
+                "decision": decision,
+                "scenes": [
+                    "Escena 1: mirar el estado inicial y escribir una predicción.",
+                    f"Escena 2: ejecutar «{item['visual']['action']}» para revelar evidencia.",
+                    "Escena 3: elegir la respuesta citando el rasgo visible que cambió.",
+                ],
+                "evidence": evidence[index],
+                "closing": (
+                    "La conclusión debe quedarse dentro de lo que muestra el snapshot; "
+                    "sirve para decidir el siguiente paso, no para afirmar causalidad."
+                ),
+            }
+        )
+    return {
+        "mode": "Ejercitar",
+        "separationRule": "Este caso no repite Aprender; usa el concepto para tomar una decisión.",
+        "animationRequired": True,
+        "cases": cases,
+    }
+
+
+def live_teaching_pack_for(
+    block: dict[str, object], item: dict[str, object], dataset: dict[str, object]
+) -> dict[str, object]:
+    return {
+        "mode": "En vivo",
+        "visibility": "teacher-only-static",
+        "visibilityNotice": (
+            "Modo docente oculto por defecto en la UI estudiantil; no es autenticación "
+            "ni protección real del contenido."
+        ),
+        "dataset": {
+            "id": block["dataset_id"],
+            "name": dataset["name"],
+            "rows": dataset["rows"],
+            "columns": dataset["columns"],
+            "source_page": dataset["source_page"],
+            "license": dataset["license"],
+            "license_url": dataset["license_url"],
+            "snapshot_date": dataset["snapshot_date"],
+            "sha256": dataset["sha256"],
+        },
+        "teacherScript": [
+            "0-5: presentar fuente, licencia, unidad de análisis y pregunta.",
+            "5-12: pedir predicción y ejecutar la interacción local.",
+            "12-20: pedir a Codex verificar o modificar código reproducible sin cambiar el snapshot.",
+            "20-27: usar Gemini o ChatGPT para cuestionar interpretación y límites.",
+            "27-35: resolver práctica con evidencia y cerrar con una afirmación permitida.",
+        ],
+        "offlinePlan": (
+            "Usar HTML local, CSV snapshot y pizarra. No pegar datos sensibles ni credenciales "
+            "en herramientas externas."
+        ),
+        "humanCheck": "Verificar cálculos, licencia, hash y límites antes de proyectar.",
+    }
 
 
 def load_numeric(path: Path, column: str, delimiter: str = ",") -> list[float]:
@@ -1074,6 +1191,9 @@ def package_markdown(
     dataset: dict[str, object],
 ) -> str:
     first, second = item["exercises"]
+    story = item["practiceStory"]["cases"]
+    live = item["liveTeachingPack"]
+    live_rows = "\n".join(f"| {row.split(':', 1)[0]} | {row.split(':', 1)[1].strip()} |" for row in live["teacherScript"])
     return f"""# Paquete: {item['title']}
 
 ## Supuestos
@@ -1116,7 +1236,13 @@ def package_markdown(
 
 ## PracticeExercise
 
+**Regla de separación:** {item['practiceStory']['separationRule']}
+
 ### Ejercicio guiado
+
+**Historia:** {story[0]['protagonist']} {story[0]['context']}. {story[0]['pressure']}. La decisión es {story[0]['decision']}.
+
+**Escenas animadas:** {" / ".join(story[0]['scenes'])}
 
 **Evidencia requerida:** {first['evidence']}
 
@@ -1128,6 +1254,10 @@ def package_markdown(
 
 ### Ejercicio de transferencia
 
+**Historia:** {story[1]['protagonist']} cambia de contexto para probar si el razonamiento se transfiere. {story[1]['pressure']}. La decisión es {story[1]['decision']}.
+
+**Escenas animadas:** {" / ".join(story[1]['scenes'])}
+
 **Evidencia requerida:** {second['evidence']}
 
 **Pregunta:** {second['question']}
@@ -1138,14 +1268,19 @@ def package_markdown(
 
 ## LiveTeachingPack
 
+**Visibilidad:** modo docente oculto por defecto; no es autenticación real.
+
+**Dataset real:** {live['dataset']['name']} ({live['dataset']['rows']} filas, {live['dataset']['columns']} columnas), licencia {live['dataset']['license']}.
+
+**Fuente:** {live['dataset']['source_page']}
+
+**Fecha del snapshot:** {live['dataset']['snapshot_date']}
+
+**SHA-256:** `{live['dataset']['sha256']}`
+
 | Minutos | Actividad |
 | --- | --- |
-| 0-5 | Presentar fuente, licencia, unidad de análisis y pregunta |
-| 5-12 | Pedir predicción y ejecutar la interacción local |
-| 12-20 | Usar Codex para modificar o verificar la demo |
-| 20-27 | Usar Gemini o ChatGPT para cuestionar la interpretación |
-| 27-33 | Resolver los dos ejercicios con evidencia |
-| 33-35 | Cierre y límite de la conclusión |
+{live_rows}
 
 ### Roles de IA
 
@@ -1153,7 +1288,8 @@ def package_markdown(
 - **Gemini o ChatGPT:** facilita, critica e interpreta la evidencia; no ejecuta la decisión.
 - **Verificación humana:** revisar cálculos, fuente, supuestos y conclusión antes de proyectar.
 - **Privacidad:** no pegar datos sensibles ni credenciales.
-- **Plan offline:** usar el HTML, el CSV local y las preguntas impresas.
+- **Privacidad:** no pegar datos sensibles ni credenciales; el modo docente oculto no protege como login.
+- **Plan offline:** {live['offlinePlan']}
 
 ### Prompts
 
@@ -1216,6 +1352,7 @@ def main() -> None:
         dataset = registry[block["dataset_id"]]
         lessons = []
         for item in block["concepts"]:
+            item["liveTeachingPack"] = live_teaching_pack_for(block, item, dataset)
             lesson = {**item, "prompts": prompts(item)}
             lessons.append(lesson)
             concept_records.append(

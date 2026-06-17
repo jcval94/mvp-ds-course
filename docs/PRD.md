@@ -38,15 +38,15 @@ DataClass Forge es una fábrica documental especializada en material educativo d
 
 ### Aprender
 
-Produce una explicación conceptual visual, breve y progresiva.
+Produce una explicación conceptual visual, breve y progresiva. No resuelve el caso narrativo de práctica ni muestra contenido docente.
 
 ### Ejercitar
 
-Produce un caso aplicado con evidencia, interacción, pregunta, pistas y feedback específico.
+Produce un caso aplicado distinto de Aprender, con protagonista, presión realista, evidencia visual animada, decisión, pregunta, pistas y feedback específico.
 
 ### Enseñar en vivo
 
-Produce un paquete docente con guion, datos, demostración, preguntas, evaluación, plan offline y artefactos copiables.
+Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, snapshot público real, demostración, preguntas, evaluación, plan offline y artefactos copiables. El ocultamiento en estático no se presenta como seguridad real.
 
 ## Interfaces documentales
 
@@ -77,9 +77,9 @@ Produce un paquete docente con guion, datos, demostración, preguntas, evaluaci�
 ### `PracticeExercise`
 
 - Referencia a `ConceptSpec`.
-- Rol, historia y decisión.
-- Evidencia visual necesaria.
-- Secuencia de uno a tres pasos.
+- Rol, protagonista, historia, tensión y decisión.
+- Evidencia visual animada necesaria.
+- Secuencia de uno a tres pasos o escenas.
 - Pregunta o acción observable.
 - Respuesta correcta y distractores plausibles.
 - Pistas graduadas.
@@ -91,7 +91,7 @@ Produce un paquete docente con guion, datos, demostración, preguntas, evaluaci�
 - Referencia a `ConceptSpec`.
 - Objetivo, audiencia y duración.
 - Guion minuto a minuto.
-- Dataset con esquema, tipos, filas y lógica de generación.
+- Snapshot público real con esquema, tipos, filas, fuente, licencia, fecha y SHA-256.
 - Demostración visual y experimento.
 - Preguntas socráticas y errores anticipados.
 - Blueprint de notebook o demo HTML.
@@ -108,9 +108,12 @@ Produce un paquete docente con guion, datos, demostración, preguntas, evaluaci�
 - Preferir snapshots públicos no sensibles con fuente, licencia, fecha y hash.
 - Generar datos sintéticos reproducibles y etiquetados cuando no exista una
   fuente pública adecuada o se necesite aislar un mecanismo.
+- Usar siempre snapshot público real como fuente principal de `LiveTeachingPack`.
 - Exigir visualización para conceptos visualizables.
 - Justificar explícitamente cualquier concepto sin visualización.
 - Incluir feedback explicativo, no solo correcto/incorrecto.
+- Separar contenido de los modos: Aprender enseña, Ejercitar narra y decide, En vivo guía al docente.
+- Ocultar `Enseñar en vivo` por defecto en la UI estudiantil y activarlo solo con modo docente.
 - Etiquetar supuestos, nivel y limitaciones.
 - Validar cada artefacto antes de declararlo listo.
 - Mantener prompts ejecutables con archivos, restricciones, salida y aceptación.
@@ -178,11 +181,13 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 - Existen 39 conceptos, 60 ejercicios y 117 prompts.
 - Cada artefacto usa la `ConceptSpec` correspondiente.
 - Cada ejercicio depende de evidencia visual.
+- Cada ejercicio incluye historia aplicada y animación antes de responder.
 - Cada distractor tiene feedback específico.
 - No hay contradicciones entre objetivo, datos, visual y conclusión.
 - Cada concepto obtiene promedio de 4 o más y ninguna dimensión obtiene 1.
 - No hay placeholders fuera de templates.
 - Cada snapshot público tiene fuente, licencia, fecha, dimensiones y SHA-256.
+- Cada paquete En vivo usa snapshot público real y declara que el modo docente oculto no es autenticación.
 - GitHub Pages solo incluye manifests con estado `published` y validación aprobada.
 
 **No objetivos:**

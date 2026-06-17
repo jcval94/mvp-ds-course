@@ -1,12 +1,109 @@
 (function () {
   const option = (text, correct, feedback) => ({ text, correct, feedback });
+  const liveDatasets = {
+    "palmer-penguins": {
+      id: "palmer-penguins",
+      name: "Palmer Penguins",
+      rows: 344,
+      columns: 8,
+      source_page: "https://allisonhorst.github.io/palmerpenguins/",
+      license: "CC0-1.0",
+      snapshot_date: "2026-06-14",
+      sha256: "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93"
+    },
+    "bike-sharing-day": {
+      id: "bike-sharing-day",
+      name: "Bike Sharing Dataset · UCI",
+      rows: 731,
+      columns: 16,
+      source_page: "https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset",
+      license: "CC BY 4.0",
+      snapshot_date: "2026-06-14",
+      sha256: "537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a"
+    },
+    "wine-quality": {
+      id: "wine-quality",
+      name: "Wine Quality · UCI",
+      rows: 6497,
+      columns: 13,
+      source_page: "https://archive.ics.uci.edu/dataset/186/wine+quality",
+      license: "CC BY 4.0",
+      snapshot_date: "2026-06-14",
+      sha256: "7493fdea860730843deab246f51e180382fd7d26a24614ef5e63e39e3a26fe3d"
+    }
+  };
+  const datasetIdFor = (visual) => {
+    if (visual.type === "quality") return "wine-quality";
+    if (visual.type === "prepare" || visual.type === "timeline") return "bike-sharing-day";
+    return "palmer-penguins";
+  };
+  const storyFor = (title, visual) => {
+    const protagonist = visual.type === "quality"
+      ? "Roberto, analista de calidad"
+      : visual.type === "prepare" || visual.type === "timeline"
+        ? "Don José, dueño de un changarro"
+        : "Ana, coordinadora de un taller de datos";
+    const context = visual.type === "quality"
+      ? "recibe un archivo grande antes de decidir si una alerta es error o señal real"
+      : visual.type === "prepare" || visual.type === "timeline"
+        ? "necesita ordenar ventas y horarios sin que Excel le haga perder la mañana"
+        : "debe explicar una tabla a un equipo que confunde filas, columnas y población";
+    const pressure = visual.type === "quality"
+      ? "si borra registros demasiado rápido, puede perder evidencia importante"
+      : visual.type === "prepare" || visual.type === "timeline"
+        ? "si interpreta mal la tabla, abrirá a una hora poco rentable"
+        : "si el grupo lee mal la estructura, todo el análisis posterior se cae";
+    return {
+      mode: "Ejercitar",
+      animationRequired: true,
+      cases: [{
+        storyTitle: `El caso de ${title}`,
+        protagonist,
+        context,
+        problem: `La decisión depende de aplicar ${title.toLowerCase()} con evidencia visible.`,
+        pressure,
+        decision: "elegir la interpretación que sí sostiene la visualización",
+        scenes: [
+          "Escena 1: mirar el estado inicial y hacer una predicción.",
+          `Escena 2: ejecutar «${visual.action}» para revelar la evidencia.`,
+          "Escena 3: responder citando el cambio visible, no una definición memorizada."
+        ],
+        closing: "La historia se resuelve con el mecanismo aprendido, pero la conclusión se limita a la evidencia visible."
+      }]
+    };
+  };
+  const livePackFor = (title, objective, visual) => {
+    const dataset = liveDatasets[datasetIdFor(visual)];
+    return {
+      mode: "En vivo",
+      visibility: "teacher-only-static",
+      visibilityNotice: "Modo docente oculto por defecto en la UI estudiantil; no es autenticación real.",
+      dataset,
+      teacherScript: [
+        "0-5: presentar fuente, licencia, unidad de análisis y pregunta.",
+        `5-12: ejecutar «${visual.action}» y pedir predicciones.`,
+        "12-20: usar Codex para verificar una demo reproducible con el snapshot.",
+        "20-30: usar Gemini o ChatGPT para cuestionar límites y errores comunes.",
+        "30-35: cerrar con una decisión permitida y una afirmación que no se puede hacer."
+      ],
+      offlinePlan: "Usar el HTML local, el CSV snapshot y pizarra; no pegar datos sensibles ni credenciales.",
+      humanCheck: "Verificar fuente, licencia, hash, cálculos y límites antes de proyectar."
+    };
+  };
   const lesson = (id, title, objective, definition, intuition, error, visual, question, options) => ({
     id, title, objective, definition, intuition, error, visual,
+    learningModule: {
+      mode: "Aprender",
+      activation: "Predice qué parte de la visualización cambiará antes de ejecutar la animación.",
+      transition: "Después, Ejercitar usará una historia distinta para tomar una decisión."
+    },
+    practiceStory: storyFor(title, visual),
+    liveTeachingPack: livePackFor(title, objective, visual),
     practice: { question, options },
     prompts: {
-      codex: `Crea una demo reproducible en HTML y JavaScript para enseñar "${title}". Objetivo: ${objective} Usa datos sintéticos pequeños, controles visibles y una comprobación automática. Explica qué archivos producirías y define criterios de aceptación.`,
+      codex: `Crea una demo reproducible en HTML y JavaScript para enseñar "${title}". Objetivo: ${objective} Usa el snapshot público real asignado, conserva fuente/licencia/SHA-256 visibles, no inventes filas y añade una comprobación automática. Explica qué archivos producirías y define criterios de aceptación.`,
       gemini: `Actúa como facilitador socrático de una clase principiante sobre "${title}". Objetivo: ${objective} Formula 4 preguntas progresivas basadas en la evidencia visual, anticipa dos errores frecuentes y sugiere cómo corregirlos sin revelar la respuesta de inmediato.`,
-      chatgpt: `Crea dos ejemplos alternativos y tres preguntas de transferencia para "${title}". Objetivo: ${objective} Cada pregunta debe poder responderse con evidencia de una tabla o transformación, e incluye respuesta esperada y feedback breve.`
+      chatgpt: `Crea dos ejemplos alternativos y tres preguntas de transferencia para "${title}". Objetivo: ${objective} Cada pregunta debe poder responderse con evidencia de una tabla o transformación, e incluye respuesta esperada, feedback breve y límite de conclusión.`
     }
   });
 

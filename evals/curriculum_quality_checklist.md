@@ -8,6 +8,8 @@
 - [ ] Se indica concepto anterior y siguiente.
 - [ ] El dataset y contexto son adecuados a la audiencia.
 - [ ] Si el dataset es público, incluye fuente, licencia, fecha y hash.
+- [ ] El modo En vivo usa dataset público real, no sintético principal.
+- [ ] El modo Ejercitar traduce el concepto a una historia aplicada sin cambiar el objetivo.
 - [ ] Desde Nivel 2 existen un ejercicio guiado y otro de transferencia.
 - [ ] El criterio de dominio puede comprobarse.
 - [ ] La expansión del temario no reduce profundidad.

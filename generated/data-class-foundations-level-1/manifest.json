@@ -37,7 +37,11 @@
       "exercise_count": 4
     }
   ],
-  "datasets": [],
+  "datasets": [
+    "palmer-penguins",
+    "bike-sharing-day",
+    "wine-quality"
+  ],
   "validation": "validation.json",
   "updated_at": "2026-06-14"
 }

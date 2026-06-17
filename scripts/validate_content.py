@@ -127,8 +127,103 @@ def validate_level(path: Path) -> dict[str, object]:
     return manifest
 
 
-def validate_level2_payload() -> None:
+def validate_level1_contract(public_dataset_ids: set[str]) -> None:
+    manifest = json.loads((LEVELS[0] / "manifest.json").read_text(encoding="utf-8"))
+    if not set(manifest.get("datasets", [])).issubset(public_dataset_ids):
+        fail("Nivel 1 referencia datasets que no existen en el registro público")
+    if not manifest.get("datasets"):
+        fail("Nivel 1 no declara snapshots públicos para En vivo")
+    curriculum = (LEVELS[0] / "assets" / "curriculum.js").read_text(encoding="utf-8")
+    app = (LEVELS[0] / "assets" / "app.js").read_text(encoding="utf-8")
+    css = (LEVELS[0] / "assets" / "styles.css").read_text(encoding="utf-8")
+    for fragment in [
+        "practiceStory",
+        "liveTeachingPack",
+        "animationRequired: true",
+        "visibilityNotice",
+        "teacher-only-static",
+        "sha256",
+    ]:
+        if fragment not in curriculum:
+            fail(f"Nivel 1 no contiene contrato de modo: {fragment}")
+    for fragment in [
+        'teacherEnabled = params.get("teacher") === "1"',
+        'data-mode="live" ${teacherEnabled ? "" : "hidden"}',
+        "Primero ejecuta la animación",
+    ]:
+        if fragment not in app:
+            fail(f"Nivel 1 no implementa separación de UI: {fragment}")
+    if ".option:disabled" not in css:
+        fail("Nivel 1 no estiliza opciones bloqueadas antes de animar")
+    if 'let teacherMode = "live"' in app:
+        fail("Nivel 1 inicia En vivo como modo estudiantil")
+
+
+def validate_story_contract(lesson: dict[str, object]) -> None:
+    story = lesson.get("practiceStory")
+    if not isinstance(story, dict) or story.get("animationRequired") is not True:
+        fail(f"{lesson['id']} no exige animación en Ejercitar")
+    cases = story.get("cases", [])
+    if len(cases) != len(lesson["exercises"]):
+        fail(f"{lesson['id']} no tiene historia por ejercicio")
+    required = [
+        "storyTitle",
+        "protagonist",
+        "context",
+        "problem",
+        "pressure",
+        "decision",
+        "scenes",
+        "closing",
+    ]
+    for index, case in enumerate(cases, start=1):
+        for key in required:
+            if not case.get(key):
+                fail(f"{lesson['id']} caso {index} no declara {key}")
+        if len(case.get("scenes", [])) < 3:
+            fail(f"{lesson['id']} caso {index} no tiene escenas suficientes")
+
+
+def validate_live_contract(
+    lesson: dict[str, object], public_dataset_ids: set[str]
+) -> None:
+    live = lesson.get("liveTeachingPack")
+    if not isinstance(live, dict):
+        fail(f"{lesson['id']} no contiene LiveTeachingPack")
+    if live.get("visibility") != "teacher-only-static":
+        fail(f"{lesson['id']} no oculta En vivo como modo docente")
+    dataset = live.get("dataset", {})
+    if dataset.get("id") not in public_dataset_ids:
+        fail(f"{lesson['id']} usa dataset En vivo fuera del registro público")
+    for key in [
+        "name",
+        "rows",
+        "columns",
+        "source_page",
+        "license",
+        "snapshot_date",
+        "sha256",
+    ]:
+        if not dataset.get(key):
+            fail(f"{lesson['id']} LiveTeachingPack no declara dataset.{key}")
+    if "sint" in json.dumps(live, ensure_ascii=False).lower():
+        fail(f"{lesson['id']} usa sintéticos como fuente principal de En vivo")
+
+
+def validate_level2_payload(public_dataset_ids: set[str]) -> None:
     path = LEVELS[1] / "assets" / "curriculum.js"
+    app = (LEVELS[1] / "assets" / "app.js").read_text(encoding="utf-8")
+    css = (LEVELS[1] / "assets" / "styles.css").read_text(encoding="utf-8")
+    for fragment in [
+        'teacherEnabled = params.get("teacher") === "1"',
+        'data-mode="live" ${teacherEnabled ? "" : "hidden"}',
+        "Modo docente oculto",
+        "#practiceStory",
+    ]:
+        if fragment not in app:
+            fail(f"Nivel 2 no implementa separación de UI: {fragment}")
+    if ".practice-story" not in css or ".option:disabled" not in css:
+        fail("Nivel 2 no estiliza storytelling u opciones bloqueadas")
     text = path.read_text(encoding="utf-8").strip()
     prefix = "window.DCF_LEVEL2 = "
     if not text.startswith(prefix) or not text.endswith(";"):
@@ -159,6 +254,10 @@ def validate_level2_payload() -> None:
                 fail(f"{lesson['id']} no declara {key}")
         if set(lesson["prompts"]) != {"codex", "gemini", "chatgpt"}:
             fail(f"Prompts incompletos en {lesson['id']}")
+        if not lesson.get("learningModule"):
+            fail(f"{lesson['id']} no contiene LearningModule estructurado")
+        validate_story_contract(lesson)
+        validate_live_contract(lesson, public_dataset_ids)
         for exercise in lesson["exercises"]:
             if not exercise.get("evidence"):
                 fail(f"Evidencia ausente en {lesson['id']}")
@@ -184,6 +283,11 @@ def validate_level2_payload() -> None:
             "**Variables:**",
             "**Concepto anterior:**",
             "**Concepto siguiente:**",
+            "**Regla de separación:**",
+            "**Historia:**",
+            "**Escenas animadas:**",
+            "**Visibilidad:**",
+            "**Dataset real:**",
         ]
         for fragment in required_fragments:
             if fragment not in package_text:
@@ -205,10 +309,12 @@ def validate_placeholders() -> None:
 
 def main() -> int:
     datasets = validate_datasets()
+    public_dataset_ids = {str(item["id"]) for item in datasets}
     manifests = [validate_level(path) for path in LEVELS]
     for html in (ROOT / "site").rglob("*.html"):
         validate_links(html)
-    validate_level2_payload()
+    validate_level1_contract(public_dataset_ids)
+    validate_level2_payload(public_dataset_ids)
     validate_placeholders()
     totals = {
         "concepts": sum(item["concept_count"] for item in manifests),

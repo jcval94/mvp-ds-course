@@ -32,8 +32,8 @@ Pasar de un concepto a un paquete educativo coherente y revisable en menos de 20
 ## Salidas del producto
 
 1. **Aprender:** objetivo, prerrequisitos, intuición, visualización, explicación progresiva, error común, checkpoint y cierre.
-2. **Ejercitar:** rol, contexto, evidencia visual, pregunta, respuesta esperada, distractores, pistas, feedback y conclusión.
-3. **Enseñar en vivo:** guion, dataset, demostración, preguntas socráticas, blueprint de notebook o HTML, evaluación, plan offline y checklist docente.
+2. **Ejercitar:** historia aplicada distinta de Aprender, protagonista, presión realista, evidencia visual animada, decisión, respuesta esperada, distractores, pistas, feedback y conclusión.
+3. **Enseñar en vivo:** contenido docente oculto en la UI estudiantil, guion, snapshot público real, demostración, preguntas socráticas, blueprint de notebook o HTML, evaluación, plan offline y checklist docente.
 
 ## MVP recomendado
 
@@ -63,10 +63,11 @@ interacción, resuelve los ejercicios y usa los prompts sin completar secciones.
 **Definition of Done:**
 
 - Cada concepto tiene objetivo, prerrequisitos, visual, error común y dataset.
-- Los tres modos comparten la misma intención conceptual.
+- Los tres modos comparten la misma intención conceptual, pero muestran contenido distinto.
 - El ejercicio no puede resolverse correctamente ignorando la visualización.
+- Ejercitar cuenta una historia profesional o de negocio y bloquea la respuesta hasta revelar evidencia animada.
 - El feedback explica por qué cada opción es correcta o incorrecta.
-- El paquete docente incluye plan offline y criterio de cierre.
+- El paquete docente incluye snapshot público real, plan offline, criterio de cierre y aviso de que el modo docente oculto no es seguridad real.
 - Cada paquete obtiene promedio de 4 o más sin dimensiones en 1.
 - La cobertura publicada suma 39 conceptos, 60 ejercicios y 117 prompts.
 - Los snapshots públicos registran fuente, licencia, fecha y SHA-256.
@@ -85,8 +86,7 @@ La fábrica no se limita a generar texto. Exige una línea de trazabilidad entre
 ## Supuestos razonables
 
 - El idioma inicial es español.
-- Nivel 1 conserva datos sintéticos etiquetados; Nivel 2 usa snapshots públicos
-  fijos, pequeños y reproducibles.
+- Aprender y Ejercitar pueden usar datos didácticos etiquetados cuando convenga; En vivo siempre usa snapshots públicos reales fijos, pequeños y reproducibles.
 - El profesor revisa el material antes de usarlo.
 - Un concepto puede tener varias experiencias, pero cada entrega persigue un objetivo principal.
 - La profundidad pedagógica es más importante que maximizar la cantidad de temas generados.
@@ -102,10 +102,12 @@ La fábrica no se limita a generar texto. Exige una línea de trazabilidad entre
 ## Riesgos
 
 - **Contenido correcto pero superficial:** bloquear módulos sin interacción, error común o checkpoint.
+- **Narrativa sin aprendizaje:** exigir protagonista, tensión y decisión, pero bloquear historias que revelan la respuesta sin evidencia.
 - **Visualización decorativa:** exigir que una pregunta o experimento dependa de ella.
 - **Temario demasiado amplio:** publicar por niveles completos y exigir el mismo
   gate por concepto.
 - **Inconsistencia entre modos:** compartir una `ConceptSpec` y validar trazabilidad.
+- **Privacidad docente mal entendida:** declarar que `?teacher=1` oculta la UI, pero no protege contenido como autenticación.
 - **Errores técnicos:** incluir revisión disciplinar y fuentes o supuestos cuando corresponda.
 
 ## Métricas iniciales

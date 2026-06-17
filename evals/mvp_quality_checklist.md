@@ -10,7 +10,7 @@
 ## Alcance
 
 - [ ] La funcionalidad principal es transformar un concepto en material educativo.
-- [ ] Aprender, Ejercitar y Enseñar en vivo están definidos.
+- [ ] Aprender, Ejercitar y Enseñar en vivo están definidos y separados por contenido.
 - [ ] La cobertura publicada se limita a Nivel 1 y Nivel 2.
 - [ ] LMS, cuentas, seguimiento e integraciones están fuera.
 - [ ] No se construye app antes de validar documentos.
@@ -27,7 +27,8 @@
 
 ## Viabilidad
 
-- [ ] Usa snapshots públicos no sensibles con licencia y datos sintéticos etiquetados.
+- [ ] Usa snapshots públicos no sensibles con licencia; En vivo siempre usa snapshot real como fuente principal.
+- [ ] Ejercitar usa storytelling aplicado y evidencia animada antes de responder.
 - [ ] La publicación automática incluye únicamente paquetes aprobados.
 - [ ] Puede ejecutarse con Markdown y revisión manual.
 - [ ] No requiere backend, login, pagos o APIs.

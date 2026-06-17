@@ -67,11 +67,11 @@ Modo Aprender: activación previa, intuición, explicación progresiva, visualiz
 
 ### `PracticeExercise`
 
-Modo Ejercitar: rol, contexto, evidencia visual, pregunta, distractores plausibles, pistas, feedback específico y conclusión.
+Modo Ejercitar: historia aplicada distinta de Aprender, protagonista profesional o negocio realista, presión o restricción concreta, evidencia visual animada, decisión, pregunta, distractores plausibles, pistas, feedback específico y conclusión transferible.
 
 ### `LiveTeachingPack`
 
-Modo Enseñar en vivo: guion, dataset, demo, preguntas, evaluación, blueprint, prompts, checklists y plan offline.
+Modo Enseñar en vivo: contenido docente oculto en la experiencia estática, guion, snapshot público real con procedencia/licencia/fecha/SHA-256, demo, preguntas, evaluación, blueprint, prompts, checklists y plan offline.
 
 ## Cómo inferir
 
@@ -82,6 +82,7 @@ Si falta información no crítica:
 - Usa una duración de 30 a 45 minutos.
 - Prefiere un snapshot público pequeño con fuente, licencia, fecha y SHA-256;
   usa un dataset sintético etiquetado cuando no exista una alternativa adecuada.
+- Para `LiveTeachingPack`, usa siempre un snapshot público real versionado como fuente principal; los datos sintéticos solo pueden aparecer como apoyo offline etiquetado.
 - Reduce a un objetivo de aprendizaje principal.
 - Propón una interacción que revele el mecanismo del concepto.
 - Marca cada inferencia como supuesto.
@@ -96,6 +97,8 @@ Extrae patrones:
 - manipulación de parámetros;
 - comparación de escenarios;
 - narrativa al servicio de una decisión;
+- historias de práctica con protagonistas, restricciones reales y consecuencias razonables;
+- animaciones fluidas que revelan evidencia antes de permitir responder;
 - preguntas dependientes de evidencia;
 - feedback por error plausible.
 
@@ -139,6 +142,9 @@ Pregunta solo si:
 - No publicar paquetes cuyo manifest o validación no estén aprobados.
 - No aceptar visualizaciones decorativas.
 - No producir ejercicios respondibles sin mirar la evidencia.
+- No reutilizar Aprender como Ejercitar; la práctica debe contar un caso distinto que se resuelve con lo aprendido.
+- No publicar `En vivo` como pestaña estudiantil visible; en estático solo puede mostrarse con modo docente y aclaración de que no es seguridad real.
+- No usar datasets sintéticos como fuente principal de `En vivo`.
 - No usar feedback limitado a correcto o incorrecto.
 - No afirmar causalidad sin diseño o evidencia suficiente.
 - No producir prompts vagos.

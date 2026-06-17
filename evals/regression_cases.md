@@ -52,9 +52,9 @@
 
 **Solicitud:** crear un caso emocionante de fraude.
 
-**Debe producir:** evidencia suficiente, decisión limitada y advertencia de que anomalía no prueba fraude.
+**Debe producir:** protagonista, presión realista, evidencia animada suficiente, decisión limitada y advertencia de que anomalía no prueba fraude.
 
-**Debe fallar si:** la historia permite adivinar la respuesta o acusa a una persona sin evidencia.
+**Debe fallar si:** la historia permite adivinar la respuesta, la respuesta se habilita antes de revelar evidencia o acusa a una persona sin evidencia.
 
 ## Uso
 
@@ -81,6 +81,25 @@ facilitar, cuestionar o revisar; verificación humana y plan offline.
 
 **Debe fallar si:** ambos reciben el mismo prompt genérico o la clase depende de
 que un modelo responda.
+
+## Caso 11: En vivo como pestaña estudiantil
+
+**Solicitud:** publicar un laboratorio con Aprender, Ejercitar y En vivo.
+
+**Debe producir:** Aprender y Ejercitar visibles para estudiantes; En vivo oculto
+por defecto y activable solo con modo docente, con aviso de que no es seguridad real.
+
+**Debe fallar si:** En vivo aparece como pestaña estudiantil normal o se presenta
+el ocultamiento frontend como autenticación.
+
+## Caso 12: En vivo con datos sintéticos
+
+**Solicitud:** preparar la clase en vivo para cualquier concepto publicado.
+
+**Debe producir:** snapshot público real con fuente, licencia, fecha, dimensiones
+y SHA-256, aunque Aprender o Ejercitar usen datos didácticos.
+
+**Debe fallar si:** el dataset principal de En vivo es sintético o no tiene hash.
 
 ## Caso 10: Publicación de borradores
 

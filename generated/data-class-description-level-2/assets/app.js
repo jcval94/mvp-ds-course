@@ -9,7 +9,8 @@
     currentModule.lessons.findIndex((lesson) => lesson.id === params.get("concept"))
   );
   let exerciseIndex = 0;
-  let teacherMode = "live";
+  let teacherEnabled = params.get("teacher") === "1";
+  let teacherMode = "learn";
   let visualStep = 0;
   let hasInteracted = false;
 
@@ -128,6 +129,7 @@
                   <button data-exercise="0" class="active">Ejercicio guiado</button>
                   <button data-exercise="1">Transferencia</button>
                 </div>
+                <div id="practiceStory" class="practice-story"></div>
                 <p id="exerciseEvidence" class="exercise-evidence"></p>
                 <h2 id="question"></h2>
                 <div id="options"></div>
@@ -145,7 +147,7 @@
           <div class="teacher-tabs">
             <button data-mode="learn">Aprender</button>
             <button data-mode="practice">Ejercitar</button>
-            <button data-mode="live" class="active">En vivo</button>
+            <button data-mode="live" ${teacherEnabled ? "" : "hidden"}>En vivo</button>
           </div>
           <div id="teacherContent"></div>
         </aside>
@@ -159,7 +161,10 @@
     const lesson = currentModule.lessons[lessonIndex];
     const dataset = source.datasets[currentModule.dataset_id];
     document.title = `${lesson.title} | DataClass Forge`;
-    history.replaceState(null, "", `?concept=${lesson.id}`);
+    const nextParams = new URLSearchParams();
+    nextParams.set("concept", lesson.id);
+    if (teacherEnabled) nextParams.set("teacher", "1");
+    history.replaceState(null, "", `?${nextParams.toString()}`);
     $("#lessonCount").textContent = `Bloque ${currentModule.number} de 4 · Concepto ${
       lessonIndex + 1
     } de ${currentModule.lessons.length}`;
@@ -688,9 +693,17 @@
   function renderExercise() {
     const lesson = currentModule.lessons[lessonIndex];
     const exercise = lesson.exercises[exerciseIndex];
+    const story = lesson.practiceStory.cases[exerciseIndex];
     $$(".exercise-tabs button").forEach((button) =>
       button.classList.toggle("active", +button.dataset.exercise === exerciseIndex)
     );
+    $("#practiceStory").innerHTML = `
+      <p class="story-kicker">${story.storyTitle}</p>
+      <h3>${story.protagonist}</h3>
+      <p>${story.context}. ${story.problem} ${story.pressure}.</p>
+      <p><strong>Decisión:</strong> ${story.decision}.</p>
+      <ol>${story.scenes.map((scene) => `<li>${scene}</li>`).join("")}</ol>
+      <p class="story-close">${hasInteracted ? story.closing : "Primero revela la evidencia; las opciones permanecen bloqueadas hasta entonces."}</p>`;
     $("#exerciseEvidence").textContent = `Evidencia: ${exercise.evidence}`;
     $("#question").textContent = exercise.question;
     const offset = (lessonIndex + exerciseIndex) % exercise.options.length;
@@ -721,8 +734,12 @@
 
   function renderTeacher() {
     const lesson = currentModule.lessons[lessonIndex];
+    if (!teacherEnabled && teacherMode === "live") teacherMode = "learn";
     $$(".teacher-tabs button").forEach((button) =>
-      button.classList.toggle("active", button.dataset.mode === teacherMode)
+      {
+        if (button.dataset.mode === "live") button.hidden = !teacherEnabled;
+        button.classList.toggle("active", button.dataset.mode === teacherMode);
+      }
     );
     if (teacherMode === "learn") {
       $("#teacherContent").innerHTML = `
@@ -734,24 +751,25 @@
       return;
     }
     if (teacherMode === "practice") {
+      const story = lesson.practiceStory.cases[exerciseIndex];
       $("#teacherContent").innerHTML = `
-        <p class="teacher-lead">Protocolo de práctica</p>
-        <ol>
-          <li>Oculta el resultado y pide una predicción.</li>
-          <li>Ejecuta la interacción una sola vez.</li>
-          <li>Pide citar dos rasgos visibles.</li>
-          <li>Contrasta el ejercicio guiado con la transferencia.</li>
-          <li>Cierra con una afirmación permitida y una no permitida.</li>
-        </ol>`;
+        <p class="teacher-lead">Storytelling de práctica</p>
+        <section><h2>Protagonista</h2><p>${story.protagonist}</p></section>
+        <section><h2>Presión realista</h2><p>${story.pressure}</p></section>
+        <section><h2>Decisión</h2><p>${story.decision}</p></section>
+        <section><h2>Animación obligatoria</h2><ol>${story.scenes.map((scene) => `<li>${scene}</li>`).join("")}</ol></section>`;
       return;
     }
+    const live = lesson.liveTeachingPack;
     const tools = [
       ["Codex", lesson.prompts.codex, "Ejecuta o modifica código reproducible."],
       ["Gemini", lesson.prompts.gemini, "Facilita preguntas y cuestiona la interpretación."],
       ["ChatGPT", lesson.prompts.chatgpt, "Revisa límites y propone transferencia."],
     ];
     $("#teacherContent").innerHTML = `
-      <p class="teacher-lead">IA externa, roles complementarios</p>
+      <p class="teacher-lead">Modo docente oculto. ${live.visibilityNotice}</p>
+      <section><h2>Snapshot real</h2><p>${live.dataset.name}: ${live.dataset.rows.toLocaleString("es-MX")} filas, ${live.dataset.columns} columnas, licencia ${live.dataset.license}.</p><p>Fuente: ${live.dataset.source_page}</p><p>SHA-256: ${live.dataset.sha256}</p></section>
+      <section><h2>Guion</h2><ol>${live.teacherScript.map((step) => `<li>${step}</li>`).join("")}</ol></section>
       ${tools
         .map(
           ([name, prompt, role]) => `<section class="tool">
@@ -762,7 +780,7 @@
           </section>`
         )
         .join("")}
-      <section class="offline"><h2>Plan offline</h2><p>Usa el HTML, el CSV local, predicciones y pizarra. No pegues datos sensibles ni credenciales en una herramienta externa.</p></section>`;
+      <section class="offline"><h2>Plan offline</h2><p>${live.offlinePlan}</p><p>${live.humanCheck}</p></section>`;
     bindCopy();
   }
 
@@ -842,6 +860,13 @@
         renderTeacher();
       })
     );
+    document.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "t") {
+        teacherEnabled = true;
+        teacherMode = "live";
+        renderTeacher();
+      }
+    });
   }
 
   if (!currentModule) throw new Error(`Bloque desconocido: ${moduleId}`);

@@ -18,6 +18,7 @@ El harness coordina la generación documental de material educativo: recibe una 
 - `curriculumDecision`: bloque, nivel y prerrequisitos.
 - `conceptSpec`: fuente conceptual.
 - `artifacts`: Aprender, Ejercitar y/o Enseñar en vivo.
+- `modeSeparation`: evidencia de que Aprender, Ejercitar y En vivo tienen contenido distinto.
 - `assumptions`: inferencias explícitas.
 - `validation`: puntajes, bloqueos y correcciones.
 - `status`: borrador, en revisión, listo o no listo.
@@ -103,11 +104,13 @@ Máximo recomendado: dos reintentos automáticos antes de solicitar revisión hu
 ## Manejo de errores
 
 - Falta de nivel -> asumir principiante.
-- Falta de dataset -> elegir un snapshot público licenciado; si no existe,
-  generar uno sintético reproducible y etiquetado.
+- Falta de dataset para Aprender/Ejercitar -> elegir un snapshot público licenciado; si no existe, generar uno sintético reproducible y etiquetado.
+- Falta de dataset para En vivo -> buscar o registrar un snapshot público real licenciado; no usar sintético como fuente principal.
 - Tema demasiado amplio -> elegir el primer objetivo curricular.
 - Concepto sin visual útil -> proponer comparación, simulación o predicción antes de revelar; si sigue sin aplicar, justificar.
 - Contradicción entre modos -> priorizar `ConceptSpec` y regenerar.
+- Ejercitar igual a Aprender -> rediseñar la práctica como historia aplicada con evidencia animada.
+- En vivo visible para estudiantes -> ocultar con modo docente y aclarar que no es autenticación real.
 - Error técnico -> bloquear publicación y corregir todas las dependencias.
 
 ## Human-in-the-loop
@@ -136,6 +139,8 @@ El harness recomienda uso o desarrollo solo cuando:
 
 - todos los artefactos requeridos existen;
 - no hay bloqueos automáticos;
+- los tres modos están separados en contenido y navegación;
+- En vivo usa snapshot público real y no aparece sin modo docente;
 - el promedio es 4 o más;
 - ninguna dimensión obtiene 1;
 - la prueba manual es reproducible;

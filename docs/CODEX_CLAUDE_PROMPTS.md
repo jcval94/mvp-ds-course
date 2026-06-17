@@ -3,7 +3,7 @@
 ## 1. Generar un paquete educativo
 
 ```text
-Lee AGENTS.md, IDEA.md, docs/PRODUCT_BRIEF.md, docs/PRD.md y docs/CURRICULUM_MAP.md. Usa las skills de .agents/skills. Para el concepto solicitado, define nivel, prerrequisitos y un objetivo observable; crea ConceptSpec, LearningModule, dos PracticeExercise desde Nivel 2 y LiveTeachingPack. Prefiere un snapshot público con licencia, fecha y hash; usa sintéticos etiquetados solo cuando corresponda. Valida con docs/EVAL_SUITE.md y evals/. Corrige bloqueos antes de reportar archivos, supuestos, puntajes, riesgos y siguiente slice.
+Lee AGENTS.md, IDEA.md, docs/PRODUCT_BRIEF.md, docs/PRD.md y docs/CURRICULUM_MAP.md. Usa las skills de .agents/skills. Para el concepto solicitado, define nivel, prerrequisitos y un objetivo observable; crea ConceptSpec, LearningModule, dos PracticeExercise desde Nivel 2 y LiveTeachingPack. Separa contenido: Aprender enseña, Ejercitar cuenta un caso aplicado con evidencia animada y En vivo guía al docente. Prefiere snapshots públicos con licencia, fecha y hash; En vivo siempre usa snapshot real como fuente principal. Valida con docs/EVAL_SUITE.md y evals/. Corrige bloqueos antes de reportar archivos, supuestos, puntajes, riesgos y siguiente slice.
 ```
 
 ## 2. Expandir el temario
@@ -27,13 +27,13 @@ Activa learning-module-designer. Usa la ConceptSpec de [concepto]. Diseña una e
 ## 5. Diseñar el modo Ejercitar
 
 ```text
-Activa practice-exercise-designer. Usa la ConceptSpec y el visual de [concepto]. Crea un ejercicio guiado y otro de transferencia, ambos con rol, decisión y evidencia. Incluye respuesta defendible, distractores derivados de errores comunes, pistas graduadas y feedback específico. Comprueba que ambos pierdan sentido si se oculta la visualización.
+Activa practice-exercise-designer. Usa la ConceptSpec y el visual de [concepto]. Crea un ejercicio guiado y otro de transferencia, ambos con protagonista, historia profesional o de negocio, presión realista, decisión y evidencia animada. Incluye respuesta defendible, distractores derivados de errores comunes, pistas graduadas y feedback específico. Comprueba que ambos pierdan sentido si se oculta la visualización o si no se ejecuta la animación.
 ```
 
 ## 6. Preparar Enseñar en vivo
 
 ```text
-Activa live-teaching-pack-builder. Usa ConceptSpec, LearningModule y PracticeExercise. Crea un LiveTeachingPack con guion, snapshot local, demostración, preguntas, evaluación, cierre, blueprint y plan offline. Codex modifica o verifica código reproducible; Gemini y ChatGPT facilitan o revisan la interpretación. Incluye verificación humana y privacidad. No ejecutes IA desde el HTML ni descargues datos durante clase.
+Activa live-teaching-pack-builder. Usa ConceptSpec, LearningModule y PracticeExercise. Crea un LiveTeachingPack con guion, snapshot público real local, fuente, licencia, fecha, SHA-256, demostración, preguntas, evaluación, cierre, blueprint y plan offline. Codex modifica o verifica código reproducible; Gemini y ChatGPT facilitan o revisan la interpretación. Incluye verificación humana, privacidad y aviso de que el modo docente oculto no es autenticación real. No ejecutes IA desde el HTML ni descargues datos durante clase.
 ```
 
 ## 7. Revisar precisión técnica
@@ -51,7 +51,7 @@ Activa pedagogy-eval-reviewer. Lee docs/EVAL_SUITE.md y evals/. Puntúa alcance,
 ## 9. Construir un nivel publicable
 
 ```text
-Crea un nivel completo de DataClass Forge. Para cada concepto genera ConceptSpec, LearningModule, ejercicios y LiveTeachingPack. Genera manifest y validation, ejecuta todos los evals y publica únicamente si el promedio es 4 o más, ninguna dimensión está en 1 y los snapshots tienen licencia y hash.
+Crea un nivel completo de DataClass Forge. Para cada concepto genera ConceptSpec, LearningModule, ejercicios narrativos animados y LiveTeachingPack docente con snapshot público real. Genera manifest y validation, ejecuta todos los evals y publica únicamente si el promedio es 4 o más, ninguna dimensión está en 1, En vivo está oculto por defecto y los snapshots tienen licencia y hash.
 ```
 
 ## 10. Evaluar preparación para código

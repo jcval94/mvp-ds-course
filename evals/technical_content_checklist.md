@@ -4,6 +4,7 @@
 - [ ] Variables y tipos son coherentes.
 - [ ] Los datos sintéticos y filas didácticas alteradas están etiquetados.
 - [ ] Los snapshots públicos tienen fuente, licencia, fecha, dimensiones y SHA-256.
+- [ ] El dataset principal de En vivo es un snapshot público real.
 - [ ] El hash coincide con el archivo publicado.
 - [ ] Totales, porcentajes y escalas cuadran.
 - [ ] Ejes, leyendas y unidades son claros.

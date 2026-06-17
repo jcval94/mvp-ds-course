@@ -93,9 +93,13 @@ def main() -> None:
                 f"{BASE}/labs/level-1/{block['href']}",
                 wait_until="networkidle",
             )
+            assert page.get_by_role("button", name="En vivo").count() == 0
             for lesson_index in range(block["concept_count"]):
+                assert page.locator(".practice-story").inner_text()
+                assert page.locator(".option:disabled").count() == 3
                 page.locator("#animateVisual").click()
                 page.wait_for_timeout(150)
+                assert page.locator(".option:disabled").count() == 0
                 correct_index = page.evaluate(
                     """([moduleId, lessonIndex]) =>
                     window.DCF_MODULES[moduleId].lessons[lessonIndex]
@@ -117,6 +121,8 @@ def main() -> None:
                 wait_until="networkidle",
             )
             assert page.locator("#lessonTitle").inner_text() == item["title"]
+            assert page.get_by_role("button", name="En vivo").count() == 0
+            assert page.locator("#practiceStory").inner_text()
             assert page.locator(".option:disabled").count() == 3
             assert page.locator("#exerciseEvidence").inner_text().startswith(
                 "Evidencia:"
@@ -148,10 +154,24 @@ def main() -> None:
             f"{BASE}/labs/level-2/distribuciones.html?concept=histogram",
             wait_until="networkidle",
         )
+        assert page.get_by_role("button", name="En vivo").count() == 0
         page.screenshot(path=OUTPUT / "level-2-histogram-desktop.png", full_page=True)
+        page.goto(
+            f"{BASE}/labs/level-2/distribuciones.html?concept=histogram&teacher=1",
+            wait_until="networkidle",
+        )
         page.get_by_role("button", name="En vivo").click()
+        page.get_by_text("Modo docente oculto").wait_for()
+        page.get_by_text("SHA-256").first.wait_for()
         page.get_by_role("button", name="Copiar").first.click()
         page.get_by_text("Copiado").wait_for()
+        page.goto(
+            f"{BASE}/labs/level-1/alfabetizacion.html?teacher=1",
+            wait_until="networkidle",
+        )
+        page.get_by_role("button", name="En vivo").click()
+        page.get_by_text("Modo docente oculto").wait_for()
+        page.get_by_text("SHA-256").first.wait_for()
 
         mobile = browser.new_context(viewport={"width": 390, "height": 844})
         mobile_page = mobile.new_page()
@@ -171,6 +191,8 @@ def main() -> None:
             f"{BASE}/labs/level-2/distribuciones.html?concept=histogram",
             wait_until="networkidle",
         )
+        assert mobile_page.get_by_role("button", name="En vivo").count() == 0
+        assert mobile_page.locator("#practiceStory").inner_text()
         mobile_page.locator("#runVisual").click()
         mobile_page.get_by_role("button", name="Transferencia").click()
         mobile_page.locator("#runVisual").click()

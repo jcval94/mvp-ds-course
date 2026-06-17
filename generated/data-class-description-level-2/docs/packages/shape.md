@@ -40,7 +40,13 @@
 
 ## PracticeExercise
 
+**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+
 ### Ejercicio guiado
+
+**Historia:** Don José, dueño de una tienda de barrio quiere decidir a qué hora abrir sin revisar cientos de días en Excel. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar forma para leer concentración, forma o sensibilidad de la demanda.
+
+**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar perfiles» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Alterna entre todos los días y una temporada; describe centro, extensión y colas visibles.
 
@@ -56,6 +62,10 @@
 
 ### Ejercicio de transferencia
 
+**Historia:** Don José, dueño de una tienda de barrio cambia de contexto para probar si el razonamiento se transfiere. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar forma para leer concentración, forma o sensibilidad de la demanda.
+
+**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar perfiles» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+
 **Evidencia requerida:** Compara dos perfiles con centro parecido y señala diferencias fuera del centro.
 
 **Pregunta:** Dos distribuciones comparten media. ¿Qué comparación visual sigue siendo necesaria?
@@ -70,14 +80,23 @@
 
 ## LiveTeachingPack
 
+**Visibilidad:** modo docente oculto por defecto; no es autenticación real.
+
+**Dataset real:** Bike Sharing Dataset · UCI (731 filas, 16 columnas), licencia CC BY 4.0.
+
+**Fuente:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset
+
+**Fecha del snapshot:** 2026-06-14
+
+**SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`
+
 | Minutos | Actividad |
 | --- | --- |
-| 0-5 | Presentar fuente, licencia, unidad de análisis y pregunta |
-| 5-12 | Pedir predicción y ejecutar la interacción local |
-| 12-20 | Usar Codex para modificar o verificar la demo |
-| 20-27 | Usar Gemini o ChatGPT para cuestionar la interpretación |
-| 27-33 | Resolver los dos ejercicios con evidencia |
-| 33-35 | Cierre y límite de la conclusión |
+| 0-5 | presentar fuente, licencia, unidad de análisis y pregunta. |
+| 5-12 | pedir predicción y ejecutar la interacción local. |
+| 12-20 | pedir a Codex verificar o modificar código reproducible sin cambiar el snapshot. |
+| 20-27 | usar Gemini o ChatGPT para cuestionar interpretación y límites. |
+| 27-35 | resolver práctica con evidencia y cerrar con una afirmación permitida. |
 
 ### Roles de IA
 
@@ -85,7 +104,8 @@
 - **Gemini o ChatGPT:** facilita, critica e interpreta la evidencia; no ejecuta la decisión.
 - **Verificación humana:** revisar cálculos, fuente, supuestos y conclusión antes de proyectar.
 - **Privacidad:** no pegar datos sensibles ni credenciales.
-- **Plan offline:** usar el HTML, el CSV local y las preguntas impresas.
+- **Privacidad:** no pegar datos sensibles ni credenciales; el modo docente oculto no protege como login.
+- **Plan offline:** Usar HTML local, CSV snapshot y pizarra. No pegar datos sensibles ni credenciales en herramientas externas.
 
 ### Prompts
 

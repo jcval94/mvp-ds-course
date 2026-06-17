@@ -27,7 +27,7 @@ Producir `ConceptSpec`, módulos, ejercicios y paquetes docentes técnicamente c
 4. Confirmar prerrequisitos y formular un objetivo observable.
 5. Crear o reutilizar una `ConceptSpec`.
 6. Activar las skills necesarias en orden.
-7. Generar Aprender, Ejercitar y Enseñar en vivo cuando se solicite paquete completo.
+7. Generar Aprender, Ejercitar y Enseñar en vivo cuando se solicite paquete completo, manteniendo contenido distinto por modo.
 8. Validar precisión técnica, pedagogía, consistencia y alcance.
 9. Corregir la decisión raíz y propagar cambios a los tres modos.
 10. Reportar archivos, supuestos, riesgos, resultados de evals y próxima vertical slice.
@@ -48,8 +48,9 @@ Producir `ConceptSpec`, módulos, ejercicios y paquetes docentes técnicamente c
 Inferir sin preguntar cuando:
 
 - Falta un contexto y puede usarse uno cotidiano o profesional no sensible.
-- Falta dataset y puede elegirse un snapshot público licenciado o crearse uno
-  sintético pequeño y etiquetado.
+- Falta dataset para Aprender/Ejercitar y puede elegirse un snapshot público
+  licenciado o crearse uno sintético pequeño y etiquetado.
+- Falta dataset para En vivo y no existe snapshot público real verificable.
 - Falta duración y puede asumirse una lección de 30 a 45 minutos.
 - Falta nivel y la explicación puede empezar en principiante.
 - El alcance contiene varios objetivos y puede reducirse al primero en la progresión curricular.
@@ -71,8 +72,8 @@ Preguntar solo cuando:
 - Nuevo bloque o cambio de secuencia: `curriculum-architect`.
 - Nueva ficha conceptual: `concept-spec-designer`.
 - Modo Aprender: `learning-module-designer`.
-- Modo Ejercitar: `practice-exercise-designer`.
-- Modo Enseñar en vivo: `live-teaching-pack-builder`.
+- Modo Ejercitar: `practice-exercise-designer`, con historia aplicada, protagonista, presión realista y evidencia animada.
+- Modo Enseñar en vivo: `live-teaching-pack-builder`, oculto para estudiantes y basado en snapshot público real.
 - Revisión disciplinar: `technical-content-reviewer`.
 - Cierre obligatorio: `pedagogy-eval-reviewer`.
 
@@ -92,6 +93,8 @@ Preguntar solo cuando:
 - Definir unidad de análisis, variables y tipos.
 - Registrar fuente, licencia, fecha y hash de snapshots públicos.
 - Etiquetar datos sintéticos y cualquier fila didáctica alterada.
+- No usar sintéticos como fuente principal de En vivo.
+- Declarar que el modo docente oculto en frontend no equivale a autenticación.
 - Mantener consistentes valores, escalas, totales y métricas.
 - Explicar supuestos estadísticos relevantes.
 - Diferenciar correlación, predicción y causalidad.

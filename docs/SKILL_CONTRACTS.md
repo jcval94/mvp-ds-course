@@ -49,7 +49,7 @@ dataset, procedencia/licencia cuando aplica, dominio y límites.
 
 **Inputs:** `ConceptSpec`, duración y restricciones docentes.
 
-**Output:** `LearningModule` con activación previa, intuición, etapas, interacción, error común, checkpoint y cierre.
+**Output:** `LearningModule` con activación previa, intuición, etapas, interacción, error común, checkpoint y cierre, sin resolver el caso narrativo de Ejercitar.
 
 **No debe hacer:** comenzar con una pared de fórmulas ni duplicar una definición en varias secciones.
 
@@ -64,13 +64,14 @@ dataset, procedencia/licencia cuando aplica, dominio y límites.
 **Inputs:** `ConceptSpec`, contexto, visual y dificultad.
 
 **Output:** `PracticeExercise` guiado y de transferencia desde Nivel 2, con rol,
-historia, pasos, evidencia, preguntas, opciones, pistas, feedback y conclusión.
+protagonista, historia, presión realista, decisión, escenas animadas, evidencia,
+preguntas, opciones, pistas, feedback y conclusión.
 
 **No debe hacer:** premiar adivinanza, usar distractores absurdos ni pedir una decisión no sustentada.
 
-**Aceptación:** existe una respuesta defendible, los distractores corresponden a errores plausibles y cada feedback corrige razonamiento.
+**Aceptación:** existe una respuesta defendible, la animación revela evidencia antes de responder, los distractores corresponden a errores plausibles y cada feedback corrige razonamiento.
 
-**Rechazo:** el ejercicio puede resolverse sin mirar la evidencia o la conclusión excede los datos.
+**Rechazo:** el ejercicio puede resolverse sin mirar la evidencia, la historia permite adivinar la respuesta, la animación solo cambia estilo o la conclusión excede los datos.
 
 ## `live-teaching-pack-builder`
 
@@ -78,15 +79,15 @@ historia, pasos, evidencia, preguntas, opciones, pistas, feedback y conclusión.
 
 **Inputs:** `ConceptSpec`, `LearningModule`, `PracticeExercise`, duración y formato técnico preferido.
 
-**Output:** `LiveTeachingPack` con guion, dataset, demo, preguntas, evaluación,
-blueprint, prompt técnico para Codex, prompts de facilitación para Gemini y
-ChatGPT, verificación humana, privacidad, plan offline y checklists.
+**Output:** `LiveTeachingPack` con guion, snapshot público real, demo, preguntas,
+evaluación, blueprint, prompt técnico para Codex, prompts de facilitación para
+Gemini y ChatGPT, verificación humana, privacidad, plan offline y checklists.
 
-**No debe hacer:** depender de ejecutar IA, descargar datos externos durante clase o dejar al docente completar secciones.
+**No debe hacer:** depender de ejecutar IA, descargar datos externos durante clase, usar datos sintéticos como fuente principal, mostrarse como pestaña estudiantil visible o dejar al docente completar secciones.
 
-**Aceptación:** otro docente puede impartir la sesión con ajustes menores y ejecutar el plan offline.
+**Aceptación:** otro docente puede impartir la sesión con ajustes menores, verificar fuente/licencia/hash y ejecutar el plan offline.
 
-**Rechazo:** no hay tiempos, datos reproducibles, cierre o contingencia.
+**Rechazo:** no hay tiempos, snapshot real reproducible, aviso de privacidad/ocultamiento, cierre o contingencia.
 
 ## `technical-content-reviewer`
 

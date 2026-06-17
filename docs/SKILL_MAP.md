@@ -6,9 +6,9 @@
 | --- | --- | --- | --- | --- | --- |
 | `curriculum-architect` | Ordenar conceptos y prerrequisitos | Nuevo tema, bloque o expansión del temario | `CURRICULUM_MAP.md`, audiencia, nivel | Ruta curricular y objetivo priorizado | Alta |
 | `concept-spec-designer` | Crear la fuente conceptual común | Concepto nuevo o ficha incompleta | Ruta curricular y contexto | `ConceptSpec` validable | Alta |
-| `learning-module-designer` | Diseñar el modo Aprender | Solicitud de explicación o módulo | `ConceptSpec`, duración | `LearningModule` | Alta |
-| `practice-exercise-designer` | Diseñar práctica dependiente de evidencia | Solicitud de ejercicio o caso | `ConceptSpec`, visual, contexto | Ejercicio guiado y transferencia | Alta |
-| `live-teaching-pack-builder` | Preparar una clase reproducible | Solicitud docente o de clase en vivo | `ConceptSpec`, módulo, ejercicio | Guion, roles de IA, prompts y plan offline | Alta |
+| `learning-module-designer` | Diseñar el modo Aprender | Solicitud de explicación o módulo | `ConceptSpec`, duración | `LearningModule` separado de práctica y docencia | Alta |
+| `practice-exercise-designer` | Diseñar práctica narrativa dependiente de evidencia animada | Solicitud de ejercicio o caso | `ConceptSpec`, visual, contexto | Ejercicio guiado y transferencia con storytelling | Alta |
+| `live-teaching-pack-builder` | Preparar una clase docente reproducible | Solicitud docente o de clase en vivo | `ConceptSpec`, módulo, ejercicio, snapshot público | Guion, dataset real, roles de IA, prompts y plan offline | Alta |
 
 ## Skills de calidad
 
@@ -40,6 +40,8 @@ Aprender  Ejercitar  Enseñar en vivo
 - Contenido técnico avanzado activa revisión de prerrequisitos antes de generación.
 - QA técnica ocurre antes de QA pedagógica final.
 - Todo snapshot público pasa por procedencia, licencia y hash.
+- En vivo usa snapshot público real como fuente principal y se oculta por defecto en UI estudiantil.
+- Ejercitar debe contar una historia profesional o de negocio distinta de Aprender.
 - Codex asume el rol técnico; Gemini y ChatGPT facilitan o revisan.
 
 ## Señales de skill débil
