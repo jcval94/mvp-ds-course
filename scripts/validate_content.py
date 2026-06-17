@@ -141,22 +141,30 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
         "liveTeachingPack",
         "animationRequired: true",
         "visibilityNotice",
-        "teacher-only-static",
+        "visible-temporal-level-1",
         "sha256",
+        "hints",
+        "socraticQuestions",
+        "quickAssessment",
+        "beforeClassChecklist",
+        "duringClassChecklist",
     ]:
         if fragment not in curriculum:
             fail(f"Nivel 1 no contiene contrato de modo: {fragment}")
     for fragment in [
-        'teacherEnabled = params.get("teacher") === "1"',
-        'data-mode="live" ${teacherEnabled ? "" : "hidden"}',
+        "let teacherEnabled = true;",
+        'let teacherMode = "live";',
+        'data-mode="live"',
+        "Pistas graduadas",
+        "live.socraticQuestions",
+        "live.beforeClassChecklist",
+        "Modo En vivo visible temporalmente",
         "Primero ejecuta la animación",
     ]:
         if fragment not in app:
-            fail(f"Nivel 1 no implementa separación de UI: {fragment}")
+            fail(f"Nivel 1 no implementa En vivo visible temporal: {fragment}")
     if ".option:disabled" not in css:
         fail("Nivel 1 no estiliza opciones bloqueadas antes de animar")
-    if 'let teacherMode = "live"' in app:
-        fail("Nivel 1 inicia En vivo como modo estudiantil")
 
 
 def validate_story_contract(lesson: dict[str, object]) -> None:

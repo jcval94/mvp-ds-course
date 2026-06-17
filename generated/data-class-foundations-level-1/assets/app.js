@@ -2,10 +2,9 @@
   const modules = window.DCF_MODULES;
   const moduleId = document.body.dataset.module;
   const currentModule = modules[moduleId];
-  const params = new URLSearchParams(location.search);
   let lessonIndex = 0;
-  let teacherEnabled = params.get("teacher") === "1";
-  let teacherMode = "learn";
+  let teacherEnabled = true;
+  let teacherMode = "live";
   let animationStep = 0;
   let hasInteracted = false;
 
@@ -109,7 +108,7 @@
           <div class="teacher-tabs">
             <button class="teacher-tab" data-mode="learn">Aprender</button>
             <button class="teacher-tab" data-mode="practice">Ejercitar</button>
-            <button class="teacher-tab" data-mode="live" ${teacherEnabled ? "" : "hidden"}>En vivo</button>
+            <button class="teacher-tab active" data-mode="live">En vivo</button>
           </div>
           <div class="teacher-content"></div>
         </aside>
@@ -144,7 +143,9 @@
       <strong>${story.protagonist}</strong>
       <p>${story.context}. ${story.problem} ${story.pressure}.</p>
       <p><b>Decisión:</b> ${story.decision}.</p>
+      <p><b>Evidencia:</b> ${story.evidence || lesson.practiceStory.evidence}</p>
       <ol>${story.scenes.map(scene => `<li>${scene}</li>`).join("")}</ol>
+      <details class="practice-hints"><summary>Pistas graduadas</summary><ul>${lesson.practiceStory.hints.map(hint => `<li>${hint}</li>`).join("")}</ul></details>
       <p class="story-close">${hasInteracted ? story.closing : "Primero ejecuta la animación; las respuestas están bloqueadas hasta ver la evidencia."}</p>`;
     $(".question > p").textContent = lesson.practice.question;
     $(".options").innerHTML = displayOptions(lesson.practice.options).map(({ item, sourceIndex }, displayIndex) => `
@@ -308,9 +309,7 @@
   }
 
   function renderTeacher(lesson) {
-    if (!teacherEnabled && teacherMode === "live") teacherMode = "learn";
     $$(".teacher-tab").forEach(tab => {
-      if (tab.dataset.mode === "live") tab.hidden = !teacherEnabled;
       tab.classList.toggle("active", tab.dataset.mode === teacherMode);
     });
     const content = $(".teacher-content");
@@ -335,9 +334,11 @@
       ["Gemini", lesson.prompts.gemini, "Facilita preguntas socráticas sin sustituir el razonamiento del grupo."],
       ["ChatGPT", lesson.prompts.chatgpt, "Crea variaciones y preguntas; revisa exactitud antes de usarlas."]
     ];
-    content.innerHTML = `<p class="teacher-intro">Modo docente oculto. ${live.visibilityNotice}</p>
+    content.innerHTML = `<p class="teacher-intro">Modo En vivo visible temporalmente. ${live.visibilityNotice}</p>
       <section class="tool-section"><div class="tool-head"><span class="tool-logo">D</span><strong>Snapshot real</strong></div><p class="teacher-cue">${live.dataset.name}: ${live.dataset.rows.toLocaleString("es-MX")} filas, ${live.dataset.columns} columnas, licencia ${live.dataset.license}. Fuente: ${live.dataset.source_page}. SHA-256: ${live.dataset.sha256}</p></section>
       <section class="tool-section"><div class="tool-head"><span class="tool-logo">G</span><strong>Guion</strong></div><p class="teacher-cue">${live.teacherScript.join(" ")}</p></section>
+      <section class="tool-section"><div class="tool-head"><span class="tool-logo">?</span><strong>Preguntas y evaluación</strong></div><p class="teacher-cue">${live.socraticQuestions.join(" ")}</p><p class="teacher-cue"><strong>Evaluación rápida:</strong> ${live.quickAssessment}</p></section>
+      <section class="tool-section"><div class="tool-head"><span class="tool-logo">✓</span><strong>Checklist docente</strong></div><p class="teacher-cue"><strong>Antes:</strong> ${live.beforeClassChecklist.join(" ")}</p><p class="teacher-cue"><strong>Durante:</strong> ${live.duringClassChecklist.join(" ")}</p></section>
       ${tools.map(([name, prompt, cue], index) => `<section class="tool-section">
         <div class="tool-head"><span class="tool-logo">${index === 0 ? "&gt;_" : index === 1 ? "G" : "AI"}</span><strong>${name}</strong>
         <button class="copy-btn" data-copy="${encodeURIComponent(prompt)}">${icon("copy")} Copiar</button></div>
@@ -402,7 +403,6 @@
     }));
     document.addEventListener("keydown", (event) => {
       if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "t") {
-        teacherEnabled = true;
         teacherMode = "live";
         renderTeacher(currentModule.lessons[lessonIndex]);
       }

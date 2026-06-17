@@ -93,7 +93,9 @@ def main() -> None:
                 f"{BASE}/labs/level-1/{block['href']}",
                 wait_until="networkidle",
             )
-            assert page.get_by_role("button", name="En vivo").count() == 0
+            assert page.get_by_role("button", name="En vivo").count() == 1
+            page.get_by_text("Modo En vivo visible temporalmente").wait_for()
+            page.get_by_text("SHA-256").first.wait_for()
             for lesson_index in range(block["concept_count"]):
                 assert page.locator(".practice-story").inner_text()
                 assert page.locator(".option:disabled").count() == 3
@@ -166,11 +168,11 @@ def main() -> None:
         page.get_by_role("button", name="Copiar").first.click()
         page.get_by_text("Copiado").wait_for()
         page.goto(
-            f"{BASE}/labs/level-1/alfabetizacion.html?teacher=1",
+            f"{BASE}/labs/level-1/alfabetizacion.html",
             wait_until="networkidle",
         )
         page.get_by_role("button", name="En vivo").click()
-        page.get_by_text("Modo docente oculto").wait_for()
+        page.get_by_text("Modo En vivo visible temporalmente").wait_for()
         page.get_by_text("SHA-256").first.wait_for()
 
         mobile = browser.new_context(viewport={"width": 390, "height": 844})

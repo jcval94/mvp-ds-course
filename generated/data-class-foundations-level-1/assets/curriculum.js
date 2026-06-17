@@ -56,6 +56,12 @@
     return {
       mode: "Ejercitar",
       animationRequired: true,
+      evidence: `Ejecuta «${visual.action}» y cita el cambio visible relacionado con ${title.toLowerCase()}.`,
+      hints: [
+        "Nombra primero la unidad que estás observando.",
+        "Compara el estado antes y después de la animación.",
+        "Descarta cualquier opción que no pueda señalarse en la tabla o visual."
+      ],
       cases: [{
         storyTitle: `El caso de ${title}`,
         protagonist,
@@ -63,11 +69,14 @@
         problem: `La decisión depende de aplicar ${title.toLowerCase()} con evidencia visible.`,
         pressure,
         decision: "elegir la interpretación que sí sostiene la visualización",
+        evidence: `La evidencia aparece al ejecutar «${visual.action}»: ${visual.cue}`,
         scenes: [
           "Escena 1: mirar el estado inicial y hacer una predicción.",
           `Escena 2: ejecutar «${visual.action}» para revelar la evidencia.`,
           "Escena 3: responder citando el cambio visible, no una definición memorizada."
         ],
+        feedbackRule: "Cada respuesta debe explicar qué parte del visual sostiene o contradice la decisión.",
+        transfer: "Cambia el contexto a otro archivo pequeño y pide identificar qué evidencia debe verse antes de decidir.",
         closing: "La historia se resuelve con el mecanismo aprendido, pero la conclusión se limita a la evidencia visible."
       }]
     };
@@ -76,15 +85,34 @@
     const dataset = liveDatasets[datasetIdFor(visual)];
     return {
       mode: "En vivo",
-      visibility: "teacher-only-static",
-      visibilityNotice: "Modo docente oculto por defecto en la UI estudiantil; no es autenticación real.",
+      visibility: "visible-temporal-level-1",
+      visibilityNotice: "Modo En vivo visible temporalmente en Nivel 1 para revisión docente; no es autenticación ni protección real.",
       dataset,
+      objective,
+      duration: "35 minutos por concepto o 70-90 minutos por bloque",
       teacherScript: [
         "0-5: presentar fuente, licencia, unidad de análisis y pregunta.",
         `5-12: ejecutar «${visual.action}» y pedir predicciones.`,
         "12-20: usar Codex para verificar una demo reproducible con el snapshot.",
         "20-30: usar Gemini o ChatGPT para cuestionar límites y errores comunes.",
         "30-35: cerrar con una decisión permitida y una afirmación que no se puede hacer."
+      ],
+      socraticQuestions: [
+        "¿Qué cambia en la evidencia después de la animación?",
+        "¿Qué conclusión sí permite el snapshot?",
+        "¿Qué dato, variable o unidad falta para afirmar más?",
+        "¿Cuál sería un error tentador pero injustificado?"
+      ],
+      quickAssessment: `El estudiante explica ${title.toLowerCase()} con una evidencia visible y una limitación.`,
+      beforeClassChecklist: [
+        "Abrir el laboratorio local y verificar que la animación corre.",
+        "Tener visible la fuente, licencia y SHA-256 del snapshot.",
+        "Preparar una predicción antes de mostrar la respuesta."
+      ],
+      duringClassChecklist: [
+        "No aceptar respuestas sin señalar evidencia.",
+        "Separar definición, decisión y límite de conclusión.",
+        "Registrar dudas que requieran revisar el snapshot."
       ],
       offlinePlan: "Usar el HTML local, el CSV snapshot y pizarra; no pegar datos sensibles ni credenciales.",
       humanCheck: "Verificar fuente, licencia, hash, cálculos y límites antes de proyectar."

@@ -145,6 +145,9 @@ a { color: inherit; text-decoration: none; }
 .practice-story p, .practice-story li { color: var(--muted); font-size: 12px; line-height: 1.45; }
 .practice-story p { margin: 6px 0; }
 .practice-story ol { margin: 8px 0 0; padding-left: 18px; }
+.practice-hints { margin-top: 8px; border-top: 1px solid var(--line); padding-top: 8px; }
+.practice-hints summary { cursor: pointer; color: var(--teal); font-size: 12px; font-weight: 800; }
+.practice-hints ul { margin: 7px 0 0; padding-left: 18px; }
 .story-kicker { color: var(--coral) !important; text-transform: uppercase; letter-spacing: .08em; font-size: 10px !important; font-weight: 900; }
 .story-close { border-top: 1px solid var(--line); padding-top: 8px; }
 .option { display: flex; gap: 9px; align-items: flex-start; width: 100%; text-align: left; background: white; border: 1px solid var(--line); padding: 9px 10px; margin-top: 6px; border-radius: 5px; color: var(--ink); font-size: 13px; }
@@ -158,21 +161,21 @@ a { color: inherit; text-decoration: none; }
 .feedback.success { border-left-color: var(--green); }
 .feedback.error { border-left-color: var(--coral); }
 .feedback p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
-.teacher-panel { border-left: 1px solid var(--line); background: #fbfcfd; min-width: 0; }
+.teacher-panel { border-left: 1px solid var(--line); background: #fbfcfd; min-width: 0; overflow: hidden; }
 .teacher-tabs { display: flex; border-bottom: 1px solid var(--line); background: white; }
 .teacher-tab { flex: 1; min-height: 53px; border: 0; border-bottom: 3px solid transparent; background: white; color: var(--muted); font-size: 13px; }
 .teacher-tab.active { color: var(--teal); border-bottom-color: var(--teal); font-weight: 800; }
 .teacher-content { padding: 16px; }
 .teacher-intro { font-size: 13px; color: var(--muted); line-height: 1.45; margin: 0 0 14px; }
-.tool-section { border: 1px solid var(--line); border-radius: 7px; background: white; padding: 13px; margin-bottom: 12px; }
+.tool-section { border: 1px solid var(--line); border-radius: 7px; background: white; padding: 13px; margin-bottom: 12px; min-width: 0; }
 .tool-head { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
 .tool-logo { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 5px; color: white; background: var(--ink); font-weight: 900; font-size: 12px; }
 .tool-section:nth-of-type(2) .tool-logo { background: var(--blue); }
 .tool-section:nth-of-type(3) .tool-logo { background: #0aa37f; }
 .tool-head strong { font-size: 14px; }
 .copy-btn { margin-left: auto; min-height: 30px; border: 1px solid var(--line); border-radius: 5px; background: white; padding: 0 8px; font-size: 12px; }
-.prompt-box { border-radius: 5px; background: #f2f5f7; padding: 9px; font: 11px/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; max-height: 92px; overflow: auto; }
-.teacher-cue { font-size: 12px; color: var(--muted); margin: 8px 0 0; line-height: 1.4; }
+.prompt-box { border-radius: 5px; background: #f2f5f7; padding: 9px; font: 11px/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; max-height: 92px; overflow: auto; overflow-wrap: anywhere; }
+.teacher-cue { font-size: 12px; color: var(--muted); margin: 8px 0 0; line-height: 1.4; overflow-wrap: anywhere; }
 .offline { border-top: 1px solid var(--line); padding-top: 12px; font-size: 12px; color: var(--muted); }
 .portal { min-height: 100vh; background: #f7f9fb; }
 .portal-main { max-width: 1180px; margin: 0 auto; padding: 34px 24px 60px; }

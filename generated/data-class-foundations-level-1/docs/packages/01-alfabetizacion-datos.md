@@ -32,6 +32,24 @@ Cada escena inicia con predicción, incluye una animación significativa y termi
 
 ## PracticeExercise
 
+**Historia:** Ana coordina un taller de datos para personal administrativo. El equipo recibe una tabla pequeña y quiere sacar conclusiones rápidas, pero algunas personas confunden una celda con una fila completa, un ID con una medida y las filas visibles con toda la población.
+
+**Decisión:** elegir qué interpretación de la tabla sí está sostenida por la evidencia visual antes de continuar con cualquier análisis.
+
+**Evidencia animada requerida:** ejecutar iluminación de filas, recorrido de columnas, construcción de tabla y selección de muestra.
+
+**Escenas:**
+
+1. Predicción: pedir qué creen que representa una fila completa.
+2. Animación: revelar fila, columna o muestra según el concepto activo.
+3. Decisión: responder citando la parte visible que cambió.
+
+**Pistas graduadas:**
+
+- Nombra primero la unidad observada.
+- Revisa si estás señalando fila, columna, celda, población o muestra.
+- Descarta respuestas que no puedan ubicarse en el visual.
+
 El estudiante interpreta una tabla de movilidad del campus. Debe justificar:
 
 - qué representa una fila;
@@ -42,9 +60,21 @@ El estudiante interpreta una tabla de movilidad del campus. Debe justificar:
 
 Los distractores representan confusión entre unidad, variable y universo.
 
+**Cierre transferible:** antes de analizar un dataset nuevo, se debe poder decir qué representa una fila, qué significa cada columna y a qué población se quiere hablar.
+
 ## LiveTeachingPack
 
+**Visibilidad:** En Vivo queda visible temporalmente en Nivel 1 para revisión docente; no es autenticación ni protección real.
+
 **Duración:** 75 minutos.
+
+**Dataset real para clase:** Palmer Penguins, 344 filas y 8 columnas, licencia CC0-1.0.
+
+**Fuente:** https://allisonhorst.github.io/palmerpenguins/
+
+**Fecha del snapshot:** 2026-06-14.
+
+**SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
 
 | Minutos | Actividad |
 | --- | --- |
@@ -60,5 +90,11 @@ Los distractores representan confusión entre unidad, variable y universo.
 **Gemini:** conducir preguntas socráticas sobre unidad de análisis y muestra.
 
 **ChatGPT:** proponer datasets alternativos y preguntas de transferencia.
+
+**Evaluación rápida:** el estudiante identifica observación, variable, tabla, población y muestra en Palmer Penguins sin afirmar causalidad.
+
+**Checklist antes de clase:** abrir el HTML local, verificar snapshot y SHA, preparar predicciones y tener una versión impresa de cinco filas.
+
+**Checklist durante clase:** pedir evidencia visible, corregir confusiones entre celda/fila/columna y cerrar con una limitación.
 
 **Plan offline:** usar los controles locales y dibujar una población con fichas de papel.

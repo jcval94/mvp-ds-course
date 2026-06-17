@@ -24,8 +24,8 @@ Luego visita `http://localhost:4173/generated/data-class-foundations-level-1/`.
 ## Modos
 
 - **Aprender:** definición, intuición y error común.
-- **Ejercitar:** decisión basada en evidencia con feedback específico.
-- **En vivo:** prompts copiables para Codex, Gemini y ChatGPT, más plan offline.
+- **Ejercitar:** caso narrativo profesional, animación obligatoria, pistas graduadas, decisión basada en evidencia y feedback específico.
+- **En vivo:** visible temporalmente en Nivel 1 para revisión docente. Usa snapshots públicos reales con fuente, licencia, fecha y SHA-256; no es autenticación ni protección real en el sitio estático.
 
 ## Uso docente sugerido
 
@@ -47,5 +47,6 @@ Los HTML no transmiten datos, no llaman APIs y no requieren credenciales.
 
 - Audiencia principiante.
 - Sesiones de 60 a 90 minutos por bloque.
-- Datos sintéticos y contextos educativos.
+- Las visualizaciones de Aprender y Ejercitar pueden usar datos didácticos pequeños; En vivo usa snapshots públicos reales como fuente principal.
+- En vivo queda visible temporalmente solo en Nivel 1 mientras se revisa el material docente.
 - Revisión humana de cualquier salida producida por IA.
