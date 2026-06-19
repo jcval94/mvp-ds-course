@@ -114,6 +114,9 @@ main { min-width: 0; padding: 0 22px 40px; }
 .practice-story p, .practice-story li { color: var(--muted); font-size: 12px; line-height: 1.45; }
 .practice-story p { margin: 6px 0; }
 .practice-story ol { margin: 8px 0 0; padding-left: 18px; }
+.practice-hints { margin-top: 8px; border-top: 1px solid var(--line); padding-top: 8px; }
+.practice-hints summary { cursor: pointer; color: var(--teal); font-size: 12px; font-weight: 800; }
+.practice-hints ul { margin: 7px 0 0; padding-left: 18px; }
 .story-kicker { color: var(--coral) !important; text-transform: uppercase; letter-spacing: .08em; font-size: 10px !important; font-weight: 900; }
 .story-close { border-top: 1px solid var(--line); padding-top: 8px; }
 .exercise-evidence { margin: 0 0 9px; padding: 9px 11px; border-left: 3px solid var(--teal); background: var(--teal-soft); color: #315d5a; font-size: 11px; line-height: 1.45; }
@@ -132,18 +135,18 @@ main { min-width: 0; padding: 0 22px 40px; }
 .feedback p { color: var(--muted); font-size: 12px; line-height: 1.5; }
 .feedback.success { border-left: 4px solid var(--green); background: #f1faf6; }
 .feedback.error { border-left: 4px solid var(--coral); background: #fff7f5; }
-.teacher { border-left: 1px solid var(--line); background: #fbfcfd; min-width: 0; }
+.teacher { border-left: 1px solid var(--line); background: #fbfcfd; min-width: 0; overflow: hidden; }
 .teacher-tabs { display: flex; border-bottom: 1px solid var(--line); background: white; }
 .teacher-tabs button { flex: 1; min-height: 52px; padding: 0; }
 #teacherContent { padding: 17px; }
 .teacher-lead { color: var(--muted); font-size: 12px; margin: 0 0 14px; }
 #teacherContent section { border-top: 1px solid var(--line); padding: 13px 0; }
 #teacherContent h2 { font-size: 13px; margin: 0 0 7px; }
-#teacherContent p, #teacherContent li { color: var(--muted); font-size: 12px; line-height: 1.5; }
+#teacherContent p, #teacherContent li { color: var(--muted); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
 #teacherContent ol { padding-left: 18px; }
 .tool > div { display: flex; align-items: center; justify-content: space-between; }
 .copy { border: 1px solid var(--line); border-radius: 4px; background: white; min-height: 29px; padding: 0 8px; display: inline-flex; align-items: center; gap: 5px; font-size: 11px; }
-.tool pre { white-space: pre-wrap; max-height: 100px; overflow: auto; background: #eef3f5; padding: 9px; border-radius: 4px; font: 10px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.tool pre { white-space: pre-wrap; max-height: 100px; overflow: auto; overflow-wrap: anywhere; background: #eef3f5; padding: 9px; border-radius: 4px; font: 10px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; }
 .offline { border-top: 3px solid var(--teal) !important; margin-top: 8px; }
 .portal { background: #f7f9fa; }
 .portal-main { max-width: 1160px; margin: auto; padding: 42px 24px 70px; }

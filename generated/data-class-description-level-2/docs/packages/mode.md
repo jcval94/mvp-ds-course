@@ -42,6 +42,14 @@
 
 **Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
 
+**Evidencia narrativa común:** Ejecutar «Cambiar agrupación» y citar el cambio visible asociado con moda.
+
+**Pistas graduadas:**
+
+- Haz una predicción antes de activar la animación.
+- Nombra la unidad de análisis y la variable que cambia en el visual.
+- Descarta opciones que no puedan señalarse en la evidencia animada.
+
 ### Ejercicio guiado
 
 **Historia:** Lucía, analista de operaciones de una clínica debe resumir mediciones de pacientes antes de una junta de 15 minutos. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de moda sostiene una recomendación prudente.
@@ -49,6 +57,10 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar agrupación» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Compara las barras de frecuencia y localiza el máximo para la agrupación activa.
+
+**Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
+
+**Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
 **Pregunta:** ¿Qué evidencia identifica la moda en el gráfico de frecuencias?
 
@@ -67,6 +79,10 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar agrupación» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Cambia el ancho de agrupación y verifica si aparece uno o más máximos.
+
+**Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
+
+**Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
 **Pregunta:** Si dos categorías empatan con el mayor conteo, ¿cómo se describe el resultado?
 
@@ -90,6 +106,12 @@
 
 **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`
 
+**Objetivo docente:** Identificar el valor o categoría con mayor frecuencia.
+
+**Audiencia:** Docente de Nivel 2 con grupo que completó Fundamentos.
+
+**Duración:** 35 minutos por concepto o 90 minutos por bloque.
+
 | Minutos | Actividad |
 | --- | --- |
 | 0-5 | presentar fuente, licencia, unidad de análisis y pregunta. |
@@ -98,13 +120,43 @@
 | 20-27 | usar Gemini o ChatGPT para cuestionar interpretación y límites. |
 | 27-35 | resolver práctica con evidencia y cerrar con una afirmación permitida. |
 
+### Preguntas, evaluación y errores
+
+**Preguntas socráticas:**
+
+- ¿Qué predijiste antes de activar la animación y qué cambió?
+- ¿Qué evidencia visible sostiene la decisión?
+- ¿Qué conclusión sería tentadora pero excede el snapshot?
+- ¿Qué pasaría si cambiamos de grupo, bins, umbral o caso extremo?
+
+**Errores anticipados:**
+
+- Confundir una representación visual con una prueba causal.
+- Responder por definición sin citar evidencia animada.
+- Ignorar unidad de análisis, escala o tamaño de grupo.
+
+**Evaluación rápida:** El estudiante interpreta moda con una evidencia visible, una decisión prudente y una limitación explícita.
+
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Cambiar agrupación», estado inicial, estado animado y aserción que verifica que el visual cambia.
+
+**Checklist antes de clase:**
+
+- Abrir el laboratorio con y sin ?teacher=1 para revisar visibilidad docente.
+- Verificar fuente, licencia, fecha, dimensiones y SHA-256 del snapshot.
+- Preparar una predicción y una pregunta de transferencia.
+
+**Checklist durante clase:**
+
+- Bloquear respuestas hasta ejecutar la animación.
+- Pedir que cada respuesta cite una marca, barra, curva, punto o umbral.
+- Separar descripción, decisión y límite de conclusión.
+
 ### Roles de IA
 
 - **Codex:** ejecuta o modifica código reproducible sin cambiar el snapshot.
 - **Gemini o ChatGPT:** facilita, critica e interpreta la evidencia; no ejecuta la decisión.
 - **Verificación humana:** revisar cálculos, fuente, supuestos y conclusión antes de proyectar.
-- **Privacidad:** no pegar datos sensibles ni credenciales.
-- **Privacidad:** no pegar datos sensibles ni credenciales; el modo docente oculto no protege como login.
+- **Privacidad:** No pegar datos sensibles, credenciales ni archivos privados en herramientas externas; el modo docente oculto no reemplaza autenticación.
 - **Plan offline:** Usar HTML local, CSV snapshot y pizarra. No pegar datos sensibles ni credenciales en herramientas externas.
 
 ### Prompts

@@ -125,6 +125,8 @@ def main() -> None:
             assert page.locator("#lessonTitle").inner_text() == item["title"]
             assert page.get_by_role("button", name="En vivo").count() == 0
             assert page.locator("#practiceStory").inner_text()
+            page.get_by_text("Pistas graduadas").first.wait_for()
+            page.get_by_text("Regla de feedback").first.wait_for()
             assert page.locator(".option:disabled").count() == 3
             assert page.locator("#exerciseEvidence").inner_text().startswith(
                 "Evidencia:"
@@ -163,8 +165,11 @@ def main() -> None:
             wait_until="networkidle",
         )
         page.get_by_role("button", name="En vivo").click()
-        page.get_by_text("Modo docente oculto").wait_for()
+        page.get_by_text("Modo docente oculto").first.wait_for()
         page.get_by_text("SHA-256").first.wait_for()
+        page.get_by_text("Preguntas y evaluación").wait_for()
+        page.get_by_text("Checklist docente").wait_for()
+        page.get_by_text("Blueprint de demo").wait_for()
         page.get_by_role("button", name="Copiar").first.click()
         page.get_by_text("Copiado").wait_for()
         page.goto(

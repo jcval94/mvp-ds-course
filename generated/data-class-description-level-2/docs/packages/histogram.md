@@ -42,6 +42,14 @@
 
 **Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
 
+**Evidencia narrativa común:** Ejecutar «Cambiar intervalos» y citar el cambio visible asociado con histograma.
+
+**Pistas graduadas:**
+
+- Haz una predicción antes de activar la animación.
+- Nombra la unidad de análisis y la variable que cambia en el visual.
+- Descarta opciones que no puedan señalarse en la evidencia animada.
+
 ### Ejercicio guiado
 
 **Historia:** Don José, dueño de una tienda de barrio quiere decidir a qué hora abrir sin revisar cientos de días en Excel. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar histograma para leer concentración, forma o sensibilidad de la demanda.
@@ -49,6 +57,10 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar intervalos» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Compara 7, 12 y 22 bins y verifica que n=731 permanezca constante.
+
+**Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
+
+**Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
 **Pregunta:** Al pasar de pocos a muchos bins, ¿qué permanece igual?
 
@@ -67,6 +79,10 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar intervalos» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa la altura de las barras del extremo derecho para justificar la frecuencia de alquileres altos.
+
+**Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
+
+**Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
 **Pregunta:** ¿Qué evidencia permite afirmar que los alquileres altos son poco frecuentes?
 
@@ -90,6 +106,12 @@
 
 **SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`
 
+**Objetivo docente:** Construir e interpretar frecuencias de una variable numérica por intervalos.
+
+**Audiencia:** Docente de Nivel 2 con grupo que completó Fundamentos.
+
+**Duración:** 35 minutos por concepto o 90 minutos por bloque.
+
 | Minutos | Actividad |
 | --- | --- |
 | 0-5 | presentar fuente, licencia, unidad de análisis y pregunta. |
@@ -98,13 +120,43 @@
 | 20-27 | usar Gemini o ChatGPT para cuestionar interpretación y límites. |
 | 27-35 | resolver práctica con evidencia y cerrar con una afirmación permitida. |
 
+### Preguntas, evaluación y errores
+
+**Preguntas socráticas:**
+
+- ¿Qué predijiste antes de activar la animación y qué cambió?
+- ¿Qué evidencia visible sostiene la decisión?
+- ¿Qué conclusión sería tentadora pero excede el snapshot?
+- ¿Qué pasaría si cambiamos de grupo, bins, umbral o caso extremo?
+
+**Errores anticipados:**
+
+- Confundir una representación visual con una prueba causal.
+- Responder por definición sin citar evidencia animada.
+- Ignorar unidad de análisis, escala o tamaño de grupo.
+
+**Evaluación rápida:** El estudiante interpreta histograma con una evidencia visible, una decisión prudente y una limitación explícita.
+
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Cambiar intervalos», estado inicial, estado animado y aserción que verifica que el visual cambia.
+
+**Checklist antes de clase:**
+
+- Abrir el laboratorio con y sin ?teacher=1 para revisar visibilidad docente.
+- Verificar fuente, licencia, fecha, dimensiones y SHA-256 del snapshot.
+- Preparar una predicción y una pregunta de transferencia.
+
+**Checklist durante clase:**
+
+- Bloquear respuestas hasta ejecutar la animación.
+- Pedir que cada respuesta cite una marca, barra, curva, punto o umbral.
+- Separar descripción, decisión y límite de conclusión.
+
 ### Roles de IA
 
 - **Codex:** ejecuta o modifica código reproducible sin cambiar el snapshot.
 - **Gemini o ChatGPT:** facilita, critica e interpreta la evidencia; no ejecuta la decisión.
 - **Verificación humana:** revisar cálculos, fuente, supuestos y conclusión antes de proyectar.
-- **Privacidad:** no pegar datos sensibles ni credenciales.
-- **Privacidad:** no pegar datos sensibles ni credenciales; el modo docente oculto no protege como login.
+- **Privacidad:** No pegar datos sensibles, credenciales ni archivos privados en herramientas externas; el modo docente oculto no reemplaza autenticación.
 - **Plan offline:** Usar HTML local, CSV snapshot y pizarra. No pegar datos sensibles ni credenciales en herramientas externas.
 
 ### Prompts

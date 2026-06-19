@@ -171,6 +171,10 @@ def validate_story_contract(lesson: dict[str, object]) -> None:
     story = lesson.get("practiceStory")
     if not isinstance(story, dict) or story.get("animationRequired") is not True:
         fail(f"{lesson['id']} no exige animación en Ejercitar")
+    if not story.get("evidence"):
+        fail(f"{lesson['id']} no declara evidencia narrativa general")
+    if len(story.get("hints", [])) < 3:
+        fail(f"{lesson['id']} no declara pistas graduadas suficientes")
     cases = story.get("cases", [])
     if len(cases) != len(lesson["exercises"]):
         fail(f"{lesson['id']} no tiene historia por ejercicio")
@@ -182,6 +186,9 @@ def validate_story_contract(lesson: dict[str, object]) -> None:
         "pressure",
         "decision",
         "scenes",
+        "evidence",
+        "feedbackRule",
+        "transfer",
         "closing",
     ]
     for index, case in enumerate(cases, start=1):
@@ -203,6 +210,9 @@ def validate_live_contract(
     dataset = live.get("dataset", {})
     if dataset.get("id") not in public_dataset_ids:
         fail(f"{lesson['id']} usa dataset En vivo fuera del registro público")
+    for key in ["objective", "audience", "duration"]:
+        if not live.get(key):
+            fail(f"{lesson['id']} LiveTeachingPack no declara {key}")
     for key in [
         "name",
         "rows",
@@ -214,6 +224,21 @@ def validate_live_contract(
     ]:
         if not dataset.get(key):
             fail(f"{lesson['id']} LiveTeachingPack no declara dataset.{key}")
+    for key in [
+        "socraticQuestions",
+        "anticipatedErrors",
+        "quickAssessment",
+        "demoBlueprint",
+        "beforeClassChecklist",
+        "duringClassChecklist",
+        "privacyProtocol",
+    ]:
+        if not live.get(key):
+            fail(f"{lesson['id']} LiveTeachingPack no declara {key}")
+    if len(live.get("socraticQuestions", [])) < 3:
+        fail(f"{lesson['id']} LiveTeachingPack no tiene preguntas socráticas suficientes")
+    if len(live.get("beforeClassChecklist", [])) < 3 or len(live.get("duringClassChecklist", [])) < 3:
+        fail(f"{lesson['id']} LiveTeachingPack no tiene checklists docentes suficientes")
     if "sint" in json.dumps(live, ensure_ascii=False).lower():
         fail(f"{lesson['id']} usa sintéticos como fuente principal de En vivo")
 
@@ -227,6 +252,10 @@ def validate_level2_payload(public_dataset_ids: set[str]) -> None:
         'data-mode="live" ${teacherEnabled ? "" : "hidden"}',
         "Modo docente oculto",
         "#practiceStory",
+        "lesson.practiceStory.hints",
+        "live.socraticQuestions",
+        "live.beforeClassChecklist",
+        "live.demoBlueprint",
     ]:
         if fragment not in app:
             fail(f"Nivel 2 no implementa separación de UI: {fragment}")
@@ -294,8 +323,14 @@ def validate_level2_payload(public_dataset_ids: set[str]) -> None:
             "**Regla de separación:**",
             "**Historia:**",
             "**Escenas animadas:**",
+            "**Pistas graduadas:**",
+            "**Regla de feedback:**",
             "**Visibilidad:**",
             "**Dataset real:**",
+            "**Evaluación rápida:**",
+            "**Checklist antes de clase:**",
+            "**Checklist durante clase:**",
+            "**Blueprint de demo:**",
         ]
         for fragment in required_fragments:
             if fragment not in package_text:

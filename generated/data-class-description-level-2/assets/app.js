@@ -702,7 +702,11 @@
       <h3>${story.protagonist}</h3>
       <p>${story.context}. ${story.problem} ${story.pressure}.</p>
       <p><strong>Decisión:</strong> ${story.decision}.</p>
+      <p><strong>Evidencia narrativa:</strong> ${story.evidence || lesson.practiceStory.evidence}</p>
       <ol>${story.scenes.map((scene) => `<li>${scene}</li>`).join("")}</ol>
+      <details class="practice-hints"><summary>Pistas graduadas</summary><ul>${lesson.practiceStory.hints.map((hint) => `<li>${hint}</li>`).join("")}</ul></details>
+      <p><strong>Regla de feedback:</strong> ${story.feedbackRule}</p>
+      <p><strong>Transferencia:</strong> ${story.transfer}</p>
       <p class="story-close">${hasInteracted ? story.closing : "Primero revela la evidencia; las opciones permanecen bloqueadas hasta entonces."}</p>`;
     $("#exerciseEvidence").textContent = `Evidencia: ${exercise.evidence}`;
     $("#question").textContent = exercise.question;
@@ -757,6 +761,8 @@
         <section><h2>Protagonista</h2><p>${story.protagonist}</p></section>
         <section><h2>Presión realista</h2><p>${story.pressure}</p></section>
         <section><h2>Decisión</h2><p>${story.decision}</p></section>
+        <section><h2>Evidencia y pistas</h2><p>${story.evidence}</p><ul>${lesson.practiceStory.hints.map((hint) => `<li>${hint}</li>`).join("")}</ul></section>
+        <section><h2>Feedback</h2><p>${story.feedbackRule}</p><p>${story.transfer}</p></section>
         <section><h2>Animación obligatoria</h2><ol>${story.scenes.map((scene) => `<li>${scene}</li>`).join("")}</ol></section>`;
       return;
     }
@@ -770,6 +776,9 @@
       <p class="teacher-lead">Modo docente oculto. ${live.visibilityNotice}</p>
       <section><h2>Snapshot real</h2><p>${live.dataset.name}: ${live.dataset.rows.toLocaleString("es-MX")} filas, ${live.dataset.columns} columnas, licencia ${live.dataset.license}.</p><p>Fuente: ${live.dataset.source_page}</p><p>SHA-256: ${live.dataset.sha256}</p></section>
       <section><h2>Guion</h2><ol>${live.teacherScript.map((step) => `<li>${step}</li>`).join("")}</ol></section>
+      <section><h2>Preguntas y evaluación</h2><ul>${live.socraticQuestions.map((question) => `<li>${question}</li>`).join("")}</ul><p><strong>Evaluación rápida:</strong> ${live.quickAssessment}</p></section>
+      <section><h2>Checklist docente</h2><p><strong>Antes:</strong></p><ul>${live.beforeClassChecklist.map((item) => `<li>${item}</li>`).join("")}</ul><p><strong>Durante:</strong></p><ul>${live.duringClassChecklist.map((item) => `<li>${item}</li>`).join("")}</ul></section>
+      <section><h2>Blueprint de demo</h2><p>${live.demoBlueprint}</p><p>${live.privacyProtocol}</p></section>
       ${tools
         .map(
           ([name, prompt, role]) => `<section class="tool">

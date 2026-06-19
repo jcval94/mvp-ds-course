@@ -983,6 +983,14 @@ def practice_story_for(
     cases = []
     for index, exercise in enumerate(item["exercises"]):
         guided = index == 0
+        transfer_note = (
+            "El caso guiado revela el mecanismo central antes de pedir una transferencia."
+            if guided
+            else (
+                "El segundo caso cambia el contexto de la pregunta: exige aplicar el "
+                "mismo criterio sin depender de las palabras exactas del ejercicio guiado."
+            )
+        )
         cases.append(
             {
                 "kind": "guiado" if guided else "transferencia",
@@ -1003,6 +1011,11 @@ def practice_story_for(
                     "Escena 3: elegir la respuesta citando el rasgo visible que cambió.",
                 ],
                 "evidence": evidence[index],
+                "feedbackRule": (
+                    "El feedback debe nombrar el rasgo visible que sostiene o contradice "
+                    "la opción elegida."
+                ),
+                "transfer": transfer_note,
                 "closing": (
                     "La conclusión debe quedarse dentro de lo que muestra el snapshot; "
                     "sirve para decidir el siguiente paso, no para afirmar causalidad."
@@ -1013,6 +1026,15 @@ def practice_story_for(
         "mode": "Ejercitar",
         "separationRule": "Este caso no repite Aprender; usa el concepto para tomar una decisión.",
         "animationRequired": True,
+        "evidence": (
+            f"Ejecutar «{item['visual']['action']}» y citar el cambio visible asociado "
+            f"con {title.lower()}."
+        ),
+        "hints": [
+            "Haz una predicción antes de activar la animación.",
+            "Nombra la unidad de análisis y la variable que cambia en el visual.",
+            "Descarta opciones que no puedan señalarse en la evidencia animada.",
+        ],
         "cases": cases,
     }
 
@@ -1027,6 +1049,9 @@ def live_teaching_pack_for(
             "Modo docente oculto por defecto en la UI estudiantil; no es autenticación "
             "ni protección real del contenido."
         ),
+        "objective": item["objective"],
+        "audience": "Docente de Nivel 2 con grupo que completó Fundamentos.",
+        "duration": "35 minutos por concepto o 90 minutos por bloque.",
         "dataset": {
             "id": block["dataset_id"],
             "name": dataset["name"],
@@ -1045,6 +1070,39 @@ def live_teaching_pack_for(
             "20-27: usar Gemini o ChatGPT para cuestionar interpretación y límites.",
             "27-35: resolver práctica con evidencia y cerrar con una afirmación permitida.",
         ],
+        "socraticQuestions": [
+            "¿Qué predijiste antes de activar la animación y qué cambió?",
+            "¿Qué evidencia visible sostiene la decisión?",
+            "¿Qué conclusión sería tentadora pero excede el snapshot?",
+            "¿Qué pasaría si cambiamos de grupo, bins, umbral o caso extremo?",
+        ],
+        "anticipatedErrors": [
+            "Confundir una representación visual con una prueba causal.",
+            "Responder por definición sin citar evidencia animada.",
+            "Ignorar unidad de análisis, escala o tamaño de grupo.",
+        ],
+        "quickAssessment": (
+            f"El estudiante interpreta {item['title'].lower()} con una evidencia visible, "
+            "una decisión prudente y una limitación explícita."
+        ),
+        "demoBlueprint": (
+            f"HTML local con snapshot fijo, botón «{item['visual']['action']}», "
+            "estado inicial, estado animado y aserción que verifica que el visual cambia."
+        ),
+        "beforeClassChecklist": [
+            "Abrir el laboratorio con y sin ?teacher=1 para revisar visibilidad docente.",
+            "Verificar fuente, licencia, fecha, dimensiones y SHA-256 del snapshot.",
+            "Preparar una predicción y una pregunta de transferencia.",
+        ],
+        "duringClassChecklist": [
+            "Bloquear respuestas hasta ejecutar la animación.",
+            "Pedir que cada respuesta cite una marca, barra, curva, punto o umbral.",
+            "Separar descripción, decisión y límite de conclusión.",
+        ],
+        "privacyProtocol": (
+            "No pegar datos sensibles, credenciales ni archivos privados en herramientas externas; "
+            "el modo docente oculto no reemplaza autenticación."
+        ),
         "offlinePlan": (
             "Usar HTML local, CSV snapshot y pizarra. No pegar datos sensibles ni credenciales "
             "en herramientas externas."
@@ -1238,6 +1296,12 @@ def package_markdown(
 
 **Regla de separación:** {item['practiceStory']['separationRule']}
 
+**Evidencia narrativa común:** {item['practiceStory']['evidence']}
+
+**Pistas graduadas:**
+
+{bullet_markdown(item['practiceStory']['hints'])}
+
 ### Ejercicio guiado
 
 **Historia:** {story[0]['protagonist']} {story[0]['context']}. {story[0]['pressure']}. La decisión es {story[0]['decision']}.
@@ -1245,6 +1309,10 @@ def package_markdown(
 **Escenas animadas:** {" / ".join(story[0]['scenes'])}
 
 **Evidencia requerida:** {first['evidence']}
+
+**Regla de feedback:** {story[0]['feedbackRule']}
+
+**Transferencia:** {story[0]['transfer']}
 
 **Pregunta:** {first['question']}
 
@@ -1259,6 +1327,10 @@ def package_markdown(
 **Escenas animadas:** {" / ".join(story[1]['scenes'])}
 
 **Evidencia requerida:** {second['evidence']}
+
+**Regla de feedback:** {story[1]['feedbackRule']}
+
+**Transferencia:** {story[1]['transfer']}
 
 **Pregunta:** {second['question']}
 
@@ -1278,17 +1350,44 @@ def package_markdown(
 
 **SHA-256:** `{live['dataset']['sha256']}`
 
+**Objetivo docente:** {live['objective']}
+
+**Audiencia:** {live['audience']}
+
+**Duración:** {live['duration']}
+
 | Minutos | Actividad |
 | --- | --- |
 {live_rows}
+
+### Preguntas, evaluación y errores
+
+**Preguntas socráticas:**
+
+{bullet_markdown(live['socraticQuestions'])}
+
+**Errores anticipados:**
+
+{bullet_markdown(live['anticipatedErrors'])}
+
+**Evaluación rápida:** {live['quickAssessment']}
+
+**Blueprint de demo:** {live['demoBlueprint']}
+
+**Checklist antes de clase:**
+
+{bullet_markdown(live['beforeClassChecklist'])}
+
+**Checklist durante clase:**
+
+{bullet_markdown(live['duringClassChecklist'])}
 
 ### Roles de IA
 
 - **Codex:** ejecuta o modifica código reproducible sin cambiar el snapshot.
 - **Gemini o ChatGPT:** facilita, critica e interpreta la evidencia; no ejecuta la decisión.
 - **Verificación humana:** revisar cálculos, fuente, supuestos y conclusión antes de proyectar.
-- **Privacidad:** no pegar datos sensibles ni credenciales.
-- **Privacidad:** no pegar datos sensibles ni credenciales; el modo docente oculto no protege como login.
+- **Privacidad:** {live['privacyProtocol']}
 - **Plan offline:** {live['offlinePlan']}
 
 ### Prompts
@@ -1322,6 +1421,10 @@ def options_markdown(options: list[dict[str, object]]) -> str:
             f"| {item['text']} | {'Sí' if item['correct'] else 'No'} | {item['feedback']} |"
         )
     return "\n".join(lines)
+
+
+def bullet_markdown(items: list[str]) -> str:
+    return "\n".join(f"- {item}" for item in items)
 
 
 def load_registry() -> dict[str, dict[str, object]]:
