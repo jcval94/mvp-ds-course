@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "level": 3,
+  "title": "Probabilidad e inferencia",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 19,
+  "exercise_count": 38,
+  "prompt_count": 57,
+  "blocks": [
+    {
+      "id": "probability",
+      "title": "Probabilidad básica",
+      "href": "probabilidad-basica.html",
+      "concept_count": 4,
+      "exercise_count": 8
+    },
+    {
+      "id": "random-variables",
+      "title": "Variables aleatorias",
+      "href": "variables-aleatorias.html",
+      "concept_count": 4,
+      "exercise_count": 8
+    },
+    {
+      "id": "sampling",
+      "title": "Muestreo",
+      "href": "muestreo.html",
+      "concept_count": 3,
+      "exercise_count": 6
+    },
+    {
+      "id": "uncertainty",
+      "title": "Incertidumbre",
+      "href": "incertidumbre.html",
+      "concept_count": 3,
+      "exercise_count": 6
+    },
+    {
+      "id": "hypothesis",
+      "title": "Pruebas de hipótesis",
+      "href": "pruebas-hipotesis.html",
+      "concept_count": 5,
+      "exercise_count": 10
+    }
+  ],
+  "concepts": [
+    {
+      "id": "event",
+      "title": "Evento",
+      "block": "Probabilidad básica",
+      "href": "probabilidad-basica.html?concept=event",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "complement",
+      "title": "Complemento",
+      "block": "Probabilidad básica",
+      "href": "probabilidad-basica.html?concept=complement",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "independence",
+      "title": "Independencia",
+      "block": "Probabilidad básica",
+      "href": "probabilidad-basica.html?concept=independence",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "conditional-probability",
+      "title": "Probabilidad condicional",
+      "block": "Probabilidad básica",
+      "href": "probabilidad-basica.html?concept=conditional-probability",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "bernoulli",
+      "title": "Bernoulli",
+      "block": "Variables aleatorias",
+      "href": "variables-aleatorias.html?concept=bernoulli",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "binomial",
+      "title": "Binomial",
+      "block": "Variables aleatorias",
+      "href": "variables-aleatorias.html?concept=binomial",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "normal",
+      "title": "Normal",
+      "block": "Variables aleatorias",
+      "href": "variables-aleatorias.html?concept=normal",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "poisson",
+      "title": "Poisson",
+      "block": "Variables aleatorias",
+      "href": "variables-aleatorias.html?concept=poisson",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "sampling-variability",
+      "title": "Variabilidad muestral",
+      "block": "Muestreo",
+      "href": "muestreo.html?concept=sampling-variability",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "selection-bias",
+      "title": "Sesgo de selección",
+      "block": "Muestreo",
+      "href": "muestreo.html?concept=selection-bias",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "law-large-numbers",
+      "title": "Ley de los grandes números",
+      "block": "Muestreo",
+      "href": "muestreo.html?concept=law-large-numbers",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "standard-error",
+      "title": "Error estándar",
+      "block": "Incertidumbre",
+      "href": "incertidumbre.html?concept=standard-error",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "confidence-interval",
+      "title": "Intervalo de confianza",
+      "block": "Incertidumbre",
+      "href": "incertidumbre.html?concept=confidence-interval",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "bootstrap",
+      "title": "Bootstrap",
+      "block": "Incertidumbre",
+      "href": "incertidumbre.html?concept=bootstrap",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "palmer-penguins"
+    },
+    {
+      "id": "hypothesis",
+      "title": "Hipótesis",
+      "block": "Pruebas de hipótesis",
+      "href": "pruebas-hipotesis.html?concept=hypothesis",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "p-value",
+      "title": "p-value",
+      "block": "Pruebas de hipótesis",
+      "href": "pruebas-hipotesis.html?concept=p-value",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "type-i-error",
+      "title": "Error tipo I",
+      "block": "Pruebas de hipótesis",
+      "href": "pruebas-hipotesis.html?concept=type-i-error",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "type-ii-error",
+      "title": "Error tipo II",
+      "block": "Pruebas de hipótesis",
+      "href": "pruebas-hipotesis.html?concept=type-ii-error",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    },
+    {
+      "id": "power",
+      "title": "Potencia",
+      "block": "Pruebas de hipótesis",
+      "href": "pruebas-hipotesis.html?concept=power",
+      "exercise_count": 2,
+      "prompt_count": 3,
+      "dataset_id": "bike-sharing-day"
+    }
+  ],
+  "datasets": [
+    "palmer-penguins",
+    "bike-sharing-day",
+    "wine-quality"
+  ],
+  "validation": "validation.json",
+  "updated_at": "2026-06-19"
+}

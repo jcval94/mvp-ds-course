@@ -52,7 +52,8 @@ Consulta [docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md).
 
 - **Nivel 1 · Fundamentos:** 18 conceptos y 18 ejercicios.
 - **Nivel 2 · Descripción y visualización:** 21 conceptos y 42 ejercicios.
-- **Total:** 39 conceptos, 60 ejercicios y 117 prompts para Codex, Gemini y ChatGPT.
+- **Nivel 3 · Probabilidad e inferencia:** 19 conceptos y 38 ejercicios.
+- **Total:** 58 conceptos, 98 ejercicios y 174 prompts para Codex, Gemini y ChatGPT.
 
 Cada concepto conserva Aprender, Ejercitar y Enseñar en vivo, además de revisión
 técnica y pedagógica.

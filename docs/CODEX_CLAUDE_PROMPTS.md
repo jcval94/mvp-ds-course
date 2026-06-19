@@ -69,5 +69,5 @@ Este prompt solo puede ejecutarse después de aprobación humana explícita. Lee
 ## 12. Revisión de sobreingeniería
 
 ```text
-Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente o cobertura completa del temario. Mantén la fábrica documental, dos niveles estáticos y publicación automática de resultados validados.
+Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente o cobertura completa del temario. Mantén la fábrica documental, tres niveles estáticos y publicación automática de resultados validados.
 ```

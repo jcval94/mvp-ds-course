@@ -2,10 +2,11 @@
 
 ## Alcance evaluado
 
-Revisión de cierre actualizada el 16 de junio de 2026:
+Revisión de cierre actualizada el 19 de junio de 2026:
 
 - Nivel 1 · Fundamentos;
 - Nivel 2 · Descripción y visualización;
+- Nivel 3 · Probabilidad e inferencia;
 - snapshots públicos y metadatos;
 - portal estático y pipeline de GitHub Pages;
 - documentación, skills, templates y evals dependientes.
@@ -22,12 +23,12 @@ Revisión de cierre actualizada el 16 de junio de 2026:
 Los puntajes son una revisión interna respaldada por gates automatizados. No
 sustituyen la aprobación disciplinar y pedagógica de un docente.
 
-| Dimensión de Nivel 2 | Puntaje | Evidencia |
+| Dimensión de niveles publicados | Puntaje | Evidencia |
 | --- | --- | --- |
-| Currículo | 5 | 21 conceptos con prerrequisitos, anterior, siguiente y objetivo observable |
+| Currículo | 5 | 58 conceptos con prerrequisitos, anterior, siguiente y objetivo observable |
 | Exactitud técnica | 4 | Cálculos sobre snapshots completos; submuestras visuales etiquetadas |
-| Visual e interacción | 4 | Las 21 acciones producen un cambio comprobado en navegador |
-| Práctica | 4 | Dos ejercicios por concepto, storytelling aplicado, evidencia declarada y respuesta bloqueada antes de interactuar |
+| Visual e interacción | 4 | Las acciones de Nivel 2 y Nivel 3 producen cambio comprobado en navegador |
+| Práctica | 4 | Dos ejercicios por concepto desde Nivel 2, storytelling aplicado, evidencia declarada y respuesta bloqueada antes de interactuar |
 | Feedback | 5 | Cada opción tiene feedback específico |
 | Enseñanza en vivo | 5 | Snapshot real, En vivo oculto por modo docente, Codex técnico, Gemini/ChatGPT facilitadores, privacidad y plan offline |
 
@@ -35,13 +36,14 @@ sustituyen la aprobación disciplinar y pedagógica de un docente.
 
 - `python scripts/prepare_datasets.py`: 344, 731 y 6,497 filas.
 - `python scripts/generate_level2.py`: 21 conceptos, 42 ejercicios y 63 prompts.
-- `python scripts/validate_content.py`: 39 conceptos, 60 ejercicios, 117 prompts y 3 datasets.
-- `python scripts/build_pages.py`: `_site/` construido desde dos manifests aprobados.
+- `python scripts/generate_level3.py`: 19 conceptos, 38 ejercicios y 57 prompts.
+- `python scripts/validate_content.py`: 58 conceptos, 98 ejercicios, 174 prompts y 3 datasets.
+- `python scripts/build_pages.py`: `_site/` construido desde tres manifests aprobados.
 - `python scripts/qa_pages.py`: 18 conceptos de Nivel 1, 21 conceptos y 42
-  ejercicios de Nivel 2, historias, modo docente oculto, interacciones,
-  prompts y vistas responsive aprobados.
+  ejercicios de Nivel 2, 19 conceptos y 38 ejercicios de Nivel 3, historias,
+  modo docente oculto, interacciones, prompts y vistas responsive aprobados.
 - Los hashes de los tres snapshots coinciden con `registry.lock.json`.
-- Cada paquete de Nivel 2 registra unidad de análisis, variables, fuente,
+- Cada paquete de Nivel 2 y Nivel 3 registra unidad de análisis, variables, fuente,
   licencia, fecha, SHA-256, prerrequisitos y dos evidencias.
 - Densidad usa KDE normalizada; boxplot usa bigotes de 1.5 IQR; leverage usa
   ajustes calculados con y sin el punto extremo.
@@ -81,5 +83,5 @@ sustituyen la aprobación disciplinar y pedagógica de un docente.
 
 ## Próxima vertical slice
 
-Muestreo e incertidumbre: variabilidad muestral, sesgo de selección, ley de
-grandes números, error estándar, intervalo de confianza y bootstrap.
+Relaciones entre variables: scatterplot, tendencia, forma, grupos,
+correlación, sensibilidad a outliers y variables de confusión.

@@ -152,13 +152,14 @@ Los diez conceptos del prototipo existente se mantienen dentro de una progresió
 
 **Usuario:** profesor de introducción a ciencia de datos.
 
-**Entrada:** uno de 39 conceptos de Nivel 1 o Nivel 2, contexto aplicado y
+**Entrada:** uno de 58 conceptos de Nivel 1, Nivel 2 o Nivel 3, contexto aplicado y
 duración de 30 a 90 minutos.
 
 **Cobertura:**
 
 1. Nivel 1 · Fundamentos: 18 conceptos, 18 ejercicios y 54 prompts.
 2. Nivel 2 · Descripción y visualización: 21 conceptos, 42 ejercicios y 63 prompts.
+3. Nivel 3 · Probabilidad e inferencia: 19 conceptos, 38 ejercicios y 57 prompts.
 
 **Flujo principal:**
 
@@ -170,15 +171,15 @@ duración de 30 a 90 minutos.
 6. Construir el catálogo estático desde manifests aprobados.
 7. Publicar automáticamente mediante GitHub Actions.
 
-**Salida:** 39 paquetes conceptuales trazables, ocho laboratorios, catálogo
+**Salida:** 58 paquetes conceptuales trazables, trece laboratorios, catálogo
 estático, snapshots y reportes de validación.
 
-**Prueba manual:** un docente recorre los ocho laboratorios, responde los 60
+**Prueba manual:** un docente recorre los trece laboratorios, responde los 98
 ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 **Definition of Done:**
 
-- Existen 39 conceptos, 60 ejercicios y 117 prompts.
+- Existen 58 conceptos, 98 ejercicios y 174 prompts.
 - Cada artefacto usa la `ConceptSpec` correspondiente.
 - Cada ejercicio depende de evidencia visual.
 - Cada ejercicio incluye historia aplicada y animación antes de responder.
@@ -194,7 +195,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 - LMS, autenticación, persistencia o backend.
 - Integración con APIs de IA desde los HTML.
-- Cubrir niveles posteriores al Nivel 2 en esta entrega.
+- Cubrir niveles posteriores al Nivel 3 en esta entrega.
 - Evaluación formal o seguimiento del estudiante.
 
 ## Funcionalidades post-MVP
@@ -222,7 +223,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 | Tres modos | Brief | Agent Spec, Skills, Harness | Eval Suite |
 | Temario progresivo | `CURRICULUM_MAP.md` | ConceptSpec, Plan | Rubrica curricular |
 | Visual obligatorio | Demos de inspiración y Brief | Skills, ejercicios, evals | Checklist pedagógico |
-| Dos niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
+| Tres niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
 | Snapshots públicos fijos | Solicitud de usuario | Datasets, skills y evals | Hash, licencia y procedencia |
 | GitHub Pages automático | Solicitud de usuario | `site/` y workflow | Build en `main` |
 | Sin app en fase documental | `AGENTS.md` y PRD | Harness y Plan | Revisión de sobreingeniería |

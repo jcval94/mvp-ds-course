@@ -39,13 +39,13 @@ Pasar de un concepto a un paquete educativo coherente y revisable en menos de 20
 
 Una fábrica basada en Markdown, templates, skills y evals que especifica,
 valida y publica materiales para un catálogo curricular. La cobertura inicial
-aprobada incluye Nivel 1 y Nivel 2 completos.
+aprobada incluye Nivel 1, Nivel 2 y Nivel 3 completos.
 
 ## Vertical slice publicada
 
 **Usuario:** profesor de introducción a ciencia de datos.
 
-**Entrada:** uno de los 39 conceptos publicados, contexto aplicado y duración de 30 a 90 minutos.
+**Entrada:** uno de los 58 conceptos publicados, contexto aplicado y duración de 30 a 90 minutos.
 
 **Flujo principal:**
 
@@ -57,7 +57,7 @@ aprobada incluye Nivel 1 y Nivel 2 completos.
 
 **Salida:** paquete educativo completo, laboratorio HTML y registro de validación.
 
-**Prueba manual:** un docente recorre los ocho laboratorios, ejecuta la
+**Prueba manual:** un docente recorre los trece laboratorios, ejecuta la
 interacción, resuelve los ejercicios y usa los prompts sin completar secciones.
 
 **Definition of Done:**
@@ -69,7 +69,7 @@ interacción, resuelve los ejercicios y usa los prompts sin completar secciones.
 - El feedback explica por qué cada opción es correcta o incorrecta.
 - El paquete docente incluye snapshot público real, plan offline, criterio de cierre y aviso de que el modo docente oculto no es seguridad real.
 - Cada paquete obtiene promedio de 4 o más sin dimensiones en 1.
-- La cobertura publicada suma 39 conceptos, 60 ejercicios y 117 prompts.
+- La cobertura publicada suma 58 conceptos, 98 ejercicios y 174 prompts.
 - Los snapshots públicos registran fuente, licencia, fecha y SHA-256.
 
 **No objetivos de la slice:**

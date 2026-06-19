@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LEVELS = [
     ROOT / "generated" / "data-class-foundations-level-1",
     ROOT / "generated" / "data-class-description-level-2",
+    ROOT / "generated" / "data-class-probability-level-3",
 ]
 
 
@@ -243,10 +244,19 @@ def validate_live_contract(
         fail(f"{lesson['id']} usa sintéticos como fuente principal de En vivo")
 
 
-def validate_level2_payload(public_dataset_ids: set[str]) -> None:
-    path = LEVELS[1] / "assets" / "curriculum.js"
-    app = (LEVELS[1] / "assets" / "app.js").read_text(encoding="utf-8")
-    css = (LEVELS[1] / "assets" / "styles.css").read_text(encoding="utf-8")
+def validate_separated_payload(
+    level_index: int,
+    public_dataset_ids: set[str],
+    expected_concepts: int,
+    expected_exercises: int,
+    expected_prompts: int,
+    global_name: str,
+    label: str,
+) -> None:
+    level_path = LEVELS[level_index]
+    path = level_path / "assets" / "curriculum.js"
+    app = (level_path / "assets" / "app.js").read_text(encoding="utf-8")
+    css = (level_path / "assets" / "styles.css").read_text(encoding="utf-8")
     for fragment in [
         'teacherEnabled = params.get("teacher") === "1"',
         'data-mode="live" ${teacherEnabled ? "" : "hidden"}',
@@ -258,25 +268,25 @@ def validate_level2_payload(public_dataset_ids: set[str]) -> None:
         "live.demoBlueprint",
     ]:
         if fragment not in app:
-            fail(f"Nivel 2 no implementa separación de UI: {fragment}")
+            fail(f"{label} no implementa separación de UI: {fragment}")
     if ".practice-story" not in css or ".option:disabled" not in css:
-        fail("Nivel 2 no estiliza storytelling u opciones bloqueadas")
+        fail(f"{label} no estiliza storytelling u opciones bloqueadas")
     text = path.read_text(encoding="utf-8").strip()
-    prefix = "window.DCF_LEVEL2 = "
+    prefix = f"window.{global_name} = "
     if not text.startswith(prefix) or not text.endswith(";"):
-        fail("curriculum.js de Nivel 2 no tiene el formato esperado")
+        fail(f"curriculum.js de {label} no tiene el formato esperado")
     payload = json.loads(text[len(prefix) : -1])
     lessons = [
         lesson
         for module in payload["modules"].values()
         for lesson in module["lessons"]
     ]
-    if len(lessons) != 21:
-        fail(f"Nivel 2 contiene {len(lessons)} conceptos, se esperaban 21")
-    if sum(len(lesson["exercises"]) for lesson in lessons) != 42:
-        fail("Nivel 2 no contiene 42 ejercicios")
-    if sum(len(lesson["prompts"]) for lesson in lessons) != 63:
-        fail("Nivel 2 no contiene 63 prompts")
+    if len(lessons) != expected_concepts:
+        fail(f"{label} contiene {len(lessons)} conceptos, se esperaban {expected_concepts}")
+    if sum(len(lesson["exercises"]) for lesson in lessons) != expected_exercises:
+        fail(f"{label} no contiene {expected_exercises} ejercicios")
+    if sum(len(lesson["prompts"]) for lesson in lessons) != expected_prompts:
+        fail(f"{label} no contiene {expected_prompts} prompts")
     for lesson in lessons:
         if len(lesson["exercises"]) != 2:
             fail(f"{lesson['id']} no tiene dos ejercicios")
@@ -304,7 +314,7 @@ def validate_level2_payload(public_dataset_ids: set[str]) -> None:
                 fail(f"Respuesta correcta ambigua en {lesson['id']}")
             if any(not option["feedback"] for option in exercise["options"]):
                 fail(f"Feedback ausente en {lesson['id']}")
-        package = LEVELS[1] / "docs" / "packages" / f"{lesson['id']}.md"
+        package = level_path / "docs" / "packages" / f"{lesson['id']}.md"
         if not package.exists():
             fail(f"Paquete Markdown ausente para {lesson['id']}")
         package_text = package.read_text(encoding="utf-8")
@@ -339,6 +349,30 @@ def validate_level2_payload(public_dataset_ids: set[str]) -> None:
             fail(f"{lesson['id']} no documenta evidencia para dos ejercicios")
 
 
+def validate_level2_payload(public_dataset_ids: set[str]) -> None:
+    validate_separated_payload(
+        level_index=1,
+        public_dataset_ids=public_dataset_ids,
+        expected_concepts=21,
+        expected_exercises=42,
+        expected_prompts=63,
+        global_name="DCF_LEVEL2",
+        label="Nivel 2",
+    )
+
+
+def validate_level3_payload(public_dataset_ids: set[str]) -> None:
+    validate_separated_payload(
+        level_index=2,
+        public_dataset_ids=public_dataset_ids,
+        expected_concepts=19,
+        expected_exercises=38,
+        expected_prompts=57,
+        global_name="DCF_LEVEL3",
+        label="Nivel 3",
+    )
+
+
 def validate_placeholders() -> None:
     pattern = re.compile(r"\b(TBD|por definir)\b", re.IGNORECASE)
     roots = [ROOT / "docs", ROOT / "generated", ROOT / "site", ROOT / "datasets"]
@@ -358,13 +392,14 @@ def main() -> int:
         validate_links(html)
     validate_level1_contract(public_dataset_ids)
     validate_level2_payload(public_dataset_ids)
+    validate_level3_payload(public_dataset_ids)
     validate_placeholders()
     totals = {
         "concepts": sum(item["concept_count"] for item in manifests),
         "exercises": sum(item["exercise_count"] for item in manifests),
         "prompts": sum(item["prompt_count"] for item in manifests),
     }
-    expected = {"concepts": 39, "exercises": 60, "prompts": 117}
+    expected = {"concepts": 58, "exercises": 98, "prompts": 174}
     if totals != expected:
         fail(f"Totales incorrectos: {totals}, se esperaba {expected}")
     print(

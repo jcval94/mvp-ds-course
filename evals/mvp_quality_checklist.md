@@ -11,7 +11,7 @@
 
 - [ ] La funcionalidad principal es transformar un concepto en material educativo.
 - [ ] Aprender, Ejercitar y Enseñar en vivo están definidos y separados por contenido.
-- [ ] La cobertura publicada se limita a Nivel 1 y Nivel 2.
+- [ ] La cobertura publicada se limita a Nivel 1, Nivel 2 y Nivel 3.
 - [ ] LMS, cuentas, seguimiento e integraciones están fuera.
 - [ ] No se construye app antes de validar documentos.
 
@@ -20,7 +20,7 @@
 - [ ] Usuario: profesor de introducción a ciencia de datos.
 - [ ] Entrada: concepto, nivel, contexto y duración.
 - [ ] Flujo: ConceptSpec -> tres modos -> evals.
-- [ ] Salida: 39 conceptos, 60 ejercicios, 117 prompts y ocho laboratorios.
+- [ ] Salida: 58 conceptos, 98 ejercicios, 174 prompts y trece laboratorios.
 - [ ] Prueba manual definida.
 - [ ] Definition of Done verificable.
 - [ ] No objetivos específicos de la slice.

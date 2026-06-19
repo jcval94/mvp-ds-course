@@ -3,7 +3,7 @@
 ## Objetivo
 
 Mantener DataClass Forge como fábrica documental y publicar automáticamente
-dos niveles educativos validados, sin backend ni ejecución de IA desde el navegador.
+tres niveles educativos validados, sin backend ni ejecución de IA desde el navegador.
 
 ## Gates de calidad
 
@@ -97,19 +97,42 @@ Cada fase debe cerrar con:
 - En vivo está oculto por defecto para estudiantes, usa snapshot público real y existe plan offline.
 - Promedio de 4 o más, sin dimensiones en 1.
 
-## Fase 6: Portal y publicación
+## Fase 6: Nivel 3 publicado
+
+**Usuario:** profesor de introducción a ciencia de datos.
+
+**Entrada:** uno de 19 conceptos de probabilidad e inferencia.
+
+**Flujo principal:**
+
+1. Cargar snapshots públicos y metadatos.
+2. Crear `ConceptSpec`, módulo, dos ejercicios narrativos animados y paquete en vivo docente.
+3. Generar tres prompts con roles complementarios.
+4. Ejecutar revisión técnica, pedagógica y de procedencia.
+5. Publicar el laboratorio solo si pasa el gate.
+
+**Salida:** 19 conceptos, 38 ejercicios, 57 prompts y cinco laboratorios.
+
+**Definition of Done:**
+
+- Probabilidad, variables aleatorias, muestreo, incertidumbre y pruebas de hipótesis tienen progresión completa.
+- Cada ejercicio depende de evidencia revelada por animación.
+- En vivo permanece oculto para estudiantes, usa snapshot público real y declara límite de privacidad.
+- Promedio de 4 o más, sin dimensiones en 1.
+
+## Fase 7: Portal y publicación
 
 1. Validar manifests, conteos, hashes y estados.
 2. Construir `_site/` desde `site/`, niveles y datasets.
 3. Probar búsqueda, filtros, enlaces y responsive.
 4. Publicar mediante GitHub Actions en cada push a `main`.
 
-**Aceptación:** el catálogo muestra 39 conceptos y 60 ejercicios, y no publica
+**Aceptación:** el catálogo muestra 58 conceptos y 98 ejercicios, y no publica
 ningún paquete sin validación aprobada.
 
-## Fase 7: Expansión controlada
+## Fase 8: Expansión controlada
 
-La próxima vertical slice cubre Muestreo e incertidumbre. Cada nuevo concepto
+La próxima vertical slice cubre Relaciones entre variables. Cada nuevo concepto
 debe pasar el mismo gate antes de aparecer en GitHub Pages.
 
 ## Riesgos y mitigaciones

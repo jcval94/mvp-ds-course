@@ -37,6 +37,14 @@ def main() -> None:
             / "manifest.json"
         ).read_text(encoding="utf-8")
     )
+    level3 = json.loads(
+        (
+            ROOT
+            / "generated"
+            / "data-class-probability-level-3"
+            / "manifest.json"
+        ).read_text(encoding="utf-8")
+    )
     level1 = json.loads(
         (
             ROOT
@@ -67,10 +75,10 @@ def main() -> None:
 
         page.goto(BASE, wait_until="networkidle")
         assert page.title() == "Resultados | DataClass Forge"
-        page.locator("#summaryRail").get_by_text("39").wait_for()
-        page.locator("#summaryRail").get_by_text("60").wait_for()
-        assert page.locator(".level-group").count() == 2
-        assert page.locator(".catalog-row").count() == 8
+        page.locator("#summaryRail").get_by_text("58").wait_for()
+        page.locator("#summaryRail").get_by_text("98").wait_for()
+        assert page.locator(".level-group").count() == 3
+        assert page.locator(".catalog-row").count() == 13
         assert page.locator(".data-row:not(.header)").count() == 3
         assert_no_overflow(page, "portal desktop")
         page.screenshot(path=OUTPUT / "github-pages-desktop.png", full_page=True)
@@ -83,6 +91,11 @@ def main() -> None:
         page.get_by_role("button", name="Nivel 2").click()
         assert page.locator('.level-group[data-level="2"]:not([hidden])').count() == 1
         assert page.locator('.level-group[data-level="1"]:not([hidden])').count() == 0
+        assert page.locator('.level-group[data-level="3"]:not([hidden])').count() == 0
+        page.get_by_role("button", name="Nivel 3").click()
+        assert page.locator('.level-group[data-level="3"]:not([hidden])').count() == 1
+        assert page.locator('.level-group[data-level="1"]:not([hidden])').count() == 0
+        assert page.locator('.level-group[data-level="2"]:not([hidden])').count() == 0
         page.goto(f"{BASE}/methodology.html", wait_until="networkidle")
         assert page.title() == "Metodología | DataClass Forge"
         page.get_by_text("4.5 / 5", exact=True).wait_for()
@@ -154,6 +167,43 @@ def main() -> None:
             assert "success" in page.locator("#feedback").get_attribute("class")
             assert_no_overflow(page, f"Nivel 2 {item['id']}")
 
+        for item in level3["concepts"]:
+            page.goto(
+                f"{BASE}/labs/level-3/{item['href']}",
+                wait_until="networkidle",
+            )
+            assert page.locator("#lessonTitle").inner_text() == item["title"]
+            assert page.get_by_role("button", name="En vivo").count() == 0
+            assert page.locator("#practiceStory").inner_text()
+            page.get_by_text("Pistas graduadas").first.wait_for()
+            page.get_by_text("Regla de feedback").first.wait_for()
+            assert page.locator(".option:disabled").count() == 3
+            assert page.locator("#exerciseEvidence").inner_text().startswith(
+                "Evidencia:"
+            )
+            before = page.locator("#visual").inner_html()
+            page.locator("#runVisual").click()
+            after = page.locator("#visual").inner_html()
+            if before == after:
+                raise AssertionError(
+                    f"Interacción sin cambio visible en Nivel 3: {item['id']}"
+                )
+            assert page.locator(".option:disabled").count() == 0
+            page.locator('.option[data-correct="true"]').click()
+            assert "success" in page.locator("#feedback").get_attribute("class")
+            page.get_by_role("button", name="Transferencia").click()
+            assert page.locator(".option:disabled").count() == 3
+            transfer_before = page.locator("#visual").inner_html()
+            page.locator("#runVisual").click()
+            transfer_after = page.locator("#visual").inner_html()
+            if transfer_before == transfer_after:
+                raise AssertionError(
+                    f"Interacción de transferencia sin cambio visible en Nivel 3: {item['id']}"
+                )
+            page.locator('.option[data-correct="true"]').click()
+            assert "success" in page.locator("#feedback").get_attribute("class")
+            assert_no_overflow(page, f"Nivel 3 {item['id']}")
+
         page.goto(
             f"{BASE}/labs/level-2/distribuciones.html?concept=histogram",
             wait_until="networkidle",
@@ -162,6 +212,24 @@ def main() -> None:
         page.screenshot(path=OUTPUT / "level-2-histogram-desktop.png", full_page=True)
         page.goto(
             f"{BASE}/labs/level-2/distribuciones.html?concept=histogram&teacher=1",
+            wait_until="networkidle",
+        )
+        page.get_by_role("button", name="En vivo").click()
+        page.get_by_text("Modo docente oculto").first.wait_for()
+        page.get_by_text("SHA-256").first.wait_for()
+        page.get_by_text("Preguntas y evaluación").wait_for()
+        page.get_by_text("Checklist docente").wait_for()
+        page.get_by_text("Blueprint de demo").wait_for()
+        page.get_by_role("button", name="Copiar").first.click()
+        page.get_by_text("Copiado").wait_for()
+        page.goto(
+            f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept=p-value",
+            wait_until="networkidle",
+        )
+        assert page.get_by_role("button", name="En vivo").count() == 0
+        page.screenshot(path=OUTPUT / "level-3-pvalue-desktop.png", full_page=True)
+        page.goto(
+            f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept=p-value&teacher=1",
             wait_until="networkidle",
         )
         page.get_by_role("button", name="En vivo").click()
@@ -206,6 +274,18 @@ def main() -> None:
         mobile_page.locator('.option[data-correct="true"]').click()
         assert_no_overflow(mobile_page, "Nivel 2 mobile")
         mobile_page.screenshot(path=OUTPUT / "level-2-histogram-mobile.png", full_page=True)
+        mobile_page.goto(
+            f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept=p-value",
+            wait_until="networkidle",
+        )
+        assert mobile_page.get_by_role("button", name="En vivo").count() == 0
+        assert mobile_page.locator("#practiceStory").inner_text()
+        mobile_page.locator("#runVisual").click()
+        mobile_page.get_by_role("button", name="Transferencia").click()
+        mobile_page.locator("#runVisual").click()
+        mobile_page.locator('.option[data-correct="true"]').click()
+        assert_no_overflow(mobile_page, "Nivel 3 mobile")
+        mobile_page.screenshot(path=OUTPUT / "level-3-pvalue-mobile.png", full_page=True)
 
         mobile.close()
         context.close()
@@ -220,7 +300,8 @@ def main() -> None:
         )
     print(
         "QA de navegador aprobada: portal, filtros, 18 conceptos de Nivel 1, "
-        "21 conceptos y 42 ejercicios de Nivel 2, interacciones, prompts y responsive."
+        "21 conceptos y 42 ejercicios de Nivel 2, 19 conceptos y 38 ejercicios "
+        "de Nivel 3, interacciones, prompts y responsive."
     )
 
 

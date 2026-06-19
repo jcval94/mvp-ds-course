@@ -15,6 +15,7 @@ SITE_SOURCE = ROOT / "site"
 LEVEL_PATHS = [
     ROOT / "generated" / "data-class-foundations-level-1",
     ROOT / "generated" / "data-class-description-level-2",
+    ROOT / "generated" / "data-class-probability-level-3",
 ]
 
 

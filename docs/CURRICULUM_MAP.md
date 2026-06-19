@@ -104,17 +104,17 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 
 1. Nivel 1 completo: 18 conceptos y 18 ejercicios.
 2. Nivel 2 completo: 21 conceptos y 42 ejercicios.
+3. Nivel 3 completo: 19 conceptos y 38 ejercicios.
 
 ### Próxima vertical slice
 
-Muestreo e incertidumbre: variabilidad muestral, sesgo de selección, ley de
-grandes números, error estándar, intervalo de confianza y bootstrap.
+Relaciones entre variables: scatterplot, tendencia, forma, grupos,
+correlación, sensibilidad a outliers y variables de confusión.
 
 ### Roadmap
 
-Probabilidad, pruebas de hipótesis, relaciones, modelado, evaluación,
-reducción dimensional, series de tiempo, experimentación, ética,
-comunicación y mini-proyectos.
+Relaciones, modelado, evaluación, reducción dimensional, series de tiempo,
+experimentación, ética, comunicación y mini-proyectos.
 
 ## Contrato por concepto
 
