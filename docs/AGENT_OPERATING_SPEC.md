@@ -102,6 +102,9 @@ Preguntar solo cuando:
 - Conectar métricas con costos de error del contexto.
 - Asignar a Codex el trabajo de código reproducible y a Gemini/ChatGPT la
   facilitación o revisión; ninguna salida sustituye la verificación humana.
+- Todo nivel publicado debe incluir una ruta visible de regreso a HOME: portadas
+  de nivel y laboratorios deben mostrar un enlace o botón `HOME` que vuelva al
+  portal principal de resultados. El botón no debe desaparecer en mobile.
 
 ## Condiciones de bloqueo
 

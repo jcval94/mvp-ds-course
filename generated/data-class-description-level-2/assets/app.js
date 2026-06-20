@@ -16,6 +16,8 @@
 
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
+  const homeHref = () =>
+    location.pathname.includes("/labs/level-") ? "../../index.html" : "../../site/index.html";
   const mean = (values) => values.reduce((total, value) => total + value, 0) / values.length;
   const sorted = (values) => [...values].sort((a, b) => a - b);
   const median = (values) => {
@@ -88,7 +90,10 @@
           <strong>DataClass Forge</strong>
           <span>Nivel 2</span>
         </a>
-        <a class="header-link" href="../../datasets/README.md">Fuentes y licencias</a>
+        <div class="header-actions">
+          <a class="header-link home-link" data-home-link href="${homeHref()}">HOME</a>
+          <a class="header-link" href="../../datasets/README.md">Fuentes y licencias</a>
+        </div>
       </header>
       <div class="layout">
         <nav class="module-nav" aria-label="Bloques del Nivel 2">
@@ -102,6 +107,7 @@
             )
             .join("")}
           <a class="portal-link" href="index.html">Volver al nivel</a>
+          <a class="portal-link home-portal-link" data-home-link href="${homeHref()}">HOME</a>
         </nav>
         <main>
           <div class="lesson-nav">

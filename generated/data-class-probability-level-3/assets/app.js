@@ -13,6 +13,8 @@
 
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
+  const homeHref = () =>
+    location.pathname.includes("/labs/level-") ? "../../index.html" : "../../site/index.html";
   const icon = (path) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`;
   const icons = {
     back: "m15 18-6-6 6-6",
@@ -26,7 +28,10 @@
     $("#app").innerHTML = `
       <header class="header">
         <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><strong>DataClass Forge</strong><span>Nivel 3</span></a>
-        <a class="header-link" href="../../datasets/README.md">Fuentes y licencias</a>
+        <div class="header-actions">
+          <a class="header-link home-link" data-home-link href="${homeHref()}">HOME</a>
+          <a class="header-link" href="../../datasets/README.md">Fuentes y licencias</a>
+        </div>
       </header>
       <div class="layout">
         <nav class="module-nav" aria-label="Bloques del Nivel 3">
@@ -36,6 +41,7 @@
               <b>${module.number}</b><span>${module.title}</span>
             </a>`).join("")}
           <a class="portal-link" href="index.html">Volver al nivel</a>
+          <a class="portal-link home-portal-link" data-home-link href="${homeHref()}">HOME</a>
         </nav>
         <main>
           <div class="lesson-nav">

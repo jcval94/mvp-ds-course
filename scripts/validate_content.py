@@ -137,6 +137,7 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
     curriculum = (LEVELS[0] / "assets" / "curriculum.js").read_text(encoding="utf-8")
     app = (LEVELS[0] / "assets" / "app.js").read_text(encoding="utf-8")
     css = (LEVELS[0] / "assets" / "styles.css").read_text(encoding="utf-8")
+    index = (LEVELS[0] / "index.html").read_text(encoding="utf-8")
     for fragment in [
         "practiceStory",
         "liveTeachingPack",
@@ -161,9 +162,18 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
         "live.beforeClassChecklist",
         "Modo En vivo visible temporalmente",
         "Primero ejecuta la animación",
+        "data-home-link",
+        "homeHref",
+        "HOME",
     ]:
         if fragment not in app:
             fail(f"Nivel 1 no implementa En vivo visible temporal: {fragment}")
+    for fragment in ["data-home-link", "HOME", "../../site/index.html"]:
+        if fragment not in index:
+            fail(f"Nivel 1 no implementa HOME en portada: {fragment}")
+    for fragment in [".home-btn", ".home-sidebar-link"]:
+        if fragment not in css:
+            fail(f"Nivel 1 no estiliza HOME: {fragment}")
     if ".option:disabled" not in css:
         fail("Nivel 1 no estiliza opciones bloqueadas antes de animar")
 
@@ -257,6 +267,7 @@ def validate_separated_payload(
     path = level_path / "assets" / "curriculum.js"
     app = (level_path / "assets" / "app.js").read_text(encoding="utf-8")
     css = (level_path / "assets" / "styles.css").read_text(encoding="utf-8")
+    index = (level_path / "index.html").read_text(encoding="utf-8")
     for fragment in [
         'teacherEnabled = params.get("teacher") === "1"',
         'data-mode="live" ${teacherEnabled ? "" : "hidden"}',
@@ -266,11 +277,18 @@ def validate_separated_payload(
         "live.socraticQuestions",
         "live.beforeClassChecklist",
         "live.demoBlueprint",
+        "data-home-link",
+        "homeHref",
+        "HOME",
     ]:
         if fragment not in app:
             fail(f"{label} no implementa separación de UI: {fragment}")
-    if ".practice-story" not in css or ".option:disabled" not in css:
-        fail(f"{label} no estiliza storytelling u opciones bloqueadas")
+    for fragment in [".practice-story", ".option:disabled", ".home-link", ".home-portal-link"]:
+        if fragment not in css:
+            fail(f"{label} no estiliza contrato de UI: {fragment}")
+    for fragment in ["data-home-link", "HOME", "../../site/index.html"]:
+        if fragment not in index:
+            fail(f"{label} no implementa HOME en portada: {fragment}")
     text = path.read_text(encoding="utf-8").strip()
     prefix = f"window.{global_name} = "
     if not text.startswith(prefix) or not text.endswith(";"):

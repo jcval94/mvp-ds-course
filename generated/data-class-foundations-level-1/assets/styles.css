@@ -49,6 +49,8 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 10px; font-size: 13px;
 }
 .icon-btn:hover, .utility-btn:hover { background: var(--soft); border-color: var(--line); }
+.home-btn { border-color: var(--teal); color: var(--teal); font-weight: 800; letter-spacing: 0; }
+.home-sidebar-link { margin-top: 6px; color: var(--teal); font-weight: 800; }
 .app-layout { display: grid; grid-template-columns: 248px minmax(0, 1fr) 380px; min-height: calc(100vh - 64px); }
 .sidebar { border-right: 1px solid var(--line); padding: 20px 14px; background: #fbfcfd; }
 .sidebar-title { margin: 0 10px 12px; color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; }

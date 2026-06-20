@@ -61,6 +61,15 @@ def format_spanish_date(value: str) -> str:
     return f"{parsed.day} de {months[parsed.month - 1]} de {parsed.year}"
 
 
+def normalize_lab_home_links(path: Path) -> None:
+    """Point source-friendly HOME links back to the published portal."""
+    for html in path.rglob("*.html"):
+        text = html.read_text(encoding="utf-8")
+        updated = text.replace('href="../../site/index.html"', 'href="../../index.html"')
+        if updated != text:
+            html.write_text(updated, encoding="utf-8")
+
+
 def main() -> None:
     reset_build()
     shutil.copytree(SITE_SOURCE, BUILD, dirs_exist_ok=True)
@@ -72,6 +81,7 @@ def main() -> None:
         manifest, validation = load_approved(path)
         destination = BUILD / "labs" / f"level-{manifest['level']}"
         shutil.copytree(path, destination)
+        normalize_lab_home_links(destination)
         level = {
             **manifest,
             "entrypoint": f"labs/level-{manifest['level']}/{manifest['entrypoint']}",

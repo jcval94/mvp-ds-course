@@ -128,7 +128,9 @@ Cada fase debe cerrar con:
 4. Publicar mediante GitHub Actions en cada push a `main`.
 
 **Aceptación:** el catálogo muestra 58 conceptos y 98 ejercicios, y no publica
-ningún paquete sin validación aprobada.
+ningún paquete sin validación aprobada. Cada portada y laboratorio publicado
+incluye un botón visible `HOME` que regresa al portal principal, también en
+viewport móvil.
 
 ## Fase 8: Expansión controlada
 

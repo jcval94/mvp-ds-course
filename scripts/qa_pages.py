@@ -85,6 +85,13 @@ def main() -> None:
         page.locator("#catalogo").screenshot(path=OUTPUT / "github-pages-catalog.png")
         page.locator("#datasets").screenshot(path=OUTPUT / "github-pages-datasets.png")
 
+        page.goto(f"{BASE}/labs/level-2/index.html", wait_until="networkidle")
+        assert page.get_by_role("link", name="HOME").count() == 1
+        page.get_by_role("link", name="HOME").click()
+        page.wait_for_load_state("networkidle")
+        assert page.url in {f"{BASE}/", f"{BASE}/index.html"}
+        assert page.title() == "Resultados | DataClass Forge"
+
         page.locator("#search").fill("Distribuciones")
         assert page.locator(".catalog-row:not([hidden])").count() == 1
         page.locator("#search").fill("")
@@ -106,6 +113,7 @@ def main() -> None:
                 f"{BASE}/labs/level-1/{block['href']}",
                 wait_until="networkidle",
             )
+            assert page.get_by_role("link", name="HOME").count() >= 1
             assert page.get_by_role("button", name="En vivo").count() == 1
             page.get_by_text("Modo En vivo visible temporalmente").wait_for()
             page.get_by_text("SHA-256").first.wait_for()
@@ -208,8 +216,13 @@ def main() -> None:
             f"{BASE}/labs/level-2/distribuciones.html?concept=histogram",
             wait_until="networkidle",
         )
+        assert page.get_by_role("link", name="HOME").count() >= 1
         assert page.get_by_role("button", name="En vivo").count() == 0
         page.screenshot(path=OUTPUT / "level-2-histogram-desktop.png", full_page=True)
+        page.get_by_role("link", name="HOME").first.click()
+        page.wait_for_load_state("networkidle")
+        assert page.url in {f"{BASE}/", f"{BASE}/index.html"}
+        assert page.title() == "Resultados | DataClass Forge"
         page.goto(
             f"{BASE}/labs/level-2/distribuciones.html?concept=histogram&teacher=1",
             wait_until="networkidle",
@@ -226,8 +239,13 @@ def main() -> None:
             f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept=p-value",
             wait_until="networkidle",
         )
+        assert page.get_by_role("link", name="HOME").count() >= 1
         assert page.get_by_role("button", name="En vivo").count() == 0
         page.screenshot(path=OUTPUT / "level-3-pvalue-desktop.png", full_page=True)
+        page.get_by_role("link", name="HOME").first.click()
+        page.wait_for_load_state("networkidle")
+        assert page.url in {f"{BASE}/", f"{BASE}/index.html"}
+        assert page.title() == "Resultados | DataClass Forge"
         page.goto(
             f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept=p-value&teacher=1",
             wait_until="networkidle",
@@ -266,6 +284,7 @@ def main() -> None:
             f"{BASE}/labs/level-2/distribuciones.html?concept=histogram",
             wait_until="networkidle",
         )
+        assert mobile_page.get_by_role("link", name="HOME").count() >= 1
         assert mobile_page.get_by_role("button", name="En vivo").count() == 0
         assert mobile_page.locator("#practiceStory").inner_text()
         mobile_page.locator("#runVisual").click()
@@ -278,6 +297,7 @@ def main() -> None:
             f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept=p-value",
             wait_until="networkidle",
         )
+        assert mobile_page.get_by_role("link", name="HOME").count() >= 1
         assert mobile_page.get_by_role("button", name="En vivo").count() == 0
         assert mobile_page.locator("#practiceStory").inner_text()
         mobile_page.locator("#runVisual").click()

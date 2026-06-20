@@ -36,6 +36,8 @@
 
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
+  const homeHref = () =>
+    location.pathname.includes("/labs/level-") ? "../../index.html" : "../../site/index.html";
   const displayOptions = (options) => {
     const indexed = options.map((item, sourceIndex) => ({ item, sourceIndex }));
     const offset = (lessonIndex + currentModule.number - 1) % indexed.length;
@@ -67,6 +69,7 @@
           <strong>DataClass Forge</strong><span class="level-name">Nivel 1: Fundamentos</span>
         </a>
         <div class="header-actions">
+          <a class="utility-btn home-btn" data-home-link href="${homeHref()}">HOME</a>
           <a class="utility-btn" href="README.md">${icon("book")}<span>Guía</span></a>
           <button class="utility-btn" id="helpButton">${icon("help")}<span>Ayuda</span></button>
         </div>
@@ -79,7 +82,10 @@
               <span class="module-number">${module.number}</span>
               <span class="module-label">${module.title}</span>
             </a>`).join("")}
-          <div class="sidebar-footer"><a class="module-link" href="index.html">${icon("book")}<span class="module-label">Volver al portal</span></a></div>
+          <div class="sidebar-footer">
+            <a class="module-link" href="index.html">${icon("book")}<span class="module-label">Volver al nivel</span></a>
+            <a class="module-link home-sidebar-link" data-home-link href="${homeHref()}"><span class="module-number">H</span><span class="module-label">HOME</span></a>
+          </div>
         </aside>
         <main class="main-stage">
           <div class="lesson-toolbar">
