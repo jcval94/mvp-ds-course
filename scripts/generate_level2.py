@@ -840,8 +840,8 @@ EVIDENCE = {
         "Observa qué cimas cambian al separar temporadas y limita la conclusión a una explicación descriptiva.",
     ],
     "bins": [
-        "Compara el mismo n=731 con 7, 12 y 22 intervalos.",
-        "Verifica si el pico permanece o desaparece al cambiar la partición.",
+        "Compara el mismo n=731 con 6, 12 y 24 intervalos.",
+        "Verifica si el pico permanece o desaparece al cambiar entre 6, 12 y 24 intervalos.",
     ],
     "bar-chart": [
         "Alterna entre conteo y media de masa y lee la medida y unidad mostradas.",
@@ -876,6 +876,76 @@ EVIDENCE = {
         "Compara el análisis con y sin el caso para comunicar sensibilidad de forma transparente.",
     ],
 }
+
+
+LEVEL2_VISUAL_CONTRACTS = {
+    "mean": ("number-line", "desplazamiento del punto de equilibrio", ["Base", "Extremo desplazado"]),
+    "median": ("number-line", "resistencia del centro ordenado", ["Base", "Extremo añadido"]),
+    "mode": ("histogram", "máximo de frecuencia sensible a agrupación", ["100 g", "250 g", "500 g"]),
+    "range": ("number-line", "distancia entre mínimo y máximo", ["Base", "Extremos separados"]),
+    "variance": ("spread-band", "distancias cuadráticas respecto de la media", ["Base", "Extremo añadido"]),
+    "standard-deviation": ("spread-band", "dispersión en la unidad original", ["Base", "Banda comparada"]),
+    "percentiles": ("quantile-line", "proporción acumulada a la izquierda del corte", ["P25", "P50", "P75"]),
+    "histogram": ("histogram", "conteo por intervalos conservando el total", ["7 bins", "12 bins", "22 bins"]),
+    "density": ("density-rug", "suavizado de observaciones manteniendo área unitaria", ["Banda 250", "Banda 600", "Banda 1200"]),
+    "shape": ("histogram", "forma completa: centro, extensión y colas", ["Todos", "Invierno", "Verano"]),
+    "skew": ("histogram-tail", "dirección de cola y separación media-mediana", ["Distribución", "Cola resaltada"]),
+    "multimodality": ("density-groups", "cimas agregadas frente a grupos latentes", ["Agregado", "Temporadas"]),
+    "bins": ("histogram", "sensibilidad de la forma a la partición", ["6 bins", "12 bins", "24 bins"]),
+    "bar-chart": ("zero-baseline-bars", "longitud desde una base cero común", ["Media", "Conteo"]),
+    "boxplot": ("boxplot", "cuartiles, bigotes y puntos exteriores", ["Resumen", "Etiquetas"]),
+    "violin-plot": ("violin", "densidad reflejada por grupo", ["Banda 120", "Banda 250", "Banda 450"]),
+    "ecdf": ("ecdf", "proporción acumulada bajo un umbral", ["3500 g", "4000 g", "4500 g", "5000 g"]),
+    "outliers": ("iqr-review", "detección por cercas sin veredicto automático", ["Regla IQR", "Fila en revisión"]),
+    "leverage": ("scatter-fit", "posición horizontal extrema y sensibilidad del ajuste", ["Con extremo", "Sin extremo"]),
+    "capture-error": ("domain-validation", "regla de dominio y trazabilidad", ["Pendiente", "Validado"]),
+    "rare-valid": ("scatter-detail", "rareza estadística frente a plausibilidad contextual", ["Caso marcado", "Detalle trazable"]),
+}
+
+
+def add_visual_contract(item: dict[str, object]) -> None:
+    kind, mechanism, labels = LEVEL2_VISUAL_CONTRACTS[item["id"]]
+    states = []
+    for index, label in enumerate(labels):
+        evidence_id = f"{item['id']}-state-{index + 1}"
+        states.append(
+            {
+                "id": f"state-{index + 1}",
+                "label": label,
+                "marks": [
+                    {
+                        "evidenceId": evidence_id,
+                        "label": f"{item['title']}: {label}",
+                    }
+                ],
+            }
+        )
+    item["visual"].update(
+        {
+            "kind": kind,
+            "mechanism": mechanism,
+            "states": states,
+            "sequence": [state["id"] for state in states],
+            "motion": {
+                "durationMs": 600,
+                "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+                "intent": "interpolar geometría para comparar estados, sin movimiento decorativo",
+                "reducedMotion": "cambio inmediato con las mismas marcas y valores",
+            },
+        }
+    )
+    required_ids = [
+        mark["evidenceId"]
+        for state in states
+        for mark in state["marks"]
+    ]
+    required_steps = len(states) - 1
+    for exercise in item["exercises"]:
+        exercise["evidenceContract"] = {
+            "requiredSteps": required_steps,
+            "requiredEvidenceIds": required_ids,
+            "unlockAtStep": required_steps,
+        }
 
 
 def enrich_concepts() -> None:
@@ -934,6 +1004,7 @@ def enrich_concepts() -> None:
         )
         for exercise, evidence in zip(item["exercises"], EVIDENCE[slug]):
             exercise["evidence"] = evidence
+        add_visual_contract(item)
         item["learningModule"] = learning_module_for(item)
         item["practiceStory"] = practice_story_for(block, item)
 
@@ -1274,6 +1345,11 @@ def package_markdown(
 - **Intuición:** {item['intuition']}
 - **Error común:** {item['error']}
 - **Visual:** {item['visual']['cue']}
+- **Kind visual:** `{item['visual']['kind']}`.
+- **Mecanismo:** {item['visual']['mechanism']}.
+- **Estados:** {" → ".join(state['label'] for state in item['visual']['states'])}.
+- **Movimiento:** {item['visual']['motion']['durationMs']} ms; {item['visual']['motion']['intent']}.
+- **Movimiento reducido:** {item['visual']['motion']['reducedMotion']}.
 - **Interacción:** {item['visual']['action']}.
 - **Unidad de análisis:** {item['unit']}.
 - **Variables:** {item['variables']}.
@@ -1310,6 +1386,8 @@ def package_markdown(
 
 **Evidencia requerida:** {first['evidence']}
 
+**Contrato de evidencia:** pasos {first['evidenceContract']['requiredSteps']}; desbloqueo en {first['evidenceContract']['unlockAtStep']}; IDs {", ".join(first['evidenceContract']['requiredEvidenceIds'])}.
+
 **Regla de feedback:** {story[0]['feedbackRule']}
 
 **Transferencia:** {story[0]['transfer']}
@@ -1327,6 +1405,8 @@ def package_markdown(
 **Escenas animadas:** {" / ".join(story[1]['scenes'])}
 
 **Evidencia requerida:** {second['evidence']}
+
+**Contrato de evidencia:** pasos {second['evidenceContract']['requiredSteps']}; desbloqueo en {second['evidenceContract']['unlockAtStep']}; IDs {", ".join(second['evidenceContract']['requiredEvidenceIds'])}.
 
 **Regla de feedback:** {story[1]['feedbackRule']}
 
@@ -1521,7 +1601,7 @@ def main() -> None:
         "concepts": concept_records,
         "datasets": list(registry),
         "validation": "validation.json",
-        "updated_at": "2026-06-15",
+        "updated_at": "2026-06-24",
     }
     write_json(OUT / "manifest.json", manifest)
     checks = {
@@ -1541,10 +1621,14 @@ def main() -> None:
             "blockers": [],
             "checks": checks,
             "basis": (
-                "Revisión interna respaldada por validación estructural, "
-                "procedencia de datos y QA de interacciones; requiere aprobación docente."
+                "Revisión interna condicionada a contratos estructurales, "
+                "procedencia de datos y QA semántica de navegador obligatoria."
             ),
-            "evidence": "evals/level-2-quality-checklist.md",
+            "evidence": {
+                "checklist": "evals/level-2-quality-checklist.md",
+                "browser_qa": "scripts/qa_pages.py",
+            },
+            "browser_qa_required": True,
         },
     )
     print(

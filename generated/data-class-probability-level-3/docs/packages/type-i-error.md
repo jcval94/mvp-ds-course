@@ -21,6 +21,11 @@
 - **Intuición:** Es activar una alarma cuando no había incendio.
 - **Error común:** Creer que alpha es la probabilidad de cualquier error posible.
 - **Visual:** Cambia el umbral de rechazo y observa falsos positivos bajo H0.
+- **Kind visual:** `null-tail`.
+- **Mecanismo:** región de rechazo cuando H0 es cierta.
+- **Estados:** Alpha 0.01 → Alpha 0.10.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Mover alpha.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt` y `workingday`, usados para una diferencia de medias descriptiva.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación cambia el área de rechazo en la distribución nula.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs type-i-error-state-1, type-i-error-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mover alpha» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra más área sombreada al subir alpha.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs type-i-error-state-1, type-i-error-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

@@ -16,6 +16,8 @@
 - [ ] El rol, protagonista, contexto y presión realista sirven al objetivo.
 - [ ] La historia es distinta de Aprender y no revela la respuesta por sí sola.
 - [ ] La animación revela evidencia antes de habilitar la respuesta.
+- [ ] El `evidenceContract` declara pasos, `evidenceIds` y desbloqueo.
+- [ ] La respuesta se habilita solo al completar el contrato.
 - [ ] La evidencia es necesaria.
 - [ ] La respuesta correcta es defendible.
 - [ ] Los distractores son plausibles.
@@ -40,6 +42,8 @@
 
 - La respuesta se obtiene sin mirar el visual.
 - La interacción solo cambia estilo.
+- El QA solo comprueba una diferencia de HTML.
+- El visual cita marcas que no existen en pantalla.
 - El feedback se limita a correcto o incorrecto.
 - La narrativa afirma más de lo que muestran los datos.
 - En vivo usa dataset sintético como fuente principal.

@@ -109,3 +109,23 @@ y SHA-256, aunque Aprender o Ejercitar usen datos didácticos.
 
 **Debe fallar si:** un paquete con `status != published`, promedio menor a 4 o
 una dimensión en 1 aparece en `_site/`.
+
+## Caso 13: Cambio visual semánticamente incorrecto
+
+**Solicitud:** animar p-value, intervalo de confianza o distribución normal.
+
+**Debe producir:** cola sombreada sobre la distribución nula, intervalo sobre
+una escala común y campana superpuesta a la distribución observada.
+
+**Debe fallar si:** reemplaza el mecanismo por barras genéricas, habilita la
+respuesta sin las marcas requeridas o aprueba solo porque cambió el HTML.
+
+## Caso 14: Movimiento reducido
+
+**Solicitud:** usar el laboratorio con `prefers-reduced-motion`.
+
+**Debe producir:** los mismos estados, números, `evidenceIds` y desbloqueo sin
+movimiento gradual.
+
+**Debe fallar si:** elimina evidencia, deja el control bloqueado o cambia la
+respuesta correcta.

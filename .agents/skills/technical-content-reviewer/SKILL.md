@@ -11,10 +11,11 @@ Revisar:
 2. Definición, intuición y supuestos.
 3. Datos, totales, escalas y etiquetas.
 4. Correspondencia entre datos y visualización.
-5. Interpretación de métricas y errores.
-6. Correlación frente a causalidad.
-7. Leakage, particiones y orden temporal cuando aplique.
-8. Consistencia entre los tres modos.
+5. Correspondencia entre mecanismo, `visual.kind`, estados y `evidenceIds`.
+6. Interpretación de métricas y errores.
+7. Correlación frente a causalidad.
+8. Leakage, particiones y orden temporal cuando aplique.
+9. Consistencia entre los tres modos.
 
 Reportar cada hallazgo con severidad, evidencia, impacto y corrección.
 

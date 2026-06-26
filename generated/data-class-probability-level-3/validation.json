@@ -11,6 +11,10 @@
     "feedback": 5,
     "live_teaching": 5
   },
-  "basis": "Revisión interna respaldada por validación estructural, datasets reales y QA de navegador; requiere aprobación docente.",
-  "evidence": "evals/level-3-quality-checklist.md"
+  "basis": "Revisión interna condicionada a contratos estructurales, datasets reales y QA semántica de navegador obligatoria.",
+  "evidence": {
+    "checklist": "evals/level-3-quality-checklist.md",
+    "browser_qa": "scripts/qa_pages.py"
+  },
+  "browser_qa_required": true
 }

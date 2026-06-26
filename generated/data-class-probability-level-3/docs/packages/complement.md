@@ -21,6 +21,11 @@
 - **Intuición:** Es apagar lo seleccionado y mirar todo lo que quedó afuera.
 - **Error común:** Sumar evento y complemento sin cubrir todo el espacio o contarlos dos veces.
 - **Visual:** Divide el snapshot entre evento y no evento.
+- **Kind visual:** `set`.
+- **Mecanismo:** partición exhaustiva y sin traslape.
+- **Estados:** Evento → Complemento.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Mostrar complemento.
 - **Unidad de análisis:** una observación es un pingüino.
 - **Variables:** `species` e `island`, categóricas.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La visualización muestra evento y no evento como partición del mismo snapshot.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs complement-state-1, complement-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mostrar complemento» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** La animación deja visible que las dos partes suman 100%.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs complement-state-1, complement-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

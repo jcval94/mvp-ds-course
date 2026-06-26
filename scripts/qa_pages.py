@@ -4,6 +4,10 @@
 from __future__ import annotations
 
 import json
+import csv
+import math
+import random
+import statistics
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -23,6 +27,138 @@ def assert_no_overflow(page, label: str) -> None:
     )
     if overflow:
         raise AssertionError(f"Desbordamiento horizontal en {label}")
+
+
+def load_curriculum(path: Path, global_name: str) -> dict[str, object]:
+    text = path.read_text(encoding="utf-8").strip()
+    prefix = f"window.{global_name} = "
+    return json.loads(text[len(prefix) : -1])
+
+
+def lesson_by_id(payload: dict[str, object], lesson_id: str) -> dict[str, object]:
+    for module in payload["modules"].values():
+        for lesson in module["lessons"]:
+            if lesson["id"] == lesson_id:
+                return lesson
+    raise AssertionError(f"Concepto no encontrado: {lesson_id}")
+
+
+def validate_numeric_semantics(
+    level2_payload: dict[str, object],
+    level3_payload: dict[str, object],
+) -> None:
+    with (ROOT / "datasets" / "snapshots" / "palmer_penguins.csv").open(
+        encoding="utf-8", newline=""
+    ) as handle:
+        penguins = list(csv.DictReader(handle))
+    with (ROOT / "datasets" / "snapshots" / "bike_sharing_day.csv").open(
+        encoding="utf-8", newline=""
+    ) as handle:
+        bikes = list(csv.DictReader(handle))
+    masses = [
+        float(row["body_mass_g"])
+        for row in penguins
+        if row.get("body_mass_g") not in {"", "NA"}
+    ]
+    counts = [float(row["cnt"]) for row in bikes]
+    mass_mean = statistics.mean(masses)
+    mass_sd = statistics.stdev(masses)
+    bike_mean = statistics.mean(counts)
+
+    confidence = lesson_by_id(level3_payload, "confidence-interval")
+    expected_90 = [
+        mass_mean - 1.64 * mass_sd / math.sqrt(60),
+        mass_mean,
+        mass_mean + 1.64 * mass_sd / math.sqrt(60),
+    ]
+    expected_95 = [
+        mass_mean - 1.96 * mass_sd / math.sqrt(60),
+        mass_mean,
+        mass_mean + 1.96 * mass_sd / math.sqrt(60),
+    ]
+    for actual, expected in zip(confidence["visual"]["states"][0]["interval"], expected_90):
+        assert abs(actual - expected) < 0.01
+    for actual, expected in zip(confidence["visual"]["states"][1]["interval"], expected_95):
+        assert abs(actual - expected) < 0.01
+
+    normal = lesson_by_id(level3_payload, "normal")
+    assert all(abs(state["reference"] - bike_mean) < 0.01 for state in normal["visual"]["states"])
+    assert all(len(state["series"]) == 80 for state in normal["visual"]["states"])
+
+    law = lesson_by_id(level3_payload, "law-large-numbers")
+    assert abs(law["visual"]["states"][1]["series"][-1] - bike_mean) < 0.01
+    assert abs(law["visual"]["states"][1]["reference"] - bike_mean) < 0.01
+
+    working = [float(row["cnt"]) for row in bikes if row["workingday"] == "1"]
+    nonworking = [float(row["cnt"]) for row in bikes if row["workingday"] == "0"]
+    observed = abs(statistics.mean(working) - statistics.mean(nonworking))
+    p_value = lesson_by_id(level3_payload, "p-value")
+    assert abs(p_value["visual"]["states"][0]["observed"] - observed) < 0.01
+    null_values = p_value["visual"]["states"][0]["series"]
+    extreme = sum(abs(value) >= observed for value in null_values)
+    expected_marker = f"p aprox. = {extreme / len(null_values) * 100:.1f}%"
+    assert expected_marker in p_value["visual"]["states"][1]["markers"]
+
+    for lesson_id in ["type-i-error", "type-ii-error", "power"]:
+        lesson = lesson_by_id(level3_payload, lesson_id)
+        for state in lesson["visual"]["states"]:
+            assert abs(sum(item["value"] for item in state["bars"]) - 1) < 0.001
+
+    density = lesson_by_id(level2_payload, "density")
+    assert density["visual"]["kind"] == "density-rug"
+    bins = lesson_by_id(level2_payload, "bins")
+    assert [state["label"] for state in bins["visual"]["states"]] == [
+        "6 bins",
+        "12 bins",
+        "24 bins",
+    ]
+
+
+def exercise_contract(page, level: int, exercise_index: int) -> dict[str, object]:
+    return page.evaluate(
+        """([level, exerciseIndex]) => {
+          const source = level === 2 ? window.DCF_LEVEL2 : window.DCF_LEVEL3;
+          const id = new URLSearchParams(location.search).get("concept");
+          const lesson = Object.values(source.modules)
+            .flatMap((module) => module.lessons)
+            .find((item) => item.id === id);
+          return {
+            visual: lesson.visual,
+            contract: lesson.exercises[exerciseIndex].evidenceContract
+          };
+        }""",
+        [level, exercise_index],
+    )
+
+
+def complete_evidence(page, level: int, exercise_index: int) -> dict[str, object]:
+    payload = exercise_contract(page, level, exercise_index)
+    states = payload["visual"]["states"]
+    contract = payload["contract"]
+    assert page.locator("#visualProgress").inner_text() == f"Paso 1 de {len(states)}"
+    initial_id = states[0]["marks"][0]["evidenceId"]
+    assert page.locator(f'[data-evidence-id="{initial_id}"]').count() == 1
+    assert page.locator(".option:disabled").count() == 3
+    for step in range(1, contract["requiredSteps"] + 1):
+        page.locator("#runVisual").click()
+        page.wait_for_timeout(30)
+        evidence_id = states[step]["marks"][0]["evidenceId"]
+        assert page.locator(f'[data-evidence-id="{evidence_id}"]').count() == 1
+        if step < contract["unlockAtStep"]:
+            assert page.locator(".option:disabled").count() == 3
+    assert page.locator(".option:disabled").count() == 0
+    assert page.locator("#runVisual").is_disabled()
+    return payload
+
+
+def answer_wrong_then_correct(page) -> None:
+    wrong = page.locator('.option[data-correct="false"]')
+    assert wrong.count() == 2
+    wrong.first.click()
+    assert "error" in page.locator("#feedback, .feedback").first.get_attribute("class")
+    assert page.locator("#feedback p, .feedback p").first.inner_text().strip()
+    page.locator('.option[data-correct="true"]').click()
+    assert "success" in page.locator("#feedback, .feedback").first.get_attribute("class")
 
 
 def main() -> None:
@@ -53,6 +189,23 @@ def main() -> None:
             / "manifest.json"
         ).read_text(encoding="utf-8")
     )
+    level2_payload = load_curriculum(
+        ROOT
+        / "generated"
+        / "data-class-description-level-2"
+        / "assets"
+        / "curriculum.js",
+        "DCF_LEVEL2",
+    )
+    level3_payload = load_curriculum(
+        ROOT
+        / "generated"
+        / "data-class-probability-level-3"
+        / "assets"
+        / "curriculum.js",
+        "DCF_LEVEL3",
+    )
+    validate_numeric_semantics(level2_payload, level3_payload)
 
     handler = partial(SimpleHTTPRequestHandler, directory=str(ROOT / "_site"))
     server = ThreadingHTTPServer(("127.0.0.1", 4174), handler)
@@ -60,8 +213,14 @@ def main() -> None:
     thread.start()
 
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(channel="chrome", headless=True)
-        context = browser.new_context(viewport={"width": 1440, "height": 1024})
+        try:
+            browser = playwright.chromium.launch(channel="chrome", headless=True)
+        except Exception:
+            browser = playwright.chromium.launch(headless=True)
+        context = browser.new_context(
+            viewport={"width": 1440, "height": 1024},
+            reduced_motion="reduce",
+        )
         page = context.new_page()
         page.on(
             "console",
@@ -119,16 +278,43 @@ def main() -> None:
             page.get_by_text("SHA-256").first.wait_for()
             for lesson_index in range(block["concept_count"]):
                 assert page.locator(".practice-story").inner_text()
+                assert page.locator("#visualProgress").inner_text() == "Paso 1 de 2"
+                initial_evidence = page.evaluate(
+                    """([moduleId, lessonIndex]) =>
+                    window.DCF_MODULES[moduleId].lessons[lessonIndex]
+                      .visual.states[0].marks[0].evidenceId""",
+                    [block["id"], lesson_index],
+                )
+                assert page.locator(
+                    f'[data-evidence-id="{initial_evidence}"]'
+                ).count() == 1
                 assert page.locator(".option:disabled").count() == 3
                 page.locator("#animateVisual").click()
                 page.wait_for_timeout(150)
                 assert page.locator(".option:disabled").count() == 0
+                final_evidence = page.evaluate(
+                    """([moduleId, lessonIndex]) =>
+                    window.DCF_MODULES[moduleId].lessons[lessonIndex]
+                      .visual.states[1].marks[0].evidenceId""",
+                    [block["id"], lesson_index],
+                )
+                assert page.locator(
+                    f'[data-evidence-id="{final_evidence}"]'
+                ).count() == 1
                 correct_index = page.evaluate(
                     """([moduleId, lessonIndex]) =>
                     window.DCF_MODULES[moduleId].lessons[lessonIndex]
                       .practice.options.findIndex((option) => option.correct)""",
                     [block["id"], lesson_index],
                 )
+                wrong_index = page.evaluate(
+                    """([moduleId, lessonIndex]) =>
+                    window.DCF_MODULES[moduleId].lessons[lessonIndex]
+                      .practice.options.findIndex((option) => !option.correct)""",
+                    [block["id"], lesson_index],
+                )
+                page.locator(f'.option[data-option="{wrong_index}"]').click()
+                assert "error" in page.locator(".feedback").get_attribute("class")
                 page.locator(f'.option[data-option="{correct_index}"]').click()
                 assert "success" in page.locator(".feedback").get_attribute("class")
                 assert_no_overflow(
@@ -152,27 +338,12 @@ def main() -> None:
             assert page.locator("#exerciseEvidence").inner_text().startswith(
                 "Evidencia:"
             )
-            before = page.locator("#visual").inner_html()
-            page.locator("#runVisual").click()
-            after = page.locator("#visual").inner_html()
-            if before == after:
-                raise AssertionError(
-                    f"Interacción sin cambio visible en Nivel 2: {item['id']}"
-                )
-            assert page.locator(".option:disabled").count() == 0
-            page.locator('.option[data-correct="true"]').click()
-            assert "success" in page.locator("#feedback").get_attribute("class")
+            complete_evidence(page, 2, 0)
+            answer_wrong_then_correct(page)
             page.get_by_role("button", name="Transferencia").click()
             assert page.locator(".option:disabled").count() == 3
-            transfer_before = page.locator("#visual").inner_html()
-            page.locator("#runVisual").click()
-            transfer_after = page.locator("#visual").inner_html()
-            if transfer_before == transfer_after:
-                raise AssertionError(
-                    f"Interacción de transferencia sin cambio visible: {item['id']}"
-                )
-            page.locator('.option[data-correct="true"]').click()
-            assert "success" in page.locator("#feedback").get_attribute("class")
+            complete_evidence(page, 2, 1)
+            answer_wrong_then_correct(page)
             assert_no_overflow(page, f"Nivel 2 {item['id']}")
 
         for item in level3["concepts"]:
@@ -189,28 +360,95 @@ def main() -> None:
             assert page.locator("#exerciseEvidence").inner_text().startswith(
                 "Evidencia:"
             )
-            before = page.locator("#visual").inner_html()
-            page.locator("#runVisual").click()
-            after = page.locator("#visual").inner_html()
-            if before == after:
-                raise AssertionError(
-                    f"Interacción sin cambio visible en Nivel 3: {item['id']}"
-                )
-            assert page.locator(".option:disabled").count() == 0
-            page.locator('.option[data-correct="true"]').click()
-            assert "success" in page.locator("#feedback").get_attribute("class")
+            complete_evidence(page, 3, 0)
+            answer_wrong_then_correct(page)
             page.get_by_role("button", name="Transferencia").click()
             assert page.locator(".option:disabled").count() == 3
-            transfer_before = page.locator("#visual").inner_html()
-            page.locator("#runVisual").click()
-            transfer_after = page.locator("#visual").inner_html()
-            if transfer_before == transfer_after:
-                raise AssertionError(
-                    f"Interacción de transferencia sin cambio visible en Nivel 3: {item['id']}"
-                )
-            page.locator('.option[data-correct="true"]').click()
-            assert "success" in page.locator("#feedback").get_attribute("class")
+            complete_evidence(page, 3, 1)
+            answer_wrong_then_correct(page)
             assert_no_overflow(page, f"Nivel 3 {item['id']}")
+
+        page.goto(
+            f"{BASE}/labs/level-2/distribuciones.html?concept=density",
+            wait_until="networkidle",
+        )
+        assert page.locator('[data-kind="density-rug"]').count() == 1
+        assert page.locator(".rug-mark").count() > 20
+        assert page.locator('[data-semantic="density-curve"]').count() == 1
+        complete_evidence(page, 2, 0)
+
+        page.goto(
+            f"{BASE}/labs/level-2/distribuciones.html?concept=bins",
+            wait_until="networkidle",
+        )
+        bins_contract = exercise_contract(page, 2, 0)
+        observed_bin_labels = []
+        for step in range(len(bins_contract["visual"]["states"])):
+            observed_bin_labels.append(
+                page.locator("#visual svg text").all_text_contents()[-1]
+            )
+            if step < len(bins_contract["visual"]["states"]) - 1:
+                page.locator("#runVisual").click()
+                page.wait_for_timeout(30)
+        assert any("6 bins" in label for label in observed_bin_labels)
+        assert any("12 bins" in label for label in observed_bin_labels)
+        assert any("24 bins" in label for label in observed_bin_labels)
+
+        page.goto(
+            f"{BASE}/labs/level-2/valores-atipicos.html?concept=leverage",
+            wait_until="networkidle",
+        )
+        assert page.locator(".fit-comparison").count() == 0
+        complete_evidence(page, 2, 0)
+        assert page.locator(".fit-comparison").count() == 1
+        assert any(
+            "Δ" in text
+            for text in page.locator("#visual svg text").all_text_contents()
+        )
+
+        page.goto(
+            f"{BASE}/labs/level-3/variables-aleatorias.html?concept=normal",
+            wait_until="networkidle",
+        )
+        assert page.locator('[data-semantic="normal-curve"]').count() == 1
+        assert page.locator(".distribution-bin").count() >= 6
+        complete_evidence(page, 3, 0)
+
+        page.goto(
+            f"{BASE}/labs/level-3/incertidumbre.html?concept=confidence-interval",
+            wait_until="networkidle",
+        )
+        assert page.locator('[data-semantic="confidence-interval"]').count() == 1
+        complete_evidence(page, 3, 0)
+        assert page.locator('[data-semantic="confidence-interval"]').count() == 1
+
+        page.goto(
+            f"{BASE}/labs/level-3/muestreo.html?concept=law-large-numbers",
+            wait_until="networkidle",
+        )
+        assert page.locator('[data-semantic="running-mean"]').count() == 1
+        complete_evidence(page, 3, 0)
+
+        page.goto(
+            f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept=p-value",
+            wait_until="networkidle",
+        )
+        assert page.locator('[data-semantic="null-curve"]').count() == 1
+        assert page.locator('[data-semantic="tail-area"]').count() == 0
+        complete_evidence(page, 3, 0)
+        assert page.locator('[data-semantic="tail-area"]').count() == 2
+
+        for concept_id, semantic in [
+            ("type-i-error", "rejection-area"),
+            ("type-ii-error", "beta-area"),
+            ("power", "power-area"),
+        ]:
+            page.goto(
+                f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept={concept_id}",
+                wait_until="networkidle",
+            )
+            complete_evidence(page, 3, 0)
+            assert page.locator(f'[data-semantic="{semantic}"]').count() == 1
 
         page.goto(
             f"{BASE}/labs/level-2/distribuciones.html?concept=histogram",
@@ -266,7 +504,29 @@ def main() -> None:
         page.get_by_text("Modo En vivo visible temporalmente").wait_for()
         page.get_by_text("SHA-256").first.wait_for()
 
-        mobile = browser.new_context(viewport={"width": 390, "height": 844})
+        motion = browser.new_context(viewport={"width": 1280, "height": 800})
+        motion_page = motion.new_page()
+        motion_page.goto(
+            f"{BASE}/labs/level-3/pruebas-hipotesis.html?concept=p-value",
+            wait_until="networkidle",
+        )
+        assert motion_page.locator(".option:disabled").count() == 3
+        motion_page.locator("#runVisual").click()
+        motion_page.wait_for_timeout(250)
+        assert motion_page.locator(".option:disabled").count() == 3
+        assert motion_page.locator('[data-semantic="tail-area"]').count() == 2
+        motion_page.wait_for_timeout(400)
+        assert motion_page.locator(".option:disabled").count() == 0
+        animation_name = motion_page.locator(".visual-stage").evaluate(
+            "(element) => getComputedStyle(element).animationName"
+        )
+        assert animation_name != "none"
+        motion.close()
+
+        mobile = browser.new_context(
+            viewport={"width": 390, "height": 844},
+            reduced_motion="reduce",
+        )
         mobile_page = mobile.new_page()
         mobile_page.on(
             "console",
@@ -287,9 +547,9 @@ def main() -> None:
         assert mobile_page.get_by_role("link", name="HOME").count() >= 1
         assert mobile_page.get_by_role("button", name="En vivo").count() == 0
         assert mobile_page.locator("#practiceStory").inner_text()
-        mobile_page.locator("#runVisual").click()
+        complete_evidence(mobile_page, 2, 0)
         mobile_page.get_by_role("button", name="Transferencia").click()
-        mobile_page.locator("#runVisual").click()
+        complete_evidence(mobile_page, 2, 1)
         mobile_page.locator('.option[data-correct="true"]').click()
         assert_no_overflow(mobile_page, "Nivel 2 mobile")
         mobile_page.screenshot(path=OUTPUT / "level-2-histogram-mobile.png", full_page=True)
@@ -300,9 +560,9 @@ def main() -> None:
         assert mobile_page.get_by_role("link", name="HOME").count() >= 1
         assert mobile_page.get_by_role("button", name="En vivo").count() == 0
         assert mobile_page.locator("#practiceStory").inner_text()
-        mobile_page.locator("#runVisual").click()
+        complete_evidence(mobile_page, 3, 0)
         mobile_page.get_by_role("button", name="Transferencia").click()
-        mobile_page.locator("#runVisual").click()
+        complete_evidence(mobile_page, 3, 1)
         mobile_page.locator('.option[data-correct="true"]').click()
         assert_no_overflow(mobile_page, "Nivel 3 mobile")
         mobile_page.screenshot(path=OUTPUT / "level-3-pvalue-mobile.png", full_page=True)

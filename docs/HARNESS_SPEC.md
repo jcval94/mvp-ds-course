@@ -31,9 +31,10 @@ El harness coordina la generación documental de material educativo: recibe una 
 4. Crear o cargar `ConceptSpec`.
 5. Enrutar a las skills de modo.
 6. Ejecutar revisión técnica.
-7. Ejecutar revisión pedagógica.
-8. Si falla, corregir la decisión raíz y regenerar dependencias.
-9. Emitir paquete y reporte.
+7. Ejecutar revisión visual interactiva en navegador.
+8. Ejecutar revisión pedagógica.
+9. Si falla, corregir la decisión raíz y regenerar dependencias.
+10. Emitir paquete y reporte.
 
 ## Routing
 
@@ -43,6 +44,7 @@ El harness coordina la generación documental de material educativo: recibe una 
 - Ejercitar -> `practice-exercise-designer`.
 - Enseñar en vivo -> `live-teaching-pack-builder`.
 - Cualquier paquete -> `technical-content-reviewer`.
+- Cualquier UI educativa -> `interactive-visual-reviewer`.
 - Cierre -> `pedagogy-eval-reviewer`.
 
 ## Permisos
@@ -112,6 +114,8 @@ Máximo recomendado: dos reintentos automáticos antes de solicitar revisión hu
 - Ejercitar igual a Aprender -> rediseñar la práctica como historia aplicada con evidencia animada.
 - En vivo visible para estudiantes -> ocultar con modo docente y aclarar que no es autenticación real.
 - Error técnico -> bloquear publicación y corregir todas las dependencias.
+- Evidencia visual ausente o desbloqueo prematuro -> bloquear publicación y
+  corregir `ConceptSpec`, ejercicio, renderer y QA.
 
 ## Human-in-the-loop
 
@@ -144,5 +148,7 @@ El harness recomienda uso o desarrollo solo cuando:
 - el promedio es 4 o más;
 - ninguna dimensión obtiene 1;
 - la prueba manual es reproducible;
+- la prueba de navegador verifica marcas semánticas, números, secuencia,
+  desbloqueo y movimiento reducido;
 - el humano aprueba la siguiente fase.
 - el manifest tiene estado `published` y su `validation.json` está aprobado.

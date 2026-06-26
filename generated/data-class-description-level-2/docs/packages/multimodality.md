@@ -20,6 +20,11 @@
 - **Intuición:** Varias montañas pueden indicar mecanismos o grupos mezclados.
 - **Error común:** Asignar una causa a cada modo sin revisar variables adicionales.
 - **Visual:** Colorea los días por temporada para investigar el origen de dos cimas.
+- **Kind visual:** `density-groups`.
+- **Mecanismo:** cimas agregadas frente a grupos latentes.
+- **Estados:** Agregado → Temporadas.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Separar temporadas.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
 - **Variables:** `cnt`, conteo entero de alquileres diarios.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Compara la distribución agregada con las curvas por temporada.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs multimodality-state-1, multimodality-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Separar temporadas» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Observa qué cimas cambian al separar temporadas y limita la conclusión a una explicación descriptiva.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs multimodality-state-1, multimodality-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

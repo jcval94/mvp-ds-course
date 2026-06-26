@@ -9,6 +9,8 @@
 - [ ] Totales, porcentajes y escalas cuadran.
 - [ ] Ejes, leyendas y unidades son claros.
 - [ ] El visual corresponde a los datos.
+- [ ] Cada `evidenceId` visible corresponde a una marca y valor reales.
+- [ ] El tipo de visual representa el mecanismo, no una codificación genérica engañosa.
 - [ ] Las métricas están bien definidas.
 - [ ] Los supuestos relevantes están explícitos.
 - [ ] Correlación no se presenta como causalidad.
@@ -20,5 +22,6 @@
 
 - Hay una afirmación falsa o numéricamente imposible.
 - Una escala visual induce una conclusión equivocada.
+- Un intervalo, cola, distribución o conjunto se sustituye por barras sin justificación.
 - Se elimina un outlier sin investigación.
 - Se declara un modelo superior sin evaluación compatible.

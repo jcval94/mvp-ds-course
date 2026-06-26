@@ -20,6 +20,11 @@
 - **Intuición:** No es simplemente raro: entra en conflicto con cómo se mide la variable.
 - **Error común:** Corregirlo adivinando el valor deseado.
 - **Visual:** Compara una fila real con una copia didáctica donde alcohol = -12.
+- **Kind visual:** `domain-validation`.
+- **Mecanismo:** regla de dominio y trazabilidad.
+- **Estados:** Pendiente → Validado.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Validar registro.
 - **Unidad de análisis:** una observación es una muestra de vino.
 - **Variables:** `alcohol` y `density`, numéricas; `quality`, ordinal; `color`, categórica.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Ejecuta la regla de dominio y compara el registro real con la copia didáctica alterada.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs capture-error-state-1, capture-error-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Validar registro» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa el estado de validación para elegir una acción que preserve trazabilidad sin inventar datos.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs capture-error-state-1, capture-error-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

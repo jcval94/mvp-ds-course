@@ -21,6 +21,11 @@
 - **Intuición:** Es ver una línea nerviosa que se calma conforme acumula más observaciones.
 - **Error común:** Creer que garantiza resultados exactos en muestras pequeñas.
 - **Visual:** Muestra cómo se estabiliza la media acumulada de alquileres.
+- **Kind visual:** `running-mean`.
+- **Mecanismo:** trayectoria acumulada hacia una referencia.
+- **Estados:** Inicio nervioso → Acumulación.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Acumular observaciones.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt`, conteo diario; `season`, `workingday`, variables de selección.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación extiende la serie acumulada y compara contra la media del snapshot.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs law-large-numbers-state-1, law-large-numbers-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Acumular observaciones» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual conserva fluctuaciones al inicio de la trayectoria.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs law-large-numbers-state-1, law-large-numbers-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

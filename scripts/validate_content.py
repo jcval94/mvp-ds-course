@@ -121,6 +121,11 @@ def validate_level(path: Path) -> dict[str, object]:
         fail(f"Gate de rúbrica fallido: {path.name}")
     if validation["blockers"]:
         fail(f"Bloqueos activos: {path.name}")
+    if validation.get("browser_qa_required") is not True:
+        fail(f"{path.name} no exige QA semántica de navegador")
+    evidence = validation.get("evidence", {})
+    if not isinstance(evidence, dict) or evidence.get("browser_qa") != "scripts/qa_pages.py":
+        fail(f"{path.name} no referencia la evidencia de navegador")
     if not (path / manifest["entrypoint"]).exists():
         fail(f"Entrypoint ausente: {path.name}")
     for html in path.glob("*.html"):
@@ -142,6 +147,9 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
         "practiceStory",
         "liveTeachingPack",
         "animationRequired: true",
+        "evidenceContract",
+        "requiredEvidenceIds",
+        "durationMs: 600",
         "visibilityNotice",
         "visible-temporal-level-1",
         "sha256",
@@ -161,7 +169,10 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
         "live.socraticQuestions",
         "live.beforeClassChecklist",
         "Modo En vivo visible temporalmente",
-        "Primero ejecuta la animación",
+        "contrato de evidencia",
+        "visualProgress",
+        "evidenceReady",
+        "data-evidence-id",
         "data-home-link",
         "homeHref",
         "HOME",
@@ -171,7 +182,7 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
     for fragment in ["data-home-link", "HOME", "../../site/index.html"]:
         if fragment not in index:
             fail(f"Nivel 1 no implementa HOME en portada: {fragment}")
-    for fragment in [".home-btn", ".home-sidebar-link"]:
+    for fragment in [".home-btn", ".home-sidebar-link", ".visual-progress", ".evidence-strip"]:
         if fragment not in css:
             fail(f"Nivel 1 no estiliza HOME: {fragment}")
     if ".option:disabled" not in css:
@@ -280,10 +291,22 @@ def validate_separated_payload(
         "data-home-link",
         "homeHref",
         "HOME",
+        "visualProgress",
+        "evidenceReady",
+        "data-evidence-id",
+        "prefers-reduced-motion",
     ]:
         if fragment not in app:
             fail(f"{label} no implementa separación de UI: {fragment}")
-    for fragment in [".practice-story", ".option:disabled", ".home-link", ".home-portal-link"]:
+    for fragment in [
+        ".practice-story",
+        ".option:disabled",
+        ".home-link",
+        ".home-portal-link",
+        ".visual-progress",
+        ".evidence-strip",
+        ".motion-line",
+    ]:
         if fragment not in css:
             fail(f"{label} no estiliza contrato de UI: {fragment}")
     for fragment in ["data-home-link", "HOME", "../../site/index.html"]:
@@ -321,6 +344,23 @@ def validate_separated_payload(
             fail(f"Prompts incompletos en {lesson['id']}")
         if not lesson.get("learningModule"):
             fail(f"{lesson['id']} no contiene LearningModule estructurado")
+        visual = lesson.get("visual", {})
+        for key in ["kind", "mechanism", "states", "sequence", "motion"]:
+            if not visual.get(key):
+                fail(f"{lesson['id']} no declara visual.{key}")
+        if visual["motion"].get("durationMs") != 600:
+            fail(f"{lesson['id']} no usa movimiento de 600 ms")
+        if not visual["motion"].get("reducedMotion"):
+            fail(f"{lesson['id']} no declara movimiento reducido")
+        evidence_ids: set[str] = set()
+        for state_index, visual_state in enumerate(visual["states"], start=1):
+            if not visual_state.get("id") or not visual_state.get("marks"):
+                fail(f"{lesson['id']} estado visual {state_index} incompleto")
+            for mark in visual_state["marks"]:
+                evidence_id = mark.get("evidenceId")
+                if not evidence_id or evidence_id in evidence_ids:
+                    fail(f"{lesson['id']} evidenceId ausente o duplicado")
+                evidence_ids.add(evidence_id)
         validate_story_contract(lesson)
         validate_live_contract(lesson, public_dataset_ids)
         for exercise in lesson["exercises"]:
@@ -332,6 +372,13 @@ def validate_separated_payload(
                 fail(f"Respuesta correcta ambigua en {lesson['id']}")
             if any(not option["feedback"] for option in exercise["options"]):
                 fail(f"Feedback ausente en {lesson['id']}")
+            contract = exercise.get("evidenceContract", {})
+            if contract.get("requiredSteps") != len(visual["states"]) - 1:
+                fail(f"Pasos de evidencia inconsistentes en {lesson['id']}")
+            if contract.get("unlockAtStep") != contract.get("requiredSteps"):
+                fail(f"Desbloqueo inconsistente en {lesson['id']}")
+            if set(contract.get("requiredEvidenceIds", [])) != evidence_ids:
+                fail(f"Evidence IDs inconsistentes en {lesson['id']}")
         package = level_path / "docs" / "packages" / f"{lesson['id']}.md"
         if not package.exists():
             fail(f"Paquete Markdown ausente para {lesson['id']}")
@@ -348,6 +395,9 @@ def validate_separated_payload(
             "**Variables:**",
             "**Concepto anterior:**",
             "**Concepto siguiente:**",
+            "**Kind visual:**",
+            "**Mecanismo:**",
+            "**Movimiento reducido:**",
             "**Regla de separación:**",
             "**Historia:**",
             "**Escenas animadas:**",
@@ -365,6 +415,8 @@ def validate_separated_payload(
                 fail(f"{lesson['id']} no contiene {fragment}")
         if package_text.count("**Evidencia requerida:**") != 2:
             fail(f"{lesson['id']} no documenta evidencia para dos ejercicios")
+        if package_text.count("**Contrato de evidencia:**") != 2:
+            fail(f"{lesson['id']} no documenta contratos de evidencia")
 
 
 def validate_level2_payload(public_dataset_ids: set[str]) -> None:

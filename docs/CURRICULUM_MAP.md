@@ -124,11 +124,12 @@ Cada concepto incorporado debe declarar:
 - prerrequisitos;
 - objetivo observable;
 - intuición y definición;
-- representación visual;
-- interacción que revele el concepto;
+- `kind`, mecanismo, estados y marcas semánticas de la representación;
+- interacción que revele el concepto y alternativa con movimiento reducido;
 - error común;
 - dataset público con procedencia y licencia, o sintético etiquetado;
 - dos ejercicios dependientes de evidencia desde Nivel 2;
+- contrato de evidencia y paso exacto de desbloqueo por ejercicio;
 - criterio de dominio;
 - conexiones con el concepto anterior y siguiente.
 
@@ -139,6 +140,7 @@ Los demos de histograma inspiran la profundidad, no la forma exacta. Un concepto
 - hace visible su mecanismo central;
 - permite manipular una variable significativa;
 - compara estados o escenarios;
+- conserva la identidad semántica de las marcas durante la animación;
 - pide interpretar evidencia;
 - ofrece feedback que corrige el razonamiento;
 - termina en una decisión o explicación transferible.

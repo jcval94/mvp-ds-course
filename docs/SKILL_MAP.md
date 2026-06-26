@@ -15,6 +15,7 @@
 | Skill | Propósito | Activador | Input | Output | Prioridad |
 | --- | --- | --- | --- | --- | --- |
 | `technical-content-reviewer` | Revisar exactitud y coherencia de datos | Antes del cierre de cualquier paquete | Todos los artefactos | Hallazgos técnicos y correcciones | Alta |
+| `interactive-visual-reviewer` | Probar mecanismo, animación, evidencia y desbloqueo | Después de QA técnica y antes de QA pedagógica | ConceptSpec, UI renderizada y ejercicios | Hallazgos visuales con evidencia de navegador | Alta |
 | `pedagogy-eval-reviewer` | Evaluar alineación y profundidad | Cierre obligatorio | Paquete y evals | Puntajes, bloqueos y decisión | Alta |
 
 ## Dependencias
@@ -28,6 +29,8 @@ Aprender  Ejercitar  Enseñar en vivo
    \         |          /
  technical-content-reviewer
              |
+ interactive-visual-reviewer
+             |
   pedagogy-eval-reviewer
 ```
 
@@ -39,6 +42,7 @@ Aprender  Ejercitar  Enseñar en vivo
 - Un cambio solo editorial puede revisarse en el modo afectado, pero siempre vuelve a QA.
 - Contenido técnico avanzado activa revisión de prerrequisitos antes de generación.
 - QA técnica ocurre antes de QA pedagógica final.
+- QA visual interactiva ocurre entre QA técnica y QA pedagógica.
 - Todo snapshot público pasa por procedencia, licencia y hash.
 - En vivo usa snapshot público real como fuente principal y se oculta por defecto en UI estudiantil.
 - Ejercitar debe contar una historia profesional o de negocio distinta de Aprender.
@@ -52,6 +56,7 @@ Aprender  Ejercitar  Enseñar en vivo
 - Duplica otra responsabilidad.
 - No vincula su output con objetivo, evidencia o evaluación.
 - Permite aprobar contenido sin visualización cuando el concepto es visualizable.
+- Aprueba cualquier diferencia de HTML sin comprobar marcas semánticas.
 
 ## Artefactos físicos
 

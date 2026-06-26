@@ -21,6 +21,11 @@
 - **Intuición:** Es preguntar solo a quien pasa por una puerta y creer que hablaste con todo el barrio.
 - **Error común:** Confundir una muestra grande con una muestra representativa.
 - **Visual:** Contrasta todos los días contra solo temporada de alta demanda.
+- **Kind visual:** `selection-frame`.
+- **Mecanismo:** cambio del estimando por regla de selección.
+- **Estados:** Todos los días → Filtro de temporada.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Comparar muestra sesgada.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt`, conteo diario; `season`, `workingday`, variables de selección.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación muestra el promedio de todos los días y el de una temporada filtrada.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs selection-bias-state-1, selection-bias-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar muestra sesgada» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra qué parte del snapshot quedó fuera.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs selection-bias-state-1, selection-bias-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

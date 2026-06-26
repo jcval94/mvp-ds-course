@@ -57,7 +57,9 @@ main { min-width: 0; padding: 0 22px 40px; }
 .lab-toolbar > div { margin-right: auto; display: flex; flex-direction: column; gap: 3px; }
 .lab-toolbar strong { font-size: 13px; }
 .lab-toolbar span { font-size: 11px; color: var(--muted); }
+.visual-progress { border: 1px solid var(--line); border-radius: 999px; padding: 5px 9px; background: white; white-space: nowrap; }
 .lab-toolbar button.primary { background: var(--teal); border-color: var(--teal); color: white; }
+.lab-toolbar button.primary:disabled { opacity: .58; cursor: default; }
 .visual { min-height: 410px; padding: 18px; overflow: hidden; }
 .visual-cue { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
 .state-title { display: flex; align-items: baseline; gap: 12px; border-left: 4px solid var(--teal); padding-left: 10px; margin-bottom: 10px; }
@@ -66,6 +68,39 @@ main { min-width: 0; padding: 0 22px 40px; }
 .chart { width: 100%; height: 320px; }
 .chart text { font-size: 11px; fill: var(--muted); }
 .axis { stroke: #9eacb8; stroke-width: 1.5; }
+.visual-stage { min-height: 320px; animation: visualStageIn .6s cubic-bezier(.22,1,.36,1) both; }
+.set-universe { fill: #f5f8f9; stroke: #b9c8d1; stroke-width: 2; }
+.set-active, .set-segment { fill: var(--teal); }
+.label-strong { font-weight: 800; fill: var(--ink) !important; }
+.label-inverse { font-weight: 800; fill: white !important; }
+.value-large { font-size: 24px !important; font-weight: 900; fill: var(--ink) !important; }
+.trial-token { fill: #e5ebef; stroke: white; stroke-width: 2; animation: tokenIn .6s cubic-bezier(.22,1,.36,1) both; animation-delay: var(--delay); }
+.trial-token.active { fill: var(--teal); }
+.distribution-bin { fill: #8bbdb9; transform-origin: center bottom; animation: growBin .6s cubic-bezier(.22,1,.36,1) both; animation-delay: var(--delay); }
+.normal-curve, .null-curve { fill: none; stroke: var(--blue); stroke-width: 4; }
+.alternative-curve { fill: none; stroke: var(--coral); stroke-width: 4; }
+.motion-line { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: drawLine .6s cubic-bezier(.22,1,.36,1) forwards; }
+.month-window { fill: var(--teal-soft); stroke: var(--teal); stroke-width: 2; }
+.timeline-cell { animation: visualStageIn .6s cubic-bezier(.22,1,.36,1) both; animation-delay: var(--delay); }
+.estimate-dot { fill: var(--blue); stroke: white; stroke-width: 3; animation: tokenIn .6s cubic-bezier(.22,1,.36,1) both; animation-delay: var(--delay); }
+.selection-base { fill: #f3f6f8; stroke: #aab8c3; stroke-width: 2; }
+.selection-active { fill: var(--coral-soft); stroke: var(--coral); stroke-width: 3; }
+.reference-line { stroke: var(--coral); stroke-width: 2; stroke-dasharray: 7 6; }
+.running-mean { fill: none; stroke: var(--teal); stroke-width: 4; }
+.interval-line { stroke: var(--blue); stroke-width: 10; stroke-linecap: round; animation: widenInterval .6s cubic-bezier(.22,1,.36,1) both; }
+.interval-cap { stroke: var(--blue); stroke-width: 3; }
+.estimate-point { fill: var(--coral); stroke: white; stroke-width: 3; }
+.observed-line, .decision-line { stroke: var(--coral); stroke-width: 3; stroke-dasharray: 7 5; }
+.tail-area, .beta-area { fill: rgba(211,90,74,.34); stroke: none; animation: areaIn .6s ease both; }
+.power-area { fill: rgba(8,127,123,.3); stroke: none; animation: areaIn .6s ease both; }
+.evidence-strip { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+.evidence-strip span { border-left: 3px solid var(--blue); background: #eef4fb; color: #315a88; padding: 6px 8px; border-radius: 3px; font-size: 11px; }
+@keyframes visualStageIn { from { opacity: .35; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes tokenIn { from { opacity: 0; transform: scale(.55); } to { opacity: 1; transform: scale(1); } }
+@keyframes growBin { from { opacity: .25; transform: scaleY(.08); } to { opacity: 1; transform: scaleY(1); } }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+@keyframes widenInterval { from { opacity: .35; stroke-width: 2; } to { opacity: 1; stroke-width: 10; } }
+@keyframes areaIn { from { opacity: 0; } to { opacity: 1; } }
 .markers { display: flex; flex-wrap: wrap; gap: 8px; }
 .markers span { border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; font-size: 12px; color: var(--muted); background: #fbfcfd; }
 .sample-note { color: var(--muted); font-size: 12px; line-height: 1.45; margin: 10px 0 0; }
@@ -157,4 +192,5 @@ main { min-width: 0; padding: 0 22px 40px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  .motion-line { stroke-dashoffset: 0; }
 }

@@ -16,6 +16,10 @@ Activa curriculum-architect. Lee docs/CURRICULUM_MAP.md y docs/PRD.md. Agrega o 
 
 ```text
 Activa concept-spec-designer. Crea una ConceptSpec para [concepto] dirigida a [audiencia] con nivel [nivel]. Incluye objetivo, prerrequisitos, definición, intuición, errores comunes, límites, visualSpec, interacción significativa, dataset público versionado o sintético etiquetado y criterio de dominio. Verifica que los datos y el visual permitan generar Aprender, Ejercitar y Enseñar en vivo sin reinterpretar el concepto.
+
+`visualSpec` debe declarar `kind`, mecanismo, estados, marcas con `evidenceId`,
+secuencia, movimiento de aproximadamente 600 ms y alternativa equivalente para
+`prefers-reduced-motion`.
 ```
 
 ## 4. Diseñar el modo Aprender
@@ -28,6 +32,9 @@ Activa learning-module-designer. Usa la ConceptSpec de [concepto]. Diseña una e
 
 ```text
 Activa practice-exercise-designer. Usa la ConceptSpec y el visual de [concepto]. Crea un ejercicio guiado y otro de transferencia, ambos con protagonista, historia profesional o de negocio, presión realista, decisión y evidencia animada. Incluye respuesta defendible, distractores derivados de errores comunes, pistas graduadas y feedback específico. Comprueba que ambos pierdan sentido si se oculta la visualización o si no se ejecuta la animación.
+
+Cada ejercicio debe incluir `evidenceContract.requiredSteps`,
+`requiredEvidenceIds` y `unlockAtStep`.
 ```
 
 ## 6. Preparar Enseñar en vivo
@@ -46,6 +53,10 @@ Activa technical-content-reviewer. Revisa unidad de análisis, variables, tipos,
 
 ```text
 Activa pedagogy-eval-reviewer. Lee docs/EVAL_SUITE.md y evals/. Puntúa alcance, progresión, exactitud, diseño conceptual, visual, práctica, feedback, preparación docente, coherencia, viabilidad y trazabilidad. Cita evidencia por puntaje. Corrige decisiones raíz y repite la evaluación hasta obtener promedio de 4 o más sin dimensiones en 1, o declara No listo.
+
+Antes del cierre activa `interactive-visual-reviewer`: prueba la UI real,
+verifica mecanismo, etiquetas, números, `evidenceIds`, secuencia, desbloqueo,
+responsive y movimiento reducido. Un cambio de HTML no es evidencia suficiente.
 ```
 
 ## 9. Construir un nivel publicable

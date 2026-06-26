@@ -21,6 +21,11 @@
 - **Intuición:** Es contar llegadas raras por mes cuando la ventana se mantiene igual.
 - **Error común:** Usarla para proporciones, valores continuos o ventanas comparadas injustamente.
 - **Visual:** Cuenta meses con muchos días de demanda extrema.
+- **Kind visual:** `event-timeline`.
+- **Mecanismo:** conteo de eventos raros en ventanas comparables.
+- **Estados:** Eventos raros por mes → Tasa mensual.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Contar eventos raros.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt`, conteo diario; `season`, `mnth`, `workingday`, categóricas discretas.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación muestra conteos de días extremos por mes.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs poisson-state-1, poisson-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Contar eventos raros» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual contrasta meses completos contra una ventana mal recortada.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs poisson-state-1, poisson-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

@@ -20,6 +20,11 @@
 - **Intuición:** Es una marca de posición en una lista ordenada de cien partes.
 - **Error común:** Interpretar percentil 90 como obtener 90% en una prueba.
 - **Visual:** Cambia el percentil y observa el punto de corte sobre datos ordenados.
+- **Kind visual:** `quantile-line`.
+- **Mecanismo:** proporción acumulada a la izquierda del corte.
+- **Estados:** P25 → P50 → P75.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Mover percentil.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Mueve el corte entre P25, P50 y P75 y cuenta qué proporción queda a la izquierda.
 
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs percentiles-state-1, percentiles-state-2, percentiles-state-3.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mover percentil» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Compara el corte central con la extensión visible de ambos lados.
+
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs percentiles-state-1, percentiles-state-2, percentiles-state-3.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

@@ -21,6 +21,11 @@
 - **Intuición:** Es una campana que resume variación alrededor de un centro.
 - **Error común:** Usar la normal sin revisar forma, escala o si la variable es continua.
 - **Visual:** Compara medias muestrales con una curva normal aproximada.
+- **Kind visual:** `distribution-curve`.
+- **Mecanismo:** forma continua y concentración alrededor del centro.
+- **Estados:** Medias de n=5 → Medias de n=35.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Comparar campana.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt`, conteo diario; `season`, `mnth`, `workingday`, categóricas discretas.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación compara una nube de medias con una campana de referencia.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs normal-state-1, normal-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar campana» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra ajuste aproximado y puntos reales al mismo tiempo.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs normal-state-1, normal-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

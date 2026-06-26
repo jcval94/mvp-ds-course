@@ -21,6 +21,11 @@
 - **Intuición:** Es la respiración del estimador, no la dispersión de cada individuo.
 - **Error común:** Confundir desviación estándar de datos con error estándar de una media.
 - **Visual:** Compara la dispersión de medias muestrales para n pequeño y n grande.
+- **Kind visual:** `interval`.
+- **Mecanismo:** variación de un estimador al cambiar n.
+- **Estados:** n=16 → n=64.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Cambiar tamaño de muestra.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación compara SE para n=16 y n=64.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs standard-error-state-1, standard-error-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar tamaño de muestra» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** La evidencia muestra medias muestrales como objetos distintos de las observaciones.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs standard-error-state-1, standard-error-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

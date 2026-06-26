@@ -21,6 +21,11 @@
 - **Intuición:** Es no escuchar una alarma baja aunque el problema sí existe.
 - **Error común:** Interpretar 'no significativo' como prueba de ausencia de efecto.
 - **Visual:** Compara regiones donde la alternativa cae fuera del rechazo.
+- **Kind visual:** `overlap`.
+- **Mecanismo:** área no detectada bajo una alternativa.
+- **Estados:** Efecto difícil → Efecto más claro.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Mostrar falso negativo.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt` y `workingday`, usados para una diferencia de medias descriptiva.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación muestra la distribución alternativa y el área no detectada.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs type-ii-error-state-1, type-ii-error-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mostrar falso negativo» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra mucho solapamiento cuando el efecto es difícil de detectar.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs type-ii-error-state-1, type-ii-error-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

@@ -7,6 +7,9 @@
   let teacherMode = "live";
   let animationStep = 0;
   let hasInteracted = false;
+  let visitedEvidence = new Set();
+  let isAnimating = false;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const people = [
     ["101", "28", "Femenino", "42,500", "Bogotá"],
@@ -100,6 +103,7 @@
           <section class="visual-shell">
             <div class="visual-toolbar">
               <span class="visual-title"></span>
+              <span id="visualProgress" class="visual-progress"></span>
               <button class="secondary-btn" id="resetVisual">${icon("rotate")} Reiniciar</button>
               <button class="primary-btn" id="animateVisual">${icon("play")} <span></span></button>
             </div>
@@ -124,6 +128,8 @@
   function renderLesson() {
     animationStep = 0;
     hasInteracted = false;
+    visitedEvidence = new Set();
+    isAnimating = false;
     const lesson = currentModule.lessons[lessonIndex];
     document.title = `${lesson.title} | DataClass Forge`;
     $(".lesson-count").textContent = `Módulo ${currentModule.number} de 4 · Lección ${lessonIndex + 1} de ${currentModule.lessons.length}`;
@@ -134,7 +140,6 @@
     $(".lesson-intro h1").textContent = lesson.title;
     $(".lesson-intro p").textContent = lesson.objective;
     $(".visual-title").textContent = currentModule.datasetName;
-    $("#animateVisual span").textContent = lesson.visual.action;
     $("#prevLesson").disabled = lessonIndex === 0;
     $("#nextLesson").innerHTML = lessonIndex === currentModule.lessons.length - 1 ? `Volver al portal ${icon("chevronRight")}` : `Siguiente ${icon("chevronRight")}`;
     renderVisual(lesson);
@@ -145,6 +150,7 @@
 
   function renderPractice(lesson) {
     const story = lesson.practiceStory.cases[0];
+    const ready = evidenceReady(lesson.practice);
     $(".practice-story").innerHTML = `<p class="story-kicker">${story.storyTitle}</p>
       <strong>${story.protagonist}</strong>
       <p>${story.context}. ${story.problem} ${story.pressure}.</p>
@@ -152,13 +158,13 @@
       <p><b>Evidencia:</b> ${story.evidence || lesson.practiceStory.evidence}</p>
       <ol>${story.scenes.map(scene => `<li>${scene}</li>`).join("")}</ol>
       <details class="practice-hints"><summary>Pistas graduadas</summary><ul>${lesson.practiceStory.hints.map(hint => `<li>${hint}</li>`).join("")}</ul></details>
-      <p class="story-close">${hasInteracted ? story.closing : "Primero ejecuta la animación; las respuestas están bloqueadas hasta ver la evidencia."}</p>`;
+      <p class="story-close">${ready ? story.closing : "Primero completa el contrato de evidencia; las respuestas están bloqueadas hasta ver ambos estados."}</p>`;
     $(".question > p").textContent = lesson.practice.question;
     $(".options").innerHTML = displayOptions(lesson.practice.options).map(({ item, sourceIndex }, displayIndex) => `
-      <button class="option" data-option="${sourceIndex}" ${hasInteracted ? "" : "disabled"}><span class="option-dot"></span><span>${String.fromCharCode(65 + displayIndex)}. ${item.text}</span></button>`).join("");
+      <button class="option" data-option="${sourceIndex}" ${ready ? "" : "disabled"}><span class="option-dot"></span><span>${String.fromCharCode(65 + displayIndex)}. ${item.text}</span></button>`).join("");
     $(".feedback").className = "feedback";
     $(".feedback h2").textContent = "Retroalimentación";
-    $(".feedback p").textContent = hasInteracted ? "Selecciona una respuesta y revisa la evidencia visual." : `Ejecuta «${lesson.visual.action}» antes de responder.`;
+    $(".feedback p").textContent = ready ? "Selecciona una respuesta y revisa la evidencia visual." : `Avanza al paso ${lesson.practice.evidenceContract.unlockAtStep + 1} antes de responder.`;
     bindOptionEvents();
   }
 
@@ -187,6 +193,37 @@
     } else if (visual.type === "prepare") {
       area.innerHTML = `<p class="cue">${visual.cue}</p>${prepareTable(orders)}<div id="prepareSummary" class="quality-status"></div>`;
     }
+    registerEvidence(lesson, 0);
+    renderEvidenceStrip(lesson, 0);
+    updateProgress(lesson);
+  }
+
+  function evidenceReady(practice) {
+    const contract = practice.evidenceContract;
+    return animationStep >= contract.unlockAtStep &&
+      contract.requiredEvidenceIds.every(evidenceId => visitedEvidence.has(evidenceId));
+  }
+
+  function registerEvidence(lesson, step) {
+    lesson.visual.states[step].marks.forEach(mark => visitedEvidence.add(mark.evidenceId));
+  }
+
+  function renderEvidenceStrip(lesson, step) {
+    const existing = $("#visualEvidence");
+    if (existing) existing.remove();
+    const state = lesson.visual.states[step];
+    $("#visualArea").insertAdjacentHTML("beforeend",
+      `<div id="visualEvidence" class="evidence-strip">${state.marks.map(mark =>
+        `<span data-evidence-id="${mark.evidenceId}"><b>${mark.label}</b></span>`
+      ).join("")}</div>`);
+  }
+
+  function updateProgress(lesson) {
+    const total = lesson.visual.states.length;
+    const atEnd = animationStep >= total - 1;
+    $("#visualProgress").textContent = `Paso ${animationStep + 1} de ${total}`;
+    $("#animateVisual span").textContent = atEnd ? "Evidencia completa" : lesson.visual.action;
+    $("#animateVisual").disabled = isAnimating || atEnd;
   }
 
   function qualityTable(focus) {
@@ -224,6 +261,8 @@
 
   function animateVisual() {
     const lesson = currentModule.lessons[lessonIndex];
+    if (isAnimating || animationStep >= lesson.visual.states.length - 1) return;
+    isAnimating = true;
     const area = $("#visualArea");
     animationStep += 1;
     if (lesson.visual.type === "table") {
@@ -280,8 +319,15 @@
     } else if (lesson.visual.type === "prepare") {
       animatePreparation(lesson.visual.focus);
     }
-    hasInteracted = true;
-    renderPractice(lesson);
+    registerEvidence(lesson, animationStep);
+    renderEvidenceStrip(lesson, animationStep);
+    updateProgress(lesson);
+    window.setTimeout(() => {
+      isAnimating = false;
+      hasInteracted = evidenceReady(lesson.practice);
+      renderPractice(lesson);
+      updateProgress(lesson);
+    }, reducedMotion ? 0 : lesson.visual.motion.durationMs);
   }
 
   function animatePreparation(focus) {

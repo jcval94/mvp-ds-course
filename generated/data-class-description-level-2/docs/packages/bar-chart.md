@@ -20,6 +20,11 @@
 - **Intuición:** Cada barra es una regla que parte de una base compartida.
 - **Error común:** Usar barras para una variable continua sin agrupar o truncar el eje para exagerar.
 - **Visual:** Compara conteo y media por especie manteniendo una línea base explícita.
+- **Kind visual:** `zero-baseline-bars`.
+- **Mecanismo:** longitud desde una base cero común.
+- **Estados:** Media → Conteo.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Cambiar métrica.
 - **Unidad de análisis:** una observación es un pingüino.
 - **Variables:** `species`, categórica; `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Alterna entre conteo y media de masa y lee la medida y unidad mostradas.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs bar-chart-state-1, bar-chart-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar métrica» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Comprueba que todas las barras parten de la misma línea base.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs bar-chart-state-1, bar-chart-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

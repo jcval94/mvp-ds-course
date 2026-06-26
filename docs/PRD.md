@@ -58,7 +58,9 @@ Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, s
 - Objetivo de aprendizaje observable.
 - Definición e intuición.
 - Errores comunes.
-- `visualSpec`: representación, elementos, interacción y simplificación.
+- `visualSpec`: `kind`, mecanismo, elementos, estados, marcas semánticas,
+  secuencia, interacción, intención de movimiento, simplificación y alternativa
+  para `prefers-reduced-motion`.
 - Snapshot público versionado o dataset sintético etiquetado.
 - Criterios de dominio y límites del concepto.
 
@@ -79,6 +81,7 @@ Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, s
 - Referencia a `ConceptSpec`.
 - Rol, protagonista, historia, tensión y decisión.
 - Evidencia visual animada necesaria.
+- `evidenceContract` con pasos requeridos, `evidenceIds` visibles y paso de desbloqueo.
 - Secuencia de uno a tres pasos o escenas.
 - Pregunta o acción observable.
 - Respuesta correcta y distractores plausibles.
@@ -116,6 +119,8 @@ Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, s
 - Ocultar `Enseñar en vivo` por defecto en la UI estudiantil y activarlo solo con modo docente.
 - Etiquetar supuestos, nivel y limitaciones.
 - Validar cada artefacto antes de declararlo listo.
+- Ejecutar revisión visual interactiva después de la revisión técnica y antes
+  de la evaluación pedagógica final.
 - Mantener prompts ejecutables con archivos, restricciones, salida y aceptación.
 - Generar dos ejercicios por concepto desde Nivel 2.
 - Separar roles en vivo: Codex modifica o verifica código; Gemini o ChatGPT
@@ -183,6 +188,9 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 - Cada artefacto usa la `ConceptSpec` correspondiente.
 - Cada ejercicio depende de evidencia visual.
 - Cada ejercicio incluye historia aplicada y animación antes de responder.
+- Cada ejercicio permanece bloqueado hasta satisfacer su `evidenceContract`.
+- Cada visual usa una gramática adecuada a su mecanismo; compartir renderer
+  solo es válido entre conceptos con la misma estructura conceptual.
 - Cada distractor tiene feedback específico.
 - No hay contradicciones entre objetivo, datos, visual y conclusión.
 - Cada concepto obtiene promedio de 4 o más y ninguna dimensión obtiene 1.
@@ -223,6 +231,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 | Tres modos | Brief | Agent Spec, Skills, Harness | Eval Suite |
 | Temario progresivo | `CURRICULUM_MAP.md` | ConceptSpec, Plan | Rubrica curricular |
 | Visual obligatorio | Demos de inspiración y Brief | Skills, ejercicios, evals | Checklist pedagógico |
+| Contrato de evidencia | Auditoría visual de junio de 2026 | ConceptSpec, UI, QA y publicación | Revisión visual interactiva |
 | Tres niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
 | Snapshots públicos fijos | Solicitud de usuario | Datasets, skills y evals | Hash, licencia y procedencia |
 | GitHub Pages automático | Solicitud de usuario | `site/` y workflow | Build en `main` |

@@ -20,10 +20,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
       - name: Validate educational content
         run: python scripts/validate_content.py
       - name: Build site
         run: python scripts/build_pages.py
+      - name: Install browser QA runtime
+        run: |
+          python -m pip install --disable-pip-version-check playwright
+          python -m playwright install --with-deps chromium
+      - name: Run semantic browser QA
+        run: python scripts/qa_pages.py
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

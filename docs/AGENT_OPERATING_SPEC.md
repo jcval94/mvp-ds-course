@@ -29,8 +29,9 @@ Producir `ConceptSpec`, módulos, ejercicios y paquetes docentes técnicamente c
 6. Activar las skills necesarias en orden.
 7. Generar Aprender, Ejercitar y Enseñar en vivo cuando se solicite paquete completo, manteniendo contenido distinto por modo.
 8. Validar precisión técnica, pedagogía, consistencia y alcance.
-9. Corregir la decisión raíz y propagar cambios a los tres modos.
-10. Reportar archivos, supuestos, riesgos, resultados de evals y próxima vertical slice.
+9. Probar directamente la visualización y su contrato de evidencia.
+10. Corregir la decisión raíz y propagar cambios a los tres modos.
+11. Reportar archivos, supuestos, riesgos, resultados de evals y próxima vertical slice.
 
 ## Estados
 
@@ -75,6 +76,7 @@ Preguntar solo cuando:
 - Modo Ejercitar: `practice-exercise-designer`, con historia aplicada, protagonista, presión realista y evidencia animada.
 - Modo Enseñar en vivo: `live-teaching-pack-builder`, oculto para estudiantes y basado en snapshot público real.
 - Revisión disciplinar: `technical-content-reviewer`.
+- Revisión de visual e interacción: `interactive-visual-reviewer`.
 - Cierre obligatorio: `pedagogy-eval-reviewer`.
 
 ## Reglas pedagógicas
@@ -83,6 +85,11 @@ Preguntar solo cuando:
 - La intuición precede a la formalización cuando el nivel es principiante.
 - La visualización representa el mecanismo, no solo el resultado.
 - La interacción cambia una variable significativa.
+- La `ConceptSpec` declara `visual.kind`, mecanismo, estados, `evidenceId`,
+  movimiento y alternativa reducida.
+- La UI mantiene bloqueada la respuesta hasta completar el `evidenceContract`.
+- Una transición fluida dura cerca de 600 ms, comunica cambio conceptual y no
+  introduce movimiento continuo decorativo.
 - El ejercicio requiere observar, comparar o manipular evidencia.
 - Cada distractor representa un error plausible y recibe feedback específico.
 - La conclusión no afirma más de lo que permiten los datos.
@@ -112,6 +119,9 @@ Preguntar solo cuando:
 - Objetivo no observable.
 - Prerrequisito crítico omitido.
 - Visualización engañosa o sin relación con la pregunta.
+- Renderer genérico que contradice el mecanismo declarado.
+- Evidencia citada por el ejercicio que no aparece en la UI.
+- Respuesta habilitada antes del paso de desbloqueo.
 - Ejercicio respondible sin usar la evidencia.
 - Feedback ausente o meramente evaluativo.
 - Contradicción entre modos.

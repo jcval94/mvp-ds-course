@@ -37,6 +37,9 @@ Toda skill debe:
 **Output:** `ConceptSpec` con definición, intuición, errores, `visualSpec`,
 dataset, procedencia/licencia cuando aplica, dominio y límites.
 
+`visualSpec` debe declarar `kind`, mecanismo, estados, marcas con `evidenceId`,
+secuencia, intención de movimiento y alternativa de movimiento reducido.
+
 **No debe hacer:** inventar hechos, usar una analogía que contradiga el concepto o aprobar un visual decorativo.
 
 **Aceptación:** otra skill puede generar los tres modos sin reinterpretar el concepto.
@@ -65,13 +68,34 @@ dataset, procedencia/licencia cuando aplica, dominio y límites.
 
 **Output:** `PracticeExercise` guiado y de transferencia desde Nivel 2, con rol,
 protagonista, historia, presión realista, decisión, escenas animadas, evidencia,
-preguntas, opciones, pistas, feedback y conclusión.
+preguntas, opciones, pistas, feedback, conclusión y `evidenceContract`.
 
 **No debe hacer:** premiar adivinanza, usar distractores absurdos ni pedir una decisión no sustentada.
 
 **Aceptación:** existe una respuesta defendible, la animación revela evidencia antes de responder, los distractores corresponden a errores plausibles y cada feedback corrige razonamiento.
 
 **Rechazo:** el ejercicio puede resolverse sin mirar la evidencia, la historia permite adivinar la respuesta, la animación solo cambia estilo o la conclusión excede los datos.
+
+## `interactive-visual-reviewer`
+
+**Propósito:** comprobar en navegador que cada visual hace visible el mecanismo
+declarado y que la interacción controla correctamente la evidencia.
+
+**Inputs:** `ConceptSpec`, `PracticeExercise`, renderer, datos y URL local.
+
+**Output:** hallazgos con severidad, concepto, estado, `evidenceId`, captura o
+estado DOM, impacto pedagógico y corrección.
+
+**No debe hacer:** aprobar por cambio de color, diferencia de HTML, presencia de
+SVG o animación fluida sin significado.
+
+**Aceptación:** las marcas requeridas existen, los números coinciden con los
+datos, el movimiento revela el mecanismo, el desbloqueo ocurre en el paso
+declarado y `prefers-reduced-motion` conserva la evidencia.
+
+**Rechazo:** renderer genérico inadecuado, evidencia ausente, desbloqueo
+prematuro, solapamiento que oculta etiquetas, error de escala o animación
+decorativa.
 
 ## `live-teaching-pack-builder`
 
@@ -125,6 +149,7 @@ Si cambia una decisión raíz:
 2. Revisar los tres modos.
 3. Revisar datos y visualizaciones.
 4. Reejecutar QA técnica.
-5. Reejecutar QA pedagógica.
+5. Reejecutar QA visual interactiva.
+6. Reejecutar QA pedagógica.
 
 No se permite corregir únicamente el documento donde apareció el síntoma.

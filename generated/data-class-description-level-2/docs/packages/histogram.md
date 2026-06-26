@@ -20,6 +20,11 @@
 - **Intuición:** Es una vista comprimida de cuántas observaciones caen en cada tramo.
 - **Error común:** Confundirlo con barras categóricas o leer cada barra como una observación.
 - **Visual:** Ajusta el número de bins sin cambiar los 731 días observados.
+- **Kind visual:** `histogram`.
+- **Mecanismo:** conteo por intervalos conservando el total.
+- **Estados:** 7 bins → 12 bins → 22 bins.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Cambiar intervalos.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
 - **Variables:** `cnt`, conteo entero de alquileres diarios.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Compara 7, 12 y 22 bins y verifica que n=731 permanezca constante.
 
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs histogram-state-1, histogram-state-2, histogram-state-3.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar intervalos» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa la altura de las barras del extremo derecho para justificar la frecuencia de alquileres altos.
+
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs histogram-state-1, histogram-state-2, histogram-state-3.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

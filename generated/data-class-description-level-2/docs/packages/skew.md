@@ -20,6 +20,11 @@
 - **Intuición:** La cola apunta hacia los casos menos frecuentes y más alejados.
 - **Error común:** Nombrar el sesgo por el lado donde se concentra la mayoría.
 - **Visual:** Resalta la cola larga y compara media con mediana.
+- **Kind visual:** `histogram-tail`.
+- **Mecanismo:** dirección de cola y separación media-mediana.
+- **Estados:** Distribución → Cola resaltada.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Resaltar cola.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
 - **Variables:** `cnt`, conteo entero de alquileres diarios.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Activa la cola y compara las posiciones de media y mediana.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs skew-state-1, skew-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Resaltar cola» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa la dirección de la cola resaltada para justificar la relación entre los dos centros.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs skew-state-1, skew-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

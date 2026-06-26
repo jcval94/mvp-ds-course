@@ -21,6 +21,11 @@
 - **Intuición:** Es sumar varias luces de Bernoulli en una sola cuenta.
 - **Error común:** Tratar una binomial como si fuera un solo día o ignorar n.
 - **Visual:** Agrupa 20 días y cuenta cuántos superan el umbral.
+- **Kind visual:** `trials-count`.
+- **Mecanismo:** conteo de éxitos en n ensayos.
+- **Estados:** 20 ensayos → 40 ensayos.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Acumular ensayos.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt`, conteo diario; `season`, `mnth`, `workingday`, categóricas discretas.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación acumula varios días y muestra k éxitos de n.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs binomial-state-1, binomial-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Acumular ensayos» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra conteos de éxito para varios grupos de tamaño n.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs binomial-state-1, binomial-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

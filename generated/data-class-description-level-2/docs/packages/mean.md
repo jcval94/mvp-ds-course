@@ -20,6 +20,11 @@
 - **Intuición:** Es el punto donde una regla con pesos iguales quedaría equilibrada.
 - **Error común:** Tratar la media como un valor típico aunque existan extremos o asimetría.
 - **Visual:** Compara la media antes y después de desplazar una observación extrema.
+- **Kind visual:** `number-line`.
+- **Mecanismo:** desplazamiento del punto de equilibrio.
+- **Estados:** Base → Extremo desplazado.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Mover un extremo.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Compara los marcadores de media y mediana antes y después de desplazar el extremo.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs mean-state-1, mean-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mover un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa la separación visible entre centro, puntos e IQR para identificar qué información falta.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs mean-state-1, mean-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

@@ -13,9 +13,11 @@ Usar una `ConceptSpec` validada y producir:
 4. Explicación en etapas breves.
 5. Interacción que cambie una variable conceptual.
 6. Comparación de estados o escenarios.
-7. Error común y corrección.
-8. Mini-checkpoint con respuesta explicada.
-9. Resumen y transición a práctica.
+7. Secuencia visible `Paso X de N`, movimiento significativo y alternativa
+   equivalente para movimiento reducido.
+8. Error común y corrección.
+9. Mini-checkpoint con respuesta explicada.
+10. Resumen y transición a práctica.
 
 El modo Aprender debe limitarse a enseñar el mecanismo: no debe resolver el caso
 narrativo de Ejercitar ni mostrar el guion docente de En vivo. Puede anticipar

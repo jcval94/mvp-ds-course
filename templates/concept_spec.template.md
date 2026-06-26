@@ -27,10 +27,15 @@
 
 ## VisualSpec
 
+- Kind: [familia visual compatible con el mecanismo].
+- Mecanismo: [relación conceptual que debe hacerse visible].
 - Representación: [visual].
 - Elementos: [elementos].
 - Interacción: [cambio significativo].
-- Comparación: [estados].
+- Estados y secuencia: [estados ordenados].
+- Marcas semánticas: [evidenceId, etiqueta y dato].
+- Movimiento: [geometría que cambia, duración y easing].
+- Movimiento reducido: [evidencia equivalente sin transición].
 
 ## Dataset
 

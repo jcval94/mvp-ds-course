@@ -20,6 +20,11 @@
 - **Intuición:** Son una cuadrícula móvil: más celdas muestran detalle, menos celdas resumen.
 - **Error común:** Buscar un número universalmente correcto de bins.
 - **Visual:** Compara tres particiones del mismo snapshot.
+- **Kind visual:** `histogram`.
+- **Mecanismo:** sensibilidad de la forma a la partición.
+- **Estados:** 6 bins → 12 bins → 24 bins.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Probar 6, 12 y 24.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
 - **Variables:** `cnt`, conteo entero de alquileres diarios.
@@ -56,7 +61,9 @@
 
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Probar 6, 12 y 24» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
-**Evidencia requerida:** Compara el mismo n=731 con 7, 12 y 22 intervalos.
+**Evidencia requerida:** Compara el mismo n=731 con 6, 12 y 24 intervalos.
+
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs bins-state-1, bins-state-2, bins-state-3.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
@@ -78,7 +85,9 @@
 
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Probar 6, 12 y 24» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
-**Evidencia requerida:** Verifica si el pico permanece o desaparece al cambiar la partición.
+**Evidencia requerida:** Verifica si el pico permanece o desaparece al cambiar entre 6, 12 y 24 intervalos.
+
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs bins-state-1, bins-state-2, bins-state-3.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

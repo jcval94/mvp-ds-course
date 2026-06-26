@@ -13,8 +13,9 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 5. Revisar Ejercitar.
 6. Revisar Enseñar en vivo.
 7. Revisar precisión técnica.
-8. Revisar consistencia documental y placeholders.
-9. Emitir puntaje y decisión.
+8. Probar visual, animación, evidencia y desbloqueo en navegador.
+9. Revisar consistencia documental y placeholders.
+10. Emitir puntaje y decisión.
 
 ## Dimensiones
 
@@ -25,6 +26,7 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 | Exactitud | ¿Definiciones, datos, métricas y conclusiones son correctos? |
 | Visualización | ¿El visual representa el mecanismo y evita engaños? |
 | Interacción | ¿Manipular o comparar revela el concepto? |
+| Evidencia interactiva | ¿Los `evidenceIds`, pasos y desbloqueo coinciden con lo visible? |
 | Práctica | ¿La historia aplicada y la respuesta dependen de evidencia animada? |
 | Feedback | ¿Corrige el razonamiento de cada respuesta? |
 | Enseñanza | ¿El docente puede operar la clase con snapshot real, modo oculto y contingencia? |
@@ -48,6 +50,10 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 - Afirmación técnica falsa o causalidad injustificada.
 - Concepto visualizable sin `visualSpec`.
 - Visualización engañosa o decorativa.
+- Renderer reciclado que no representa el mecanismo del concepto.
+- `evidenceId` requerido ausente o no visible.
+- Respuesta habilitada antes de completar el contrato de evidencia.
+- Animación sin alternativa equivalente para movimiento reducido.
 - Ejercicio respondible sin observar la evidencia.
 - Ejercitar reutiliza la explicación de Aprender en vez de contar un caso aplicado.
 - Ejercitar carece de protagonista, presión realista, decisión o animación de evidencia.
@@ -85,6 +91,7 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 - Historia que revela la respuesta sin ejecutar la animación.
 - En vivo presentado como contenido para estudiantes o como seguridad real en frontend.
 - Visual que cambia colores, pero no una variable conceptual.
+- QA que solo verifica que el HTML cambió.
 - A/B testing que declara ganador solo por una barra más alta.
 - Clustering que presenta grupos como clases verdaderas.
 - Outlier eliminado automáticamente.

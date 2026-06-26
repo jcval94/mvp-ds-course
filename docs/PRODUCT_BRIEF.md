@@ -66,6 +66,8 @@ interacción, resuelve los ejercicios y usa los prompts sin completar secciones.
 - Los tres modos comparten la misma intención conceptual, pero muestran contenido distinto.
 - El ejercicio no puede resolverse correctamente ignorando la visualización.
 - Ejercitar cuenta una historia profesional o de negocio y bloquea la respuesta hasta revelar evidencia animada.
+- Cada visual declara su mecanismo, estados, marcas semánticas y alternativa con movimiento reducido.
+- Las respuestas solo se habilitan cuando se visitaron los estados y evidencias exigidos por el ejercicio.
 - El feedback explica por qué cada opción es correcta o incorrecta.
 - El paquete docente incluye snapshot público real, plan offline, criterio de cierre y aviso de que el modo docente oculto no es seguridad real.
 - Cada paquete obtiene promedio de 4 o más sin dimensiones en 1.
@@ -104,6 +106,8 @@ La fábrica no se limita a generar texto. Exige una línea de trazabilidad entre
 - **Contenido correcto pero superficial:** bloquear módulos sin interacción, error común o checkpoint.
 - **Narrativa sin aprendizaje:** exigir protagonista, tensión y decisión, pero bloquear historias que revelan la respuesta sin evidencia.
 - **Visualización decorativa:** exigir que una pregunta o experimento dependa de ella.
+- **Visualización genérica reciclada:** bloquear representaciones que no hagan visible el mecanismo específico del concepto.
+- **Cambio visual sin evidencia:** validar identificadores semánticos, secuencia y desbloqueo; no basta comparar HTML antes y después.
 - **Temario demasiado amplio:** publicar por niveles completos y exigir el mismo
   gate por concepto.
 - **Inconsistencia entre modos:** compartir una `ConceptSpec` y validar trazabilidad.

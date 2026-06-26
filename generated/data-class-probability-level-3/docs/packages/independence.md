@@ -21,6 +21,11 @@
 - **Intuición:** Es comparar una tasa global contra la tasa dentro de un filtro.
 - **Error común:** Declarar independencia solo porque dos variables se ven distintas.
 - **Visual:** Contrasta P(especie) global contra P(especie | isla).
+- **Kind visual:** `set-rate`.
+- **Mecanismo:** comparación de tasa marginal y condicionada.
+- **Estados:** Probabilidad global → Condicionada por Torgersen.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Comparar tasas.
 - **Unidad de análisis:** una observación es un pingüino.
 - **Variables:** `species` e `island`, categóricas.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación muestra tasas globales y tasas filtradas por isla.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs independence-state-1, independence-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar tasas» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra diferencia de tasas, no mecanismo causal.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs independence-state-1, independence-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

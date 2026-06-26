@@ -21,6 +21,11 @@
 - **Intuición:** Es una etiqueta que ilumina solo las filas que cumplen una regla.
 - **Error común:** Confundir el evento con una fila individual o con toda la tabla.
 - **Visual:** Resalta el subconjunto de pingüinos que cumple la regla.
+- **Kind visual:** `set`.
+- **Mecanismo:** subconjunto dentro de un espacio muestral.
+- **Estados:** Espacio muestral → Evento activo: especie Adelie.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Marcar evento.
 - **Unidad de análisis:** una observación es un pingüino.
 - **Variables:** `species` e `island`, categóricas.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** Observa cuántos pingüinos quedan dentro del subconjunto Adelie.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs event-state-1, event-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Marcar evento» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** La animación cambia de 'Adelie' a otro subconjunto y actualiza la proporción.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs event-state-1, event-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

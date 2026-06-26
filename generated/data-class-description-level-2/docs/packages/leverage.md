@@ -20,6 +20,11 @@
 - **Intuición:** Un punto en una zona horizontal solitaria puede tirar de una línea ajustada.
 - **Error común:** Confundir leverage alto con residuo alto o con un error confirmado.
 - **Visual:** Activa y desactiva un punto extremo en alcohol para observar la pendiente.
+- **Kind visual:** `scatter-fit`.
+- **Mecanismo:** posición horizontal extrema y sensibilidad del ajuste.
+- **Estados:** Con extremo → Sin extremo.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Comparar ajuste.
 - **Unidad de análisis:** una observación es una muestra de vino.
 - **Variables:** `alcohol` y `density`, numéricas; `quality`, ordinal; `color`, categórica.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Compara el ajuste con y sin el punto de alcohol más extremo.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs leverage-state-1, leverage-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar ajuste» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa su posición horizontal y el cambio de pendiente para distinguir leverage de influencia.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs leverage-state-1, leverage-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

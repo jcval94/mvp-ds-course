@@ -21,6 +21,11 @@
 - **Intuición:** Es pedir varias cucharadas de la misma olla y no obtener idéntico sabor cada vez.
 - **Error común:** Tratar una muestra pequeña como si fuera el valor exacto de la población.
 - **Visual:** Compara medias de varias muestras de días.
+- **Kind visual:** `dotplot`.
+- **Mecanismo:** distribución de estimaciones entre muestras.
+- **Estados:** Muestras pequeñas → Muestras más grandes.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Tomar muestras.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt`, conteo diario; `season`, `workingday`, variables de selección.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación muestra varias medias calculadas desde subconjuntos distintos.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs sampling-variability-state-1, sampling-variability-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Tomar muestras» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra mayor dispersión con n pequeño.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs sampling-variability-state-1, sampling-variability-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

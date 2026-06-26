@@ -8,10 +8,12 @@ description: Evalúa paquetes educativos de ciencia de datos contra rubricas de 
 1. Leer `docs/EVAL_SUITE.md` y todos los archivos de `evals/`.
 2. Verificar objetivo único, nivel y prerrequisitos.
 3. Confirmar dependencia real de la evidencia visual.
-4. Revisar feedback, transferencia y operabilidad docente.
-5. Comprobar coherencia entre modos y no objetivos.
-6. Puntuar cada dimensión de 1 a 5 con evidencia.
-7. Corregir bloqueos y repetir la evaluación.
+4. Leer el reporte de `interactive-visual-reviewer` y confirmar que no hay
+   renderer genérico, evidencia ausente ni desbloqueo prematuro.
+5. Revisar feedback, transferencia y operabilidad docente.
+6. Comprobar coherencia entre modos y no objetivos.
+7. Puntuar cada dimensión de 1 a 5 con evidencia.
+8. Corregir bloqueos y repetir la evaluación.
 
 Decidir:
 

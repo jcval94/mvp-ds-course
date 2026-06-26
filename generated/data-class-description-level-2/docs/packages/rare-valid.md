@@ -20,6 +20,11 @@
 - **Intuición:** Puede ser una excepción valiosa que amplía lo que sabemos del sistema.
 - **Error común:** Normalizarlo o excluirlo solo para obtener una gráfica más limpia.
 - **Visual:** Abre metadatos de un vino extremo y contrasta varias variables relacionadas.
+- **Kind visual:** `scatter-detail`.
+- **Mecanismo:** rareza estadística frente a plausibilidad contextual.
+- **Estados:** Caso marcado → Detalle trazable.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Revisar contexto.
 - **Unidad de análisis:** una observación es una muestra de vino.
 - **Variables:** `alcohol` y `density`, numéricas; `quality`, ordinal; `color`, categórica.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Abre el detalle del vino con alcohol máximo y contrasta alcohol, densidad, calidad y color.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs rare-valid-state-1, rare-valid-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Revisar contexto» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Compara el análisis con y sin el caso para comunicar sensibilidad de forma transparente.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs rare-valid-state-1, rare-valid-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

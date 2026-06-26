@@ -11,6 +11,7 @@
 - Exactitud.
 - Visualización.
 - Interacción.
+- Evidencia interactiva.
 - Práctica.
 - Feedback.
 - Preparación docente.
@@ -32,6 +33,7 @@
 ## Bloqueos
 
 - [Condición automática.]
+- Renderer genérico, evidencia ausente, desbloqueo prematuro o movimiento decorativo.
 
 ## Criterio de paso
 

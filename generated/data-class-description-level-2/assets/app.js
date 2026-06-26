@@ -12,7 +12,9 @@
   let teacherEnabled = params.get("teacher") === "1";
   let teacherMode = "learn";
   let visualStep = 0;
-  let hasInteracted = false;
+  let visitedEvidence = new Set();
+  let isAnimating = false;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -125,6 +127,7 @@
           <section class="lab">
             <div class="lab-toolbar">
               <div><strong id="datasetName"></strong><span id="datasetMeta"></span></div>
+              <span id="visualProgress" class="visual-progress"></span>
               <button id="resetVisual" class="secondary">${icon(icons.reset)} Reiniciar</button>
               <button id="runVisual" class="primary">${icon(icons.play)} <span></span></button>
             </div>
@@ -163,7 +166,8 @@
   function renderLesson() {
     visualStep = 0;
     exerciseIndex = 0;
-    hasInteracted = false;
+    visitedEvidence = new Set();
+    isAnimating = false;
     const lesson = currentModule.lessons[lessonIndex];
     const dataset = source.datasets[currentModule.dataset_id];
     document.title = `${lesson.title} | DataClass Forge`;
@@ -181,7 +185,6 @@
     $("#datasetMeta").textContent = `${dataset.rows.toLocaleString("es-MX")} filas · ${
       dataset.license
     }`;
-    $("#runVisual span").textContent = lesson.visual.action;
     $("#previous").disabled = lessonIndex === 0;
     $("#next").innerHTML =
       lessonIndex === currentModule.lessons.length - 1
@@ -198,6 +201,39 @@
     if (lesson.visual.type === "distribution") renderDistribution(lesson);
     if (lesson.visual.type === "comparison") renderComparison(lesson);
     if (lesson.visual.type === "outlier") renderOutlier(lesson);
+    const state = lesson.visual.states[visualStep];
+    state.marks.forEach((mark) => visitedEvidence.add(mark.evidenceId));
+    $("#visual").dataset.kind = lesson.visual.kind;
+    $("#visual").insertAdjacentHTML(
+      "beforeend",
+      `<div class="evidence-strip" aria-label="Evidencia visible">${state.marks
+        .map(
+          (mark) =>
+            `<span data-evidence-id="${mark.evidenceId}"><b>${mark.label}</b></span>`
+        )
+        .join("")}</div>`
+    );
+    updateProgress(lesson);
+  }
+
+  function evidenceReady(exercise) {
+    const contract = exercise.evidenceContract;
+    return (
+      visualStep >= contract.unlockAtStep &&
+      contract.requiredEvidenceIds.every((evidenceId) =>
+        visitedEvidence.has(evidenceId)
+      )
+    );
+  }
+
+  function updateProgress(lesson) {
+    const total = lesson.visual.states.length;
+    const atEnd = visualStep >= total - 1;
+    $("#visualProgress").textContent = `Paso ${visualStep + 1} de ${total}`;
+    $("#runVisual span").textContent = atEnd
+      ? "Evidencia completa"
+      : lesson.visual.action;
+    $("#runVisual").disabled = isAnimating || atEnd;
   }
 
   function svgFrame(content, label) {
@@ -346,9 +382,18 @@
       const x = (value) => 65 + ((value - minimum) / (maximum - minimum)) * 630;
       const y = (value) => 265 - (value / maxDensity) * 210;
       const points = density.map(([value, d]) => `${x(value)},${y(d)}`).join(" ");
+      const rug = allValues
+        .filter((_, index) => index % 9 === 0)
+        .map(
+          (value, index) =>
+            `<line x1="${x(value)}" y1="265" x2="${x(value)}" y2="${
+              272 + (index % 2) * 5
+            }" class="rug-mark"/>`
+        )
+        .join("");
       $("#visual").innerHTML = svgFrame(
         `<line x1="55" y1="265" x2="715" y2="265" class="axis"/>
-         <polyline points="${points}" class="density"/>
+         ${rug}<polyline points="${points}" class="density motion-line" data-semantic="density-curve"/>
          <text x="65" y="305">${format(minimum)} alquileres</text>
          <text x="715" y="305" text-anchor="end">${format(maximum)} alquileres</text>
          <text x="695" y="45" text-anchor="end">KDE · ancho de banda ${format(
@@ -393,7 +438,7 @@
       return;
     }
 
-    const binChoices = [7, 12, 22];
+    const binChoices = focus === "bins" ? [6, 12, 24] : [7, 12, 22];
     const binCount = binChoices[visualStep % binChoices.length];
     let values = allValues;
     let stateLabel = `${binCount} bins · n=${values.length}`;
@@ -507,7 +552,8 @@
     const all = Object.values(groups).flat();
     const min = Math.min(...all);
     const max = Math.max(...all);
-    const x = (value) => 75 + ((value - min) / (max - min)) * 610;
+    const plotWidth = lesson.visual.focus === "violin" ? 545 : 610;
+    const x = (value) => 75 + ((value - min) / (max - min)) * plotWidth;
     const content = names
       .map((name, index) => {
         const values = groups[name];
@@ -530,7 +576,7 @@
           return `<polygon points="${top} ${bottom}" class="violin"/>
             <line x1="${x(q2)}" y1="${y - 29}" x2="${x(q2)}" y2="${y + 29}" class="median"/>
             <text x="28" y="${y + 5}">${name}</text>
-            <text x="690" y="${y + 5}" text-anchor="end">n=${values.length}</text>`;
+            <text x="725" y="${y + 5}" text-anchor="end">n=${values.length}</text>`;
         }
         const iqr = q3 - q1;
         const lowerFence = q1 - 1.5 * iqr;
@@ -665,16 +711,30 @@
       const withoutExtreme = allPairs.filter(
         ([alcohol]) => alcohol < Number(maxRow.alcohol)
       );
-      const fit = linearRegression(
-        visualStep % 2 ? withoutExtreme : allPairs
-      );
+      const fitAll = linearRegression(allPairs);
+      const fitWithout = linearRegression(withoutExtreme);
+      const fit = visualStep % 2 ? fitWithout : fitAll;
       const yFor = (value) => fit.intercept + fit.slope * value;
-      line = `<line x1="${x(minX)}" y1="${y(yFor(minX))}" x2="${x(maxX)}" y2="${y(
+      const comparison =
+        visualStep % 2
+          ? `<line x1="${x(minX)}" y1="${y(
+              fitAll.intercept + fitAll.slope * minX
+            )}" x2="${x(maxX)}" y2="${y(
+              fitAll.intercept + fitAll.slope * maxX
+            )}" class="fit fit-comparison"/>`
+          : "";
+      line = `${comparison}<line x1="${x(minX)}" y1="${y(
+        yFor(minX)
+      )}" x2="${x(maxX)}" y2="${y(
         yFor(maxX)
       )}" class="fit"/>
         <text x="690" y="48" text-anchor="end">${
           visualStep % 2 ? "Ajuste sin el punto de 14.9%" : "Ajuste con todas las filas"
-        } · pendiente ${fit.slope.toFixed(5)}</text>`;
+        } · pendiente ${fit.slope.toFixed(7)}${
+          visualStep % 2
+            ? ` · Δ ${Math.abs(fitWithout.slope - fitAll.slope).toFixed(7)}`
+            : ""
+        }</text>`;
     }
     if (lesson.visual.focus === "rare" && visualStep % 2) {
       details = `<div class="case-detail">
@@ -700,6 +760,7 @@
     const lesson = currentModule.lessons[lessonIndex];
     const exercise = lesson.exercises[exerciseIndex];
     const story = lesson.practiceStory.cases[exerciseIndex];
+    const ready = evidenceReady(exercise);
     $$(".exercise-tabs button").forEach((button) =>
       button.classList.toggle("active", +button.dataset.exercise === exerciseIndex)
     );
@@ -713,7 +774,11 @@
       <details class="practice-hints"><summary>Pistas graduadas</summary><ul>${lesson.practiceStory.hints.map((hint) => `<li>${hint}</li>`).join("")}</ul></details>
       <p><strong>Regla de feedback:</strong> ${story.feedbackRule}</p>
       <p><strong>Transferencia:</strong> ${story.transfer}</p>
-      <p class="story-close">${hasInteracted ? story.closing : "Primero revela la evidencia; las opciones permanecen bloqueadas hasta entonces."}</p>`;
+      <p class="story-close">${
+        ready
+          ? story.closing
+          : `Completa ${exercise.evidenceContract.requiredSteps} paso(s) y revela todas las marcas requeridas antes de responder.`
+      }</p>`;
     $("#exerciseEvidence").textContent = `Evidencia: ${exercise.evidence}`;
     $("#question").textContent = exercise.question;
     const offset = (lessonIndex + exerciseIndex) % exercise.options.length;
@@ -726,7 +791,7 @@
         (option, index) =>
           `<button class="option" data-correct="${option.correct}" data-feedback="${encodeURIComponent(
             option.feedback
-          )}" ${hasInteracted ? "" : "disabled"}><span>${String.fromCharCode(
+          )}" ${ready ? "" : "disabled"}><span>${String.fromCharCode(
             65 + index
           )}</span>${option.text}</button>`
       )
@@ -736,9 +801,11 @@
     $("#hint").textContent = "Mostrar pista";
     $("#feedback").className = "feedback";
     $("#feedback p").textContent =
-      hasInteracted
+      ready
         ? "Selecciona una respuesta y justifícala con la evidencia visual."
-        : `Ejecuta «${lesson.visual.action}» antes de responder.`;
+        : `Avanza hasta el paso ${
+            exercise.evidenceContract.unlockAtStep + 1
+          } para completar la evidencia.`;
     bindExercise();
   }
 
@@ -833,14 +900,22 @@
 
   function bindGlobal() {
     $("#runVisual").addEventListener("click", () => {
+      const lesson = currentModule.lessons[lessonIndex];
+      if (isAnimating || visualStep >= lesson.visual.states.length - 1) return;
+      isAnimating = true;
       visualStep += 1;
-      hasInteracted = true;
       renderVisual();
-      renderExercise();
+      updateProgress(lesson);
+      window.setTimeout(() => {
+        isAnimating = false;
+        renderExercise();
+        updateProgress(lesson);
+      }, reducedMotion ? 0 : lesson.visual.motion.durationMs);
     });
     $("#resetVisual").addEventListener("click", () => {
       visualStep = 0;
-      hasInteracted = false;
+      visitedEvidence = new Set();
+      isAnimating = false;
       renderVisual();
       renderExercise();
     });
@@ -859,7 +934,8 @@
       button.addEventListener("click", () => {
         exerciseIndex = +button.dataset.exercise;
         visualStep = 0;
-        hasInteracted = false;
+        visitedEvidence = new Set();
+        isAnimating = false;
         renderVisual();
         renderExercise();
       })

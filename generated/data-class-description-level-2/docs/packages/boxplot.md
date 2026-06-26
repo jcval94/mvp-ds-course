@@ -20,6 +20,11 @@
 - **Intuición:** Es un resumen compacto de posiciones ordenadas.
 - **Error común:** Asumir normalidad o interpretar todo punto exterior como error.
 - **Visual:** Activa mediana, caja, bigotes y puntos exteriores por especie.
+- **Kind visual:** `boxplot`.
+- **Mecanismo:** cuartiles, bigotes y puntos exteriores.
+- **Estados:** Resumen → Etiquetas.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Resaltar cuartiles.
 - **Unidad de análisis:** una observación es un pingüino.
 - **Variables:** `species`, categórica; `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Activa las etiquetas de Q1, mediana, Q3, bigotes y puntos exteriores.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs boxplot-state-1, boxplot-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Resaltar cuartiles» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa el punto exterior y los bigotes para separar detección de decisión.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs boxplot-state-1, boxplot-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

@@ -20,6 +20,11 @@
 - **Intuición:** El ancho muestra dónde se concentran más observaciones.
 - **Error común:** Leer el ancho como conteo directo sin conocer la normalización.
 - **Visual:** Ajusta el ancho de banda y compara la forma por especie.
+- **Kind visual:** `violin`.
+- **Mecanismo:** densidad reflejada por grupo.
+- **Estados:** Banda 120 → Banda 250 → Banda 450.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Cambiar suavizado.
 - **Unidad de análisis:** una observación es un pingüino.
 - **Variables:** `species`, categórica; `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Cambia el suavizado y observa dónde aumenta o disminuye el ancho de cada violín.
 
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs violin-plot-state-1, violin-plot-state-2, violin-plot-state-3.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar suavizado» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Compara la silueta con el tamaño de muestra visible de cada especie.
+
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs violin-plot-state-1, violin-plot-state-2, violin-plot-state-3.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

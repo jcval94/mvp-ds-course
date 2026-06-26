@@ -20,6 +20,11 @@
 - **Intuición:** Devuelve la dispersión a la misma unidad de la variable.
 - **Error común:** Usar la regla 68-95 sin comprobar una forma aproximadamente normal.
 - **Visual:** Muestra bandas de una desviación estándar alrededor de la media.
+- **Kind visual:** `spread-band`.
+- **Mecanismo:** dispersión en la unidad original.
+- **Estados:** Base → Banda comparada.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Comparar bandas.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Lee la banda de ±1 DE y su unidad antes y después de desplazar el extremo.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs standard-deviation-state-1, standard-deviation-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar bandas» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa la escala en gramos del visual para razonar cómo cambia al convertir unidades.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs standard-deviation-state-1, standard-deviation-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

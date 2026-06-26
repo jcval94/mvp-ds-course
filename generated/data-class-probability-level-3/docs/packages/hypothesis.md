@@ -21,6 +21,11 @@
 - **Intuición:** Es poner dos historias rivales frente a una evidencia cuantitativa.
 - **Error común:** Confundir hipótesis con una opinión vaga o con la conclusión deseada.
 - **Visual:** Contrasta una hipótesis nula de igualdad contra una diferencia observada.
+- **Kind visual:** `null-comparison`.
+- **Mecanismo:** estadística observada comparada con un mundo nulo.
+- **Estados:** Formulación → Evidencia.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Comparar hipótesis.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt` y `workingday`, usados para una diferencia de medias descriptiva.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación muestra H0, H1 y diferencia observada como piezas separadas.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs hypothesis-state-1, hypothesis-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar hipótesis» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual ordena las piezas antes de tomar una decisión.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs hypothesis-state-1, hypothesis-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

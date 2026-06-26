@@ -20,6 +20,11 @@
 - **Intuición:** Es el perfil completo de montañas, valles y colas.
 - **Error común:** Reducir la descripción a una sola medida de centro.
 - **Visual:** Alterna entre temporadas y describe centro, extensión y colas.
+- **Kind visual:** `histogram`.
+- **Mecanismo:** forma completa: centro, extensión y colas.
+- **Estados:** Todos → Invierno → Verano.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Comparar perfiles.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
 - **Variables:** `cnt`, conteo entero de alquileres diarios.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Alterna entre todos los días y una temporada; describe centro, extensión y colas visibles.
 
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs shape-state-1, shape-state-2, shape-state-3.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar perfiles» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Compara dos perfiles con centro parecido y señala diferencias fuera del centro.
+
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs shape-state-1, shape-state-2, shape-state-3.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

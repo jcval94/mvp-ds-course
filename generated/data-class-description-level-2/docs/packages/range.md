@@ -20,6 +20,11 @@
 - **Intuición:** Mide la longitud de la sombra que cubre todos los valores.
 - **Error común:** Usarlo como descripción completa de variabilidad.
 - **Visual:** Mueve el mínimo y el máximo para observar la sensibilidad del rango.
+- **Kind visual:** `number-line`.
+- **Mecanismo:** distancia entre mínimo y máximo.
+- **Estados:** Base → Extremos separados.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Separar extremos.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Lee mínimo, máximo y rango antes y después de mover el extremo derecho.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs range-state-1, range-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Separar extremos» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa los puntos interiores para comprobar qué información no captura el rango.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs range-state-1, range-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

@@ -20,6 +20,11 @@
 - **Intuición:** Es una silueta suave de la distribución, no un conteo de filas.
 - **Error común:** Leer la altura de densidad como probabilidad exacta de un valor puntual.
 - **Visual:** Cambia el suavizado y observa qué detalles se conservan o desaparecen.
+- **Kind visual:** `density-rug`.
+- **Mecanismo:** suavizado de observaciones manteniendo área unitaria.
+- **Estados:** Banda 250 → Banda 600 → Banda 1200.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Ajustar suavizado.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
 - **Variables:** `cnt`, conteo entero de alquileres diarios.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Cambia el ancho de banda y comprueba qué cimas se conservan en la curva normalizada.
 
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs density-state-1, density-state-2, density-state-3.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Ajustar suavizado» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Contrasta la curva suave con las marcas de datos para detectar estructura que podría ocultarse.
+
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs density-state-1, density-state-2, density-state-3.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

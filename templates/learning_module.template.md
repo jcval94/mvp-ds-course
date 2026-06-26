@@ -24,6 +24,10 @@
 
 [Control, cambio y observación esperada.]
 
+- Secuencia: [Paso 1 de N ...].
+- Movimiento: [cambio geométrico significativo].
+- Movimiento reducido: [estado equivalente inmediato].
+
 ## Error común
 
 [Error y corrección.]

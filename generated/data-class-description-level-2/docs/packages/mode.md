@@ -20,6 +20,11 @@
 - **Intuición:** Es la opción que acumula más marcas en un conteo.
 - **Error común:** Afirmar que todo conjunto tiene una única moda informativa.
 - **Visual:** Agrupa las masas con varios anchos y localiza el conteo más alto.
+- **Kind visual:** `histogram`.
+- **Mecanismo:** máximo de frecuencia sensible a agrupación.
+- **Estados:** 100 g → 250 g → 500 g.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Cambiar agrupación.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Compara las barras de frecuencia y localiza el máximo para la agrupación activa.
 
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs mode-state-1, mode-state-2, mode-state-3.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar agrupación» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Cambia el ancho de agrupación y verifica si aparece uno o más máximos.
+
+**Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs mode-state-1, mode-state-2, mode-state-3.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

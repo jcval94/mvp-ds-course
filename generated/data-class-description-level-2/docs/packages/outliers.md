@@ -20,6 +20,11 @@
 - **Intuición:** Es una señal para investigar, no una etiqueta automática de error.
 - **Error común:** Eliminar todo valor exterior a 1.5 IQR sin revisar dominio ni impacto.
 - **Visual:** Marca valores extremos de alcohol y abre su fila original.
+- **Kind visual:** `iqr-review`.
+- **Mecanismo:** detección por cercas sin veredicto automático.
+- **Estados:** Regla IQR → Fila en revisión.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Aplicar regla IQR.
 - **Unidad de análisis:** una observación es una muestra de vino.
 - **Variables:** `alcohol` y `density`, numéricas; `quality`, ordinal; `color`, categórica.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Activa la revisión del valor máximo y compáralo con la cerca superior de 1.5 IQR.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs outliers-state-1, outliers-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Aplicar regla IQR» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa la fila trazable y la regla IQR para decidir si investigar, conservar o excluir.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs outliers-state-1, outliers-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

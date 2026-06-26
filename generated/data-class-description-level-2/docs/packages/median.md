@@ -20,6 +20,11 @@
 - **Intuición:** Es la observación que queda en el centro al formar una fila ordenada.
 - **Error común:** Calcularla sin ordenar o confundirla con el valor más frecuente.
 - **Visual:** Compara media y mediana antes y después de añadir una masa extrema.
+- **Kind visual:** `number-line`.
+- **Mecanismo:** resistencia del centro ordenado.
+- **Estados:** Base → Extremo añadido.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Añadir un extremo.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Observa cuánto cambian la mediana y la media cuando aparece el valor extremo.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs median-state-1, median-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Añadir un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Contrasta en el visual qué marcador conserva mejor la posición central.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs median-state-1, median-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

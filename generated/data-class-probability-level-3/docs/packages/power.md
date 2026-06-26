@@ -21,6 +21,11 @@
 - **Intuición:** Es la sensibilidad del detector cuando el problema sí está presente.
 - **Error común:** Hablar de potencia sin fijar efecto, variabilidad, alpha y tamaño de muestra.
 - **Visual:** Compara potencia al cambiar tamaño de muestra y efecto.
+- **Kind visual:** `overlap`.
+- **Mecanismo:** área detectada bajo una alternativa.
+- **Estados:** Diseño débil → Diseño más sensible.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Aumentar muestra.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt` y `workingday`, usados para una diferencia de medias descriptiva.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación aumenta n y muestra mayor área de detección bajo H1.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs power-state-1, power-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Aumentar muestra» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual lista n, efecto y alpha como condiciones de potencia.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs power-state-1, power-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

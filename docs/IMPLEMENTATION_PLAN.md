@@ -125,7 +125,8 @@ Cada fase debe cerrar con:
 1. Validar manifests, conteos, hashes y estados.
 2. Construir `_site/` desde `site/`, niveles y datasets.
 3. Probar búsqueda, filtros, enlaces y responsive.
-4. Publicar mediante GitHub Actions en cada push a `main`.
+4. Ejecutar QA semántica de los 98 ejercicios, animación y movimiento reducido.
+5. Publicar mediante GitHub Actions en cada push a `main`.
 
 **Aceptación:** el catálogo muestra 58 conceptos y 98 ejercicios, y no publica
 ningún paquete sin validación aprobada. Cada portada y laboratorio publicado
@@ -143,7 +144,9 @@ debe pasar el mismo gate antes de aparecer en GitHub Pages.
 | --- | --- |
 | Mucho catálogo, poca profundidad | Dos ejercicios, revisión y gate por concepto |
 | Copiar patrones de histograma | Validar mecanismo específico por concepto |
+| Renderer universal de barras | Enrutar por `visual.kind` y probar marcas semánticas |
 | Narrativa sin evidencia | Ejercicio debe fallar sin visual |
+| QA superficial | Validar `evidenceContract`, números, pasos y desbloqueo en navegador |
 | Modo En vivo confundido con contenido estudiantil | UI oculta por defecto y aviso de no autenticación |
 | Inconsistencia entre modos | Una `ConceptSpec` común |
 | Error técnico propagado | QA técnica antes de QA pedagógica |

@@ -21,6 +21,11 @@
 - **Intuición:** Es una red lanzada por un método; no una promesa sobre una red específica.
 - **Error común:** Decir que hay 95% de probabilidad de que el parámetro fijo esté dentro del intervalo observado.
 - **Visual:** Muestra cómo cambia el ancho del intervalo con n y nivel de confianza.
+- **Kind visual:** `interval`.
+- **Mecanismo:** ancho de un rango sobre una escala común.
+- **Estados:** Intervalo 90% → Intervalo 95%.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Abrir intervalo.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación muestra intervalos que cubren o no la media del snapshot.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs confidence-interval-state-1, confidence-interval-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Abrir intervalo» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra el intervalo 90% frente a 95%.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs confidence-interval-state-1, confidence-interval-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

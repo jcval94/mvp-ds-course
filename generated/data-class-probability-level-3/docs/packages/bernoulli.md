@@ -21,6 +21,11 @@
 - **Intuición:** Es convertir cada día en una luz encendida o apagada.
 - **Error común:** Olvidar que Bernoulli describe un solo ensayo binario.
 - **Visual:** Marca días de alta demanda como éxito o fracaso.
+- **Kind visual:** `trials`.
+- **Mecanismo:** codificación binaria ensayo por ensayo.
+- **Estados:** Umbral mediano → Umbral más exigente.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Cambiar umbral.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt`, conteo diario; `season`, `mnth`, `workingday`, categóricas discretas.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación recodifica días reales en 0 o 1.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs bernoulli-state-1, bernoulli-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar umbral» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra menos éxitos cuando el umbral sube.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs bernoulli-state-1, bernoulli-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

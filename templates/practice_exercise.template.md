@@ -14,6 +14,12 @@
 
 [Visual y datos necesarios.]
 
+## EvidenceContract
+
+- Pasos requeridos: [cantidad].
+- Evidence IDs requeridos: [identificadores visibles].
+- Paso de desbloqueo: [paso exacto].
+
 ## Pasos
 
 1. [Pregunta o interacción.]

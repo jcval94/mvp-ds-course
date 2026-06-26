@@ -20,6 +20,11 @@
 - **Intuición:** Cada punto aporta un área cuadrada; los puntos lejanos pesan mucho.
 - **Error común:** Interpretarla en las unidades originales o ignorar su sensibilidad a extremos.
 - **Visual:** Añade una masa extrema y compara el crecimiento cuadrático de la dispersión.
+- **Kind visual:** `spread-band`.
+- **Mecanismo:** distancias cuadráticas respecto de la media.
+- **Estados:** Base → Extremo añadido.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Añadir un extremo.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Compara la banda de dispersión y la varianza antes y después de añadir el extremo.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs variance-state-1, variance-state-2.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Añadir un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Usa la concentración visible alrededor de la media para interpretar un valor cercano a cero.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs variance-state-1, variance-state-2.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

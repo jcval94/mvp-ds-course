@@ -10,10 +10,12 @@ description: Crea ejercicios y casos de ciencia de datos que requieren observar 
 3. Desde Nivel 2, producir dos ejercicios: uno guiado y otro de transferencia.
 4. Definir rol, historia, evidencia y secuencia animada de uno a tres pasos.
 5. Hacer que cada respuesta dependa del visual y de la evidencia revelada por la animación.
-6. Crear una respuesta correcta defendible.
-7. Convertir errores comunes en distractores plausibles.
-8. Escribir feedback específico para cada respuesta.
-9. Añadir pistas graduadas y una conclusión transferible.
+6. Declarar `evidenceContract` con `requiredSteps`, `requiredEvidenceIds` y
+   `unlockAtStep`.
+7. Crear una respuesta correcta defendible.
+8. Convertir errores comunes en distractores plausibles.
+9. Escribir feedback específico para cada respuesta.
+10. Añadir pistas graduadas y una conclusión transferible.
 
 La historia debe sonar como un problema real de profesión o negocio: una hoja de
 cálculo que no escala, una tienda que debe elegir horario, un equipo que prioriza
@@ -30,3 +32,5 @@ No usar distractores absurdos, adivinanzas ni conclusiones más fuertes que la e
 Rechazar si ocultar la visualización no cambia la dificultad de cualquiera de
 los dos ejercicios, si la animación solo cambia estilo, si la historia resuelve
 la respuesta por pistas narrativas o si el feedback solo dice correcto/incorrecto.
+Rechazar también si la UI puede habilitar respuestas antes de completar el
+contrato o si un `evidenceId` requerido no corresponde a una marca visible.

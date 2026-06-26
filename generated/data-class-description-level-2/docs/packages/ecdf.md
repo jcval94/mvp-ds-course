@@ -20,6 +20,11 @@
 - **Intuición:** Es una escalera que acumula casos desde cero hasta uno.
 - **Error común:** Confundir la altura acumulada con frecuencia local.
 - **Visual:** Mueve un umbral de masa y compara la proporción acumulada por especie.
+- **Kind visual:** `ecdf`.
+- **Mecanismo:** proporción acumulada bajo un umbral.
+- **Estados:** 3500 g → 4000 g → 4500 g → 5000 g.
+- **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Consultar umbral.
 - **Unidad de análisis:** una observación es un pingüino.
 - **Variables:** `species`, categórica; `body_mass_g`, numérica continua en gramos.
@@ -58,6 +63,8 @@
 
 **Evidencia requerida:** Mueve el umbral y lee la proporción acumulada de cada especie.
 
+**Contrato de evidencia:** pasos 3; desbloqueo en 3; IDs ecdf-state-1, ecdf-state-2, ecdf-state-3, ecdf-state-4.
+
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
@@ -79,6 +86,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Consultar umbral» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
 
 **Evidencia requerida:** Compara la posición horizontal de las tres curvas sin asumir emparejamiento ni causalidad.
+
+**Contrato de evidencia:** pasos 3; desbloqueo en 3; IDs ecdf-state-1, ecdf-state-2, ecdf-state-3, ecdf-state-4.
 
 **Regla de feedback:** El feedback debe nombrar el rasgo visible que sostiene o contradice la opción elegida.
 

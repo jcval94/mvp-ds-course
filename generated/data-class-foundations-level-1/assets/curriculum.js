@@ -118,22 +118,53 @@
       humanCheck: "Verificar fuente, licencia, hash, cálculos y límites antes de proyectar."
     };
   };
-  const lesson = (id, title, objective, definition, intuition, error, visual, question, options) => ({
-    id, title, objective, definition, intuition, error, visual,
-    learningModule: {
-      mode: "Aprender",
-      activation: "Predice qué parte de la visualización cambiará antes de ejecutar la animación.",
-      transition: "Después, Ejercitar usará una historia distinta para tomar una decisión."
-    },
-    practiceStory: storyFor(title, visual),
-    liveTeachingPack: livePackFor(title, objective, visual),
-    practice: { question, options },
-    prompts: {
-      codex: `Crea una demo reproducible en HTML y JavaScript para enseñar "${title}". Objetivo: ${objective} Usa el snapshot público real asignado, conserva fuente/licencia/SHA-256 visibles, no inventes filas y añade una comprobación automática. Explica qué archivos producirías y define criterios de aceptación.`,
-      gemini: `Actúa como facilitador socrático de una clase principiante sobre "${title}". Objetivo: ${objective} Formula 4 preguntas progresivas basadas en la evidencia visual, anticipa dos errores frecuentes y sugiere cómo corregirlos sin revelar la respuesta de inmediato.`,
-      chatgpt: `Crea dos ejemplos alternativos y tres preguntas de transferencia para "${title}". Objetivo: ${objective} Cada pregunta debe poder responderse con evidencia de una tabla o transformación, e incluye respuesta esperada, feedback breve y límite de conclusión.`
-    }
-  });
+  const lesson = (id, title, objective, definition, intuition, error, visual, question, options) => {
+    const states = ["Estado inicial", "Evidencia revelada"].map((label, index) => ({
+      id: `state-${index + 1}`,
+      label,
+      marks: [{
+        evidenceId: `${id}-state-${index + 1}`,
+        label: `${title}: ${label}`
+      }]
+    }));
+    const visualSpec = {
+      ...visual,
+      kind: visual.type,
+      mechanism: visual.cue,
+      states,
+      sequence: states.map(state => state.id),
+      motion: {
+        durationMs: 600,
+        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        intent: "hacer visible la transformación sin movimiento decorativo",
+        reducedMotion: "cambio inmediato con la misma evidencia"
+      }
+    };
+    return {
+      id, title, objective, definition, intuition, error, visual: visualSpec,
+      learningModule: {
+        mode: "Aprender",
+        activation: "Predice qué parte de la visualización cambiará antes de ejecutar la animación.",
+        transition: "Después, Ejercitar usará una historia distinta para tomar una decisión."
+      },
+      practiceStory: storyFor(title, visualSpec),
+      liveTeachingPack: livePackFor(title, objective, visualSpec),
+      practice: {
+        question,
+        options,
+        evidenceContract: {
+          requiredSteps: 1,
+          requiredEvidenceIds: states.flatMap(state => state.marks.map(mark => mark.evidenceId)),
+          unlockAtStep: 1
+        }
+      },
+      prompts: {
+        codex: `Crea una demo reproducible en HTML y JavaScript para enseñar "${title}". Objetivo: ${objective} Usa el snapshot público real asignado, conserva fuente/licencia/SHA-256 visibles, no inventes filas y añade una comprobación automática. Explica qué archivos producirías y define criterios de aceptación.`,
+        gemini: `Actúa como facilitador socrático de una clase principiante sobre "${title}". Objetivo: ${objective} Formula 4 preguntas progresivas basadas en la evidencia visual, anticipa dos errores frecuentes y sugiere cómo corregirlos sin revelar la respuesta de inmediato.`,
+        chatgpt: `Crea dos ejemplos alternativos y tres preguntas de transferencia para "${title}". Objetivo: ${objective} Cada pregunta debe poder responderse con evidencia de una tabla o transformación, e incluye respuesta esperada, feedback breve y límite de conclusión.`
+      }
+    };
+  };
 
   window.DCF_MODULES = {
     literacy: {

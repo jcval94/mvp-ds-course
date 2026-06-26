@@ -21,6 +21,11 @@
 - **Intuición:** Es medir qué tan lejos cae la evidencia en la cola de un mundo hipotético.
 - **Error común:** Decir que es la probabilidad de que H0 sea verdadera.
 - **Visual:** Sombrea la cola de la distribución nula más extrema que la evidencia.
+- **Kind visual:** `null-tail`.
+- **Mecanismo:** área extrema bajo la distribución nula.
+- **Estados:** Distribución nula → Cola extrema.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Sombrear cola.
 - **Unidad de análisis:** una observación es un día del sistema de bicicletas.
 - **Variables:** `cnt` y `workingday`, usados para una diferencia de medias descriptiva.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación sombrea una cola bajo la distribución nula.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs p-value-state-1, p-value-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Sombrear cola» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual separa cola sombreada y diferencia observada.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs p-value-state-1, p-value-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

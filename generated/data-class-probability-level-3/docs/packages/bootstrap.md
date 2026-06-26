@@ -21,6 +21,11 @@
 - **Intuición:** Es agitar una bolsa de observaciones y volver a sacar con devolución muchas veces.
 - **Error común:** Creer que bootstrap crea información nueva o corrige una muestra sesgada.
 - **Visual:** Genera una distribución bootstrap de medias.
+- **Kind visual:** `resample-distribution`.
+- **Mecanismo:** remuestreo con reemplazo y distribución de estadísticas.
+- **Estados:** Remuestreos → Intervalo bootstrap.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Remuestrear.
 - **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
 - **Variables:** `body_mass_g`, numérica continua.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación muestra remuestreos y la distribución de medias resultantes.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs bootstrap-state-1, bootstrap-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Remuestrear» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual recalcula sobre el mismo snapshot observado.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs bootstrap-state-1, bootstrap-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 

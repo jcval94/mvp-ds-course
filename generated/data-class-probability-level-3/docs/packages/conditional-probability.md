@@ -21,6 +21,11 @@
 - **Intuición:** Es hacer zoom a una parte de la tabla y recalcular dentro de ella.
 - **Error común:** Mantener el denominador total después de filtrar por la condición.
 - **Visual:** Muestra cómo cambia el denominador al condicionar por isla.
+- **Kind visual:** `nested-set`.
+- **Mecanismo:** contracción explícita del denominador.
+- **Estados:** Sin condición → Condición: isla Torgersen.
+- **Movimiento:** 600 ms; interpolar posiciones, áreas o geometría para revelar el mecanismo.
+- **Movimiento reducido:** cambio inmediato con las mismas marcas, valores y desbloqueo.
 - **Interacción:** Filtrar denominador.
 - **Unidad de análisis:** una observación es un pingüino.
 - **Variables:** `species` e `island`, categóricas.
@@ -59,6 +64,8 @@
 
 **Evidencia requerida:** La animación contrae el universo a la isla seleccionada.
 
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs conditional-probability-state-1, conditional-probability-state-2.
+
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir transferencia.
@@ -80,6 +87,8 @@
 **Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Filtrar denominador» para revelar evidencia. / Escena 3: elegir la respuesta citando el cambio visible y una limitación.
 
 **Evidencia requerida:** El visual muestra total general y total filtrado como cantidades distintas.
+
+**Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs conditional-probability-state-1, conditional-probability-state-2.
 
 **Regla de feedback:** El feedback debe mencionar el denominador, muestra, cola, intervalo o umbral visible que sostiene la decisión.
 
