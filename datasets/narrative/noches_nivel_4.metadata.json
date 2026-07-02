@@ -1,0 +1,42 @@
+{
+  "id": "relaciones-y-contexto-nivel-4",
+  "synthetic": true,
+  "generator": "level4-context-v1",
+  "seed": 20260827,
+  "period": {
+    "start": "2026-08-27",
+    "end": "2026-11-15",
+    "nights": 48
+  },
+  "dimensions": {
+    "nights": [
+      48,
+      16
+    ]
+  },
+  "nightly_order_range": [
+    40,
+    60
+  ],
+  "validated_reversal": {
+    "aggregate": 0.885388,
+    "piloto": -0.980562,
+    "espera_marcada": -0.983466
+  },
+  "data_state": [
+    "L3.5",
+    "noches_contexto@L4.1",
+    "relaciones@L4.2",
+    "correlaciones@L4.3",
+    "estratos_y_tablas@L4.4"
+  ],
+  "label": "Dataset sintético narrativo; no representa personas reales",
+  "files": [
+    {
+      "path": "datasets/narrative/noches_contexto_nivel_4.csv",
+      "rows": 48,
+      "columns": 16,
+      "sha256": "ed25d106702c84979ad6e646ad72f69433c7e0ca43f3d958232ea86bba5da611"
+    }
+  ]
+}

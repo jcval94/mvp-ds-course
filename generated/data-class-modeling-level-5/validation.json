@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "average": 5.0,
+  "minimum_dimension": 5,
+  "blockers": [],
+  "checks": {
+    "scope": 5,
+    "curriculum": 5,
+    "narrative": 5,
+    "pedagogy": 5,
+    "technical": 5,
+    "visual": 5,
+    "reproducibility": 5
+  },
+  "browser_qa_required": true,
+  "evidence": {
+    "story": "docs/stories/LEVEL_5.md",
+    "scenes": 18,
+    "exercises_locked": 36,
+    "narrative_files": [
+      {
+        "path": "datasets/narrative/noches_modelado_nivel_5.csv",
+        "rows": 64,
+        "columns": 16,
+        "sha256": "4c052909cc0cca4123b5d6494b58a4ad99f027eb27f10eec0cc7492dacc68b23"
+      }
+    ],
+    "browser_qa": "scripts/qa_pages.py"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "eventos-y-muestras-nivel-3",
+  "synthetic": true,
+  "generator": "level3-pilot-v1",
+  "seed": 20260702,
+  "period": {
+    "start": "2026-07-02",
+    "end": "2026-08-23",
+    "nights": 32
+  },
+  "dimensions": {
+    "orders": [
+      1360,
+      12
+    ],
+    "nights": [
+      32,
+      9
+    ]
+  },
+  "nightly_order_range": [
+    35,
+    50
+  ],
+  "data_state": [
+    "L2.4",
+    "pedidos_piloto@L3.1",
+    "eventos_y_variables@L3.2",
+    "muestras@L3.3",
+    "incertidumbre@L3.4",
+    "pruebas@L3.5"
+  ],
+  "label": "Dataset sintético narrativo; no representa personas reales",
+  "files": [
+    {
+      "path": "datasets/narrative/pedidos_piloto_nivel_3.csv",
+      "rows": 1360,
+      "columns": 12,
+      "sha256": "773abf1edff76b291483667c8cc51e5304abef95893943cf1a922147a6dc3a31"
+    },
+    {
+      "path": "datasets/narrative/noches_piloto_nivel_3.csv",
+      "rows": 32,
+      "columns": 9,
+      "sha256": "4516e7183eefb1de9bd38336afb4309e76f6bd4c4cf42e2a0f7b3a7835af976b"
+    }
+  ]
+}

@@ -80,6 +80,8 @@
 | Paco ↔ Beto | Paco se desespera con sus preguntas y luego aprende a explicarle simple | Beto prueba si una visual se entiende sin jerga | Beto aporta ideas de comunicación, siempre con supervisión | Ayuda a contar la historia pública del puesto sin acceder a datos privados | Beto es hermano, no asistente ni mascota narrativa |
 | Paco ↔ profesora Elena | Recibe tareas de tablas y calidad | Aprende descripción e incertidumbre con contraejemplos | Consulta límites conceptuales, no respuestas del negocio | Presenta un proyecto reproducible y acepta crítica | La profesora plantea preguntas; el narrador enseña al espectador |
 | Paco ↔ profesor Iván | Aprende contexto y comprobación básica | Detecta respuestas seguras pero incorrectas | Diseña prompts, evals y pruebas de fallo | Documenta privacidad, auditoría y transferencia de skills | IA nunca sustituye evidencia ni revisión humana |
+| Don Juan ↔ Mari | Todavía no se conocen | Mari aparece como posible apoyo operativo, sin compromiso laboral | Don Juan la contrata y paga para preparación y turno; escucha su contexto operativo | Mari puede asumir responsabilidades pactadas sin convertirse en autoridad de datos | La relación es laboral, explícita y pagada; Mari puede señalar límites de capacidad e inocuidad |
+| Don Juan ↔ Chava | Todavía no se conocen | Todavía no participa | Chava entra pagado en Nivel 5 para segundo comal, servicio y checklists | Consolida procedimientos operativos y conserva su proyecto personal | La experiencia operativa no le concede autoridad estadística ni obliga a revelar su vida privada |
 | Familia ↔ Rogelio | Es un cliente conocido por pedidos grandes | Su caso evita confundir raro con falso | Recuerda que una compra no revela la vida de una persona | Su secreto ilustra privacidad y límites de inferencia | Nadie registra ni infiere su dieta en el dataset |
 | Narrador ↔ elenco | Nombra lo que los personajes descubren | Añade incertidumbre y límites | Separa asociación, predicción y decisión | Cierra con responsabilidad y trazabilidad | No participa dentro del mundo ni decide por los personajes |
 
@@ -179,6 +181,26 @@
 - **Voz:** segura en público, evasiva cuando le preguntan si todo el pedido es para la cuadrilla.
 - **Función narrativa:** caso raro válido, privacidad e imposibilidad de deducir intención desde una compra.
 - **Límite:** su secreto no es evidencia, etiqueta ni giro para avergonzarlo.
+
+## CharacterCard: Mari Vega
+
+- **ID:** `mari-vega`.
+- **Rol:** ayudante pagada de preparación y operación de turno desde Nivel 4, inicialmente viernes y sábado.
+- **Motivación visible:** sostener un servicio ordenado, seguro y compatible con la capacidad real del puesto.
+- **Característica oculta:** ahorra para recuperar el puesto de aguas frescas de su familia; no se revela antes de Nivel 7.
+- **Voz:** concreta, observadora y centrada en tiempos de preparación, inocuidad y fila.
+- **Autoridad:** preparación, seguridad alimentaria, capacidad y contexto del turno.
+- **Límite:** no introduce conceptos, no interpreta coeficientes y no aparece identificada en los CSV.
+
+## CharacterCard: Chava Ríos
+
+- **ID:** `chava-rios`.
+- **Rol:** ayudante pagado de segundo comal, servicio y checklists desde Nivel 5.
+- **Motivación visible:** reducir omisiones en el servicio y dejar el relevo claro.
+- **Característica oculta:** toma un taller de radio; no se revela antes de Nivel 9.
+- **Voz:** ágil, cordial y aficionada a repetir instrucciones como lista de cabina.
+- **Autoridad:** flujo de servicio, segundo comal y comprobaciones operativas.
+- **Límite:** no evalúa modelos, no decide compras y no aparece identificado en los CSV.
 
 ## Regla para personajes menores
 

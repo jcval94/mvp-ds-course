@@ -35,6 +35,10 @@ y no pueden usarse como fuente principal de Enseñar en vivo.
   errores confirmados de pedidos raros válidos sin contaminar la tabla canónica.
 - `pedidos_nivel_2.metadata.json`: semilla, versión del generador, periodo,
   dimensiones, esquema, estados y SHA-256 de los dos CSV de Nivel 2.
+- `pedidos_piloto_nivel_3.csv` y `noches_piloto_nivel_3.csv`: 1,360 pedidos y 32 noches del piloto reversible.
+- `noches_contexto_nivel_4.csv`: 48 noches con contexto operativo y una reversión agregada validada.
+- `noches_modelado_nivel_5.csv`: 64 noches; separa entradas previas de resultados posteriores para prevenir leakage.
+- Los tres archivos `*.metadata.json` de Niveles 3–5 fijan semilla, periodo, dimensiones, estado y SHA-256.
 
 Sus dimensiones, hashes e invariantes se validan en
 `scripts/validate_content.py` y se registran en `docs/CONTINUITY_LEDGER.md`.

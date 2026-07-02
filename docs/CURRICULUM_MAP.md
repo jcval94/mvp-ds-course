@@ -124,17 +124,18 @@ bloque de ciencia de datos.
 1. Nivel 1 completo: 18 conceptos y 18 ejercicios.
 2. Nivel 2 completo: 21 conceptos y 42 ejercicios.
 3. Nivel 3 completo: 19 conceptos y 38 ejercicios.
+4. Nivel 4 completo: 15 conceptos y 30 ejercicios.
+5. Nivel 5 completo: 18 conceptos y 36 ejercicios.
 
 ### Próxima vertical slice
 
-Historia independiente de Nivel 3: partir del temario canónico, continuar desde
-`L2.4`, aprobar arco y ledger, y producir un par Aprender/Ejercitar para evento
-sin reformular todavía las 19 lecciones.
+Nivel 6 completo: partir de los modelos descriptivos de `L5.6`, definir costos de
+error, separar train/validation/test y evaluar sin reutilizar indebidamente el test.
 
 ### Roadmap
 
-Relaciones, modelado, evaluación, reducción dimensional, series de tiempo,
-experimentación, ética, comunicación y mini-proyectos.
+Evaluación, reducción dimensional, series de tiempo, experimentación, ética,
+comunicación y mini-proyectos.
 
 ## Contrato por concepto
 

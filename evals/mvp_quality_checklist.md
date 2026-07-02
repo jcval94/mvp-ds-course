@@ -20,7 +20,7 @@
 - [ ] Usuario: profesor de introducción a ciencia de datos.
 - [ ] Entrada: concepto, nivel, contexto y duración.
 - [ ] Flujo: ConceptSpec -> tres modos -> evals.
-- [ ] Salida: 58 conceptos, 98 ejercicios, 174 prompts y trece laboratorios.
+- [ ] Salida: 91 conceptos, 164 ejercicios, 273 prompts y veintidós bloques.
 - [ ] Prueba manual definida.
 - [ ] Definition of Done verificable.
 - [ ] No objetivos específicos de la slice.

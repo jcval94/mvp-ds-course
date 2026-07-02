@@ -2691,5 +2691,175 @@ def main() -> None:
     )
 
 
+def build_continuous_narrative_config() -> dict[str, object]:
+    """Build the approved L3 story, deterministic data, and student evidence."""
+    from datetime import date, datetime, timedelta
+    from narrative_level_factory import generate
+
+    seed = 20260702
+    rng = random.Random(seed)
+    dates: list[date] = []
+    current = date(2026, 7, 2)
+    while current <= date(2026, 8, 23):
+        if current.weekday() in {3, 4, 5, 6}:
+            dates.append(current)
+        current += timedelta(days=1)
+    nightly_counts = list(range(35, 51)) * 2
+    day_names = {3: "jueves", 4: "viernes", 5: "sábado", 6: "domingo"}
+    taco_types = ["pastor", "suadero", "campechano", "tripa"]
+    orders: list[dict[str, object]] = []
+    nights: list[dict[str, object]] = []
+    order_number = 1
+    for night_index, (night_date, count) in enumerate(zip(dates, nightly_counts), start=1):
+        week = (night_index - 1) // 4 + 1
+        planned = 1 if night_date.weekday() == 5 else 0
+        quantities: list[int] = []
+        takeaways = 0
+        minutes: list[int] = []
+        for local_index in range(count):
+            minute = min(299, int(rng.triangular(8, 292, 120 if local_index % 3 else 215)))
+            quantity = rng.choices([1, 2, 3, 4, 5, 6, 8, 10, 12], [2, 8, 16, 23, 18, 14, 9, 5, 2])[0]
+            is_planned_order = planned and local_index == count - 1
+            if is_planned_order:
+                quantity = 24 + week
+            takeaway = 1 if rng.random() < (0.48 + 0.09 * planned) else 0
+            timestamp = datetime.combine(night_date, datetime.min.time()).replace(hour=18) + timedelta(minutes=minute)
+            orders.append({
+                "pedido_id": f"L3-P{order_number:04d}", "fecha_hora": timestamp.isoformat(timespec="minutes"),
+                "noche_id": f"L3-N{night_index:02d}", "dia_semana": day_names[night_date.weekday()],
+                "semana_id": f"L3-W{week:02d}", "tipo_taco": taco_types[(order_number + week) % len(taco_types)],
+                "num_tacos": quantity, "nivel_salsa": rng.choice(["sin", "media", "alta"]),
+                "para_llevar": takeaway, "minuto_turno": minute, "encargo_programado": int(is_planned_order),
+                "estado_calidad": "válido",
+            })
+            quantities.append(quantity); takeaways += takeaway; minutes.append(minute); order_number += 1
+        nights.append({
+            "noche_id": f"L3-N{night_index:02d}", "fecha": night_date.isoformat(),
+            "dia_semana": day_names[night_date.weekday()], "semana_id": f"L3-W{week:02d}",
+            "pedidos_totales": count, "tacos_vendidos": sum(quantities), "pedidos_para_llevar": takeaways,
+            "encargo_programado": planned, "minuto_mediana": round(statistics.median(minutes), 1),
+        })
+    assert len(orders) == 1360 and len(nights) == 32 and sum(row["encargo_programado"] for row in nights) == 8
+
+    totals = [int(row["pedidos_totales"]) for row in nights]
+    tacos = [int(row["tacos_vendidos"]) for row in nights]
+    take = [int(row["pedidos_para_llevar"]) for row in nights]
+    planned_nights = [row for row in nights if row["encargo_programado"]]
+    unplanned_nights = [row for row in nights if not row["encargo_programado"]]
+    p_take = sum(take) / len(orders)
+    p_planned = len(planned_nights) / len(nights)
+    mean_tacos = statistics.mean(tacos)
+    sd_tacos = statistics.stdev(tacos)
+    se8, se32 = sd_tacos / math.sqrt(8), sd_tacos / math.sqrt(32)
+    planned_mean = statistics.mean(int(x["pedidos_totales"]) for x in planned_nights)
+    unplanned_mean = statistics.mean(int(x["pedidos_totales"]) for x in unplanned_nights)
+    observed = planned_mean - unplanned_mean
+    bootstrap = sample_means([float(x) for x in tacos], 32, 200, 305)
+    boot_sorted = sorted(bootstrap)
+    ci = (boot_sorted[5], boot_sorted[-6])
+
+    story = {
+        "event": ("L3-E1", "Se marca qué pedidos fueron para llevar.", "Mijo, ¿cuáles sí entran en esa cuenta?", "Primero escribo la regla, apá.", "Un evento es una condición que cada pedido cumple o no.", "El numerador contiene solo pedidos que cumplen la regla; el denominador conserva el universo."),
+        "complement": ("L3-E1", "Se separan pedidos para llevar y consumo aquí.", "Entonces lo de afuera también cuenta.", "Sí, entre los dos cubren la noche.", "El complemento reúne los resultados donde el evento no ocurre.", "Evento y complemento no se traslapan y suman el total."),
+        "independence": ("L3-E1", "Se comparan tasas con y sin encargo programado.", "¿Una cosa cambia cuando miro la otra?", "Comparo la tasa completa y la filtrada.", "La independencia exige que conocer un evento no cambie la probabilidad del otro.", "Una diferencia de tasas describe dependencia en estos datos, no una causa."),
+        "conditional-probability": ("L3-E1", "El universo se contrae a noches con encargo.", "No me mezcles todas las noches si pregunté por esas.", "Cambio el denominador antes de dividir.", "Una probabilidad condicional recalcula dentro del subconjunto indicado.", "El denominador filtrado responde la condición; el total respondería otra pregunta."),
+        "bernoulli": ("L3-E2", "Cada noche queda como cumplió o no cumplió el umbral.", "Una noche, una respuesta: sí o no.", "Dejo visible cuál cuenta como éxito.", "Una variable Bernoulli codifica un ensayo binario como 1 o 0.", "Cambiar el umbral cambia la definición de éxito, no los registros."),
+        "binomial": ("L3-E2", "Se cuentan éxitos en bloques de ocho noches.", "Ya no es una noche; son varias juntas.", "Fijo cuántas y cuento los unos.", "Una binomial cuenta éxitos en un número fijo de ensayos comparables.", "El conteo varía entre grupos aunque n permanezca fijo."),
+        "normal": ("L3-E2", "Medias simuladas de pedidos se concentran.", "La mayoría cae cerca, pero no todas igual.", "Es una aproximación, no una promesa.", "La distribución normal es un modelo continuo simétrico definido por centro y dispersión.", "La campana aproxima estas medias simuladas bajo supuestos visibles."),
+        "poisson": ("L3-E2", "Se cuentan encargos por semana.", "Quiero contar cuántos caen en cada semana.", "Mantengo la misma ventana.", "Poisson modela conteos de eventos en una exposición fija bajo supuestos.", "Cambiar la ventana exige ajustar la exposición; los ceros también informan."),
+        "sampling-variability": ("L3-E3", "Muestras distintas producen medias distintas.", "Mismo puesto, cuentas algo movidas.", "Cambió la muestra, no la historia completa.", "Una estadística varía de muestra a muestra.", "Muestras mayores reducen variación, pero no corrigen sesgos."),
+        "selection-bias": ("L3-E3", "Solo noches con encargo elevan el promedio.", "Si eliges nomás las cargadas, claro que sale alto.", "Anoto cómo entró cada noche.", "El sesgo de selección altera sistemáticamente lo estimado.", "Más noches elegidas con la misma regla no vuelven representativa la muestra."),
+        "law-large-numbers": ("L3-E3", "La media acumulada se estabiliza.", "Al principio brinca mucho; luego se calma.", "Se acerca, pero no queda garantizada.", "El promedio acumulado tiende a estabilizarse con ensayos comparables.", "Estabilización no elimina sesgo ni garantiza el futuro."),
+        "standard-error": ("L3-E4", "Se compara la variación del estimador con 8 y 32 noches.", "¿Qué tan nerviosa es esa cuenta?", "No es la variación de cada pedido, apá.", "El error estándar cuantifica variación esperada de un estimador.", "Aumentar n reduce el error estándar si el muestreo sigue comparable."),
+        "confidence-interval": ("L3-E4", "Se construyen rangos de confianza.", "Dame un margen, no un número con corbata.", "También digo cómo se construyó.", "Un intervalo de confianza es un procedimiento de cobertura de largo plazo.", "Mayor confianza ensancha el intervalo; no vuelve probable al parámetro fijo."),
+        "bootstrap": ("L3-E4", "Se remuestrean noches con reemplazo.", "Reusas noches para ver cuánto se mueve la cuenta.", "Son remuestras, no ventas nuevas.", "Bootstrap aproxima variabilidad remuestreando con reemplazo.", "La distribución bootstrap hereda límites de la muestra original."),
+        "hypothesis": ("L3-E5", "Se contrasta una diferencia con un mundo nulo.", "Primero dime qué estamos poniendo a prueba.", "Escribo las dos posibilidades.", "Una prueba compara lo observado con lo esperable bajo un nulo.", "Rechazar no explica causa; no rechazar no prueba igualdad."),
+        "p-value": ("L3-E5", "Se marca una cola extrema bajo el nulo.", "¿Qué tan raro sería esto si no hubiera diferencia?", "Leo la cola, no si la idea es cierta.", "El p-value mide resultados tan extremos o más bajo el nulo.", "No es la probabilidad de que la hipótesis nula sea verdadera."),
+        "type-i-error": ("L3-E5", "Una alarma aparece aunque el nulo sea cierto.", "No quiero mover compras por una falsa alarma.", "El umbral controla ese riesgo a largo plazo.", "Error tipo I es rechazar un nulo verdadero.", "Un alpha mayor amplía la región de rechazo y los falsos positivos."),
+        "type-ii-error": ("L3-E5", "Una diferencia real no se detecta.", "Tampoco quiero que se nos pase algo importante.", "Puede ocurrir con poco dato o mucho ruido.", "Error tipo II es no rechazar un nulo falso.", "No significativo no demuestra ausencia de diferencia."),
+        "power": ("L3-E5", "Se comparan diseños de 16 y 32 noches.", "Antes de esperar milagros, veamos qué puede detectar.", "Declaro tamaño, efecto y regla.", "La potencia es la probabilidad de detectar un efecto especificado.", "Depende de tamaño, ruido, alpha y efecto; no solo del p-value."),
+    }
+    values = {
+        "event": ((len(orders), sum(take)), (sum(take), len(orders) - sum(take))),
+        "complement": ((sum(take), len(orders)), (sum(take), len(orders) - sum(take))),
+        "independence": ((p_take, p_take), (p_take, sum(int(x["pedidos_para_llevar"]) for x in planned_nights) / sum(int(x["pedidos_totales"]) for x in planned_nights))),
+        "conditional-probability": ((sum(take), len(orders)), (sum(int(x["pedidos_para_llevar"]) for x in planned_nights), sum(int(x["pedidos_totales"]) for x in planned_nights))),
+        "bernoulli": ((sum(x >= 43 for x in totals), len(totals)), (sum(x >= 47 for x in totals), len(totals))),
+        "binomial": ((3, 5), (5, 3)), "normal": ((sd_tacos, mean_tacos), (sd_tacos / 2, mean_tacos)),
+        "poisson": ((8, 8), (1, 0)), "sampling-variability": ((6.4, 8), (2.7, 32)),
+        "selection-bias": ((statistics.mean(totals), len(totals)), (planned_mean, len(planned_nights))),
+        "law-large-numbers": ((statistics.mean(totals[:4]), statistics.mean(totals)), (statistics.mean(totals), statistics.mean(totals))),
+        "standard-error": ((se8, sd_tacos), (se32, sd_tacos)),
+        "confidence-interval": ((mean_tacos - 1.64 * se32, mean_tacos + 1.64 * se32), (mean_tacos - 1.96 * se32, mean_tacos + 1.96 * se32)),
+        "bootstrap": ((statistics.mean(bootstrap), statistics.stdev(bootstrap)), ci),
+        "hypothesis": ((0, observed), (observed, abs(observed))), "p-value": ((180, 200), (17, 200)),
+        "type-i-error": ((0.05, 0.95), (0.10, 0.90)), "type-ii-error": ((0.62, 0.38), (0.29, 0.71)),
+        "power": ((0.44, 0.56), (0.81, 0.19)),
+    }
+    ordered = [item for block in BLOCKS for item in block["concepts"]]
+    for idx, item in enumerate(ordered):
+        original_exercises = item["exercises"]
+        episode, setup, don, paco, initial, final = story[item["id"]]
+        first, second = values[item["id"]]
+        def bars(pair: tuple[float, float], prefix: str) -> list[dict[str, object]]:
+            return [
+                {"label": f"{prefix} A", "value": float(pair[0]), "display": f"{pair[0]:.2f}"},
+                {"label": f"{prefix} B", "value": float(pair[1]), "display": f"{pair[1]:.2f}"},
+            ]
+        item.update({
+            "scene": f"L3-S{idx + 1:02d}", "episode": episode, "setup": setup,
+            "donJuan": don, "paco": paco, "subtitles": (initial, final),
+            "visualKind": LEVEL3_VISUAL_CONTRACTS[item["id"]][0], "mechanism": LEVEL3_VISUAL_CONTRACTS[item["id"]][1],
+            "action": item["visual"]["action"], "cue": item["visual"]["cue"],
+            "states": [
+                {"label": "Antes de comparar", "summary": setup, "bars": bars(first, "Inicial"), "markers": [f"n={len(nights)}", "entrada documentada"], "note": initial},
+                {"label": "Evidencia revelada", "summary": final, "bars": bars(second, "Final"), "markers": [item["id"], "límite visible"], "note": final},
+            ],
+            "dataState": {"L3-E1": "eventos_y_variables@L3.2", "L3-E2": "eventos_y_variables@L3.2", "L3-E3": "muestras@L3.3", "L3-E4": "incertidumbre@L3.4", "L3-E5": "pruebas@L3.5"}[episode],
+            "unit": "una observación es un pedido" if idx < 4 else "una observación es una noche del puesto",
+            "variables": "pedidos_totales, tacos_vendidos, pedidos_para_llevar y encargo_programado",
+            "limit": "La evidencia es sintética, observacional y no identifica causalidad ni garantiza demanda futura.",
+            "practiceCases": [],
+        })
+        for ex_index, old in enumerate(original_exercises):
+            correct = next(opt["text"] for opt in old["options"] if opt["correct"])
+            wrong = [opt["text"] for opt in old["options"] if not opt["correct"]]
+            item["practiceCases"].append({
+                "question": f"Incidente {'guiado' if ex_index == 0 else 'de transferencia'} de {item['title']}: {old['question']}",
+                "correct": correct, "wrong1": wrong[0], "wrong2": wrong[1], "feedback": next(opt["feedback"] for opt in old["options"] if opt["correct"]),
+                "hint": old["hint"], "evidence": f"Otra noche del puesto: {old['evidence']}",
+                "context": f"una noche distinta exige aplicar {item['title'].lower()} con datos del puesto",
+                "pressure": "Don Juan necesita una decisión reversible antes del siguiente turno",
+                "decision": "citar la evidencia nueva y conservar el límite de la conclusión",
+            })
+    for block in BLOCKS:
+        block["dataset_name"] = "Pedidos del puesto · piloto de encargos"
+    return {
+        "level": 3, "output": "data-class-probability-level-3", "title": "Probabilidad e inferencia",
+        "summary": "Don Juan y Paco prueban encargos grandes sin confundir incertidumbre con promesas.",
+        "blocks": BLOCKS, "previousConcept": "Valores atípicos", "nextConcept": "Scatterplot",
+        "agentCompetency": "Declarar incertidumbre, supuestos y comprobaciones de una respuesta asistida.",
+        "continuityDelta": "Paco comunica lo que sabe y lo que no; Don Juan conserva la decisión del negocio.",
+        "growthDelta": "G1 → G2-piloto; sin cambio físico",
+        "narrativeDatasets": [
+            {"path": "datasets/narrative/pedidos_piloto_nivel_3.csv", "rows": orders, "schema": ["pedido_id", "fecha_hora", "noche_id", "dia_semana", "semana_id", "tipo_taco", "num_tacos", "nivel_salsa", "para_llevar", "minuto_turno", "encargo_programado", "estado_calidad"]},
+            {"path": "datasets/narrative/noches_piloto_nivel_3.csv", "rows": nights, "schema": ["noche_id", "fecha", "dia_semana", "semana_id", "pedidos_totales", "tacos_vendidos", "pedidos_para_llevar", "encargo_programado", "minuto_mediana"]},
+        ],
+        "narrativeMetadata": {
+            "metadataPath": "datasets/narrative/pedidos_nivel_3.metadata.json", "id": "eventos-y-muestras-nivel-3",
+            "synthetic": True, "generator": "level3-pilot-v1", "seed": seed,
+            "period": {"start": "2026-07-02", "end": "2026-08-23", "nights": 32},
+            "dimensions": {"orders": [1360, 12], "nights": [32, 9]}, "nightly_order_range": [35, 50],
+            "data_state": ["L2.4", "pedidos_piloto@L3.1", "eventos_y_variables@L3.2", "muestras@L3.3", "incertidumbre@L3.4", "pruebas@L3.5"],
+            "label": "Dataset sintético narrativo; no representa personas reales",
+        },
+    }
+
+
+def continuous_main() -> None:
+    from narrative_level_factory import generate
+    generate(build_continuous_narrative_config())
+
+
 if __name__ == "__main__":
-    main()
+    continuous_main()

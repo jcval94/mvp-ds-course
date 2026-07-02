@@ -7,8 +7,10 @@ from html.parser import HTMLParser
 import csv
 import hashlib
 import json
+import math
 from pathlib import Path
 import re
+import statistics
 import sys
 
 
@@ -17,6 +19,8 @@ LEVELS = [
     ROOT / "generated" / "data-class-foundations-level-1",
     ROOT / "generated" / "data-class-description-level-2",
     ROOT / "generated" / "data-class-probability-level-3",
+    ROOT / "generated" / "data-class-relationships-level-4",
+    ROOT / "generated" / "data-class-modeling-level-5",
 ]
 
 
@@ -583,16 +587,133 @@ def validate_level2_payload(public_dataset_ids: set[str]) -> None:
             fail(f"CSS narrativo de Nivel 2 incompleto: {fragment}")
 
 
-def validate_level3_payload(public_dataset_ids: set[str]) -> None:
-    validate_separated_payload(
-        level_index=2,
-        public_dataset_ids=public_dataset_ids,
-        expected_concepts=19,
-        expected_exercises=38,
-        expected_prompts=57,
-        global_name="DCF_LEVEL3",
-        label="Nivel 3",
+def correlation(xs: list[float], ys: list[float]) -> float:
+    mx, my = statistics.mean(xs), statistics.mean(ys)
+    return sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / math.sqrt(
+        sum((x - mx) ** 2 for x in xs) * sum((y - my) ** 2 for y in ys)
     )
+
+
+def validate_continuous_level(
+    level_index: int,
+    public_dataset_ids: set[str],
+    expected_ids: list[str],
+) -> dict[str, object]:
+    level = level_index + 1
+    level_path = LEVELS[level_index]
+    text = (level_path / "assets" / "curriculum.js").read_text(encoding="utf-8").strip()
+    prefix = "window.DCF_LEVEL = "
+    if not text.startswith(prefix) or not text.endswith(";"):
+        fail(f"Nivel {level} no publica el payload narrativo esperado")
+    payload = json.loads(text[len(prefix):-1])
+    lessons = [lesson for module in payload["modules"].values() for lesson in module["lessons"]]
+    if [lesson["id"] for lesson in lessons] != expected_ids:
+        fail(f"Nivel {level} no conserva el temario canónico en orden")
+    if payload.get("storyStatus") != "approved" or payload.get("storySource") != f"docs/stories/LEVEL_{level}.md":
+        fail(f"Nivel {level} carece de historia aprobada")
+    app = (level_path / "assets" / "app.js").read_text(encoding="utf-8")
+    css = (level_path / "assets" / "styles.css").read_text(encoding="utf-8")
+    for fragment in ['params.get("teacher")', "evidenceContract", "subtitle", "donJuan", "paco", "prefers-reduced-motion"]:
+        if fragment not in app and fragment not in css:
+            fail(f"Nivel {level} no implementa contrato de UI: {fragment}")
+    forbidden = ["correlación", "p-value", "variable", "algoritmo", "regresión", "leakage", "distribución"]
+    all_evidence: set[str] = set()
+    for position, lesson in enumerate(lessons, start=1):
+        narrative = lesson.get("narrative", {})
+        if narrative.get("scene") != f"L{level}-S{position:02d}":
+            fail(f"Escena fuera de orden en {lesson['id']}")
+        states = lesson.get("visual", {}).get("states", [])
+        if len(states) < 2 or len(narrative.get("subtitles", [])) != len(states):
+            fail(f"Subtítulo ausente por estado en {lesson['id']}")
+        if any(term in narrative.get("donJuan", "").lower() for term in forbidden):
+            fail(f"Don Juan usa jerga en {lesson['id']}")
+        evidence_ids = {
+            mark["evidenceId"] for state in states for mark in state.get("marks", [])
+        }
+        if len(evidence_ids) != len(states) or evidence_ids & all_evidence:
+            fail(f"Evidencia ausente o duplicada en {lesson['id']}")
+        all_evidence |= evidence_ids
+        if len(lesson.get("exercises", [])) != 2:
+            fail(f"{lesson['id']} no contiene guiado y transferencia")
+        questions = set()
+        for exercise in lesson["exercises"]:
+            contract = exercise.get("evidenceContract", {})
+            if contract.get("requiredSteps") != len(states) - 1 or contract.get("unlockAtStep") != len(states) - 1:
+                fail(f"Bloqueo de evidencia inconsistente en {lesson['id']}")
+            if set(contract.get("requiredEvidenceIds", [])) != evidence_ids:
+                fail(f"Marcas requeridas inconsistentes en {lesson['id']}")
+            if sum(bool(option.get("correct")) for option in exercise.get("options", [])) != 1:
+                fail(f"Respuesta ambigua en {lesson['id']}")
+            if not exercise.get("evidence") or exercise["question"] in questions:
+                fail(f"Ejercicios no diferenciados en {lesson['id']}")
+            questions.add(exercise["question"])
+        live_id = lesson.get("liveTeachingPack", {}).get("dataset", {}).get("id")
+        if live_id not in public_dataset_ids:
+            fail(f"En vivo de {lesson['id']} no usa snapshot público registrado")
+        package = level_path / "docs" / "packages" / f"{lesson['id']}.md"
+        if not package.exists() or "## LiveTeachingPack" not in package.read_text(encoding="utf-8"):
+            fail(f"Paquete incompleto en {lesson['id']}")
+    metadata = payload.get("narrativeDataset", {})
+    metadata_path = ROOT / metadata.get("metadataPath", "")
+    if not metadata_path.exists() or sha256(metadata_path) != metadata.get("metadataSha256"):
+        fail(f"Metadata narrativa inválida en Nivel {level}")
+    for record in metadata.get("files", []):
+        path = ROOT / record["path"]
+        if csv_dimensions(path) != (record["rows"], record["columns"]) or sha256(path) != record["sha256"]:
+            fail(f"Archivo narrativo inválido: {path}")
+        content = path.read_text(encoding="utf-8").lower()
+        if any(term in content for term in ["don juan", "paco", "mari", "chava", "lupita", "dieta", "beca", "radio"]):
+            fail(f"Datos narrativos exponen personaje o secreto: {path}")
+    return payload
+
+
+def validate_levels_3_to_5(public_dataset_ids: set[str]) -> None:
+    ids3 = ["event", "complement", "independence", "conditional-probability", "bernoulli", "binomial", "normal", "poisson", "sampling-variability", "selection-bias", "law-large-numbers", "standard-error", "confidence-interval", "bootstrap", "hypothesis", "p-value", "type-i-error", "type-ii-error", "power"]
+    ids4 = ["scatterplot", "trend", "relationship-shape", "groups", "direction", "strength", "pearson", "spearman", "correlation-outliers", "causality", "confounders", "aggregation-bias", "proportions", "relative-risk", "odds"]
+    ids5 = ["fit", "slope", "intercept", "residuals", "assumptions", "explanatory-variables", "interaction", "collinearity", "class", "score", "threshold", "probability", "decision-tree", "rules", "importance", "encoding", "scaling", "leakage"]
+    payload3 = validate_continuous_level(2, public_dataset_ids, ids3)
+    payload4 = validate_continuous_level(3, public_dataset_ids, ids4)
+    payload5 = validate_continuous_level(4, public_dataset_ids, ids5)
+
+    l3_orders = ROOT / "datasets/narrative/pedidos_piloto_nivel_3.csv"
+    l3_nights = ROOT / "datasets/narrative/noches_piloto_nivel_3.csv"
+    if csv_dimensions(l3_orders) != (1360, 12) or csv_dimensions(l3_nights) != (32, 9):
+        fail("Dimensiones de Nivel 3 incorrectas")
+    with l3_nights.open("r", encoding="utf-8", newline="") as handle:
+        n3 = list(csv.DictReader(handle))
+    counts3 = [int(row["pedidos_totales"]) for row in n3]
+    if sorted(counts3) != sorted(list(range(35, 51)) * 2) or sum(int(row["encargo_programado"]) for row in n3) != 8:
+        fail("Conteos o encargos de Nivel 3 inconsistentes")
+
+    l4_path = ROOT / "datasets/narrative/noches_contexto_nivel_4.csv"
+    with l4_path.open("r", encoding="utf-8", newline="") as handle:
+        n4 = list(csv.DictReader(handle))
+    if len(n4) != 48 or min(int(row["pedidos_totales"]) for row in n4) < 40 or max(int(row["pedidos_totales"]) for row in n4) > 60:
+        fail("Rango de pedidos de Nivel 4 incorrecto")
+    aggregate = correlation([float(row["temperatura_c"]) for row in n4], [float(row["espera_mediana_min"]) for row in n4])
+    group_corrs = []
+    for stage in ["piloto", "espera_marcada"]:
+        group = [row for row in n4 if row["etapa_operativa"] == stage]
+        group_corrs.append(correlation([float(row["temperatura_c"]) for row in group], [float(row["espera_mediana_min"]) for row in group]))
+    if not (aggregate > 0.5 and all(value < -0.2 for value in group_corrs)):
+        fail("Nivel 4 no conserva la reversión agregada validada")
+
+    l5_path = ROOT / "datasets/narrative/noches_modelado_nivel_5.csv"
+    with l5_path.open("r", encoding="utf-8", newline="") as handle:
+        n5 = list(csv.DictReader(handle))
+    if len(n5) != 64 or min(int(row["pedidos_totales"]) for row in n5) < 55 or max(int(row["pedidos_totales"]) for row in n5) > 75:
+        fail("Rango de pedidos de Nivel 5 incorrecto")
+    meta5 = payload5["narrativeDataset"]
+    blocked = {"tacos_vendidos", "espera_mediana_min", "merma_kg"}
+    if set(meta5.get("blocked_leakage", [])) != blocked or blocked & set(meta5.get("allowed_predictors", [])):
+        fail("Nivel 5 permite leakage")
+    xs = [float(row["inventario_carne_kg"]) for row in n5]; ys = [float(row["pedidos_totales"]) for row in n5]
+    slope = sum((x - statistics.mean(xs)) * (y - statistics.mean(ys)) for x, y in zip(xs, ys)) / sum((x - statistics.mean(xs)) ** 2 for x in xs)
+    intercept = statistics.mean(ys) - slope * statistics.mean(xs)
+    if abs(slope - meta5["simple_regression"]["slope"]) > 1e-7 or abs(intercept - meta5["simple_regression"]["intercept"]) > 1e-7:
+        fail("Coeficientes de Nivel 5 no son reproducibles")
+    if meta5.get("fit_scope") != "descriptivo_en_muestra":
+        fail("Nivel 5 adelanta generalización")
 
 
 def validate_placeholders() -> None:
@@ -791,7 +912,7 @@ def main() -> int:
         validate_links(html)
     validate_level1_contract(public_dataset_ids)
     validate_level2_payload(public_dataset_ids)
-    validate_level3_payload(public_dataset_ids)
+    validate_levels_3_to_5(public_dataset_ids)
     validate_narrative_contract()
     validate_placeholders()
     totals = {
@@ -799,7 +920,7 @@ def main() -> int:
         "exercises": sum(item["exercise_count"] for item in manifests),
         "prompts": sum(item["prompt_count"] for item in manifests),
     }
-    expected = {"concepts": 58, "exercises": 98, "prompts": 174}
+    expected = {"concepts": 91, "exercises": 164, "prompts": 273}
     if totals != expected:
         fail(f"Totales incorrectos: {totals}, se esperaba {expected}")
     print(

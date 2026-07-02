@@ -1,0 +1,93 @@
+{
+  "level": 4,
+  "title": "Relaciones y contexto",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 15,
+  "exercise_count": 30,
+  "prompt_count": 45,
+  "blocks": [
+    {
+      "id": "visual-relation",
+      "number": 1,
+      "title": "Relación visual",
+      "href": "relacion-visual.html",
+      "concept_count": 4
+    },
+    {
+      "id": "correlation",
+      "number": 2,
+      "title": "Correlación",
+      "href": "correlacion.html",
+      "concept_count": 5
+    },
+    {
+      "id": "confounding",
+      "number": 3,
+      "title": "Confusión",
+      "href": "confusion.html",
+      "concept_count": 3
+    },
+    {
+      "id": "cross-tabs",
+      "number": 4,
+      "title": "Tablas cruzadas",
+      "href": "tablas-cruzadas.html",
+      "concept_count": 3
+    }
+  ],
+  "datasets": [
+    "bike-sharing-day",
+    "palmer-penguins",
+    "wine-quality"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_4.md",
+  "storyStatus": "approved",
+  "narrativeDataset": {
+    "id": "relaciones-y-contexto-nivel-4",
+    "synthetic": true,
+    "generator": "level4-context-v1",
+    "seed": 20260827,
+    "period": {
+      "start": "2026-08-27",
+      "end": "2026-11-15",
+      "nights": 48
+    },
+    "dimensions": {
+      "nights": [
+        48,
+        16
+      ]
+    },
+    "nightly_order_range": [
+      40,
+      60
+    ],
+    "validated_reversal": {
+      "aggregate": 0.885388,
+      "piloto": -0.980562,
+      "espera_marcada": -0.983466
+    },
+    "data_state": [
+      "L3.5",
+      "noches_contexto@L4.1",
+      "relaciones@L4.2",
+      "correlaciones@L4.3",
+      "estratos_y_tablas@L4.4"
+    ],
+    "label": "Dataset sintético narrativo; no representa personas reales",
+    "files": [
+      {
+        "path": "datasets/narrative/noches_contexto_nivel_4.csv",
+        "rows": 48,
+        "columns": 16,
+        "sha256": "ed25d106702c84979ad6e646ad72f69433c7e0ca43f3d958232ea86bba5da611"
+      }
+    ],
+    "metadataPath": "datasets/narrative/noches_nivel_4.metadata.json",
+    "metadataSha256": "0a6a7912176e2cf894b1162b8f996fb6fb81c69ab6c473f6dfc4252f2b479fcc"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-01"
+}

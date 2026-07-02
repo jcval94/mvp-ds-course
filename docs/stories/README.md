@@ -28,3 +28,6 @@ Consulta el procedimiento completo en [el pipeline](../pipeline/README.md).
 | --- | --- | --- |
 | 1 | [Don Juan, Paco y los datos del puesto](LEVEL_1.md) | aprobada |
 | 2 | [Lo que cuentan los pedidos](LEVEL_2.md) | aprobada |
+| 3 | [El piloto y la incertidumbre](LEVEL_3.md) | aprobada |
+| 4 | [Lo que se mueve junto](LEVEL_4.md) | aprobada |
+| 5 | [Anticipar sin adivinar](LEVEL_5.md) | aprobada |

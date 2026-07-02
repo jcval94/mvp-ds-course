@@ -1,0 +1,70 @@
+{
+  "id": "matriz-modelado-sin-leakage-nivel-5",
+  "synthetic": true,
+  "generator": "level5-modeling-v1",
+  "seed": 20261119,
+  "period": {
+    "start": "2026-11-19",
+    "end": "2027-03-07",
+    "nights": 64
+  },
+  "dimensions": {
+    "nights": [
+      64,
+      16
+    ]
+  },
+  "nightly_order_range": [
+    55,
+    75
+  ],
+  "simple_regression": {
+    "intercept": 67.29504375,
+    "slope": 0.23387063,
+    "residual_sum": 0.0
+  },
+  "multiple_coefficients": [
+    70.32834843,
+    0.15732159,
+    0.40321072,
+    1.54898729,
+    3.03836723,
+    -0.54308989
+  ],
+  "score_formula": "-0.5 + 0.22*(temperatura-16) - 0.18*lluvia + 0.9*partido + 0.7*encargo + 0.35*(inventario-23)",
+  "allowed_predictors": [
+    "dia_semana",
+    "temperatura_c",
+    "lluvia_mm",
+    "partido_cerca",
+    "quincena",
+    "encargo_programado",
+    "inventario_carne_kg",
+    "ayudantes_programados",
+    "asientos_disponibles"
+  ],
+  "blocked_leakage": [
+    "tacos_vendidos",
+    "espera_mediana_min",
+    "merma_kg"
+  ],
+  "fit_scope": "descriptivo_en_muestra",
+  "data_state": [
+    "L4.4",
+    "noches_modelado@L5.1",
+    "regresion_simple@L5.2",
+    "regresion_multiple@L5.3",
+    "clasificacion@L5.4",
+    "arbol_reglas@L5.5",
+    "matriz_modelado_sin_leakage@L5.6"
+  ],
+  "label": "Dataset sintético narrativo; no representa personas reales",
+  "files": [
+    {
+      "path": "datasets/narrative/noches_modelado_nivel_5.csv",
+      "rows": 64,
+      "columns": 16,
+      "sha256": "4c052909cc0cca4123b5d6494b58a4ad99f027eb27f10eec0cc7492dacc68b23"
+    }
+  ]
+}

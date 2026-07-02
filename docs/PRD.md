@@ -220,7 +220,7 @@ Los diez conceptos del prototipo existente se mantienen dentro de una progresió
 
 **Usuario:** profesor de introducción a ciencia de datos.
 
-**Entrada:** uno de 58 conceptos de Nivel 1, Nivel 2 o Nivel 3, contexto aplicado y
+**Entrada:** uno de 91 conceptos de Niveles 1 a 5, contexto aplicado y
 duración de 30 a 90 minutos.
 
 **Cobertura:**
@@ -247,7 +247,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 **Definition of Done:**
 
-- Existen 58 conceptos, 98 ejercicios y 174 prompts.
+- Existen 91 conceptos, 164 ejercicios y 273 prompts.
 - Cada artefacto usa la `ConceptSpec` correspondiente.
 - Cada ruta narrativa tiene Story Bible, fichas, arco y ledger sin referencias rotas.
 - Cada episodio declara estado previo, voces, dato canónico, cambio de continuidad
