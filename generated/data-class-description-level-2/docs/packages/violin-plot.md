@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Palmer Penguins`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Palmer Penguins` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** Un violin plot refleja una estimación de densidad alrededor de un eje central.
 - **Intuición:** El ancho muestra dónde se concentran más observaciones.
 - **Error común:** Leer el ancho como conteo directo sin conocer la normalización.
-- **Visual:** Ajusta el ancho de banda y compara la forma por especie.
+- **Visual:** Compara la densidad reflejada por día con tres anchos de banda.
 - **Kind visual:** `violin`.
 - **Mecanismo:** densidad reflejada por grupo.
-- **Estados:** Banda 120 → Banda 250 → Banda 450.
+- **Estados:** Banda 0.4 → Banda 1 → Banda 2.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Cambiar suavizado.
-- **Unidad de análisis:** una observación es un pingüino.
-- **Variables:** `species`, categórica; `body_mass_g`, numérica continua en gramos.
-- **Dataset:** Palmer Penguins, 344 filas, licencia CC0-1.0.
-- **Fuente:** https://allisonhorst.github.io/palmerpenguins/.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Interacción:** Ajustar el suavizado.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `tipo_taco`, `dia_semana` y `para_llevar`, categóricas; `num_tacos`, numérica discreta.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S16`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.3`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** La densidad reflejada compara días.
+
+**Don Juan:** Ese dibujo enseña dónde se amontonan, ¿verdad?
+
+**Paco:** Revisaré el suavizado para no exagerar la cintura.
+
+**Subtítulos:** Un violin plot refleja una densidad por grupo. / Estado «Banda 1»: cambia el parámetro o el corte; la entrada sigue documentada. / Su forma depende del suavizado, la escala y el tamaño de grupo.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Cambiar suavizado** y describir qué cambió.
+3. Ejecutar **Ajustar el suavizado** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Cambiar suavizado» y citar el cambio visible asociado con violin plot.
+**Evidencia narrativa común:** Ejecutar «Ajustar el suavizado» y citar el cambio visible asociado con violin plot en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Mariana, bióloga que prepara un reporte para visitantes de un museo necesita comparar especies sin ocultar diferencias importantes. un promedio bonito puede volver invisible una diferencia que el público sí debe ver. La decisión es elegir una comparación visual que use violin plot sin exagerar conclusiones.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; un día parece tener dos concentraciones bajo cierto suavizado, en un incidente posterior a L2-S16. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de violin plot que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar suavizado» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Ajustar el suavizado» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Violin plot: recorrer todos los estados y citar la marca visible de densidad reflejada por grupo. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Cambia el suavizado y observa dónde aumenta o disminuye el ancho de cada violín.
+**Evidencia requerida:** Incidente 1 de Violin plot: recorrer todos los estados y citar la marca visible de densidad reflejada por grupo.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs violin-plot-state-1, violin-plot-state-2, violin-plot-state-3.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Qué indica una zona más ancha del violín?
+**Pregunta:** ¿Qué día muestra el menor tamaño de grupo en las etiquetas?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Mayor densidad relativa de observaciones en ese rango. | Sí | El ancho codifica concentración estimada. |
-| Valores individuales más grandes. | No | La magnitud de la variable se lee en el eje vertical. |
-| Mayor tamaño de pantalla. | No | El diseño responsive no representa datos. |
+| Sábado, n=140. | Sí | La evidencia visible sostiene «Sábado, n=140.» dentro de densidad reflejada por grupo. |
+| Jueves, n=154. | No | El estado recorrido contradice «Jueves, n=154.»; compara las marcas y etiquetas. |
+| Viernes, n=600. | No | El estado recorrido contradice «Viernes, n=600.»; conserva la unidad y el límite. |
 
-**Pista:** Separa posición vertical de ancho.
+**Pista:** Recorre todos los estados de violin plot y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Mariana, bióloga que prepara un reporte para visitantes de un museo cambia de contexto para probar si el razonamiento se transfiere. un promedio bonito puede volver invisible una diferencia que el público sí debe ver. La decisión es elegir una comparación visual que use violin plot sin exagerar conclusiones.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de violin plot que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar suavizado» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Ajustar el suavizado» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Violin plot: recorrer todos los estados y citar la marca visible de densidad reflejada por grupo. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara la silueta con el tamaño de muestra visible de cada especie.
+**Evidencia requerida:** Incidente 2 de Violin plot: recorrer todos los estados y citar la marca visible de densidad reflejada por grupo.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs violin-plot-state-1, violin-plot-state-2, violin-plot-state-3.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** ¿Por qué conviene mostrar puntos o tamaño de muestra junto al violín?
+**Pregunta:** ¿Qué cambia al recorrer las tres bandas?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| La suavización puede ocultar cuántas observaciones sustentan la forma. | Sí | El contexto de n evita sobreinterpretar una silueta suave. |
-| Para convertirlo en gráfico de barras. | No | Las barras comparan otra codificación. |
-| Porque la densidad no usa datos. | No | La densidad sí se estima desde observaciones. |
+| La anchura de la silueta cambia, no el n de cada día. | Sí | La evidencia visible sostiene «La anchura de la silueta cambia, no el n de cada día.» dentro de densidad reflejada por grupo. |
+| El sábado gana pedidos nuevos. | No | El estado recorrido contradice «El sábado gana pedidos nuevos.»; compara las marcas y etiquetas. |
+| La unidad cambia de tacos a fechas. | No | El estado recorrido contradice «La unidad cambia de tacos a fechas.»; conserva la unidad y el límite. |
 
-**Pista:** Pregunta cuánta evidencia hay detrás de la curva.
+**Pista:** Recorre todos los estados de violin plot y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta violin plot con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Cambiar suavizado», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Ajustar el suavizado», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

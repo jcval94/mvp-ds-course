@@ -7,6 +7,12 @@
 - Duración: [duración].
 - Objetivo: [objetivo].
 
+## Contexto narrativo
+
+- Story Bible y episodio: [referencias o no aplica].
+- Personajes o narrador que enmarcan la clase: [referencias o no aplica].
+- Relación entre dataset narrativo y snapshot real: [correspondencia y límites].
+
 ## Guion
 
 | Minutos | Docente | Estudiante | Visual | Insight |

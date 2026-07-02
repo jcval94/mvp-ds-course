@@ -6,7 +6,7 @@ El agente principal actúa como arquitecto curricular, diseñador de experiencia
 
 ## Objetivo
 
-Producir `ConceptSpec`, módulos, ejercicios y paquetes docentes técnicamente correctos, pedagógicamente alineados y listos para revisión humana.
+Producir `ConceptSpec`, módulos, ejercicios y paquetes docentes técnicamente correctos, pedagógicamente alineados y listos para revisión humana. En rutas narrativas, conservar además voz, cronología, conocimiento y estado de datos mediante artefactos canónicos.
 
 ## Límites
 
@@ -25,13 +25,17 @@ Producir `ConceptSpec`, módulos, ejercicios y paquetes docentes técnicamente c
 2. Leer `docs/PRODUCT_BRIEF.md`, `docs/PRD.md` y `docs/CURRICULUM_MAP.md`.
 3. Identificar concepto, nivel, usuario, duración, contexto y modo solicitado.
 4. Confirmar prerrequisitos y formular un objetivo observable.
-5. Crear o reutilizar una `ConceptSpec`.
-6. Activar las skills necesarias en orden.
-7. Generar Aprender, Ejercitar y Enseñar en vivo cuando se solicite paquete completo, manteniendo contenido distinto por modo.
-8. Validar precisión técnica, pedagogía, consistencia y alcance.
-9. Probar directamente la visualización y su contrato de evidencia.
-10. Corregir la decisión raíz y propagar cambios a los tres modos.
-11. Reportar archivos, supuestos, riesgos, resultados de evals y próxima vertical slice.
+5. Si existe ruta narrativa, cargar `CourseStoryBible`, `LevelNarrativeArc` y `ContinuityLedger`.
+6. Crear o actualizar `docs/stories/LEVEL_<N>.md` a partir del temario y aprobar
+   su trazabilidad, voces, subtítulos y deltas antes de continuar.
+7. Crear o reutilizar una `ConceptSpec` con referencia a la historia aprobada y estado canónico de datos.
+8. Activar las skills necesarias en orden.
+9. Generar Aprender, Ejercitar y Enseñar en vivo cuando se solicite paquete completo, manteniendo contenido distinto por modo.
+10. Registrar `continuityDelta`, `dataStateDelta` y `growthDelta` sin sobrescribir el estado previo.
+11. Validar precisión técnica, voz, continuidad, pedagogía, consistencia y alcance.
+12. Probar directamente la visualización, los subtítulos y el contrato de evidencia.
+13. Corregir la decisión raíz y propagar cambios a la historia, los tres modos y el ledger.
+14. Reportar archivos, supuestos, riesgos, resultados de evals y próxima vertical slice.
 
 ## Estados
 
@@ -39,6 +43,8 @@ Producir `ConceptSpec`, módulos, ejercicios y paquetes docentes técnicamente c
 | --- | --- | --- | --- |
 | Encuadre | Solicitud e idea | Usuario, nivel, objetivo y alcance | Hay un objetivo principal |
 | Currículo | Objetivo | Prerrequisitos y posición curricular | No hay saltos críticos |
+| Arquitectura narrativa | Currículo y Story Bible | Arco y estado previo | Conflicto, crecimiento y episodios son compatibles |
+| Historia de nivel | Arco y ledger | `docs/stories/LEVEL_<N>.md` | Estado `aprobada`, escenas trazables y subtítulos definidos |
 | Concepto | Currículo | `ConceptSpec` | Visual y error común definidos |
 | Diseño | `ConceptSpec` | Artefactos por modo | Comparten intención conceptual |
 | Evaluación | Artefactos | Puntajes y hallazgos | Promedio 4+, ninguna dimensión en 1 |
@@ -71,11 +77,13 @@ Preguntar solo cuando:
 ## Routing de skills
 
 - Nuevo bloque o cambio de secuencia: `curriculum-architect`.
+- Nueva ruta, nivel o episodio continuo: `course-narrative-architect`.
 - Nueva ficha conceptual: `concept-spec-designer`.
 - Modo Aprender: `learning-module-designer`.
 - Modo Ejercitar: `practice-exercise-designer`, con historia aplicada, protagonista, presión realista y evidencia animada.
 - Modo Enseñar en vivo: `live-teaching-pack-builder`, oculto para estudiantes y basado en snapshot público real.
 - Revisión disciplinar: `technical-content-reviewer`.
+- Revisión de voz, cronología, conocimiento y datos narrativos: `narrative-continuity-reviewer`.
 - Revisión de visual e interacción: `interactive-visual-reviewer`.
 - Cierre obligatorio: `pedagogy-eval-reviewer`.
 
@@ -94,6 +102,28 @@ Preguntar solo cuando:
 - Cada distractor representa un error plausible y recibe feedback específico.
 - La conclusión no afirma más de lo que permiten los datos.
 - Los tres modos comparten términos, datos y criterios de dominio.
+
+## Reglas narrativas
+
+- Usar a Don Juan y Paco como núcleo y añadir invitados cuando el dominio
+  requiera experiencia que ellos no poseen.
+- Mantener a Don Juan como experto del puesto y de sus clientes; no asignarle
+  ninguna terminología ni conclusión de ciencia de datos, incluso en niveles avanzados.
+- Mantener a Paco como hijo, estudiante de preparatoria y ayudante parcial:
+  conecta una clase de datos y otra de IA, pero no anticipa conceptos.
+- Reservar al narrador todos los nombres, definiciones, supuestos, correcciones,
+  conclusiones técnicas y límites de interpretación.
+- Representar toda intervención del narrador como subtítulo visible y accesible;
+  nunca como participante del diálogo o personaje dentro del mundo.
+- Mantener matrices incrementales de relación y crecimiento, con estado por nivel.
+- Tratar características ocultas como canon de autoría: solo se revelan en su
+  ventana y nunca se infieren ni registran como atributos personales.
+- Hacer que Aprender y Ejercitar compartan mundo, no incidente, evidencia ni resolución.
+- Registrar por episodio quién aprendió qué, qué cambió en el negocio, qué
+  versión del dataset existe y qué hilo conduce al siguiente episodio.
+- Usar humor para caracterizar o aliviar tensión; rechazar bromas que estigmaticen,
+  sustituyan evidencia o vuelvan incompetente a un personaje.
+- Incorporar como máximo una competencia auxiliar de agentes por episodio.
 
 ## Reglas técnicas
 
@@ -125,6 +155,14 @@ Preguntar solo cuando:
 - Ejercicio respondible sin usar la evidencia.
 - Feedback ausente o meramente evaluativo.
 - Contradicción entre modos.
+- Personaje que habla fuera de su ficha o usa conocimiento no adquirido.
+- Estado del dataset que cambia sin `dataStateDelta` o contradice conteos previos.
+- Tamaño, plantilla o capacidad que cambian sin `growthDelta` y condición de negocio.
+- Secreto revelado antes de tiempo o inferido desde datos.
+- Aprender y Ejercitar que resuelven el mismo incidente.
+- Nivel continuo sin `docs/stories/LEVEL_<N>.md` aprobada o implementado antes de esa historia.
+- Narrador representado como diálogo, personaje o texto doctrinal fuera de la banda de subtítulos.
+- Competencia de agentes que desplaza el objetivo principal de ciencia de datos.
 - Promedio menor a 4 o alguna dimensión en 1.
 - Placeholders fuera de templates.
 

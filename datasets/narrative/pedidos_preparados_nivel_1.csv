@@ -1,0 +1,10 @@
+pedido_id,fecha_hora,tipo_taco,num_tacos,nivel_salsa,para_llevar,estado_calidad,es_pedido_grande,comentario
+P-001,2026-06-01 19:05,pastor,5,media,no,valido,no,Todo bien
+P-002,2026-06-01 19:12,bistec,3,sin_salsa,si,valido,no,Para llevar
+P-003,2026-06-01 19:18,suadero,,mucha,no,faltante_no_imputado,,No se anotó la cantidad
+P-004,2026-06-01 19:24,pastor,8,media,no,valido,no,Mesa 2
+P-005,2026-06-01 19:31,tripa,500,poca,no,invalido_pendiente_fuente,,Se anotó el total del día
+P-006,2026-06-01 19:40,pastor,4,media,si,valido,no,Ticket 184; duplicado confirmado y consolidado
+P-007,2026-06-01 20:05,bistec,30,sin_salsa,si,valido,si,Pedido grande confirmado con ticket
+P-008,2026-06-02 19:10,pastor,6,poca,no,valido,no,Mesa 1
+P-009,2026-06-02 19:22,suadero,2,media,no,valido,no,Todo bien

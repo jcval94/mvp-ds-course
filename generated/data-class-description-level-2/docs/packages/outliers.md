@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Wine Quality · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Wine Quality · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,23 +20,34 @@
 - **Definición:** Un outlier es una observación inusualmente alejada según una regla y un contexto.
 - **Intuición:** Es una señal para investigar, no una etiqueta automática de error.
 - **Error común:** Eliminar todo valor exterior a 1.5 IQR sin revisar dominio ni impacto.
-- **Visual:** Marca valores extremos de alcohol y abre su fila original.
+- **Visual:** Marca pedidos candidatos sin convertir la regla en un veredicto.
 - **Kind visual:** `iqr-review`.
 - **Mecanismo:** detección por cercas sin veredicto automático.
 - **Estados:** Regla IQR → Fila en revisión.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Aplicar regla IQR.
-- **Unidad de análisis:** una observación es una muestra de vino.
-- **Variables:** `alcohol` y `density`, numéricas; `quality`, ordinal; `color`, categórica.
-- **Dataset:** Wine Quality · UCI, 6497 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/186/wine+quality.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `7493fdea860730843deab246f51e180382fd7d26a24614ef5e63e39e3a26fe3d`.
+- **Unidad de análisis:** una observación es un pedido; la auditoría conserva casos separados.
+- **Variables:** `num_tacos` y `minuto_turno`, numéricas; `estado_calidad`, categórica.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S18`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.4`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
+
+**Situación:** Un pedido grande cruza la cerca IQR.
+
+**Don Juan:** Raro sí está; borrarlo nomás porque sí, no.
+
+**Paco:** Lo marco y busco el ticket.
+
+**Subtítulos:** Un outlier es una señal estadística para investigar, no un veredicto. / La regla IQR detecta candidatos; el contexto determina la acción.
 
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
@@ -45,9 +57,9 @@
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Aplicar regla IQR» y citar el cambio visible asociado con outliers.
+**Evidencia narrativa común:** Ejecutar «Aplicar regla IQR» y citar el cambio visible asociado con outliers en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Roberto, analista de calidad de una bodega recibe miles de registros y una alerta antes de presentar el lote semanal. Excel se congela al filtrar todo y borrar rápido podría eliminar un caso válido. La decisión es decidir cómo investigar outliers sin inventar una explicación.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; un pedido grande cruza la cerca y queda pendiente de ticket, en un incidente posterior a L2-S18. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de outliers que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Aplicar regla IQR» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Aplicar regla IQR» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Outliers: recorrer todos los estados y citar la marca visible de detección por cercas sin veredicto automático. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Activa la revisión del valor máximo y compáralo con la cerca superior de 1.5 IQR.
+**Evidencia requerida:** Incidente 1 de Outliers: recorrer todos los estados y citar la marca visible de detección por cercas sin veredicto automático.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs outliers-state-1, outliers-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Qué conclusión permite la regla IQR?
+**Pregunta:** ¿Qué valor queda marcado más allá de la cerca superior?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| El valor merece revisión por su posición relativa. | Sí | La regla detecta rareza estadística, no origen. |
-| El registro es falso. | No | La gráfica no prueba falsedad. |
-| El vino debe excluirse del análisis. | No | Excluir requiere una decisión documentada. |
+| 36 tacos. | Sí | La evidencia visible sostiene «36 tacos.» dentro de detección por cercas sin veredicto automático. |
+| 5 tacos. | No | El estado recorrido contradice «5 tacos.»; compara las marcas y etiquetas. |
+| 1 taco. | No | El estado recorrido contradice «1 taco.»; conserva la unidad y el límite. |
 
-**Pista:** Separa señal de acción.
+**Pista:** Recorre todos los estados de outliers y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Roberto, analista de calidad de una bodega cambia de contexto para probar si el razonamiento se transfiere. Excel se congela al filtrar todo y borrar rápido podría eliminar un caso válido. La decisión es decidir cómo investigar outliers sin inventar una explicación.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de outliers que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Aplicar regla IQR» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Aplicar regla IQR» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Outliers: recorrer todos los estados y citar la marca visible de detección por cercas sin veredicto automático. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Usa la fila trazable y la regla IQR para decidir si investigar, conservar o excluir.
+**Evidencia requerida:** Incidente 2 de Outliers: recorrer todos los estados y citar la marca visible de detección por cercas sin veredicto automático.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs outliers-state-1, outliers-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** El extremo coincide con una medición válida y repetible. ¿Qué corresponde?
+**Pregunta:** ¿Qué acción acompaña al máximo en el estado final?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Conservarlo y evaluar análisis robustos o por escenarios. | Sí | Un caso válido aporta información y debe permanecer trazable. |
-| Cambiarlo a la media. | No | Imputar borraría evidencia real. |
-| Ocultarlo del gráfico. | No | Ocultar una observación válida sesga la comunicación. |
+| Revisar el ticket, sin veredicto automático. | Sí | La evidencia visible sostiene «Revisar el ticket, sin veredicto automático.» dentro de detección por cercas sin veredicto automático. |
+| Borrarlo por cruzar la cerca. | No | El estado recorrido contradice «Borrarlo por cruzar la cerca.»; compara las marcas y etiquetas. |
+| Cambiarlo a 6 tacos por intuición. | No | El estado recorrido contradice «Cambiarlo a 6 tacos por intuición.»; conserva la unidad y el límite. |
 
-**Pista:** Pregunta si el valor es plausible y verificable.
+**Pista:** Recorre todos los estados de outliers y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

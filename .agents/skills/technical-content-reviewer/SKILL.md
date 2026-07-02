@@ -1,6 +1,6 @@
 ---
 name: technical-content-reviewer
-description: Revisa exactitud conceptual, estadística y numérica de materiales educativos de ciencia de datos. Usar antes de aprobar ConceptSpecs, módulos, ejercicios, datasets, visualizaciones, métricas, notebooks, demos o conclusiones.
+description: Revisa exactitud conceptual, estadística, numérica y narrativa de materiales educativos de ciencia de datos. Usar antes de aprobar ConceptSpecs, módulos, ejercicios, datasets, visualizaciones, métricas, afirmaciones del narrador, notebooks, demos o conclusiones.
 ---
 
 # Technical Content Reviewer
@@ -9,14 +9,14 @@ Revisar:
 
 1. Unidad de análisis, variables y tipos.
 2. Definición, intuición y supuestos.
-3. Datos, totales, escalas y etiquetas.
-4. Correspondencia entre datos y visualización.
-5. Correspondencia entre mecanismo, `visual.kind`, estados y `evidenceIds`.
-6. Interpretación de métricas y errores.
-7. Correlación frente a causalidad.
-8. Leakage, particiones y orden temporal cuando aplique.
-9. Consistencia entre los tres modos.
+3. Datos, versiones, totales, escalas y etiquetas.
+4. Correspondencia entre dataset, ledger, visualización y `evidenceIds`.
+5. Interpretación de métricas, errores, orden temporal y leakage.
+6. Asociación, predicción y causalidad.
+7. Afirmaciones técnicas del narrador y analogías de los personajes.
+8. Consistencia entre modos, deltas y conclusiones.
 
-Reportar cada hallazgo con severidad, evidencia, impacto y corrección.
+Reportar severidad, evidencia, impacto y corrección raíz.
 
-Bloquear afirmaciones falsas, visualizaciones engañosas, causalidad injustificada, datos contradictorios o métricas desconectadas del costo de error.
+Bloquear afirmaciones falsas, cambios de datos no documentados,
+visualizaciones engañosas, causalidad injustificada o métricas desconectadas del costo de error.

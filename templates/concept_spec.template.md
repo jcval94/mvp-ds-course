@@ -11,6 +11,13 @@
 
 - [Prerrequisito.]
 
+## Contexto narrativo
+
+- Story Bible y arco: [referencias o no aplica].
+- Episodio: [id o no aplica].
+- Ledger de entrada: [versión o no aplica].
+- Competencia auxiliar de agentes: [una competencia o no aplica].
+
 ## Objetivo
 
 [Acción observable.]
@@ -45,6 +52,7 @@
 - Fuente y licencia: [fuente, licencia y cita].
 - Snapshot: [fecha, filas, columnas y SHA-256].
 - Generación o transformaciones: [lógica reproducible].
+- Versión narrativa de entrada y salida: [versiones o no aplica].
 
 ## Criterio de dominio
 

@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Bike Sharing Dataset · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Bike Sharing Dataset · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** La forma resume cómo se reparte la frecuencia a lo largo de los valores.
 - **Intuición:** Es el perfil completo de montañas, valles y colas.
 - **Error común:** Reducir la descripción a una sola medida de centro.
-- **Visual:** Alterna entre temporadas y describe centro, extensión y colas.
+- **Visual:** Describe centro, extensión, picos y colas para todos, jueves y domingo.
 - **Kind visual:** `histogram`.
 - **Mecanismo:** forma completa: centro, extensión y colas.
-- **Estados:** Todos → Invierno → Verano.
+- **Estados:** Todos → Jueves → Domingo.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Comparar perfiles.
-- **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
-- **Variables:** `cnt`, conteo entero de alquileres diarios.
-- **Dataset:** Bike Sharing Dataset · UCI, 731 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`.
+- **Interacción:** Comparar días.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, cantidad discreta; `minuto_turno`, minuto desde las 18:00.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S10`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.2`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Se observan centro, extensión, picos y colas.
+
+**Don Juan:** No me cuentes solo dónde está el montón; también quiero ver las orillas.
+
+**Paco:** Voy a describir todo el dibujo, no nada más una barra.
+
+**Subtítulos:** La forma integra centro, extensión, picos, huecos y colas. / Estado «Jueves»: cambia el parámetro o el corte; la entrada sigue documentada. / Describir la forma del periodo no explica su causa.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Comparar perfiles** y describir qué cambió.
+3. Ejecutar **Comparar días** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Comparar perfiles» y citar el cambio visible asociado con forma.
+**Evidencia narrativa común:** Ejecutar «Comparar días» y citar el cambio visible asociado con forma en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Don José, dueño de una tienda de barrio quiere decidir a qué hora abrir sin revisar cientos de días en Excel. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar forma para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; la noche de partido muestra una forma distinta sin explicar por qué, en un incidente posterior a L2-S10. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de forma que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar perfiles» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Comparar días» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Forma: recorrer todos los estados y citar la marca visible de forma completa: centro, extensión y colas. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Alterna entre todos los días y una temporada; describe centro, extensión y colas visibles.
+**Evidencia requerida:** Incidente 1 de Forma: recorrer todos los estados y citar la marca visible de forma completa: centro, extensión y colas.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs shape-state-1, shape-state-2, shape-state-3.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Qué descripción usa evidencia suficiente de la forma?
+**Pregunta:** ¿Qué comparación de tamaños de grupo muestran jueves y domingo?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Una cima principal, cola hacia valores altos y extensión amplia. | Sí | Combina modo, asimetría y extensión. |
-| La media es 4,504; eso describe todo. | No | Una media no muestra colas ni modos. |
-| El gráfico tiene 12 barras. | No | El número de barras es una decisión de representación. |
+| Jueves n=154 y domingo n=152. | Sí | La evidencia visible sostiene «Jueves n=154 y domingo n=152.» dentro de forma completa: centro, extensión y colas. |
+| Jueves n=30 y domingo n=45. | No | El estado recorrido contradice «Jueves n=30 y domingo n=45.»; compara las marcas y etiquetas. |
+| Ambos grupos n=600. | No | El estado recorrido contradice «Ambos grupos n=600.»; conserva la unidad y el límite. |
 
-**Pista:** Describe al menos tres rasgos visibles.
+**Pista:** Recorre todos los estados de forma y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Don José, dueño de una tienda de barrio cambia de contexto para probar si el razonamiento se transfiere. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar forma para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de forma que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar perfiles» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Comparar días» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Forma: recorrer todos los estados y citar la marca visible de forma completa: centro, extensión y colas. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara dos perfiles con centro parecido y señala diferencias fuera del centro.
+**Evidencia requerida:** Incidente 2 de Forma: recorrer todos los estados y citar la marca visible de forma completa: centro, extensión y colas.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs shape-state-1, shape-state-2, shape-state-3.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** Dos distribuciones comparten media. ¿Qué comparación visual sigue siendo necesaria?
+**Pregunta:** ¿Qué elemento cambia al pasar de todos los pedidos a domingo?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Revisar dispersión, modos y colas. | Sí | La forma puede diferir aunque el centro coincida. |
-| Comprobar que usan la misma tipografía. | No | La tipografía no es evidencia estadística. |
-| Elegir la de mayor color. | No | El color no determina la estructura. |
+| La forma y el tamaño del grupo visible. | Sí | La evidencia visible sostiene «La forma y el tamaño del grupo visible.» dentro de forma completa: centro, extensión y colas. |
+| La unidad de análisis deja de ser pedido. | No | El estado recorrido contradice «La unidad de análisis deja de ser pedido.»; compara las marcas y etiquetas. |
+| Se prueba que el día causa la forma. | No | El estado recorrido contradice «Se prueba que el día causa la forma.»; conserva la unidad y el límite. |
 
-**Pista:** Busca diferencias más allá del marcador central.
+**Pista:** Recorre todos los estados de forma y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta forma con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Comparar perfiles», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Comparar días», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

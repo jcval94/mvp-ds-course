@@ -1,28 +1,29 @@
 ---
 name: learning-module-designer
-description: Diseña módulos visuales y progresivos para aprender conceptos de ciencia de datos. Usar cuando se solicite una explicación, lección, modo Aprender, tutorial conceptual o transición de intuición a práctica basada en una ConceptSpec.
+description: Diseña módulos visuales y progresivos para aprender conceptos de ciencia de datos desde una ConceptSpec y, cuando aplica, una LevelStory aprobada. Usar para modo Aprender, tutorial conceptual o transición de intuición a práctica.
 ---
 
 # Learning Module Designer
 
-Usar una `ConceptSpec` validada y producir:
+Usar una `ConceptSpec` validada y, si existe continuidad, la escena de la
+`LevelStory` aprobada y las fichas. Producir:
 
-1. Objetivo, audiencia y duración.
-2. Activación de conocimiento previo.
+1. Objetivo, audiencia, duración y estado narrativo previo.
+2. Activación de conocimiento previo mediante una necesidad del personaje.
 3. Intuición visual antes del formalismo.
-4. Explicación en etapas breves.
-5. Interacción que cambie una variable conceptual.
-6. Comparación de estados o escenarios.
-7. Secuencia visible `Paso X de N`, movimiento significativo y alternativa
-   equivalente para movimiento reducido.
-8. Error común y corrección.
-9. Mini-checkpoint con respuesta explicada.
-10. Resumen y transición a práctica.
+4. Explicación en etapas breves; el narrador posee la terminología técnica y
+   cada intervención suya se entrega como subtítulo accesible.
+5. Interacción que cambie una variable conceptual y compare estados.
+6. Secuencia visible, movimiento significativo y alternativa reducida.
+7. Error común compatible con lo que el aprendiz puede creer.
+8. Checkpoint con respuesta explicada.
+9. Resolución parcial y transición al incidente nuevo de práctica definido en la historia.
+10. `continuityDelta` y `dataStateDelta` explícitos.
 
-El modo Aprender debe limitarse a enseñar el mecanismo: no debe resolver el caso
-narrativo de Ejercitar ni mostrar el guion docente de En vivo. Puede anticipar
-la transferencia, pero la práctica debe sentirse como una experiencia separada.
+No resolver Ejercitar, mostrar el guion docente, inventar escenas fuera de la
+historia aprobada, convertir al narrador en personaje, romper voces ni usar una
+competencia de agentes como segundo objetivo principal.
 
-Evitar paredes de texto, definiciones repetidas y controles puramente decorativos.
-
-Rechazar si el checkpoint se responde por memoria superficial o si el estudiante no puede explicar qué cambió en la visualización.
+Rechazar si la historia no está aprobada, el checkpoint es superficial, el
+visual no muestra el mecanismo, un personaje anticipa conocimiento, un texto
+técnico no está en subtítulo o el cierre deja el estado narrativo ambiguo.

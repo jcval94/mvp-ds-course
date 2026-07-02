@@ -1,100 +1,70 @@
 # Paquete: Alfabetización de datos
 
+## Trazabilidad
+
+- **Currículo:** `docs/CURRICULUM_MAP.md`, Nivel 1.
+- **Historia aprobada:** `docs/stories/LEVEL_1.md`, escenas `L1-S01` a `L1-S05`.
+- **Estado narrativo:** notas de papel → `pedidos_crudos@L1.1`.
+- **Crecimiento del puesto:** ninguno.
+
 ## ConceptSpec
 
-**Nivel:** 1, Fundamentos.
-
-**Objetivo:** identificar qué representan filas, columnas y el conjunto observado, y distinguir población de muestra.
-
-**Prerrequisitos:** lectura básica de tablas.
-
-**Conceptos:** observación, variable, tabla, población y muestra.
-
-**VisualSpec:** tabla de personas con iluminación de filas y columnas, construcción animada de celdas y población de 40 unidades desde la que se selecciona una muestra.
-
-**Dataset:** personas ficticias con ID, edad, género, ingresos y ciudad.
-
-**Errores comunes:** confundir celda con observación, ID con medida y datos disponibles con población completa.
-
-**Criterio de dominio:** el estudiante señala unidad de análisis, observación, variable, población y muestra en un escenario nuevo.
+- **Objetivo:** identificar qué representan filas, columnas y celdas, y
+  distinguir población de muestra.
+- **Prerrequisitos:** lectura básica de una cuadrícula.
+- **Conceptos en orden:** observación, variable, tabla, población y muestra.
+- **Unidad de análisis:** un pedido.
+- **Variables visibles:** `pedido_id`, `fecha_hora`, `tipo_taco`, `num_tacos` y `para_llevar`.
+- **VisualSpec:** iluminar pedido completo; recorrer columnas; conectar celda con
+  fila y encabezado; encerrar la población definida; atenuar páginas dañadas.
+- **Error central:** confundir lo disponible con el conjunto completo de interés.
+- **Criterio de dominio:** delimitar unidad, variable, población y muestra en un incidente nuevo.
 
 ## LearningModule
 
-Secuencia:
+Aprender sigue la libreta del puesto:
 
-1. Iluminar una fila y nombrar la entidad que representa.
-2. Recorrer columnas y describir la pregunta que responde cada una.
-3. Construir la cuadrícula para mostrar el contexto de cada celda.
-4. Expandir los casos visibles hacia una población conceptual.
-5. Seleccionar una muestra y discutir representación.
+1. Don Juan pide un renglón por ticket; el narrador introduce **observación**.
+2. Don Juan diferencia lo que necesita para tortillas y carne; el narrador introduce **variable**.
+3. Una cantidad aislada se conecta con fila y encabezado; el narrador define **tabla**.
+4. La pregunta de dos noches delimita la **población**.
+5. El yogurt daña sobre todo las últimas páginas; el narrador define **muestra** y su posible sesgo.
 
-Cada escena inicia con predicción, incluye una animación significativa y termina con checkpoint.
+Las definiciones y conclusiones se muestran en la banda de subtítulos. Don Juan
+solo expresa necesidades del puesto y Paco responde como hijo y estudiante.
 
 ## PracticeExercise
 
-**Historia:** Ana coordina un taller de datos para personal administrativo. El equipo recibe una tabla pequeña y quiere sacar conclusiones rápidas, pero algunas personas confunden una celda con una fila completa, un ID con una medida y las filas visibles con toda la población.
+**Regla de separación:** no se repite el yogurt. Paco recibe una foto con tickets
+del primer turno y debe decidir si permite hablar de toda la noche.
 
-**Decisión:** elegir qué interpretación de la tabla sí está sostenida por la evidencia visual antes de continuar con cualquier análisis.
+**Protagonista:** Paco, hijo de Don Juan y estudiante de preparatoria.
 
-**Evidencia animada requerida:** ejecutar iluminación de filas, recorrido de columnas, construcción de tabla y selección de muestra.
+**Presión:** si mezcla tickets o generaliza desde el primer turno, Don Juan puede
+preparar insumos para una parte distinta del negocio.
 
-**Escenas:**
+**Evidencia:** la animación revela fila completa, columna, contexto de celda,
+conjunto objetivo y tickets ausentes del cierre.
 
-1. Predicción: pedir qué creen que representa una fila completa.
-2. Animación: revelar fila, columna o muestra según el concepto activo.
-3. Decisión: responder citando la parte visible que cambió.
+**Decisión:** explicar qué representa una fila y qué población no está cubierta.
 
-**Pistas graduadas:**
-
-- Nombra primero la unidad observada.
-- Revisa si estás señalando fila, columna, celda, población o muestra.
-- Descarta respuestas que no puedan ubicarse en el visual.
-
-El estudiante interpreta una tabla de movilidad del campus. Debe justificar:
-
-- qué representa una fila;
-- cuál columna es una variable medible;
-- por qué una celda necesita fila y encabezado;
-- cuál es la población;
-- qué selección forma una muestra menos sesgada.
-
-Los distractores representan confusión entre unidad, variable y universo.
-
-**Cierre transferible:** antes de analizar un dataset nuevo, se debe poder decir qué representa una fila, qué significa cada columna y a qué población se quiere hablar.
+**Feedback:** cada distractor corrige una confusión entre celda, observación,
+variable, población y muestra; no se acepta una respuesta sin señalar el visual.
 
 ## LiveTeachingPack
 
-**Visibilidad:** En Vivo queda visible temporalmente en Nivel 1 para revisión docente; no es autenticación ni protección real.
+- **Visibilidad:** visible temporalmente en Nivel 1 para revisión docente; no es autenticación.
+- **Duración:** 75 minutos.
+- **Dataset real:** Palmer Penguins, 344 filas y 8 columnas.
+- **Fuente:** https://allisonhorst.github.io/palmerpenguins/
+- **Licencia:** CC0-1.0.
+- **Fecha del snapshot:** 2026-06-14.
+- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Evaluación rápida:** identificar unidad, variable, población y muestra sin afirmar más de lo observado.
+- **Plan offline:** usar cinco filas impresas y fichas para representar población y muestra.
 
-**Duración:** 75 minutos.
+## Supuestos y límites
 
-**Dataset real para clase:** Palmer Penguins, 344 filas y 8 columnas, licencia CC0-1.0.
-
-**Fuente:** https://allisonhorst.github.io/palmerpenguins/
-
-**Fecha del snapshot:** 2026-06-14.
-
-**SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
-
-| Minutos | Actividad |
-| --- | --- |
-| 0-10 | Predecir qué representa una fila y revelar observaciones |
-| 10-25 | Recorrer variables y construir la tabla |
-| 25-40 | Diferenciar archivo, población y unidad de análisis |
-| 40-55 | Seleccionar muestras y comparar sesgos |
-| 55-70 | Resolver práctica con feedback |
-| 70-75 | Explicar la estructura de un dataset nuevo |
-
-**Codex:** generar una tabla interactiva y validaciones de estructura.
-
-**Gemini:** conducir preguntas socráticas sobre unidad de análisis y muestra.
-
-**ChatGPT:** proponer datasets alternativos y preguntas de transferencia.
-
-**Evaluación rápida:** el estudiante identifica observación, variable, tabla, población y muestra en Palmer Penguins sin afirmar causalidad.
-
-**Checklist antes de clase:** abrir el HTML local, verificar snapshot y SHA, preparar predicciones y tener una versión impresa de cinco filas.
-
-**Checklist durante clase:** pedir evidencia visible, corregir confusiones entre celda/fila/columna y cerrar con una limitación.
-
-**Plan offline:** usar los controles locales y dibujar una población con fichas de papel.
+- Los pedidos narrativos son sintéticos y no contienen atributos personales.
+- Las diez filas posteriores son una captura didáctica finita, no toda la operación habitual.
+- Guardar una hoja digital facilita copias y versiones, pero no garantiza integridad ni respaldo.

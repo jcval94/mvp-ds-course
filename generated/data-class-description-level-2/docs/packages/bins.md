@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Bike Sharing Dataset · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Bike Sharing Dataset · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** Los bins son intervalos que definen cómo se agrupan los valores de un histograma.
 - **Intuición:** Son una cuadrícula móvil: más celdas muestran detalle, menos celdas resumen.
 - **Error común:** Buscar un número universalmente correcto de bins.
-- **Visual:** Compara tres particiones del mismo snapshot.
+- **Visual:** Mantén la entrada fija y prueba tres particiones razonables.
 - **Kind visual:** `histogram`.
 - **Mecanismo:** sensibilidad de la forma a la partición.
 - **Estados:** 6 bins → 12 bins → 24 bins.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Probar 6, 12 y 24.
-- **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
-- **Variables:** `cnt`, conteo entero de alquileres diarios.
-- **Dataset:** Bike Sharing Dataset · UCI, 731 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`.
+- **Interacción:** Probar 6, 12 y 24 bins.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, cantidad discreta; `minuto_turno`, minuto desde las 18:00.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S13`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.2`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** La misma entrada se muestra con 6, 12 y 24 intervalos.
+
+**Don Juan:** Con tantos cajoncitos parece otro turno.
+
+**Paco:** Beto hace algo parecido en su stop-motion: cada cuadro cambia lo visible.
+
+**Subtítulos:** Los bins son un parámetro que define bordes y ancho de intervalos. / Estado «12 bins»: cambia el parámetro o el corte; la entrada sigue documentada. / Una lectura robusta se revisa con varias elecciones razonables de bins.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Probar 6, 12 y 24** y describir qué cambió.
+3. Ejecutar **Probar 6, 12 y 24 bins** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Probar 6, 12 y 24» y citar el cambio visible asociado con bins.
+**Evidencia narrativa común:** Ejecutar «Probar 6, 12 y 24 bins» y citar el cambio visible asociado con bins en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Don José, dueño de una tienda de barrio quiere decidir a qué hora abrir sin revisar cientos de días en Excel. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar bins para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; una gráfica recortada llega sin indicar cuántos intervalos usó, en un incidente posterior a L2-S13. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de bins que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Probar 6, 12 y 24» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Probar 6, 12 y 24 bins» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Bins: recorrer todos los estados y citar la marca visible de sensibilidad de la forma a la partición. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara el mismo n=731 con 6, 12 y 24 intervalos.
+**Evidencia requerida:** Incidente 1 de Bins: recorrer todos los estados y citar la marca visible de sensibilidad de la forma a la partición.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs bins-state-1, bins-state-2, bins-state-3.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Cuál es la mejor práctica al elegir bins?
+**Pregunta:** ¿Qué estado muestra el mayor detalle de intervalos?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Probar varias opciones y verificar si la conclusión es estable. | Sí | La sensibilidad a bins debe formar parte de la revisión. |
-| Usar siempre diez. | No | Diez es una convención, no una ley. |
-| Elegir el número que haga más dramática la historia. | No | Ajustar para forzar una conclusión es engañoso. |
+| 24 bins. | Sí | La evidencia visible sostiene «24 bins.» dentro de sensibilidad de la forma a la partición. |
+| 6 bins. | No | El estado recorrido contradice «6 bins.»; compara las marcas y etiquetas. |
+| Los tres tienen el mismo ancho. | No | El estado recorrido contradice «Los tres tienen el mismo ancho.»; conserva la unidad y el límite. |
 
-**Pista:** Compara qué patrones sobreviven.
+**Pista:** Recorre todos los estados de bins y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Don José, dueño de una tienda de barrio cambia de contexto para probar si el razonamiento se transfiere. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar bins para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de bins que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Probar 6, 12 y 24» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Probar 6, 12 y 24 bins» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Bins: recorrer todos los estados y citar la marca visible de sensibilidad de la forma a la partición. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Verifica si el pico permanece o desaparece al cambiar entre 6, 12 y 24 intervalos.
+**Evidencia requerida:** Incidente 2 de Bins: recorrer todos los estados y citar la marca visible de sensibilidad de la forma a la partición.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs bins-state-1, bins-state-2, bins-state-3.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** Un pico aparece con 24 bins, pero no con 12 ni 6. ¿Qué conclusión corresponde?
+**Pregunta:** ¿Qué patrón es comprobable en los tres estados?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Es un detalle sensible a la partición y requiere cautela. | Sí | Un patrón inestable no debe presentarse como hallazgo robusto. |
-| Es una población nueva confirmada. | No | La visualización sola no confirma un grupo. |
-| Los otros dos histogramas están equivocados. | No | Cada partición es válida para distinto nivel de detalle. |
+| La mayor concentración permanece en cantidades pequeñas. | Sí | La evidencia visible sostiene «La mayor concentración permanece en cantidades pequeñas.» dentro de sensibilidad de la forma a la partición. |
+| El total cambia de 600 a 24 pedidos. | No | El estado recorrido contradice «El total cambia de 600 a 24 pedidos.»; compara las marcas y etiquetas. |
+| Los pedidos raros desaparecen al usar más bins. | No | El estado recorrido contradice «Los pedidos raros desaparecen al usar más bins.»; conserva la unidad y el límite. |
 
-**Pista:** Busca estabilidad entre representaciones.
+**Pista:** Recorre todos los estados de bins y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta bins con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Probar 6, 12 y 24», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Probar 6, 12 y 24 bins», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

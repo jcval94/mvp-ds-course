@@ -3,6 +3,10 @@
   "level": 1,
   "title": "Fundamentos",
   "status": "published",
+  "curriculum_source": "docs/CURRICULUM_MAP.md#nivel-1-fundamentos",
+  "story_source": "docs/stories/LEVEL_1.md",
+  "story_status": "approved",
+  "story_version": "don-juan-paco-level-1-v2",
   "entrypoint": "index.html",
   "concept_count": 18,
   "exercise_count": 18,
@@ -43,5 +47,5 @@
     "wine-quality"
   ],
   "validation": "validation.json",
-  "updated_at": "2026-06-24"
+  "updated_at": "2026-06-27"
 }

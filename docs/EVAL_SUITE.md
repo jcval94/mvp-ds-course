@@ -8,14 +8,16 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 
 1. Verificar alcance y usuario.
 2. Revisar posición curricular y prerrequisitos.
-3. Revisar `ConceptSpec`.
-4. Revisar Aprender.
-5. Revisar Ejercitar.
-6. Revisar Enseñar en vivo.
-7. Revisar precisión técnica.
-8. Probar visual, animación, evidencia y desbloqueo en navegador.
-9. Revisar consistencia documental y placeholders.
-10. Emitir puntaje y decisión.
+3. Verificar que la historia independiente del nivel exista y esté aprobada.
+4. Revisar trazabilidad, voz, subtítulos, continuidad, conocimiento y estado de datos.
+5. Revisar `ConceptSpec`.
+6. Revisar Aprender.
+7. Revisar Ejercitar.
+8. Revisar Enseñar en vivo.
+9. Revisar precisión técnica.
+10. Probar visual, subtítulos, animación, evidencia y desbloqueo en navegador.
+11. Revisar consistencia documental y placeholders.
+12. Emitir puntaje y decisión.
 
 ## Dimensiones
 
@@ -28,6 +30,11 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 | Interacción | ¿Manipular o comparar revela el concepto? |
 | Evidencia interactiva | ¿Los `evidenceIds`, pasos y desbloqueo coinciden con lo visible? |
 | Práctica | ¿La historia aplicada y la respuesta dependen de evidencia animada? |
+| Continuidad narrativa | ¿Voces, cronología, conocimiento, humor y versiones de datos respetan Story Bible y ledger? |
+| Pipeline narrativo | ¿El nivel parte del temario y de una `LevelStory` independiente aprobada? |
+| Subtítulos del narrador | ¿Toda definición y conclusión técnica del narrador aparece como subtítulo accesible? |
+| Crecimiento narrativo | ¿Tamaño, capacidad, plantilla y volumen cambian mediante condiciones y `growthDelta`? |
+| Alfabetización de agentes | ¿La competencia auxiliar corresponde al nivel y permanece subordinada al objetivo de datos? |
 | Feedback | ¿Corrige el razonamiento de cada respuesta? |
 | Enseñanza | ¿El docente puede operar la clase con snapshot real, modo oculto y contingencia? |
 | Coherencia | ¿Los tres modos comparten objetivo, términos y datos? |
@@ -59,6 +66,15 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 - Ejercitar carece de protagonista, presión realista, decisión o animación de evidencia.
 - Ausencia de feedback específico.
 - Datos inconsistentes entre artefactos.
+- Personaje fuera de voz, conocimiento prematuro o invitado con autoridad no presentada.
+- Dataset narrativo que cambia sin `dataStateDelta` o contradice el ledger.
+- Aprender y Ejercitar que reutilizan incidente, evidencia o resolución.
+- Competencia auxiliar de agentes que introduce un segundo objetivo principal.
+- Don Juan que introduce o concluye ciencia de datos, o Paco que deja de sonar como hijo/estudiante.
+- Nivel continuo sin historia independiente aprobada o con historia escrita dentro del HTML.
+- Intervención del narrador renderizada como diálogo, personaje o cuerpo doctrinal en lugar de subtítulo.
+- Secreto de personaje inferido desde datos o revelado antes de su ventana.
+- Crecimiento, trabajo familiar o inversión sin condición y `growthDelta`.
 - Snapshot público sin licencia, procedencia o hash válido.
 - LiveTeachingPack con dataset sintético como fuente principal.
 - Modo En vivo visible como pestaña estudiantil sin activación docente.
@@ -89,6 +105,9 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 - Definición larga seguida de quiz de memoria.
 - Historia atractiva cuya pregunta no depende de la gráfica.
 - Historia que revela la respuesta sin ejecutar la animación.
+- Don Juan define terminología estadística que no aprendió o Paco anticipa el nivel siguiente.
+- Narrador que convierte una simplificación o broma en afirmación técnica.
+- Skill presentada como receta sin entrada, pasos, salida, comprobaciones y límites.
 - En vivo presentado como contenido para estudiantes o como seguridad real en frontend.
 - Visual que cambia colores, pero no una variable conceptual.
 - QA que solo verifica que el HTML cambió.

@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Bike Sharing Dataset · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Bike Sharing Dataset · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** Una distribución sesgada tiene una cola más larga hacia uno de sus lados.
 - **Intuición:** La cola apunta hacia los casos menos frecuentes y más alejados.
 - **Error común:** Nombrar el sesgo por el lado donde se concentra la mayoría.
-- **Visual:** Resalta la cola larga y compara media con mediana.
+- **Visual:** Compara la cola derecha con las posiciones de media y mediana.
 - **Kind visual:** `histogram-tail`.
 - **Mecanismo:** dirección de cola y separación media-mediana.
 - **Estados:** Distribución → Cola resaltada.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Resaltar cola.
-- **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
-- **Variables:** `cnt`, conteo entero de alquileres diarios.
-- **Dataset:** Bike Sharing Dataset · UCI, 731 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`.
+- **Interacción:** Resaltar la cola.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, cantidad discreta; `minuto_turno`, minuto desde las 18:00.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S11`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.2`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Se resalta una cola hacia pedidos grandes.
+
+**Don Juan:** Hay pocos pedidos que estiran la cuenta para un lado.
+
+**Paco:** Digo hacia dónde va la cola, no si está bien o mal.
+
+**Subtítulos:** El sesgo describe la dirección de una cola prolongada. / Una cola derecha suele atraer más a la media que a la mediana.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Resaltar cola** y describir qué cambió.
+3. Ejecutar **Resaltar la cola** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Resaltar cola» y citar el cambio visible asociado con sesgo.
+**Evidencia narrativa común:** Ejecutar «Resaltar la cola» y citar el cambio visible asociado con sesgo en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Don José, dueño de una tienda de barrio quiere decidir a qué hora abrir sin revisar cientos de días en Excel. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar sesgo para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; pocos encargos estiran la cola hacia cantidades grandes, en un incidente posterior a L2-S11. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de sesgo que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Resaltar cola» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Resaltar la cola» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Sesgo: recorrer todos los estados y citar la marca visible de dirección de cola y separación media-mediana. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Activa la cola y compara las posiciones de media y mediana.
+**Evidencia requerida:** Incidente 1 de Sesgo: recorrer todos los estados y citar la marca visible de dirección de cola y separación media-mediana.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs skew-state-1, skew-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** Si la cola se extiende hacia alquileres altos, ¿cómo se llama el patrón?
+**Pregunta:** ¿Hacia qué lado queda resaltada la cola?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Sesgo a la derecha. | Sí | La dirección se nombra por la cola larga. |
-| Sesgo a la izquierda. | No | La mayoría puede estar a la izquierda, pero la cola apunta a la derecha. |
-| Distribución uniforme. | No | Una distribución uniforme no tiene esa cola marcada. |
+| Hacia cantidades grandes, a la derecha. | Sí | La evidencia visible sostiene «Hacia cantidades grandes, a la derecha.» dentro de dirección de cola y separación media-mediana. |
+| Hacia cantidades pequeñas, a la izquierda. | No | El estado recorrido contradice «Hacia cantidades pequeñas, a la izquierda.»; compara las marcas y etiquetas. |
+| No se resalta ninguna cola. | No | El estado recorrido contradice «No se resalta ninguna cola.»; conserva la unidad y el límite. |
 
-**Pista:** Sigue los valores poco frecuentes más alejados.
+**Pista:** Recorre todos los estados de sesgo y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Don José, dueño de una tienda de barrio cambia de contexto para probar si el razonamiento se transfiere. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar sesgo para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de sesgo que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Resaltar cola» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Resaltar la cola» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Sesgo: recorrer todos los estados y citar la marca visible de dirección de cola y separación media-mediana. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Usa la dirección de la cola resaltada para justificar la relación entre los dos centros.
+**Evidencia requerida:** Incidente 2 de Sesgo: recorrer todos los estados y citar la marca visible de dirección de cola y separación media-mediana.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs skew-state-1, skew-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** En un sesgo fuerte a la derecha, ¿qué relación suele observarse?
+**Pregunta:** ¿Qué pedidos ocupan la zona sombreada final?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| La media queda por encima de la mediana. | Sí | Los valores altos arrastran la media hacia la cola. |
-| La media siempre es cero. | No | El origen del eje no fija la media. |
-| La moda debe desaparecer. | No | Puede seguir existiendo una moda. |
+| Los que quedan por encima de P75 hacia el extremo derecho. | Sí | La evidencia visible sostiene «Los que quedan por encima de P75 hacia el extremo derecho.» dentro de dirección de cola y separación media-mediana. |
+| Solo los pedidos iguales a la mediana. | No | El estado recorrido contradice «Solo los pedidos iguales a la mediana.»; compara las marcas y etiquetas. |
+| Todos los pedidos menores al mínimo. | No | El estado recorrido contradice «Todos los pedidos menores al mínimo.»; conserva la unidad y el límite. |
 
-**Pista:** Observa qué marcador se acerca más a la cola.
+**Pista:** Recorre todos los estados de sesgo y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta sesgo con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Resaltar cola», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Resaltar la cola», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

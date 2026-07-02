@@ -17,6 +17,11 @@
 - [ ] No hay data leakage.
 - [ ] El orden temporal se respeta cuando aplica.
 - [ ] La conclusión está respaldada por la evidencia.
+- [ ] Las afirmaciones técnicas del narrador son correctas y distinguen simplificación de definición.
+- [ ] La versión, unidad de análisis, columnas y conteos del dataset narrativo coinciden con el ledger.
+- [ ] No se infieren atributos sensibles por apariencia salvo objetivo explícito, necesidad y salvaguardas.
+- [ ] Ninguna característica oculta de personaje aparece como atributo observado o inferido.
+- [ ] Capacidad, asientos, horario, plantilla y rangos de pedidos son coherentes entre niveles.
 
 ## Fallar si
 

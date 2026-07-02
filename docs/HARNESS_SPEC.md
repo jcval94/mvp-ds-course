@@ -11,16 +11,23 @@ El harness coordina la generación documental de material educativo: recibe una 
 - Modo solicitado.
 - Contexto o autorización para inferirlo.
 - Duración o supuesto de 30 a 45 minutos.
+- Identificador de Story Bible, arco y ledger cuando se solicita continuidad.
 
 ## Estado mínimo
 
 - `request`: solicitud normalizada.
 - `curriculumDecision`: bloque, nivel y prerrequisitos.
+- `narrativeState`: Story Bible, fichas, arco, ledger de entrada y episodio.
+- `levelStory`: ruta, estado, matriz de escenas y contrato de subtítulos; debe
+  estar `aprobada` antes de crear el nivel.
 - `conceptSpec`: fuente conceptual.
 - `artifacts`: Aprender, Ejercitar y/o Enseñar en vivo.
 - `modeSeparation`: evidencia de que Aprender, Ejercitar y En vivo tienen contenido distinto.
 - `assumptions`: inferencias explícitas.
 - `validation`: puntajes, bloqueos y correcciones.
+- `continuityDelta`: cambio aprobado en hechos y conocimiento.
+- `dataStateDelta`: cambio aprobado en versión y contenido del dataset narrativo.
+- `growthDelta`: cambio aprobado en formato, capacidad, horario, equipo o plantilla.
 - `status`: borrador, en revisión, listo o no listo.
 
 ## Flujo
@@ -28,22 +35,28 @@ El harness coordina la generación documental de material educativo: recibe una 
 1. Leer fuentes canónicas.
 2. Normalizar entrada y supuestos.
 3. Ejecutar `curriculum-architect`.
-4. Crear o cargar `ConceptSpec`.
-5. Enrutar a las skills de modo.
-6. Ejecutar revisión técnica.
-7. Ejecutar revisión visual interactiva en navegador.
-8. Ejecutar revisión pedagógica.
-9. Si falla, corregir la decisión raíz y regenerar dependencias.
-10. Emitir paquete y reporte.
+4. Si hay continuidad, ejecutar `course-narrative-architect` con el ledger vigente.
+5. Crear `docs/stories/LEVEL_<N>.md` desde el temario y ejecutar revisión
+   técnica y de continuidad hasta marcarla `aprobada`.
+6. Crear o cargar `ConceptSpec` con referencia a esa historia.
+7. Enrutar a las skills de modo.
+8. Ejecutar revisión técnica.
+9. Ejecutar `narrative-continuity-reviewer` y aprobar o rechazar los deltas.
+10. Ejecutar revisión visual interactiva en navegador, incluidos subtítulos.
+11. Ejecutar revisión pedagógica.
+12. Si falla, corregir la decisión raíz y regenerar dependencias.
+13. Emitir paquete, ledger actualizado y reporte.
 
 ## Routing
 
 - Temario o prerrequisitos -> `curriculum-architect`.
+- Ruta o episodio continuo -> `course-narrative-architect`.
 - Concepto nuevo o modificado -> `concept-spec-designer`.
 - Aprender -> `learning-module-designer`.
 - Ejercitar -> `practice-exercise-designer`.
 - Enseñar en vivo -> `live-teaching-pack-builder`.
 - Cualquier paquete -> `technical-content-reviewer`.
+- Cualquier episodio continuo -> `narrative-continuity-reviewer`.
 - Cualquier UI educativa -> `interactive-visual-reviewer`.
 - Cierre -> `pedagogy-eval-reviewer`.
 
@@ -72,6 +85,10 @@ Requiere aprobación:
 - `PRODUCT_BRIEF.md`: usuario y valor.
 - `PRD.md`: contratos y slice.
 - `CURRICULUM_MAP.md`: progresión.
+- `COURSE_STORY_BIBLE.md`: mundo, voces y arco general.
+- `LEVEL_*_NARRATIVE_ARC.md`: secuencia de episodios por nivel.
+- `CONTINUITY_LEDGER.md`: hechos, conocimiento, versiones de datos, relaciones,
+  secretos y crecimiento.
 - `SKILL_*`: responsabilidades.
 - `evals/`: criterios de paso.
 - `IMPLEMENTATION_PLAN.md`: secuencia.
@@ -96,10 +113,12 @@ El reporte final registra:
 Si falla una evaluación:
 
 1. Identificar la decisión raíz.
-2. Corregir currículo o `ConceptSpec`.
+2. Corregir currículo, `LevelStory` o `ConceptSpec`, según la primera fuente del error.
 3. Regenerar artefactos dependientes.
 4. Repetir revisión técnica.
-5. Repetir revisión pedagógica.
+5. Repetir revisión narrativa cuando aplique.
+6. Repetir revisión visual, incluidos subtítulos.
+7. Repetir revisión pedagógica.
 
 Máximo recomendado: dos reintentos automáticos antes de solicitar revisión humana por ambigüedad o conflicto.
 
@@ -112,6 +131,10 @@ Máximo recomendado: dos reintentos automáticos antes de solicitar revisión hu
 - Concepto sin visual útil -> proponer comparación, simulación o predicción antes de revelar; si sigue sin aplicar, justificar.
 - Contradicción entre modos -> priorizar `ConceptSpec` y regenerar.
 - Ejercitar igual a Aprender -> rediseñar la práctica como historia aplicada con evidencia animada.
+- Voz o conocimiento fuera de canon -> corregir el episodio o la ficha raíz; no justificarlo reescribiendo el ledger.
+- Dataset narrativo inconsistente -> restaurar la última versión aprobada y declarar una transformación verificable.
+- Crecimiento sin condición o secreto inferido -> restaurar el canon y rechazar el episodio.
+- Metáfora forzada -> introducir un invitado o contexto compatible sin abandonar el núcleo narrativo.
 - En vivo visible para estudiantes -> ocultar con modo docente y aclarar que no es autenticación real.
 - Error técnico -> bloquear publicación y corregir todas las dependencias.
 - Evidencia visual ausente o desbloqueo prematuro -> bloquear publicación y
@@ -144,6 +167,10 @@ El harness recomienda uso o desarrollo solo cuando:
 - todos los artefactos requeridos existen;
 - no hay bloqueos automáticos;
 - los tres modos están separados en contenido y navegación;
+- Story Bible, arco y ledger no tienen referencias rotas cuando existe continuidad;
+- la historia independiente del nivel existe, está aprobada y precede al paquete;
+- la revisión narrativa aprueba voces, conocimiento y deltas;
+- cada intervención del narrador se representa como subtítulo accesible;
 - En vivo usa snapshot público real y no aparece sin modo docente;
 - el promedio es 4 o más;
 - ninguna dimensión obtiene 1;

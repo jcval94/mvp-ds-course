@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Palmer Penguins`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Palmer Penguins` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** El percentil p es un punto de corte con aproximadamente p% de valores debajo o iguales.
 - **Intuición:** Es una marca de posición en una lista ordenada de cien partes.
 - **Error común:** Interpretar percentil 90 como obtener 90% en una prueba.
-- **Visual:** Cambia el percentil y observa el punto de corte sobre datos ordenados.
+- **Visual:** Recorre P25, P50 y P75 sobre cantidades ordenadas.
 - **Kind visual:** `quantile-line`.
 - **Mecanismo:** proporción acumulada a la izquierda del corte.
 - **Estados:** P25 → P50 → P75.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Mover percentil.
-- **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
-- **Variables:** `body_mass_g`, numérica continua en gramos.
-- **Dataset:** Palmer Penguins, 344 filas, licencia CC0-1.0.
-- **Fuente:** https://allisonhorst.github.io/palmerpenguins/.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Interacción:** Mover el percentil.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, numérica discreta en tacos por pedido.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S07`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.1`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Paco recorre P25, P50 y P75.
+
+**Don Juan:** ¿Hasta cuántos tacos quedan tres de cada cuatro pedidos?
+
+**Paco:** Muevo el corte y leo qué proporción queda antes.
+
+**Subtítulos:** Un percentil es un umbral asociado con una proporción acumulada. / Estado «P50»: cambia el parámetro o el corte; la entrada sigue documentada. / P75 no significa que 75% de los valores sean iguales al corte.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Mover percentil** y describir qué cambió.
+3. Ejecutar **Mover el percentil** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Mover percentil» y citar el cambio visible asociado con percentiles.
+**Evidencia narrativa común:** Ejecutar «Mover el percentil» y citar el cambio visible asociado con percentiles en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Lucía, analista de operaciones de una clínica debe resumir mediciones de pacientes antes de una junta de 15 minutos. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de percentiles sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; se elige una bolsa que cubra una proporción declarada de pedidos, en un incidente posterior a L2-S07. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de percentiles que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mover percentil» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Mover el percentil» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Percentiles: recorrer todos los estados y citar la marca visible de proporción acumulada a la izquierda del corte. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Mueve el corte entre P25, P50 y P75 y cuenta qué proporción queda a la izquierda.
+**Evidencia requerida:** Incidente 1 de Percentiles: recorrer todos los estados y citar la marca visible de proporción acumulada a la izquierda del corte.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs percentiles-state-1, percentiles-state-2, percentiles-state-3.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** Una masa está en el percentil 75. ¿Qué indica?
+**Pregunta:** ¿Qué secuencia de cortes aparece al recorrer P25, P50 y P75?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Aproximadamente 75% de las masas no la supera. | Sí | El percentil describe posición relativa. |
-| La masa vale 75 gramos. | No | El número del percentil no es la unidad medida. |
-| Es 75% mayor que la media. | No | No expresa una diferencia porcentual respecto de la media. |
+| 3, 4 y 5 tacos. | Sí | La evidencia visible sostiene «3, 4 y 5 tacos.» dentro de proporción acumulada a la izquierda del corte. |
+| 5, 4 y 3 tacos. | No | El estado recorrido contradice «5, 4 y 3 tacos.»; compara las marcas y etiquetas. |
+| 25, 50 y 75 tacos. | No | El estado recorrido contradice «25, 50 y 75 tacos.»; conserva la unidad y el límite. |
 
-**Pista:** Cuenta observaciones a la izquierda del corte.
+**Pista:** Recorre todos los estados de percentiles y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Lucía, analista de operaciones de una clínica cambia de contexto para probar si el razonamiento se transfiere. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de percentiles sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de percentiles que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mover percentil» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Mover el percentil» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Percentiles: recorrer todos los estados y citar la marca visible de proporción acumulada a la izquierda del corte. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara el corte central con la extensión visible de ambos lados.
+**Evidencia requerida:** Incidente 2 de Percentiles: recorrer todos los estados y citar la marca visible de proporción acumulada a la izquierda del corte.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs percentiles-state-1, percentiles-state-2, percentiles-state-3.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** ¿Por qué dos datasets pueden tener el mismo percentil 50 y distinta dispersión?
+**Pregunta:** En P75, ¿dónde queda el corte observado?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| El percentil 50 fija el centro ordenado, no la separación restante. | Sí | La mediana puede coincidir aunque las colas sean distintas. |
-| Porque el percentil 50 siempre es cero. | No | El valor depende de los datos, no es siempre cero. |
-| Porque los percentiles ignoran el orden. | No | Los percentiles se construyen precisamente con el orden. |
+| En 5 tacos por pedido. | Sí | La evidencia visible sostiene «En 5 tacos por pedido.» dentro de proporción acumulada a la izquierda del corte. |
+| En 75 tacos por pedido. | No | El estado recorrido contradice «En 75 tacos por pedido.»; compara las marcas y etiquetas. |
+| En el pedido máximo de 36 tacos. | No | El estado recorrido contradice «En el pedido máximo de 36 tacos.»; conserva la unidad y el límite. |
 
-**Pista:** Compara las posiciones centrales y luego las colas.
+**Pista:** Recorre todos los estados de percentiles y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta percentiles con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Mover percentil», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Mover el percentil», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

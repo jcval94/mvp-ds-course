@@ -18,17 +18,30 @@ Para un concepto de ciencia de datos produce:
 
 Profesor o creador de cursos introductorios e intermedios de ciencia de datos en español.
 
-## Flujo
+## Pipeline obligatorio
+
+Cada nivel se produce en tres capas separadas y en este orden:
 
 ```text
-1. Define el concepto o solicitud en IDEA.md
-2. Ubícalo en docs/CURRICULUM_MAP.md
-3. Ejecuta las skills de .agents/skills
-4. Genera los artefactos educativos
-5. Valida con evals/
-6. Corrige hasta obtener promedio 4+
-7. Construye código solo con aprobación explícita
+1. TEMARIO PREDETERMINADO
+   docs/CURRICULUM_MAP.md
+   -> conceptos, orden, prerrequisitos y resultado
+
+2. HISTORIA INDEPENDIENTE
+   docs/stories/LEVEL_<N>.md
+   -> escenas, voces, subtítulos, evidencia y continuidad
+
+3. NIVEL EDUCATIVO
+   ConceptSpec -> Aprender / Ejercitar / En vivo
+   -> generated/<paquete>/ -> evals -> publicación
 ```
+
+No se escribe la historia dentro del HTML y no se implementa un nivel cuya
+historia siga en borrador. Las fallas se corrigen en la fuente más temprana y se
+propagan hacia adelante.
+
+Consulta el orden completo, las puertas de calidad y los comandos de validación
+en [docs/pipeline/README.md](docs/pipeline/README.md).
 
 ## Temario
 
@@ -55,6 +68,10 @@ Consulta [docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md).
 - **Nivel 3 · Probabilidad e inferencia:** 19 conceptos y 38 ejercicios.
 - **Total:** 58 conceptos, 98 ejercicios y 174 prompts para Codex, Gemini y ChatGPT.
 
+Niveles 1 y 2 forman una continuidad aprobada de Don Juan y Paco. Aprender y
+Ejercitar usan pedidos ficticios versionados del puesto; En vivo conserva
+snapshots públicos reales con procedencia, licencia y SHA-256.
+
 Cada concepto conserva Aprender, Ejercitar y Enseñar en vivo, además de revisión
 técnica y pedagógica.
 
@@ -65,7 +82,9 @@ técnica y pedagógica.
 ## Estructura
 
 - `IDEA.md`: misión y decisiones iniciales.
-- `docs/`: brief, PRD, currículo, specs, plan y prompts.
+- `docs/`: brief, PRD, currículo, specs, plan, prompts, Story Bible, arcos y ledger.
+- `docs/stories/`: una historia canónica y aprobable por nivel.
+- `docs/pipeline/`: orden de producción, puertas y Definition of Done.
 - `.agents/skills/`: skills ejecutables.
 - `evals/`: rubricas, checklists y regresiones.
 - `templates/`: estructuras reutilizables.
@@ -80,10 +99,11 @@ técnica y pedagógica.
 ## Uso con Codex
 
 ```text
-Lee AGENTS.md, IDEA.md y docs/CURRICULUM_MAP.md. Usa .agents/skills para crear
-un paquete educativo del concepto solicitado. Prefiere un snapshot público con
-licencia, genera dos ejercicios dependientes de evidencia y prepara roles
-complementarios para Codex y Gemini/ChatGPT. Valida con evals/.
+Lee AGENTS.md, IDEA.md y docs/CURRICULUM_MAP.md. Congela primero el temario del
+nivel; crea y aprueba después `docs/stories/LEVEL_<N>.md`; solo entonces usa
+.agents/skills para producir ConceptSpecs, Aprender, Ejercitar y En vivo.
+Prefiere un snapshot público con licencia, genera ejercicios dependientes de
+evidencia y valida con `evals/`.
 ```
 
 ## Definition of Ready

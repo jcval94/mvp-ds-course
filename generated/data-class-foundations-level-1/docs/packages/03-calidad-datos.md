@@ -1,86 +1,65 @@
 # Paquete: Calidad de datos
 
+## Trazabilidad
+
+- **Currículo:** `docs/CURRICULUM_MAP.md`, Nivel 1.
+- **Historia aprobada:** `docs/stories/LEVEL_1.md`, escenas `L1-S11` a `L1-S14`.
+- **Estado narrativo:** `esquema@L1.2` → `reporte_de_calidad@L1.3`.
+- **Crecimiento del puesto:** ninguno.
+
 ## ConceptSpec
 
-**Nivel:** 1, Fundamentos.
-
-**Objetivo:** detectar problemas de calidad antes de analizarlos y evitar correcciones sin evidencia.
-
-**Prerrequisitos:** observación, variable y tipo.
-
-**Conceptos:** faltantes, duplicados, rangos inválidos y sesgo de medición.
-
-**VisualSpec:** escáner animado sobre una tabla, pulsos en celdas vacías, separación de filas duplicadas, reacción de valores inválidos y comparación de instrumentos.
-
-**Dataset:** encuesta ficticia de satisfacción con errores deliberados.
-
-**Errores comunes:** convertir faltantes en cero, eliminar coincidencias legítimas, corregir rangos inventando valores y confiar en el tamaño de muestra para resolver sesgo sistemático.
-
-**Criterio de dominio:** el estudiante identifica el problema, explica su posible causa y propone una acción inicial conservadora.
+- **Objetivo:** detectar problemas antes de analizar sin corregir por intuición.
+- **Prerrequisitos:** observación, variable y tipo.
+- **Conceptos en orden:** faltantes, duplicados, rangos inválidos y sesgo de medición.
+- **Evidencia canónica:** P-003 faltante; P-006 duplicado confirmado con ticket;
+  P-005 mezcla el total diario; P-007 conserva 30 tacos confirmados.
+- **VisualSpec:** escaneo de la tabla, contraste con ticket y brecha de cobertura después de las 22:00.
+- **Error central:** considerar que raro significa falso.
+- **Criterio de dominio:** elegir entre conservar, marcar, contrastar o consolidar según evidencia.
 
 ## LearningModule
 
-1. Escanear faltantes y observar su patrón.
-2. Comparar duplicado técnico con evento repetido legítimo.
-3. Aplicar reglas de dominio a edades.
-4. Contrastar sensor patrón con sensor descalibrado.
+Don Juan aporta tickets y memoria operativa. El narrador clasifica técnicamente:
+
+1. P-003 queda vacío; no se convierte en cero ni `-`.
+2. P-006 solo se consolida después de encontrar un único ticket 184.
+3. P-005 se marca inválido sin corregir 500 a 50; P-007=30 se conserva.
+4. El horario de Paco revela una posible omisión sistemática del cierre.
+
+No se añaden edad, género, ropa ni nombres. Tampoco se registra la dieta de
+Rogelio: su pedido no permite inferirla y no ayuda a la pregunta.
 
 ## PracticeExercise
 
-**Historia:** Roberto recibe miles de registros de control de calidad antes de una junta. Excel tarda en filtrar, la computadora se calienta y alguien propone borrar todo lo raro para terminar rápido.
+**Regla de separación:** las prácticas presentan tickets borrosos, capturas
+parecidas con IDs distintos, comparación entre P-005 y Rogelio, y cobertura de
+un primer turno; no repiten la resolución de Aprender.
 
-**Decisión:** decidir qué problema requiere marcar, investigar o conservar antes de corregir datos sin evidencia.
+**Presión:** borrar para terminar rápido puede destruir evidencia válida.
 
-**Evidencia animada requerida:** ejecutar el escáner, observar faltantes, duplicados, rangos inválidos y señales de medición desplazada.
+**Evidencia:** cada animación muestra ausencia, identidad, regla de unidad o
+periodo no observado antes de habilitar respuestas.
 
-**Escenas:**
+**Decisión:** documentar la primera acción conservadora y su fuente.
 
-1. Predicción: pedir qué error parece más tentador corregir automáticamente.
-2. Animación: escanear la tabla y resaltar el patrón visible.
-3. Decisión: elegir una acción conservadora que preserve trazabilidad.
-
-**Pistas graduadas:**
-
-- Distingue ausencia, repetición, regla imposible y desplazamiento sistemático.
-- Pregunta si el valor puede ser real antes de eliminarlo.
-- Conserva evidencia cuando no se conoce la causa.
-
-El estudiante decide cómo tratar cada problema sin destruir evidencia. Las opciones incluyen correcciones tentadoras pero injustificadas.
-
-**Cierre transferible:** calidad de datos no significa limpiar rápido; significa entender qué riesgo introduce cada problema y documentar la acción.
+**Feedback:** explica por qué cero no es ausencia, igualdad no prueba duplicado,
+un valor grande necesita contexto y más filas no corrigen una omisión sistemática.
 
 ## LiveTeachingPack
 
-**Visibilidad:** En Vivo queda visible temporalmente en Nivel 1 para revisión docente; no es autenticación ni protección real.
+- **Visibilidad:** visible temporalmente en Nivel 1 para revisión docente.
+- **Duración:** 70 minutos.
+- **Dataset real:** Wine Quality · UCI, 6,497 filas y 13 columnas.
+- **Fuente:** https://archive.ics.uci.edu/dataset/186/wine+quality
+- **Licencia:** CC BY 4.0.
+- **Fecha del snapshot:** 2026-06-14.
+- **SHA-256:** `7493fdea860730843deab246f51e180382fd7d26a24614ef5e63e39e3a26fe3d`.
+- **Evaluación rápida:** clasificar un hallazgo y proponer una acción conservadora.
+- **Plan offline:** tabla impresa, tickets de contraste y reglas visibles.
 
-**Duración:** 70 minutos.
+## Supuestos y límites
 
-**Dataset real para clase:** Wine Quality · UCI, 6,497 filas y 13 columnas, licencia CC BY 4.0.
-
-**Fuente:** https://archive.ics.uci.edu/dataset/186/wine+quality
-
-**Fecha del snapshot:** 2026-06-14.
-
-**SHA-256:** `7493fdea860730843deab246f51e180382fd7d26a24614ef5e63e39e3a26fe3d`.
-
-| Minutos | Actividad |
-| --- | --- |
-| 0-15 | Escaneo y predicción de riesgos |
-| 15-30 | Diagnóstico de faltantes y duplicados |
-| 30-45 | Reglas de rango y tratamiento conservador |
-| 45-60 | Sesgo de medición y calibración |
-| 60-70 | Reporte de calidad y cierre |
-
-**Codex:** generar reglas reproducibles y reporte de hallazgos.
-
-**Gemini:** facilitar diagnóstico causal y preguntas sobre riesgo.
-
-**ChatGPT:** generar ejemplos alternativos y preguntas de revisión.
-
-**Evaluación rápida:** el estudiante clasifica un hallazgo como faltante, duplicado, rango inválido o posible sesgo de medición, y propone una primera acción conservadora.
-
-**Checklist antes de clase:** verificar snapshot, fuente y SHA; preparar reglas de dominio; decidir qué valores no deben corregirse sin investigación.
-
-**Checklist durante clase:** pedir causa plausible, acción inicial y límite de conclusión antes de aceptar una limpieza.
-
-**Plan offline:** inspección manual con colores y una lista de reglas impresas.
+- El reporte conserva 10 filas crudas, 9 IDs únicos, un faltante, un inválido,
+  un duplicado confirmado y un caso raro válido.
+- La cobertura didáctica no autoriza conclusiones sobre demanda habitual.

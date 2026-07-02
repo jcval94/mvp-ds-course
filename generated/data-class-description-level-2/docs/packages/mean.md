@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Palmer Penguins`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Palmer Penguins` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** La media suma los valores y divide entre el número de observaciones.
 - **Intuición:** Es el punto donde una regla con pesos iguales quedaría equilibrada.
 - **Error común:** Tratar la media como un valor típico aunque existan extremos o asimetría.
-- **Visual:** Compara la media antes y después de desplazar una observación extrema.
+- **Visual:** Compara la media antes y después de añadir un pedido grande confirmado.
 - **Kind visual:** `number-line`.
 - **Mecanismo:** desplazamiento del punto de equilibrio.
-- **Estados:** Base → Extremo desplazado.
+- **Estados:** Pedidos observados → Pedido grande añadido.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Mover un extremo.
-- **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
-- **Variables:** `body_mass_g`, numérica continua en gramos.
-- **Dataset:** Palmer Penguins, 344 filas, licencia CC0-1.0.
-- **Fuente:** https://allisonhorst.github.io/palmerpenguins/.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Interacción:** Añadir un pedido grande.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, numérica discreta en tacos por pedido.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S01`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.1`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Un pedido grande mueve el punto de equilibrio de tacos por pedido.
+
+**Don Juan:** Mijo, esa cuenta se fue para arriba. ¿Qué pedido la jaló?
+
+**Paco:** Déjame comparar antes y después, apá.
+
+**Subtítulos:** La media reparte el total por igual entre todos los pedidos. / Un extremo modifica la media; no vuelve típico ese tamaño.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Mover un extremo** y describir qué cambió.
+3. Ejecutar **Añadir un pedido grande** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Mover un extremo» y citar el cambio visible asociado con media.
+**Evidencia narrativa común:** Ejecutar «Añadir un pedido grande» y citar el cambio visible asociado con media en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Lucía, analista de operaciones de una clínica debe resumir mediciones de pacientes antes de una junta de 15 minutos. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de media sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; una compra de tortillas debe recalcularse al separar un encargo grande, en un incidente posterior a L2-S01. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de media que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mover un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Añadir un pedido grande» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Media: recorrer todos los estados y citar la marca visible de desplazamiento del punto de equilibrio. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara los marcadores de media y mediana antes y después de desplazar el extremo.
+**Evidencia requerida:** Incidente 1 de Media: recorrer todos los estados y citar la marca visible de desplazamiento del punto de equilibrio.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs mean-state-1, mean-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** Al mover el punto extremo hacia la derecha, ¿qué marcador cambia más?
+**Pregunta:** Al añadir el pedido grande, ¿qué marcador se desplaza más?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| La media. | Sí | La media usa la magnitud de todos los valores y se desplaza hacia el extremo. |
-| La mediana. | No | La mediana depende del orden central y suele moverse menos. |
-| El número de observaciones. | No | Mover un valor no agrega ni elimina observaciones. |
+| La media se desplaza más que la mediana. | Sí | La evidencia visible sostiene «La media se desplaza más que la mediana.» dentro de desplazamiento del punto de equilibrio. |
+| La mediana se desplaza más que la media. | No | El estado recorrido contradice «La mediana se desplaza más que la media.»; compara las marcas y etiquetas. |
+| Ambos marcadores permanecen en el mismo lugar. | No | El estado recorrido contradice «Ambos marcadores permanecen en el mismo lugar.»; conserva la unidad y el límite. |
 
-**Pista:** Observa qué marcador se desplaza en la recta.
+**Pista:** Recorre todos los estados de media y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Lucía, analista de operaciones de una clínica cambia de contexto para probar si el razonamiento se transfiere. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de media sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de media que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Mover un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Añadir un pedido grande» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Media: recorrer todos los estados y citar la marca visible de desplazamiento del punto de equilibrio. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Usa la separación visible entre centro, puntos e IQR para identificar qué información falta.
+**Evidencia requerida:** Incidente 2 de Media: recorrer todos los estados y citar la marca visible de desplazamiento del punto de equilibrio.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs mean-state-1, mean-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** Dos especies tienen la misma media de masa. ¿Qué debes revisar antes de llamarlas similares?
+**Pregunta:** ¿Qué comparación visible impide llamar típico al pedido grande?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| La dispersión y la forma de cada grupo. | Sí | La misma media puede ocultar distribuciones muy diferentes. |
-| Solo el nombre de la especie. | No | La etiqueta no describe cómo se distribuyen las masas. |
-| Que ambas tengan exactamente 100 filas. | No | El tamaño ayuda a evaluar estabilidad, pero no garantiza similitud. |
+| La media cambia mucho y la mediana cambia poco. | Sí | La evidencia visible sostiene «La media cambia mucho y la mediana cambia poco.» dentro de desplazamiento del punto de equilibrio. |
+| Media y mediana terminan exactamente sobre el extremo. | No | El estado recorrido contradice «Media y mediana terminan exactamente sobre el extremo.»; compara las marcas y etiquetas. |
+| El número de pedidos baja al añadir el extremo. | No | El estado recorrido contradice «El número de pedidos baja al añadir el extremo.»; conserva la unidad y el límite. |
 
-**Pista:** Una medida de centro no resume toda la distribución.
+**Pista:** Recorre todos los estados de media y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta media con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Mover un extremo», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Añadir un pedido grande», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

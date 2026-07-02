@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Palmer Penguins`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Palmer Penguins` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** Un gráfico de barras usa longitud para comparar una medida por categoría.
 - **Intuición:** Cada barra es una regla que parte de una base compartida.
 - **Error común:** Usar barras para una variable continua sin agrupar o truncar el eje para exagerar.
-- **Visual:** Compara conteo y media por especie manteniendo una línea base explícita.
+- **Visual:** Cuenta pedidos por tipo de taco desde una base cero común.
 - **Kind visual:** `zero-baseline-bars`.
-- **Mecanismo:** longitud desde una base cero común.
-- **Estados:** Media → Conteo.
+- **Mecanismo:** conteo por tipo desde una base cero común.
+- **Estados:** Conteo → Etiquetas visibles.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Cambiar métrica.
-- **Unidad de análisis:** una observación es un pingüino.
-- **Variables:** `species`, categórica; `body_mass_g`, numérica continua en gramos.
-- **Dataset:** Palmer Penguins, 344 filas, licencia CC0-1.0.
-- **Fuente:** https://allisonhorst.github.io/palmerpenguins/.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Interacción:** Mostrar etiquetas.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `tipo_taco`, `dia_semana` y `para_llevar`, categóricas; `num_tacos`, numérica discreta.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S14`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.3`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Se cuentan pedidos por tipo de taco desde cero.
+
+**Don Juan:** ¿Cuál taco salió más veces?
+
+**Paco:** Cuento pedidos por tipo; no sumo nombres.
+
+**Subtítulos:** Las barras comparan categorías mediante longitudes desde una base común. / Aquí se cuentan pedidos por tipo; la operación y el eje deben permanecer visibles.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Cambiar métrica** y describir qué cambió.
+3. Ejecutar **Mostrar etiquetas** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Cambiar métrica» y citar el cambio visible asociado con gráfico de barras.
+**Evidencia narrativa común:** Ejecutar «Mostrar etiquetas» y citar el cambio visible asociado con gráfico de barras en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Mariana, bióloga que prepara un reporte para visitantes de un museo necesita comparar especies sin ocultar diferencias importantes. un promedio bonito puede volver invisible una diferencia que el público sí debe ver. La decisión es elegir una comparación visual que use gráfico de barras sin exagerar conclusiones.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; Don Juan compara qué tipo recibió más pedidos, en un incidente posterior a L2-S14. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de gráfico de barras que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar métrica» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Mostrar etiquetas» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Gráfico de barras: recorrer todos los estados y citar la marca visible de conteo por tipo desde una base cero común. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Alterna entre conteo y media de masa y lee la medida y unidad mostradas.
+**Evidencia requerida:** Incidente 1 de Gráfico de barras: recorrer todos los estados y citar la marca visible de conteo por tipo desde una base cero común.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs bar-chart-state-1, bar-chart-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Por qué el eje de barras debe iniciar en cero en esta comparación?
+**Pregunta:** ¿Qué tipo de taco tiene la barra más alta?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| La longitud completa de la barra codifica la magnitud. | Sí | Truncar la base altera la proporción visual de longitudes. |
-| Porque todo eje estadístico debe iniciar en cero. | No | Otros gráficos, como líneas, pueden requerir otra decisión. |
-| Para que todas las categorías empaten. | No | Una base común no iguala los valores. |
+| Pastor, con 223 pedidos. | Sí | La evidencia visible sostiene «Pastor, con 223 pedidos.» dentro de conteo por tipo desde una base cero común. |
+| Campechano, con 223 pedidos. | No | El estado recorrido contradice «Campechano, con 223 pedidos.»; compara las marcas y etiquetas. |
+| Suadero, con 600 pedidos. | No | El estado recorrido contradice «Suadero, con 600 pedidos.»; conserva la unidad y el límite. |
 
-**Pista:** Observa qué parte de la marca se compara.
+**Pista:** Recorre todos los estados de gráfico de barras y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Mariana, bióloga que prepara un reporte para visitantes de un museo cambia de contexto para probar si el razonamiento se transfiere. un promedio bonito puede volver invisible una diferencia que el público sí debe ver. La decisión es elegir una comparación visual que use gráfico de barras sin exagerar conclusiones.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de gráfico de barras que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar métrica» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Mostrar etiquetas» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Gráfico de barras: recorrer todos los estados y citar la marca visible de conteo por tipo desde una base cero común. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Comprueba que todas las barras parten de la misma línea base.
+**Evidencia requerida:** Incidente 2 de Gráfico de barras: recorrer todos los estados y citar la marca visible de conteo por tipo desde una base cero común.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs bar-chart-state-1, bar-chart-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** ¿Qué debes escribir en el título o eje al mostrar una barra por especie?
+**Pregunta:** ¿Qué operación representan las etiquetas finales?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| La medida agregada, por ejemplo media de masa en gramos. | Sí | La barra necesita indicar qué resumen representa y su unidad. |
-| Solo el color elegido. | No | El color no define la métrica. |
-| La lista completa de cada observación. | No | Los datos completos pueden estar disponibles aparte. |
+| Conteo de pedidos por tipo. | Sí | La evidencia visible sostiene «Conteo de pedidos por tipo.» dentro de conteo por tipo desde una base cero común. |
+| Media de tacos por tipo. | No | El estado recorrido contradice «Media de tacos por tipo.»; compara las marcas y etiquetas. |
+| Suma de minutos por tipo. | No | El estado recorrido contradice «Suma de minutos por tipo.»; conserva la unidad y el límite. |
 
-**Pista:** Pregunta qué número resume cada barra.
+**Pista:** Recorre todos los estados de gráfico de barras y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta gráfico de barras con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Cambiar métrica», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Mostrar etiquetas», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

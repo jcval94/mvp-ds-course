@@ -6,7 +6,7 @@ DataClass Forge.
 
 ## Idea en una frase
 
-Una fábrica documental asistida por agentes que transforma un concepto de ciencia de datos en material educativo visual, ejercicios con feedback y un paquete listo para enseñar.
+Una fábrica documental asistida por agentes que transforma un concepto de ciencia de datos en material educativo visual, narrativamente coherente, con ejercicios con feedback y un paquete listo para enseñar.
 
 ## Problema que resuelve
 
@@ -31,6 +31,8 @@ El usuario selecciona un concepto, nivel, contexto y tipo de experiencia, y obti
 - guía docente o paquete de enseñanza en vivo;
 - snapshot público con fuente y licencia, o dataset sintético etiquetado cuando no exista una alternativa adecuada;
 - prompts y blueprint de notebook o demo.
+- una continuidad narrativa opcional y verificable entre conceptos y niveles;
+- una competencia transversal de trabajo con agentes que no desplaza el objetivo de ciencia de datos.
 
 ## Señal de éxito inicial
 
@@ -60,6 +62,26 @@ No deben copiarse como plantilla universal ni limitar el producto a histogramas.
 El repositorio mantiene Markdown como fuente documental para operar con agentes y
 publica una vista estática de resultados mediante GitHub Pages. Los laboratorios
 son HTML autocontenido sin backend ni ejecución de modelos.
+
+## Sistema narrativo
+
+La línea narrativa canónica usa a Don Juan y Paco como núcleo recurrente y
+añade invitados cuando un dominio necesita experiencia que ellos no poseen. La
+narrativa se especifica mediante una `CourseStoryBible`, fichas de personaje,
+arcos de nivel y un `ContinuityLedger`; no se acepta como simple decoración.
+
+- Don Juan aporta exclusivamente experiencia del negocio y mantiene lenguaje
+  simple durante todo el curso; nunca introduce ni concluye ciencia de datos.
+- Paco es su hijo, cursa preparatoria, ayuda tres noches sin sustituir un empleo
+  y conecta una clase de datos con otra de IA.
+- El narrador introduce todos los conceptos, nombres, conclusiones técnicas,
+  supuestos y límites.
+- La Story Bible fija una matriz incremental de relaciones, secretos con ventana
+  de revelación y crecimiento cuantificado del puesto.
+- Aprender y Ejercitar pueden compartir mundo, pero deben usar episodios,
+  evidencia y decisiones diferentes.
+- Cada episodio mantiene un objetivo principal de ciencia de datos y, como
+  máximo, una competencia auxiliar de trabajo con agentes.
 
 ## Entrada y salida esperadas
 

@@ -1,0 +1,51 @@
+{
+  "id": "pedidos-puesto-nivel-2",
+  "synthetic": true,
+  "label": "Dataset sintético narrativo; no representa personas reales",
+  "generator": "level2-orders-v1",
+  "seed": 20260628,
+  "period": {
+    "start": "2026-06-04",
+    "end": "2026-06-28",
+    "nights": 16
+  },
+  "dimensions": {
+    "rows": 600,
+    "columns": 10
+  },
+  "nightly_order_range": [
+    30,
+    45
+  ],
+  "schema": [
+    "pedido_id",
+    "fecha_hora",
+    "noche_id",
+    "dia_semana",
+    "tipo_taco",
+    "num_tacos",
+    "nivel_salsa",
+    "para_llevar",
+    "minuto_turno",
+    "estado_calidad"
+  ],
+  "files": {
+    "orders": {
+      "path": "datasets/narrative/pedidos_4_semanas_nivel_2.csv",
+      "sha256": "16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db"
+    },
+    "audit": {
+      "path": "datasets/narrative/auditoria_atipicos_nivel_2.csv",
+      "rows": 4,
+      "columns": 7,
+      "sha256": "a52cb9c75e436156c901d073dc97cc06b4d4a910f5570a12f530d20763c9ef0a"
+    }
+  },
+  "data_state": [
+    "L1.4",
+    "pedidos_4_semanas@L2.1",
+    "resumen@L2.2",
+    "distribuciones@L2.3",
+    "comparaciones_atipicos@L2.4"
+  ]
+}

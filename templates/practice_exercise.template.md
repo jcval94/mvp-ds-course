@@ -4,6 +4,9 @@
 
 [ConceptSpec y nivel.]
 
+- Story Bible, arco y ledger: [referencias o no aplica].
+- Incidente de Aprender que no debe repetirse: [incidente o no aplica].
+
 ## Ejercicio guiado
 
 - Rol: [rol].
@@ -37,6 +40,11 @@
 ## Conclusión
 
 [Aprendizaje transferible y límites.]
+
+- `continuityDelta`: [cambio o no aplica].
+- `dataStateDelta`: [cambio o no aplica].
+- `growthDelta`: [cambio o ninguno].
+- Puente: [pregunta siguiente].
 
 ## Ejercicio de transferencia
 

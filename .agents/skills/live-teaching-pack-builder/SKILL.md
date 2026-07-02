@@ -1,37 +1,18 @@
 ---
 name: live-teaching-pack-builder
-description: Prepara paquetes reproducibles para enseñar conceptos de ciencia de datos en vivo, con guion, dataset, demo, preguntas, evaluación, notebook o HTML, prompts, checklists y plan offline. Usar para clases, talleres, demos docentes o modo Enseñar en vivo.
+description: Prepara paquetes reproducibles para enseñar conceptos de ciencia de datos en vivo, con guion, snapshot público, demo, preguntas, evaluación, continuidad narrativa opcional y plan offline. Usar para clases, talleres, modo docente y materiales de facilitación.
 ---
 
 # Live Teaching Pack Builder
 
-Usar `ConceptSpec`, `LearningModule` y `PracticeExercise`.
+1. Leer `ConceptSpec`, `LearningModule`, `PracticeExercise` y contexto narrativo cuando exista.
+2. Definir objetivo, audiencia, duración y guion minuto a minuto.
+3. Usar un snapshot público real local con esquema, fuente, licencia, fecha y SHA-256.
+4. Explicar si el snapshot docente difiere del dataset narrativo sintético y qué relación conceptual conserva.
+5. Diseñar demo, predicción, experimento, preguntas socráticas, errores anticipados y evaluación rápida.
+6. Preparar blueprint, prompt técnico para Codex y prompts de facilitación para Gemini y ChatGPT.
+7. Incluir verificación humana, privacidad, plan offline y checklists.
+8. Mantener el contenido oculto por defecto en la experiencia estudiantil y aclarar que no es seguridad real.
 
-Producir:
-
-- objetivo, audiencia, duración y prerrequisitos;
-- guion minuto a minuto;
-- snapshot público real local con esquema, procedencia, licencia, fecha,
-  dimensiones y SHA-256;
-- demostración visual y experimento;
-- preguntas socráticas y errores anticipados;
-- evaluación rápida y cierre;
-- blueprint de notebook o demo HTML;
-- prompt para Codex que modifique o verifique código reproducible;
-- prompts para Gemini y ChatGPT que faciliten, critiquen e interpreten;
-- protocolo de verificación humana y privacidad;
-- checklist antes y durante la clase;
-- plan offline sin IA ni red.
-
-El paquete En vivo es contenido del docente. En sitios estáticos puede ocultarse
-con un modo docente (`?teacher=1`, atajo o archivo separado), pero debe aclarar
-que eso no es seguridad real. No debe mostrarse como pestaña estudiantil visible.
-
-El dataset principal de En vivo no puede ser sintético. Los datos sintéticos solo
-pueden aparecer como plan B etiquetado, nunca como fuente de la clase.
-
-El paquete debe ser impartible por otro docente con ajustes menores.
-
-Rechazar si el HTML depende de servicios externos, si Codex y Gemini/ChatGPT
-tienen roles indistinguibles, si carece de contingencia, si usa datos sintéticos
-como fuente principal o si deja datos, feedback o cierre para completar después.
+Rechazar si depende de ejecutar IA o descargar datos durante clase, usa sintéticos
+como fuente principal, contradice el canon, deja secciones al docente o carece de cierre y contingencia.

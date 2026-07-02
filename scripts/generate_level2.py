@@ -4,14 +4,23 @@
 from __future__ import annotations
 
 import csv
+from datetime import datetime, timedelta
+import hashlib
 import json
 from pathlib import Path
+import random
 import statistics
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "generated" / "data-class-description-level-2"
 DATASETS = ROOT / "datasets" / "snapshots"
+NARRATIVE_DATASETS = ROOT / "datasets" / "narrative"
+NARRATIVE_ORDERS = NARRATIVE_DATASETS / "pedidos_4_semanas_nivel_2.csv"
+NARRATIVE_AUDIT = NARRATIVE_DATASETS / "auditoria_atipicos_nivel_2.csv"
+NARRATIVE_METADATA = NARRATIVE_DATASETS / "pedidos_nivel_2.metadata.json"
+NARRATIVE_SEED = 20260628
+NARRATIVE_GENERATOR_VERSION = "level2-orders-v1"
 
 
 def opt(text: str, correct: bool, feedback: str) -> dict[str, object]:
@@ -78,7 +87,7 @@ BLOCKS = [
         "description": "Compara centro, dispersión y posición sin depender de una sola cifra.",
         "href": "resumen-numerico.html",
         "dataset_id": "palmer-penguins",
-        "dataset_name": "Palmer Penguins · masa corporal",
+        "dataset_name": "Pedidos del puesto · cantidad por pedido",
         "concepts": [
             concept(
                 "mean",
@@ -313,7 +322,7 @@ BLOCKS = [
         "description": "Construye y lee forma, sesgo, modos y sensibilidad a intervalos.",
         "href": "distribuciones.html",
         "dataset_id": "bike-sharing-day",
-        "dataset_name": "Bike Sharing · alquileres diarios",
+        "dataset_name": "Pedidos del puesto · forma y momento del turno",
         "concepts": [
             concept(
                 "histogram",
@@ -516,7 +525,7 @@ BLOCKS = [
         "description": "Elige representaciones que comparen categorías y distribuciones completas.",
         "href": "comparacion-visual.html",
         "dataset_id": "palmer-penguins",
-        "dataset_name": "Palmer Penguins · especies",
+        "dataset_name": "Pedidos del puesto · grupos operativos",
         "concepts": [
             concept(
                 "bar-chart",
@@ -655,7 +664,7 @@ BLOCKS = [
         "description": "Investiga extremos, influencia, errores de captura y casos raros válidos.",
         "href": "valores-atipicos.html",
         "dataset_id": "wine-quality",
-        "dataset_name": "Wine Quality · propiedades fisicoquímicas",
+        "dataset_name": "Pedidos del puesto · auditoría de casos",
         "concepts": [
             concept(
                 "outliers",
@@ -879,28 +888,235 @@ EVIDENCE = {
 
 
 LEVEL2_VISUAL_CONTRACTS = {
-    "mean": ("number-line", "desplazamiento del punto de equilibrio", ["Base", "Extremo desplazado"]),
-    "median": ("number-line", "resistencia del centro ordenado", ["Base", "Extremo añadido"]),
-    "mode": ("histogram", "máximo de frecuencia sensible a agrupación", ["100 g", "250 g", "500 g"]),
+    "mean": ("number-line", "desplazamiento del punto de equilibrio", ["Pedidos observados", "Pedido grande añadido"]),
+    "median": ("number-line", "resistencia del centro ordenado", ["Pedidos ordenados", "Pedido grande añadido"]),
+    "mode": ("histogram", "máximo de frecuencia del tamaño de pedido", ["Frecuencias", "Máximo destacado"]),
     "range": ("number-line", "distancia entre mínimo y máximo", ["Base", "Extremos separados"]),
     "variance": ("spread-band", "distancias cuadráticas respecto de la media", ["Base", "Extremo añadido"]),
     "standard-deviation": ("spread-band", "dispersión en la unidad original", ["Base", "Banda comparada"]),
     "percentiles": ("quantile-line", "proporción acumulada a la izquierda del corte", ["P25", "P50", "P75"]),
     "histogram": ("histogram", "conteo por intervalos conservando el total", ["7 bins", "12 bins", "22 bins"]),
-    "density": ("density-rug", "suavizado de observaciones manteniendo área unitaria", ["Banda 250", "Banda 600", "Banda 1200"]),
-    "shape": ("histogram", "forma completa: centro, extensión y colas", ["Todos", "Invierno", "Verano"]),
+    "density": ("density-rug", "suavizado de observaciones manteniendo área unitaria", ["Banda 0.4", "Banda 1", "Banda 2"]),
+    "shape": ("histogram", "forma completa: centro, extensión y colas", ["Todos", "Jueves", "Domingo"]),
     "skew": ("histogram-tail", "dirección de cola y separación media-mediana", ["Distribución", "Cola resaltada"]),
-    "multimodality": ("density-groups", "cimas agregadas frente a grupos latentes", ["Agregado", "Temporadas"]),
+    "multimodality": ("density-groups", "dos concentraciones dentro del turno", ["Turno completo", "Dos concentraciones"]),
     "bins": ("histogram", "sensibilidad de la forma a la partición", ["6 bins", "12 bins", "24 bins"]),
-    "bar-chart": ("zero-baseline-bars", "longitud desde una base cero común", ["Media", "Conteo"]),
+    "bar-chart": ("zero-baseline-bars", "conteo por tipo desde una base cero común", ["Conteo", "Etiquetas visibles"]),
     "boxplot": ("boxplot", "cuartiles, bigotes y puntos exteriores", ["Resumen", "Etiquetas"]),
-    "violin-plot": ("violin", "densidad reflejada por grupo", ["Banda 120", "Banda 250", "Banda 450"]),
-    "ecdf": ("ecdf", "proporción acumulada bajo un umbral", ["3500 g", "4000 g", "4500 g", "5000 g"]),
+    "violin-plot": ("violin", "densidad reflejada por grupo", ["Banda 0.4", "Banda 1", "Banda 2"]),
+    "ecdf": ("ecdf", "proporción acumulada bajo un umbral", ["2 tacos", "4 tacos", "6 tacos", "8 tacos"]),
     "outliers": ("iqr-review", "detección por cercas sin veredicto automático", ["Regla IQR", "Fila en revisión"]),
     "leverage": ("scatter-fit", "posición horizontal extrema y sensibilidad del ajuste", ["Con extremo", "Sin extremo"]),
     "capture-error": ("domain-validation", "regla de dominio y trazabilidad", ["Pendiente", "Validado"]),
     "rare-valid": ("scatter-detail", "rareza estadística frente a plausibilidad contextual", ["Caso marcado", "Detalle trazable"]),
 }
+
+
+STORY_CONTRACTS = {
+    "mean": ("L2-S01", "Un pedido grande mueve el punto de equilibrio de tacos por pedido.", "Mijo, esa cuenta se fue para arriba. ¿Qué pedido la jaló?", "Déjame comparar antes y después, apá.", "La media reparte el total por igual entre todos los pedidos.", "Un extremo modifica la media; no vuelve típico ese tamaño."),
+    "median": ("L2-S02", "Los pedidos se ordenan y se marca la posición central.", "¿Cuál queda en medio aunque llegue el pedido grandote?", "Primero los acomodo; no voy a adivinar el centro.", "La mediana es la posición central de los valores ordenados.", "El extremo cambia poco la posición central; resistencia no significa inmunidad."),
+    "mode": ("L2-S03", "Paco cuenta tamaños exactos de pedido.", "Quiero saber cuál se repite más, no cuál queda bonito.", "Voy a contar cada tamaño, apá.", "La moda es el valor con mayor frecuencia y puede no ser única.", "La frecuencia más alta identifica el tamaño más común de esta entrada."),
+    "range": ("L2-S04", "Se comparan el pedido menor y el mayor.", "Del más chico al más grande hay buen trecho.", "Sí, pero todavía no dice dónde están los demás.", "El rango es máximo menos mínimo.", "El rango usa solo los extremos y no describe los valores interiores."),
+    "variance": ("L2-S05", "Se hacen visibles distancias cuadradas al centro.", "Ese pedido lejano está pesando muchísimo en la cuenta.", "La distancia se está usando como lado de un cuadrado.", "La varianza promedia desviaciones cuadradas respecto de la media.", "Elevar al cuadrado amplifica distancias grandes y cambia la unidad."),
+    "standard-deviation": ("L2-S06", "La dispersión vuelve a expresarse en tacos.", "Dime la separación en tacos, no en tacos cuadrados.", "Eso sí se puede contar en la mesa, apá.", "La desviación estándar es la raíz de la varianza y conserva la unidad original.", "Resume separación respecto de la media; no garantiza una forma normal."),
+    "percentiles": ("L2-S07", "Paco recorre P25, P50 y P75.", "¿Hasta cuántos tacos quedan tres de cada cuatro pedidos?", "Muevo el corte y leo qué proporción queda antes.", "Un percentil es un umbral asociado con una proporción acumulada.", "P75 no significa que 75% de los valores sean iguales al corte."),
+    "histogram": ("L2-S08", "Las cantidades se agrupan en intervalos.", "Ya veo montones; dime qué metiste en cada cajón.", "La entrada es la misma; cambio cuántos intervalos uso.", "Un histograma cuenta valores numéricos en intervalos contiguos.", "Las barras conservan el total; los intervalos cambian el detalle visible."),
+    "density": ("L2-S09", "Una curva suaviza las marcas de cada pedido.", "La curva se ve pareja, pero no quiero que desaparezcan los pedidos.", "Dejo las marquitas abajo para comprobarlos.", "Una densidad suaviza observaciones y conserva un área total unitaria.", "El ancho de banda puede ocultar o exagerar picos aparentes."),
+    "shape": ("L2-S10", "Se observan centro, extensión, picos y colas.", "No me cuentes solo dónde está el montón; también quiero ver las orillas.", "Voy a describir todo el dibujo, no nada más una barra.", "La forma integra centro, extensión, picos, huecos y colas.", "Describir la forma del periodo no explica su causa."),
+    "skew": ("L2-S11", "Se resalta una cola hacia pedidos grandes.", "Hay pocos pedidos que estiran la cuenta para un lado.", "Digo hacia dónde va la cola, no si está bien o mal.", "El sesgo describe la dirección de una cola prolongada.", "Una cola derecha suele atraer más a la media que a la mediana."),
+    "multimodality": ("L2-S12", "Los minutos del turno revelan dos concentraciones.", "Se nos junta gente dos veces, no una.", "Lo compruebo en los minutos del turno, apá.", "La multimodalidad aparece con más de una concentración.", "Dos picos sugieren estructura para investigar, no identifican por sí solos la causa."),
+    "bins": ("L2-S13", "La misma entrada se muestra con 6, 12 y 24 intervalos.", "Con tantos cajoncitos parece otro turno.", "Beto hace algo parecido en su stop-motion: cada cuadro cambia lo visible.", "Los bins son un parámetro que define bordes y ancho de intervalos.", "Una lectura robusta se revisa con varias elecciones razonables de bins."),
+    "bar-chart": ("L2-S14", "Se cuentan pedidos por tipo de taco desde cero.", "¿Cuál taco salió más veces?", "Cuento pedidos por tipo; no sumo nombres.", "Las barras comparan categorías mediante longitudes desde una base común.", "Aquí se cuentan pedidos por tipo; la operación y el eje deben permanecer visibles."),
+    "boxplot": ("L2-S15", "La cantidad se compara por modalidad.", "Enséñame el centro y qué tan abiertas están las cajas.", "Y dejo marcados los puntos que toca revisar.", "Un boxplot resume mediana, cuartiles, bigotes y candidatos atípicos.", "El resumen compacto no muestra toda la forma ni declara errores."),
+    "violin-plot": ("L2-S16", "La densidad reflejada compara días.", "Ese dibujo enseña dónde se amontonan, ¿verdad?", "Revisaré el suavizado para no exagerar la cintura.", "Un violin plot refleja una densidad por grupo.", "Su forma depende del suavizado, la escala y el tamaño de grupo."),
+    "ecdf": ("L2-S17", "Se lee la proporción de pedidos bajo un umbral.", "Si preparo bolsas para seis tacos, ¿a cuántos pedidos alcanzo?", "Busco seis y leo la altura acumulada.", "La ECDF asigna a cada umbral la proporción observada menor o igual.", "La ECDF compara todos los umbrales sin elegir bins."),
+    "outliers": ("L2-S18", "Un pedido grande cruza la cerca IQR.", "Raro sí está; borrarlo nomás porque sí, no.", "Lo marco y busco el ticket.", "Un outlier es una señal estadística para investigar, no un veredicto.", "La regla IQR detecta candidatos; el contexto determina la acción."),
+    "leverage": ("L2-S19", "Un minuto muy lejano cambia una recta descriptiva.", "Ese punto apartado está torciendo la raya.", "Comparo la raya con y sin él; no diré que una cosa causa la otra.", "Leverage describe una posición extrema en la entrada de un ajuste.", "Puede cambiar la pendiente; influencia y error no son sinónimos."),
+    "capture-error": ("L2-S20", "La auditoría contrasta totales mezclados con pedidos.", "Eso era el total de la noche, no un solo pedido.", "Lo marco con su fuente; no invento un número bonito.", "Un error de captura contradice el significado o la fuente del campo.", "Corregir requiere evidencia; el original y su estado se conservan."),
+    "rare-valid": ("L2-S21", "Los tickets confirman dos pedidos grandes.", "Fue grande, pero sí salió de esta plancha.", "Entonces se queda, con la comprobación anotada.", "Un caso raro válido es extremo y auténtico.", "La rareza es estadística; la validez se confirma con contexto trazable."),
+}
+
+
+NARRATIVE_VISUAL_TEXT = {
+    "mean": ("Añadir un pedido grande", "Compara la media antes y después de añadir un pedido grande confirmado."),
+    "median": ("Añadir un pedido grande", "Ordena los pedidos y compara cuánto cambian media y mediana."),
+    "mode": ("Destacar la frecuencia máxima", "Cuenta cada tamaño de pedido y localiza el que más se repite."),
+    "range": ("Separar los extremos", "Compara el pedido menor, el mayor y la distancia entre ambos."),
+    "variance": ("Añadir un pedido grande", "Observa cómo crecen las distancias cuadradas respecto de la media."),
+    "standard-deviation": ("Comparar la banda", "Lee la separación de los pedidos nuevamente en tacos."),
+    "percentiles": ("Mover el percentil", "Recorre P25, P50 y P75 sobre cantidades ordenadas."),
+    "histogram": ("Cambiar intervalos", "Ajusta el número de bins sin cambiar los 600 pedidos observados."),
+    "density": ("Ajustar el suavizado", "Cambia el ancho de banda y conserva visibles las marcas de los pedidos."),
+    "shape": ("Comparar días", "Describe centro, extensión, picos y colas para todos, jueves y domingo."),
+    "skew": ("Resaltar la cola", "Compara la cola derecha con las posiciones de media y mediana."),
+    "multimodality": ("Separar concentraciones", "Observa dos concentraciones en los minutos del turno."),
+    "bins": ("Probar 6, 12 y 24 bins", "Mantén la entrada fija y prueba tres particiones razonables."),
+    "bar-chart": ("Mostrar etiquetas", "Cuenta pedidos por tipo de taco desde una base cero común."),
+    "boxplot": ("Mostrar cuartiles", "Compara cantidad por modalidad mediante mediana, caja, bigotes y candidatos."),
+    "violin-plot": ("Ajustar el suavizado", "Compara la densidad reflejada por día con tres anchos de banda."),
+    "ecdf": ("Mover el umbral", "Lee la proporción acumulada de pedidos en mesa y para llevar."),
+    "outliers": ("Aplicar regla IQR", "Marca pedidos candidatos sin convertir la regla en un veredicto."),
+    "leverage": ("Comparar el ajuste", "Compara una recta descriptiva con y sin el minuto extremo."),
+    "capture-error": ("Contrastar la fuente", "Revisa totales mezclados con pedidos y conserva el original."),
+    "rare-valid": ("Abrir comprobantes", "Contrasta la rareza con tickets y estado de calidad trazable."),
+}
+
+
+PRACTICE_INCIDENTS = {
+    "mean": ("una compra de tortillas debe recalcularse al separar un encargo grande", "otra noche comparte la media, pero no la dispersión"),
+    "median": ("dos retrasos enormes estiran los tiempos del cierre", "un turno nuevo exige ordenar antes de elegir el centro"),
+    "mode": ("faltan bolsas y Don Juan pregunta qué tamaño se repitió más", "otra noche presenta un empate entre dos tamaños"),
+    "range": ("la distancia entre el pedido menor y el mayor cambia la reserva de tortillas", "dos noches comparten extremos y difieren por dentro"),
+    "variance": ("dos noches con centro parecido separan sus pedidos de manera distinta", "un encargo lejano cambia las desviaciones cuadradas"),
+    "standard-deviation": ("Don Juan necesita expresar la variación nuevamente en tacos", "otra escala exige convertir también la dispersión"),
+    "percentiles": ("se elige una bolsa que cubra una proporción declarada de pedidos", "otro umbral debe leerse sin confundir corte con porcentaje exacto"),
+    "histogram": ("una noche posterior debe resumirse sin leer cuarenta tickets uno por uno", "otro turno cambia de forma al modificar los intervalos"),
+    "density": ("un suavizado excesivo oculta una concentración visible en las marcas", "un suavizado estrecho crea picos que Paco debe contrastar"),
+    "shape": ("la noche de partido muestra una forma distinta sin explicar por qué", "jueves y domingo intercambian extensión y cola"),
+    "skew": ("pocos encargos estiran la cola hacia cantidades grandes", "otra noche obliga a elegir qué centro comunicar"),
+    "multimodality": ("dos filas de clientes aparecen en momentos separados del turno", "otra noche muestra picos en minutos diferentes"),
+    "bins": ("una gráfica recortada llega sin indicar cuántos intervalos usó", "Paco debe comprobar si un patrón sobrevive a tres particiones"),
+    "bar-chart": ("Don Juan compara qué tipo recibió más pedidos", "otra decisión requiere sumar tacos y no contar pedidos"),
+    "boxplot": ("las modalidades muestran cajas parecidas y puntos exteriores distintos", "dos días compactados ocultan formas internas diferentes"),
+    "violin-plot": ("un día parece tener dos concentraciones bajo cierto suavizado", "otra modalidad cambia de silueta al variar el ancho de banda"),
+    "ecdf": ("Don Juan pregunta qué proporción cabe en bolsas de seis tacos", "dos modalidades se cruzan al cambiar el umbral"),
+    "outliers": ("un pedido grande cruza la cerca y queda pendiente de ticket", "otro candidato extremo resulta compatible con el turno"),
+    "leverage": ("un minuto apartado modifica la pendiente descriptiva", "otro punto lejano apenas cambia el ajuste"),
+    "capture-error": ("L2-X001 mezcla el total del turno con un pedido", "P-005 conserva 500 hasta separar la fuente correcta"),
+    "rare-valid": ("L2-A001 confirma 36 tacos mediante ticket", "P-007 conserva 30 tacos sin inferir nada del cliente"),
+}
+
+
+EVIDENCE_QUESTIONS = {
+    "mean": [
+        ("Al añadir el pedido grande, ¿qué marcador se desplaza más?", "La media se desplaza más que la mediana.", "La mediana se desplaza más que la media.", "Ambos marcadores permanecen en el mismo lugar."),
+        ("¿Qué comparación visible impide llamar típico al pedido grande?", "La media cambia mucho y la mediana cambia poco.", "Media y mediana terminan exactamente sobre el extremo.", "El número de pedidos baja al añadir el extremo."),
+    ],
+    "median": [
+        ("Después de ordenar y añadir el extremo, ¿qué centro conserva mejor su posición?", "La mediana.", "La media.", "El máximo."),
+        ("¿Qué par de marcas queda más separado en el estado final?", "Media y mediana.", "Mínimo y P25, que coinciden.", "Las dos marcas de centro, que no se mueven."),
+    ],
+    "mode": [
+        ("Al destacar la frecuencia máxima, ¿qué tamaño queda marcado?", "3 tacos por pedido.", "12 tacos por pedido.", "36 tacos por pedido."),
+        ("¿Qué barra sostiene la preparación de más bolsas?", "La barra de 3 tacos, porque es la más alta.", "La barra de 36 tacos, porque está más a la derecha.", "La barra de 1 taco, porque inicia el eje."),
+    ],
+    "range": [
+        ("¿Qué le ocurre al rango cuando el máximo pasa al nuevo extremo?", "Aumenta 18 tacos.", "Disminuye 18 tacos.", "No cambia porque la mediana casi no cambia."),
+        ("¿Qué marcas determinan el rango final mostrado?", "El mínimo de 1 y el máximo de 54 tacos.", "P25 y P75.", "La media y la mediana."),
+    ],
+    "variance": [
+        ("¿Qué ocurre con la banda de dispersión al añadir el pedido grande?", "Se ensancha y la varianza aumenta.", "Se estrecha y la varianza disminuye.", "Permanece idéntica."),
+        ("¿Qué evidencia muestra el peso cuadrático del extremo?", "La banda final crece alrededor de la media.", "El conteo de pedidos se reduce.", "La mediana se convierte en el máximo."),
+    ],
+    "standard-deviation": [
+        ("En el estado comparado, ¿qué cambio se observa en ±1 DE?", "La banda se ensancha en tacos.", "La banda desaparece y vale cero.", "La unidad cambia a pedidos cuadrados."),
+        ("¿Qué salida visible conserva la unidad útil para Don Juan?", "La distancia de la banda expresada en tacos.", "La altura de una categoría sin unidad.", "El número de columnas del archivo."),
+    ],
+    "percentiles": [
+        ("¿Qué secuencia de cortes aparece al recorrer P25, P50 y P75?", "3, 4 y 5 tacos.", "5, 4 y 3 tacos.", "25, 50 y 75 tacos."),
+        ("En P75, ¿dónde queda el corte observado?", "En 5 tacos por pedido.", "En 75 tacos por pedido.", "En el pedido máximo de 36 tacos."),
+    ],
+    "histogram": [
+        ("Al cambiar de 7 a 22 bins, ¿qué permanece fijo en la etiqueta?", "n=600 pedidos.", "El ancho de cada intervalo.", "El número de barras."),
+        ("¿Qué cambia visiblemente entre el primer y el último estado?", "Aparecen intervalos más estrechos y más numerosos.", "Desaparecen pedidos del total.", "El eje cambia de tacos a minutos."),
+    ],
+    "density": [
+        ("¿Qué curva conserva más ondulaciones?", "La de banda 0.4.", "La de banda 2.", "Las tres son idénticas."),
+        ("¿Qué pasa al aumentar la banda hasta 2?", "La curva se suaviza mientras las marcas permanecen.", "La curva se vuelve un gráfico de barras.", "Se eliminan los pedidos grandes del archivo."),
+    ],
+    "shape": [
+        ("¿Qué comparación de tamaños de grupo muestran jueves y domingo?", "Jueves n=154 y domingo n=152.", "Jueves n=30 y domingo n=45.", "Ambos grupos n=600."),
+        ("¿Qué elemento cambia al pasar de todos los pedidos a domingo?", "La forma y el tamaño del grupo visible.", "La unidad de análisis deja de ser pedido.", "Se prueba que el día causa la forma."),
+    ],
+    "skew": [
+        ("¿Hacia qué lado queda resaltada la cola?", "Hacia cantidades grandes, a la derecha.", "Hacia cantidades pequeñas, a la izquierda.", "No se resalta ninguna cola."),
+        ("¿Qué pedidos ocupan la zona sombreada final?", "Los que quedan por encima de P75 hacia el extremo derecho.", "Solo los pedidos iguales a la mediana.", "Todos los pedidos menores al mínimo."),
+    ],
+    "multimodality": [
+        ("¿Cuántas concentraciones principales aparecen en los minutos del turno?", "Dos.", "Una sola.", "Dieciséis, una por noche."),
+        ("¿Qué separación aparece en el estado final?", "Pico temprano y pico tardío.", "Pedidos válidos y errores de captura.", "Tacos de pastor y suadero."),
+    ],
+    "bins": [
+        ("¿Qué estado muestra el mayor detalle de intervalos?", "24 bins.", "6 bins.", "Los tres tienen el mismo ancho."),
+        ("¿Qué patrón es comprobable en los tres estados?", "La mayor concentración permanece en cantidades pequeñas.", "El total cambia de 600 a 24 pedidos.", "Los pedidos raros desaparecen al usar más bins."),
+    ],
+    "bar-chart": [
+        ("¿Qué tipo de taco tiene la barra más alta?", "Pastor, con 223 pedidos.", "Campechano, con 223 pedidos.", "Suadero, con 600 pedidos."),
+        ("¿Qué operación representan las etiquetas finales?", "Conteo de pedidos por tipo.", "Media de tacos por tipo.", "Suma de minutos por tipo."),
+    ],
+    "boxplot": [
+        ("¿Qué modalidad muestra la mediana más a la derecha?", "Para llevar.", "En mesa.", "Ambas tienen la mediana en 36 tacos."),
+        ("¿Qué diferencia visible acompaña a las cajas?", "Aparecen candidatos exteriores en cantidades grandes.", "Los bigotes prueban errores de captura.", "Cada caja contiene exactamente 600 pedidos."),
+    ],
+    "violin-plot": [
+        ("¿Qué día muestra el menor tamaño de grupo en las etiquetas?", "Sábado, n=140.", "Jueves, n=154.", "Viernes, n=600."),
+        ("¿Qué cambia al recorrer las tres bandas?", "La anchura de la silueta cambia, no el n de cada día.", "El sábado gana pedidos nuevos.", "La unidad cambia de tacos a fechas."),
+    ],
+    "ecdf": [
+        ("En el umbral final de 8 tacos, ¿qué modalidad acumula mayor proporción?", "En mesa, cerca de 96.7%.", "Para llevar, exactamente 100%.", "Ambas, exactamente 50%."),
+        ("En el primer umbral de 2 tacos, ¿qué curva estaba más alta?", "En mesa, cerca de 21.8%.", "Para llevar, cerca de 90%.", "Las dos curvas empezaban en 100%."),
+    ],
+    "outliers": [
+        ("¿Qué valor queda marcado más allá de la cerca superior?", "36 tacos.", "5 tacos.", "1 taco."),
+        ("¿Qué acción acompaña al máximo en el estado final?", "Revisar el ticket, sin veredicto automático.", "Borrarlo por cruzar la cerca.", "Cambiarlo a 6 tacos por intuición."),
+    ],
+    "leverage": [
+        ("¿Qué ocurre al retirar el minuto extremo de la recta descriptiva?", "La pendiente cambia ligeramente y aparece un Δ pequeño.", "La pendiente cambia de signo con un Δ enorme.", "Las dos rectas dejan de existir."),
+        ("¿Qué combinación muestra el estado final?", "Posición horizontal extrema con influencia pequeña.", "Error confirmado con influencia máxima.", "Causalidad entre minuto y cantidad."),
+    ],
+    "capture-error": [
+        ("¿Qué caso nuevo mezcla un total de turno con un pedido?", "L2-X001 = 360.", "L2-A001 = 36.", "P-007 = 30."),
+        ("¿Qué par queda clasificado como error confirmado?", "P-005=500 y L2-X001=360.", "P-007=30 y L2-A001=36.", "Los cuatro casos."),
+    ],
+    "rare-valid": [
+        ("¿Qué casos muestran los comprobantes como raros válidos?", "P-007=30 y L2-A001=36.", "P-005=500 y L2-X001=360.", "Solo los pedidos de 1 taco."),
+        ("¿Qué acción visible corresponde a esos dos casos?", "Conservarlos con trazabilidad.", "Sustituirlos por la mediana.", "Moverlos a error confirmado."),
+    ],
+}
+
+
+def narrative_exercises(item: dict[str, object]) -> list[dict[str, object]]:
+    mechanism = LEVEL2_VISUAL_CONTRACTS[item["id"]][1]
+    title = str(item["title"])
+    exercises = []
+    for question, correct, wrong_1, wrong_2 in EVIDENCE_QUESTIONS[item["id"]]:
+        exercises.append(
+            ex(
+                question,
+                correct,
+                wrong_1,
+                wrong_2,
+                f"La evidencia visible sostiene «{correct}» dentro de {mechanism}.",
+                f"El estado recorrido contradice «{wrong_1}»; compara las marcas y etiquetas.",
+                f"El estado recorrido contradice «{wrong_2}»; conserva la unidad y el límite.",
+                f"Recorre todos los estados de {title.lower()} y cita una marca o etiqueta exacta.",
+            )
+        )
+    return exercises
+
+
+def add_narrative_contract(item: dict[str, object], block: dict[str, object]) -> None:
+    scene, setup, don_juan, paco, initial, final = STORY_CONTRACTS[item["id"]]
+    labels = [state["label"] for state in item["visual"]["states"]]
+    subtitles = [initial]
+    for label in labels[1:-1]:
+        subtitles.append(f"Estado «{label}»: cambia el parámetro o el corte; la entrada sigue documentada.")
+    subtitles.append(final)
+    item["curriculumSource"] = "docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización"
+    item["storySource"] = "docs/stories/LEVEL_2.md"
+    item["storyStatus"] = "approved"
+    item["narrative"] = {
+        "scene": scene,
+        "episode": f"L2-E{block['number']}",
+        "setup": setup,
+        "donJuan": don_juan,
+        "paco": paco,
+        "subtitles": subtitles,
+        "dataState": ["L2.1", "L2.2", "L2.3", "L2.4"][block["number"] - 1],
+        "agentCompetency": "Declarar entrada, parámetro u operación, salida, comprobaciones y límites.",
+        "continuityDelta": "Don Juan conserva la decisión de negocio; Paco documenta y comprueba la evidencia.",
+        "growthDelta": "ninguno; el puesto permanece en G1",
+    }
 
 
 def add_visual_contract(item: dict[str, object]) -> None:
@@ -957,22 +1173,25 @@ def enrich_concepts() -> None:
     for index, item in enumerate(ordered):
         slug = item["id"]
         block = next(block for block in BLOCKS if item in block["concepts"])
+        action, cue = NARRATIVE_VISUAL_TEXT[slug]
+        item["visual"]["action"] = action
+        item["visual"]["cue"] = cue
         if block["id"] == "summary":
             prerequisites = "variable numérica, datos faltantes, orden y operaciones aritméticas básicas"
-            unit = "una observación es un pingüino con masa corporal registrada"
-            variables = "`body_mass_g`, numérica continua en gramos"
+            unit = "una observación es un pedido del puesto"
+            variables = "`num_tacos`, numérica discreta en tacos por pedido"
         elif block["id"] == "distribution":
             prerequisites = "variable numérica, frecuencia, rango y lectura de ejes"
-            unit = "una observación es un día del sistema de bicicletas compartidas"
-            variables = "`cnt`, conteo entero de alquileres diarios"
+            unit = "una observación es un pedido del puesto"
+            variables = "`num_tacos`, cantidad discreta; `minuto_turno`, minuto desde las 18:00"
         elif block["id"] == "comparison":
             prerequisites = "variables numéricas y categóricas, agrupación y resúmenes de centro"
-            unit = "una observación es un pingüino"
-            variables = "`species`, categórica; `body_mass_g`, numérica continua en gramos"
+            unit = "una observación es un pedido del puesto"
+            variables = "`tipo_taco`, `dia_semana` y `para_llevar`, categóricas; `num_tacos`, numérica discreta"
         else:
             prerequisites = "distribuciones, cuartiles, scatterplots y validación de dominio"
-            unit = "una observación es una muestra de vino"
-            variables = "`alcohol` y `density`, numéricas; `quality`, ordinal; `color`, categórica"
+            unit = "una observación es un pedido; la auditoría conserva casos separados"
+            variables = "`num_tacos` y `minuto_turno`, numéricas; `estado_calidad`, categórica"
         if slug == "variance":
             prerequisites += ", media y desviaciones"
         if slug == "standard-deviation":
@@ -1002,9 +1221,14 @@ def enrich_concepts() -> None:
             if index < len(ordered) - 1
             else "Probabilidad, muestreo e incertidumbre"
         )
-        for exercise, evidence in zip(item["exercises"], EVIDENCE[slug]):
-            exercise["evidence"] = evidence
+        item["exercises"] = narrative_exercises(item)
+        for exercise_index, exercise in enumerate(item["exercises"], start=1):
+            exercise["evidence"] = (
+                f"Incidente {exercise_index} de {item['title']}: recorrer todos los estados y citar "
+                f"la marca visible de {LEVEL2_VISUAL_CONTRACTS[slug][1]}."
+            )
         add_visual_contract(item)
+        add_narrative_contract(item, block)
         item["learningModule"] = learning_module_for(item)
         item["practiceStory"] = practice_story_for(block, item)
 
@@ -1012,17 +1236,21 @@ def enrich_concepts() -> None:
 def learning_module_for(item: dict[str, object]) -> dict[str, object]:
     return {
         "mode": "Aprender",
-        "activation": "Antes de calcular, predice qué rasgo cambiará al activar la visualización.",
+        "storySource": item["storySource"],
+        "scene": item["narrative"]["scene"],
+        "activation": item["narrative"]["setup"],
         "visualFocus": item["visual"]["cue"],
         "experiment": item["visual"]["action"],
         "checkpoint": (
-            "Explica con tus palabras qué cambió en la evidencia visual y qué "
-            "conclusión todavía no se puede afirmar."
+            "Explica qué cambió entre los estados, qué significa para la pregunta "
+            "de Don Juan y qué conclusión todavía excede la evidencia."
         ),
         "transition": (
-            "La práctica usará una historia distinta: resolver una decisión con la "
-            "evidencia recién aprendida."
+            "La práctica continúa en el puesto con un incidente posterior y evidencia nueva; "
+            "no repite la resolución de Aprender."
         ),
+        "continuityDelta": item["narrative"]["continuityDelta"],
+        "dataStateDelta": item["narrative"]["dataState"],
     }
 
 
@@ -1031,29 +1259,19 @@ def practice_story_for(
 ) -> dict[str, object]:
     title = item["title"]
     evidence = [exercise["evidence"] for exercise in item["exercises"]]
-    if block["id"] == "summary":
-        protagonist = "Lucía, analista de operaciones de una clínica"
-        context = "debe resumir mediciones de pacientes antes de una junta de 15 minutos"
-        pressure = "si elige un resumen equivocado, el director comprará equipo para el problema incorrecto"
-        decision = f"decidir qué lectura de {title.lower()} sostiene una recomendación prudente"
-    elif block["id"] == "distribution":
-        protagonist = "Don José, dueño de una tienda de barrio"
-        context = "quiere decidir a qué hora abrir sin revisar cientos de días en Excel"
-        pressure = "la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal"
-        decision = f"usar {title.lower()} para leer concentración, forma o sensibilidad de la demanda"
-    elif block["id"] == "comparison":
-        protagonist = "Mariana, bióloga que prepara un reporte para visitantes de un museo"
-        context = "necesita comparar especies sin ocultar diferencias importantes"
-        pressure = "un promedio bonito puede volver invisible una diferencia que el público sí debe ver"
-        decision = f"elegir una comparación visual que use {title.lower()} sin exagerar conclusiones"
-    else:
-        protagonist = "Roberto, analista de calidad de una bodega"
-        context = "recibe miles de registros y una alerta antes de presentar el lote semanal"
-        pressure = "Excel se congela al filtrar todo y borrar rápido podría eliminar un caso válido"
-        decision = f"decidir cómo investigar {title.lower()} sin inventar una explicación"
+    protagonist = "Paco, hijo de Don Juan y estudiante de preparatoria"
+    pressure = (
+        "Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, "
+        "sin ampliar el puesto ni cargar trabajo a la familia"
+    )
+    decision = f"documentar una lectura de {title.lower()} que Don Juan pueda traducir a una acción del negocio"
     cases = []
     for index, exercise in enumerate(item["exercises"]):
         guided = index == 0
+        context = (
+            f"ayuda en el puesto después de clases; {PRACTICE_INCIDENTS[item['id']][index]}, "
+            f"en un incidente posterior a {item['narrative']['scene']}"
+        )
         transfer_note = (
             "El caso guiado revela el mecanismo central antes de pedir una transferencia."
             if guided
@@ -1066,20 +1284,21 @@ def practice_story_for(
             {
                 "kind": "guiado" if guided else "transferencia",
                 "storyTitle": (
-                    "La primera señal aparece" if guided else "La decisión se mueve de contexto"
+                    f"{title}: incidente guiado del puesto"
+                    if guided
+                    else f"{title}: transferencia a otra noche"
                 ),
                 "protagonist": protagonist,
                 "context": context,
                 "problem": (
-                    f"{protagonist.split(',')[0]} necesita resolver una decisión real con {title.lower()}, "
-                    "no memorizar una definición."
+                    f"Paco debe ayudar a su papá con {title.lower()} sin anticipar una respuesta ni decidir por él."
                 ),
                 "pressure": pressure,
                 "decision": decision,
                 "scenes": [
-                    "Escena 1: mirar el estado inicial y escribir una predicción.",
-                    f"Escena 2: ejecutar «{item['visual']['action']}» para revelar evidencia.",
-                    "Escena 3: elegir la respuesta citando el rasgo visible que cambió.",
+                    f"Escena 1: revisar la entrada del incidente {'guiado' if guided else 'de transferencia'} y predecir.",
+                    f"Escena 2: ejecutar «{item['visual']['action']}» hasta completar todos los estados.",
+                    f"Escena 3: citar la evidencia {evidence[index]} y dejar la decisión final a Don Juan.",
                 ],
                 "evidence": evidence[index],
                 "feedbackRule": (
@@ -1088,18 +1307,18 @@ def practice_story_for(
                 ),
                 "transfer": transfer_note,
                 "closing": (
-                    "La conclusión debe quedarse dentro de lo que muestra el snapshot; "
-                    "sirve para decidir el siguiente paso, no para afirmar causalidad."
+                    "La conclusión describe pedidos sintéticos del periodo; sirve para decidir "
+                    "un siguiente paso reversible, no para afirmar causalidad."
                 ),
             }
         )
     return {
         "mode": "Ejercitar",
-        "separationRule": "Este caso no repite Aprender; usa el concepto para tomar una decisión.",
+        "separationRule": "Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.",
         "animationRequired": True,
         "evidence": (
-            f"Ejecutar «{item['visual']['action']}» y citar el cambio visible asociado "
-            f"con {title.lower()}."
+            f"Ejecutar «{item['visual']['action']}» y citar el cambio visible asociado con {title.lower()} "
+            "en un incidente distinto al de Aprender."
         ),
         "hints": [
             "Haz una predicción antes de activar la animación.",
@@ -1107,6 +1326,8 @@ def practice_story_for(
             "Descarta opciones que no puedan señalarse en la evidencia animada.",
         ],
         "cases": cases,
+        "continuityDelta": item["narrative"]["continuityDelta"],
+        "dataStateDelta": item["narrative"]["dataState"],
     }
 
 
@@ -1182,6 +1403,114 @@ def live_teaching_pack_for(
     }
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(65536), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def write_csv(path: Path, fieldnames: list[str], rows: list[dict[str, object]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def generate_narrative_datasets() -> dict[str, object]:
+    """Create the canonical, deterministic Level 2 order and audit datasets."""
+    rng = random.Random(NARRATIVE_SEED)
+    nights = [
+        datetime(2026, 6, day)
+        for day in [4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 20, 21, 25, 26, 27, 28]
+    ]
+    nightly_counts = list(range(30, 46))
+    rng.shuffle(nightly_counts)
+    day_names = {3: "jueves", 4: "viernes", 5: "sábado", 6: "domingo"}
+    taco_types = ["pastor", "bistec", "suadero", "campechano"]
+    taco_weights = [0.42, 0.25, 0.21, 0.12]
+    quantity_values = [1, 2, 3, 4, 5, 6, 8, 10, 12]
+    quantity_weights = [0.05, 0.17, 0.25, 0.23, 0.12, 0.10, 0.05, 0.02, 0.01]
+    salsa_values = ["sin_salsa", "poca", "media", "mucha"]
+    salsa_weights = [0.09, 0.28, 0.43, 0.20]
+    rows: list[dict[str, object]] = []
+    global_index = 0
+    for night_index, (night, count) in enumerate(zip(nights, nightly_counts), start=1):
+        minutes = []
+        for order_index in range(count):
+            peak = 78 if order_index % 2 == 0 else 218
+            minutes.append(max(3, min(296, round(rng.gauss(peak, 31)))))
+        minutes.sort()
+        for minute in minutes:
+            global_index += 1
+            quantity = rng.choices(quantity_values, weights=quantity_weights, k=1)[0]
+            status = "valido"
+            if global_index == 247:
+                quantity, status = 30, "raro_valido_confirmado"
+            if global_index == 503:
+                quantity, status = 36, "raro_valido_confirmado"
+            timestamp = night.replace(hour=18, minute=0) + timedelta(minutes=minute)
+            rows.append(
+                {
+                    "pedido_id": f"L2-{global_index:04d}",
+                    "fecha_hora": timestamp.strftime("%Y-%m-%d %H:%M"),
+                    "noche_id": f"N{night_index:02d}",
+                    "dia_semana": day_names[night.weekday()],
+                    "tipo_taco": rng.choices(taco_types, weights=taco_weights, k=1)[0],
+                    "num_tacos": quantity,
+                    "nivel_salsa": rng.choices(salsa_values, weights=salsa_weights, k=1)[0],
+                    "para_llevar": "si" if rng.random() < 0.46 else "no",
+                    "minuto_turno": minute,
+                    "estado_calidad": status,
+                }
+            )
+    if len(rows) != 600 or sorted(nightly_counts) != list(range(30, 46)):
+        raise AssertionError("El generador narrativo debe producir 600 pedidos y noches de 30 a 45")
+    order_fields = [
+        "pedido_id", "fecha_hora", "noche_id", "dia_semana", "tipo_taco",
+        "num_tacos", "nivel_salsa", "para_llevar", "minuto_turno", "estado_calidad",
+    ]
+    write_csv(NARRATIVE_ORDERS, order_fields, rows)
+    audit_rows = [
+        {"caso_id": "P-005", "origen": "Nivel 1", "variable": "num_tacos", "valor": 500, "estado": "error_confirmado", "fuente": "total_diario_mezclado", "accion": "separar_y_conservar_original"},
+        {"caso_id": "P-007", "origen": "Nivel 1", "variable": "num_tacos", "valor": 30, "estado": "raro_valido", "fuente": "ticket_186", "accion": "conservar_con_trazabilidad"},
+        {"caso_id": "L2-X001", "origen": "Nivel 2 guiado", "variable": "num_tacos", "valor": 360, "estado": "error_confirmado", "fuente": "total_turno_mezclado", "accion": "separar_y_conservar_original"},
+        {"caso_id": "L2-A001", "origen": "Nivel 2 transferencia", "variable": "num_tacos", "valor": 36, "estado": "raro_valido", "fuente": "ticket_412", "accion": "conservar_con_trazabilidad"},
+    ]
+    audit_fields = ["caso_id", "origen", "variable", "valor", "estado", "fuente", "accion"]
+    write_csv(NARRATIVE_AUDIT, audit_fields, audit_rows)
+    metadata = {
+        "id": "pedidos-puesto-nivel-2",
+        "synthetic": True,
+        "label": "Dataset sintético narrativo; no representa personas reales",
+        "generator": NARRATIVE_GENERATOR_VERSION,
+        "seed": NARRATIVE_SEED,
+        "period": {"start": "2026-06-04", "end": "2026-06-28", "nights": 16},
+        "dimensions": {"rows": 600, "columns": 10},
+        "nightly_order_range": [30, 45],
+        "schema": order_fields,
+        "files": {
+            "orders": {"path": "datasets/narrative/pedidos_4_semanas_nivel_2.csv", "sha256": sha256_file(NARRATIVE_ORDERS)},
+            "audit": {"path": "datasets/narrative/auditoria_atipicos_nivel_2.csv", "rows": 4, "columns": 7, "sha256": sha256_file(NARRATIVE_AUDIT)},
+        },
+        "data_state": ["L1.4", "pedidos_4_semanas@L2.1", "resumen@L2.2", "distribuciones@L2.3", "comparaciones_atipicos@L2.4"],
+    }
+    write_json(NARRATIVE_METADATA, metadata)
+    return metadata
+
+
+def load_narrative_orders() -> list[dict[str, str]]:
+    with NARRATIVE_ORDERS.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle))
+
+
+def load_narrative_audit() -> list[dict[str, str]]:
+    with NARRATIVE_AUDIT.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle))
+
+
 def load_numeric(path: Path, column: str, delimiter: str = ",") -> list[float]:
     values: list[float] = []
     with path.open("r", encoding="utf-8", newline="") as handle:
@@ -1240,50 +1569,67 @@ def percentile(values: list[float], p: float) -> float:
 
 
 def build_data_payload() -> dict[str, object]:
-    masses = load_numeric(DATASETS / "palmer_penguins.csv", "body_mass_g")
-    bike_counts = load_numeric(DATASETS / "bike_sharing_day.csv", "cnt")
-    groups = load_penguin_groups()
-    wine_rows = load_wine_rows()
-    visual_wine_rows = [
-        row
-        for index, row in enumerate(wine_rows)
-        if index % 23 == 0 or float(row["alcohol"]) >= 14
-    ][:320]
-    max_alcohol_row = max(wine_rows, key=lambda row: float(row["alcohol"]))
-    alcohol = [float(row["alcohol"]) for row in wine_rows]
+    rows = load_narrative_orders()
+    audit = load_narrative_audit()
+    quantities = [float(row["num_tacos"]) for row in rows]
+    minutes = [float(row["minuto_turno"]) for row in rows]
+    taco_groups: dict[str, list[float]] = {}
+    day_groups: dict[str, list[float]] = {}
+    takeout_groups: dict[str, list[float]] = {}
+    for row in rows:
+        value = float(row["num_tacos"])
+        taco_groups.setdefault(row["tipo_taco"].title(), []).append(value)
+        day_groups.setdefault(row["dia_semana"].title(), []).append(value)
+        takeout_groups.setdefault(
+            "Para llevar" if row["para_llevar"] == "si" else "En mesa", []
+        ).append(value)
+    visual_points = [
+        {
+            "id": row["pedido_id"],
+            "minute": float(row["minuto_turno"]),
+            "quantity": float(row["num_tacos"]),
+            "status": row["estado_calidad"],
+        }
+        for index, row in enumerate(rows)
+        if index % 3 == 0 or row["estado_calidad"] != "valido"
+    ]
     return {
-        "penguinMasses": masses,
-        "penguinGroups": groups,
-        "bikeCounts": bike_counts,
-        "bikeSeasons": load_bike_seasons(),
-        "winePoints": visual_wine_rows,
-        "wineRegression": [
-            [float(row["alcohol"]), float(row["density"])]
-            for row in wine_rows
-        ],
-        "wineMaxAlcohol": max_alcohol_row,
+        "orderQuantities": quantities,
+        "orderMinutes": minutes,
+        "tacoTypeGroups": taco_groups,
+        "dayGroups": day_groups,
+        "takeoutGroups": takeout_groups,
+        "rushGroups": {
+            "Pico temprano": [minute for minute in minutes if minute <= 150],
+            "Pico tardío": [minute for minute in minutes if minute > 150],
+        },
+        "orderPoints": visual_points,
+        "orderRegression": [[float(row["minuto_turno"]), float(row["num_tacos"])] for row in rows],
+        "auditCases": audit,
+        "narrativeRows": len(rows),
+        "narrativeColumns": 10,
+        "penguinMasses": quantities,
+        "penguinGroups": taco_groups,
+        "bikeCounts": quantities,
+        "bikeSeasons": day_groups,
+        "winePoints": [{"alcohol": point["minute"], "density": point["quantity"], "quality": 0, "color": point["status"]} for point in visual_points],
+        "wineRegression": [[float(row["minuto_turno"]), float(row["num_tacos"])] for row in rows],
+        "wineMaxAlcohol": {"alcohol": 296, "density": 36, "quality": 0, "color": "raro_valido_confirmado"},
         "stats": {
-            "massCount": len(masses),
-            "massMean": statistics.mean(masses),
-            "massMedian": statistics.median(masses),
-            "massSd": statistics.pstdev(masses),
-            "massQ1": percentile(masses, 0.25),
-            "massQ3": percentile(masses, 0.75),
-            "bikeMean": statistics.mean(bike_counts),
-            "bikeMedian": statistics.median(bike_counts),
-            "wineAlcoholQ1": percentile(alcohol, 0.25),
-            "wineAlcoholQ3": percentile(alcohol, 0.75),
-            "wineAlcoholMax": max(alcohol),
+            "orderCount": len(quantities),
+            "quantityMean": statistics.mean(quantities),
+            "quantityMedian": statistics.median(quantities),
+            "quantitySd": statistics.pstdev(quantities),
+            "quantityQ1": percentile(quantities, 0.25),
+            "quantityQ3": percentile(quantities, 0.75),
+            "quantityMax": max(quantities),
+            "minuteMean": statistics.mean(minutes),
+            "minuteMedian": statistics.median(minutes),
         },
         "displayNotes": {
-            "penguinMasses": (
-                f"{len(masses)} observaciones con masa corporal no faltante "
-                "de 344 filas."
-            ),
-            "winePoints": (
-                f"Muestra visual determinística de {len(visual_wine_rows)} puntos; "
-                f"cálculos sobre las {len(wine_rows)} filas."
-            ),
+            "orders": "600 pedidos sintéticos en 16 noches; una fila representa un pedido.",
+            "penguinMasses": "600 pedidos sintéticos; variable num_tacos.",
+            "winePoints": f"Muestra visual determinística de {len(visual_points)} pedidos; cálculos sobre 600 filas.",
         },
     }
 
@@ -1322,6 +1668,7 @@ def package_markdown(
     first, second = item["exercises"]
     story = item["practiceStory"]["cases"]
     live = item["liveTeachingPack"]
+    narrative_metadata = json.loads(NARRATIVE_METADATA.read_text(encoding="utf-8"))
     live_rows = "\n".join(f"| {row.split(':', 1)[0]} | {row.split(':', 1)[1].strip()} |" for row in live["teacherScript"])
     return f"""# Paquete: {item['title']}
 
@@ -1329,7 +1676,8 @@ def package_markdown(
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `{dataset['name']}`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `{dataset['name']}` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -1353,14 +1701,25 @@ def package_markdown(
 - **Interacción:** {item['visual']['action']}.
 - **Unidad de análisis:** {item['unit']}.
 - **Variables:** {item['variables']}.
-- **Dataset:** {dataset['name']}, {dataset['rows']} filas, licencia {dataset['license']}.
-- **Fuente:** {dataset['source_page']}.
-- **Fecha del snapshot:** {dataset['snapshot_date']}.
-- **SHA-256:** `{dataset['sha256']}`.
+- **Fuente curricular:** `{item['curriculumSource']}`.
+- **Fuente narrativa:** `{item['storySource']}` ({item['storyStatus']}).
+- **Escena:** `{item['narrative']['scene']}`.
+- **Dataset estudiantil:** `{narrative_metadata['files']['orders']['path']}`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `{narrative_metadata['files']['orders']['sha256']}`.
+- **Estado de datos:** `{item['narrative']['dataState']}`.
+- **Competencia auxiliar:** {item['narrative']['agentCompetency']}
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
+
+**Situación:** {item['narrative']['setup']}
+
+**Don Juan:** {item['narrative']['donJuan']}
+
+**Paco:** {item['narrative']['paco']}
+
+**Subtítulos:** {" / ".join(item['narrative']['subtitles'])}
 
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
@@ -1491,6 +1850,7 @@ def package_markdown(
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.
 """
 
 
@@ -1521,6 +1881,7 @@ def write_json(path: Path, payload: object) -> None:
 
 
 def main() -> None:
+    narrative_metadata = generate_narrative_datasets()
     enrich_concepts()
     registry = load_registry()
     data = build_data_payload()
@@ -1546,7 +1907,8 @@ def main() -> None:
                     "href": f"{block['href']}?concept={item['id']}",
                     "exercise_count": len(item["exercises"]),
                     "prompt_count": 3,
-                    "dataset_id": block["dataset_id"],
+                    "dataset_id": "pedidos-puesto-nivel-2",
+                    "live_dataset_id": block["dataset_id"],
                 }
             )
             path = OUT / "docs" / "packages" / f"{item['id']}.md"
@@ -1571,7 +1933,15 @@ def main() -> None:
     curriculum_js = (
         "window.DCF_LEVEL2 = "
         + json.dumps(
-            {"modules": modules, "data": data, "datasets": registry},
+            {
+                "modules": modules,
+                "data": data,
+                "datasets": registry,
+                "narrativeDataset": narrative_metadata,
+                "curriculumSource": "docs/CURRICULUM_MAP.md",
+                "storySource": "docs/stories/LEVEL_2.md",
+                "storyStatus": "approved",
+            },
             ensure_ascii=False,
             separators=(",", ":"),
         )
@@ -1584,6 +1954,10 @@ def main() -> None:
         "level": 2,
         "title": "Descripción y visualización",
         "status": "published",
+        "curriculum_source": "docs/CURRICULUM_MAP.md",
+        "story_source": "docs/stories/LEVEL_2.md",
+        "story_status": "approved",
+        "story_version": "don-juan-paco-level-2-v1",
         "entrypoint": "index.html",
         "concept_count": len(concept_records),
         "exercise_count": sum(item["exercise_count"] for item in concept_records),
@@ -1600,8 +1974,9 @@ def main() -> None:
         ],
         "concepts": concept_records,
         "datasets": list(registry),
+        "narrative_dataset": narrative_metadata,
         "validation": "validation.json",
-        "updated_at": "2026-06-24",
+        "updated_at": "2026-06-28",
     }
     write_json(OUT / "manifest.json", manifest)
     checks = {
@@ -1611,6 +1986,9 @@ def main() -> None:
         "practice": 4,
         "feedback": 5,
         "live_teaching": 5,
+        "narrative_continuity": 5,
+        "agent_integration": 5,
+        "learn_practice_separation": 4,
     }
     write_json(
         OUT / "validation.json",

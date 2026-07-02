@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "average": 4.5,
+  "average": 4.56,
   "minimum_dimension": 4,
   "blockers": [],
   "checks": {
@@ -9,7 +9,10 @@
     "visual": 4,
     "practice": 4,
     "feedback": 5,
-    "live_teaching": 5
+    "live_teaching": 5,
+    "narrative_continuity": 5,
+    "agent_integration": 5,
+    "learn_practice_separation": 4
   },
   "basis": "Revisión interna condicionada a contratos estructurales, procedencia de datos y QA semántica de navegador obligatoria.",
   "evidence": {

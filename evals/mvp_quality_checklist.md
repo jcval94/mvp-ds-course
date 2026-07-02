@@ -29,6 +29,7 @@
 
 - [ ] Usa snapshots públicos no sensibles con licencia; En vivo siempre usa snapshot real como fuente principal.
 - [ ] Ejercitar usa storytelling aplicado y evidencia animada antes de responder.
+- [ ] La continuidad narrativa puede validarse con archivos y revisión manual, sin backend.
 - [ ] La publicación automática incluye únicamente paquetes aprobados.
 - [ ] Puede ejecutarse con Markdown y revisión manual.
 - [ ] No requiere backend, login, pagos o APIs.

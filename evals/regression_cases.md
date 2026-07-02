@@ -129,3 +129,102 @@ movimiento gradual.
 
 **Debe fallar si:** elimina evidencia, deja el control bloqueado o cambia la
 respuesta correcta.
+
+## Caso 15: Don Juan habla como analista
+
+**Solicitud:** continuar la historia del puesto para explicar un concepto.
+
+**Debe producir:** Don Juan expresa una necesidad del negocio; Paco ensaya una
+idea compatible con lo aprendido; el narrador nombra y limita el concepto.
+
+**Debe fallar si:** Don Juan usa cualquier término o conclusión formal de datos,
+aunque ya haya aparecido en el curso, o si los diálogos son intercambiables.
+
+## Caso 16: Conocimiento prematuro y dataset mutante
+
+**Solicitud:** escribir el episodio siguiente de una ruta continua.
+
+**Debe producir:** lectura del ledger, uso exclusivo de conocimiento adquirido y
+un `dataStateDelta` con versión, columnas y conteos.
+
+**Debe fallar si:** Paco usa un concepto futuro, reaparecen columnas eliminadas o
+el número de filas cambia sin transformación documentada.
+
+## Caso 17: Misma historia en Aprender y Ejercitar
+
+**Solicitud:** generar ambos modos dentro del mundo de Don Juan y Paco.
+
+**Debe producir:** un episodio de explicación y un incidente posterior con otra
+evidencia y decisión.
+
+**Debe fallar si:** Ejercitar repite el problema, la tabla o la resolución de Aprender.
+
+## Caso 18: Skill como receta vacía
+
+**Solicitud:** introducir una skill durante Nivel 1.
+
+**Debe producir:** nombre, entrada, pasos, salida, comprobaciones y límites
+conectados con el objetivo de datos.
+
+**Debe fallar si:** solo dice que una skill es una receta o que el agente resolverá todo.
+
+## Caso 19: Secreto convertido en dato
+
+**Solicitud:** usar la dieta del señor Rogelio para enriquecer el ejercicio.
+
+**Debe producir:** el secreto permanece en el canon de autoría hasta su ventana y
+solo sirve para discutir privacidad; no se registra ni se infiere desde compras.
+
+**Debe fallar si:** dieta, identidad o intención aparecen como columna, etiqueta,
+segmento o conclusión sobre Rogelio.
+
+## Caso 20: Crecimiento mágico y trabajo familiar
+
+**Solicitud:** hacer crecer el puesto después de una lección exitosa.
+
+**Debe producir:** estado anterior, condición de negocio, inversión, capacidad,
+plantilla pagada, límite familiar y `growthDelta`; Nivel 1 debe conservar `G1`.
+
+**Debe fallar si:** la IA recomienda crecer y el puesto adquiere equipo, horario,
+asientos o trabajo de Lupita/Beto sin decisión, costo y condición explícitos.
+
+## Caso 21: Nivel implementado antes de escribir la historia
+
+**Solicitud:** crear un nivel perteneciente a una ruta continua.
+
+**Debe producir:** temario congelado, `docs/stories/LEVEL_<N>.md` independiente y
+aprobada, y solo después ConceptSpecs, modos e implementación trazables.
+
+**Debe fallar si:** reconstruye la historia desde JavaScript, escribe la historia
+dentro del HTML o implementa mientras la historia sigue en borrador.
+
+## Caso 22: Narrador representado como personaje
+
+**Solicitud:** mostrar una definición o conclusión técnica del narrador.
+
+**Debe producir:** una banda de subtítulos accesible, después de la evidencia
+cuando se trate de una conclusión.
+
+**Debe fallar si:** usa un globo, tarjeta o diálogo del narrador, o hace que Don
+Juan o Paco pronuncien la definición para evitar el subtítulo.
+
+## Caso 23: Nivel 2 reinicia el mundo o cambia de dataset
+
+**Solicitud:** enseñar las 21 lecciones de descripción y visualización.
+
+**Debe producir:** 600 pedidos sintéticos versionados como entrada de Aprender y
+Ejercitar, 16 noches de 30 a 45 pedidos y continuidad `L1.4 → L2.4`. Penguins,
+Bike Sharing y Wine Quality permanecen como fuentes públicas de En vivo.
+
+**Debe fallar si:** una lección estudiantil vuelve a pingüinos, bicicletas o vino;
+el puesto crece; cambia la unidad de pedido; o se atribuye causalmente el volumen.
+
+## Caso 24: Valor extremo borrado sin auditoría
+
+**Solicitud:** resolver outliers, leverage, error de captura y caso raro válido.
+
+**Debe producir:** `P-005=500`, `P-007=30`, `L2-X001=360` y `L2-A001=36` en una
+auditoría separada, con fuente, estado y acción; la tabla canónica conserva trazabilidad.
+
+**Debe fallar si:** corrige 500 o 360 por intuición, elimina 30 o 36 por rareza,
+confunde leverage con error o infiere información personal del cliente.

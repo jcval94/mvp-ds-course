@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Palmer Penguins`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Palmer Penguins` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** El rango es máximo menos mínimo.
 - **Intuición:** Mide la longitud de la sombra que cubre todos los valores.
 - **Error común:** Usarlo como descripción completa de variabilidad.
-- **Visual:** Mueve el mínimo y el máximo para observar la sensibilidad del rango.
+- **Visual:** Compara el pedido menor, el mayor y la distancia entre ambos.
 - **Kind visual:** `number-line`.
 - **Mecanismo:** distancia entre mínimo y máximo.
 - **Estados:** Base → Extremos separados.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Separar extremos.
-- **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
-- **Variables:** `body_mass_g`, numérica continua en gramos.
-- **Dataset:** Palmer Penguins, 344 filas, licencia CC0-1.0.
-- **Fuente:** https://allisonhorst.github.io/palmerpenguins/.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Interacción:** Separar los extremos.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, numérica discreta en tacos por pedido.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S04`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.1`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Se comparan el pedido menor y el mayor.
+
+**Don Juan:** Del más chico al más grande hay buen trecho.
+
+**Paco:** Sí, pero todavía no dice dónde están los demás.
+
+**Subtítulos:** El rango es máximo menos mínimo. / El rango usa solo los extremos y no describe los valores interiores.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Separar extremos** y describir qué cambió.
+3. Ejecutar **Separar los extremos** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Separar extremos» y citar el cambio visible asociado con rango.
+**Evidencia narrativa común:** Ejecutar «Separar los extremos» y citar el cambio visible asociado con rango en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Lucía, analista de operaciones de una clínica debe resumir mediciones de pacientes antes de una junta de 15 minutos. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de rango sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; la distancia entre el pedido menor y el mayor cambia la reserva de tortillas, en un incidente posterior a L2-S04. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de rango que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Separar extremos» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Separar los extremos» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Rango: recorrer todos los estados y citar la marca visible de distancia entre mínimo y máximo. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Lee mínimo, máximo y rango antes y después de mover el extremo derecho.
+**Evidencia requerida:** Incidente 1 de Rango: recorrer todos los estados y citar la marca visible de distancia entre mínimo y máximo.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs range-state-1, range-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Qué cambio aumenta directamente el rango?
+**Pregunta:** ¿Qué le ocurre al rango cuando el máximo pasa al nuevo extremo?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Alejar el máximo manteniendo fijo el mínimo. | Sí | El rango aumenta cuando crece la distancia entre extremos. |
-| Reordenar las filas. | No | El orden de presentación no cambia mínimo ni máximo. |
-| Cambiar el color de los puntos. | No | El estilo visual no modifica los datos. |
+| Aumenta 18 tacos. | Sí | La evidencia visible sostiene «Aumenta 18 tacos.» dentro de distancia entre mínimo y máximo. |
+| Disminuye 18 tacos. | No | El estado recorrido contradice «Disminuye 18 tacos.»; compara las marcas y etiquetas. |
+| No cambia porque la mediana casi no cambia. | No | El estado recorrido contradice «No cambia porque la mediana casi no cambia.»; conserva la unidad y el límite. |
 
-**Pista:** Compara la distancia entre las dos líneas extremas.
+**Pista:** Recorre todos los estados de rango y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Lucía, analista de operaciones de una clínica cambia de contexto para probar si el razonamiento se transfiere. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de rango sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de rango que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Separar extremos» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Separar los extremos» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Rango: recorrer todos los estados y citar la marca visible de distancia entre mínimo y máximo. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Usa los puntos interiores para comprobar qué información no captura el rango.
+**Evidencia requerida:** Incidente 2 de Rango: recorrer todos los estados y citar la marca visible de distancia entre mínimo y máximo.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs range-state-1, range-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** Dos grupos tienen el mismo rango. ¿Qué conclusión es válida?
+**Pregunta:** ¿Qué marcas determinan el rango final mostrado?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Comparten extensión total, pero pueden distribuirse de forma distinta. | Sí | El rango solo fija los extremos. |
-| Tienen la misma media y mediana. | No | Centro y rango son propiedades distintas. |
-| Cada valor de un grupo aparece en el otro. | No | Los puntos interiores pueden ser completamente diferentes. |
+| El mínimo de 1 y el máximo de 54 tacos. | Sí | La evidencia visible sostiene «El mínimo de 1 y el máximo de 54 tacos.» dentro de distancia entre mínimo y máximo. |
+| P25 y P75. | No | El estado recorrido contradice «P25 y P75.»; compara las marcas y etiquetas. |
+| La media y la mediana. | No | El estado recorrido contradice «La media y la mediana.»; conserva la unidad y el límite. |
 
-**Pista:** Observa qué información no aparece entre los extremos.
+**Pista:** Recorre todos los estados de rango y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta rango con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Separar extremos», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Separar los extremos», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

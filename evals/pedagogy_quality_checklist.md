@@ -15,6 +15,7 @@
 - [ ] Desde Nivel 2 hay ejercicio guiado y ejercicio de transferencia.
 - [ ] El rol, protagonista, contexto y presión realista sirven al objetivo.
 - [ ] La historia es distinta de Aprender y no revela la respuesta por sí sola.
+- [ ] Si comparte mundo con Aprender, usa un incidente, evidencia y resolución nuevos.
 - [ ] La animación revela evidencia antes de habilitar la respuesta.
 - [ ] El `evidenceContract` declara pasos, `evidenceIds` y desbloqueo.
 - [ ] La respuesta se habilita solo al completar el contrato.
@@ -37,6 +38,14 @@
 - [ ] Codex tiene un rol técnico y Gemini/ChatGPT un rol de facilitación o revisión.
 - [ ] Hay verificación humana y regla de privacidad.
 - [ ] Otro docente puede usar el paquete con ajustes menores.
+
+## Narrativa continua
+
+- [ ] El narrador, no los personajes, posee la precisión técnica.
+- [ ] Los personajes solo usan conocimientos ya adquiridos.
+- [ ] La necesidad narrativa sirve al objetivo y no lo sustituye.
+- [ ] El humor conserva dignidad y no funciona como pista de respuesta.
+- [ ] El cierre modifica el ledger y abre el siguiente episodio.
 
 ## Fallar si
 

@@ -11,30 +11,35 @@
   let isAnimating = false;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const people = [
-    ["101", "28", "Femenino", "42,500", "Bogotá"],
-    ["102", "35", "Masculino", "55,000", "Medellín"],
-    ["103", "22", "Femenino", "31,200", "Cali"],
-    ["104", "42", "Masculino", "—", "Barranquilla"],
-    ["105", "29", "Femenino", "47,800", "Bucaramanga"]
+  const orderRows = [
+    ["P-001", "2026-06-01 19:05", "Pastor", "5", "No"],
+    ["P-002", "2026-06-01 19:12", "Bistec", "3", "Sí"],
+    ["P-003", "2026-06-01 19:18", "Suadero", "", "No"],
+    ["P-004", "2026-06-01 19:24", "pastor", "8", "no"],
+    ["P-005", "2026-06-01 19:31", "Tripa", "500", "No"]
   ];
   const qualityRows = [
-    ["1001", "25", "Femenino", "Bogotá", "4", "18"],
-    ["1002", "34", "Masculino", "Medellín", "5", "12"],
-    ["1003", "—", "Femenino", "Cali", "3", "25"],
-    ["1004", "29", "Masculino", "Bogotá", "—", "30"],
-    ["1002", "34", "Masculino", "Medellín", "5", "12"],
-    ["1005", "-5", "Femenino", "Barranquilla", "2", "40"],
-    ["1006", "41", "Masculino", "Cali", "4", "45"],
-    ["1007", "120", "Femenino", "Bogotá", "3", "60"]
+    ["P-001", "06-01 19:05", "Pastor", "5", "Media", "No"],
+    ["P-002", "06-01 19:12", "Bistec", "3", "Sin salsa", "Sí"],
+    ["P-003", "06-01 19:18", "Suadero", "", "Mucha", "No"],
+    ["P-004", "06-01 19:24", "pastor", "8", "media", "no"],
+    ["P-005", "06-01 19:31", "Tripa", "500", "Poca", "No"],
+    ["P-006", "06-01 19:40", "Pastor", "4", "Media", "Sí"],
+    ["P-006", "06-01 19:40", "Pastor", "4", "Media", "Sí"],
+    ["P-007", "06-01 20:05", "Bistec", "30", "Sin salsa", "Sí"],
+    ["P-008", "06-02 19:10", "PASTOR", "6", "poca", "No"],
+    ["P-009", "06-02 19:22", "Suadero", "2", "Media", "No"]
   ];
   const orders = [
-    ["P-01", "Café", "2", "90"],
-    ["P-02", "Té", "1", "55"],
-    ["P-03", "Café", "4", "180"],
-    ["P-04", "Pan", "3", "105"],
-    ["P-05", "Té", "3", "165"],
-    ["P-06", "Pan", "1", "35"]
+    ["P-001", "pastor", "5", "válido", "no"],
+    ["P-002", "bistec", "3", "válido", "no"],
+    ["P-003", "suadero", "", "faltante", ""],
+    ["P-004", "pastor", "8", "válido", "no"],
+    ["P-005", "tripa", "500", "inválido", ""],
+    ["P-006", "pastor", "4", "válido", "no"],
+    ["P-007", "bistec", "30", "válido", "sí"],
+    ["P-008", "pastor", "6", "válido", "no"],
+    ["P-009", "suadero", "2", "válido", "no"]
   ];
 
   const $ = (selector) => document.querySelector(selector);
@@ -100,6 +105,17 @@
             </div>
           </div>
           <section class="lesson-intro"><h1></h1><p></p></section>
+          <section class="scene-card" aria-labelledby="sceneTitle">
+            <div class="scene-heading"><span class="scene-id"></span><strong id="sceneTitle" class="scene-episode"></strong></div>
+            <p class="scene-setup"></p>
+            <div class="dialogue-grid">
+              <p class="dialogue don-juan"><b>Don Juan</b><span></span></p>
+              <p class="dialogue paco"><b>Paco</b><span></span></p>
+            </div>
+          </section>
+          <section class="narrator-subtitle" aria-label="Subtítulo del narrador" aria-live="polite">
+            <span class="subtitle-label">Narrador · subtítulo</span><p></p>
+          </section>
           <section class="visual-shell">
             <div class="visual-toolbar">
               <span class="visual-title"></span>
@@ -139,6 +155,12 @@
       </span>`).join("");
     $(".lesson-intro h1").textContent = lesson.title;
     $(".lesson-intro p").textContent = lesson.objective;
+    $(".scene-id").textContent = lesson.narrative.scene;
+    $(".scene-episode").textContent = lesson.narrative.episode;
+    $(".scene-setup").textContent = lesson.narrative.setup;
+    $(".dialogue.don-juan span").textContent = `—${lesson.narrative.donJuan}`;
+    $(".dialogue.paco span").textContent = `—${lesson.narrative.paco}`;
+    renderNarratorSubtitle(lesson, 0);
     $(".visual-title").textContent = currentModule.datasetName;
     $("#prevLesson").disabled = lessonIndex === 0;
     $("#nextLesson").innerHTML = lessonIndex === currentModule.lessons.length - 1 ? `Volver al portal ${icon("chevronRight")}` : `Siguiente ${icon("chevronRight")}`;
@@ -148,12 +170,18 @@
     bindLessonEvents();
   }
 
+  function renderNarratorSubtitle(lesson, step) {
+    const subtitle = lesson.narrative.subtitles[Math.min(step, lesson.narrative.subtitles.length - 1)];
+    $(".narrator-subtitle p").textContent = subtitle;
+    $(".narrator-subtitle").dataset.scene = lesson.narrative.scene;
+  }
+
   function renderPractice(lesson) {
     const story = lesson.practiceStory.cases[0];
     const ready = evidenceReady(lesson.practice);
     $(".practice-story").innerHTML = `<p class="story-kicker">${story.storyTitle}</p>
       <strong>${story.protagonist}</strong>
-      <p>${story.context}. ${story.problem} ${story.pressure}.</p>
+      <p>${story.context} ${story.problem} <b>Riesgo:</b> ${story.pressure}.</p>
       <p><b>Decisión:</b> ${story.decision}.</p>
       <p><b>Evidencia:</b> ${story.evidence || lesson.practiceStory.evidence}</p>
       <ol>${story.scenes.map(scene => `<li>${scene}</li>`).join("")}</ol>
@@ -169,27 +197,27 @@
   }
 
   function tableMarkup(rows, headers, className = "") {
-    return `<table class="data-table ${className}"><thead><tr><th>Observación</th>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead>
-      <tbody>${rows.map((row, r) => `<tr data-row="${r}"><td>Persona ${r + 1}</td>${row.map((cell, c) => `<td style="--i:${r * row.length + c}" data-col="${c}">${cell}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    return `<table class="data-table ${className}"><thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead>
+      <tbody>${rows.map((row, r) => `<tr data-row="${r}">${row.map((cell, c) => `<td style="--i:${r * row.length + c}" data-col="${c}">${cell || "—"}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
   }
 
   function renderVisual(lesson) {
     const area = $("#visualArea");
     const visual = lesson.visual;
     if (visual.type === "table") {
-      area.innerHTML = `<p class="cue">${visual.cue}</p>${tableMarkup(people, ["ID", "Edad", "Género", "Ingresos", "Ciudad"], visual.focus === "grid" ? "grid-active" : "")}<div id="calloutLayer"></div>`;
+      area.innerHTML = `<p class="cue">${visual.cue}</p>${tableMarkup(orderRows, ["pedido_id", "fecha_hora", "tipo_taco", "num_tacos", "para_llevar"], visual.focus === "grid" ? "grid-active" : "")}<div id="calloutLayer"></div>`;
     } else if (visual.type === "population") {
-      area.innerHTML = `<p class="cue">${visual.cue}</p><div class="population-grid">${Array.from({length: 40}, (_, i) => `<span class="person-dot" data-person="${i}"></span>`).join("")}</div><p class="cue" style="text-align:center">40 personas representan la población del campus. Usa el control para observar el subconjunto.</p>`;
+      area.innerHTML = `<p class="cue">${visual.cue}</p><div class="population-grid">${Array.from({length: 10}, (_, i) => `<span class="ticket-dot" data-ticket="${i}">P-${String(i + 1).padStart(3, "0")}</span>`).join("")}</div><p class="cue" style="text-align:center">Los diez tickets representan la captura didáctica; la libreta dañada ilustra una muestra incompleta.</p>`;
       applyPopulationState(lesson);
     } else if (visual.type === "sorter") {
-      const tokens = ["ID 104", "28 páginas", "Ficción", "Alto", "2026-06-14", "Reseña abierta", "Código 55021"];
+      const tokens = ["pedido_id", "num_tacos", "tipo_taco", "nivel_salsa", "fecha_hora", "comentario"];
       area.innerHTML = `<p class="cue">${visual.cue}</p><div class="sorter"><div><strong>Variables disponibles</strong><div class="token-bank">${tokens.map((t, i) => `<button class="data-token" data-token="${i}">${t}</button>`).join("")}</div></div><div class="drop-zones"><div class="drop-zone"><strong>Numérica</strong></div><div class="drop-zone"><strong>Categórica</strong></div><div class="drop-zone"><strong>Ordinal</strong></div><div class="drop-zone"><strong>Fecha</strong></div><div class="drop-zone"><strong>Texto</strong></div></div></div>`;
     } else if (visual.type === "timeline") {
-      area.innerHTML = `<p class="cue">${visual.cue}</p><div class="timeline"><span class="timeline-event" style="left:72%"><span>2026-05-20</span></span><span class="timeline-event" style="left:22%"><span>2026-03-02</span></span><span class="timeline-event" style="left:48%"><span>2026-04-11</span></span></div><p class="cue" style="text-align:center">Las fechas están desordenadas. Inicia la animación para ubicarlas cronológicamente.</p>`;
+      area.innerHTML = `<p class="cue">${visual.cue}</p><div class="timeline"><span class="timeline-event" style="left:72%"><span>06-02 19:22</span></span><span class="timeline-event" style="left:22%"><span>06-01 19:05</span></span><span class="timeline-event" style="left:48%"><span>06-01 20:05</span></span></div><p class="cue" style="text-align:center">Los tickets están desordenados. La fecha y hora completa permite colocarlos en secuencia.</p>`;
     } else if (visual.type === "text") {
-      area.innerHTML = `<p class="cue">${visual.cue}</p><div class="text-lab"><div class="review-box"><strong>Reseña original</strong><p>“La atención fue RÁPIDA, amable y muy clara. Volvería mañana.”</p></div><div class="review-box word-cloud"><span class="word">atención</span><span class="word">rápida</span><span class="word">amable</span><span class="word">clara</span><span class="word">volvería</span></div></div>`;
+      area.innerHTML = `<p class="cue">${visual.cue}</p><div class="text-lab"><div class="review-box"><strong>Notas originales</strong><p>“Para llevar” · “Mesa 2” · “No se anotó la cantidad”</p></div><div class="review-box word-cloud"><span class="word">para llevar</span><span class="word">mesa 2</span><span class="word">cantidad ausente</span></div></div>`;
     } else if (visual.type === "quality") {
-      area.innerHTML = `<p class="cue">${visual.cue}</p>${qualityTable(lesson.visual.focus)}<div class="quality-status"><span>Faltantes: 2</span><span>Duplicados: 1 par</span><span>Rangos inválidos: 2</span><span>Posible sesgo: 1</span></div><span class="scan-line" aria-hidden="true"></span>`;
+      area.innerHTML = `<p class="cue">${visual.cue}</p>${qualityTable(lesson.visual.focus)}${lesson.visual.focus === "bias" ? '<div class="coverage-gap"><strong>Brecha de cobertura</strong><span>Turno de Paco: hasta 22:00</span><span>Cierre: no observado sistemáticamente</span></div>' : ''}<div class="quality-status"><span>Faltantes: 1</span><span>Duplicado confirmado: 1</span><span>Inválido: 1</span><span>Raro válido: 1</span></div><span class="scan-line" aria-hidden="true"></span>`;
     } else if (visual.type === "prepare") {
       area.innerHTML = `<p class="cue">${visual.cue}</p>${prepareTable(orders)}<div id="prepareSummary" class="quality-status"></div>`;
     }
@@ -227,33 +255,34 @@
   }
 
   function qualityTable(focus) {
-    const headers = ["ID", "Edad", "Género", "Ciudad", "Satisfacción", "Espera"];
+    const headers = ["pedido_id", "fecha_hora", "tipo_taco", "num_tacos", "nivel_salsa", "para_llevar"];
     return `<table class="data-table"><thead><tr><th>#</th>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>
       ${qualityRows.map((row, r) => {
-        const duplicate = r === 4 ? "issue-duplicate" : "";
+        const duplicate = r === 5 || r === 6 ? "issue-duplicate" : "";
+        const rareValid = r === 7 && focus === "invalid" ? "case-valid" : "";
         return `<tr class="${focus === "duplicates" ? duplicate : ""}">${[`<td>${r + 1}</td>`].concat(row.map((cell, c) => {
           let cls = "";
-          if (focus === "missing" && cell === "—") cls = "issue-missing";
-          if (focus === "invalid" && c === 1 && (cell === "-5" || cell === "120")) cls = "issue-invalid";
-          if (focus === "bias" && c === 5) cls = "issue-bias";
-          return `<td class="${cls}">${cell}</td>`;
+          if (focus === "missing" && c === 3 && cell === "") cls = "issue-missing";
+          if (focus === "invalid" && r === 4 && c === 3) cls = "issue-invalid";
+          if (rareValid && c === 3) cls = "case-valid";
+          return `<td class="${cls}">${cell || "—"}</td>`;
         })).join("")}</tr>`;
       }).join("")}
     </tbody></table>`;
   }
 
   function prepareTable(rows) {
-    return `<table class="data-table"><thead><tr><th>Pedido</th><th>Producto</th><th>Cantidad</th><th>Total (MXN)</th></tr></thead><tbody>
-      ${rows.map((row, r) => `<tr class="prepare-row" data-total="${row[3]}" data-product="${row[1]}">${row.map((cell, c) => `<td class="${c === 3 ? "transform-value" : ""}">${cell}</td>`).join("")}</tr>`).join("")}
+    return `<table class="data-table"><thead><tr><th>Pedido</th><th>Tipo</th><th>num_tacos</th><th>Estado</th><th>es_pedido_grande</th></tr></thead><tbody>
+      ${rows.map(row => `<tr class="prepare-row" data-quantity="${row[2]}" data-product="${row[1]}" data-status="${row[3]}">${row.map((cell, c) => `<td class="${c === 4 ? "transform-value" : ""}">${cell || "—"}</td>`).join("")}</tr>`).join("")}
     </tbody></table>`;
   }
 
   function applyPopulationState(lesson) {
-    const dots = $$(".person-dot");
+    const dots = $$(".ticket-dot");
     dots.forEach((dot, index) => {
-      dot.className = "person-dot";
+      dot.className = "ticket-dot";
       if (lesson.visual.focus === "sample") {
-        if ([1, 6, 9, 13, 18, 22, 27, 31, 35, 38].includes(index)) dot.classList.add("active");
+        if (index < 6) dot.classList.add("active");
         else dot.classList.add("dim");
       }
     });
@@ -284,17 +313,17 @@
         $(".data-table").classList.add("grid-active");
       }
     } else if (lesson.visual.type === "population") {
-      const dots = $$(".person-dot");
+      const dots = $$(".ticket-dot");
       dots.forEach((dot, index) => {
-        dot.className = "person-dot";
+        dot.className = "ticket-dot";
         if (lesson.visual.focus === "sample") {
-          if ([1, 6, 9, 13, 18, 22, 27, 31, 35, 38].includes(index)) dot.classList.add("active");
+          if (index < 6) dot.classList.add("active");
           else dot.classList.add("dim");
-        } else if (index <= (animationStep * 8 - 1) % 40) dot.classList.add("active");
+        } else dot.classList.add("active");
       });
     } else if (lesson.visual.type === "sorter") {
       const tokens = $$(".data-token");
-      const targetMap = { numeric: 1, categorical: 2, ordinal: 3 };
+      const targetMap = { numeric: 1, categorical: 2, ordinal: 3, date: 4, tokens: 5 };
       const matchedIndex = targetMap[lesson.visual.focus] ?? 0;
       tokens.forEach((token, index) => {
         token.className = "data-token";
@@ -321,6 +350,7 @@
     }
     registerEvidence(lesson, animationStep);
     renderEvidenceStrip(lesson, animationStep);
+    renderNarratorSubtitle(lesson, animationStep);
     updateProgress(lesson);
     window.setTimeout(() => {
       isAnimating = false;
@@ -340,23 +370,24 @@
     });
     summary.innerHTML = "";
     if (focus === "filter") {
-      rows.forEach(row => { if (+row.dataset.total < 100) row.classList.add("filtered"); });
-      summary.textContent = "Resultado: 4 de 6 pedidos cumplen Total ≥ 100.";
+      rows.forEach(row => { if (row.dataset.status !== "válido") row.classList.add("filtered"); });
+      summary.textContent = "Resultado: 7 pedidos válidos completos de 9 pedidos únicos.";
     } else if (focus === "sort") {
-      [...rows].sort((a, b) => +b.dataset.total - +a.dataset.total).forEach((row, index) => {
+      [...rows].sort((a, b) => (+b.dataset.quantity || -1) - (+a.dataset.quantity || -1)).forEach((row, index) => {
         row.style.transform = `translateY(${(index - rows.indexOf(row)) * 43}px)`;
       });
-      summary.textContent = "El contenido no cambia; solo cambia la posición visible.";
+      summary.textContent = "P-007 queda primero por cantidad; no fue el primer pedido del turno.";
     } else if (focus === "group") {
       rows.forEach(row => row.classList.add("grouped"));
-      summary.innerHTML = "<strong>Resumen:</strong> Café 6 unidades · Té 4 · Pan 4.";
+      summary.innerHTML = "<strong>Suma de tacos válidos:</strong> pastor 23 · bistec 33 · suadero 2.";
     } else {
       rows.forEach(row => {
         const cell = row.querySelector(".transform-value");
-        cell.textContent = (+row.dataset.total / 1000).toFixed(3);
+        const quantity = +row.dataset.quantity;
+        cell.textContent = row.dataset.status === "válido" ? (quantity >= 10 ? "sí" : "no") : "—";
         cell.classList.add("changed");
       });
-      summary.textContent = "Nueva variable: Total_miles = Total / 1000. El original se conserva en el dataset.";
+      summary.textContent = "Nueva variable: es_pedido_grande = num_tacos >= 10. La cantidad original se conserva.";
     }
   }
 

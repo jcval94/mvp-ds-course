@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Wine Quality · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Wine Quality · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** Un caso raro válido es infrecuente pero consistente con el dominio y el proceso de medición.
 - **Intuición:** Puede ser una excepción valiosa que amplía lo que sabemos del sistema.
 - **Error común:** Normalizarlo o excluirlo solo para obtener una gráfica más limpia.
-- **Visual:** Abre metadatos de un vino extremo y contrasta varias variables relacionadas.
+- **Visual:** Contrasta la rareza con tickets y estado de calidad trazable.
 - **Kind visual:** `scatter-detail`.
 - **Mecanismo:** rareza estadística frente a plausibilidad contextual.
 - **Estados:** Caso marcado → Detalle trazable.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Revisar contexto.
-- **Unidad de análisis:** una observación es una muestra de vino.
-- **Variables:** `alcohol` y `density`, numéricas; `quality`, ordinal; `color`, categórica.
-- **Dataset:** Wine Quality · UCI, 6497 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/186/wine+quality.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `7493fdea860730843deab246f51e180382fd7d26a24614ef5e63e39e3a26fe3d`.
+- **Interacción:** Abrir comprobantes.
+- **Unidad de análisis:** una observación es un pedido; la auditoría conserva casos separados.
+- **Variables:** `num_tacos` y `minuto_turno`, numéricas; `estado_calidad`, categórica.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S21`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.4`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Los tickets confirman dos pedidos grandes.
+
+**Don Juan:** Fue grande, pero sí salió de esta plancha.
+
+**Paco:** Entonces se queda, con la comprobación anotada.
+
+**Subtítulos:** Un caso raro válido es extremo y auténtico. / La rareza es estadística; la validez se confirma con contexto trazable.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Revisar contexto** y describir qué cambió.
+3. Ejecutar **Abrir comprobantes** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Revisar contexto» y citar el cambio visible asociado con caso raro válido.
+**Evidencia narrativa común:** Ejecutar «Abrir comprobantes» y citar el cambio visible asociado con caso raro válido en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Roberto, analista de calidad de una bodega recibe miles de registros y una alerta antes de presentar el lote semanal. Excel se congela al filtrar todo y borrar rápido podría eliminar un caso válido. La decisión es decidir cómo investigar caso raro válido sin inventar una explicación.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; L2-A001 confirma 36 tacos mediante ticket, en un incidente posterior a L2-S21. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de caso raro válido que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Revisar contexto» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Abrir comprobantes» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Caso raro válido: recorrer todos los estados y citar la marca visible de rareza estadística frente a plausibilidad contextual. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Abre el detalle del vino con alcohol máximo y contrasta alcohol, densidad, calidad y color.
+**Evidencia requerida:** Incidente 1 de Caso raro válido: recorrer todos los estados y citar la marca visible de rareza estadística frente a plausibilidad contextual.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs rare-valid-state-1, rare-valid-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Qué evidencia apoya conservar el caso marcado?
+**Pregunta:** ¿Qué casos muestran los comprobantes como raros válidos?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Sus variables son plausibles y no hay señal de fallo de captura. | Sí | La consistencia de dominio respalda su validez. |
-| Es el punto más alejado. | No | Ser extremo no prueba validez. |
-| Aumenta la correlación del gráfico. | No | Conservar datos para mejorar una métrica sería sesgado. |
+| P-007=30 y L2-A001=36. | Sí | La evidencia visible sostiene «P-007=30 y L2-A001=36.» dentro de rareza estadística frente a plausibilidad contextual. |
+| P-005=500 y L2-X001=360. | No | El estado recorrido contradice «P-005=500 y L2-X001=360.»; compara las marcas y etiquetas. |
+| Solo los pedidos de 1 taco. | No | El estado recorrido contradice «Solo los pedidos de 1 taco.»; conserva la unidad y el límite. |
 
-**Pista:** Busca coherencia entre medición y contexto.
+**Pista:** Recorre todos los estados de caso raro válido y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Roberto, analista de calidad de una bodega cambia de contexto para probar si el razonamiento se transfiere. Excel se congela al filtrar todo y borrar rápido podría eliminar un caso válido. La decisión es decidir cómo investigar caso raro válido sin inventar una explicación.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de caso raro válido que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Revisar contexto» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Abrir comprobantes» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Caso raro válido: recorrer todos los estados y citar la marca visible de rareza estadística frente a plausibilidad contextual. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara el análisis con y sin el caso para comunicar sensibilidad de forma transparente.
+**Evidencia requerida:** Incidente 2 de Caso raro válido: recorrer todos los estados y citar la marca visible de rareza estadística frente a plausibilidad contextual.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs rare-valid-state-1, rare-valid-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** ¿Cómo comunicar un resultado sensible a este caso raro?
+**Pregunta:** ¿Qué acción visible corresponde a esos dos casos?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Mostrar análisis con y sin el caso y justificar la versión principal. | Sí | El análisis por escenarios hace visible la dependencia. |
-| Ocultar la sensibilidad. | No | Ocultarla impide evaluar robustez. |
-| Elegir solo el resultado más llamativo. | No | Seleccionar por dramatismo introduce sesgo. |
+| Conservarlos con trazabilidad. | Sí | La evidencia visible sostiene «Conservarlos con trazabilidad.» dentro de rareza estadística frente a plausibilidad contextual. |
+| Sustituirlos por la mediana. | No | El estado recorrido contradice «Sustituirlos por la mediana.»; compara las marcas y etiquetas. |
+| Moverlos a error confirmado. | No | El estado recorrido contradice «Moverlos a error confirmado.»; conserva la unidad y el límite. |
 
-**Pista:** La transparencia es parte del resultado.
+**Pista:** Recorre todos los estados de caso raro válido y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta caso raro válido con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Revisar contexto», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Abrir comprobantes», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

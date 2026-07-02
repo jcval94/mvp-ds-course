@@ -13,10 +13,12 @@
 ## Contratos
 
 - [ ] `ConceptSpec`, `LearningModule`, `PracticeExercise` y `LiveTeachingPack` son consistentes.
+- [ ] `CourseStoryBible`, `CharacterCard`, `LevelNarrativeArc` y `ContinuityLedger` son consistentes cuando existe narrativa continua.
 - [ ] `PracticeExercise` exige storytelling aplicado, decisión y evidencia animada.
 - [ ] `LiveTeachingPack` exige snapshot público real y modo docente oculto.
 - [ ] Cada skill produce un artefacto nombrado.
 - [ ] El harness enruta todas las skills.
+- [ ] El harness ejecuta arquitectura narrativa antes de generación y revisión narrativa antes del cierre.
 - [ ] Los evals cubren los riesgos del brief y PRD.
 - [ ] Los prompts citan fuentes, restricciones, salida y aceptación.
 - [ ] Los manifests, datasets y estados de publicación coinciden con los documentos.

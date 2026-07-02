@@ -1,87 +1,68 @@
 # Paquete: Tipos de variables
 
+## Trazabilidad
+
+- **Currículo:** `docs/CURRICULUM_MAP.md`, Nivel 1.
+- **Historia aprobada:** `docs/stories/LEVEL_1.md`, escenas `L1-S06` a `L1-S10`.
+- **Estado narrativo:** `pedidos_crudos@L1.1` → `esquema@L1.2`.
+- **Competencia auxiliar:** esquema y diccionario de datos.
+
 ## ConceptSpec
 
-**Nivel:** 1, Fundamentos.
-
-**Objetivo:** clasificar variables y elegir operaciones compatibles con su significado.
-
-**Prerrequisitos:** variable y tabla.
-
-**Conceptos:** numérica, categórica, ordinal, fecha y texto.
-
-**VisualSpec:** tarjetas de variables que se clasifican, escalera ordinal, línea temporal y separación animada de palabras.
-
-**Dataset:** catálogo ficticio de biblioteca con códigos, páginas, género literario, nivel, fechas y reseñas.
-
-**Errores comunes:** tratar IDs como cantidades, códigos como medidas, ordinales como distancias exactas y fechas como texto sin formato.
-
-**Criterio de dominio:** el estudiante clasifica una variable nueva y justifica una operación válida y una inválida.
+- **Objetivo:** clasificar variables por significado y elegir operaciones compatibles.
+- **Prerrequisitos:** observación, variable y tabla.
+- **Conceptos en orden:** numérica, categórica, ordinal, fecha y texto.
+- **Variables:** `num_tacos`, `tipo_taco`, `nivel_salsa`, `fecha_hora`, `comentario` y `pedido_id` como identificador.
+- **VisualSpec:** clasificar tarjetas, ordenar intensidades, colocar tickets en
+  una línea temporal y conservar notas originales antes de transformarlas.
+- **Error central:** decidir el tipo por apariencia en vez de significado.
+- **Criterio de dominio:** justificar una operación permitida y una engañosa por variable.
 
 ## LearningModule
 
-1. Probar si una diferencia numérica tiene interpretación.
-2. Agrupar etiquetas sin orden.
-3. Ordenar categorías sin inventar distancia.
-4. Ubicar eventos y calcular duración.
-5. Normalizar texto y extraer unidades comparables.
+Paco intenta explicar la tabla después de su clase de IA. Don Juan cuestiona
+para qué sirve cada columna sin utilizar terminología técnica.
+
+1. El narrador distingue cantidad numérica de identificador.
+2. `tipo_taco` se presenta como variable categórica.
+3. `nivel_salsa` se ordena sin inventar distancias.
+4. `fecha_hora` se diferencia de la etiqueta “Lunes”.
+5. `comentario` se conserva como texto libre.
+
+Paco construye un esquema con significado, tipo, valores permitidos, posibilidad
+de vacío y validación. El esquema aporta contexto a un agente, pero no vuelve
+correcta su respuesta automáticamente.
 
 ## PracticeExercise
 
-**Historia:** Ana prepara un catálogo para una biblioteca comunitaria. El equipo quiere ordenar libros, calcular diferencias y resumir reseñas, pero algunas columnas tienen números que son etiquetas, categorías con orden parcial y texto libre.
+**Regla de separación:** un proveedor entrega un catálogo nuevo; no se reutiliza
+la discusión inicial de la tabla.
 
-**Decisión:** elegir qué operación sí tiene sentido para cada variable antes de crear un resumen engañoso.
+**Incidentes:** códigos numéricos que son IDs, variantes de `Pastor`, niveles de
+salsa, fechas ambiguas y notas libres de entrega.
 
-**Evidencia animada requerida:** clasificar tarjetas, ordenar niveles, ubicar fechas en la línea temporal y separar palabras de una reseña.
+**Evidencia:** la animación mueve cada tarjeta hacia el tipo compatible y muestra
+la operación que sí conserva significado.
 
-**Escenas:**
+**Decisión:** completar el esquema antes de pedir ayuda a una herramienta.
 
-1. Predicción: preguntar qué variable parece numérica pero puede ser solo identificador.
-2. Animación: mover o resaltar la tarjeta compatible con el tipo.
-3. Decisión: justificar la operación permitida con el visual.
-
-**Pistas graduadas:**
-
-- Pregunta si una resta o promedio tendría significado.
-- Revisa si existe orden natural o solo etiquetas.
-- Para fechas y texto, identifica primero la estructura que permite comparar.
-
-La práctica pregunta qué operaciones tienen significado para cada tipo. La evidencia visible incluye tarjetas, grupos, línea temporal y tokens de texto.
-
-**Cierre transferible:** una variable no se clasifica por su apariencia, sino por el significado de sus valores y las operaciones que permite.
+**Feedback:** rechaza promediar IDs, restar etiquetas, asignar proporciones a
+ordinales, ordenar formatos ambiguos o tratar frases como categorías limpias.
 
 ## LiveTeachingPack
 
-**Visibilidad:** En Vivo queda visible temporalmente en Nivel 1 para revisión docente; no es autenticación ni protección real.
+- **Visibilidad:** visible temporalmente en Nivel 1 para revisión docente.
+- **Duración:** 75 minutos.
+- **Dataset real:** Palmer Penguins, 344 filas y 8 columnas.
+- **Fuente:** https://allisonhorst.github.io/palmerpenguins/
+- **Licencia:** CC0-1.0.
+- **Fecha del snapshot:** 2026-06-14.
+- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Evaluación rápida:** clasificar variables y justificar operaciones compatibles.
+- **Plan offline:** tarjetas impresas de variables y operaciones.
 
-**Duración:** 75 minutos.
+## Supuestos y límites
 
-**Dataset real para clase:** Palmer Penguins, 344 filas y 8 columnas, licencia CC0-1.0.
-
-**Fuente:** https://allisonhorst.github.io/palmerpenguins/
-
-**Fecha del snapshot:** 2026-06-14.
-
-**SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
-
-| Minutos | Actividad |
-| --- | --- |
-| 0-15 | Clasificar numéricas e identificadores |
-| 15-30 | Comparar categóricas y ordinales |
-| 30-45 | Ordenar eventos en una línea temporal |
-| 45-60 | Tokenizar una reseña manteniendo el original |
-| 60-75 | Resolver casos y justificar operaciones |
-
-**Codex:** crear un validador de tipos y operaciones permitidas.
-
-**Gemini:** facilitar clasificación con contraejemplos.
-
-**ChatGPT:** crear variables ambiguas para discutir en grupo.
-
-**Evaluación rápida:** el estudiante clasifica `species`, `island`, `body_mass_g`, `sex` y una fecha de captura hipotética, indicando una operación válida y una inválida.
-
-**Checklist antes de clase:** preparar tarjetas, revisar columnas reales del snapshot y marcar un ejemplo de ID que no debe promediarse.
-
-**Checklist durante clase:** no aceptar "es número" como justificación, pedir operación compatible y anotar casos ambiguos.
-
-**Plan offline:** imprimir tarjetas y clasificarlas físicamente.
+- “Lunes” se trata como categoría derivada; no sustituye una fecha completa.
+- El texto no se interpreta automáticamente como intención del cliente.
+- El esquema no concede a Don Juan conocimientos de datos ni delega decisiones a la IA.

@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Wine Quality · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Wine Quality · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** El leverage describe qué tan alejada está una observación en el espacio de variables explicativas.
 - **Intuición:** Un punto en una zona horizontal solitaria puede tirar de una línea ajustada.
 - **Error común:** Confundir leverage alto con residuo alto o con un error confirmado.
-- **Visual:** Activa y desactiva un punto extremo en alcohol para observar la pendiente.
+- **Visual:** Compara una recta descriptiva con y sin el minuto extremo.
 - **Kind visual:** `scatter-fit`.
 - **Mecanismo:** posición horizontal extrema y sensibilidad del ajuste.
 - **Estados:** Con extremo → Sin extremo.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Comparar ajuste.
-- **Unidad de análisis:** una observación es una muestra de vino.
-- **Variables:** `alcohol` y `density`, numéricas; `quality`, ordinal; `color`, categórica.
-- **Dataset:** Wine Quality · UCI, 6497 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/186/wine+quality.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `7493fdea860730843deab246f51e180382fd7d26a24614ef5e63e39e3a26fe3d`.
+- **Interacción:** Comparar el ajuste.
+- **Unidad de análisis:** una observación es un pedido; la auditoría conserva casos separados.
+- **Variables:** `num_tacos` y `minuto_turno`, numéricas; `estado_calidad`, categórica.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S19`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.4`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Un minuto muy lejano cambia una recta descriptiva.
+
+**Don Juan:** Ese punto apartado está torciendo la raya.
+
+**Paco:** Comparo la raya con y sin él; no diré que una cosa causa la otra.
+
+**Subtítulos:** Leverage describe una posición extrema en la entrada de un ajuste. / Puede cambiar la pendiente; influencia y error no son sinónimos.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Comparar ajuste** y describir qué cambió.
+3. Ejecutar **Comparar el ajuste** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Comparar ajuste» y citar el cambio visible asociado con leverage.
+**Evidencia narrativa común:** Ejecutar «Comparar el ajuste» y citar el cambio visible asociado con leverage en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Roberto, analista de calidad de una bodega recibe miles de registros y una alerta antes de presentar el lote semanal. Excel se congela al filtrar todo y borrar rápido podría eliminar un caso válido. La decisión es decidir cómo investigar leverage sin inventar una explicación.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; un minuto apartado modifica la pendiente descriptiva, en un incidente posterior a L2-S19. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de leverage que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar ajuste» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Comparar el ajuste» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Leverage: recorrer todos los estados y citar la marca visible de posición horizontal extrema y sensibilidad del ajuste. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara el ajuste con y sin el punto de alcohol más extremo.
+**Evidencia requerida:** Incidente 1 de Leverage: recorrer todos los estados y citar la marca visible de posición horizontal extrema y sensibilidad del ajuste.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs leverage-state-1, leverage-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Qué hace que el punto marcado tenga leverage alto?
+**Pregunta:** ¿Qué ocurre al retirar el minuto extremo de la recta descriptiva?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Su valor de alcohol está lejos del centro de los demás predictores. | Sí | Leverage depende de la posición en variables explicativas. |
-| Su calidad observada es exactamente la media. | No | La respuesta no define su distancia horizontal. |
-| El punto tiene un color distinto. | No | El color solo destaca la observación. |
+| La pendiente cambia ligeramente y aparece un Δ pequeño. | Sí | La evidencia visible sostiene «La pendiente cambia ligeramente y aparece un Δ pequeño.» dentro de posición horizontal extrema y sensibilidad del ajuste. |
+| La pendiente cambia de signo con un Δ enorme. | No | El estado recorrido contradice «La pendiente cambia de signo con un Δ enorme.»; compara las marcas y etiquetas. |
+| Las dos rectas dejan de existir. | No | El estado recorrido contradice «Las dos rectas dejan de existir.»; conserva la unidad y el límite. |
 
-**Pista:** Mira la separación horizontal.
+**Pista:** Recorre todos los estados de leverage y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Roberto, analista de calidad de una bodega cambia de contexto para probar si el razonamiento se transfiere. Excel se congela al filtrar todo y borrar rápido podría eliminar un caso válido. La decisión es decidir cómo investigar leverage sin inventar una explicación.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de leverage que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Comparar ajuste» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Comparar el ajuste» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Leverage: recorrer todos los estados y citar la marca visible de posición horizontal extrema y sensibilidad del ajuste. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Usa su posición horizontal y el cambio de pendiente para distinguir leverage de influencia.
+**Evidencia requerida:** Incidente 2 de Leverage: recorrer todos los estados y citar la marca visible de posición horizontal extrema y sensibilidad del ajuste.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs leverage-state-1, leverage-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** ¿Qué diagnóstico falta antes de llamarlo influyente?
+**Pregunta:** ¿Qué combinación muestra el estado final?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Evaluar cuánto cambia el ajuste y considerar su residuo. | Sí | Leverage es potencial de influencia; el efecto real requiere más evidencia. |
-| Comprobar que esté en la última fila. | No | El orden de filas es irrelevante. |
-| Ver si su etiqueta es larga. | No | La longitud del texto no es estadística. |
+| Posición horizontal extrema con influencia pequeña. | Sí | La evidencia visible sostiene «Posición horizontal extrema con influencia pequeña.» dentro de posición horizontal extrema y sensibilidad del ajuste. |
+| Error confirmado con influencia máxima. | No | El estado recorrido contradice «Error confirmado con influencia máxima.»; compara las marcas y etiquetas. |
+| Causalidad entre minuto y cantidad. | No | El estado recorrido contradice «Causalidad entre minuto y cantidad.»; conserva la unidad y el límite. |
 
-**Pista:** Compara el modelo con y sin el punto.
+**Pista:** Recorre todos los estados de leverage y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta leverage con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Comparar ajuste», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Comparar el ajuste», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

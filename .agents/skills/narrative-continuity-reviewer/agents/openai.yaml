@@ -1,0 +1,4 @@
+interface:
+  display_name: "Revisión de continuidad narrativa"
+  short_description: "Revisa voces, canon, conocimiento y datos"
+  default_prompt: "Usa $narrative-continuity-reviewer para comprobar voces, cronología y estado de datos de estos episodios."

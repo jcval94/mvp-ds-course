@@ -139,6 +139,15 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
         fail("Nivel 1 referencia datasets que no existen en el registro público")
     if not manifest.get("datasets"):
         fail("Nivel 1 no declara snapshots públicos para En vivo")
+    expected_story_metadata = {
+        "curriculum_source": "docs/CURRICULUM_MAP.md#nivel-1-fundamentos",
+        "story_source": "docs/stories/LEVEL_1.md",
+        "story_status": "approved",
+        "story_version": "don-juan-paco-level-1-v2",
+    }
+    for key, value in expected_story_metadata.items():
+        if manifest.get(key) != value:
+            fail(f"Nivel 1 no declara trazabilidad narrativa: {key}")
     curriculum = (LEVELS[0] / "assets" / "curriculum.js").read_text(encoding="utf-8")
     app = (LEVELS[0] / "assets" / "app.js").read_text(encoding="utf-8")
     css = (LEVELS[0] / "assets" / "styles.css").read_text(encoding="utf-8")
@@ -158,6 +167,11 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
         "quickAssessment",
         "beforeClassChecklist",
         "duringClassChecklist",
+        "const narrative = {",
+        "storySource",
+        "storyStatus",
+        "subtitles",
+        "Paco, hijo de Don Juan",
     ]:
         if fragment not in curriculum:
             fail(f"Nivel 1 no contiene contrato de modo: {fragment}")
@@ -176,17 +190,37 @@ def validate_level1_contract(public_dataset_ids: set[str]) -> None:
         "data-home-link",
         "homeHref",
         "HOME",
+        "scene-card",
+        "narrator-subtitle",
+        "renderNarratorSubtitle",
+        "lesson.narrative.donJuan",
+        "lesson.narrative.paco",
     ]:
         if fragment not in app:
             fail(f"Nivel 1 no implementa En vivo visible temporal: {fragment}")
     for fragment in ["data-home-link", "HOME", "../../site/index.html"]:
         if fragment not in index:
             fail(f"Nivel 1 no implementa HOME en portada: {fragment}")
-    for fragment in [".home-btn", ".home-sidebar-link", ".visual-progress", ".evidence-strip"]:
+    for fragment in [
+        ".home-btn",
+        ".home-sidebar-link",
+        ".visual-progress",
+        ".evidence-strip",
+        ".scene-card",
+        ".dialogue.don-juan",
+        ".narrator-subtitle",
+        ".subtitle-label",
+    ]:
         if fragment not in css:
             fail(f"Nivel 1 no estiliza HOME: {fragment}")
     if ".option:disabled" not in css:
         fail("Nivel 1 no estiliza opciones bloqueadas antes de animar")
+    scene_ids = re.findall(r'scene: "(L1-S\d{2})"', curriculum)
+    expected_scene_ids = [f"L1-S{index:02d}" for index in range(1, 19)]
+    if scene_ids != expected_scene_ids:
+        fail(f"Nivel 1 no implementa las 18 escenas en orden: {scene_ids}")
+    if curriculum.count("subtitles: [") != 18:
+        fail("Cada concepto de Nivel 1 debe declarar dos subtítulos del narrador")
 
 
 def validate_story_contract(lesson: dict[str, object]) -> None:
@@ -429,6 +463,124 @@ def validate_level2_payload(public_dataset_ids: set[str]) -> None:
         global_name="DCF_LEVEL2",
         label="Nivel 2",
     )
+    level_path = LEVELS[1]
+    curriculum_path = level_path / "assets" / "curriculum.js"
+    text = curriculum_path.read_text(encoding="utf-8").strip()
+    payload = json.loads(text[len("window.DCF_LEVEL2 = ") : -1])
+    lessons = [lesson for module in payload["modules"].values() for lesson in module["lessons"]]
+    expected_ids = [
+        "mean", "median", "mode", "range", "variance", "standard-deviation", "percentiles",
+        "histogram", "density", "shape", "skew", "multimodality", "bins",
+        "bar-chart", "boxplot", "violin-plot", "ecdf",
+        "outliers", "leverage", "capture-error", "rare-valid",
+    ]
+    if [lesson["id"] for lesson in lessons] != expected_ids:
+        fail("Nivel 2 no conserva los 21 conceptos curriculares en orden")
+    expected_scenes = [f"L2-S{index:02d}" for index in range(1, 22)]
+    if [lesson.get("narrative", {}).get("scene") for lesson in lessons] != expected_scenes:
+        fail("Nivel 2 no implementa las 21 escenas narrativas en orden")
+    forbidden_don_juan = [
+        "variable", "muestra", "población", "promedio", "distribución", "algoritmo",
+        "correlación", "métrica", "significancia", "varianza", "percentil", "leverage",
+    ]
+    level2_questions: list[str] = []
+    for lesson in lessons:
+        if lesson.get("storySource") != "docs/stories/LEVEL_2.md" or lesson.get("storyStatus") != "approved":
+            fail(f"{lesson['id']} no apunta a la historia aprobada de Nivel 2")
+        narrative = lesson.get("narrative", {})
+        if len(narrative.get("subtitles", [])) != len(lesson["visual"]["states"]):
+            fail(f"{lesson['id']} no declara un subtítulo por estado visual")
+        if not narrative.get("donJuan") or not narrative.get("paco") or not narrative.get("agentCompetency"):
+            fail(f"{lesson['id']} no declara voces o competencia auxiliar")
+        don_line = narrative["donJuan"].lower()
+        if any(term in don_line for term in forbidden_don_juan):
+            fail(f"Don Juan usa terminología técnica en {lesson['id']}: {don_line}")
+        if "pedido" not in lesson["unit"]:
+            fail(f"{lesson['id']} no conserva pedido como unidad de análisis")
+        level2_questions.extend(exercise["question"] for exercise in lesson["exercises"])
+        practice_text = json.dumps(lesson["practiceStory"], ensure_ascii=False)
+        for stale_name in ["Lucía", "Don José", "Mariana", "Roberto"]:
+            if stale_name in practice_text:
+                fail(f"{lesson['id']} conserva una práctica ajena al mundo narrativo")
+        student_surface = json.dumps(
+            {
+                key: lesson.get(key)
+                for key in [
+                    "objective", "definition", "intuition", "error", "visual",
+                    "exercises", "learningModule", "practiceStory", "unit", "variables",
+                ]
+            },
+            ensure_ascii=False,
+        ).lower()
+        for stale_domain in ["pingü", "alquiler", "vino", "masa corporal", "731 días", "6,497"]:
+            if stale_domain in student_surface:
+                fail(f"{lesson['id']} conserva evidencia estudiantil de otro dominio: {stale_domain}")
+    if len(set(level2_questions)) != 42:
+        fail("Los 42 ejercicios de Nivel 2 deben plantear preguntas distintas")
+    generic_answers = [
+        "La entrada, el parámetro u operación compatible",
+        "Afirmar que el cambio observado fue causado",
+    ]
+    exercise_text = json.dumps([lesson["exercises"] for lesson in lessons], ensure_ascii=False)
+    if any(fragment in exercise_text for fragment in generic_answers):
+        fail("Nivel 2 conserva respuestas genéricas que no dependen de la evidencia")
+
+    metadata_path = ROOT / "datasets" / "narrative" / "pedidos_nivel_2.metadata.json"
+    orders_path = ROOT / "datasets" / "narrative" / "pedidos_4_semanas_nivel_2.csv"
+    audit_path = ROOT / "datasets" / "narrative" / "auditoria_atipicos_nivel_2.csv"
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    if csv_dimensions(orders_path) != (600, 10):
+        fail("El dataset narrativo de Nivel 2 debe tener 600 filas y 10 columnas")
+    if csv_dimensions(audit_path) != (4, 7):
+        fail("La auditoría narrativa de Nivel 2 debe tener 4 filas y 7 columnas")
+    if metadata.get("seed") != 20260628 or metadata.get("generator") != "level2-orders-v1":
+        fail("Metadata narrativa de Nivel 2 sin semilla o generador canónico")
+    if sha256(orders_path) != metadata["files"]["orders"]["sha256"]:
+        fail("Hash inválido del dataset narrativo de Nivel 2")
+    if sha256(audit_path) != metadata["files"]["audit"]["sha256"]:
+        fail("Hash inválido de la auditoría narrativa de Nivel 2")
+    with orders_path.open("r", encoding="utf-8", newline="") as handle:
+        order_rows = list(csv.DictReader(handle))
+    counts: dict[str, int] = {}
+    for row in order_rows:
+        counts[row["noche_id"]] = counts.get(row["noche_id"], 0) + 1
+    if sorted(counts.values()) != list(range(30, 46)):
+        fail(f"Las 16 noches deben usar una vez cada conteo de 30 a 45: {counts}")
+    if min(row["fecha_hora"][:10] for row in order_rows) != "2026-06-04" or max(row["fecha_hora"][:10] for row in order_rows) != "2026-06-28":
+        fail("El periodo narrativo de Nivel 2 no coincide con junio de 2026")
+    private_terms = ["rogelio", "dieta", "lupita", "beto", "paco", "don juan", "edad", "género", "ropa"]
+    dataset_text = orders_path.read_text(encoding="utf-8").lower()
+    if any(term in dataset_text for term in private_terms):
+        fail("El dataset narrativo de Nivel 2 expone identidad o atributos personales")
+    with audit_path.open("r", encoding="utf-8", newline="") as handle:
+        audit_rows = list(csv.DictReader(handle))
+    expected_audit = {("P-005", "500"), ("P-007", "30"), ("L2-X001", "360"), ("L2-A001", "36")}
+    if {(row["caso_id"], row["valor"]) for row in audit_rows} != expected_audit:
+        fail("La auditoría de Nivel 2 no conserva los cuatro casos canónicos")
+    if payload.get("storyStatus") != "approved" or payload.get("narrativeDataset", {}).get("id") != "pedidos-puesto-nivel-2":
+        fail("curriculum.js de Nivel 2 no publica trazabilidad narrativa")
+    manifest = json.loads((level_path / "manifest.json").read_text(encoding="utf-8"))
+    for key in ["curriculum_source", "story_source", "story_status", "story_version", "narrative_dataset"]:
+        if not manifest.get(key):
+            fail(f"Manifest de Nivel 2 no declara {key}")
+    story = (ROOT / "docs" / "stories" / "LEVEL_2.md").read_text(encoding="utf-8")
+    if re.findall(r"`(L2-S\d{2})`", story)[:21] != expected_scenes:
+        fail("La historia independiente de Nivel 2 no contiene 21 escenas en orden")
+    for required_fragment in [
+        "aprobada para implementación", "600 pedidos sintéticos", "30 y 45 pedidos",
+        "Subtítulo del narrador · inicio", "Subtítulo del narrador · evidencia",
+        "L1.4 → pedidos_4_semanas@L2.1", "¿Esto se repetirá o fue casualidad?",
+    ]:
+        if required_fragment not in story:
+            fail(f"Historia de Nivel 2 incompleta: {required_fragment}")
+    app = (level_path / "assets" / "app.js").read_text(encoding="utf-8")
+    css = (level_path / "assets" / "styles.css").read_text(encoding="utf-8")
+    for fragment in ["sceneId", "donJuanLine", "pacoLine", "narratorSubtitle", "renderNarrativeOutlier"]:
+        if fragment not in app:
+            fail(f"UI narrativa de Nivel 2 incompleta: {fragment}")
+    for fragment in [".scene-card", ".dialogue.don-juan", ".dialogue.paco", ".narrator-subtitle"]:
+        if fragment not in css:
+            fail(f"CSS narrativo de Nivel 2 incompleto: {fragment}")
 
 
 def validate_level3_payload(public_dataset_ids: set[str]) -> None:
@@ -454,6 +606,183 @@ def validate_placeholders() -> None:
                 fail(f"Placeholder encontrado en {path}")
 
 
+def validate_narrative_contract() -> None:
+    required = [
+        ROOT / "docs" / "COURSE_STORY_BIBLE.md",
+        ROOT / "docs" / "LEVEL_1_NARRATIVE_ARC.md",
+        ROOT / "docs" / "LEVEL_2_NARRATIVE_ARC.md",
+        ROOT / "docs" / "CONTINUITY_LEDGER.md",
+        ROOT / "docs" / "stories" / "README.md",
+        ROOT / "docs" / "stories" / "LEVEL_1.md",
+        ROOT / "docs" / "stories" / "LEVEL_2.md",
+        ROOT / "docs" / "pipeline" / "README.md",
+        ROOT / "docs" / "LEVEL_1_ALFABETIZACION_VERTICAL_SLICE.md",
+        ROOT / "evals" / "narrative_continuity_checklist.md",
+        ROOT / "evals" / "story_pipeline_checklist.md",
+        ROOT / "templates" / "level_story.template.md",
+    ]
+    for path in required:
+        if not path.exists():
+            fail(f"Falta artefacto narrativo: {path}")
+
+    raw_path = ROOT / "datasets" / "narrative" / "pedidos_crudos_nivel_1.csv"
+    prepared_path = (
+        ROOT / "datasets" / "narrative" / "pedidos_preparados_nivel_1.csv"
+    )
+    if csv_dimensions(raw_path) != (10, 7):
+        fail("pedidos_crudos_nivel_1.csv debe tener 10 filas y 7 columnas")
+    if csv_dimensions(prepared_path) != (9, 9):
+        fail("pedidos_preparados_nivel_1.csv debe tener 9 filas y 9 columnas")
+
+    expected_hashes = {
+        raw_path: "beb9df84625b6defc1f4d7dda3dbbc96cae0c7be5a54225ce051d33628689718",
+        prepared_path: "b38fffd6b3fedb3f99ca329ac7168698c08898d3b4ff77fa961fb69eb45ae675",
+    }
+    for path, expected_hash in expected_hashes.items():
+        if sha256(path) != expected_hash:
+            fail(f"Hash narrativo inválido: {path}")
+
+    with raw_path.open("r", encoding="utf-8", newline="") as handle:
+        raw_rows = list(csv.DictReader(handle))
+    if len({row["pedido_id"] for row in raw_rows}) != 9:
+        fail("La tabla cruda debe conservar 9 IDs únicos en 10 filas")
+    if not any(row["pedido_id"] == "P-007" and row["num_tacos"] == "30" for row in raw_rows):
+        fail("P-007 debe conservar el caso raro válido de 30 tacos")
+
+    with prepared_path.open("r", encoding="utf-8", newline="") as handle:
+        prepared_rows = list(csv.DictReader(handle))
+    statuses: dict[str, int] = {}
+    for row in prepared_rows:
+        status = row["estado_calidad"]
+        statuses[status] = statuses.get(status, 0) + 1
+    expected_statuses = {
+        "valido": 7,
+        "faltante_no_imputado": 1,
+        "invalido_pendiente_fuente": 1,
+    }
+    if statuses != expected_statuses:
+        fail(f"Estados narrativos inconsistentes: {statuses}")
+
+    fragments = {
+        ROOT / "docs" / "COURSE_STORY_BIBLE.md": [
+            "don-juan-paco-course-v2",
+            "CharacterCard: Don Juan",
+            "CharacterCard: Paco",
+            "CharacterCard: Narrador",
+            "CharacterCard: Lupita",
+            "CharacterCard: Beto",
+            "CharacterCard: profesora Elena",
+            "CharacterCard: profesor Iván",
+            "CharacterCard: señor Rogelio",
+            "Matriz incremental de dinámica y relaciones",
+            "Tamaño inicial canónico del puesto",
+            "Matriz incremental de crecimiento del puesto",
+            "25–40 pedidos por noche",
+            "18 asientos",
+            "Arco general de nueve niveles",
+        ],
+        ROOT / "docs" / "LEVEL_1_NARRATIVE_ARC.md": [
+            "L1-E1",
+            "L1-E2",
+            "L1-E3",
+            "L1-E4",
+            "continuityDelta",
+            "dataStateDelta",
+            "growthDelta",
+            "Matriz incremental de dinámica de Nivel 1",
+        ],
+        ROOT / "docs" / "CONTINUITY_LEDGER.md": [
+            "L2.4-v1",
+            "Estado de secretos narrativos",
+            "Estado del crecimiento",
+            "Estado de Nivel 2",
+            "pedidos_4_semanas@L2.1",
+            "growthDelta",
+        ],
+        ROOT / "docs" / "LEVEL_1_ALFABETIZACION_VERTICAL_SLICE.md": [
+            "EvidenceContract",
+            "sample-first-three",
+            "population-ten-orders",
+            "sample-coverage-warning",
+            "Este incidente ocurre después de la libreta",
+            "growthDelta",
+        ],
+        ROOT / "docs" / "stories" / "LEVEL_1.md": [
+            "aprobada para implementación",
+            "don-juan-paco-level-1-v2",
+            "segundo de preparatoria",
+            "profesora Elena",
+            "profesor Iván",
+            "Lupita",
+            "Beto",
+            "El puesto no crece durante Nivel 1",
+            "Subtítulo del narrador · inicio",
+            "Subtítulo del narrador · evidencia",
+            "pedidos_crudos -> esquema -> reporte_de_calidad -> pedidos_preparados",
+        ],
+        ROOT / "docs" / "pipeline" / "README.md": [
+            "temario predeterminado -> historia independiente -> nivel educativo",
+            "Puerta curricular",
+            "Puerta narrativa",
+            "Puerta de implementación",
+            "docs/stories/LEVEL_<N>.md",
+        ],
+    }
+    for path, expected_fragments in fragments.items():
+        content = path.read_text(encoding="utf-8")
+        for fragment in expected_fragments:
+            if fragment not in content:
+                fail(f"{path.name} no contiene contrato narrativo: {fragment}")
+
+    level_story = (ROOT / "docs" / "stories" / "LEVEL_1.md").read_text(encoding="utf-8")
+    ordered_concepts = [
+        "observación", "variable", "tabla", "población", "muestra",
+        "numérica", "categórica", "ordinal", "fecha", "texto", "faltantes",
+        "duplicados", "rangos inválidos", "sesgo de medición", "filtrar",
+        "ordenar", "agrupar", "transformar",
+    ]
+    positions = [level_story.find(f"| {concept} |") for concept in ordered_concepts]
+    if any(position < 0 for position in positions) or positions != sorted(positions):
+        fail("La historia de Nivel 1 no conserva los 18 conceptos curriculares en orden")
+    if level_story.count("Subtítulo del narrador · inicio") < 18:
+        fail("La historia de Nivel 1 no contiene subtítulo inicial por escena")
+    if level_story.count("Subtítulo del narrador · evidencia") < 18:
+        fail("La historia de Nivel 1 no contiene subtítulo de evidencia por escena")
+    if "**Narrador:**" in level_story:
+        fail("El narrador no puede aparecer como personaje de diálogo")
+    forbidden_don_juan = [
+        "variable", "muestra", "población", "algoritmo", "correlación",
+        "distribución", "métrica", "significancia", "dataframe",
+    ]
+    don_juan_lines = [
+        line.lower() for line in level_story.splitlines() if line.startswith("**Don Juan:**")
+    ]
+    for line in don_juan_lines:
+        if any(term in line for term in forbidden_don_juan):
+            fail(f"Don Juan usa terminología técnica en la historia: {line}")
+
+    story_bible = (ROOT / "docs" / "COURSE_STORY_BIBLE.md").read_text(encoding="utf-8")
+    for level in range(1, 10):
+        if story_bible.count(f"| {level} |") < 2:
+            fail(f"Story Bible no declara arco y crecimiento del Nivel {level}")
+
+    private_terms = ["rogelio", "dieta", "lupita", "beto", "paco", "don juan"]
+    narrative_data = raw_path.read_text(encoding="utf-8").lower() + prepared_path.read_text(
+        encoding="utf-8"
+    ).lower()
+    for term in private_terms:
+        if term in narrative_data:
+            fail(f"El dataset narrativo expone identidad o secreto: {term}")
+
+    for name in ["course-narrative-architect", "narrative-continuity-reviewer"]:
+        skill = ROOT / ".agents" / "skills" / name / "SKILL.md"
+        metadata = ROOT / ".agents" / "skills" / name / "agents" / "openai.yaml"
+        if not skill.exists() or not metadata.exists():
+            fail(f"Skill narrativa incompleta: {name}")
+        if "TODO" in skill.read_text(encoding="utf-8"):
+            fail(f"Skill narrativa con placeholder: {name}")
+
+
 def main() -> int:
     datasets = validate_datasets()
     public_dataset_ids = {str(item["id"]) for item in datasets}
@@ -463,6 +792,7 @@ def main() -> int:
     validate_level1_contract(public_dataset_ids)
     validate_level2_payload(public_dataset_ids)
     validate_level3_payload(public_dataset_ids)
+    validate_narrative_contract()
     validate_placeholders()
     totals = {
         "concepts": sum(item["concept_count"] for item in manifests),

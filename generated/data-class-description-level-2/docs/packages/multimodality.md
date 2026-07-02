@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Bike Sharing Dataset · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Bike Sharing Dataset · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** Una distribución multimodal presenta más de una cima relevante.
 - **Intuición:** Varias montañas pueden indicar mecanismos o grupos mezclados.
 - **Error común:** Asignar una causa a cada modo sin revisar variables adicionales.
-- **Visual:** Colorea los días por temporada para investigar el origen de dos cimas.
+- **Visual:** Observa dos concentraciones en los minutos del turno.
 - **Kind visual:** `density-groups`.
-- **Mecanismo:** cimas agregadas frente a grupos latentes.
-- **Estados:** Agregado → Temporadas.
+- **Mecanismo:** dos concentraciones dentro del turno.
+- **Estados:** Turno completo → Dos concentraciones.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Separar temporadas.
-- **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
-- **Variables:** `cnt`, conteo entero de alquileres diarios.
-- **Dataset:** Bike Sharing Dataset · UCI, 731 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`.
+- **Interacción:** Separar concentraciones.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, cantidad discreta; `minuto_turno`, minuto desde las 18:00.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S12`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.2`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Los minutos del turno revelan dos concentraciones.
+
+**Don Juan:** Se nos junta gente dos veces, no una.
+
+**Paco:** Lo compruebo en los minutos del turno, apá.
+
+**Subtítulos:** La multimodalidad aparece con más de una concentración. / Dos picos sugieren estructura para investigar, no identifican por sí solos la causa.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Separar temporadas** y describir qué cambió.
+3. Ejecutar **Separar concentraciones** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Separar temporadas» y citar el cambio visible asociado con multimodalidad.
+**Evidencia narrativa común:** Ejecutar «Separar concentraciones» y citar el cambio visible asociado con multimodalidad en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Don José, dueño de una tienda de barrio quiere decidir a qué hora abrir sin revisar cientos de días en Excel. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar multimodalidad para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; dos filas de clientes aparecen en momentos separados del turno, en un incidente posterior a L2-S12. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de multimodalidad que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Separar temporadas» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Separar concentraciones» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Multimodalidad: recorrer todos los estados y citar la marca visible de dos concentraciones dentro del turno. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara la distribución agregada con las curvas por temporada.
+**Evidencia requerida:** Incidente 1 de Multimodalidad: recorrer todos los estados y citar la marca visible de dos concentraciones dentro del turno.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs multimodality-state-1, multimodality-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Qué interpretación es defendible al observar dos cimas?
+**Pregunta:** ¿Cuántas concentraciones principales aparecen en los minutos del turno?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Puede haber subgrupos o mecanismos distintos que deben investigarse. | Sí | La gráfica sugiere una hipótesis, no confirma causas. |
-| Existen exactamente dos causas confirmadas. | No | Cada cima no identifica por sí sola una causa. |
-| El dataset está necesariamente corrupto. | No | Datos válidos pueden ser multimodales. |
+| Dos. | Sí | La evidencia visible sostiene «Dos.» dentro de dos concentraciones dentro del turno. |
+| Una sola. | No | El estado recorrido contradice «Una sola.»; compara las marcas y etiquetas. |
+| Dieciséis, una por noche. | No | El estado recorrido contradice «Dieciséis, una por noche.»; conserva la unidad y el límite. |
 
-**Pista:** Formula una explicación alternativa, no una certeza.
+**Pista:** Recorre todos los estados de multimodalidad y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Don José, dueño de una tienda de barrio cambia de contexto para probar si el razonamiento se transfiere. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar multimodalidad para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de multimodalidad que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Separar temporadas» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Separar concentraciones» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Multimodalidad: recorrer todos los estados y citar la marca visible de dos concentraciones dentro del turno. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Observa qué cimas cambian al separar temporadas y limita la conclusión a una explicación descriptiva.
+**Evidencia requerida:** Incidente 2 de Multimodalidad: recorrer todos los estados y citar la marca visible de dos concentraciones dentro del turno.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs multimodality-state-1, multimodality-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** Al separar por temporada desaparece una de las cimas. ¿Qué aprendemos?
+**Pregunta:** ¿Qué separación aparece en el estado final?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| La mezcla de temporadas contribuía a la forma agregada. | Sí | La estratificación aporta una explicación descriptiva. |
-| La temporada causa cada alquiler individual. | No | La comparación observacional no prueba causalidad individual. |
-| El histograma original era falso. | No | El gráfico agregado seguía representando sus datos. |
+| Pico temprano y pico tardío. | Sí | La evidencia visible sostiene «Pico temprano y pico tardío.» dentro de dos concentraciones dentro del turno. |
+| Pedidos válidos y errores de captura. | No | El estado recorrido contradice «Pedidos válidos y errores de captura.»; compara las marcas y etiquetas. |
+| Tacos de pastor y suadero. | No | El estado recorrido contradice «Tacos de pastor y suadero.»; conserva la unidad y el límite. |
 
-**Pista:** Compara agregado y grupos sin exagerar la conclusión.
+**Pista:** Recorre todos los estados de multimodalidad y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta multimodalidad con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Separar temporadas», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Separar concentraciones», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

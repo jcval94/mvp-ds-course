@@ -65,6 +65,27 @@ def validate_numeric_semantics(
     mass_sd = statistics.stdev(masses)
     bike_mean = statistics.mean(counts)
 
+    with (ROOT / "datasets" / "narrative" / "pedidos_4_semanas_nivel_2.csv").open(
+        encoding="utf-8", newline=""
+    ) as handle:
+        orders = list(csv.DictReader(handle))
+    quantities = [float(row["num_tacos"]) for row in orders]
+    minutes = [float(row["minuto_turno"]) for row in orders]
+    assert len(orders) == 600
+    assert level2_payload["data"]["orderQuantities"] == quantities
+    assert level2_payload["data"]["orderMinutes"] == minutes
+    stats = level2_payload["data"]["stats"]
+    assert abs(stats["quantityMean"] - statistics.mean(quantities)) < 1e-9
+    assert abs(stats["quantityMedian"] - statistics.median(quantities)) < 1e-9
+    assert abs(stats["quantitySd"] - statistics.pstdev(quantities)) < 1e-9
+    assert abs(stats["quantityQ1"] - quantile_python(quantities, 0.25)) < 1e-9
+    assert abs(stats["quantityQ3"] - quantile_python(quantities, 0.75)) < 1e-9
+    assert sum(len(group) for group in level2_payload["data"]["tacoTypeGroups"].values()) == 600
+    assert sum(len(group) for group in level2_payload["data"]["takeoutGroups"].values()) == 600
+    assert sum(len(group) for group in level2_payload["data"]["dayGroups"].values()) == 600
+    audit_pairs = {(row["caso_id"], row["valor"]) for row in level2_payload["data"]["auditCases"]}
+    assert audit_pairs == {("P-005", "500"), ("P-007", "30"), ("L2-X001", "360"), ("L2-A001", "36")}
+
     confidence = lesson_by_id(level3_payload, "confidence-interval")
     expected_90 = [
         mass_mean - 1.64 * mass_sd / math.sqrt(60),
@@ -112,6 +133,14 @@ def validate_numeric_semantics(
         "12 bins",
         "24 bins",
     ]
+
+
+def quantile_python(values: list[float], p: float) -> float:
+    ordered = sorted(values)
+    position = (len(ordered) - 1) * p
+    lower = math.floor(position)
+    upper = math.ceil(position)
+    return ordered[lower] + (ordered[upper] - ordered[lower]) * (position - lower)
 
 
 def exercise_contract(page, level: int, exercise_index: int) -> dict[str, object]:
@@ -278,6 +307,25 @@ def main() -> None:
             page.get_by_text("SHA-256").first.wait_for()
             for lesson_index in range(block["concept_count"]):
                 assert page.locator(".practice-story").inner_text()
+                assert page.locator(".scene-card").count() == 1
+                assert page.locator(".dialogue.don-juan").inner_text().startswith("Don Juan")
+                assert page.locator(".dialogue.paco").inner_text().startswith("Paco")
+                narrative = page.evaluate(
+                    """([moduleId, lessonIndex]) => {
+                      const lesson = window.DCF_MODULES[moduleId].lessons[lessonIndex];
+                      return {
+                        scene: lesson.narrative.scene,
+                        subtitles: lesson.narrative.subtitles,
+                        storySource: lesson.storySource,
+                        storyStatus: lesson.storyStatus
+                      };
+                    }""",
+                    [block["id"], lesson_index],
+                )
+                assert narrative["storySource"] == "docs/stories/LEVEL_1.md"
+                assert narrative["storyStatus"] == "approved"
+                assert page.locator(".scene-id").inner_text() == narrative["scene"]
+                assert page.locator(".narrator-subtitle p").inner_text() == narrative["subtitles"][0]
                 assert page.locator("#visualProgress").inner_text() == "Paso 1 de 2"
                 initial_evidence = page.evaluate(
                     """([moduleId, lessonIndex]) =>
@@ -292,6 +340,7 @@ def main() -> None:
                 page.locator("#animateVisual").click()
                 page.wait_for_timeout(150)
                 assert page.locator(".option:disabled").count() == 0
+                assert page.locator(".narrator-subtitle p").inner_text() == narrative["subtitles"][1]
                 final_evidence = page.evaluate(
                     """([moduleId, lessonIndex]) =>
                     window.DCF_MODULES[moduleId].lessons[lessonIndex]
@@ -331,6 +380,21 @@ def main() -> None:
             )
             assert page.locator("#lessonTitle").inner_text() == item["title"]
             assert page.get_by_role("button", name="En vivo").count() == 0
+            narrative = page.evaluate(
+                """() => {
+                  const id = new URLSearchParams(location.search).get("concept");
+                  const lesson = Object.values(window.DCF_LEVEL2.modules)
+                    .flatMap((module) => module.lessons)
+                    .find((entry) => entry.id === id);
+                  return { narrative: lesson.narrative, storySource: lesson.storySource, storyStatus: lesson.storyStatus };
+                }"""
+            )
+            assert narrative["storySource"] == "docs/stories/LEVEL_2.md"
+            assert narrative["storyStatus"] == "approved"
+            assert page.locator(".scene-id").inner_text() == narrative["narrative"]["scene"]
+            assert page.locator(".dialogue.don-juan").inner_text().startswith("Don Juan")
+            assert page.locator(".dialogue.paco").inner_text().startswith("Paco")
+            assert page.locator(".narrator-subtitle p").inner_text() == narrative["narrative"]["subtitles"][0]
             assert page.locator("#practiceStory").inner_text()
             page.get_by_text("Pistas graduadas").first.wait_for()
             page.get_by_text("Regla de feedback").first.wait_for()
@@ -339,10 +403,13 @@ def main() -> None:
                 "Evidencia:"
             )
             complete_evidence(page, 2, 0)
+            assert page.locator(".narrator-subtitle p").inner_text() == narrative["narrative"]["subtitles"][-1]
             answer_wrong_then_correct(page)
             page.get_by_role("button", name="Transferencia").click()
             assert page.locator(".option:disabled").count() == 3
+            assert page.locator(".narrator-subtitle p").inner_text() == narrative["narrative"]["subtitles"][0]
             complete_evidence(page, 2, 1)
+            assert page.locator(".narrator-subtitle p").inner_text() == narrative["narrative"]["subtitles"][-1]
             answer_wrong_then_correct(page)
             assert_no_overflow(page, f"Nivel 2 {item['id']}")
 

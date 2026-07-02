@@ -1,0 +1,4 @@
+interface:
+  display_name: "Arquitectura narrativa del curso"
+  short_description: "Diseña arcos y continuidad curricular"
+  default_prompt: "Usa $course-narrative-architect para convertir este nivel curricular en episodios continuos y verificables."

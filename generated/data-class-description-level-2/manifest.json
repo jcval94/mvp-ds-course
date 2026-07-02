@@ -3,6 +3,10 @@
   "level": 2,
   "title": "Descripción y visualización",
   "status": "published",
+  "curriculum_source": "docs/CURRICULUM_MAP.md",
+  "story_source": "docs/stories/LEVEL_2.md",
+  "story_status": "approved",
+  "story_version": "don-juan-paco-level-2-v1",
   "entrypoint": "index.html",
   "concept_count": 21,
   "exercise_count": 42,
@@ -45,7 +49,8 @@
       "href": "resumen-numerico.html?concept=mean",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "median",
@@ -54,7 +59,8 @@
       "href": "resumen-numerico.html?concept=median",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "mode",
@@ -63,7 +69,8 @@
       "href": "resumen-numerico.html?concept=mode",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "range",
@@ -72,7 +79,8 @@
       "href": "resumen-numerico.html?concept=range",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "variance",
@@ -81,7 +89,8 @@
       "href": "resumen-numerico.html?concept=variance",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "standard-deviation",
@@ -90,7 +99,8 @@
       "href": "resumen-numerico.html?concept=standard-deviation",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "percentiles",
@@ -99,7 +109,8 @@
       "href": "resumen-numerico.html?concept=percentiles",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "histogram",
@@ -108,7 +119,8 @@
       "href": "distribuciones.html?concept=histogram",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "bike-sharing-day"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "bike-sharing-day"
     },
     {
       "id": "density",
@@ -117,7 +129,8 @@
       "href": "distribuciones.html?concept=density",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "bike-sharing-day"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "bike-sharing-day"
     },
     {
       "id": "shape",
@@ -126,7 +139,8 @@
       "href": "distribuciones.html?concept=shape",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "bike-sharing-day"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "bike-sharing-day"
     },
     {
       "id": "skew",
@@ -135,7 +149,8 @@
       "href": "distribuciones.html?concept=skew",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "bike-sharing-day"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "bike-sharing-day"
     },
     {
       "id": "multimodality",
@@ -144,7 +159,8 @@
       "href": "distribuciones.html?concept=multimodality",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "bike-sharing-day"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "bike-sharing-day"
     },
     {
       "id": "bins",
@@ -153,7 +169,8 @@
       "href": "distribuciones.html?concept=bins",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "bike-sharing-day"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "bike-sharing-day"
     },
     {
       "id": "bar-chart",
@@ -162,7 +179,8 @@
       "href": "comparacion-visual.html?concept=bar-chart",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "boxplot",
@@ -171,7 +189,8 @@
       "href": "comparacion-visual.html?concept=boxplot",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "violin-plot",
@@ -180,7 +199,8 @@
       "href": "comparacion-visual.html?concept=violin-plot",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "ecdf",
@@ -189,7 +209,8 @@
       "href": "comparacion-visual.html?concept=ecdf",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "palmer-penguins"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "palmer-penguins"
     },
     {
       "id": "outliers",
@@ -198,7 +219,8 @@
       "href": "valores-atipicos.html?concept=outliers",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "wine-quality"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "wine-quality"
     },
     {
       "id": "leverage",
@@ -207,7 +229,8 @@
       "href": "valores-atipicos.html?concept=leverage",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "wine-quality"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "wine-quality"
     },
     {
       "id": "capture-error",
@@ -216,7 +239,8 @@
       "href": "valores-atipicos.html?concept=capture-error",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "wine-quality"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "wine-quality"
     },
     {
       "id": "rare-valid",
@@ -225,7 +249,8 @@
       "href": "valores-atipicos.html?concept=rare-valid",
       "exercise_count": 2,
       "prompt_count": 3,
-      "dataset_id": "wine-quality"
+      "dataset_id": "pedidos-puesto-nivel-2",
+      "live_dataset_id": "wine-quality"
     }
   ],
   "datasets": [
@@ -233,6 +258,57 @@
     "bike-sharing-day",
     "wine-quality"
   ],
+  "narrative_dataset": {
+    "id": "pedidos-puesto-nivel-2",
+    "synthetic": true,
+    "label": "Dataset sintético narrativo; no representa personas reales",
+    "generator": "level2-orders-v1",
+    "seed": 20260628,
+    "period": {
+      "start": "2026-06-04",
+      "end": "2026-06-28",
+      "nights": 16
+    },
+    "dimensions": {
+      "rows": 600,
+      "columns": 10
+    },
+    "nightly_order_range": [
+      30,
+      45
+    ],
+    "schema": [
+      "pedido_id",
+      "fecha_hora",
+      "noche_id",
+      "dia_semana",
+      "tipo_taco",
+      "num_tacos",
+      "nivel_salsa",
+      "para_llevar",
+      "minuto_turno",
+      "estado_calidad"
+    ],
+    "files": {
+      "orders": {
+        "path": "datasets/narrative/pedidos_4_semanas_nivel_2.csv",
+        "sha256": "16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db"
+      },
+      "audit": {
+        "path": "datasets/narrative/auditoria_atipicos_nivel_2.csv",
+        "rows": 4,
+        "columns": 7,
+        "sha256": "a52cb9c75e436156c901d073dc97cc06b4d4a910f5570a12f530d20763c9ef0a"
+      }
+    },
+    "data_state": [
+      "L1.4",
+      "pedidos_4_semanas@L2.1",
+      "resumen@L2.2",
+      "distribuciones@L2.3",
+      "comparaciones_atipicos@L2.4"
+    ]
+  },
   "validation": "validation.json",
-  "updated_at": "2026-06-24"
+  "updated_at": "2026-06-28"
 }

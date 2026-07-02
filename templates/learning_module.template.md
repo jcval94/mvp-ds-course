@@ -8,6 +8,12 @@
 
 [Objetivo principal.]
 
+## Entrada narrativa
+
+- Episodio y estado previo: [referencia o no aplica].
+- Necesidad del personaje: [necesidad].
+- Dueño de la explicación técnica: [narrador].
+
 ## Activación previa
 
 [Pregunta o predicción.]
@@ -40,3 +46,8 @@
 ## Cierre
 
 [Resumen y transición a práctica.]
+
+- `continuityDelta`: [cambio o no aplica].
+- `dataStateDelta`: [cambio o no aplica].
+- `growthDelta`: [cambio o ninguno].
+- Incidente nuevo reservado para Ejercitar: [incidente].

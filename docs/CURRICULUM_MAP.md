@@ -13,6 +13,8 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 - Separar asociación, predicción y causalidad.
 - Preferir snapshots públicos pequeños, licenciados y reproducibles; usar datos
   sintéticos etiquetados cuando permitan aislar mejor el mecanismo.
+- Mantener un objetivo principal de ciencia de datos por episodio y, como
+  máximo, una competencia auxiliar de trabajo con agentes.
 
 ## Nivel 1: Fundamentos
 
@@ -98,6 +100,23 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | Reproducibilidad | semillas, versiones, diccionario de datos, notebook limpio | Permitir que otra persona repita el análisis. |
 | Mini-proyecto | pregunta, datos, análisis, evaluación, comunicación | Integrar el flujo completo con una decisión verificable. |
 
+## Eje transversal de trabajo con agentes
+
+Este eje es acumulativo y auxiliar: nunca sustituye el resultado esperado del
+bloque de ciencia de datos.
+
+| Nivel | Competencia acumulativa | Evidencia observable |
+| --- | --- | --- |
+| 1 | Esquema, diccionario de datos y skill como procedimiento verificable | Describe unidad, variables, vacíos y una skill con entrada, pasos, salida, comprobaciones y límites. |
+| 2 | Parámetros, entradas, salidas y operaciones compatibles | Ajusta un parámetro y explica qué operación y salida siguen siendo válidas. |
+| 3 | Incertidumbre, supuestos y validación de respuestas | Señala qué no se sabe y contrasta una respuesta del agente con evidencia. |
+| 4 | Contexto, asociación frente a causalidad | Escribe contexto suficiente y rechaza una explicación causal no sustentada. |
+| 5 | Pipelines, preparación y prevención de leakage | Ordena pasos y evita introducir información futura o del objetivo. |
+| 6 | Evals, casos de prueba y costos de error | Define aceptación y prueba fallos conectados con consecuencias del dominio. |
+| 7 | Revisión humana de segmentos y anomalías | Usa la salida como priorización y documenta la revisión humana. |
+| 8 | Versionado temporal y experimentos reproducibles | Fija corte temporal, versión, tratamiento y criterio de decisión. |
+| 9 | Procedencia, privacidad, auditoría y transferencia de skills | Entrega artefactos rastreables que otra persona puede ejecutar y revisar. |
+
 ## Prioridades de producción
 
 ### Publicado
@@ -108,8 +127,9 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 
 ### Próxima vertical slice
 
-Relaciones entre variables: scatterplot, tendencia, forma, grupos,
-correlación, sensibilidad a outliers y variables de confusión.
+Historia independiente de Nivel 3: partir del temario canónico, continuar desde
+`L2.4`, aprobar arco y ledger, y producir un par Aprender/Ejercitar para evento
+sin reformular todavía las 19 lecciones.
 
 ### Roadmap
 
@@ -132,6 +152,10 @@ Cada concepto incorporado debe declarar:
 - contrato de evidencia y paso exacto de desbloqueo por ejercicio;
 - criterio de dominio;
 - conexiones con el concepto anterior y siguiente.
+- referencia al arco y episodio cuando pertenezca a una ruta narrativa;
+- competencia auxiliar de agentes o declaración explícita de que no aplica;
+- estado canónico del dataset antes y después del episodio;
+- `continuityDelta` verificable sin adelantar conocimiento.
 
 ## Inspiración aplicada
 

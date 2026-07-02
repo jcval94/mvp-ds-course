@@ -1,0 +1,5 @@
+caso_id,origen,variable,valor,estado,fuente,accion
+P-005,Nivel 1,num_tacos,500,error_confirmado,total_diario_mezclado,separar_y_conservar_original
+P-007,Nivel 1,num_tacos,30,raro_valido,ticket_186,conservar_con_trazabilidad
+L2-X001,Nivel 2 guiado,num_tacos,360,error_confirmado,total_turno_mezclado,separar_y_conservar_original
+L2-A001,Nivel 2 transferencia,num_tacos,36,raro_valido,ticket_412,conservar_con_trazabilidad

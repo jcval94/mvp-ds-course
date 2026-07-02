@@ -125,6 +125,14 @@
             <p id="lessonObjective"></p>
           </section>
           <section class="lab">
+            <div class="scene-card" aria-label="Escena narrativa">
+              <div class="scene-heading"><span class="scene-id" id="sceneId"></span><strong id="sceneSetup"></strong></div>
+              <p class="dialogue don-juan"><b>Don Juan</b><span id="donJuanLine"></span></p>
+              <p class="dialogue paco"><b>Paco</b><span id="pacoLine"></span></p>
+            </div>
+            <div class="narrator-subtitle" role="status" aria-live="polite">
+              <span>Narrador · subtítulo</span><p id="narratorSubtitle"></p>
+            </div>
             <div class="lab-toolbar">
               <div><strong id="datasetName"></strong><span id="datasetMeta"></span></div>
               <span id="visualProgress" class="visual-progress"></span>
@@ -169,7 +177,6 @@
     visitedEvidence = new Set();
     isAnimating = false;
     const lesson = currentModule.lessons[lessonIndex];
-    const dataset = source.datasets[currentModule.dataset_id];
     document.title = `${lesson.title} | DataClass Forge`;
     const nextParams = new URLSearchParams();
     nextParams.set("concept", lesson.id);
@@ -182,9 +189,11 @@
     $("#lessonTitle").textContent = lesson.title;
     $("#lessonObjective").textContent = lesson.objective;
     $("#datasetName").textContent = currentModule.dataset_name;
-    $("#datasetMeta").textContent = `${dataset.rows.toLocaleString("es-MX")} filas · ${
-      dataset.license
-    }`;
+    $("#datasetMeta").textContent = `${source.narrativeDataset.dimensions.rows.toLocaleString("es-MX")} filas · sintético y versionado`;
+    $("#sceneId").textContent = lesson.narrative.scene;
+    $("#sceneSetup").textContent = lesson.narrative.setup;
+    $("#donJuanLine").textContent = lesson.narrative.donJuan;
+    $("#pacoLine").textContent = lesson.narrative.paco;
     $("#previous").disabled = lessonIndex === 0;
     $("#next").innerHTML =
       lessonIndex === currentModule.lessons.length - 1
@@ -200,7 +209,7 @@
     if (lesson.visual.type === "summary") renderSummary(lesson);
     if (lesson.visual.type === "distribution") renderDistribution(lesson);
     if (lesson.visual.type === "comparison") renderComparison(lesson);
-    if (lesson.visual.type === "outlier") renderOutlier(lesson);
+    if (lesson.visual.type === "outlier") renderNarrativeOutlier(lesson);
     const state = lesson.visual.states[visualStep];
     state.marks.forEach((mark) => visitedEvidence.add(mark.evidenceId));
     $("#visual").dataset.kind = lesson.visual.kind;
@@ -234,6 +243,9 @@
       ? "Evidencia completa"
       : lesson.visual.action;
     $("#runVisual").disabled = isAnimating || atEnd;
+    $("#narratorSubtitle").textContent = lesson.narrative.subtitles[
+      Math.min(visualStep, lesson.narrative.subtitles.length - 1)
+    ];
   }
 
   function svgFrame(content, label) {
@@ -245,17 +257,16 @@
 
   function renderSummary(lesson) {
     const focus = lesson.visual.focus;
-    let values = [...source.data.penguinMasses];
+    let values = [...source.data.orderQuantities];
     if (
       ["mean", "median", "range", "variance", "sd"].includes(focus) &&
       visualStep % 2
     ) {
-      values = [...values.slice(0, -1), Math.max(...values) + 1700];
+      values = [...values.slice(0, -1), Math.max(...values) + 18];
     }
 
     if (focus === "mode") {
-      const widths = [100, 250, 500];
-      const bucketWidth = widths[visualStep % widths.length];
+      const bucketWidth = 1;
       const minimum = Math.floor(Math.min(...values) / bucketWidth) * bucketWidth;
       const maximum = Math.ceil(Math.max(...values) / bucketWidth) * bucketWidth;
       const buckets = Array.from(
@@ -276,7 +287,7 @@
           const height = (bucket.count / maxCount) * 205;
           return `<rect x="${65 + index * barWidth}" y="${260 - height}" width="${
             barWidth - 2
-          }" height="${height}" class="bar"/>
+          }" height="${height}" class="bar ${visualStep && bucket.count === maxCount ? "highlight-bar" : ""}"/>
           <text x="${65 + index * barWidth + barWidth / 2}" y="282" text-anchor="middle" class="small">${
             index % 2 ? "" : format(bucket.start)
           }</text>`;
@@ -286,11 +297,9 @@
       $("#visual").innerHTML = svgFrame(
         `<line x1="55" y1="260" x2="715" y2="260" class="axis"/>
          ${bars}
-         <text x="65" y="312">Masa corporal (g)</text>
-         <text x="695" y="45" text-anchor="end">Intervalos de ${format(
-           bucketWidth
-         )} g · máximo ${format(mode.start)}–${format(mode.start + bucketWidth)} g</text>`,
-        `${lesson.visual.cue} ${source.data.displayNotes.penguinMasses}`
+         <text x="65" y="312">Tacos por pedido</text>
+         <text x="695" y="45" text-anchor="end">Tamaño más frecuente: ${format(mode.start)} tacos</text>`,
+        `${lesson.visual.cue} ${source.data.displayNotes.orders}`
       );
       return;
     }
@@ -323,33 +332,33 @@
       overlay = marker(
         value,
         "#285fb8",
-        `P${active * 100} ${format(value)} g`,
+        `P${active * 100} ${format(value)} tacos`,
         100
       );
     }
     if (focus === "range") {
       overlay = `${marker(minimum, "#d35a4a", `Mín ${format(minimum)}`)}
         ${marker(maximum, "#d35a4a", `Máx ${format(maximum)}`, 125)}
-        <text x="380" y="62" text-anchor="middle">Rango ${format(maximum - minimum)} g</text>`;
+        <text x="380" y="62" text-anchor="middle">Rango ${format(maximum - minimum)} tacos</text>`;
     }
-    if (focus === "variance" || focus === "sd") {
+    if ((focus === "variance" || focus === "sd") && visualStep % 2) {
       overlay += `<rect x="${x(center - sd)}" y="125" width="${Math.max(
         0,
         x(center + sd) - x(center - sd)
       )}" height="42" fill="#dff3f1"/>
         <text x="380" y="152" text-anchor="middle">${
           focus === "variance"
-            ? `Varianza descriptiva ${format(sd ** 2)} g²`
-            : `±1 DE ${format(sd)} g`
+            ? `Varianza descriptiva ${format(sd ** 2, 1)} tacos²`
+            : `±1 DE ${format(sd, 1)} tacos`
         }</text>`;
     }
     $("#visual").innerHTML = svgFrame(
       `<line x1="55" y1="250" x2="715" y2="250" class="axis"/>
-       <text x="55" y="280">${format(minimum)} g</text>
-       <text x="715" y="280" text-anchor="end">${format(maximum)} g</text>
+       <text x="55" y="280">${format(minimum)} tacos</text>
+       <text x="715" y="280" text-anchor="end">${format(maximum)} tacos</text>
        ${q1 !== q3 ? `<line x1="${x(q1)}" y1="260" x2="${x(q3)}" y2="260" class="iqr"/>` : ""}
        ${points}${overlay}`,
-      `${lesson.visual.cue} ${source.data.displayNotes.penguinMasses}`
+      `${lesson.visual.cue} ${source.data.displayNotes.orders}`
     );
   }
 
@@ -370,10 +379,10 @@
 
   function renderDistribution(lesson) {
     const focus = lesson.visual.focus;
-    const allValues = source.data.bikeCounts;
+    const allValues = focus === "multimodal" ? source.data.orderMinutes : source.data.orderQuantities;
 
     if (focus === "density") {
-      const bandwidths = [250, 600, 1200];
+      const bandwidths = [0.4, 1, 2];
       const bandwidth = bandwidths[visualStep % bandwidths.length];
       const density = kernelDensity(allValues, bandwidth);
       const maxDensity = Math.max(...density.map(([, value]) => value));
@@ -394,8 +403,8 @@
       $("#visual").innerHTML = svgFrame(
         `<line x1="55" y1="265" x2="715" y2="265" class="axis"/>
          ${rug}<polyline points="${points}" class="density motion-line" data-semantic="density-curve"/>
-         <text x="65" y="305">${format(minimum)} alquileres</text>
-         <text x="715" y="305" text-anchor="end">${format(maximum)} alquileres</text>
+         <text x="65" y="305">${format(minimum)} tacos</text>
+         <text x="715" y="305" text-anchor="end">${format(maximum)} tacos</text>
          <text x="695" y="45" text-anchor="end">KDE · ancho de banda ${format(
            bandwidth
          )} · área = 1</text>`,
@@ -406,13 +415,13 @@
 
     if (focus === "multimodal" && visualStep % 2) {
       const colors = ["#087f7b", "#285fb8", "#d35a4a", "#9b5ca5"];
-      const entries = Object.entries(source.data.bikeSeasons);
+      const entries = Object.entries(source.data.rushGroups);
       const minimum = Math.min(...allValues);
       const maximum = Math.max(...allValues);
       const curves = entries.map(([name, values], index) => ({
         name,
         color: colors[index],
-        density: kernelDensity(values, 650),
+        density: kernelDensity(values, 24),
       }));
       const maxDensity = Math.max(
         ...curves.flatMap((curve) => curve.density.map(([, value]) => value))
@@ -431,8 +440,8 @@
       $("#visual").innerHTML = svgFrame(
         `<line x1="55" y1="265" x2="715" y2="265" class="axis"/>
          ${paths}
-         <text x="65" y="305">Alquileres diarios</text>
-         <text x="695" y="45" text-anchor="end">Distribuciones por temporada</text>`,
+         <text x="65" y="305">Minutos desde las 18:00</text>
+         <text x="695" y="45" text-anchor="end">Concentraciones del turno</text>`,
         lesson.visual.cue
       );
       return;
@@ -444,9 +453,9 @@
     let stateLabel = `${binCount} bins · n=${values.length}`;
     if (focus === "shape") {
       const choices = [
-        ["Todos los días", allValues],
-        ["Invierno", source.data.bikeSeasons.Invierno],
-        ["Verano", source.data.bikeSeasons.Verano],
+        ["Todos los pedidos", allValues],
+        ["Jueves", source.data.dayGroups.Jueves],
+        ["Domingo", source.data.dayGroups.Domingo],
       ];
       const active = choices[visualStep % choices.length];
       values = active[1];
@@ -479,35 +488,39 @@
     $("#visual").innerHTML = svgFrame(
       `<line x1="55" y1="265" x2="715" y2="265" class="axis"/>
        ${bars}${overlay}
-       <text x="65" y="315">Alquileres diarios</text>
+       <text x="65" y="315">${focus === "multimodal" ? "Minutos del turno" : "Tacos por pedido"}</text>
        <text x="695" y="45" text-anchor="end">${stateLabel}</text>`,
       lesson.visual.cue
     );
   }
 
   function renderComparison(lesson) {
-    const groups = source.data.penguinGroups;
+    const groups = lesson.visual.focus === "bar"
+      ? source.data.tacoTypeGroups
+      : lesson.visual.focus === "violin"
+        ? source.data.dayGroups
+        : source.data.takeoutGroups;
     const names = Object.keys(groups);
     if (lesson.visual.focus === "bar") {
-      const showCount = visualStep % 2 === 1;
-      const values = names.map((name) =>
-        showCount ? groups[name].length : mean(groups[name])
-      );
+      const showLabels = visualStep % 2 === 1;
+      const values = names.map((name) => groups[name].length);
       const max = Math.max(...values);
+      const slot = 620 / names.length;
       $("#visual").innerHTML = svgFrame(
         names
           .map((name, index) => {
             const height = (values[index] / max) * 210;
-            return `<rect x="${120 + index * 190}" y="${265 - height}" width="92" height="${height}" class="bar"/>
-              <text x="${166 + index * 190}" y="292" text-anchor="middle">${name}</text>
-              <text x="${166 + index * 190}" y="${250 - height}" text-anchor="middle">${
-                showCount ? `${format(values[index])} pingüinos` : `${format(values[index])} g`
+            const center = 70 + slot * index + slot / 2;
+            return `<rect x="${center - 38}" y="${265 - height}" width="76" height="${height}" class="bar"/>
+              <text x="${center}" y="292" text-anchor="middle">${name}</text>
+              <text x="${center}" y="${250 - height}" text-anchor="middle">${
+                showLabels ? `${format(values[index])} pedidos` : format(values[index])
               }</text>`;
           })
           .join("") +
           `<line x1="70" y1="265" x2="700" y2="265" class="axis"/>
            <text x="695" y="45" text-anchor="end">${
-             showCount ? "Conteo por especie" : "Media de masa corporal"
+             "Conteo de pedidos por tipo de taco"
            } · base cero</text>`,
         lesson.visual.cue
       );
@@ -519,7 +532,7 @@
       const min = Math.min(...all);
       const max = Math.max(...all);
       const x = (value) => 65 + ((value - min) / (max - min)) * 630;
-      const thresholds = [3500, 4000, 4500, 5000];
+      const thresholds = [2, 4, 6, 8];
       const threshold = thresholds[visualStep % thresholds.length];
       const paths = names
         .map((name, groupIndex) => {
@@ -535,16 +548,16 @@
           return `<polyline points="${points}" fill="none" stroke="${colors[groupIndex]}" stroke-width="3"/>
             <text x="${510}" y="${58 + groupIndex * 24}" fill="${colors[groupIndex]}">${
               name
-            }: ${format(proportion * 100, 1)}% ≤ ${format(threshold)} g</text>`;
+            }: ${format(proportion * 100, 1)}% ≤ ${format(threshold)} tacos</text>`;
         })
         .join("");
       $("#visual").innerHTML = svgFrame(
         `<line x1="55" y1="260" x2="715" y2="260" class="axis"/>
          <line x1="65" y1="45" x2="65" y2="265" class="axis"/>${paths}
          <line x1="${x(threshold)}" y1="45" x2="${x(threshold)}" y2="260" stroke="#172436" stroke-dasharray="5 5"/>
-         <text x="65" y="296">${format(min)} g</text><text x="715" y="296" text-anchor="end">${format(max)} g</text>
+         <text x="65" y="296">${format(min)} tacos</text><text x="715" y="296" text-anchor="end">${format(max)} tacos</text>
          <text x="22" y="52">1.0</text><text x="28" y="262">0</text>
-         <text x="${x(threshold)}" y="285" text-anchor="middle">${format(threshold)} g</text>`,
+         <text x="${x(threshold)}" y="285" text-anchor="middle">${format(threshold)} tacos</text>`,
         lesson.visual.cue
       );
       return;
@@ -562,7 +575,7 @@
         const q3 = quantile(values, 0.75);
         const y = 95 + index * 78;
         if (lesson.visual.focus === "violin") {
-          const bandwidths = [120, 250, 450];
+          const bandwidths = [0.4, 1, 2];
           const bandwidth = bandwidths[visualStep % bandwidths.length];
           const density = kernelDensity(values, bandwidth, 65);
           const maxDensity = Math.max(...density.map(([, value]) => value));
@@ -610,16 +623,105 @@
       .join("");
     $("#visual").innerHTML = svgFrame(
       `${content}<line x1="65" y1="300" x2="700" y2="300" class="axis"/>
-       <text x="65" y="323">${format(min)} g</text><text x="700" y="323" text-anchor="end">${format(max)} g</text>
+       <text x="65" y="323">${format(min)} tacos</text><text x="700" y="323" text-anchor="end">${format(max)} tacos</text>
        ${
          lesson.visual.focus === "violin"
            ? `<text x="695" y="45" text-anchor="end">Ancho de banda ${
-               [120, 250, 450][visualStep % 3]
-             } g</text>`
+               [0.4, 1, 2][visualStep % 3]
+             } tacos</text>`
            : `<text x="695" y="45" text-anchor="end">Bigotes: 1.5 IQR</text>`
        }`,
       lesson.visual.cue
     );
+  }
+
+  function renderNarrativeOutlier(lesson) {
+    const quantities = source.data.orderQuantities;
+    const q1 = quantile(quantities, 0.25);
+    const q3 = quantile(quantities, 0.75);
+    const upperFence = q3 + 1.5 * (q3 - q1);
+
+    if (lesson.visual.focus === "capture") {
+      const active = visualStep % 2 === 1;
+      const cases = source.data.auditCases.filter((item) => item.estado === "error_confirmado");
+      $("#visual").innerHTML = `<p class="visual-cue">${lesson.visual.cue}</p>
+        <div class="record-compare">
+          ${cases.map((item) => `<div class="${active ? "invalid" : ""}">
+            <span>${item.caso_id} · ${item.origen}</span>
+            <strong>num_tacos = ${item.valor}</strong>
+            <p>${active ? `Fuente: ${item.fuente}. Acción: ${item.accion}.` : "Pendiente de contrastar significado y fuente."}</p>
+          </div>`).join("")}
+        </div>
+        <p class="sample-note">${active
+          ? "Los totales mezclados se separan; el original se conserva y no se corrige por adivinanza."
+          : "Estado inicial: dos cantidades sospechosas todavía no son una licencia para inventar valores."}</p>`;
+      return;
+    }
+
+    if (lesson.visual.focus === "outlier") {
+      const minimum = Math.min(...quantities);
+      const maximum = Math.max(...quantities);
+      const x = (value) => 65 + ((value - minimum) / (maximum - minimum || 1)) * 630;
+      const sampled = quantities.filter((_, index) => index % 5 === 0 || _ >= upperFence);
+      const points = sampled.map((value, index) =>
+        `<circle cx="${x(value)}" cy="${235 - (index % 8) * 10}" r="3.2" class="scatter-point"/>`
+      ).join("");
+      const active = visualStep % 2 === 1;
+      $("#visual").innerHTML = svgFrame(
+        `<line x1="55" y1="245" x2="715" y2="245" class="axis"/>
+         <rect x="${x(q1)}" y="170" width="${x(q3) - x(q1)}" height="42" class="box"/>
+         <line x1="${x(upperFence)}" y1="105" x2="${x(upperFence)}" y2="250" stroke="#d35a4a" stroke-width="3" stroke-dasharray="5 5"/>
+         ${points}<circle cx="${x(maximum)}" cy="86" r="${active ? 9 : 5}" class="${active ? "highlight-point" : "scatter-point"}"/>
+         <text x="${x(upperFence)}" y="92" text-anchor="middle" fill="#d35a4a">Cerca superior ${format(upperFence, 1)}</text>
+         <text x="${x(maximum)}" y="62" text-anchor="middle">Máximo ${format(maximum)} tacos · ${active ? "revisar ticket" : "sin veredicto"}</text>
+         <text x="65" y="292">Tacos por pedido</text>`,
+        `${lesson.visual.cue} Cálculo sobre 600 pedidos sintéticos.`
+      );
+      return;
+    }
+
+    const points = source.data.orderPoints;
+    const minX = Math.min(...points.map((point) => point.minute));
+    const maxX = Math.max(...points.map((point) => point.minute));
+    const minY = Math.min(...points.map((point) => point.quantity));
+    const maxY = Math.max(...points.map((point) => point.quantity));
+    const x = (value) => 65 + ((value - minX) / (maxX - minX || 1)) * 630;
+    const y = (value) => 270 - ((value - minY) / (maxY - minY || 1)) * 215;
+    const highlighted = lesson.visual.focus === "leverage"
+      ? points.reduce((best, point) => point.minute > best.minute ? point : best)
+      : points.reduce((best, point) => point.quantity > best.quantity ? point : best);
+    const circles = points.map((point) => {
+      const active = point === highlighted && visualStep % 2;
+      return `<circle cx="${x(point.minute)}" cy="${y(point.quantity)}" r="${active ? 8 : 3.2}" class="${active ? "highlight-point" : "scatter-point"}"/>`;
+    }).join("");
+    let line = "";
+    let details = "";
+    if (lesson.visual.focus === "leverage") {
+      const pairs = source.data.orderRegression;
+      const extremeX = Math.max(...pairs.map(([minute]) => minute));
+      const withoutExtreme = pairs.filter(([minute]) => minute < extremeX);
+      const fitAll = linearRegression(pairs);
+      const fitWithout = linearRegression(withoutExtreme);
+      const fit = visualStep % 2 ? fitWithout : fitAll;
+      const yFor = (value, model) => model.intercept + model.slope * value;
+      const comparison = visualStep % 2
+        ? `<line x1="${x(minX)}" y1="${y(yFor(minX, fitAll))}" x2="${x(maxX)}" y2="${y(yFor(maxX, fitAll))}" class="fit fit-comparison"/>`
+        : "";
+      line = `${comparison}<line x1="${x(minX)}" y1="${y(yFor(minX, fit))}" x2="${x(maxX)}" y2="${y(yFor(maxX, fit))}" class="fit"/>
+        <text x="690" y="48" text-anchor="end">${visualStep % 2 ? "Ajuste sin el minuto extremo" : "Ajuste con todos los pedidos"} · pendiente ${fit.slope.toFixed(4)}${visualStep % 2 ? ` · Δ ${Math.abs(fitWithout.slope - fitAll.slope).toFixed(4)}` : ""}</text>`;
+    }
+    if (lesson.visual.focus === "rare" && visualStep % 2) {
+      const validCases = source.data.auditCases.filter((item) => item.estado === "raro_valido");
+      details = `<div class="case-detail"><strong>Casos raros con fuente</strong>
+        ${validCases.map((item) => `<span>${item.caso_id}: ${item.valor} tacos</span>`).join("")}
+        <p>Los tickets confirman estos pedidos. La rareza no prueba error ni autoriza inferir información personal.</p></div>`;
+    }
+    $("#visual").innerHTML = svgFrame(
+      `<line x1="55" y1="270" x2="715" y2="270" class="axis"/>
+       <line x1="65" y1="45" x2="65" y2="280" class="axis"/>
+       ${circles}${line}<text x="65" y="310">Minuto del turno</text><text x="20" y="45">Tacos</text>`,
+      `${lesson.visual.cue} ${source.data.displayNotes.orders}`
+    ) + details;
   }
 
   function renderOutlier(lesson) {

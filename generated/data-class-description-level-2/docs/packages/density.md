@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Bike Sharing Dataset · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Bike Sharing Dataset · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** La densidad describe concentración relativa mediante una curva con área total igual a uno.
 - **Intuición:** Es una silueta suave de la distribución, no un conteo de filas.
 - **Error común:** Leer la altura de densidad como probabilidad exacta de un valor puntual.
-- **Visual:** Cambia el suavizado y observa qué detalles se conservan o desaparecen.
+- **Visual:** Cambia el ancho de banda y conserva visibles las marcas de los pedidos.
 - **Kind visual:** `density-rug`.
 - **Mecanismo:** suavizado de observaciones manteniendo área unitaria.
-- **Estados:** Banda 250 → Banda 600 → Banda 1200.
+- **Estados:** Banda 0.4 → Banda 1 → Banda 2.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Ajustar suavizado.
-- **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
-- **Variables:** `cnt`, conteo entero de alquileres diarios.
-- **Dataset:** Bike Sharing Dataset · UCI, 731 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`.
+- **Interacción:** Ajustar el suavizado.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, cantidad discreta; `minuto_turno`, minuto desde las 18:00.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S09`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.2`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Una curva suaviza las marcas de cada pedido.
+
+**Don Juan:** La curva se ve pareja, pero no quiero que desaparezcan los pedidos.
+
+**Paco:** Dejo las marquitas abajo para comprobarlos.
+
+**Subtítulos:** Una densidad suaviza observaciones y conserva un área total unitaria. / Estado «Banda 1»: cambia el parámetro o el corte; la entrada sigue documentada. / El ancho de banda puede ocultar o exagerar picos aparentes.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Ajustar suavizado** y describir qué cambió.
+3. Ejecutar **Ajustar el suavizado** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Ajustar suavizado» y citar el cambio visible asociado con densidad.
+**Evidencia narrativa común:** Ejecutar «Ajustar el suavizado» y citar el cambio visible asociado con densidad en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Don José, dueño de una tienda de barrio quiere decidir a qué hora abrir sin revisar cientos de días en Excel. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar densidad para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; un suavizado excesivo oculta una concentración visible en las marcas, en un incidente posterior a L2-S09. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de densidad que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Ajustar suavizado» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Ajustar el suavizado» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Densidad: recorrer todos los estados y citar la marca visible de suavizado de observaciones manteniendo área unitaria. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Cambia el ancho de banda y comprueba qué cimas se conservan en la curva normalizada.
+**Evidencia requerida:** Incidente 1 de Densidad: recorrer todos los estados y citar la marca visible de suavizado de observaciones manteniendo área unitaria.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs density-state-1, density-state-2, density-state-3.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Qué propiedad debe mantenerse al cambiar el suavizado?
+**Pregunta:** ¿Qué curva conserva más ondulaciones?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| El área total bajo la curva es uno. | Sí | La densidad normaliza área, no altura máxima. |
-| La altura máxima siempre es uno. | No | La altura depende de la escala y el ancho de banda. |
-| Cada punto de la curva es un conteo entero. | No | La curva es continua y puede tomar valores no enteros. |
+| La de banda 0.4. | Sí | La evidencia visible sostiene «La de banda 0.4.» dentro de suavizado de observaciones manteniendo área unitaria. |
+| La de banda 2. | No | El estado recorrido contradice «La de banda 2.»; compara las marcas y etiquetas. |
+| Las tres son idénticas. | No | El estado recorrido contradice «Las tres son idénticas.»; conserva la unidad y el límite. |
 
-**Pista:** Piensa en área, no en la cima.
+**Pista:** Recorre todos los estados de densidad y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Don José, dueño de una tienda de barrio cambia de contexto para probar si el razonamiento se transfiere. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar densidad para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de densidad que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Ajustar suavizado» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Ajustar el suavizado» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Densidad: recorrer todos los estados y citar la marca visible de suavizado de observaciones manteniendo área unitaria. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Contrasta la curva suave con las marcas de datos para detectar estructura que podría ocultarse.
+**Evidencia requerida:** Incidente 2 de Densidad: recorrer todos los estados y citar la marca visible de suavizado de observaciones manteniendo área unitaria.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs density-state-1, density-state-2, density-state-3.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** Un suavizado excesivo muestra una sola cima. ¿Qué riesgo existe?
+**Pregunta:** ¿Qué pasa al aumentar la banda hasta 2?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Ocultar subgrupos o modos presentes en los datos. | Sí | El ancho de banda puede borrar estructura local. |
-| Crear observaciones nuevas en el CSV. | No | La curva no modifica el snapshot. |
-| Cambiar la unidad de análisis. | No | Cada fila sigue siendo un día. |
+| La curva se suaviza mientras las marcas permanecen. | Sí | La evidencia visible sostiene «La curva se suaviza mientras las marcas permanecen.» dentro de suavizado de observaciones manteniendo área unitaria. |
+| La curva se vuelve un gráfico de barras. | No | El estado recorrido contradice «La curva se vuelve un gráfico de barras.»; compara las marcas y etiquetas. |
+| Se eliminan los pedidos grandes del archivo. | No | El estado recorrido contradice «Se eliminan los pedidos grandes del archivo.»; conserva la unidad y el límite. |
 
-**Pista:** Compara la curva con el histograma base.
+**Pista:** Recorre todos los estados de densidad y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta densidad con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Ajustar suavizado», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Ajustar el suavizado», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

@@ -33,6 +33,8 @@ DataClass Forge es una fábrica documental especializada en material educativo d
 - Como instructor, quiero un guion y un plan offline para impartir la clase sin depender de una herramienta externa.
 - Como revisor, quiero criterios de fallo claros para detectar visualizaciones decorativas y ejercicios triviales.
 - Como agente, quiero contratos estructurados para producir artefactos consistentes.
+- Como creador de cursos, quiero una historia continua cuyos personajes, datos y
+  conocimientos evolucionen sin contradicciones entre niveles.
 
 ## Modos obligatorios
 
@@ -49,6 +51,49 @@ Produce un caso aplicado distinto de Aprender, con protagonista, presión realis
 Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, snapshot público real, demostración, preguntas, evaluación, plan offline y artefactos copiables. El ocultamiento en estático no se presenta como seguridad real.
 
 ## Interfaces documentales
+
+### `CourseStoryBible`
+
+- Premisa, audiencia, tono, mundo y reglas de humor.
+- Arco general de los nueve niveles.
+- Reglas de autoridad narrativa y límites del contexto.
+- Referencias a las `CharacterCard` canónicas.
+- Matriz incremental de relaciones y crecimiento cuantificado del negocio.
+
+### `CharacterCard`
+
+- Identidad, rol, motivaciones y conocimiento inicial.
+- Vocabulario, ritmo, registros permitidos y expresiones incompatibles.
+- Errores plausibles, capacidad de aprendizaje y límites de autoridad.
+- Característica oculta, estado de revelación, ventana mínima y uso permitido.
+- Condiciones para incorporar invitados sin atribuirles experiencia inventada.
+
+### `LevelNarrativeArc`
+
+- Nivel, estado previo, conflicto y promesa de aprendizaje.
+- Episodios ordenados y referencias a conceptos y personajes.
+- Un objetivo principal de ciencia de datos y hasta una competencia auxiliar de
+  agentes por episodio.
+- Estado de entrada y salida del dataset, resolución y puente al siguiente nivel.
+- Estado de entrada y salida del tamaño, capacidad, equipo y plantilla del puesto.
+
+### `LevelStory`
+
+- Archivo independiente `docs/stories/LEVEL_<N>.md` creado después de congelar
+  el temario y antes de diseñar `ConceptSpec` o implementar el nivel.
+- Estado `borrador`, `en revisión` o `aprobada`; solo `aprobada` habilita el nivel.
+- Tabla trazable de conceptos, escenas, evidencia, incidente de práctica y deltas.
+- Diálogos sujetos a `CharacterCard` y dos subtítulos del narrador por escena:
+  planteamiento y conclusión basada en evidencia.
+- Estado de entrada y salida de personajes, negocio y dataset.
+
+### `ContinuityLedger`
+
+- Cronología, hechos canónicos, personajes introducidos y relaciones.
+- Conocimientos adquiridos por personaje y conceptos que todavía no puede usar.
+- Estado versionado del dataset, transformaciones y conteos verificables.
+- Hilos abiertos, resolución, último episodio y siguiente punto de entrada.
+- Estado de secretos y `growthDelta` aprobado.
 
 ### `ConceptSpec`
 
@@ -105,9 +150,27 @@ Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, s
 ## Requisitos funcionales
 
 - Leer `IDEA.md` y `docs/CURRICULUM_MAP.md` antes de generar material.
+- Aplicar el orden `temario predeterminado -> LevelStory independiente -> nivel`.
+- Rechazar ConceptSpecs, paquetes o HTML de una ruta continua cuando
+  `docs/stories/LEVEL_<N>.md` no exista o no esté aprobada.
 - Seleccionar un solo objetivo principal por paquete.
 - Resolver o documentar prerrequisitos.
 - Reutilizar una `ConceptSpec` común para los tres modos.
+- Cargar la `CourseStoryBible`, el arco y el ledger antes de generar un episodio
+  perteneciente a una ruta narrativa.
+- Usar a Don Juan y Paco como núcleo; incorporar invitados cuando el dominio
+  requiera experiencia que los protagonistas no poseen.
+- Mantener a Paco como hijo adolescente, estudiante de preparatoria y ayudante
+  parcial con una clase de datos y otra de IA.
+- Reservar al narrador toda definición, nombre y conclusión técnica; Don Juan
+  conserva únicamente conocimiento del negocio y lenguaje simple.
+- Renderizar toda intervención del narrador como subtítulo de alto contraste,
+  no como globo, diálogo, tarjeta de personaje ni párrafo atribuido dentro del mundo.
+- Declarar dinámica familiar, secretos no revelados y estado de crecimiento sin
+  inferirlos desde datos.
+- Registrar después de cada episodio un `continuityDelta` y un `dataStateDelta`.
+- Registrar `growthDelta`, incluso cuando sea explícitamente ninguno.
+- Mantener la competencia de agentes subordinada al objetivo de ciencia de datos.
 - Preferir snapshots públicos no sensibles con fuente, licencia, fecha y hash.
 - Generar datos sintéticos reproducibles y etiquetados cuando no exista una
   fuente pública adecuada o se necesite aislar un mecanismo.
@@ -186,6 +249,9 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 - Existen 58 conceptos, 98 ejercicios y 174 prompts.
 - Cada artefacto usa la `ConceptSpec` correspondiente.
+- Cada ruta narrativa tiene Story Bible, fichas, arco y ledger sin referencias rotas.
+- Cada episodio declara estado previo, voces, dato canónico, cambio de continuidad
+  y puente; ningún personaje usa conocimiento no adquirido.
 - Cada ejercicio depende de evidencia visual.
 - Cada ejercicio incluye historia aplicada y animación antes de responder.
 - Cada ejercicio permanece bloqueado hasta satisfacer su `evidenceContract`.
@@ -230,6 +296,8 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 | Usuario docente | `IDEA.md` | Brief, PRD, prompts | Checklist MVP |
 | Tres modos | Brief | Agent Spec, Skills, Harness | Eval Suite |
 | Temario progresivo | `CURRICULUM_MAP.md` | ConceptSpec, Plan | Rubrica curricular |
+| Narrativa continua y elenco núcleo | `IDEA.md` y solicitud del usuario | Story Bible, arcos, ledger, skills y evals | Checklist narrativo |
+| Alfabetización de agentes transversal | Solicitud del usuario | Currículo, ConceptSpec, episodios y prompts | Checklist curricular y narrativo |
 | Visual obligatorio | Demos de inspiración y Brief | Skills, ejercicios, evals | Checklist pedagógico |
 | Contrato de evidencia | Auditoría visual de junio de 2026 | ConceptSpec, UI, QA y publicación | Revisión visual interactiva |
 | Tres niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
@@ -241,6 +309,9 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 - Generalizar el patrón de histograma a conceptos donde no corresponde.
 - Confundir narrativa atractiva con aprendizaje verificable.
+- Convertir la taquería en una metáfora forzada para todos los dominios.
+- Permitir deriva de voz, conocimiento prematuro o cambios silenciosos en los datos.
+- Convertir el eje de agentes en un segundo objetivo que compita con ciencia de datos.
 - Crear demasiados temas con poca profundidad.
 - Usar datos o métricas inconsistentes entre modos.
 - Generar material técnicamente correcto pero inadecuado para el nivel.

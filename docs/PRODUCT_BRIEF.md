@@ -8,6 +8,16 @@ DataClass Forge.
 
 DataClass Forge es una fábrica documental para crear material educativo de ciencia de datos con agentes. Convierte un concepto curricular en tres artefactos relacionados: un módulo para aprender, un ejercicio para practicar y un paquete para enseñar en vivo. El MVP valida calidad pedagógica, precisión técnica y trazabilidad antes de construir una aplicación final.
 
+Cuando una ruta usa narrativa continua, la fábrica conserva además mundo,
+personajes, cronología, conocimientos adquiridos y estado del dataset. Don Juan
+y Paco forman el núcleo canónico; los invitados se incorporan solo cuando el
+dominio requiere experiencia adicional.
+
+El canon establece a Paco como estudiante de preparatoria e hijo de Don Juan.
+Don Juan conserva autoridad exclusiva sobre el negocio y lenguaje cotidiano; el
+narrador conserva autoridad exclusiva para introducir y concluir ciencia de datos.
+Las relaciones, secretos y crecimiento del puesto evolucionan mediante matrices versionadas.
+
 ## Problema
 
 Los docentes y creadores de cursos invierten demasiado tiempo ensamblando explicaciones, visualizaciones, datos, ejercicios y guías. Las salidas generadas sin una arquitectura educativa común suelen ser genéricas, técnicamente frágiles o desconectadas del objetivo de aprendizaje.
@@ -28,12 +38,18 @@ Pasar de un concepto a un paquete educativo coherente y revisable en menos de 20
 - Cuando explico un concepto abstracto, quiero una interacción visual que haga observable la idea central.
 - Cuando diseño ejercicios, quiero que las preguntas dependan de la evidencia y que el feedback enseñe.
 - Cuando uso agentes, quiero contratos y evaluaciones que impidan contenido superficial o técnicamente incorrecto.
+- Cuando construyo una ruta narrativa, quiero mantener voz, continuidad y
+  evolución de los datos para que cada nivel parezca parte del mismo curso.
 
 ## Salidas del producto
 
 1. **Aprender:** objetivo, prerrequisitos, intuición, visualización, explicación progresiva, error común, checkpoint y cierre.
 2. **Ejercitar:** historia aplicada distinta de Aprender, protagonista, presión realista, evidencia visual animada, decisión, respuesta esperada, distractores, pistas, feedback y conclusión.
 3. **Enseñar en vivo:** contenido docente oculto en la UI estudiantil, guion, snapshot público real, demostración, preguntas socráticas, blueprint de notebook o HTML, evaluación, plan offline y checklist docente.
+
+Las rutas narrativas añaden cuatro interfaces documentales: `CourseStoryBible`,
+`CharacterCard`, `LevelNarrativeArc` y `ContinuityLedger`. Estas interfaces
+alimentan los tres modos, pero no sustituyen la `ConceptSpec`.
 
 ## MVP recomendado
 
@@ -63,7 +79,11 @@ interacción, resuelve los ejercicios y usa los prompts sin completar secciones.
 **Definition of Done:**
 
 - Cada concepto tiene objetivo, prerrequisitos, visual, error común y dataset.
+- Cada episodio narrativo referencia su arco, respeta las fichas de personaje y
+  registra cambios de continuidad, estado del dataset y crecimiento del puesto.
 - Los tres modos comparten la misma intención conceptual, pero muestran contenido distinto.
+- Aprender y Ejercitar pueden compartir mundo y personajes, pero no reutilizan
+  el mismo incidente, evidencia ni resolución.
 - El ejercicio no puede resolverse correctamente ignorando la visualización.
 - Ejercitar cuenta una historia profesional o de negocio y bloquea la respuesta hasta revelar evidencia animada.
 - Cada visual declara su mecanismo, estados, marcas semánticas y alternativa con movimiento reducido.
@@ -85,6 +105,11 @@ interacción, resuelve los ejercicios y usa los prompts sin completar secciones.
 
 La fábrica no se limita a generar texto. Exige una línea de trazabilidad entre objetivo, visualización, actividad, feedback y evaluación, inspirada en experiencias educativas ricas como los demos de histograma sin convertirlos en una plantilla rígida.
 
+Su segundo diferenciador es enseñar a trabajar con agentes de forma acumulativa:
+esquemas y skills verificables en fundamentos; parámetros, incertidumbre,
+pipelines, evals, revisión humana, versionado y auditoría en niveles posteriores.
+Esta competencia siempre es auxiliar al objetivo principal de ciencia de datos.
+
 ## Supuestos razonables
 
 - El idioma inicial es español.
@@ -105,6 +130,12 @@ La fábrica no se limita a generar texto. Exige una línea de trazabilidad entre
 
 - **Contenido correcto pero superficial:** bloquear módulos sin interacción, error común o checkpoint.
 - **Narrativa sin aprendizaje:** exigir protagonista, tensión y decisión, pero bloquear historias que revelan la respuesta sin evidencia.
+- **Pérdida de voz o continuidad:** validar lo que cada personaje puede saber,
+  cómo habla, qué ocurrió antes y qué datos existen en ese momento.
+- **Metáfora forzada:** incorporar invitados o cambiar de contexto cuando la
+  taquería no pueda sostener el concepto con credibilidad.
+- **Agentes como distracción:** limitar cada episodio a una competencia auxiliar
+  y exigir que no desplace el objetivo de ciencia de datos.
 - **Visualización decorativa:** exigir que una pregunta o experimento dependa de ella.
 - **Visualización genérica reciclada:** bloquear representaciones que no hagan visible el mecanismo específico del concepto.
 - **Cambio visual sin evidencia:** validar identificadores semánticos, secuencia y desbloqueo; no basta comparar HTML antes y después.

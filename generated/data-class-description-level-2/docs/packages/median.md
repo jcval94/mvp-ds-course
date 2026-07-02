@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Palmer Penguins`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Palmer Penguins` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** La mediana separa los datos ordenados en dos mitades.
 - **Intuición:** Es la observación que queda en el centro al formar una fila ordenada.
 - **Error común:** Calcularla sin ordenar o confundirla con el valor más frecuente.
-- **Visual:** Compara media y mediana antes y después de añadir una masa extrema.
+- **Visual:** Ordena los pedidos y compara cuánto cambian media y mediana.
 - **Kind visual:** `number-line`.
 - **Mecanismo:** resistencia del centro ordenado.
-- **Estados:** Base → Extremo añadido.
+- **Estados:** Pedidos ordenados → Pedido grande añadido.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Añadir un extremo.
-- **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
-- **Variables:** `body_mass_g`, numérica continua en gramos.
-- **Dataset:** Palmer Penguins, 344 filas, licencia CC0-1.0.
-- **Fuente:** https://allisonhorst.github.io/palmerpenguins/.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Interacción:** Añadir un pedido grande.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, numérica discreta en tacos por pedido.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S02`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.1`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Los pedidos se ordenan y se marca la posición central.
+
+**Don Juan:** ¿Cuál queda en medio aunque llegue el pedido grandote?
+
+**Paco:** Primero los acomodo; no voy a adivinar el centro.
+
+**Subtítulos:** La mediana es la posición central de los valores ordenados. / El extremo cambia poco la posición central; resistencia no significa inmunidad.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Añadir un extremo** y describir qué cambió.
+3. Ejecutar **Añadir un pedido grande** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Añadir un extremo» y citar el cambio visible asociado con mediana.
+**Evidencia narrativa común:** Ejecutar «Añadir un pedido grande» y citar el cambio visible asociado con mediana en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Lucía, analista de operaciones de una clínica debe resumir mediciones de pacientes antes de una junta de 15 minutos. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de mediana sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; dos retrasos enormes estiran los tiempos del cierre, en un incidente posterior a L2-S02. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de mediana que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Añadir un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Añadir un pedido grande» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Mediana: recorrer todos los estados y citar la marca visible de resistencia del centro ordenado. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Observa cuánto cambian la mediana y la media cuando aparece el valor extremo.
+**Evidencia requerida:** Incidente 1 de Mediana: recorrer todos los estados y citar la marca visible de resistencia del centro ordenado.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs median-state-1, median-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** Después de añadir una masa muy alta, ¿por qué la mediana cambia poco?
+**Pregunta:** Después de ordenar y añadir el extremo, ¿qué centro conserva mejor su posición?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Porque depende de la posición central, no de la distancia del extremo. | Sí | El extremo cambia el orden en una punta, pero no necesariamente el centro. |
-| Porque ignora todas las observaciones altas. | No | La observación extrema sigue formando parte del orden. |
-| Porque siempre es igual a la media. | No | Media y mediana solo coinciden en algunos conjuntos. |
+| La mediana. | Sí | La evidencia visible sostiene «La mediana.» dentro de resistencia del centro ordenado. |
+| La media. | No | El estado recorrido contradice «La media.»; compara las marcas y etiquetas. |
+| El máximo. | No | El estado recorrido contradice «El máximo.»; conserva la unidad y el límite. |
 
-**Pista:** Sigue las posiciones, no la longitud del eje.
+**Pista:** Recorre todos los estados de mediana y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Lucía, analista de operaciones de una clínica cambia de contexto para probar si el razonamiento se transfiere. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de mediana sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de mediana que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Añadir un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Añadir un pedido grande» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Mediana: recorrer todos los estados y citar la marca visible de resistencia del centro ordenado. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Contrasta en el visual qué marcador conserva mejor la posición central.
+**Evidencia requerida:** Incidente 2 de Mediana: recorrer todos los estados y citar la marca visible de resistencia del centro ordenado.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs median-state-1, median-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** Para resumir tiempos de espera con unos pocos retrasos enormes, ¿qué centro es más resistente?
+**Pregunta:** ¿Qué par de marcas queda más separado en el estado final?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| La mediana. | Sí | La mediana limita la influencia de retrasos extremos. |
-| La media sin revisar la distribución. | No | La media puede ser útil, pero los extremos la desplazan. |
-| El rango. | No | El rango mide extensión, no centro. |
+| Media y mediana. | Sí | La evidencia visible sostiene «Media y mediana.» dentro de resistencia del centro ordenado. |
+| Mínimo y P25, que coinciden. | No | El estado recorrido contradice «Mínimo y P25, que coinciden.»; compara las marcas y etiquetas. |
+| Las dos marcas de centro, que no se mueven. | No | El estado recorrido contradice «Las dos marcas de centro, que no se mueven.»; conserva la unidad y el límite. |
 
-**Pista:** Busca una medida basada en orden.
+**Pista:** Recorre todos los estados de mediana y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta mediana con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Añadir un extremo», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Añadir un pedido grande», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

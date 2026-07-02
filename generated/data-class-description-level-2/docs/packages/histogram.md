@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Bike Sharing Dataset · UCI`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Bike Sharing Dataset · UCI` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,23 +20,34 @@
 - **Definición:** Un histograma agrupa valores numéricos continuos en intervalos contiguos.
 - **Intuición:** Es una vista comprimida de cuántas observaciones caen en cada tramo.
 - **Error común:** Confundirlo con barras categóricas o leer cada barra como una observación.
-- **Visual:** Ajusta el número de bins sin cambiar los 731 días observados.
+- **Visual:** Ajusta el número de bins sin cambiar los 600 pedidos observados.
 - **Kind visual:** `histogram`.
 - **Mecanismo:** conteo por intervalos conservando el total.
 - **Estados:** 7 bins → 12 bins → 22 bins.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
 - **Interacción:** Cambiar intervalos.
-- **Unidad de análisis:** una observación es un día del sistema de bicicletas compartidas.
-- **Variables:** `cnt`, conteo entero de alquileres diarios.
-- **Dataset:** Bike Sharing Dataset · UCI, 731 filas, licencia CC BY 4.0.
-- **Fuente:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, cantidad discreta; `minuto_turno`, minuto desde las 18:00.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S08`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.2`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
+
+**Situación:** Las cantidades se agrupan en intervalos.
+
+**Don Juan:** Ya veo montones; dime qué metiste en cada cajón.
+
+**Paco:** La entrada es la misma; cambio cuántos intervalos uso.
+
+**Subtítulos:** Un histograma cuenta valores numéricos en intervalos contiguos. / Estado «12 bins»: cambia el parámetro o el corte; la entrada sigue documentada. / Las barras conservan el total; los intervalos cambian el detalle visible.
 
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
@@ -45,9 +57,9 @@
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Cambiar intervalos» y citar el cambio visible asociado con histograma.
+**Evidencia narrativa común:** Ejecutar «Cambiar intervalos» y citar el cambio visible asociado con histograma en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Don José, dueño de una tienda de barrio quiere decidir a qué hora abrir sin revisar cientos de días en Excel. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar histograma para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; una noche posterior debe resumirse sin leer cuarenta tickets uno por uno, en un incidente posterior a L2-S08. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de histograma que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar intervalos» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Cambiar intervalos» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Histograma: recorrer todos los estados y citar la marca visible de conteo por intervalos conservando el total. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara 7, 12 y 22 bins y verifica que n=731 permanezca constante.
+**Evidencia requerida:** Incidente 1 de Histograma: recorrer todos los estados y citar la marca visible de conteo por intervalos conservando el total.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs histogram-state-1, histogram-state-2, histogram-state-3.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** Al pasar de pocos a muchos bins, ¿qué permanece igual?
+**Pregunta:** Al cambiar de 7 a 22 bins, ¿qué permanece fijo en la etiqueta?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| El dataset y sus 731 días. | Sí | Solo cambia la agrupación visual. |
-| La altura de cada barra. | No | Las frecuencias se redistribuyen entre más barras. |
-| El ancho de cada intervalo. | No | Más bins producen intervalos más estrechos. |
+| n=600 pedidos. | Sí | La evidencia visible sostiene «n=600 pedidos.» dentro de conteo por intervalos conservando el total. |
+| El ancho de cada intervalo. | No | El estado recorrido contradice «El ancho de cada intervalo.»; compara las marcas y etiquetas. |
+| El número de barras. | No | El estado recorrido contradice «El número de barras.»; conserva la unidad y el límite. |
 
-**Pista:** Distingue datos de representación.
+**Pista:** Recorre todos los estados de histograma y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Don José, dueño de una tienda de barrio cambia de contexto para probar si el razonamiento se transfiere. la computadora se vuelve lenta y necesita una señal visual rápida antes de contratar personal. La decisión es usar histograma para leer concentración, forma o sensibilidad de la demanda.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de histograma que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Cambiar intervalos» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Cambiar intervalos» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Histograma: recorrer todos los estados y citar la marca visible de conteo por intervalos conservando el total. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Usa la altura de las barras del extremo derecho para justificar la frecuencia de alquileres altos.
+**Evidencia requerida:** Incidente 2 de Histograma: recorrer todos los estados y citar la marca visible de conteo por intervalos conservando el total.
 
 **Contrato de evidencia:** pasos 2; desbloqueo en 2; IDs histogram-state-1, histogram-state-2, histogram-state-3.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** ¿Qué evidencia permite afirmar que los alquileres altos son poco frecuentes?
+**Pregunta:** ¿Qué cambia visiblemente entre el primer y el último estado?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Las barras del extremo alto tienen conteos pequeños. | Sí | La altura representa frecuencia por intervalo. |
-| El eje usa color teal. | No | El color no aporta frecuencia. |
-| La primera barra está a la izquierda. | No | La posición sola no indica cuántos días hay. |
+| Aparecen intervalos más estrechos y más numerosos. | Sí | La evidencia visible sostiene «Aparecen intervalos más estrechos y más numerosos.» dentro de conteo por intervalos conservando el total. |
+| Desaparecen pedidos del total. | No | El estado recorrido contradice «Desaparecen pedidos del total.»; compara las marcas y etiquetas. |
+| El eje cambia de tacos a minutos. | No | El estado recorrido contradice «El eje cambia de tacos a minutos.»; conserva la unidad y el límite. |
 
-**Pista:** Combina posición y altura.
+**Pista:** Recorre todos los estados de histograma y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.

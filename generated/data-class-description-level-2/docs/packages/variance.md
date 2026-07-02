@@ -4,7 +4,8 @@
 
 - Audiencia: estudiantes que completaron Nivel 1; los prerrequisitos adicionales se introducen antes de la actividad.
 - Duración: 35 minutos para el concepto dentro de un bloque de 90 minutos.
-- Dataset: snapshot público fijo `Palmer Penguins`.
+- Aprender y Ejercitar: dataset sintético narrativo fijo de 600 pedidos, etiquetado y versionado.
+- En vivo: snapshot público fijo `Palmer Penguins` con procedencia, licencia y hash.
 - La IA se usa de forma externa y toda salida requiere verificación humana.
 
 ## ConceptSpec
@@ -19,35 +20,46 @@
 - **Definición:** La varianza promedia las distancias cuadradas respecto de la media.
 - **Intuición:** Cada punto aporta un área cuadrada; los puntos lejanos pesan mucho.
 - **Error común:** Interpretarla en las unidades originales o ignorar su sensibilidad a extremos.
-- **Visual:** Añade una masa extrema y compara el crecimiento cuadrático de la dispersión.
+- **Visual:** Observa cómo crecen las distancias cuadradas respecto de la media.
 - **Kind visual:** `spread-band`.
 - **Mecanismo:** distancias cuadráticas respecto de la media.
 - **Estados:** Base → Extremo añadido.
 - **Movimiento:** 600 ms; interpolar geometría para comparar estados, sin movimiento decorativo.
 - **Movimiento reducido:** cambio inmediato con las mismas marcas y valores.
-- **Interacción:** Añadir un extremo.
-- **Unidad de análisis:** una observación es un pingüino con masa corporal registrada.
-- **Variables:** `body_mass_g`, numérica continua en gramos.
-- **Dataset:** Palmer Penguins, 344 filas, licencia CC0-1.0.
-- **Fuente:** https://allisonhorst.github.io/palmerpenguins/.
-- **Fecha del snapshot:** 2026-06-14.
-- **SHA-256:** `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Interacción:** Añadir un pedido grande.
+- **Unidad de análisis:** una observación es un pedido del puesto.
+- **Variables:** `num_tacos`, numérica discreta en tacos por pedido.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md#nivel-2-descripción-y-visualización`.
+- **Fuente narrativa:** `docs/stories/LEVEL_2.md` (approved).
+- **Escena:** `L2-S05`.
+- **Dataset estudiantil:** `datasets/narrative/pedidos_4_semanas_nivel_2.csv`, sintético, 600 × 10.
+- **SHA-256 estudiantil:** `16fa3335fc95e622e4221a261afbe3f300159738344355333a94dfacabf454db`.
+- **Estado de datos:** `L2.1`.
+- **Competencia auxiliar:** Declarar entrada, parámetro u operación, salida, comprobaciones y límites.
 - **Límite:** la visualización describe el snapshot; no identifica causas.
 - **Criterio de dominio:** justificar una interpretación nueva citando al menos dos rasgos visibles.
 
 ## LearningModule
 
+**Situación:** Se hacen visibles distancias cuadradas al centro.
+
+**Don Juan:** Ese pedido lejano está pesando muchísimo en la cuenta.
+
+**Paco:** La distancia se está usando como lado de un cuadrado.
+
+**Subtítulos:** La varianza promedia desviaciones cuadradas respecto de la media. / Elevar al cuadrado amplifica distancias grandes y cambia la unidad.
+
 1. Predecir el resultado antes de activar la interacción.
 2. Observar el estado inicial y nombrar la unidad de análisis.
-3. Ejecutar **Añadir un extremo** y describir qué cambió.
+3. Ejecutar **Añadir un pedido grande** y describir qué cambió.
 4. Contrastar la observación con el error común.
 5. Explicar qué conclusión sí permite el snapshot y cuál no.
 
 ## PracticeExercise
 
-**Regla de separación:** Este caso no repite Aprender; usa el concepto para tomar una decisión.
+**Regla de separación:** Aprender revela el mecanismo; estos casos usan noches, preguntas y decisiones nuevas.
 
-**Evidencia narrativa común:** Ejecutar «Añadir un extremo» y citar el cambio visible asociado con varianza.
+**Evidencia narrativa común:** Ejecutar «Añadir un pedido grande» y citar el cambio visible asociado con varianza en un incidente distinto al de Aprender.
 
 **Pistas graduadas:**
 
@@ -57,11 +69,11 @@
 
 ### Ejercicio guiado
 
-**Historia:** Lucía, analista de operaciones de una clínica debe resumir mediciones de pacientes antes de una junta de 15 minutos. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de varianza sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria ayuda en el puesto después de clases; dos noches con centro parecido separan sus pedidos de manera distinta, en un incidente posterior a L2-S05. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de varianza que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Añadir un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente guiado y predecir. / Escena 2: ejecutar «Añadir un pedido grande» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 1 de Varianza: recorrer todos los estados y citar la marca visible de distancias cuadráticas respecto de la media. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Compara la banda de dispersión y la varianza antes y después de añadir el extremo.
+**Evidencia requerida:** Incidente 1 de Varianza: recorrer todos los estados y citar la marca visible de distancias cuadráticas respecto de la media.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs variance-state-1, variance-state-2.
 
@@ -69,23 +81,23 @@
 
 **Transferencia:** El caso guiado revela el mecanismo central antes de pedir una transferencia.
 
-**Pregunta:** ¿Por qué un punto lejano aporta tanto a la varianza?
+**Pregunta:** ¿Qué ocurre con la banda de dispersión al añadir el pedido grande?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Porque su desviación se eleva al cuadrado. | Sí | Elevar al cuadrado amplifica las desviaciones grandes. |
-| Porque se cuenta dos veces por error. | No | Cada observación se usa una vez. |
-| Porque la varianza solo usa el máximo. | No | La varianza utiliza todas las observaciones. |
+| Se ensancha y la varianza aumenta. | Sí | La evidencia visible sostiene «Se ensancha y la varianza aumenta.» dentro de distancias cuadráticas respecto de la media. |
+| Se estrecha y la varianza disminuye. | No | El estado recorrido contradice «Se estrecha y la varianza disminuye.»; compara las marcas y etiquetas. |
+| Permanece idéntica. | No | El estado recorrido contradice «Permanece idéntica.»; conserva la unidad y el límite. |
 
-**Pista:** Compara una distancia de 2 con una de 4 después de elevarlas al cuadrado.
+**Pista:** Recorre todos los estados de varianza y cita una marca o etiqueta exacta.
 
 ### Ejercicio de transferencia
 
-**Historia:** Lucía, analista de operaciones de una clínica cambia de contexto para probar si el razonamiento se transfiere. si elige un resumen equivocado, el director comprará equipo para el problema incorrecto. La decisión es decidir qué lectura de varianza sostiene una recomendación prudente.
+**Historia:** Paco, hijo de Don Juan y estudiante de preparatoria cambia de contexto para probar si el razonamiento se transfiere. Don Juan necesita una decisión reversible antes de comprar o reorganizar el turno, sin ampliar el puesto ni cargar trabajo a la familia. La decisión es documentar una lectura de varianza que Don Juan pueda traducir a una acción del negocio.
 
-**Escenas animadas:** Escena 1: mirar el estado inicial y escribir una predicción. / Escena 2: ejecutar «Añadir un extremo» para revelar evidencia. / Escena 3: elegir la respuesta citando el rasgo visible que cambió.
+**Escenas animadas:** Escena 1: revisar la entrada del incidente de transferencia y predecir. / Escena 2: ejecutar «Añadir un pedido grande» hasta completar todos los estados. / Escena 3: citar la evidencia Incidente 2 de Varianza: recorrer todos los estados y citar la marca visible de distancias cuadráticas respecto de la media. y dejar la decisión final a Don Juan.
 
-**Evidencia requerida:** Usa la concentración visible alrededor de la media para interpretar un valor cercano a cero.
+**Evidencia requerida:** Incidente 2 de Varianza: recorrer todos los estados y citar la marca visible de distancias cuadráticas respecto de la media.
 
 **Contrato de evidencia:** pasos 1; desbloqueo en 1; IDs variance-state-1, variance-state-2.
 
@@ -93,15 +105,15 @@
 
 **Transferencia:** El segundo caso cambia el contexto de la pregunta: exige aplicar el mismo criterio sin depender de las palabras exactas del ejercicio guiado.
 
-**Pregunta:** ¿Qué significa una varianza cercana a cero?
+**Pregunta:** ¿Qué evidencia muestra el peso cuadrático del extremo?
 
 | Opción | Correcta | Feedback |
 | --- | --- | --- |
-| Los valores están muy concentrados alrededor de la media. | Sí | Desviaciones pequeñas producen cuadrados pequeños. |
-| La media también es cero necesariamente. | No | El centro puede estar lejos de cero. |
-| No existen observaciones. | No | Puede haber muchas observaciones iguales o próximas. |
+| La banda final crece alrededor de la media. | Sí | La evidencia visible sostiene «La banda final crece alrededor de la media.» dentro de distancias cuadráticas respecto de la media. |
+| El conteo de pedidos se reduce. | No | El estado recorrido contradice «El conteo de pedidos se reduce.»; compara las marcas y etiquetas. |
+| La mediana se convierte en el máximo. | No | El estado recorrido contradice «La mediana se convierte en el máximo.»; conserva la unidad y el límite. |
 
-**Pista:** Distingue posición del grupo y separación interna.
+**Pista:** Recorre todos los estados de varianza y cita una marca o etiqueta exacta.
 
 ## LiveTeachingPack
 
@@ -146,7 +158,7 @@
 
 **Evaluación rápida:** El estudiante interpreta varianza con una evidencia visible, una decisión prudente y una limitación explícita.
 
-**Blueprint de demo:** HTML local con snapshot fijo, botón «Añadir un extremo», estado inicial, estado animado y aserción que verifica que el visual cambia.
+**Blueprint de demo:** HTML local con snapshot fijo, botón «Añadir un pedido grande», estado inicial, estado animado y aserción que verifica que el visual cambia.
 
 **Checklist antes de clase:**
 
@@ -189,3 +201,4 @@
 - La fuente y licencia son visibles.
 - No se afirma causalidad.
 - Existe una ruta completa sin IA ni red.
+- Las voces, subtítulos y deltas proceden de la historia aprobada, no del HTML.
