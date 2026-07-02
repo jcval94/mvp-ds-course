@@ -15,7 +15,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
-    digest.update(path.read_bytes())
+    payload = path.read_bytes()
+    if path.suffix.lower() in {".csv", ".json", ".md", ".js", ".html", ".css"}:
+        payload = payload.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    digest.update(payload)
     return digest.hexdigest()
 
 

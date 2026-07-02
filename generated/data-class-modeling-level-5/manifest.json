@@ -116,11 +116,11 @@
         "path": "datasets/narrative/noches_modelado_nivel_5.csv",
         "rows": 64,
         "columns": 16,
-        "sha256": "4c052909cc0cca4123b5d6494b58a4ad99f027eb27f10eec0cc7492dacc68b23"
+        "sha256": "3676a241f0fc0ae7bc56e39e39217a40e9665b3a2ff4064b08b670fd617568fa"
       }
     ],
     "metadataPath": "datasets/narrative/noches_nivel_5.metadata.json",
-    "metadataSha256": "b51410632816473b3c472e2fff7ba74115be44fd2681e7cde53d3381011b3c86"
+    "metadataSha256": "fe6ead21ef735b335b149286e2f971fb9bcda5211f58aedd0916c331e3d250fb"
   },
   "validation": "validation.json",
   "updated_at": "2026-07-01"

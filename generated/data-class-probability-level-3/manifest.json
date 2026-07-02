@@ -88,17 +88,17 @@
         "path": "datasets/narrative/pedidos_piloto_nivel_3.csv",
         "rows": 1360,
         "columns": 12,
-        "sha256": "773abf1edff76b291483667c8cc51e5304abef95893943cf1a922147a6dc3a31"
+        "sha256": "ca5c17f94019f5e4057021905e4e66ad22047efde54a933a0209be2425ae8e1f"
       },
       {
         "path": "datasets/narrative/noches_piloto_nivel_3.csv",
         "rows": 32,
         "columns": 9,
-        "sha256": "4516e7183eefb1de9bd38336afb4309e76f6bd4c4cf42e2a0f7b3a7835af976b"
+        "sha256": "a8fbfb26650891f90427931367ad56b2613025154a9a8511a46b245cc804eacd"
       }
     ],
     "metadataPath": "datasets/narrative/pedidos_nivel_3.metadata.json",
-    "metadataSha256": "9c353ca89a3cd2b648417b254c43d85795d471140de72fd2c2d30bff50b4d19a"
+    "metadataSha256": "a4023083a41f207c56a4cdb1573c43fb97c2fdccc8284da284b83cc2d58e43fe"
   },
   "validation": "validation.json",
   "updated_at": "2026-07-01"
