@@ -49,3 +49,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          # Pages permaneció en deployment_queued más que el límite predeterminado
+          # de 10 minutos en tres ejecuciones consecutivas.
+          timeout: 1200000
