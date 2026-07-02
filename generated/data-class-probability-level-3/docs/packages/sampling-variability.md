@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Variabilidad muestral: ¿Por qué las medias de muestra no son idénticas?
-- **Transferencia:** Incidente de transferencia de Variabilidad muestral: ¿Qué decisión es prudente con una muestra pequeña y muy alta?
+- **Guiado:** Observa puntos de estimaciones repetidas y cita una marca visible. Incidente guiado de Variabilidad muestral: ¿Por qué las medias de muestra no son idénticas?
+- **Transferencia:** Observa puntos de estimaciones repetidas y cita una marca visible. Incidente de transferencia de Variabilidad muestral: ¿Qué decisión es prudente con una muestra pequeña y muy alta?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

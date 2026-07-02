@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Ley de los grandes números: ¿Qué patrón ilustra la ley de los grandes números?
-- **Transferencia:** Incidente de transferencia de Ley de los grandes números: ¿Qué NO promete esta ley?
+- **Guiado:** Observa trayectoria de la media acumulada y cita una marca visible. Incidente guiado de Ley de los grandes números: ¿Qué patrón ilustra la ley de los grandes números?
+- **Transferencia:** Observa trayectoria de la media acumulada y cita una marca visible. Incidente de transferencia de Ley de los grandes números: ¿Qué NO promete esta ley?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

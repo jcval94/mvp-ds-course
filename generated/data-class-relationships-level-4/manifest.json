@@ -44,6 +44,11 @@
   "curriculumSource": "docs/CURRICULUM_MAP.md",
   "storySource": "docs/stories/LEVEL_4.md",
   "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-4-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
   "narrativeDataset": {
     "id": "relaciones-y-contexto-nivel-4",
     "synthetic": true,
@@ -89,5 +94,5 @@
     "metadataSha256": "6a26081b3a5437171ba44e5cc9566aff2163f746445c10227121b0761c29ecc6"
   },
   "validation": "validation.json",
-  "updated_at": "2026-07-01"
+  "updated_at": "2026-07-02"
 }

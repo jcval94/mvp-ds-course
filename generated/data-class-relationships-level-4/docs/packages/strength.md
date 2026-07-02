@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué lectura de fuerza está respaldada por el incidente guiado?
-- **Transferencia:** Al transferir fuerza a otro grupo, ¿qué debe conservarse?
+- **Guiado:** Observa nubes con distinta dispersión y cita una marca visible. ¿Qué lectura de fuerza está respaldada por el incidente guiado?
+- **Transferencia:** Observa nubes con distinta dispersión y cita una marca visible. Al transferir fuerza a otro grupo, ¿qué debe conservarse?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

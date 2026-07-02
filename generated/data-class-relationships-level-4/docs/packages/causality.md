@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué lectura de causalidad está respaldada por el incidente guiado?
-- **Transferencia:** Al transferir causalidad a otro grupo, ¿qué debe conservarse?
+- **Guiado:** Observa nodos y flechas alternativas y cita una marca visible. ¿Qué lectura de causalidad está respaldada por el incidente guiado?
+- **Transferencia:** Observa nodos y flechas alternativas y cita una marca visible. Al transferir causalidad a otro grupo, ¿qué debe conservarse?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué conclusión guiada sobre encoding respeta el momento de decisión?
-- **Transferencia:** ¿Qué debe cambiar al transferir encoding a otra decisión?
+- **Guiado:** Observa celdas de la matriz one-hot y cita una marca visible. ¿Qué conclusión guiada sobre encoding respeta el momento de decisión?
+- **Transferencia:** Observa celdas de la matriz one-hot y cita una marca visible. ¿Qué debe cambiar al transferir encoding a otra decisión?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

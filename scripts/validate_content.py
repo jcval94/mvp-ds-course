@@ -614,6 +614,19 @@ def validate_continuous_level(
         fail(f"Nivel {level} carece de historia aprobada")
     app = (level_path / "assets" / "app.js").read_text(encoding="utf-8")
     css = (level_path / "assets" / "styles.css").read_text(encoding="utf-8")
+    manifest = json.loads((level_path / "manifest.json").read_text(encoding="utf-8"))
+    expected_shell = {
+        "experienceContract": "level-shell-v1", "blockNavigation": "left",
+        "conceptNavigation": "top", "visualizationMatrix": f"level-{level}-visuals-v1",
+        "rendererRegistry": "educational-svg-v1",
+    }
+    for key, expected in expected_shell.items():
+        if manifest.get(key) != expected:
+            fail(f"Nivel {level} no cumple {key}={expected}")
+    renderer_source = (level_path / "assets" / "renderers.js").read_text(encoding="utf-8")
+    if "bar-row" in app or "bar-row" in css:
+        fail(f"Nivel {level} conserva el renderer universal de barras")
+    from narrative_level_factory import VISUALIZATION_MATRIX
     for fragment in ['params.get("teacher")', "evidenceContract", "subtitle", "donJuan", "paco", "prefers-reduced-motion"]:
         if fragment not in app and fragment not in css:
             fail(f"Nivel {level} no implementa contrato de UI: {fragment}")
@@ -624,6 +637,14 @@ def validate_continuous_level(
         if narrative.get("scene") != f"L{level}-S{position:02d}":
             fail(f"Escena fuera de orden en {lesson['id']}")
         states = lesson.get("visual", {}).get("states", [])
+        spec = lesson.get("visualizationSpec", {})
+        required_spec = {"kind", "mechanism", "dataSource", "fields", "encodings", "states", "semanticMarks", "evidenceIds", "interaction", "accessibleSummary", "reducedMotion", "limits", "rendererRegistry"}
+        if set(spec) != required_spec or spec.get("kind") != VISUALIZATION_MATRIX[level].get(lesson["id"]):
+            fail(f"VisualizationSpec ausente o incompatible en {lesson['id']}")
+        if f'"{spec["kind"]}"' not in renderer_source:
+            fail(f"Renderer declarado no registrado en {lesson['id']}")
+        if spec["kind"].endswith("bars") and spec["kind"] != "importance-bars":
+            fail(f"Barras no justificadas en {lesson['id']}")
         if len(states) < 2 or len(narrative.get("subtitles", [])) != len(states):
             fail(f"Subtítulo ausente por estado en {lesson['id']}")
         if any(term in narrative.get("donJuan", "").lower() for term in forbidden):
@@ -647,6 +668,8 @@ def validate_continuous_level(
                 fail(f"Respuesta ambigua en {lesson['id']}")
             if not exercise.get("evidence") or exercise["question"] in questions:
                 fail(f"Ejercicios no diferenciados en {lesson['id']}")
+            if not exercise["question"].startswith("Observa ") or spec["semanticMarks"] not in exercise["question"]:
+                fail(f"Ejercicio sin referencia a marca visual real en {lesson['id']}")
             questions.add(exercise["question"])
         live_id = lesson.get("liveTeachingPack", {}).get("dataset", {}).get("id")
         if live_id not in public_dataset_ids:
@@ -896,7 +919,7 @@ def validate_narrative_contract() -> None:
         if term in narrative_data:
             fail(f"El dataset narrativo expone identidad o secreto: {term}")
 
-    for name in ["course-narrative-architect", "narrative-continuity-reviewer"]:
+    for name in ["course-narrative-architect", "narrative-continuity-reviewer", "level-experience-consistency-reviewer", "visualization-contract-designer"]:
         skill = ROOT / ".agents" / "skills" / name / "SKILL.md"
         metadata = ROOT / ".agents" / "skills" / name / "agents" / "openai.yaml"
         if not skill.exists() or not metadata.exists():
@@ -909,6 +932,13 @@ def main() -> int:
     datasets = validate_datasets()
     public_dataset_ids = {str(item["id"]) for item in datasets}
     manifests = [validate_level(path) for path in LEVELS]
+    for level, (path, manifest) in enumerate(zip(LEVELS, manifests), start=1):
+        for key, expected_value in {"experienceContract": "level-shell-v1", "blockNavigation": "left", "conceptNavigation": "top"}.items():
+            if manifest.get(key) != expected_value:
+                fail(f"Nivel {level} incumple el shell común: {key}")
+        html = next((candidate for candidate in path.glob("*.html") if candidate.name != "index.html"), None)
+        if not html or "level-shell-v1" not in html.read_text(encoding="utf-8"):
+            fail(f"Nivel {level} no carga level-shell-v1")
     for html in (ROOT / "site").rglob("*.html"):
         validate_links(html)
     validate_level1_contract(public_dataset_ids)

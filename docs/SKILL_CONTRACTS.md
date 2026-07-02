@@ -210,13 +210,36 @@ Si cambia una decisión raíz:
 
 1. Actualizar currículo si cambió nivel, orden o resultado.
 2. Actualizar `LevelStory` si cambió escena, voz, subtítulo, hecho o evidencia.
-3. Actualizar `ConceptSpec`.
-4. Revisar los tres modos.
-5. Revisar datos y visualizaciones.
-6. Revisar arco y ledger si cambia voz, hecho, conocimiento o estado de datos.
-7. Reejecutar QA técnica.
-8. Reejecutar QA narrativa.
-9. Reejecutar QA visual interactiva.
-10. Reejecutar QA pedagógica.
+3. Actualizar `VisualizationSpec` y comprobar renderer/esquema.
+4. Actualizar `ConceptSpec`.
+5. Revisar los tres modos.
+6. Revisar datos y visualizaciones.
+7. Revisar arco y ledger si cambia voz, hecho, conocimiento o estado de datos.
+8. Reejecutar QA técnica.
+9. Reejecutar QA narrativa.
+10. Reejecutar consistencia de experiencia.
+11. Reejecutar QA visual interactiva.
+12. Reejecutar QA pedagógica.
 
 No se permite corregir únicamente el documento donde apareció el síntoma.
+
+## `visualization-contract-designer`
+
+**Propósito:** seleccionar la representación por mecanismo y producir un
+`VisualizationSpec` verificable antes de diseñar los modos.
+
+**Output:** `kind`, mecanismo, fuente/campos, encodings, estados, marcas,
+`evidenceIds`, interacción, resumen accesible, movimiento reducido y límites.
+
+**Aceptación:** el `kind` existe en `educational-svg-v1`, los datos satisfacen su
+esquema y los ejercicios pueden citar marcas reales. **Rechazo:** fallback,
+barras por conveniencia, visual decorativo o renderer sin prueba.
+
+## `level-experience-consistency-reviewer`
+
+**Propósito:** exigir el mismo shell, jerarquía y navegación en todos los niveles.
+
+**Aceptación:** bloques a la izquierda, conceptos nombrados arriba, contenido al
+centro, docente a la derecha, dos franjas en móvil, foco visible, URL estable y
+`En vivo` oculto sin `?teacher=1`. **Rechazo:** conceptos laterales, temas
+ausentes, desbordamiento o divergencia estructural.

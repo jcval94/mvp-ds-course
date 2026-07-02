@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué lectura de correlación y extremos está respaldada por el incidente guiado?
-- **Transferencia:** Al transferir correlación y extremos a otro grupo, ¿qué debe conservarse?
+- **Guiado:** Observa ajuste con el punto extremo y cita una marca visible. ¿Qué lectura de correlación y extremos está respaldada por el incidente guiado?
+- **Transferencia:** Observa ajuste con el punto extremo y cita una marca visible. Al transferir correlación y extremos a otro grupo, ¿qué debe conservarse?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

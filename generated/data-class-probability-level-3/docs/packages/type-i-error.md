@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Error tipo I: ¿Qué representa alpha en este contexto?
-- **Transferencia:** Incidente de transferencia de Error tipo I: ¿Qué pasa si aumentas alpha de 0.01 a 0.10?
+- **Guiado:** Observa región de rechazo y cita una marca visible. Incidente guiado de Error tipo I: ¿Qué representa alpha en este contexto?
+- **Transferencia:** Observa región de rechazo y cita una marca visible. Incidente de transferencia de Error tipo I: ¿Qué pasa si aumentas alpha de 0.01 a 0.10?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

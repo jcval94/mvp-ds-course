@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué lectura de forma de relación está respaldada por el incidente guiado?
-- **Transferencia:** Al transferir forma de relación a otro grupo, ¿qué debe conservarse?
+- **Guiado:** Observa paneles lineal, curvo y sin patrón y cita una marca visible. ¿Qué lectura de forma de relación está respaldada por el incidente guiado?
+- **Transferencia:** Observa paneles lineal, curvo y sin patrón y cita una marca visible. Al transferir forma de relación a otro grupo, ¿qué debe conservarse?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

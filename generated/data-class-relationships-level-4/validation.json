@@ -17,6 +17,9 @@
     "story": "docs/stories/LEVEL_4.md",
     "scenes": 15,
     "exercises_locked": 30,
+    "visualization_specs": 15,
+    "renderer_registry": "educational-svg-v1",
+    "experience_contract": "level-shell-v1",
     "narrative_files": [
       {
         "path": "datasets/narrative/noches_contexto_nivel_4.csv",

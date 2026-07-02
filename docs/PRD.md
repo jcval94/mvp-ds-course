@@ -300,6 +300,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 | Alfabetización de agentes transversal | Solicitud del usuario | Currículo, ConceptSpec, episodios y prompts | Checklist curricular y narrativo |
 | Visual obligatorio | Demos de inspiración y Brief | Skills, ejercicios, evals | Checklist pedagógico |
 | Contrato de evidencia | Auditoría visual de junio de 2026 | ConceptSpec, UI, QA y publicación | Revisión visual interactiva |
+| Shell homogéneo y renderer cerrado | Reconstrucción visual de julio de 2026 | Manifests, generadores, skills y QA | `level-shell-v1` y `data-renderer` |
 | Tres niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
 | Snapshots públicos fijos | Solicitud de usuario | Datasets, skills y evals | Hash, licencia y procedencia |
 | GitHub Pages automático | Solicitud de usuario | `site/` y workflow | Build en `main` |
@@ -308,6 +309,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 ## Riesgos
 
 - Generalizar el patrón de histograma a conceptos donde no corresponde.
+- Permitir fallback visual o divergencia de navegación al crear niveles futuros.
 - Confundir narrativa atractiva con aprendizaje verificable.
 - Convertir la taquería en una metáfora forzada para todos los dominios.
 - Permitir deriva de voz, conocimiento prematuro o cambios silenciosos en los datos.

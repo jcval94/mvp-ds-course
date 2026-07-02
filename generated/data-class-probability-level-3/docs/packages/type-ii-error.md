@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Error tipo II: ¿Qué describe un error tipo II?
-- **Transferencia:** Incidente de transferencia de Error tipo II: ¿Qué significa 'no significativo' con baja potencia?
+- **Guiado:** Observa área beta entre curvas y cita una marca visible. Incidente guiado de Error tipo II: ¿Qué describe un error tipo II?
+- **Transferencia:** Observa área beta entre curvas y cita una marca visible. Incidente de transferencia de Error tipo II: ¿Qué significa 'no significativo' con baja potencia?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Binomial: ¿Qué cambia al pasar de Bernoulli a Binomial?
-- **Transferencia:** Incidente de transferencia de Binomial: Si n aumenta y p se mantiene, ¿qué interpretación del conteo es prudente?
+- **Guiado:** Observa tallos y masa de probabilidad y cita una marca visible. Incidente guiado de Binomial: ¿Qué cambia al pasar de Bernoulli a Binomial?
+- **Transferencia:** Observa tallos y masa de probabilidad y cita una marca visible. Incidente de transferencia de Binomial: Si n aumenta y p se mantiene, ¿qué interpretación del conteo es prudente?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

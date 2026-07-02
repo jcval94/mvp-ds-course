@@ -138,6 +138,8 @@ Esta competencia siempre es auxiliar al objetivo principal de ciencia de datos.
   y exigir que no desplace el objetivo de ciencia de datos.
 - **Visualización decorativa:** exigir que una pregunta o experimento dependa de ella.
 - **Visualización genérica reciclada:** bloquear representaciones que no hagan visible el mecanismo específico del concepto.
+- **Experiencia inconsistente entre niveles:** exigir `level-shell-v1` y validar
+  temas laterales, conceptos superiores, responsive y modo docente.
 - **Cambio visual sin evidencia:** validar identificadores semánticos, secuencia y desbloqueo; no basta comparar HTML antes y después.
 - **Temario demasiado amplio:** publicar por niveles completos y exigir el mismo
   gate por concepto.
@@ -149,6 +151,7 @@ Esta competencia siempre es auxiliar al objetivo principal de ciencia de datos.
 
 - Tiempo mediano para obtener un paquete revisable: 20 minutos o menos.
 - Cobertura de contratos en la vertical slice: 100%.
+- Cobertura `VisualizationSpec`→renderer y `level-shell-v1`: 100%.
 - Promedio de evaluación pedagógica y técnica: 4 o más.
 - Paquetes que requieren reescritura estructural tras revisión docente: menos de 1 de cada 3.
 

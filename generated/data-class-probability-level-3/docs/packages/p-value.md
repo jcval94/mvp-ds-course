@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de p-value: ¿Qué probabilidad representa el p-value?
-- **Transferencia:** Incidente de transferencia de p-value: ¿Qué debe acompañar a un p-value pequeño?
+- **Guiado:** Observa cola extrema sombreada y cita una marca visible. Incidente guiado de p-value: ¿Qué probabilidad representa el p-value?
+- **Transferencia:** Observa cola extrema sombreada y cita una marca visible. Incidente de transferencia de p-value: ¿Qué debe acompañar a un p-value pequeño?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

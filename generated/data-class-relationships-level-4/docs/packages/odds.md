@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué lectura de odds está respaldada por el incidente guiado?
-- **Transferencia:** Al transferir odds a otro grupo, ¿qué debe conservarse?
+- **Guiado:** Observa evento, no evento y escala de odds y cita una marca visible. ¿Qué lectura de odds está respaldada por el incidente guiado?
+- **Transferencia:** Observa evento, no evento y escala de odds y cita una marca visible. Al transferir odds a otro grupo, ¿qué debe conservarse?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

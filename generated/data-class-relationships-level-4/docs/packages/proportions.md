@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué lectura de proporciones está respaldada por el incidente guiado?
-- **Transferencia:** Al transferir proporciones a otro grupo, ¿qué debe conservarse?
+- **Guiado:** Observa celdas de la tabla 2×2 y cita una marca visible. ¿Qué lectura de proporciones está respaldada por el incidente guiado?
+- **Transferencia:** Observa celdas de la tabla 2×2 y cita una marca visible. Al transferir proporciones a otro grupo, ¿qué debe conservarse?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

@@ -2017,3 +2017,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    from apply_level_shell import main as apply_level_shell
+    apply_level_shell()

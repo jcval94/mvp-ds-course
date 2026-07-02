@@ -58,6 +58,8 @@ El harness coordina la generación documental de material educativo: recibe una 
 - Cualquier paquete -> `technical-content-reviewer`.
 - Cualquier episodio continuo -> `narrative-continuity-reviewer`.
 - Cualquier UI educativa -> `interactive-visual-reviewer`.
+- Concepto o visual nuevo -> `visualization-contract-designer` antes de ConceptSpec.
+- Nivel nuevo o regenerado -> `level-experience-consistency-reviewer` antes de QA visual.
 - Cierre -> `pedagogy-eval-reviewer`.
 
 ## Permisos
@@ -138,6 +140,8 @@ Máximo recomendado: dos reintentos automáticos antes de solicitar revisión hu
 - En vivo visible para estudiantes -> ocultar con modo docente y aclarar que no es autenticación real.
 - Error técnico -> bloquear publicación y corregir todas las dependencias.
 - Evidencia visual ausente o desbloqueo prematuro -> bloquear publicación y
+  corregir el `VisualizationSpec`, renderer o contrato de evidencia.
+- `kind` ausente/incompatible o shell distinto -> detener generación; no usar fallback.
   corregir `ConceptSpec`, ejercicio, renderer y QA.
 
 ## Human-in-the-loop

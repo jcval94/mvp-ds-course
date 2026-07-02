@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Complemento: Si el evento es 'Adelie', ¿qué representa el complemento?
-- **Transferencia:** Incidente de transferencia de Complemento: ¿Qué debe cumplirse para usar P(no A) = 1 - P(A)?
+- **Guiado:** Observa partición completa y cita una marca visible. Incidente guiado de Complemento: Si el evento es 'Adelie', ¿qué representa el complemento?
+- **Transferencia:** Observa partición completa y cita una marca visible. Incidente de transferencia de Complemento: ¿Qué debe cumplirse para usar P(no A) = 1 - P(A)?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

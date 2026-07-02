@@ -6,6 +6,11 @@
 
 La entrega añadió o reformuló 52 escenas de Niveles 3–5 y 104 ejercicios asociados: `19×2 + 15×2 + 18×2`. El valor “106” del plan era incompatible con el total final de 164; se preservó el total curricular aprobado.
 
+La reconstrucción visual asigna 52 `VisualizationSpec` distintos a 52 conceptos,
+los renderiza mediante el registro cerrado `educational-svg-v1` y elimina el
+renderer universal de barras. Los cinco niveles cumplen `level-shell-v1`:
+temas a la izquierda, conceptos nombrados arriba y modo docente oculto.
+
 ## Cobertura implementada
 
 | Nivel | Conceptos | Ejercicios | Prompts | Estado narrativo |
@@ -35,7 +40,8 @@ Todos son sintéticos, determinísticos, etiquetados y sin nombres, secretos o a
 | Continuidad y voz | 5 | Don Juan sin jerga, Paco como hijo/estudiante, narrador como subtítulo |
 | Pedagogía | 5 | Aprender, guiado y transferencia separados; respuesta bloqueada hasta revelar evidencia |
 | Precisión técnica | 5 | denominadores, intervalos, correlaciones, reversión, coeficientes, scores y leakage reproducibles |
-| Visual e interacción | 5 | estados semánticos, subtítulos, movimiento real/reducido y feedback específico |
+| Visual e interacción | 5 | 52 kinds especializados, correspondencia `data-renderer`, estados semánticos, movimiento real/reducido y feedback específico |
+| Consistencia entre niveles | 5 | cinco manifests `level-shell-v1`, temas laterales, conceptos superiores y móvil sin overflow |
 | Datos y procedencia | 5 | dimensiones, semillas, periodos y SHA-256; snapshots públicos versionados |
 | Publicación | 5 | build de cinco niveles, 22 rutas de bloque y modo docente oculto |
 
@@ -50,12 +56,17 @@ Todos son sintéticos, determinísticos, etiquetados y sin nombres, secretos o a
 - `python scripts/validate_content.py`: 91 conceptos, 164 ejercicios, 273 prompts y tres datasets públicos.
 - `python scripts/build_pages.py`: portal de cinco niveles y 22 bloques.
 - `python scripts/qa_pages.py`: 52 escenas y 104 ejercicios de Niveles 3–5, modo docente, movimiento, móvil, responsive y consola limpia.
+- Validación renderizada manual: `aggregation-reversal` en Nivel 4 y
+  `leakage-timeline` en Nivel 5 móvil; navegación, evidencia, bloqueo y consola aprobados.
+- `quick_validate.py`: ambas skills nuevas aprobadas.
 - `python -m py_compile`: generadores, fábrica, validación, build y QA sin errores.
 - `git diff --check`: sin errores de espacios o líneas finales.
 
 ## Riesgos residuales
 
 - Las 52 escenas deben impartirse por bloques, no como una sola sesión.
+- El registro contiene más renderers que antes; todo kind nuevo debe añadir esquema,
+  prueba y entrada en la matriz o la generación se detendrá.
 - La asociación puede tentar a explicar causalidad; el contrato técnico lo bloquea, pero requiere vigilancia docente.
 - Nivel 5 no demuestra generalización. Cualquier uso fuera de las 64 noches requiere Nivel 6.
 

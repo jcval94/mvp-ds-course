@@ -40,6 +40,9 @@ Bloquea voz impropia, conocimiento prematuro, secreto inferido o crecimiento sin
 ```text
 Activa concept-spec-designer. Crea una ConceptSpec para [concepto] dirigida a [audiencia] con nivel [nivel]. Incluye objetivo, prerrequisitos, definición, intuición, errores comunes, límites, visualSpec, interacción significativa, dataset público versionado o sintético etiquetado y criterio de dominio. Verifica que los datos y el visual permitan generar Aprender, Ejercitar y Enseñar en vivo sin reinterpretar el concepto.
 
+Antes activa `visualization-contract-designer`: selecciona el visual por mecanismo,
+emite el `VisualizationSpec` completo y falla si el `kind` no tiene renderer y prueba.
+
 `visualSpec` debe declarar `kind`, mecanismo, estados, marcas con `evidenceId`,
 secuencia, movimiento de aproximadamente 600 ms y alternativa equivalente para
 `prefers-reduced-motion`.
@@ -100,6 +103,8 @@ cuando no haya bloqueos.
 Activa pedagogy-eval-reviewer. Lee docs/EVAL_SUITE.md y evals/. Puntúa alcance, progresión, exactitud, diseño conceptual, visual, práctica, feedback, preparación docente, coherencia, viabilidad y trazabilidad. Cita evidencia por puntaje. Corrige decisiones raíz y repite la evaluación hasta obtener promedio de 4 o más sin dimensiones en 1, o declara No listo.
 
 Antes del cierre activa `interactive-visual-reviewer`: prueba la UI real,
+pero primero activa `level-experience-consistency-reviewer` para comprobar
+`level-shell-v1`, navegación, responsive, accesibilidad y modo docente.
 verifica mecanismo, etiquetas, números, `evidenceIds`, secuencia, desbloqueo,
 responsive y movimiento reducido. Un cambio de HTML no es evidencia suficiente.
 ```

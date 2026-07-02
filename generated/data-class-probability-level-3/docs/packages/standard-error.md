@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Error estándar: ¿Qué reduce el error estándar de la media?
-- **Transferencia:** Incidente de transferencia de Error estándar: ¿Qué diferencia clave hay entre DE y error estándar?
+- **Guiado:** Observa intervalos frente a n y cita una marca visible. Incidente guiado de Error estándar: ¿Qué reduce el error estándar de la media?
+- **Transferencia:** Observa intervalos frente a n y cita una marca visible. Incidente de transferencia de Error estándar: ¿Qué diferencia clave hay entre DE y error estándar?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

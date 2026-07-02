@@ -146,6 +146,7 @@ Cada concepto incorporado debe declarar:
 - objetivo observable;
 - intuición y definición;
 - `kind`, mecanismo, estados y marcas semánticas de la representación;
+- entrada en la matriz visual del nivel, renderer registrado y caso de prueba;
 - interacción que revele el concepto y alternativa con movimiento reducido;
 - error común;
 - dataset público con procedencia y licencia, o sintético etiquetado;
@@ -157,6 +158,11 @@ Cada concepto incorporado debe declarar:
 - competencia auxiliar de agentes o declaración explícita de que no aplica;
 - estado canónico del dataset antes y después del episodio;
 - `continuityDelta` verificable sin adelantar conocimiento.
+
+Cada nivel debe declarar `level-shell-v1`. Para Niveles 6–9 las familias base
+son, respectivamente: evaluación y curvas de error; clusters y reducción;
+series/experimentos; fairness, procedencia, privacidad y auditoría. La familia
+orienta la selección, pero el mecanismo de cada concepto determina el `kind`.
 
 ## Inspiración aplicada
 

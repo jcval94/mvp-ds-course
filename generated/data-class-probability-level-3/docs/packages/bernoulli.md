@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Bernoulli: ¿Qué representa un 1 en la variable Bernoulli de alta demanda?
-- **Transferencia:** Incidente de transferencia de Bernoulli: Al subir el umbral de éxito, ¿qué debe ocurrir con la proporción de unos?
+- **Guiado:** Observa ensayos 0/1 y cita una marca visible. Incidente guiado de Bernoulli: ¿Qué representa un 1 en la variable Bernoulli de alta demanda?
+- **Transferencia:** Observa ensayos 0/1 y cita una marca visible. Incidente de transferencia de Bernoulli: Al subir el umbral de éxito, ¿qué debe ocurrir con la proporción de unos?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

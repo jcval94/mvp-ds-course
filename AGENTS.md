@@ -27,6 +27,7 @@ IDEA.md
 -> PRD
 -> Curriculum Map
 -> Course Story Bible / Level Story
+-> VisualizationSpec
 -> Agent Spec
 -> Skills
 -> Evals
@@ -47,16 +48,17 @@ IDEA.md
 6. Generar o actualizar `docs/CURRICULUM_MAP.md`.
 7. Para una ruta continua, generar o actualizar Story Bible, arco, ledger y
    `docs/stories/LEVEL_<N>.md`; la historia debe quedar aprobada antes del nivel.
-8. Generar o actualizar `docs/AGENT_OPERATING_SPEC.md`.
-9. Generar o actualizar `docs/SKILL_MAP.md`.
-10. Generar o actualizar `docs/SKILL_CONTRACTS.md`.
-11. Sincronizar `.agents/skills/*/SKILL.md`.
-12. Generar o actualizar `docs/EVAL_SUITE.md` y `/evals`.
-13. Generar o actualizar `docs/HARNESS_SPEC.md`.
-14. Generar `docs/IMPLEMENTATION_PLAN.md`.
-15. Generar `docs/CODEX_CLAUDE_PROMPTS.md`.
-16. Validar consistencia, precisión técnica y pedagogía.
-17. Reportar resultado.
+8. Generar y aprobar `VisualizationSpec`; no continuar si falta renderer registrado o prueba.
+9. Generar o actualizar `docs/AGENT_OPERATING_SPEC.md`.
+10. Generar o actualizar `docs/SKILL_MAP.md`.
+11. Generar o actualizar `docs/SKILL_CONTRACTS.md`.
+12. Sincronizar `.agents/skills/*/SKILL.md`.
+13. Generar o actualizar `docs/EVAL_SUITE.md` y `/evals`.
+14. Generar o actualizar `docs/HARNESS_SPEC.md`.
+15. Generar `docs/IMPLEMENTATION_PLAN.md`.
+16. Generar `docs/CODEX_CLAUDE_PROMPTS.md`.
+17. Validar consistencia, precisión técnica y pedagogía.
+18. Reportar resultado.
 
 ## Artefactos educativos
 

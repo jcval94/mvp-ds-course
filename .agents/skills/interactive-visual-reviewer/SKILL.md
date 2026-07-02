@@ -7,15 +7,16 @@ description: Prueba visualizaciones educativas renderizadas para verificar mecan
 
 1. Leer la `ConceptSpec`, el `PracticeExercise` y su `evidenceContract`.
 2. Abrir la experiencia renderizada en navegador.
-3. Confirmar que `visual.kind` representa el mecanismo declarado.
-4. Verificar cada estado, marca y `evidenceId` contra los datos.
-5. Ejecutar la secuencia completa y comprobar `Paso X de N`.
-6. Confirmar que la respuesta permanece bloqueada hasta `unlockAtStep`.
-7. Revisar fluidez, etiquetas, escalas, solapamientos y responsive.
-8. Repetir con `prefers-reduced-motion` y exigir evidencia equivalente.
-9. Registrar severidad, concepto, estado, evidencia, impacto y corrección.
+3. Leer `VisualizationSpec` y confirmar que `visual.kind` representa el mecanismo declarado.
+4. Comparar `data-renderer` y las marcas del DOM con el renderer registrado; no aceptar fallback.
+5. Verificar cada estado, marca y `evidenceId` contra los datos.
+6. Ejecutar la secuencia completa y comprobar `Paso X de N`.
+7. Confirmar que la respuesta permanece bloqueada hasta `unlockAtStep`.
+8. Revisar fluidez, etiquetas, escalas, solapamientos y responsive.
+9. Repetir con `prefers-reduced-motion` y exigir evidencia equivalente.
+10. Registrar severidad, concepto, estado, evidencia, impacto y corrección.
 
-Rechazar si el renderer es genérico para un mecanismo distinto, si una pregunta
+Rechazar si el renderer declarado no es el renderizado, si existe fallback o si el renderer es genérico para un mecanismo distinto, si una pregunta
 cita evidencia ausente, si la respuesta se habilita antes de tiempo, si la
 animación solo cambia estilo, si los números no coinciden con el snapshot o si
 el modo de movimiento reducido pierde información.

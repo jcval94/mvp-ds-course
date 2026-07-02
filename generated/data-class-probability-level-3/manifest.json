@@ -50,6 +50,11 @@
   "curriculumSource": "docs/CURRICULUM_MAP.md",
   "storySource": "docs/stories/LEVEL_3.md",
   "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-3-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
   "narrativeDataset": {
     "id": "eventos-y-muestras-nivel-3",
     "synthetic": true,
@@ -101,5 +106,5 @@
     "metadataSha256": "a4023083a41f207c56a4cdb1573c43fb97c2fdccc8284da284b83cc2d58e43fe"
   },
   "validation": "validation.json",
-  "updated_at": "2026-07-01"
+  "updated_at": "2026-07-02"
 }

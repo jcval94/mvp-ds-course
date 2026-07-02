@@ -85,6 +85,15 @@ Preguntar solo cuando:
 - Revisión disciplinar: `technical-content-reviewer`.
 - Revisión de voz, cronología, conocimiento y datos narrativos: `narrative-continuity-reviewer`.
 - Revisión de visual e interacción: `interactive-visual-reviewer`.
+- Selección y contrato de visual: `visualization-contract-designer`, antes de `concept-spec-designer`.
+- Homogeneidad entre niveles: `level-experience-consistency-reviewer`, después de revisión técnica y narrativa.
+
+Orden visual obligatorio: Curriculum Map → LevelStory aprobada →
+`VisualizationSpec` → `ConceptSpec` → modos → revisión técnica y narrativa →
+consistencia de experiencia → revisión visual interactiva → evaluación pedagógica.
+
+Todo nivel declara `level-shell-v1`; todo concepto visualizable declara un `kind`
+presente en `educational-svg-v1`. No existe renderer fallback.
 - Cierre obligatorio: `pedagogy-eval-reviewer`.
 
 ## Reglas pedagógicas

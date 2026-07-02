@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Intervalo de confianza: ¿Qué interpretación es correcta para un intervalo del 95%?
-- **Transferencia:** Incidente de transferencia de Intervalo de confianza: ¿Qué hace un nivel de confianza más alto si n se mantiene?
+- **Guiado:** Observa intervalos repetidos y cita una marca visible. Incidente guiado de Intervalo de confianza: ¿Qué interpretación es correcta para un intervalo del 95%?
+- **Transferencia:** Observa intervalos repetidos y cita una marca visible. Incidente de transferencia de Intervalo de confianza: ¿Qué hace un nivel de confianza más alto si n se mantiene?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Independencia: ¿Qué evidencia contradice independencia entre especie e isla?
-- **Transferencia:** Incidente de transferencia de Independencia: ¿Qué conclusión prudente permite la comparación?
+- **Guiado:** Observa celdas y tasas condicionadas y cita una marca visible. Incidente guiado de Independencia: ¿Qué evidencia contradice independencia entre especie e isla?
+- **Transferencia:** Observa celdas y tasas condicionadas y cita una marca visible. Incidente de transferencia de Independencia: ¿Qué conclusión prudente permite la comparación?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

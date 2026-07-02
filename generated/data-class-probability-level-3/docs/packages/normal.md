@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Normal: ¿Qué rasgo visual sugiere una aproximación normal razonable?
-- **Transferencia:** Incidente de transferencia de Normal: ¿Cuál es el límite correcto al usar la normal aquí?
+- **Guiado:** Observa centro y curva de densidad y cita una marca visible. Incidente guiado de Normal: ¿Qué rasgo visual sugiere una aproximación normal razonable?
+- **Transferencia:** Observa centro y curva de densidad y cita una marca visible. Incidente de transferencia de Normal: ¿Cuál es el límite correcto al usar la normal aquí?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

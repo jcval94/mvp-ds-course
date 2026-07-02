@@ -1,0 +1,4 @@
+interface:
+  display_name: "Revisor de consistencia entre niveles"
+  short_description: "Valida shell, navegación y responsive entre niveles"
+  default_prompt: "Usa $level-experience-consistency-reviewer para comprobar que este nivel cumple level-shell-v1."

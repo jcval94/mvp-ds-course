@@ -17,6 +17,9 @@
     "story": "docs/stories/LEVEL_5.md",
     "scenes": 18,
     "exercises_locked": 36,
+    "visualization_specs": 18,
+    "renderer_registry": "educational-svg-v1",
+    "experience_contract": "level-shell-v1",
     "narrative_files": [
       {
         "path": "datasets/narrative/noches_modelado_nivel_5.csv",

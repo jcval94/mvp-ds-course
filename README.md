@@ -88,6 +88,7 @@ técnica y pedagógica.
 - `docs/stories/`: una historia canónica y aprobable por nivel.
 - `docs/pipeline/`: orden de producción, puertas y Definition of Done.
 - `.agents/skills/`: skills ejecutables.
+- `scripts/assets/`: shell común y registro SVG cerrado para niveles publicados.
 - `evals/`: rubricas, checklists y regresiones.
 - `templates/`: estructuras reutilizables.
 - `examples/`: casos de entrada y salidas esperadas.
@@ -115,6 +116,7 @@ Un paquete está listo cuando:
 - tiene objetivo, nivel y prerrequisitos;
 - los tres modos comparten una `ConceptSpec`;
 - el visual representa el mecanismo;
+- el manifest declara `level-shell-v1` y el renderer coincide con el `VisualizationSpec`;
 - el ejercicio depende de evidencia;
 - cada distractor tiene feedback;
 - el paquete docente tiene plan offline;

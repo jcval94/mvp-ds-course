@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Bootstrap: ¿Qué produce una corrida bootstrap?
-- **Transferencia:** Incidente de transferencia de Bootstrap: ¿Qué limitación debe reportarse al usar bootstrap?
+- **Guiado:** Observa distribución de remuestras y cita una marca visible. Incidente guiado de Bootstrap: ¿Qué produce una corrida bootstrap?
+- **Transferencia:** Observa distribución de remuestras y cita una marca visible. Incidente de transferencia de Bootstrap: ¿Qué limitación debe reportarse al usar bootstrap?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

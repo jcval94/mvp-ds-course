@@ -216,6 +216,15 @@ el mismo gate antes de aparecer en GitHub Pages.
 | Eje de agentes que compite con datos | Limitarlo a una competencia auxiliar por episodio |
 | Voz o datos narrativos inconsistentes | Story Bible, ledger y QA narrativa bloqueante |
 | Renderer universal de barras | Enrutar por `visual.kind` y probar marcas semánticas |
+| Divergencia de navegación entre niveles | Aplicar `level-shell-v1` y validar bloques laterales/conceptos superiores |
+
+## Reconstrucción visual de Niveles 3–5
+
+- Fuente: temarios, historias y datasets canónicos ya aprobados.
+- Contrato: 52 `VisualizationSpec`, registro cerrado `educational-svg-v1` y sin fallback.
+- Experiencia: cinco niveles bajo `level-shell-v1`; Niveles 1–2 conservan sus renderers.
+- Práctica: 104 ejercicios citan puntos, curvas, áreas, nodos, celdas o intervalos.
+- Publicación: generación → validación → build → navegador → `main` → Pages.
 | Narrativa sin evidencia | Ejercicio debe fallar sin visual |
 | QA superficial | Validar `evidenceContract`, números, pasos y desbloqueo en navegador |
 | Modo En vivo confundido con contenido estudiantil | UI oculta por defecto y aviso de no autenticación |

@@ -57,6 +57,12 @@ def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None
                 assert page.locator("#paco").inner_text() == lesson["narrative"]["paco"]
                 assert page.locator("#subtitle").inner_text() == lesson["narrative"]["subtitles"][0]
                 assert page.get_by_role("button", name="En vivo").count() == 0
+                assert page.locator("body").get_attribute("data-experience-contract") == "level-shell-v1"
+                assert page.locator("[data-level-blocks] a[data-block-id]").count() == len(payloads[level]["modules"])
+                assert page.locator("[data-level-concepts] button").count() == len(module["lessons"])
+                assert page.locator('[data-level-concepts] [aria-current="page"]').inner_text() == lesson["title"]
+                assert page.locator(".edu-svg").get_attribute("data-renderer") == lesson["visualizationSpec"]["kind"]
+                assert page.locator(".bar-row").count() == 0
                 for exercise_index, tab_name in enumerate(("Guiado", "Transferencia")):
                     if exercise_index:
                         page.get_by_role("button", name=tab_name).click()
@@ -116,6 +122,10 @@ def main() -> None:
         for level, href in [(1, manifests[1]["blocks"][0]["href"]), (2, manifests[2]["blocks"][0]["href"] + "?concept=mean")]:
             page.goto(f"{BASE}/labs/level-{level}/{href}", wait_until="networkidle")
             assert page.get_by_role("link", name="HOME").count() >= 1
+            assert page.locator("body").get_attribute("data-experience-contract") == "level-shell-v1"
+            assert page.locator("[data-level-blocks]").count() == 1
+            assert page.locator("[data-level-concepts]").count() == 1
+            assert page.locator('[data-mode="live"]:visible').count() == 0
             no_overflow(page, f"Nivel {level} representative")
 
         test_continuous_levels(page, payloads)
@@ -142,7 +152,7 @@ def main() -> None:
         motion = browser.new_context(viewport={"width": 1280, "height": 800}, reduced_motion="no-preference")
         motion_page = motion.new_page()
         motion_page.goto(f"{BASE}/labs/level-5/regresion-lineal.html?concept=fit", wait_until="networkidle")
-        duration = motion_page.locator(".bar-row i").first.evaluate("el => getComputedStyle(el).transitionDuration")
+        duration = motion_page.locator(".edu-svg circle").first.evaluate("el => getComputedStyle(el).transitionDuration")
         assert duration not in {"0s", "0ms"}
         motion_page.locator("#advance").click()
         assert motion_page.locator("#check").is_enabled()
@@ -162,6 +172,8 @@ def main() -> None:
         ]:
             mobile_page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
             no_overflow(mobile_page, f"Nivel {level} mobile")
+            assert mobile_page.locator("[data-level-blocks]").count() == 1
+            assert mobile_page.locator("[data-level-concepts]").count() == 1
             assert not mobile_page.locator("#check").is_enabled()
             mobile_page.locator("#advance").click()
             assert mobile_page.locator("#check").is_enabled()

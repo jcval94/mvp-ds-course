@@ -18,6 +18,8 @@
 | `technical-content-reviewer` | Revisar exactitud y coherencia de datos | Antes del cierre de cualquier paquete | Todos los artefactos | Hallazgos técnicos y correcciones | Alta |
 | `narrative-continuity-reviewer` | Revisar voz, familia, secretos, crecimiento, cronología y datos | Antes de aprobar cualquier episodio continuo | Story Bible, arco, ledger y episodio | Hallazgos narrativos y tres deltas aprobados | Alta |
 | `interactive-visual-reviewer` | Probar mecanismo, animación, evidencia y desbloqueo | Después de QA técnica y antes de QA pedagógica | ConceptSpec, UI renderizada y ejercicios | Hallazgos visuales con evidencia de navegador | Alta |
+| `visualization-contract-designer` | Elegir representación y emitir `VisualizationSpec` | Antes de ConceptSpec y de cualquier modo | Objetivo, pregunta, variables, datos y nivel | Kind registrado, encodings, estados, marcas y límites | Alta |
+| `level-experience-consistency-reviewer` | Preservar `level-shell-v1` entre niveles | Tras QA técnica/narrativa y antes de QA visual | Manifest, temario y UI renderizada | Hallazgos de navegación, responsive y modo docente | Alta |
 | `pedagogy-eval-reviewer` | Evaluar alineación y profundidad | Cierre obligatorio | Paquete y evals | Puntajes, bloqueos y decisión | Alta |
 
 ## Dependencias
@@ -29,6 +31,8 @@ course-narrative-architect
         |
 LevelStory aprobada
         |
+visualization-contract-designer
+        |
 concept-spec-designer
    /         |          \
 Aprender  Ejercitar  Enseñar en vivo
@@ -36,6 +40,8 @@ Aprender  Ejercitar  Enseñar en vivo
  technical-content-reviewer
              |
  narrative-continuity-reviewer
+             |
+ level-experience-consistency-reviewer
              |
  interactive-visual-reviewer
              |
@@ -57,7 +63,8 @@ Aprender  Ejercitar  Enseñar en vivo
 - Contenido técnico avanzado activa revisión de prerrequisitos antes de generación.
 - QA técnica ocurre antes de QA pedagógica final.
 - QA narrativa ocurre después de QA técnica y antes de QA visual/pedagógica.
-- QA visual interactiva ocurre entre QA técnica y QA pedagógica.
+- La asignación visual ocurre antes de ConceptSpec; la consistencia de experiencia
+  ocurre antes de QA visual interactiva y esta ocurre antes de QA pedagógica.
 - Todo snapshot público pasa por procedencia, licencia y hash.
 - En vivo usa snapshot público real como fuente principal y se oculta por defecto en UI estudiantil.
 - Ejercitar debe contar una historia profesional o de negocio distinta de Aprender.

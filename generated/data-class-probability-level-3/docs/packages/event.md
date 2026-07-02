@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Evento: ¿Qué convierte a 'especie Adelie' en un evento?
-- **Transferencia:** Incidente de transferencia de Evento: Si cambias la regla del evento, ¿qué debe cambiar en la evidencia?
+- **Guiado:** Observa unidades seleccionadas y cita una marca visible. Incidente guiado de Evento: ¿Qué convierte a 'especie Adelie' en un evento?
+- **Transferencia:** Observa unidades seleccionadas y cita una marca visible. Incidente de transferencia de Evento: Si cambias la regla del evento, ¿qué debe cambiar en la evidencia?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

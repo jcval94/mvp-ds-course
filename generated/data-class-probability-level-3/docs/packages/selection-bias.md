@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Sesgo de selección: ¿Qué evidencia indica sesgo de selección?
-- **Transferencia:** Incidente de transferencia de Sesgo de selección: ¿Qué debe reportarse junto con una estimación de muestra sesgada?
+- **Guiado:** Observa marcos y distribuciones comparadas y cita una marca visible. Incidente guiado de Sesgo de selección: ¿Qué evidencia indica sesgo de selección?
+- **Transferencia:** Observa marcos y distribuciones comparadas y cita una marca visible. Incidente de transferencia de Sesgo de selección: ¿Qué debe reportarse junto con una estimación de muestra sesgada?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

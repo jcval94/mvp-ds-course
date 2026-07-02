@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué lectura de confusores está respaldada por el incidente guiado?
-- **Transferencia:** Al transferir confusores a otro grupo, ¿qué debe conservarse?
+- **Guiado:** Observa DAG y estratos y cita una marca visible. ¿Qué lectura de confusores está respaldada por el incidente guiado?
+- **Transferencia:** Observa DAG y estratos y cita una marca visible. Al transferir confusores a otro grupo, ¿qué debe conservarse?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

@@ -25,6 +25,19 @@ de convertirla en módulos, ejercicios o interfaces.
 
 ## Orden de producción
 
+Para cada nivel continuo, el orden bloqueante es:
+
+```text
+Curriculum Map → LevelStory aprobada → VisualizationSpec → ConceptSpec
+→ LearningModule / PracticeExercise / LiveTeachingPack
+→ revisión técnica y narrativa → level-shell-v1
+→ revisión visual interactiva → evaluación pedagógica → publicación
+```
+
+`VisualizationSpec` debe resolverse antes de escribir Aprender o Ejercitar. Un
+`kind` sin renderer, un tema ausente del lateral o un concepto ausente de la
+franja superior detienen la generación.
+
 ### 0. Preparar el encargo
 
 1. Leer `AGENTS.md` e `IDEA.md`.

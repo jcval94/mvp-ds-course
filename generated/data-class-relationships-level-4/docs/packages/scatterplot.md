@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** ¿Qué lectura de scatterplot está respaldada por el incidente guiado?
-- **Transferencia:** Al transferir scatterplot a otro grupo, ¿qué debe conservarse?
+- **Guiado:** Observa puntos de la nube y cita una marca visible. ¿Qué lectura de scatterplot está respaldada por el incidente guiado?
+- **Transferencia:** Observa puntos de la nube y cita una marca visible. Al transferir scatterplot a otro grupo, ¿qué debe conservarse?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

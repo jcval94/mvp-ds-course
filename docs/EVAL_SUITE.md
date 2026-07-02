@@ -16,6 +16,7 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 8. Revisar Enseñar en vivo.
 9. Revisar precisión técnica.
 10. Probar visual, subtítulos, animación, evidencia y desbloqueo en navegador.
+11. Probar `level-shell-v1` y la correspondencia `VisualizationSpec.kind` → `data-renderer`.
 11. Revisar consistencia documental y placeholders.
 12. Emitir puntaje y decisión.
 
@@ -56,6 +57,8 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 - Prerrequisito crítico omitido.
 - Afirmación técnica falsa o causalidad injustificada.
 - Concepto visualizable sin `visualSpec`.
+- Renderer fallback, `kind` no registrado o barras no justificadas.
+- Temas ausentes del lateral o conceptos ausentes de la franja superior.
 - Visualización engañosa o decorativa.
 - Renderer reciclado que no representa el mecanismo del concepto.
 - `evidenceId` requerido ausente o no visible.

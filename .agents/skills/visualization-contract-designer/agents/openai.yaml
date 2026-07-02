@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diseñador de contratos visuales"
+  short_description: "Asigna visualizaciones verificables por concepto"
+  default_prompt: "Usa $visualization-contract-designer para crear un VisualizationSpec y elegir un renderer compatible."

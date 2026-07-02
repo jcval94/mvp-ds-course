@@ -50,6 +50,11 @@
   "curriculumSource": "docs/CURRICULUM_MAP.md",
   "storySource": "docs/stories/LEVEL_5.md",
   "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-5-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
   "narrativeDataset": {
     "id": "matriz-modelado-sin-leakage-nivel-5",
     "synthetic": true,
@@ -123,5 +128,5 @@
     "metadataSha256": "fe6ead21ef735b335b149286e2f971fb9bcda5211f58aedd0916c331e3d250fb"
   },
   "validation": "validation.json",
-  "updated_at": "2026-07-01"
+  "updated_at": "2026-07-02"
 }

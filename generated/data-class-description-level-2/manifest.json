@@ -310,5 +310,10 @@
     ]
   },
   "validation": "validation.json",
-  "updated_at": "2026-06-28"
+  "updated_at": "2026-06-28",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "rendererRegistry": "level-native-v1",
+  "visualizationMatrix": "level-2-visuals-v1"
 }

@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Potencia: ¿Qué suele aumentar la potencia?
-- **Transferencia:** Incidente de transferencia de Potencia: ¿Qué debe especificarse al reportar potencia?
+- **Guiado:** Observa curva de potencia y cita una marca visible. Incidente guiado de Potencia: ¿Qué suele aumentar la potencia?
+- **Transferencia:** Observa curva de potencia y cita una marca visible. Incidente de transferencia de Potencia: ¿Qué debe especificarse al reportar potencia?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

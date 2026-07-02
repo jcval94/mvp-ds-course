@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Hipótesis: ¿Qué hace que una hipótesis sea estadística?
-- **Transferencia:** Incidente de transferencia de Hipótesis: ¿Qué conclusión prudente sale antes del p-value?
+- **Guiado:** Observa distribución nula y estadístico y cita una marca visible. Incidente guiado de Hipótesis: ¿Qué hace que una hipótesis sea estadística?
+- **Transferencia:** Observa distribución nula y estadístico y cita una marca visible. Incidente de transferencia de Hipótesis: ¿Qué conclusión prudente sale antes del p-value?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

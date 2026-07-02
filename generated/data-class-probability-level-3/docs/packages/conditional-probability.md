@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Probabilidad condicional: Para P(Adelie | Torgersen), ¿cuál es el denominador correcto?
-- **Transferencia:** Incidente de transferencia de Probabilidad condicional: ¿Qué error comete quien usa el total de 344 como denominador después del filtro?
+- **Guiado:** Observa universo, condición y evento y cita una marca visible. Incidente guiado de Probabilidad condicional: Para P(Adelie | Torgersen), ¿cuál es el denominador correcto?
+- **Transferencia:** Observa universo, condición y evento y cita una marca visible. Incidente de transferencia de Probabilidad condicional: ¿Qué error comete quien usa el total de 344 como denominador después del filtro?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 

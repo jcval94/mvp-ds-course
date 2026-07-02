@@ -11,6 +11,57 @@ import shutil
 
 
 ROOT = Path(__file__).resolve().parents[1]
+ASSETS = ROOT / "scripts" / "assets"
+
+
+VISUALIZATION_MATRIX = {
+    3: {
+        "event": "unit-set", "complement": "complement-partition", "independence": "probability-matrix",
+        "conditional-probability": "nested-denominator", "bernoulli": "bernoulli-strip", "binomial": "binomial-pmf",
+        "normal": "normal-density", "poisson": "poisson-timeline-pmf", "sampling-variability": "sampling-dotplot",
+        "selection-bias": "selection-frame-distributions", "law-large-numbers": "cumulative-mean-line",
+        "standard-error": "standard-error-by-n", "confidence-interval": "confidence-forest",
+        "bootstrap": "bootstrap-distribution", "hypothesis": "null-distribution", "p-value": "pvalue-tail",
+        "type-i-error": "type-i-region", "type-ii-error": "type-ii-overlap", "power": "power-curve",
+    },
+    4: {
+        "scatterplot": "scatter", "trend": "scatter-trend", "relationship-shape": "relationship-small-multiples",
+        "groups": "grouped-scatter", "direction": "direction-small-multiples", "strength": "strength-small-multiples",
+        "pearson": "pearson-contributions", "spearman": "rank-scatter", "correlation-outliers": "outlier-influence",
+        "causality": "causal-dag", "confounders": "confounder-strata", "aggregation-bias": "aggregation-reversal",
+        "proportions": "proportions-2x2", "relative-risk": "risk-ratio", "odds": "odds-mosaic",
+    },
+    5: {
+        "fit": "regression-fit", "slope": "slope-triangle", "intercept": "intercept-crossing",
+        "residuals": "residual-plot", "assumptions": "diagnostic-panels", "explanatory-variables": "coefficient-plot",
+        "interaction": "interaction-lines", "collinearity": "collinearity-heatmap", "class": "class-scatter",
+        "score": "score-strip", "threshold": "threshold-distribution", "probability": "logistic-curve",
+        "decision-tree": "decision-tree", "rules": "rules-flow", "importance": "importance-bars",
+        "encoding": "one-hot-heatmap", "scaling": "scaling-before-after", "leakage": "leakage-timeline",
+    },
+}
+
+EVIDENCE_LABELS = {
+    "unit-set": "unidades seleccionadas", "complement-partition": "partición completa", "probability-matrix": "celdas y tasas condicionadas",
+    "nested-denominator": "universo, condición y evento", "bernoulli-strip": "ensayos 0/1", "binomial-pmf": "tallos y masa de probabilidad",
+    "normal-density": "centro y curva de densidad", "poisson-timeline-pmf": "eventos y conteos por ventana", "sampling-dotplot": "puntos de estimaciones repetidas",
+    "selection-frame-distributions": "marcos y distribuciones comparadas", "cumulative-mean-line": "trayectoria de la media acumulada",
+    "standard-error-by-n": "intervalos frente a n", "confidence-forest": "intervalos repetidos", "bootstrap-distribution": "distribución de remuestras",
+    "null-distribution": "distribución nula y estadístico", "pvalue-tail": "cola extrema sombreada", "type-i-region": "región de rechazo",
+    "type-ii-overlap": "área beta entre curvas", "power-curve": "curva de potencia", "scatter": "puntos de la nube",
+    "scatter-trend": "puntos y línea descriptiva", "relationship-small-multiples": "paneles lineal, curvo y sin patrón",
+    "grouped-scatter": "puntos identificados por grupo", "direction-small-multiples": "pendientes positiva, negativa y nula",
+    "strength-small-multiples": "nubes con distinta dispersión", "pearson-contributions": "puntos y contribuciones de covarianza",
+    "rank-scatter": "posiciones de rango", "outlier-influence": "ajuste con el punto extremo", "causal-dag": "nodos y flechas alternativas",
+    "confounder-strata": "DAG y estratos", "aggregation-reversal": "líneas por grupo y agregada", "proportions-2x2": "celdas de la tabla 2×2",
+    "risk-ratio": "riesgos y referencia de razón 1", "odds-mosaic": "evento, no evento y escala de odds", "regression-fit": "puntos y recta ajustada",
+    "slope-triangle": "triángulo subida/avance", "intercept-crossing": "cruce con el eje", "residual-plot": "segmentos y residuales",
+    "diagnostic-panels": "cuatro paneles diagnósticos", "coefficient-plot": "coeficientes e intervalos", "interaction-lines": "líneas con pendientes diferentes",
+    "collinearity-heatmap": "celdas de relación entre entradas", "class-scatter": "puntos coloreados por clase", "score-strip": "scores ordenados",
+    "threshold-distribution": "distribución y umbral", "logistic-curve": "curva score a probabilidad", "decision-tree": "nodos y hojas",
+    "rules-flow": "ramas si/entonces", "importance-bars": "magnitudes de importancia", "one-hot-heatmap": "celdas de la matriz one-hot",
+    "scaling-before-after": "escalas antes y después", "leakage-timeline": "corte temporal y disponibilidad",
+}
 
 
 def sha256(path: Path) -> str:
@@ -40,6 +91,10 @@ def option(text: str, correct: bool, feedback: str) -> dict[str, object]:
 
 
 def enrich_lesson(level: int, block: dict[str, object], item: dict[str, object], index: int, total: int, config: dict[str, object]) -> None:
+    expected_kind = VISUALIZATION_MATRIX[level].get(item["id"])
+    if expected_kind is None:
+        raise ValueError(f"VisualizationSpec ausente para Nivel {level}: {item['id']}")
+    item["visualKind"] = expected_kind
     states = item["states"]
     for state_index, visual_state in enumerate(states, start=1):
         visual_state["id"] = f"state-{state_index}"
@@ -71,6 +126,22 @@ def enrich_lesson(level: int, block: dict[str, object], item: dict[str, object],
             "reducedMotion": "cambio inmediato con los mismos valores y desbloqueo",
         },
     }
+    evidence_label = EVIDENCE_LABELS[expected_kind]
+    item["visualizationSpec"] = {
+        "kind": expected_kind,
+        "mechanism": item["mechanism"],
+        "dataSource": config["narrativeMetadata"]["id"],
+        "fields": [field.strip() for field in item["variables"].split(",")],
+        "encodings": {"x": "contexto o secuencia", "y": "magnitud o resultado", "color": "grupo o estado", "group": "cuando aplica", "size": "constante"},
+        "states": [state["id"] for state in states],
+        "semanticMarks": evidence_label,
+        "evidenceIds": required_ids,
+        "interaction": item["action"],
+        "accessibleSummary": f"{item['title']}: {evidence_label}. {item['mechanism']}",
+        "reducedMotion": "Los mismos estados, valores, marcas y evidenceIds se muestran sin transición.",
+        "limits": item["limit"],
+        "rendererRegistry": "educational-svg-v1",
+    }
     del item["states"], item["visualKind"]
     item["curriculumSource"] = f"docs/CURRICULUM_MAP.md#nivel-{level}"
     item["storySource"] = f"docs/stories/LEVEL_{level}.md"
@@ -96,14 +167,14 @@ def enrich_lesson(level: int, block: dict[str, object], item: dict[str, object],
         correct = evidence_case["correct"]
         exercises.append({
             "kind": label,
-            "question": evidence_case["question"],
+            "question": f"Observa {evidence_label} y cita una marca visible. {evidence_case['question']}",
             "options": [
                 option(correct, True, f"Correcto: {evidence_case['feedback']} La conclusión se limita a la evidencia recorrida."),
                 option(evidence_case["wrong1"], False, f"Esa opción contradice {item['mechanism']}; revisa la marca final y el denominador o unidad."),
                 option(evidence_case["wrong2"], False, "Esa afirmación excede el diseño o usa evidencia que no estaba disponible."),
             ],
             "hint": evidence_case["hint"],
-            "evidence": evidence_case["evidence"],
+            "evidence": f"{evidence_case['evidence']} Cita {evidence_label} y sus valores visibles.",
             "evidenceContract": {
                 "requiredSteps": required_steps,
                 "requiredEvidenceIds": required_ids,
@@ -309,6 +380,14 @@ def generate(config: dict[str, object]) -> None:
     registry_raw = json.loads((ROOT / "datasets" / "registry.json").read_text(encoding="utf-8"))
     config["registry"] = {item["id"]: item for item in registry_raw["datasets"]}
     ordered = [item for block in config["blocks"] for item in block["concepts"]]
+    expected_ids = set(VISUALIZATION_MATRIX[level])
+    actual_ids = {item["id"] for item in ordered}
+    if actual_ids != expected_ids:
+        raise ValueError(f"Matriz visual de Nivel {level} desalineada: {sorted(actual_ids ^ expected_ids)}")
+    registry_source = (ASSETS / "educational_svg_registry.js").read_text(encoding="utf-8")
+    for kind in VISUALIZATION_MATRIX[level].values():
+        if f'"{kind}"' not in registry_source:
+            raise ValueError(f"Renderer no registrado: {kind}")
     config["orderedTitles"] = [item["title"] for item in ordered]
     for index, item in enumerate(ordered):
         block = next(block for block in config["blocks"] if item in block["concepts"])
@@ -341,10 +420,11 @@ def generate(config: dict[str, object]) -> None:
     }
     curriculum = f"window.DCF_LEVEL = {json.dumps(payload, ensure_ascii=False, separators=(',', ':'))};\n"
     (out / "assets" / "curriculum.js").write_text(curriculum, encoding="utf-8")
-    (out / "assets" / "app.js").write_text(APP_JS, encoding="utf-8")
-    (out / "assets" / "styles.css").write_text(STYLES, encoding="utf-8")
+    shutil.copy2(ASSETS / "continuous_level_app.js", out / "assets" / "app.js")
+    shutil.copy2(ASSETS / "educational_svg_registry.js", out / "assets" / "renderers.js")
+    shutil.copy2(ASSETS / "level_shell_v1.css", out / "assets" / "styles.css")
     (out / "assets" / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#087f73"/><path d="M13 45h38M18 38l9-11 8 7 11-17" fill="none" stroke="white" stroke-width="5"/></svg>', encoding="utf-8")
-    shell = '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="assets/styles.css"><title>DataClass Forge</title></head><body data-module="{module}"><script src="assets/curriculum.js"></script><script src="assets/app.js"></script></body></html>'
+    shell = '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="assets/styles.css"><title>DataClass Forge</title></head><body data-module="{module}" data-experience-contract="level-shell-v1"><script src="assets/curriculum.js"></script><script src="assets/renderers.js"></script><script src="assets/app.js"></script></body></html>'
     for block in config["blocks"]:
         (out / block["href"]).write_text(shell.format(module=block["id"]), encoding="utf-8")
     cards = "".join(f'<a class="card" href="{b["href"]}?concept={b["concepts"][0]["id"]}"><b>{b["title"]}</b><p>{b["description"]}</p><span>{len(b["concepts"])} conceptos</span></a>' for b in config["blocks"])
@@ -357,13 +437,17 @@ def generate(config: dict[str, object]) -> None:
         "blocks": [{"id": b["id"], "number": b["number"], "title": b["title"], "href": b["href"], "concept_count": len(b["concepts"])} for b in config["blocks"]],
         "datasets": sorted({b["dataset_id"] for b in config["blocks"]}),
         "curriculumSource": "docs/CURRICULUM_MAP.md", "storySource": f"docs/stories/LEVEL_{level}.md", "storyStatus": "approved",
-        "narrativeDataset": metadata, "validation": "validation.json", "updated_at": "2026-07-01",
+        "experienceContract": "level-shell-v1", "blockNavigation": "left", "conceptNavigation": "top",
+        "visualizationMatrix": f"level-{level}-visuals-v1", "rendererRegistry": "educational-svg-v1",
+        "narrativeDataset": metadata, "validation": "validation.json", "updated_at": "2026-07-02",
     }
     write_json(out / "manifest.json", manifest)
     checks = {"scope": 5, "curriculum": 5, "narrative": 5, "pedagogy": 5, "technical": 5, "visual": 5, "reproducibility": 5}
     write_json(out / "validation.json", {
         "status": "passed", "average": 5.0, "minimum_dimension": 5, "blockers": [], "checks": checks,
         "browser_qa_required": True,
-        "evidence": {"story": f"docs/stories/LEVEL_{level}.md", "scenes": len(ordered), "exercises_locked": len(ordered) * 2, "narrative_files": narrative_files, "browser_qa": "scripts/qa_pages.py"},
+        "evidence": {"story": f"docs/stories/LEVEL_{level}.md", "scenes": len(ordered), "exercises_locked": len(ordered) * 2, "visualization_specs": len(ordered), "renderer_registry": "educational-svg-v1", "experience_contract": "level-shell-v1", "narrative_files": narrative_files, "browser_qa": "scripts/qa_pages.py"},
     })
+    from apply_level_shell import main as apply_level_shell
+    apply_level_shell()
     print(f"Nivel {level} generado: {len(ordered)} conceptos, {len(ordered) * 2} ejercicios y {len(ordered) * 3} prompts.")

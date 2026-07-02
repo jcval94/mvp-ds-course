@@ -28,8 +28,8 @@
 
 ## PracticeExercise
 
-- **Guiado:** Incidente guiado de Poisson: ¿Qué condición hace razonable pensar en Poisson?
-- **Transferencia:** Incidente de transferencia de Poisson: ¿Qué sería una mala comparación para Poisson?
+- **Guiado:** Observa eventos y conteos por ventana y cita una marca visible. Incidente guiado de Poisson: ¿Qué condición hace razonable pensar en Poisson?
+- **Transferencia:** Observa eventos y conteos por ventana y cita una marca visible. Incidente de transferencia de Poisson: ¿Qué sería una mala comparación para Poisson?
 - **Bloqueo:** 1 cambios y todas las marcas requeridas.
 - **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
 
