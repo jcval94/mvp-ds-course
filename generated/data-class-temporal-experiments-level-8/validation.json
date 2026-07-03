@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "average": 5.0,
+  "minimum_dimension": 5,
+  "blockers": [],
+  "checks": {
+    "scope": 5,
+    "curriculum": 5,
+    "narrative": 5,
+    "pedagogy": 5,
+    "technical": 5,
+    "visual": 5,
+    "reproducibility": 5
+  },
+  "browser_qa_required": true,
+  "evidence": {
+    "story": "docs/stories/LEVEL_8.md",
+    "scenes": 14,
+    "exercises_locked": 28,
+    "visualization_specs": 14,
+    "renderer_registry": "educational-svg-v1",
+    "experience_contract": "level-shell-v1",
+    "narrative_files": [
+      {
+        "path": "datasets/narrative/noches_temporales_nivel_8.csv",
+        "rows": 100,
+        "columns": 18,
+        "sha256": "e9773da5be304078abc25a73af211d68a5327f0556b0f9b7676f697c1eb58016"
+      },
+      {
+        "path": "datasets/narrative/prepedidos_experimento_nivel_8.csv",
+        "rows": 400,
+        "columns": 10,
+        "sha256": "a6db8f27665a6705b950e67c6b5bf4c4f2baba52cb06348bc24d00b9f4589eed"
+      }
+    ],
+    "browser_qa": "scripts/qa_pages.py"
+  }
+}

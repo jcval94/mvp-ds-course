@@ -23,6 +23,7 @@ LEVELS = [
     ROOT / "generated" / "data-class-modeling-level-5",
     ROOT / "generated" / "data-class-evaluation-level-6",
     ROOT / "generated" / "data-class-unsupervised-level-7",
+    ROOT / "generated" / "data-class-temporal-experiments-level-8",
 ]
 
 
@@ -85,6 +86,7 @@ def validate_datasets() -> list[dict[str, object]]:
         "palmer-penguins": 344,
         "bike-sharing-day": 731,
         "wine-quality": 6497,
+        "plant-growth": 30,
     }
     for item in registry["datasets"]:
         metadata_path = ROOT / "datasets" / "metadata" / f"{item['id']}.json"
@@ -693,17 +695,19 @@ def validate_continuous_level(
     return payload
 
 
-def validate_levels_3_to_7(public_dataset_ids: set[str]) -> None:
+def validate_levels_3_to_8(public_dataset_ids: set[str]) -> None:
     ids3 = ["event", "complement", "independence", "conditional-probability", "bernoulli", "binomial", "normal", "poisson", "sampling-variability", "selection-bias", "law-large-numbers", "standard-error", "confidence-interval", "bootstrap", "hypothesis", "p-value", "type-i-error", "type-ii-error", "power"]
     ids4 = ["scatterplot", "trend", "relationship-shape", "groups", "direction", "strength", "pearson", "spearman", "correlation-outliers", "causality", "confounders", "aggregation-bias", "proportions", "relative-risk", "odds"]
     ids5 = ["fit", "slope", "intercept", "residuals", "assumptions", "explanatory-variables", "interaction", "collinearity", "class", "score", "threshold", "probability", "decision-tree", "rules", "importance", "encoding", "scaling", "leakage"]
     ids6 = ["train", "validation", "test", "cross-validation", "mae", "mse", "rmse", "r2", "true-positive", "true-negative", "false-positive", "false-negative", "precision", "recall", "specificity", "f1", "roc", "pr", "threshold-cost", "calibration", "bias", "variance", "overfitting", "regularization"]
     ids7 = ["distance", "k-means", "centroids", "cluster-count", "pca", "components", "explained-variance", "rarity", "isolation", "anomaly-threshold"]
+    ids8 = ["trend", "seasonality", "lag", "temporal-anomaly", "windows", "backtesting", "temporal-leakage", "random-assignment", "primary-metric", "sample-size", "effect", "guardrails", "multiple-tests", "practical-effect"]
     payload3 = validate_continuous_level(2, public_dataset_ids, ids3)
     payload4 = validate_continuous_level(3, public_dataset_ids, ids4)
     payload5 = validate_continuous_level(4, public_dataset_ids, ids5)
     payload6 = validate_continuous_level(5, public_dataset_ids, ids6)
     payload7 = validate_continuous_level(6, public_dataset_ids, ids7)
+    payload8 = validate_continuous_level(7, public_dataset_ids, ids8)
 
     l3_orders = ROOT / "datasets/narrative/pedidos_piloto_nivel_3.csv"
     l3_nights = ROOT / "datasets/narrative/noches_piloto_nivel_3.csv"
@@ -777,6 +781,37 @@ def validate_levels_3_to_7(public_dataset_ids: set[str]) -> None:
         fail("Nivel 7 convierte anomalías en veredictos")
     if len(meta7.get("anomaly_review", {}).get("review_night_indices", [])) != 4:
         fail("Nivel 7 no respeta capacidad de revisión")
+
+    l8_nights_path = ROOT / "datasets/narrative/noches_temporales_nivel_8.csv"
+    l8_experiment_path = ROOT / "datasets/narrative/prepedidos_experimento_nivel_8.csv"
+    with l8_nights_path.open("r", encoding="utf-8", newline="") as handle:
+        n8 = list(csv.DictReader(handle))
+    with l8_experiment_path.open("r", encoding="utf-8", newline="") as handle:
+        x8 = list(csv.DictReader(handle))
+    if len(n8) != 100 or sum(row["fase"] == "base" for row in n8) != 40 or sum(row["fase"] == "piloto_prepedido" for row in n8) != 60:
+        fail("Fases temporales de Nivel 8 incorrectas")
+    dates8 = [row["fecha"] for row in n8]
+    if dates8 != sorted(dates8) or len(set(dates8)) != 100:
+        fail("Nivel 8 rompe el orden temporal")
+    if sum(int(row["mantenimiento_documentado"]) for row in n8) != 1:
+        fail("Anomalía temporal de Nivel 8 no es trazable")
+    if len(x8) != 400 or {arm: sum(row["variante"] == arm for row in x8) for arm in ("A", "B")} != {"A": 200, "B": 200}:
+        fail("Asignación experimental de Nivel 8 no está balanceada")
+    if any(row["elegible_antes_asignacion"] != "1" for row in x8):
+        fail("Nivel 8 asigna después de observar elegibilidad")
+    meta8 = payload8["narrativeDataset"]
+    if meta8.get("time_policy") != "cada entrenamiento termina antes de su horizonte; ninguna agregación usa futuro":
+        fail("Nivel 8 permite leakage temporal")
+    experiment8 = meta8.get("experiment", {})
+    rate_a8 = statistics.mean(int(row["prepedido_completado"]) for row in x8 if row["variante"] == "A")
+    rate_b8 = statistics.mean(int(row["prepedido_completado"]) for row in x8 if row["variante"] == "B")
+    if abs((rate_b8 - rate_a8) - experiment8.get("effect_b_minus_a", 99)) > 1e-6:
+        fail("Efecto experimental de Nivel 8 no es reproducible")
+    guardrails8 = experiment8.get("guardrails", {})
+    if guardrails8.get("wait_delta_minutes", 99) > guardrails8.get("max_wait_delta", 0) or guardrails8.get("cancel_delta", 99) > guardrails8.get("max_cancel_delta", 0):
+        fail("Nivel 8 crece pese a incumplir guardrails")
+    if meta8.get("growth", {}).get("to") != "G6-prepedido":
+        fail("Nivel 8 no documenta growthDelta final")
 
 
 def validate_placeholders() -> None:
@@ -982,7 +1017,7 @@ def main() -> int:
         validate_links(html)
     validate_level1_contract(public_dataset_ids)
     validate_level2_payload(public_dataset_ids)
-    validate_levels_3_to_7(public_dataset_ids)
+    validate_levels_3_to_8(public_dataset_ids)
     validate_narrative_contract()
     validate_placeholders()
     totals = {
@@ -990,7 +1025,7 @@ def main() -> int:
         "exercises": sum(item["exercise_count"] for item in manifests),
         "prompts": sum(item["prompt_count"] for item in manifests),
     }
-    expected = {"concepts": 125, "exercises": 232, "prompts": 375}
+    expected = {"concepts": 139, "exercises": 260, "prompts": 417}
     if totals != expected:
         fail(f"Totales incorrectos: {totals}, se esperaba {expected}")
     print(

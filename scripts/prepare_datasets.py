@@ -144,6 +144,30 @@ def prepare_wine_quality() -> dict[str, object]:
     }
 
 
+def prepare_plant_growth() -> dict[str, object]:
+    destination = SNAPSHOTS / "plant_growth.csv"
+    if row_count(destination) != 30:
+        raise SystemExit("PlantGrowth debe conservar 30 casos oficiales")
+    return {
+        "id": "plant-growth",
+        "name": "PlantGrowth · R datasets",
+        "path": "snapshots/plant_growth.csv",
+        "source_url": "https://svn.r-project.org/R/branches/R-grid/src/library/base/data/PlantGrowth.R",
+        "source_page": "https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/PlantGrowth.html",
+        "license": "GPL-2 | GPL-3",
+        "license_url": "https://search.r-project.org/R/refmans/base/html/license.html",
+        "citation": "Dobson, A. J. (1983). An Introduction to Statistical Modelling. PlantGrowth data in R datasets.",
+        "snapshot_date": "2026-07-03",
+        "rows": 30,
+        "columns": 3,
+        "snapshot_label": "30 plantas",
+        "license_display": "GPL-2 | GPL-3",
+        "portal_use": "Diseño y lectura de experimentos",
+        "sha256": sha256(destination),
+        "uses": ["asignación experimental", "métrica", "efecto", "múltiples comparaciones"],
+    }
+
+
 def main() -> None:
     required = [
         DOWNLOADS / "penguins.csv",
@@ -156,7 +180,7 @@ def main() -> None:
 
     SNAPSHOTS.mkdir(parents=True, exist_ok=True)
     METADATA.mkdir(parents=True, exist_ok=True)
-    datasets = [prepare_penguins(), prepare_bike_sharing(), prepare_wine_quality()]
+    datasets = [prepare_penguins(), prepare_bike_sharing(), prepare_wine_quality(), prepare_plant_growth()]
     for item in datasets:
         metadata_path = METADATA / f"{item['id']}.json"
         metadata_path.write_text(

@@ -2,9 +2,9 @@
 
 ## Resultado
 
-**Aprobado para publicación.** DataClass Forge publica siete niveles, 31 bloques, 125 conceptos, 232 ejercicios y 375 prompts. Los tres snapshots públicos conservan procedencia, licencia, fecha y SHA-256.
+**Aprobado para publicación.** DataClass Forge publica ocho niveles, 35 bloques, 139 conceptos, 260 ejercicios y 417 prompts. Los cuatro snapshots públicos conservan procedencia, licencia, fecha y SHA-256.
 
-La ampliación añadió 34 escenas y 68 ejercicios: 24 conceptos de evaluación de modelos y 10 de aprendizaje no supervisado. Los siete niveles cumplen `level-shell-v1`; los 86 conceptos continuos de Niveles 3–7 usan `VisualizationSpec` y renderers registrados sin fallback universal.
+Nivel 8 añade 14 escenas y 28 ejercicios de datos temporales y experimentación. Los 100 conceptos continuos de Niveles 3–8 usan `VisualizationSpec`, evidencia bloqueante y renderers registrados bajo `level-shell-v1`.
 
 ## Cobertura implementada
 
@@ -17,29 +17,31 @@ La ampliación añadió 34 escenas y 68 ejercicios: 24 conceptos de evaluación 
 | 5 | 18 | 36 | 54 | `L5.6`, `G4-kiosco` |
 | 6 | 24 | 48 | 72 | `L6.6`, `G4-kiosco` |
 | 7 | 10 | 20 | 30 | `L7.3`, `G5-servicios` |
-| **Total** | **125** | **232** | **375** | Continuidad aprobada |
+| 8 | 14 | 28 | 42 | `L8.4`, `G6-prepedido` |
+| **Total** | **139** | **260** | **417** | Continuidad aprobada |
 
-## Datos nuevos
+## Datos de Nivel 8
 
-| Nivel | Artefacto | Dimensiones | Comprobación bloqueante |
-| --- | --- | --- | --- |
-| 6 | `noches_evaluacion_nivel_6.csv` | 96 × 19 | 48 train, 16 validation, 32 test; test fuera de cuatro folds; costos FP/FN y métricas reproducibles |
-| 7 | `noches_segmentos_nivel_7.csv` | 64 × 11 | 60–85 pedidos; máximo dos servicios semanales; cinco variables estandarizadas; cuatro revisiones humanas |
+| Artefacto | Dimensiones | Comprobación bloqueante |
+| --- | --- | --- |
+| `noches_temporales_nivel_8.csv` | 100 × 18 | Fechas estrictamente ordenadas; 40 noches base y 60 piloto; evento de mantenimiento trazable |
+| `prepedidos_experimento_nivel_8.csv` | 400 × 10 | 200 A / 200 B; elegibilidad previa; métrica y tamaño congelados; sin atributos personales |
+| `plant_growth.csv` | 30 × 3 | Snapshot oficial de R, grupos control/tratamiento, licencia GPL-2/GPL-3 y hash fijo |
 
-Ambos datasets son sintéticos, determinísticos, etiquetados y no contienen nombres, secretos ni atributos personales. En vivo reutiliza Bike Sharing, Wine Quality y Palmer Penguins.
+El experimento narrativo estima B−A en 0.19, con intervalo 95% `[0.102577, 0.277423]`. El aumento de espera es 0.4725 minutos y la diferencia de cancelación es −0.02; ambos cumplen los guardrails declarados. Son datos sintéticos didácticos, no resultados reales del puesto.
 
 ## Revisión contra evals
 
 | Dimensión | Puntuación | Evidencia |
 | --- | ---: | --- |
-| Alcance y currículo | 5 | 125 conceptos en orden y puentes declarados |
-| Continuidad y voz | 5 | Historias 6–7 aprobadas; Mari revela su meta voluntariamente; Don Juan no usa jerga |
-| Pedagogía | 5 | Aprender, guiado y transferencia separados; 68 ejercicios nuevos bloqueados por evidencia |
-| Precisión técnica | 5 | Particiones, costos, métricas, k-means, PCA y anomalías reproducibles |
-| Visual e interacción | 5 | 34 kinds nuevos con marcas, estados y movimiento reducido |
-| Consistencia | 5 | Siete manifests `level-shell-v1`, escritorio y móvil sin overflow |
-| Datos y procedencia | 5 | Semillas, periodos, dimensiones, fórmulas y SHA-256 |
-| Publicación | 5 | Build de siete niveles, 31 rutas y modo docente oculto |
+| Alcance y currículo | 5 | 139 conceptos en orden; Nivel 8 conserva cuatro bloques y puente responsable |
+| Continuidad y voz | 5 | Historia 8 aprobada; Nora tiene autoridad operativa; Paco conserva escuela y rol parcial |
+| Pedagogía | 5 | Aprender, guiado y transferencia separados; 28 ejercicios nuevos dependen de evidencia |
+| Precisión técnica | 5 | Orden, ventanas, backtesting, asignación, efecto, guardrails y multiplicidad reproducibles |
+| Visual e interacción | 5 | 14 kinds nuevos; estados cambian evidencia y conservan movimiento reducido |
+| Consistencia | 5 | Ocho manifests `level-shell-v1`, escritorio y móvil sin overflow |
+| Datos y procedencia | 5 | Dos datasets narrativos versionados y PlantGrowth con fuente, licencia y SHA-256 |
+| Publicación | 5 | Build de ocho niveles, 35 rutas y modo docente oculto |
 
 - **Promedio:** 5.0.
 - **Dimensión mínima:** 5.
@@ -48,26 +50,27 @@ Ambos datasets son sintéticos, determinísticos, etiquetados y no contienen nom
 
 ## Evidencia ejecutada
 
+- Generador de Nivel 8 ejecutado dos veces con hashes idénticos.
 - `python -m py_compile`: generadores, fábrica, build, validación y QA sin errores.
-- `python scripts/validate_content.py`: 125 conceptos, 232 ejercicios, 375 prompts y tres datasets públicos.
-- `python scripts/build_pages.py`: portal de siete niveles y 31 bloques.
-- `python scripts/qa_pages.py`: 86 escenas continuas, 172 ejercicios, modo docente, movimiento, móvil y consola limpia.
-- Validación visual representativa: FN, calibración, k-means y umbral de anomalía en escritorio; costo de umbral y anomalías en móvil.
+- `python scripts/validate_content.py`: 139 conceptos, 260 ejercicios, 417 prompts y cuatro datasets públicos.
+- `python scripts/build_pages.py`: portal de ocho niveles y 35 bloques.
+- `python scripts/qa_pages.py`: 100 escenas continuas, 200 ejercicios, modo docente, movimiento, móvil y consola limpia.
+- Inspección visual: anomalía temporal, leakage, aleatorización, efecto práctico y guardrails en escritorio/móvil.
 
 ## Supuestos y riesgos residuales
 
-- Los costos de 22 MXN por pedido no atendido y 110 MXN por kg de merma son supuestos narrativos, no contabilidad real.
-- El test de Nivel 6 queda inválido si se usa para seleccionar una alternativa futura.
-- Los clusters dependen de escala y variables; no representan tipos naturales.
-- Las anomalías solo priorizan revisión humana; no prueban fraude, error ni intención.
-- `?teacher=1` oculta contenido por conveniencia y no constituye autenticación.
+- El efecto, costos y guardrails narrativos son sintéticos y no autorizan decisiones reales.
+- Un corte temporal mal ubicado o una agregación centrada puede reintroducir leakage.
+- La interpretación causal se limita al mensaje aleatorizado, elegibles y periodo del piloto.
+- PlantGrowth ilustra diseño experimental público, pero su dominio botánico no sustituye el contexto operativo narrativo.
+- `?teacher=1` no constituye autenticación.
 
 ## Próxima vertical slice recomendada
 
 - **Usuario:** creador de cursos.
-- **Entrada:** `L7.3`, 64 noches operativas y piloto `G5-servicios`.
-- **Flujo principal:** aprobar historia de Nivel 8 → congelar cortes temporales → construir ventanas y backtesting → diseñar experimento con guardrails → validar.
-- **Salida:** Nivel 8 completo de series de tiempo y experimentación reproducible.
-- **Prueba manual:** mover el corte temporal y comprobar que ninguna variable futura entra a entrenamiento o decisión.
-- **Definition of Done:** ventanas trazables, leakage temporal bloqueado, efectos y guardrails diferenciados, promedio ≥4 y QA limpia.
-- **No objetivos:** atribuir causalidad sin diseño, ampliar automáticamente el puesto, backend, cuentas o LMS.
+- **Entrada:** `L8.4`, canal de prepedido, serie versionada y resultados experimentales.
+- **Flujo principal:** aprobar historia de Nivel 9 → mapear personas afectadas → revisar representación, fairness, daño y privacidad → comunicar incertidumbre → cerrar con mini-proyecto reproducible.
+- **Salida:** Nivel 9 completo y cierre responsable del curso.
+- **Prueba manual:** seguir una decisión desde procedencia y población afectada hasta visual, límite, revisión y comunicación.
+- **Definition of Done:** daños y límites visibles, privacidad protegida, notebook/artefacto reproducible, promedio ≥4 y QA limpia.
+- **No objetivos:** vigilancia, perfiles personales, decisiones automáticas de alto impacto, sucursal, backend, cuentas o LMS.

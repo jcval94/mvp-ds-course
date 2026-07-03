@@ -73,6 +73,8 @@ Aprender  Ejercitar  Enseñar en vivo
   competencia auxiliar de agentes.
 - Nivel 6 activa revisión técnica de particiones, denominadores y costos; Nivel 7
   activa revisión humana de segmentos y anomalías además de continuidad narrativa.
+- Nivel 8 activa auditoría de orden temporal, disponibilidad, asignación aleatoria,
+  preregistro de métricas, guardrails y multiplicidad.
 
 ## Señales de skill débil
 

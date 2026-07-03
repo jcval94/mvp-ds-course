@@ -137,8 +137,8 @@ Cada puntaje debe citar:
 
 ## Prueba manual de la cobertura publicada
 
-1. Confirmar 125 conceptos, 232 ejercicios y 375 prompts.
-2. Recorrer los 31 laboratorios en desktop y móvil.
+1. Confirmar 139 conceptos, 260 ejercicios y 417 prompts.
+2. Recorrer los 35 laboratorios en desktop y móvil.
 3. Resolver cada ejercicio usando el visual.
 4. Simular el guion docente y el plan offline.
 5. Verificar hashes, licencias, datos y conclusiones.

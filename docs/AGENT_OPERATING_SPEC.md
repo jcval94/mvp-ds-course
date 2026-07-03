@@ -176,6 +176,7 @@ presente en `educational-svg-v1`. No existe renderer fallback.
 - Placeholders fuera de templates.
 - Test de Nivel 6 usado para seleccionar modelo, umbral o regularización.
 - Cluster de Nivel 7 presentado como tipo real o anomalía tratada como fraude, error confirmado o motivo de borrado sin revisión humana.
+- Ventana de Nivel 8 que cruza el corte, comparación temporal presentada como causal o experimento modificado después de observar resultados.
 
 ## Human-in-the-loop
 

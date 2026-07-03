@@ -17,6 +17,7 @@ GitHub Pages.
 - Palmer Penguins: resumen numérico y comparación visual.
 - Bike Sharing Dataset de UCI: distribuciones e histogramas.
 - Wine Quality de UCI: variación y valores atípicos.
+- PlantGrowth de R: diseño y lectura de experimentos con control y tratamientos.
 
 Los términos de uso y las citas completas están en `metadata/`.
 

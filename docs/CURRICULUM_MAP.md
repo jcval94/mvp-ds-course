@@ -178,6 +178,6 @@ Los demos de histograma inspiran la profundidad, no la forma exacta. Un concepto
 
 ## Cobertura publicada
 
-- **Niveles aprobados:** 1–7.
-- **Total:** 125 conceptos, 232 ejercicios y 375 prompts en 31 bloques.
-- **Siguiente entrada:** Nivel 8 inicia con tendencia temporal y exige respetar orden, ventanas y leakage temporal.
+- **Niveles aprobados:** 1–8.
+- **Total:** 139 conceptos, 260 ejercicios y 417 prompts en 35 bloques.
+- **Siguiente entrada:** Nivel 9 inicia con representación, fairness, daño y privacidad.

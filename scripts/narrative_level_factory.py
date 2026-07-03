@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared deterministic factory for continuous narrative levels 3–7."""
+"""Shared deterministic factory for continuous narrative levels 3–8."""
 
 from __future__ import annotations
 
@@ -58,6 +58,15 @@ VISUALIZATION_MATRIX = {
         "explained-variance": "explained-variance-scree", "rarity": "rarity-neighborhood",
         "isolation": "isolation-path", "anomaly-threshold": "anomaly-threshold-review",
     },
+    8: {
+        "trend": "time-trend-line", "seasonality": "seasonality-cycle",
+        "lag": "lag-scatter", "temporal-anomaly": "temporal-anomaly-context",
+        "windows": "rolling-windows", "backtesting": "backtest-folds",
+        "temporal-leakage": "temporal-leakage-cutoff", "random-assignment": "randomization-flow",
+        "primary-metric": "experiment-metric", "sample-size": "sample-size-precision",
+        "effect": "treatment-effect-interval", "guardrails": "guardrail-dashboard",
+        "multiple-tests": "multiple-testing-grid", "practical-effect": "practical-significance-threshold",
+    },
 }
 
 EVIDENCE_LABELS = {
@@ -97,6 +106,13 @@ EVIDENCE_LABELS = {
     "pca-projection": "noches proyectadas", "component-loadings": "cargas de variables",
     "explained-variance-scree": "varianza explicada acumulada", "rarity-neighborhood": "vecindad de una noche rara",
     "isolation-path": "ruta de particiones", "anomaly-threshold-review": "score, umbral y cola de revisión",
+    "time-trend-line": "serie ordenada y tendencia", "seasonality-cycle": "ciclos alineados por periodo",
+    "lag-scatter": "pares valor anterior y actual", "temporal-anomaly-context": "evento localizado y patrón esperado",
+    "rolling-windows": "ventana y corte temporal", "backtest-folds": "folds pasado-futuro",
+    "temporal-leakage-cutoff": "corte y dato futuro bloqueado", "randomization-flow": "asignaciones balanceadas A/B",
+    "experiment-metric": "numerador y denominador primarios", "sample-size-precision": "tamaño y ancho esperado",
+    "treatment-effect-interval": "diferencia e intervalo", "guardrail-dashboard": "métrica principal y límites operativos",
+    "multiple-testing-grid": "familia de pruebas y criterio ajustado", "practical-significance-threshold": "efecto frente a mínimo útil",
 }
 
 

@@ -2,12 +2,12 @@
 
 ## Versión
 
-- **Ledger:** `L7.3-v1`.
+- **Ledger:** `L8.4-v1`.
 - **Versión anterior conservada:** `L2.4-v1`.
-- **Último episodio aprobado:** `L7-E3`.
+- **Último episodio aprobado:** `L8-E4`.
 - **Story Bible:** `don-juan-paco-course-v2`.
-- **Arco:** `don-juan-paco-level-7-v1`.
-- **Momento narrativo:** cierre de 64 noches de exploración el 22 de agosto de 2027; el puesto opera `G5-servicios`, con máximo dos reuniones por semana y sin convertir clusters o anomalías en veredictos.
+- **Arco:** `don-juan-paco-level-8-v1`.
+- **Momento narrativo:** cierre del piloto el 23 de enero de 2028; el puesto opera `G6-prepedido`, abre cinco noches, tiene 16 asientos y un cupo explícito de prepedidos.
 
 ## Hechos canónicos
 
@@ -123,7 +123,7 @@ aparecer antes de su ventana de revelación.
 
 Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata.json`; el generador es la fuente de verdad para evitar divergencia entre documentación y archivos.
 
-## Estado de Niveles 3–7
+## Estado de Niveles 3–8
 
 | Nivel | Periodo y dimensiones | Estado de datos | Estado del puesto | Revelaciones y límites |
 | --- | --- | --- | --- | --- |
@@ -132,8 +132,9 @@ Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata
 | 5 | 64 noches × 16 campos, 2026-11-19 a 2027-03-07 | `L4.4 → noches_modelado@L5.1 → regresion_simple@L5.2 → regresion_multiple@L5.3 → clasificacion@L5.4 → arbol_reglas@L5.5 → matriz_modelado_sin_leakage@L5.6` | `G4-kiosco`, 4 × 3 m, segundo comal y 12 asientos | Chava entra pagado; Paco revela beca; ajuste solo descriptivo en muestra |
 | 6 | 96 noches × 19 campos, 2026-11-19 a 2027-05-02 | `L5.6 → particiones@L6.1 → error_regresion@L6.2 → matriz_confusion@L6.3 → metricas@L6.4 → curvas@L6.5 → generalizacion@L6.6` | `G4-kiosco`, capacidad congelada | 48 train, 16 validation, 32 test; errores conectados con costos sintéticos |
 | 7 | 64 noches × 11 campos, 2027-05-06 a 2027-08-22 | `L6.6 → segmentos@L7.1 → componentes@L7.2 → anomalias@L7.3` | `G5-servicios`, máximo dos reuniones por semana | Mari revela su meta por decisión propia; clusters y anomalías requieren revisión humana |
+| 8 | 100 noches × 18 campos y 400 asignaciones × 10 campos, 2027-08-26 a 2028-01-23 | `L7.3 → serie_nocturna@L8.1 → backtesting@L8.2 → experimento_prepedido@L8.3 → decision_experimental@L8.4` | `G6-prepedido`, cinco noches, 16 asientos y tres ayudantes pagados | Nora entra pagada; efecto experimental limitado al mensaje y guardrails cumplidos |
 
-Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos. Mari y Chava no aparecen identificados en ningún archivo de datos.
+Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos. Mari, Chava y Nora no aparecen identificados en ningún archivo de datos.
 
 ## Hilos abiertos
 
@@ -143,7 +144,7 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - Mantener la escuela de Paco y el reparto familiar como restricciones de cualquier crecimiento.
 - Conservar sin revelar todos los secretos excepto el stop-motion de Beto, abierto en Nivel 2.
 - Respetar el test sellado y los costos documentados de Nivel 6 en cualquier comparación futura.
-- Analizar en Nivel 8 cómo cambian patrones, servicios y capacidad con el tiempo.
+- Auditar en Nivel 9 quién podría resultar afectado por el canal, sus datos y sus decisiones.
 
 ## Deltas aprobados
 
@@ -163,11 +164,12 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - **`growthDelta`:** ninguno; el puesto sigue en `G1` y no se atribuye causalmente el volumen observado.
 - **Revisión:** historia y arco de Nivel 2 aprobados antes de la implementación.
 
-## Deltas aprobados de Niveles 3–7
+## Deltas aprobados de Niveles 3–8
 
 - **Nivel 3:** `G1 → G2-piloto`; conserva tamaño y plantilla, comunica incertidumbre y cierra en `L3.5`.
 - **Nivel 4:** `G2-piloto → G3-espera`; agrega diez asientos, área marcada y Mari pagada, sin atribución causal.
 - **Nivel 5:** `G3-espera → G4-kiosco`; kiosco, segundo comal, doce asientos, Mari y Chava pagados; la matriz final excluye resultados posteriores.
 - **Nivel 6:** `G4-kiosco → G4-kiosco`; test sellado, costos explícitos y ninguna expansión.
 - **Nivel 7:** `G4-kiosco → G5-servicios`; Mari revela su meta y se autoriza un piloto reversible con revisión humana.
-- **Revisión:** historias y arcos 3 a 7 aprobados antes de ejecutar sus generadores.
+- **Nivel 8:** `G5-servicios → G6-prepedido`; Nora entra pagada y el canal se autoriza solo tras backtesting, aleatorización, efecto práctico y guardrails.
+- **Revisión:** historias y arcos 3 a 8 aprobados antes de ejecutar sus generadores.

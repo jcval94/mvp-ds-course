@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Semantic browser QA for the seven-level GitHub Pages build."""
+"""Semantic browser QA for the eight-level GitHub Pages build."""
 
 from __future__ import annotations
 
@@ -23,6 +23,7 @@ LEVEL_DIRS = {
     5: "data-class-modeling-level-5",
     6: "data-class-evaluation-level-6",
     7: "data-class-unsupervised-level-7",
+    8: "data-class-temporal-experiments-level-8",
 }
 
 
@@ -48,7 +49,7 @@ def no_overflow(page, label: str) -> None:
 
 def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None:
     exercised = 0
-    for level in (3, 4, 5, 6, 7):
+    for level in (3, 4, 5, 6, 7, 8):
         for module in payloads[level]["modules"].values():
             for lesson in module["lessons"]:
                 url = f"{BASE}/labs/level-{level}/{module['href']}?concept={lesson['id']}"
@@ -80,14 +81,14 @@ def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None
                     assert "Correcto" in page.locator("#feedback").inner_text() or "transferencia" in page.locator("#feedback").inner_text().lower()
                     exercised += 1
                 no_overflow(page, f"Nivel {level} {lesson['id']}")
-    # 19×2 + 15×2 + 18×2 + 24×2 + 10×2 = 172 continuous exercises.
-    assert exercised == 172
+    # 19×2 + 15×2 + 18×2 + 24×2 + 10×2 + 14×2 = 200 continuous exercises.
+    assert exercised == 200
 
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     manifests = {level: manifest(level) for level in LEVEL_DIRS}
-    payloads = {level: payload(level) for level in (2, 3, 4, 5, 6, 7)}
+    payloads = {level: payload(level) for level in (2, 3, 4, 5, 6, 7, 8)}
     console_errors: list[str] = []
     page_errors: list[str] = []
     handler = partial(SimpleHTTPRequestHandler, directory=str(ROOT / "_site"))
@@ -106,11 +107,11 @@ def main() -> None:
 
         page.goto(BASE, wait_until="networkidle")
         assert page.title() == "Resultados | DataClass Forge"
-        page.locator("#summaryRail").get_by_text("125", exact=True).wait_for()
-        page.locator("#summaryRail").get_by_text("232", exact=True).wait_for()
-        assert page.locator(".level-group").count() == 7
-        assert page.locator(".catalog-row").count() == 31
-        assert page.locator(".data-row:not(.header)").count() == 3
+        page.locator("#summaryRail").get_by_text("139", exact=True).wait_for()
+        page.locator("#summaryRail").get_by_text("260", exact=True).wait_for()
+        assert page.locator(".level-group").count() == 8
+        assert page.locator(".catalog-row").count() == 35
+        assert page.locator(".data-row:not(.header)").count() == 4
         no_overflow(page, "portal desktop")
         page.screenshot(path=OUTPUT / "github-pages-desktop.png", full_page=True)
 
@@ -141,12 +142,18 @@ def main() -> None:
             (6, "curvas-calibracion.html?concept=calibration", "level-6-calibration-desktop.png"),
             (7, "clustering.html?concept=k-means", "level-7-clustering-desktop.png"),
             (7, "deteccion-anomalias.html?concept=anomaly-threshold", "level-7-anomaly-desktop.png"),
+            (8, "series-tiempo.html?concept=temporal-anomaly", "level-8-temporal-anomaly-desktop.png"),
+            (8, "validacion-temporal.html?concept=temporal-leakage", "level-8-leakage-desktop.png"),
+            (8, "ab-testing.html?concept=random-assignment", "level-8-randomization-desktop.png"),
+            (8, "experimentacion.html?concept=practical-effect", "level-8-practical-effect-desktop.png"),
         ]
         for level, route, filename in representative:
             page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
+            if level == 8:
+                page.locator("#advance").click()
             page.screenshot(path=OUTPUT / filename, full_page=True)
 
-        for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (5, "preparacion-variables.html?concept=leakage"), (6, "matriz-confusion.html?concept=false-negative"), (7, "deteccion-anomalias.html?concept=anomaly-threshold")]:
+        for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (5, "preparacion-variables.html?concept=leakage"), (6, "matriz-confusion.html?concept=false-negative"), (7, "deteccion-anomalias.html?concept=anomaly-threshold"), (8, "ab-testing.html?concept=effect")]:
             page.goto(f"{BASE}/labs/level-{level}/{route}&teacher=1", wait_until="networkidle")
             button = page.get_by_role("button", name="En vivo")
             assert button.count() == 1
@@ -177,6 +184,8 @@ def main() -> None:
             (5, "preparacion-variables.html?concept=leakage", "level-5-leakage-mobile.png"),
             (6, "curvas-calibracion.html?concept=threshold-cost", "level-6-threshold-mobile.png"),
             (7, "deteccion-anomalias.html?concept=anomaly-threshold", "level-7-anomaly-mobile.png"),
+            (8, "validacion-temporal.html?concept=temporal-leakage", "level-8-leakage-mobile.png"),
+            (8, "experimentacion.html?concept=guardrails", "level-8-guardrails-mobile.png"),
         ]:
             mobile_page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
             no_overflow(mobile_page, f"Nivel {level} mobile")
@@ -191,7 +200,7 @@ def main() -> None:
     server.shutdown(); server.server_close()
     if console_errors or page_errors:
         raise AssertionError("Errores de navegador:\n" + "\n".join([*console_errors, *page_errors]))
-    print("QA de navegador aprobada: portal, 7 niveles, 86 escenas continuas, 172 ejercicios, modo docente, movimiento, móvil y consola.")
+    print("QA de navegador aprobada: portal, 8 niveles, 100 escenas continuas, 200 ejercicios, modo docente, movimiento, móvil y consola.")
 
 
 if __name__ == "__main__":

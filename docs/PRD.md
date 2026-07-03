@@ -220,7 +220,7 @@ Los diez conceptos del prototipo existente se mantienen dentro de una progresió
 
 **Usuario:** profesor de introducción a ciencia de datos.
 
-**Entrada:** uno de 125 conceptos de Niveles 1 a 7, contexto aplicado y
+**Entrada:** uno de 139 conceptos de Niveles 1 a 8, contexto aplicado y
 duración de 30 a 90 minutos.
 
 **Cobertura:**
@@ -232,6 +232,7 @@ duración de 30 a 90 minutos.
 5. Nivel 5 · Modelado supervisado: 18 conceptos, 36 ejercicios y 54 prompts.
 6. Nivel 6 · Evaluación de modelos: 24 conceptos, 48 ejercicios y 72 prompts.
 7. Nivel 7 · Aprendizaje no supervisado: 10 conceptos, 20 ejercicios y 30 prompts.
+8. Nivel 8 · Datos temporales y experimentación: 14 conceptos, 28 ejercicios y 42 prompts.
 
 **Flujo principal:**
 
@@ -243,15 +244,15 @@ duración de 30 a 90 minutos.
 6. Construir el catálogo estático desde manifests aprobados.
 7. Publicar automáticamente mediante GitHub Actions.
 
-**Salida:** 125 paquetes conceptuales trazables, 31 laboratorios, catálogo
+**Salida:** 139 paquetes conceptuales trazables, 35 laboratorios, catálogo
 estático, snapshots y reportes de validación.
 
-**Prueba manual:** un docente recorre los 31 laboratorios, responde los 232
+**Prueba manual:** un docente recorre los 35 laboratorios, responde los 260
 ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 **Definition of Done:**
 
-- Existen 125 conceptos, 232 ejercicios y 375 prompts.
+- Existen 139 conceptos, 260 ejercicios y 417 prompts.
 - Cada artefacto usa la `ConceptSpec` correspondiente.
 - Cada ruta narrativa tiene Story Bible, fichas, arco y ledger sin referencias rotas.
 - Cada episodio declara estado previo, voces, dato canónico, cambio de continuidad
@@ -273,7 +274,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 - LMS, autenticación, persistencia o backend.
 - Integración con APIs de IA desde los HTML.
-- Cubrir niveles posteriores al Nivel 7 en esta entrega.
+- Cubrir niveles posteriores al Nivel 8 en esta entrega.
 - Evaluación formal o seguimiento del estudiante.
 
 ## Funcionalidades post-MVP
@@ -305,7 +306,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 | Visual obligatorio | Demos de inspiración y Brief | Skills, ejercicios, evals | Checklist pedagógico |
 | Contrato de evidencia | Auditoría visual de junio de 2026 | ConceptSpec, UI, QA y publicación | Revisión visual interactiva |
 | Shell homogéneo y renderer cerrado | Reconstrucción visual de julio de 2026 | Manifests, generadores, skills y QA | `level-shell-v1` y `data-renderer` |
-| Siete niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
+| Ocho niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
 | Snapshots públicos fijos | Solicitud de usuario | Datasets, skills y evals | Hash, licencia y procedencia |
 | GitHub Pages automático | Solicitud de usuario | `site/` y workflow | Build en `main` |
 | Sin app en fase documental | `AGENTS.md` y PRD | Harness y Plan | Revisión de sobreingeniería |

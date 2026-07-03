@@ -1,0 +1,23 @@
+{
+  "id": "plant-growth",
+  "name": "PlantGrowth · R datasets",
+  "path": "snapshots/plant_growth.csv",
+  "source_url": "https://svn.r-project.org/R/branches/R-grid/src/library/base/data/PlantGrowth.R",
+  "source_page": "https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/PlantGrowth.html",
+  "license": "GPL-2 | GPL-3",
+  "license_url": "https://search.r-project.org/R/refmans/base/html/license.html",
+  "citation": "Dobson, A. J. (1983). An Introduction to Statistical Modelling. PlantGrowth data in R datasets.",
+  "snapshot_date": "2026-07-03",
+  "rows": 30,
+  "columns": 3,
+  "snapshot_label": "30 plantas",
+  "license_display": "GPL-2 | GPL-3",
+  "portal_use": "Diseño y lectura de experimentos",
+  "sha256": "46601db1bbb7c2b33d526658a355faaaa08bb4ef55e2aaa31f6390ed379a09ee",
+  "uses": [
+    "asignación experimental",
+    "métrica",
+    "efecto",
+    "múltiples comparaciones"
+  ]
+}

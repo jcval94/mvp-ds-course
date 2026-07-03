@@ -202,6 +202,15 @@
 - **Autoridad:** flujo de servicio, segundo comal y comprobaciones operativas.
 - **Límite:** no evalúa modelos, no decide compras y no aparece identificado en los CSV.
 
+## CharacterCard: Nora Salas
+
+- **ID:** `nora-salas`.
+- **Rol:** tercera ayudante pagada para cupos, fila y entrega de prepedidos desde Nivel 8.
+- **Motivación visible:** evitar que el canal nuevo prometa más de lo que cocina y entrega puede sostener.
+- **Voz:** breve, ordenada y centrada en horarios, cupos y confirmaciones.
+- **Autoridad:** recepción operativa, secuencia de entrega y registro de incidencias.
+- **Límite:** no diseña experimentos, no interpreta efectos, no decide el despliegue y no aparece identificada en los CSV.
+
 ## Regla para personajes menores
 
 Proveedores y otros clientes pueden aparecer como funciones breves,

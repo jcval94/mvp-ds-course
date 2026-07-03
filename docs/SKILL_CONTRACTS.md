@@ -238,6 +238,8 @@ barras por conveniencia, visual decorativo o renderer sin prueba.
 Para Nivel 6, el contrato rechaza cualquier renderer que oculte la partición,
 el denominador o el costo de FP/FN. Para Nivel 7, rechaza cualquier representación
 que etiquete personas, convierta clusters en verdad o anomalías en veredictos.
+Para Nivel 8, rechaza cualquier visual que permita al futuro cruzar el corte o
+que mezcle evidencia observacional y experimental sin distinguir su alcance causal.
 
 ## `level-experience-consistency-reviewer`
 

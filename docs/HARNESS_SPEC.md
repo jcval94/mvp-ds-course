@@ -190,3 +190,6 @@ Casos obligatorios adicionales:
   sellado, métricas recalculables y costos FP/FN con fórmulas versionadas.
 - Nivel 7: comprobar 64 noches, máximo dos servicios semanales, `k` revisable,
   PCA con cargas y varianza, y exactamente cuatro anomalías enviadas a revisión humana.
+- Nivel 8: comprobar 100 fechas ordenadas, 40/60 noches por fase, cortes anteriores
+  al horizonte y 400 asignaciones A/B balanceadas con métrica, tamaño, efecto,
+  guardrails, multiplicidad y mínimo práctico congelados.

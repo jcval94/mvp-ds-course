@@ -20,6 +20,7 @@ LEVEL_PATHS = [
     ROOT / "generated" / "data-class-modeling-level-5",
     ROOT / "generated" / "data-class-evaluation-level-6",
     ROOT / "generated" / "data-class-unsupervised-level-7",
+    ROOT / "generated" / "data-class-temporal-experiments-level-8",
 ]
 
 
