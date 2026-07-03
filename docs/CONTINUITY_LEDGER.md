@@ -2,12 +2,12 @@
 
 ## Versión
 
-- **Ledger:** `L5.6-v1`.
+- **Ledger:** `L7.3-v1`.
 - **Versión anterior conservada:** `L2.4-v1`.
-- **Último episodio aprobado:** `L5-E5`.
+- **Último episodio aprobado:** `L7-E3`.
 - **Story Bible:** `don-juan-paco-course-v2`.
-- **Arco:** `don-juan-paco-level-5-v1`.
-- **Momento narrativo:** cierre de 64 noches de modelado el 7 de marzo de 2027; el puesto opera como kiosco `G4`, sin afirmar desempeño futuro.
+- **Arco:** `don-juan-paco-level-7-v1`.
+- **Momento narrativo:** cierre de 64 noches de exploración el 22 de agosto de 2027; el puesto opera `G5-servicios`, con máximo dos reuniones por semana y sin convertir clusters o anomalías en veredictos.
 
 ## Hechos canónicos
 
@@ -60,7 +60,7 @@ aparecer antes de su ventana de revelación.
 | Profesora Elena | Creció ayudando en un puesto de frutas del tianguis | No revelada | Nivel 3 | Explicar su sensibilidad hacia pequeños negocios |
 | Profesor Iván | Inserta errores plausibles en demos para enseñar verificación | No revelada | Nivel 3 | Convertir desconfianza puntual en método de evaluación |
 | Señor Rogelio | Está a dieta, ama los tacos y no quiere ser reconocido al comprar para sí mismo | No revelada | Nivel 9 | Privacidad; nunca burla, diagnóstico ni atributo del dataset |
-| Mari Vega | Ahorra para recuperar el puesto familiar de aguas frescas | No revelada | Nivel 7 | Meta propia ausente de datos |
+| Mari Vega | Ahorra para recuperar el puesto familiar de aguas frescas | Revelada voluntariamente en `L7-S04`; ausente de datos | Nivel 7 | Meta propia y piloto acotado, nunca inferencia algorítmica |
 | Chava Ríos | Toma un taller de radio | No revelada | Nivel 9 | Comunicación futura sin caricatura |
 
 ## Estado del crecimiento
@@ -123,13 +123,15 @@ aparecer antes de su ventana de revelación.
 
 Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata.json`; el generador es la fuente de verdad para evitar divergencia entre documentación y archivos.
 
-## Estado de Niveles 3–5
+## Estado de Niveles 3–7
 
 | Nivel | Periodo y dimensiones | Estado de datos | Estado del puesto | Revelaciones y límites |
 | --- | --- | --- | --- | --- |
 | 3 | 1,360 pedidos, 32 noches, 2026-07-02 a 2026-08-23 | `L2.4 → pedidos_piloto@L3.1 → eventos_y_variables@L3.2 → muestras@L3.3 → incertidumbre@L3.4 → pruebas@L3.5` | `G2-piloto`, sin cambio físico | Lupita, Elena e Iván revelan sus rasgos autorizados; no aparecen en datos |
 | 4 | 48 noches × 16 campos, 2026-08-27 a 2026-11-15 | `L3.5 → noches_contexto@L4.1 → relaciones@L4.2 → correlaciones@L4.3 → estratos_y_tablas@L4.4` | `G3-espera`, 10 asientos y área marcada | Don Juan revela ahorros; Mari entra pagada; asociación no se vuelve causa |
 | 5 | 64 noches × 16 campos, 2026-11-19 a 2027-03-07 | `L4.4 → noches_modelado@L5.1 → regresion_simple@L5.2 → regresion_multiple@L5.3 → clasificacion@L5.4 → arbol_reglas@L5.5 → matriz_modelado_sin_leakage@L5.6` | `G4-kiosco`, 4 × 3 m, segundo comal y 12 asientos | Chava entra pagado; Paco revela beca; ajuste solo descriptivo en muestra |
+| 6 | 96 noches × 19 campos, 2026-11-19 a 2027-05-02 | `L5.6 → particiones@L6.1 → error_regresion@L6.2 → matriz_confusion@L6.3 → metricas@L6.4 → curvas@L6.5 → generalizacion@L6.6` | `G4-kiosco`, capacidad congelada | 48 train, 16 validation, 32 test; errores conectados con costos sintéticos |
+| 7 | 64 noches × 11 campos, 2027-05-06 a 2027-08-22 | `L6.6 → segmentos@L7.1 → componentes@L7.2 → anomalias@L7.3` | `G5-servicios`, máximo dos reuniones por semana | Mari revela su meta por decisión propia; clusters y anomalías requieren revisión humana |
 
 Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos. Mari y Chava no aparecen identificados en ningún archivo de datos.
 
@@ -140,7 +142,8 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - Revisar si dos noches representan otros días: se retoma en muestreo.
 - Mantener la escuela de Paco y el reparto familiar como restricciones de cualquier crecimiento.
 - Conservar sin revelar todos los secretos excepto el stop-motion de Beto, abierto en Nivel 2.
-- Evaluar en Nivel 6 si los ajustes de Nivel 5 sirven fuera de las 64 noches y qué costos tienen sus errores.
+- Respetar el test sellado y los costos documentados de Nivel 6 en cualquier comparación futura.
+- Analizar en Nivel 8 cómo cambian patrones, servicios y capacidad con el tiempo.
 
 ## Deltas aprobados
 
@@ -160,9 +163,11 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - **`growthDelta`:** ninguno; el puesto sigue en `G1` y no se atribuye causalmente el volumen observado.
 - **Revisión:** historia y arco de Nivel 2 aprobados antes de la implementación.
 
-## Deltas aprobados de Niveles 3–5
+## Deltas aprobados de Niveles 3–7
 
 - **Nivel 3:** `G1 → G2-piloto`; conserva tamaño y plantilla, comunica incertidumbre y cierra en `L3.5`.
 - **Nivel 4:** `G2-piloto → G3-espera`; agrega diez asientos, área marcada y Mari pagada, sin atribución causal.
 - **Nivel 5:** `G3-espera → G4-kiosco`; kiosco, segundo comal, doce asientos, Mari y Chava pagados; la matriz final excluye resultados posteriores.
-- **Revisión:** historias y arcos 3, 4 y 5 aprobados antes de sus generadores.
+- **Nivel 6:** `G4-kiosco → G4-kiosco`; test sellado, costos explícitos y ninguna expansión.
+- **Nivel 7:** `G4-kiosco → G5-servicios`; Mari revela su meta y se autoriza un piloto reversible con revisión humana.
+- **Revisión:** historias y arcos 3 a 7 aprobados antes de ejecutar sus generadores.

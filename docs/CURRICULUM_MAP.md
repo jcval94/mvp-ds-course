@@ -175,3 +175,9 @@ Los demos de histograma inspiran la profundidad, no la forma exacta. Un concepto
 - pide interpretar evidencia;
 - ofrece feedback que corrige el razonamiento;
 - termina en una decisión o explicación transferible.
+
+## Cobertura publicada
+
+- **Niveles aprobados:** 1–7.
+- **Total:** 125 conceptos, 232 ejercicios y 375 prompts en 31 bloques.
+- **Siguiente entrada:** Nivel 8 inicia con tendencia temporal y exige respetar orden, ventanas y leakage temporal.

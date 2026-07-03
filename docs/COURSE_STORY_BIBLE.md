@@ -187,7 +187,7 @@
 - **ID:** `mari-vega`.
 - **Rol:** ayudante pagada de preparación y operación de turno desde Nivel 4, inicialmente viernes y sábado.
 - **Motivación visible:** sostener un servicio ordenado, seguro y compatible con la capacidad real del puesto.
-- **Característica oculta:** ahorra para recuperar el puesto de aguas frescas de su familia; no se revela antes de Nivel 7.
+- **Característica antes oculta:** ahorra para recuperar el puesto de aguas frescas de su familia; Mari la revela voluntariamente en `L7-S04`. Nunca se infiere desde datos.
 - **Voz:** concreta, observadora y centrada en tiempos de preparación, inocuidad y fila.
 - **Autoridad:** preparación, seguridad alimentaria, capacidad y contexto del turno.
 - **Límite:** no introduce conceptos, no interpreta coeficientes y no aparece identificada en los CSV.

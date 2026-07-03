@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared deterministic factory for continuous narrative levels 3–5."""
+"""Shared deterministic factory for continuous narrative levels 3–7."""
 
 from __future__ import annotations
 
@@ -39,6 +39,25 @@ VISUALIZATION_MATRIX = {
         "decision-tree": "decision-tree", "rules": "rules-flow", "importance": "importance-bars",
         "encoding": "one-hot-heatmap", "scaling": "scaling-before-after", "leakage": "leakage-timeline",
     },
+    6: {
+        "train": "train-split", "validation": "validation-tuning", "test": "sealed-test",
+        "cross-validation": "cross-validation-folds", "mae": "mae-absolute-errors",
+        "mse": "mse-squared-errors", "rmse": "rmse-root-scale", "r2": "r2-baseline-comparison",
+        "true-positive": "confusion-tp", "true-negative": "confusion-tn",
+        "false-positive": "confusion-fp", "false-negative": "confusion-fn",
+        "precision": "precision-denominator", "recall": "recall-denominator",
+        "specificity": "specificity-denominator", "f1": "f1-balance", "roc": "roc-curve",
+        "pr": "pr-curve", "threshold-cost": "threshold-cost", "calibration": "calibration-reliability",
+        "bias": "bias-underfit", "variance": "variance-instability",
+        "overfitting": "overfitting-learning-curves", "regularization": "regularization-path",
+    },
+    7: {
+        "distance": "distance-geometry", "k-means": "kmeans-iteration",
+        "centroids": "centroid-movement", "cluster-count": "cluster-k-comparison",
+        "pca": "pca-projection", "components": "component-loadings",
+        "explained-variance": "explained-variance-scree", "rarity": "rarity-neighborhood",
+        "isolation": "isolation-path", "anomaly-threshold": "anomaly-threshold-review",
+    },
 }
 
 EVIDENCE_LABELS = {
@@ -61,6 +80,23 @@ EVIDENCE_LABELS = {
     "threshold-distribution": "distribución y umbral", "logistic-curve": "curva score a probabilidad", "decision-tree": "nodos y hojas",
     "rules-flow": "ramas si/entonces", "importance-bars": "magnitudes de importancia", "one-hot-heatmap": "celdas de la matriz one-hot",
     "scaling-before-after": "escalas antes y después", "leakage-timeline": "corte temporal y disponibilidad",
+    "train-split": "filas asignadas a entrenamiento", "validation-tuning": "alternativas comparadas en validación",
+    "sealed-test": "sello y apertura única del test", "cross-validation-folds": "folds rotados sin tocar test",
+    "mae-absolute-errors": "errores absolutos", "mse-squared-errors": "errores elevados al cuadrado",
+    "rmse-root-scale": "raíz en unidades de pedidos", "r2-baseline-comparison": "modelo frente a promedio base",
+    "confusion-tp": "celda TP resaltada", "confusion-tn": "celda TN resaltada",
+    "confusion-fp": "celda FP y merma", "confusion-fn": "celda FN y pedidos no atendidos",
+    "precision-denominator": "TP entre alertas", "recall-denominator": "TP entre noches altas",
+    "specificity-denominator": "TN entre noches normales", "f1-balance": "precision y recall combinados",
+    "roc-curve": "TPR frente a FPR", "pr-curve": "precision frente a recall",
+    "threshold-cost": "umbral, errores y costo", "calibration-reliability": "probabilidad estimada frente a frecuencia",
+    "bias-underfit": "patrón sistemático de error", "variance-instability": "ajustes entre muestras",
+    "overfitting-learning-curves": "brecha train-validation", "regularization-path": "complejidad y error validado",
+    "distance-geometry": "distancias entre noches", "kmeans-iteration": "asignación y actualización",
+    "centroid-movement": "trayectoria de centroides", "cluster-k-comparison": "soluciones para distintos k",
+    "pca-projection": "noches proyectadas", "component-loadings": "cargas de variables",
+    "explained-variance-scree": "varianza explicada acumulada", "rarity-neighborhood": "vecindad de una noche rara",
+    "isolation-path": "ruta de particiones", "anomaly-threshold-review": "score, umbral y cola de revisión",
 }
 
 

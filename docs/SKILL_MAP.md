@@ -71,6 +71,8 @@ Aprender  Ejercitar  Enseñar en vivo
 - Codex asume el rol técnico; Gemini y ChatGPT facilitan o revisan.
 - Cada episodio usa un objetivo principal de ciencia de datos y como máximo una
   competencia auxiliar de agentes.
+- Nivel 6 activa revisión técnica de particiones, denominadores y costos; Nivel 7
+  activa revisión humana de segmentos y anomalías además de continuidad narrativa.
 
 ## Señales de skill débil
 

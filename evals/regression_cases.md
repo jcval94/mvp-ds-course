@@ -1,12 +1,14 @@
 # Regression Cases
 
-## Casos bloqueantes de Niveles 3–5
+## Casos bloqueantes de Niveles 3–7
 
 - Debe fallar si Nivel 3 conserva el denominador general después de condicionar, interpreta un intervalo como probabilidad del parámetro o un p-value como probabilidad del nulo.
 - Debe fallar si Nivel 4 llama causa a una correlación, pierde la reversión agregada al regenerar u oculta denominadores en riesgo relativo u odds.
 - Debe fallar si Nivel 5 afirma desempeño futuro, introduce train/test antes de Nivel 6 o usa `tacos_vendidos`, `espera_mediana_min` o `merma_kg` como predictor.
+- Debe fallar si Nivel 6 usa test para elegir umbral o regularización, mezcla test en cross-validation, intercambia denominadores o desconecta FP/FN de sus costos.
+- Debe fallar si Nivel 7 presenta clusters como tipos reales, llama fraude a una anomalía, borra casos antes de revisión o excede dos servicios semanales.
 - Debe fallar si Mari o Chava introducen ciencia de datos, trabajan sin pago o aparecen identificados en CSV.
-- Debe fallar si Paco revela la beca antes de Nivel 5 o los secretos de Mari y Chava aparecen antes de sus ventanas.
+- Debe fallar si Paco revela la beca antes de Nivel 5, si la meta de Mari aparece antes de `L7-S04` o se infiere desde datos, o si el secreto de Chava aparece antes de Nivel 9.
 
 ## Caso 1: Histograma
 

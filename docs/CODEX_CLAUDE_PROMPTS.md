@@ -130,5 +130,17 @@ Este prompt solo puede ejecutarse después de aprobación humana explícita. Lee
 ## 12. Revisión de sobreingeniería
 
 ```text
-Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente o cobertura completa del temario. Mantén la fábrica documental, cinco niveles estáticos y publicación automática de resultados validados.
+Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente o cobertura posterior al Nivel 7. Mantén la fábrica documental, siete niveles estáticos y publicación automática de resultados validados.
+```
+
+## 13. Auditar Nivel 6
+
+```text
+Verifica que train, validation y test tengan 48, 16 y 32 noches; que cross-validation use solo desarrollo; que modelo, umbral y regularización se congelen antes de test; y que FP/FN se conecten con merma y pedidos no atendidos. Recalcula MAE, MSE, RMSE, R², matriz y métricas. Bloquea cualquier contaminación del test.
+```
+
+## 14. Auditar Nivel 7
+
+```text
+Verifica estandarización, iteraciones de k-means, centroides, comparación de k, cargas y varianza de PCA, score y umbral de anomalía. Trata clusters como hipótesis y selecciona exactamente cuatro noches para revisión humana. Bloquea etiquetas de personas, fraude automático, borrado de filas o inferencia del secreto de Mari.
 ```

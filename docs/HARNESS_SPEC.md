@@ -183,3 +183,10 @@ El harness recomienda uso o desarrollo solo cuando:
   desbloqueo y movimiento reducido;
 - el humano aprueba la siguiente fase.
 - el manifest tiene estado `published` y su `validation.json` está aprobado.
+
+Casos obligatorios adicionales:
+
+- Nivel 6: comprobar 48/16/32, cuatro folds restringidos a desarrollo, test
+  sellado, métricas recalculables y costos FP/FN con fórmulas versionadas.
+- Nivel 7: comprobar 64 noches, máximo dos servicios semanales, `k` revisable,
+  PCA con cargas y varianza, y exactamente cuatro anomalías enviadas a revisión humana.

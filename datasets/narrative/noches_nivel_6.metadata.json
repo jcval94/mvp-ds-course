@@ -1,0 +1,66 @@
+{
+  "id": "evaluacion-modelos-nivel-6",
+  "synthetic": true,
+  "generator": "level6-evaluation-v1",
+  "seed": 20270311,
+  "period": {
+    "start": "2026-11-19",
+    "end": "2027-05-02",
+    "nights": 96
+  },
+  "dimensions": {
+    "nights": [
+      96,
+      19
+    ]
+  },
+  "development_source": "datasets/narrative/noches_modelado_nivel_5.csv; primeras 64 noches conservadas",
+  "partitions": {
+    "train": 48,
+    "validation": 16,
+    "test": 32,
+    "development_folds": 4
+  },
+  "test_policy": "sellado hasta congelar modelo, umbral y regularización",
+  "costs": {
+    "false_negative": "pedidos_no_atendidos_estimados × 22 MXN",
+    "false_positive": "merma_extra_estimada_kg × 110 MXN"
+  },
+  "chosen_threshold": 0.35,
+  "test_confusion": {
+    "tp": 30,
+    "tn": 0,
+    "fp": 2,
+    "fn": 0
+  },
+  "regression_metrics": {
+    "mae": 2.617813,
+    "mse": 10.088059,
+    "rmse": 3.176171,
+    "r2": 0.199956
+  },
+  "classification_metrics": {
+    "precision": 0.9375,
+    "recall": 1.0,
+    "specificity": 0.0,
+    "f1": 0.967742
+  },
+  "data_state": [
+    "L5.6",
+    "particiones@L6.1",
+    "error_regresion@L6.2",
+    "matriz_confusion@L6.3",
+    "metricas@L6.4",
+    "curvas@L6.5",
+    "generalizacion@L6.6"
+  ],
+  "label": "Dataset sintético narrativo; no representa personas reales",
+  "files": [
+    {
+      "path": "datasets/narrative/noches_evaluacion_nivel_6.csv",
+      "rows": 96,
+      "columns": 19,
+      "sha256": "218812d6772106ab897dc4c1d28cecf2065e5c0d226d1386cb10b680beb15b55"
+    }
+  ]
+}

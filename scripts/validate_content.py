@@ -21,6 +21,8 @@ LEVELS = [
     ROOT / "generated" / "data-class-probability-level-3",
     ROOT / "generated" / "data-class-relationships-level-4",
     ROOT / "generated" / "data-class-modeling-level-5",
+    ROOT / "generated" / "data-class-evaluation-level-6",
+    ROOT / "generated" / "data-class-unsupervised-level-7",
 ]
 
 
@@ -691,13 +693,17 @@ def validate_continuous_level(
     return payload
 
 
-def validate_levels_3_to_5(public_dataset_ids: set[str]) -> None:
+def validate_levels_3_to_7(public_dataset_ids: set[str]) -> None:
     ids3 = ["event", "complement", "independence", "conditional-probability", "bernoulli", "binomial", "normal", "poisson", "sampling-variability", "selection-bias", "law-large-numbers", "standard-error", "confidence-interval", "bootstrap", "hypothesis", "p-value", "type-i-error", "type-ii-error", "power"]
     ids4 = ["scatterplot", "trend", "relationship-shape", "groups", "direction", "strength", "pearson", "spearman", "correlation-outliers", "causality", "confounders", "aggregation-bias", "proportions", "relative-risk", "odds"]
     ids5 = ["fit", "slope", "intercept", "residuals", "assumptions", "explanatory-variables", "interaction", "collinearity", "class", "score", "threshold", "probability", "decision-tree", "rules", "importance", "encoding", "scaling", "leakage"]
+    ids6 = ["train", "validation", "test", "cross-validation", "mae", "mse", "rmse", "r2", "true-positive", "true-negative", "false-positive", "false-negative", "precision", "recall", "specificity", "f1", "roc", "pr", "threshold-cost", "calibration", "bias", "variance", "overfitting", "regularization"]
+    ids7 = ["distance", "k-means", "centroids", "cluster-count", "pca", "components", "explained-variance", "rarity", "isolation", "anomaly-threshold"]
     payload3 = validate_continuous_level(2, public_dataset_ids, ids3)
     payload4 = validate_continuous_level(3, public_dataset_ids, ids4)
     payload5 = validate_continuous_level(4, public_dataset_ids, ids5)
+    payload6 = validate_continuous_level(5, public_dataset_ids, ids6)
+    payload7 = validate_continuous_level(6, public_dataset_ids, ids7)
 
     l3_orders = ROOT / "datasets/narrative/pedidos_piloto_nivel_3.csv"
     l3_nights = ROOT / "datasets/narrative/noches_piloto_nivel_3.csv"
@@ -738,6 +744,39 @@ def validate_levels_3_to_5(public_dataset_ids: set[str]) -> None:
         fail("Coeficientes de Nivel 5 no son reproducibles")
     if meta5.get("fit_scope") != "descriptivo_en_muestra":
         fail("Nivel 5 adelanta generalización")
+
+    l6_path = ROOT / "datasets/narrative/noches_evaluacion_nivel_6.csv"
+    with l6_path.open("r", encoding="utf-8", newline="") as handle:
+        n6 = list(csv.DictReader(handle))
+    splits = {name: sum(row["split"] == name for row in n6) for name in ("train", "validation", "test")}
+    if len(n6) != 96 or splits != {"train": 48, "validation": 16, "test": 32}:
+        fail("Particiones de Nivel 6 incorrectas")
+    if any(row["fold_desarrollo"] for row in n6 if row["split"] == "test"):
+        fail("Nivel 6 filtra test dentro de cross-validation")
+    conserved_text = ["fecha", "dia_semana"]
+    conserved_numeric = ["temperatura_c", "lluvia_mm", "partido_cerca", "encargo_programado", "inventario_carne_kg", "pedidos_totales"]
+    for previous, current in zip(n5, n6[:64]):
+        if any(previous[field] != current[field] for field in conserved_text) or any(float(previous[field]) != float(current[field]) for field in conserved_numeric):
+            fail("Nivel 6 no conserva las 64 noches canónicas de L5.6")
+    meta6 = payload6["narrativeDataset"]
+    cm = meta6.get("test_confusion", {})
+    if sum(cm.values()) != 32 or meta6.get("test_policy") != "sellado hasta congelar modelo, umbral y regularización":
+        fail("Contrato de test de Nivel 6 inválido")
+    if not (0 <= meta6["classification_metrics"]["precision"] <= 1 and meta6["regression_metrics"]["rmse"] >= 0):
+        fail("Métricas de Nivel 6 fuera de rango")
+
+    l7_path = ROOT / "datasets/narrative/noches_segmentos_nivel_7.csv"
+    with l7_path.open("r", encoding="utf-8", newline="") as handle:
+        n7 = list(csv.DictReader(handle))
+    if len(n7) != 64 or min(int(row["pedidos_totales"]) for row in n7) < 60 or max(int(row["pedidos_totales"]) for row in n7) > 85:
+        fail("Rango o tamaño de Nivel 7 incorrecto")
+    if any(sum(int(row["servicio_reunion"]) for row in n7[start:start + 4]) > 2 for start in range(0, 64, 4)):
+        fail("Nivel 7 excede dos servicios semanales")
+    meta7 = payload7["narrativeDataset"]
+    if meta7.get("anomaly_review", {}).get("policy") != "prioridad para revisión humana; no fraude ni borrado":
+        fail("Nivel 7 convierte anomalías en veredictos")
+    if len(meta7.get("anomaly_review", {}).get("review_night_indices", [])) != 4:
+        fail("Nivel 7 no respeta capacidad de revisión")
 
 
 def validate_placeholders() -> None:
@@ -943,7 +982,7 @@ def main() -> int:
         validate_links(html)
     validate_level1_contract(public_dataset_ids)
     validate_level2_payload(public_dataset_ids)
-    validate_levels_3_to_5(public_dataset_ids)
+    validate_levels_3_to_7(public_dataset_ids)
     validate_narrative_contract()
     validate_placeholders()
     totals = {
@@ -951,7 +990,7 @@ def main() -> int:
         "exercises": sum(item["exercise_count"] for item in manifests),
         "prompts": sum(item["prompt_count"] for item in manifests),
     }
-    expected = {"concepts": 91, "exercises": 164, "prompts": 273}
+    expected = {"concepts": 125, "exercises": 232, "prompts": 375}
     if totals != expected:
         fail(f"Totales incorrectos: {totals}, se esperaba {expected}")
     print(

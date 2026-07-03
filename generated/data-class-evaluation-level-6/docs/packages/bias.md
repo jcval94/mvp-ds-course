@@ -1,0 +1,47 @@
+# Paquete: Bias
+
+## Supuestos
+
+- Audiencia adulta principiante; español mexicano cálido.
+- Historia aprobada: `docs/stories/LEVEL_6.md`; escena `L6-S21`.
+- Aprender y Ejercitar usan datos sintéticos narrativos; En vivo usa `Bike Sharing Dataset · UCI`.
+- El narrador se renderiza como subtítulo y Don Juan conserva la decisión del negocio.
+
+## ConceptSpec
+
+- **Nivel/bloque:** 6, Generalización.
+- **Objetivo:** Reconocer error sistemático por modelo demasiado simple.
+- **Definición:** Bias es error sistemático producido por supuestos restrictivos.
+- **Intuición:** El visual hace visible patrón residual persistente antes de resumirlo.
+- **Error plausible:** Convertir una salida exploratoria o una métrica aislada en una decisión automática.
+- **Mecanismo visual:** patrón residual persistente.
+- **Estados:** Antes de decidir → Evidencia revisada.
+- **Unidad:** una observación es una noche del puesto.
+- **Variables:** prediccion_pedidos, pedidos_totales.
+- **Límite:** El test se usa una sola vez; las métricas describen este procedimiento y no prueban causalidad.
+
+## LearningModule
+
+1. La regla sencilla falla del mismo lado.
+2. Ejecutar **Comparar estados de bias**.
+3. Cita una marca visible, responde la pregunta de Don Juan y nombra un límite.
+
+## PracticeExercise
+
+- **Guiado:** Observa patrón sistemático de error y cita una marca visible. ¿Qué conclusión guiada sobre bias conserva el alcance?
+- **Transferencia:** Observa patrón sistemático de error y cita una marca visible. ¿Qué exige transferir bias a otra decisión?
+- **Bloqueo:** 1 cambios y todas las marcas requeridas.
+- **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
+
+## LiveTeachingPack
+
+- **Visibilidad:** `teacher-only-static`.
+- **Fuente/licencia:** https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset · CC BY 4.0.
+- **Fecha/hash:** 2026-06-14 · `537e98e2c8b8f53e3094d953f847788b1dc224764a4a1e538b3e1ec4e30dac8a`.
+- **Plan offline:** Usar HTML, snapshot y tarjetas impresas; no requiere red ni IA.
+
+## Prompts
+
+- **Codex:** Verifica una demo reproducible de Bias con el snapshot público, cálculo y aserciones; no inventes filas ni causalidad.
+- **Gemini:** Facilita preguntas socráticas sobre Bias; exige predicción, evidencia y límite.
+- **ChatGPT:** Revisa precisión y pedagogía de Bias; detecta conclusiones que excedan el diseño.

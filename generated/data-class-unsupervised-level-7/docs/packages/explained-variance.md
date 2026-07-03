@@ -1,0 +1,47 @@
+# Paquete: Varianza explicada
+
+## Supuestos
+
+- Audiencia adulta principiante; español mexicano cálido.
+- Historia aprobada: `docs/stories/LEVEL_7.md`; escena `L7-S07`.
+- Aprender y Ejercitar usan datos sintéticos narrativos; En vivo usa `Palmer Penguins`.
+- El narrador se renderiza como subtítulo y Don Juan conserva la decisión del negocio.
+
+## ConceptSpec
+
+- **Nivel/bloque:** 7, Reducción dimensional.
+- **Objetivo:** Decidir cuántas componentes conservar.
+- **Definición:** La varianza explicada cuantifica la proporción de dispersión capturada por cada componente.
+- **Intuición:** El visual hace visible scree plot y acumulado antes de resumirlo.
+- **Error plausible:** Convertir una salida exploratoria o una métrica aislada en una decisión automática.
+- **Mecanismo visual:** scree plot y acumulado.
+- **Estados:** Antes de decidir → Evidencia revisada.
+- **Unidad:** una observación es una noche operativa, nunca una persona.
+- **Variables:** eigenvalues, varianza_explicada.
+- **Límite:** Clusters y anomalías son hipótesis para revisión humana; no prueban tipos naturales, fraude ni causalidad.
+
+## LearningModule
+
+1. Paco compara uno, dos y más ejes.
+2. Ejecutar **Comparar estados de varianza explicada**.
+3. Cita una marca visible, responde la pregunta de Don Juan y nombra un límite.
+
+## PracticeExercise
+
+- **Guiado:** Observa varianza explicada acumulada y cita una marca visible. ¿Qué conclusión guiada sobre varianza explicada conserva el alcance?
+- **Transferencia:** Observa varianza explicada acumulada y cita una marca visible. ¿Qué exige transferir varianza explicada a otra decisión?
+- **Bloqueo:** 1 cambios y todas las marcas requeridas.
+- **Separación:** Aprender revela el mecanismo; los dos ejercicios usan incidentes y evidencia nuevos.
+
+## LiveTeachingPack
+
+- **Visibilidad:** `teacher-only-static`.
+- **Fuente/licencia:** https://allisonhorst.github.io/palmerpenguins/ · CC0-1.0.
+- **Fecha/hash:** 2026-06-14 · `f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93`.
+- **Plan offline:** Usar HTML, snapshot y tarjetas impresas; no requiere red ni IA.
+
+## Prompts
+
+- **Codex:** Verifica una demo reproducible de Varianza explicada con el snapshot público, cálculo y aserciones; no inventes filas ni causalidad.
+- **Gemini:** Facilita preguntas socráticas sobre Varianza explicada; exige predicción, evidencia y límite.
+- **ChatGPT:** Revisa precisión y pedagogía de Varianza explicada; detecta conclusiones que excedan el diseño.

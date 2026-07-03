@@ -174,6 +174,8 @@ presente en `educational-svg-v1`. No existe renderer fallback.
 - Competencia de agentes que desplaza el objetivo principal de ciencia de datos.
 - Promedio menor a 4 o alguna dimensión en 1.
 - Placeholders fuera de templates.
+- Test de Nivel 6 usado para seleccionar modelo, umbral o regularización.
+- Cluster de Nivel 7 presentado como tipo real o anomalía tratada como fraude, error confirmado o motivo de borrado sin revisión humana.
 
 ## Human-in-the-loop
 
