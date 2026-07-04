@@ -10,6 +10,8 @@
 - Nivel 6: splits, matrices de confusión, ROC/PR, calibración, errores y learning curves.
 - Nivel 7: clusters, centroides, biplots, scree plots y anomaly scores.
 - Nivel 8: series temporales, rezagos, ventanas y diagramas experimentales.
+- Nivel 9: cobertura, tasas, rutas de daño, linaje y cadenas de afirmación.
+- Nivel 10: gates, drift, alertas persistentes, líneas de incidente y retiro.
 - Nivel 9: fairness, procedencia, privacidad y DAG de auditoría.
 
 Elegir por mecanismo: pertenencia→conjunto; cambio temporal→línea; relación

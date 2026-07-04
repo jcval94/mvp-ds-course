@@ -1,0 +1,105 @@
+{
+  "level": 9,
+  "title": "Análisis responsable y reproducible",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 17,
+  "exercise_count": 34,
+  "prompt_count": 51,
+  "blocks": [
+    {
+      "id": "ethics",
+      "number": 1,
+      "title": "Ética y sesgo",
+      "href": "etica-sesgo.html",
+      "concept_count": 4
+    },
+    {
+      "id": "communication",
+      "number": 2,
+      "title": "Comunicación",
+      "href": "comunicacion.html",
+      "concept_count": 4
+    },
+    {
+      "id": "reproducibility",
+      "number": 3,
+      "title": "Reproducibilidad",
+      "href": "reproducibilidad.html",
+      "concept_count": 4
+    },
+    {
+      "id": "mini-project",
+      "number": 4,
+      "title": "Mini-proyecto",
+      "href": "mini-proyecto.html",
+      "concept_count": 5
+    }
+  ],
+  "datasets": [
+    "bike-sharing-day",
+    "palmer-penguins",
+    "plant-growth",
+    "wine-quality"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_9.md",
+  "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-9-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
+  "narrativeDataset": {
+    "id": "auditoria-responsable-nivel-9",
+    "synthetic": true,
+    "generator": "level9-responsible-v1",
+    "seed": 20270923,
+    "period": {
+      "start": "2027-11-01",
+      "end": "2028-01-17",
+      "weeks": 12
+    },
+    "dimensions": [
+      48,
+      10
+    ],
+    "privacy": {
+      "unit": "celda semanal agregada",
+      "minimum_cell": 25,
+      "personal_identifiers": false,
+      "free_text": false,
+      "retention_days": 30,
+      "consent": "categorías reportadas voluntariamente y agregadas"
+    },
+    "formulas": {
+      "offer_rate": "ofrecidos / elegibles",
+      "completion_rate": "completados / ofrecidos"
+    },
+    "growth": {
+      "from": "G6-prepedido",
+      "to": "G7-local",
+      "constraint": "un local; 18 asientos; 4 puestos pagados"
+    },
+    "data_state": [
+      "L8.4",
+      "auditoria_agregada@L9.1",
+      "informe_responsable@L9.2",
+      "reproducibilidad@L9.3",
+      "mini_proyecto@L9.4"
+    ],
+    "label": "Dataset sintético agregado; no representa ni permite identificar personas reales",
+    "files": [
+      {
+        "path": "datasets/narrative/auditoria_responsable_nivel_9.csv",
+        "rows": 48,
+        "columns": 10,
+        "sha256": "08a738ba511e75d394a86e704899883d9962fedaec2f1caf15bfa8886d28ca0e"
+      }
+    ],
+    "metadataPath": "datasets/narrative/nivel_9.metadata.json",
+    "metadataSha256": "2a6bbdd595d0497d9aebd2311197eedd244c571d0b8637c04d39c1d01cf7d963"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-03"
+}

@@ -75,6 +75,8 @@ Aprender  Ejercitar  Enseñar en vivo
   activa revisión humana de segmentos y anomalías además de continuidad narrativa.
 - Nivel 8 activa auditoría de orden temporal, disponibilidad, asignación aleatoria,
   preregistro de métricas, guardrails y multiplicidad.
+- Nivel 9 activa auditoría de representación, daño, privacidad, comunicación y reproducibilidad.
+- Nivel 10 activa gates, monitoreo con etiquetas retrasadas, respuesta a incidentes, handoff y retiro; toda alerta conserva revisión humana.
 
 ## Señales de skill débil
 

@@ -1,0 +1,9 @@
+incidente_id,severidad,tipo,alcance,duracion,accion,comprobacion,culpa_individual,revision_humana
+INC-01,media,calibracion,pedidos digitales,8 días,ajustar alerta,verificado,0,1
+INC-02,alta,privacidad,comentarios libres,2 horas,detener captura,verificado,0,1
+INC-03,baja,disponibilidad,tablero docente,35 minutos,usar snapshot offline,verificado,0,1
+INC-04,alta,desempeno,turno sábado,3 días,rollback a regla r2,verificado,0,1
+INC-05,media,datos,conteo duplicado,1 día,restaurar datos v1,verificado,0,1
+INC-06,media,operacion,alertas repetidas,5 días,exigir persistencia,verificado,0,1
+INC-07,alta,equidad,solicitudes de apoyo,4 días,detener y revisar,verificado,0,1
+INC-08,baja,retiro,archivo dependiente,1 día,archivar y notificar,verificado,0,1

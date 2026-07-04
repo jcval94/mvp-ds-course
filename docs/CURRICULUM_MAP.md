@@ -91,7 +91,7 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | A/B testing | asignación aleatoria, métrica, tamaño de muestra, efecto | Diseñar y leer una comparación controlada. |
 | Experimentación | guardrails, múltiples pruebas, efecto práctico | Separar significancia estadística de relevancia operativa. |
 
-## Nivel 9: Práctica responsable y comunicación
+## Nivel 9: Análisis responsable y reproducible
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
@@ -99,6 +99,15 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | Comunicación | audiencia, incertidumbre, anotación, narrativa | Explicar hallazgos sin exagerar certeza. |
 | Reproducibilidad | semillas, versiones, diccionario de datos, notebook limpio | Permitir que otra persona repita el análisis. |
 | Mini-proyecto | pregunta, datos, análisis, evaluación, comunicación | Integrar el flujo completo con una decisión verificable. |
+
+## Nivel 10: Operación y monitoreo responsable
+
+| Bloque | Conceptos | Resultado esperado |
+| --- | --- | --- |
+| Preparación de despliegue | criterio de aceptación, baseline, rollback, aprobación humana | Autorizar únicamente un procedimiento medible y reversible. |
+| Monitoreo | data drift, performance drift, calibration drift, umbral de alerta | Detectar cambios sin convertir cada variación en incidente. |
+| Respuesta a incidentes | triage, impacto, rollback operativo, postmortem | Contener daño, preservar evidencia y corregir la causa raíz. |
+| Handoff responsable | model card, runbook, audit log, retiro | Entregar, operar y retirar un sistema de forma trazable. |
 
 ## Eje transversal de trabajo con agentes
 
@@ -116,6 +125,7 @@ bloque de ciencia de datos.
 | 7 | Revisión humana de segmentos y anomalías | Usa la salida como priorización y documenta la revisión humana. |
 | 8 | Versionado temporal y experimentos reproducibles | Fija corte temporal, versión, tratamiento y criterio de decisión. |
 | 9 | Procedencia, privacidad, auditoría y transferencia de skills | Entrega artefactos rastreables que otra persona puede ejecutar y revisar. |
+| 10 | Operación, monitoreo, incidentes y retiro | Define gates, alertas, rollback y responsabilidades que otra persona puede ejecutar. |
 
 ## Prioridades de producción
 
@@ -178,6 +188,6 @@ Los demos de histograma inspiran la profundidad, no la forma exacta. Un concepto
 
 ## Cobertura publicada
 
-- **Niveles aprobados:** 1–8.
-- **Total:** 139 conceptos, 260 ejercicios y 417 prompts en 35 bloques.
-- **Siguiente entrada:** Nivel 9 inicia con representación, fairness, daño y privacidad.
+- **Niveles aprobados:** 1–10.
+- **Total:** 172 conceptos, 326 ejercicios y 516 prompts en 43 bloques.
+- **Cierre:** Nivel 10 termina con operación, monitoreo, respuesta a incidentes y retiro responsable.

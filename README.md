@@ -71,9 +71,11 @@ Consulta [docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md).
 - **Nivel 6 · Evaluación de modelos:** 24 conceptos y 48 ejercicios.
 - **Nivel 7 · Aprendizaje no supervisado:** 10 conceptos y 20 ejercicios.
 - **Nivel 8 · Datos temporales y experimentación:** 14 conceptos y 28 ejercicios.
-- **Total:** 139 conceptos, 260 ejercicios y 417 prompts para Codex, Gemini y ChatGPT.
+- **Nivel 9 · Análisis responsable y reproducible:** 17 conceptos y 34 ejercicios.
+- **Nivel 10 · Operación y monitoreo responsable:** 16 conceptos y 32 ejercicios.
+- **Total:** 172 conceptos, 326 ejercicios y 516 prompts para Codex, Gemini y ChatGPT.
 
-Los ocho niveles forman una continuidad aprobada de Don Juan y Paco. Aprender y
+Los diez niveles forman una continuidad aprobada de Don Juan y Paco. Aprender y
 Ejercitar usan pedidos ficticios versionados del puesto; En vivo conserva
 snapshots públicos reales con procedencia, licencia y SHA-256.
 

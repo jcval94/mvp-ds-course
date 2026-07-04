@@ -247,8 +247,9 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 | 7 | Piloto de servicio para reuniones, máximo 2 por semana | Se asigna un ayudante al servicio; Paco documenta | 60–85 pedidos/noche + pedidos programados | Segmentos y anomalías se revisan como hipótesis humanas |
 | 8 | Abre cinco noches, 16 asientos y canal de prepedido con cupo | Don Juan + 3 ayudantes pagados + Paco asesor parcial | 70–95 pedidos/noche | Horario y canal se prueban con experimento, guardrails y capacidad |
 | 9 | Un solo local de barrio de 5 × 4 m, 18 asientos; no es cadena | Don Juan + 4 personas pagadas; Paco documenta mientras continúa estudios | 90–120 pedidos/noche con tope declarado | Consolida privacidad, manual operativo y transferencia; no abre sucursal en el curso |
+| 10 | Conserva el mismo local, 18 asientos y cupos | Mismo equipo; responsabilidades y escalamiento explícitos | Mismo rango con límites monitoreados | No crece: practica gates, rollback, incidentes y retiro responsable |
 
-## Arco general de nueve niveles
+## Arco general de diez niveles
 
 | Nivel | Cambio narrativo | Resultado de datos | Competencia auxiliar de agentes | Puente |
 | --- | --- | --- | --- | --- |
@@ -260,7 +261,8 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 | 6 | Los errores significan merma o clientes sin producto | Evaluar modelos según costo | Evals y casos de prueba | “¿Hay patrones que no etiquetamos?” |
 | 7 | Aparecen servicios, segmentos y pedidos inusuales | Explorar grupos y anomalías como hipótesis | Revisión humana de salidas | “¿Cómo cambia esto con el tiempo?” |
 | 8 | El puesto prueba horario y prepedido | Analizar tiempo y experimentos | Versionado temporal y planes reproducibles | “¿Quién podría resultar afectado?” |
-| 9 | Paco entrega un sistema revisable mientras sigue estudiando | Comunicar, auditar y reproducir | Procedencia, privacidad y transferencia de skills | Cierre responsable sin convertir el negocio en cadena |
+| 9 | Paco entrega un sistema revisable mientras sigue estudiando | Comunicar, auditar y reproducir | Procedencia, privacidad y transferencia de skills | “¿Cómo lo operamos y detenemos si algo cambia?” |
+| 10 | El equipo practica monitoreo, rollback y retiro | Operar un procedimiento auditable y reversible | Gates, alertas, runbook y retiro | Cierre responsable sin convertir el negocio en cadena |
 
 ## Reglas de humor y secretos
 

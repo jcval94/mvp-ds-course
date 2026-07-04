@@ -2,12 +2,12 @@
 
 ## Versión
 
-- **Ledger:** `L8.4-v1`.
+- **Ledger:** `L10.4-v1`.
 - **Versión anterior conservada:** `L2.4-v1`.
-- **Último episodio aprobado:** `L8-E4`.
+- **Último episodio aprobado:** `L10-E4`.
 - **Story Bible:** `don-juan-paco-course-v2`.
-- **Arco:** `don-juan-paco-level-8-v1`.
-- **Momento narrativo:** cierre del piloto el 23 de enero de 2028; el puesto opera `G6-prepedido`, abre cinco noches, tiene 16 asientos y un cupo explícito de prepedidos.
+- **Arco:** `don-juan-paco-level-10-v1`.
+- **Momento narrativo:** cierre de la ruta en abril de 2028; existe un solo local `G7-local` de 5 × 4 metros, 18 asientos y cuatro puestos pagados. El procedimiento queda explicable, reversible, monitoreado, auditable y retirable.
 
 ## Hechos canónicos
 
@@ -59,9 +59,9 @@ aparecer antes de su ventana de revelación.
 | Beto | Crea stop-motion de tacos con plastilina | Revelada en `L2-E2`; no pública ni laboral | Nivel 2 | Probar comunicación visual con supervisión |
 | Profesora Elena | Creció ayudando en un puesto de frutas del tianguis | No revelada | Nivel 3 | Explicar su sensibilidad hacia pequeños negocios |
 | Profesor Iván | Inserta errores plausibles en demos para enseñar verificación | No revelada | Nivel 3 | Convertir desconfianza puntual en método de evaluación |
-| Señor Rogelio | Está a dieta, ama los tacos y no quiere ser reconocido al comprar para sí mismo | No revelada | Nivel 9 | Privacidad; nunca burla, diagnóstico ni atributo del dataset |
+| Señor Rogelio | Está a dieta, ama los tacos y no quiere ser reconocido al comprar para sí mismo | Revelada voluntariamente en `L9-S04`; ausente de datos | Nivel 9 | Privacidad; nunca burla, diagnóstico ni atributo del dataset |
 | Mari Vega | Ahorra para recuperar el puesto familiar de aguas frescas | Revelada voluntariamente en `L7-S04`; ausente de datos | Nivel 7 | Meta propia y piloto acotado, nunca inferencia algorítmica |
-| Chava Ríos | Toma un taller de radio | No revelada | Nivel 9 | Comunicación futura sin caricatura |
+| Chava Ríos | Toma un taller de radio | Revelada voluntariamente en `L9-S17`; ausente de datos | Nivel 9 | Comunicación sin caricatura ni etiqueta inferida |
 
 ## Estado del crecimiento
 
@@ -123,7 +123,7 @@ aparecer antes de su ventana de revelación.
 
 Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata.json`; el generador es la fuente de verdad para evitar divergencia entre documentación y archivos.
 
-## Estado de Niveles 3–8
+## Estado de Niveles 3–10
 
 | Nivel | Periodo y dimensiones | Estado de datos | Estado del puesto | Revelaciones y límites |
 | --- | --- | --- | --- | --- |
@@ -133,6 +133,8 @@ Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata
 | 6 | 96 noches × 19 campos, 2026-11-19 a 2027-05-02 | `L5.6 → particiones@L6.1 → error_regresion@L6.2 → matriz_confusion@L6.3 → metricas@L6.4 → curvas@L6.5 → generalizacion@L6.6` | `G4-kiosco`, capacidad congelada | 48 train, 16 validation, 32 test; errores conectados con costos sintéticos |
 | 7 | 64 noches × 11 campos, 2027-05-06 a 2027-08-22 | `L6.6 → segmentos@L7.1 → componentes@L7.2 → anomalias@L7.3` | `G5-servicios`, máximo dos reuniones por semana | Mari revela su meta por decisión propia; clusters y anomalías requieren revisión humana |
 | 8 | 100 noches × 18 campos y 400 asignaciones × 10 campos, 2027-08-26 a 2028-01-23 | `L7.3 → serie_nocturna@L8.1 → backtesting@L8.2 → experimento_prepedido@L8.3 → decision_experimental@L8.4` | `G6-prepedido`, cinco noches, 16 asientos y tres ayudantes pagados | Nora entra pagada; efecto experimental limitado al mensaje y guardrails cumplidos |
+| 9 | 48 celdas agregadas × 10 campos, 12 semanas | `L8.4 → auditoria_agregada@L9.1 → informe_responsable@L9.2 → reproducibilidad@L9.3 → mini_proyecto@L9.4` | `G7-local`, 5 × 4 m, 18 asientos y cuatro puestos pagados | Rogelio y Chava revelan información por decisión propia; mínimo 25 elegibles por celda, sin identificadores ni texto libre |
+| 10 | 96 snapshots × 14 campos y 8 incidentes × 9 campos, 2028-01-15 a 2028-04-19 | `L9.4 → readiness@L10.1 → monitoring@L10.2 → incidents@L10.3 → handoff@L10.4` | `G7-local`, sin crecimiento ni backend | Alertas requieren persistencia y revisión humana; rollback comprobado, postmortem sin culpa y retiro verificable |
 
 Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos. Mari, Chava y Nora no aparecen identificados en ningún archivo de datos.
 
@@ -144,7 +146,8 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - Mantener la escuela de Paco y el reparto familiar como restricciones de cualquier crecimiento.
 - Conservar sin revelar todos los secretos excepto el stop-motion de Beto, abierto en Nivel 2.
 - Respetar el test sellado y los costos documentados de Nivel 6 en cualquier comparación futura.
-- Auditar en Nivel 9 quién podría resultar afectado por el canal, sus datos y sus decisiones.
+- Mantener la escuela de Paco, un solo local y autoridad humana como restricciones permanentes.
+- Conservar model card, runbook, audit log y plan de retiro junto a cualquier uso futuro.
 
 ## Deltas aprobados
 
@@ -164,7 +167,7 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - **`growthDelta`:** ninguno; el puesto sigue en `G1` y no se atribuye causalmente el volumen observado.
 - **Revisión:** historia y arco de Nivel 2 aprobados antes de la implementación.
 
-## Deltas aprobados de Niveles 3–8
+## Deltas aprobados de Niveles 3–10
 
 - **Nivel 3:** `G1 → G2-piloto`; conserva tamaño y plantilla, comunica incertidumbre y cierra en `L3.5`.
 - **Nivel 4:** `G2-piloto → G3-espera`; agrega diez asientos, área marcada y Mari pagada, sin atribución causal.
@@ -172,4 +175,6 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - **Nivel 6:** `G4-kiosco → G4-kiosco`; test sellado, costos explícitos y ninguna expansión.
 - **Nivel 7:** `G4-kiosco → G5-servicios`; Mari revela su meta y se autoriza un piloto reversible con revisión humana.
 - **Nivel 8:** `G5-servicios → G6-prepedido`; Nora entra pagada y el canal se autoriza solo tras backtesting, aleatorización, efecto práctico y guardrails.
-- **Revisión:** historias y arcos 3 a 8 aprobados antes de ejecutar sus generadores.
+- **Nivel 9:** `G6-prepedido → G7-local`; abre un único local tras auditar representación, daño, privacidad, reproducibilidad y límites del mini-proyecto.
+- **Nivel 10:** `G7-local → G7-local`; no hay crecimiento ni backend, y la ruta cierra con gates, monitoreo, incidentes, handoff y retiro.
+- **Revisión:** historias y arcos 3 a 10 aprobados antes de ejecutar sus generadores.

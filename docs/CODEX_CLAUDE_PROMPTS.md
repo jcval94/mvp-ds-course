@@ -130,7 +130,7 @@ Este prompt solo puede ejecutarse después de aprobación humana explícita. Lee
 ## 12. Revisión de sobreingeniería
 
 ```text
-Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente o cobertura posterior al Nivel 8. Mantén la fábrica documental, ocho niveles estáticos y publicación automática de resultados validados.
+Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente o cobertura posterior al Nivel 10. Mantén la fábrica documental, diez niveles estáticos y publicación automática de resultados validados.
 ```
 
 ## 13. Auditar Nivel 6
@@ -149,4 +149,12 @@ Verifica estandarización, iteraciones de k-means, centroides, comparación de k
 
 ```text
 Verifica orden cronológico, ventanas, folds de backtesting y disponibilidad de cada campo. Rechaza cualquier dato futuro. En el experimento confirma 400 asignaciones 200/200, métrica y tamaño congelados, efecto con intervalo, guardrails, familia de pruebas y mínimo práctico. Solo la asignación aleatoria sustenta causalidad limitada al piloto.
+
+## 16. Auditar Nivel 9
+
+Verifica cobertura y denominadores por grupo agregado, mínimo 25 elegibles por celda, cero identificadores o texto libre y revelaciones voluntarias ausentes del CSV. Separa fairness de justicia total, anotación de causalidad y narrativa de evidencia. Exige semilla, versiones, diccionario, ejecución limpia y procedencia del mini-proyecto.
+
+## 17. Auditar Nivel 10
+
+Verifica gate, baseline, autoridad humana y rollback antes de operar. Distingue data drift, performance drift y calibration drift; conserva siete etiquetas retrasadas sin inventarlas y exige tres señales persistentes antes de escalar. En incidentes revisa impacto, comprobación, postmortem sin culpa, model card, runbook, audit log y retiro. No construyas backend ni automatices decisiones.
 ```

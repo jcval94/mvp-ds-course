@@ -177,6 +177,8 @@ presente en `educational-svg-v1`. No existe renderer fallback.
 - Test de Nivel 6 usado para seleccionar modelo, umbral o regularización.
 - Cluster de Nivel 7 presentado como tipo real o anomalía tratada como fraude, error confirmado o motivo de borrado sin revisión humana.
 - Ventana de Nivel 8 que cruza el corte, comparación temporal presentada como causal o experimento modificado después de observar resultados.
+- Nivel 9 que infiere identidad o necesidad desde datos, usa celdas pequeñas, confunde paridad de una tasa con justicia total o publica sin procedencia.
+- Nivel 10 que automatiza alertas, ejecuta rollback sin comprobar, culpa a una persona en el postmortem, carece de autoridad de detención o no puede retirarse.
 
 ## Human-in-the-loop
 

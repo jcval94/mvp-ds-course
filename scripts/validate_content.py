@@ -24,6 +24,8 @@ LEVELS = [
     ROOT / "generated" / "data-class-evaluation-level-6",
     ROOT / "generated" / "data-class-unsupervised-level-7",
     ROOT / "generated" / "data-class-temporal-experiments-level-8",
+    ROOT / "generated" / "data-class-responsible-level-9",
+    ROOT / "generated" / "data-class-operations-level-10",
 ]
 
 
@@ -695,19 +697,23 @@ def validate_continuous_level(
     return payload
 
 
-def validate_levels_3_to_8(public_dataset_ids: set[str]) -> None:
+def validate_levels_3_to_10(public_dataset_ids: set[str]) -> None:
     ids3 = ["event", "complement", "independence", "conditional-probability", "bernoulli", "binomial", "normal", "poisson", "sampling-variability", "selection-bias", "law-large-numbers", "standard-error", "confidence-interval", "bootstrap", "hypothesis", "p-value", "type-i-error", "type-ii-error", "power"]
     ids4 = ["scatterplot", "trend", "relationship-shape", "groups", "direction", "strength", "pearson", "spearman", "correlation-outliers", "causality", "confounders", "aggregation-bias", "proportions", "relative-risk", "odds"]
     ids5 = ["fit", "slope", "intercept", "residuals", "assumptions", "explanatory-variables", "interaction", "collinearity", "class", "score", "threshold", "probability", "decision-tree", "rules", "importance", "encoding", "scaling", "leakage"]
     ids6 = ["train", "validation", "test", "cross-validation", "mae", "mse", "rmse", "r2", "true-positive", "true-negative", "false-positive", "false-negative", "precision", "recall", "specificity", "f1", "roc", "pr", "threshold-cost", "calibration", "bias", "variance", "overfitting", "regularization"]
     ids7 = ["distance", "k-means", "centroids", "cluster-count", "pca", "components", "explained-variance", "rarity", "isolation", "anomaly-threshold"]
     ids8 = ["trend", "seasonality", "lag", "temporal-anomaly", "windows", "backtesting", "temporal-leakage", "random-assignment", "primary-metric", "sample-size", "effect", "guardrails", "multiple-tests", "practical-effect"]
+    ids9 = ["representation", "fairness", "harm", "privacy", "audience", "uncertainty-communication", "annotation", "data-narrative", "seeds", "versions", "data-dictionary", "clean-notebook", "project-question", "project-data", "project-analysis", "project-evaluation", "project-communication"]
+    ids10 = ["acceptance-criteria", "baseline", "rollback", "human-approval", "data-drift", "performance-drift", "calibration-drift", "alert-threshold", "triage", "impact", "operational-rollback", "postmortem", "model-card", "runbook", "audit-log", "retirement"]
     payload3 = validate_continuous_level(2, public_dataset_ids, ids3)
     payload4 = validate_continuous_level(3, public_dataset_ids, ids4)
     payload5 = validate_continuous_level(4, public_dataset_ids, ids5)
     payload6 = validate_continuous_level(5, public_dataset_ids, ids6)
     payload7 = validate_continuous_level(6, public_dataset_ids, ids7)
     payload8 = validate_continuous_level(7, public_dataset_ids, ids8)
+    payload9 = validate_continuous_level(8, public_dataset_ids, ids9)
+    payload10 = validate_continuous_level(9, public_dataset_ids, ids10)
 
     l3_orders = ROOT / "datasets/narrative/pedidos_piloto_nivel_3.csv"
     l3_nights = ROOT / "datasets/narrative/noches_piloto_nivel_3.csv"
@@ -813,6 +819,44 @@ def validate_levels_3_to_8(public_dataset_ids: set[str]) -> None:
     if meta8.get("growth", {}).get("to") != "G6-prepedido":
         fail("Nivel 8 no documenta growthDelta final")
 
+    l9_path = ROOT / "datasets/narrative/auditoria_responsable_nivel_9.csv"
+    with l9_path.open("r", encoding="utf-8", newline="") as handle:
+        n9 = list(csv.DictReader(handle))
+    if len(n9) != 48 or len({row["periodo_semana"] for row in n9}) != 12:
+        fail("Dimensiones o periodos de Nivel 9 incorrectos")
+    if any(int(row["elegibles"]) < 25 for row in n9):
+        fail("Nivel 9 expone celdas demasiado pequeñas")
+    if any(int(row["completados"]) > int(row["ofrecidos"]) or int(row["ofrecidos"]) > int(row["elegibles"]) for row in n9):
+        fail("Nivel 9 rompe denominadores de auditoría")
+    meta9 = payload9["narrativeDataset"]
+    privacy9 = meta9.get("privacy", {})
+    if privacy9.get("personal_identifiers") is not False or privacy9.get("free_text") is not False or privacy9.get("minimum_cell") != 25:
+        fail("Nivel 9 no cumple minimización y agregación")
+    if meta9.get("growth", {}).get("to") != "G7-local":
+        fail("Nivel 9 no documenta el único crecimiento autorizado")
+
+    l10_monitoring = ROOT / "datasets/narrative/monitoreo_operativo_nivel_10.csv"
+    l10_incidents = ROOT / "datasets/narrative/incidentes_operativos_nivel_10.csv"
+    with l10_monitoring.open("r", encoding="utf-8", newline="") as handle:
+        n10 = list(csv.DictReader(handle))
+    with l10_incidents.open("r", encoding="utf-8", newline="") as handle:
+        incidents10 = list(csv.DictReader(handle))
+    if len(n10) != 96 or len(incidents10) != 8 or sum(row["fase"] == "referencia" for row in n10) != 48:
+        fail("Nivel 10 no conserva referencia y monitoreo versionados")
+    if any(row["mae_confirmado"] for row in n10[-7:]):
+        fail("Nivel 10 inventa etiquetas dentro del retraso declarado")
+    if not any(row["alerta_persistente"] == "1" for row in n10):
+        fail("Nivel 10 no activa el caso de alerta persistente")
+    if any(row["culpa_individual"] != "0" or row["revision_humana"] != "1" for row in incidents10):
+        fail("Nivel 10 culpa personas o elimina revisión humana")
+    meta10 = payload10["narrativeDataset"]
+    if meta10.get("alert_policy", {}).get("automatic_decision") is not False:
+        fail("Nivel 10 automatiza alertas")
+    if meta10.get("growth", {}).get("from") != "G7-local" or meta10.get("growth", {}).get("to") != "G7-local":
+        fail("Nivel 10 crece durante operación")
+    if meta10.get("rollback", {}).get("verification_required") is not True:
+        fail("Nivel 10 permite rollback sin comprobación")
+
 
 def validate_placeholders() -> None:
     pattern = re.compile(r"\b(TBD|por definir)\b", re.IGNORECASE)
@@ -898,7 +942,7 @@ def validate_narrative_contract() -> None:
             "Matriz incremental de crecimiento del puesto",
             "25–40 pedidos por noche",
             "18 asientos",
-            "Arco general de nueve niveles",
+            "Arco general de diez niveles",
         ],
         ROOT / "docs" / "LEVEL_1_NARRATIVE_ARC.md": [
             "L1-E1",
@@ -981,7 +1025,7 @@ def validate_narrative_contract() -> None:
             fail(f"Don Juan usa terminología técnica en la historia: {line}")
 
     story_bible = (ROOT / "docs" / "COURSE_STORY_BIBLE.md").read_text(encoding="utf-8")
-    for level in range(1, 10):
+    for level in range(1, 11):
         if story_bible.count(f"| {level} |") < 2:
             fail(f"Story Bible no declara arco y crecimiento del Nivel {level}")
 
@@ -1017,7 +1061,7 @@ def main() -> int:
         validate_links(html)
     validate_level1_contract(public_dataset_ids)
     validate_level2_payload(public_dataset_ids)
-    validate_levels_3_to_8(public_dataset_ids)
+    validate_levels_3_to_10(public_dataset_ids)
     validate_narrative_contract()
     validate_placeholders()
     totals = {
@@ -1025,7 +1069,7 @@ def main() -> int:
         "exercises": sum(item["exercise_count"] for item in manifests),
         "prompts": sum(item["prompt_count"] for item in manifests),
     }
-    expected = {"concepts": 139, "exercises": 260, "prompts": 417}
+    expected = {"concepts": 172, "exercises": 326, "prompts": 516}
     if totals != expected:
         fail(f"Totales incorrectos: {totals}, se esperaba {expected}")
     print(

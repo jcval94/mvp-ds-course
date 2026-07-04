@@ -193,3 +193,8 @@ Casos obligatorios adicionales:
 - Nivel 8: comprobar 100 fechas ordenadas, 40/60 noches por fase, cortes anteriores
   al horizonte y 400 asignaciones A/B balanceadas con métrica, tamaño, efecto,
   guardrails, multiplicidad y mínimo práctico congelados.
+- Nivel 9: comprobar 48 celdas agregadas, mínimo 25 elegibles, cero identificadores
+  o texto libre, denominadores válidos y revelaciones voluntarias ausentes del CSV.
+- Nivel 10: comprobar 48 snapshots de referencia y 48 de monitoreo, siete etiquetas
+  retrasadas sin imputar, persistencia de tres cortes, revisión humana, rollback
+  verificado, ocho incidentes sin culpa individual y crecimiento `G7-local → G7-local`.

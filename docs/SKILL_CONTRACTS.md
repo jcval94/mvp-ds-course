@@ -240,6 +240,9 @@ el denominador o el costo de FP/FN. Para Nivel 7, rechaza cualquier representaci
 que etiquete personas, convierta clusters en verdad o anomalías en veredictos.
 Para Nivel 8, rechaza cualquier visual que permita al futuro cruzar el corte o
 que mezcle evidencia observacional y experimental sin distinguir su alcance causal.
+Para Nivel 9, rechaza visuales que oculten denominadores, grupos ausentes, propósito
+de datos o límites de una afirmación. Para Nivel 10, rechaza tableros que conviertan
+drift en veredicto, alertas en decisiones automáticas o rollback en una flecha sin verificación.
 
 ## `level-experience-consistency-reviewer`
 

@@ -5,7 +5,7 @@ separar la decisión narrativa de la implementación educativa y técnica.
 
 ## Convención
 
-- `LEVEL_1.md`, `LEVEL_2.md`, ..., `LEVEL_9.md`.
+- `LEVEL_1.md`, `LEVEL_2.md`, ..., `LEVEL_10.md`.
 - Cada archivo declara la versión exacta del temario que adapta.
 - Cada concepto tiene escena, subtítulos del narrador y continuidad verificable.
 - Una historia puede estar en `borrador`, `en revisión` o `aprobada`.

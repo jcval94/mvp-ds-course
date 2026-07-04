@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared deterministic factory for continuous narrative levels 3–8."""
+"""Shared deterministic factory for continuous narrative levels 3–10."""
 
 from __future__ import annotations
 
@@ -67,6 +67,27 @@ VISUALIZATION_MATRIX = {
         "effect": "treatment-effect-interval", "guardrails": "guardrail-dashboard",
         "multiple-tests": "multiple-testing-grid", "practical-effect": "practical-significance-threshold",
     },
+    9: {
+        "representation": "representation-coverage", "fairness": "fairness-rate-parity",
+        "harm": "harm-pathway", "privacy": "privacy-data-minimization",
+        "audience": "audience-layer", "uncertainty-communication": "uncertainty-interval-annotation",
+        "annotation": "evidence-annotation", "data-narrative": "narrative-claim-chain",
+        "seeds": "seed-replay", "versions": "version-lineage",
+        "data-dictionary": "data-dictionary-map", "clean-notebook": "notebook-pipeline",
+        "project-question": "project-question-scope", "project-data": "project-data-provenance",
+        "project-analysis": "project-analysis-flow", "project-evaluation": "project-evaluation-card",
+        "project-communication": "project-communication-brief",
+    },
+    10: {
+        "acceptance-criteria": "acceptance-gate", "baseline": "baseline-comparison",
+        "rollback": "rollback-decision", "human-approval": "human-approval-loop",
+        "data-drift": "data-drift-distribution", "performance-drift": "performance-drift-line",
+        "calibration-drift": "calibration-drift-curve", "alert-threshold": "alert-threshold-band",
+        "triage": "incident-triage", "impact": "impact-map",
+        "operational-rollback": "rollback-timeline", "postmortem": "postmortem-loop",
+        "model-card": "model-card", "runbook": "runbook-flow",
+        "audit-log": "audit-log-chain", "retirement": "retirement-archive",
+    },
 }
 
 EVIDENCE_LABELS = {
@@ -113,6 +134,23 @@ EVIDENCE_LABELS = {
     "experiment-metric": "numerador y denominador primarios", "sample-size-precision": "tamaño y ancho esperado",
     "treatment-effect-interval": "diferencia e intervalo", "guardrail-dashboard": "métrica principal y límites operativos",
     "multiple-testing-grid": "familia de pruebas y criterio ajustado", "practical-significance-threshold": "efecto frente a mínimo útil",
+    "representation-coverage": "cobertura y ausencias por grupo", "fairness-rate-parity": "tasas con denominadores comparables",
+    "harm-pathway": "ruta desde decisión hasta consecuencia", "privacy-data-minimization": "campos, propósito, acceso y retención",
+    "audience-layer": "capas de detalle por audiencia", "uncertainty-interval-annotation": "estimación, intervalo y supuestos",
+    "evidence-annotation": "marca, fuente y límite", "narrative-claim-chain": "evidencia, interpretación y decisión",
+    "seed-replay": "ejecuciones repetidas con semilla", "version-lineage": "linaje de datos, código y salida",
+    "data-dictionary-map": "unidad, campo, tipo, origen y límite", "notebook-pipeline": "carga, validación, análisis y salida",
+    "project-question-scope": "población, resultado y decisión", "project-data-provenance": "cobertura, calidad, permiso y procedencia",
+    "project-analysis-flow": "transformaciones y visuales trazables", "project-evaluation-card": "criterios, fallos y límites",
+    "project-communication-brief": "acción, evidencia, incertidumbre y revisión",
+    "acceptance-gate": "gate aprobado o procedimiento apagado", "baseline-comparison": "referencia simple frente a propuesta",
+    "rollback-decision": "señal, estado seguro y verificación", "human-approval-loop": "evidencia, autoridad y poder de detener",
+    "data-drift-distribution": "distribuciones de referencia y periodo actual", "performance-drift-line": "error observado a través del tiempo",
+    "calibration-drift-curve": "score frente a frecuencia por periodo", "alert-threshold-band": "banda, persistencia y escalamiento",
+    "incident-triage": "severidad, alcance y reversibilidad", "impact-map": "afectados, consecuencia, magnitud y duración",
+    "rollback-timeline": "pasos, responsables y comprobación", "postmortem-loop": "hechos, controles y acciones sistémicas",
+    "model-card": "propósito, datos, métricas y límites", "runbook-flow": "señal, acción, detención y escalamiento",
+    "audit-log-chain": "evento, momento, actor, versión y motivo", "retirement-archive": "desactivar, archivar, comunicar y verificar",
 }
 
 
@@ -491,7 +529,7 @@ def generate(config: dict[str, object]) -> None:
         "curriculumSource": "docs/CURRICULUM_MAP.md", "storySource": f"docs/stories/LEVEL_{level}.md", "storyStatus": "approved",
         "experienceContract": "level-shell-v1", "blockNavigation": "left", "conceptNavigation": "top",
         "visualizationMatrix": f"level-{level}-visuals-v1", "rendererRegistry": "educational-svg-v1",
-        "narrativeDataset": metadata, "validation": "validation.json", "updated_at": "2026-07-02",
+        "narrativeDataset": metadata, "validation": "validation.json", "updated_at": "2026-07-03",
     }
     write_json(out / "manifest.json", manifest)
     checks = {"scope": 5, "curriculum": 5, "narrative": 5, "pedagogy": 5, "technical": 5, "visual": 5, "reproducibility": 5}

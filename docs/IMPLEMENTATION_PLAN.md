@@ -3,7 +3,7 @@
 ## Objetivo
 
 Mantener DataClass Forge como fábrica documental, añadir continuidad narrativa
-verificable y publicar automáticamente ocho niveles educativos validados, sin
+verificable y publicar automáticamente diez niveles educativos validados, sin
 backend ni ejecución de IA desde el navegador.
 
 ## Gates de calidad
@@ -191,20 +191,20 @@ accesibles, esquema y skill verificables, promedio mínimo de 4 y ninguna dimens
 1. Validar manifests, conteos, hashes y estados.
 2. Construir `_site/` desde `site/`, niveles y datasets.
 3. Probar búsqueda, filtros, enlaces y responsive.
-4. Ejecutar QA semántica de los 260 ejercicios, animación y movimiento reducido.
+4. Ejecutar QA semántica de los 326 ejercicios, animación y movimiento reducido.
 5. Publicar mediante GitHub Actions en cada push a `main`.
 
-**Aceptación:** el catálogo muestra 139 conceptos y 260 ejercicios, y no publica
+**Aceptación:** el catálogo muestra 172 conceptos y 326 ejercicios, y no publica
 ningún paquete sin validación aprobada. Cada portada y laboratorio publicado
 incluye un botón visible `HOME` que regresa al portal principal, también en
 viewport móvil.
 
-## Fase 8: Expansión controlada
+## Fase 8: Cierre responsable de la ruta
 
-Niveles 1 a 8 ya validan el sistema narrativo continuo. Nivel 8 separa series
-temporales de evidencia experimental, bloquea leakage y condiciona crecimiento a
-efecto práctico y guardrails. La próxima vertical slice crea y aprueba Nivel 9
-con práctica responsable, comunicación, reproducibilidad y cierre del curso.
+Niveles 9 y 10 completan la ruta con auditoría responsable, comunicación,
+reproducibilidad, gates operativos, monitoreo, incidentes, handoff y retiro. No
+se construye backend: la operación se practica con snapshots, tableros estáticos,
+runbooks y simulaciones verificables.
 
 ## Riesgos y mitigaciones
 
@@ -218,12 +218,12 @@ con práctica responsable, comunicación, reproducibilidad y cierre del curso.
 | Renderer universal de barras | Enrutar por `visual.kind` y probar marcas semánticas |
 | Divergencia de navegación entre niveles | Aplicar `level-shell-v1` y validar bloques laterales/conceptos superiores |
 
-## Reconstrucción visual de Niveles 3–8
+## Reconstrucción visual de Niveles 3–10
 
 - Fuente: temarios, historias y datasets canónicos ya aprobados.
-- Contrato: 100 `VisualizationSpec`, registro cerrado `educational-svg-v1` y sin fallback.
-- Experiencia: ocho niveles bajo `level-shell-v1`; Niveles 1–2 conservan sus renderers.
-- Práctica: 200 ejercicios continuos citan series, ventanas, curvas, áreas, nodos, celdas o intervalos.
+- Contrato: 133 `VisualizationSpec`, registro cerrado `educational-svg-v1` y sin fallback.
+- Experiencia: diez niveles bajo `level-shell-v1`; Niveles 1–2 conservan sus renderers.
+- Práctica: 266 ejercicios continuos citan series, ventanas, curvas, áreas, nodos, celdas o intervalos.
 - Publicación: generación → validación → build → navegador → `main` → Pages.
 | Narrativa sin evidencia | Ejercicio debe fallar sin visual |
 | QA superficial | Validar `evidenceContract`, números, pasos y desbloqueo en navegador |
