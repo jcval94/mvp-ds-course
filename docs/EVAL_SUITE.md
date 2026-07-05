@@ -137,10 +137,18 @@ Cada puntaje debe citar:
 
 ## Prueba manual de la cobertura publicada
 
-1. Confirmar 172 conceptos, 326 ejercicios y 516 prompts.
+1. Confirmar 212 conceptos, 406 ejercicios y 636 prompts.
 2. Recorrer los 43 laboratorios en desktop y móvil.
 3. Resolver cada ejercicio usando el visual.
 4. Simular el guion docente y el plan offline.
 5. Verificar hashes, licencias, datos y conclusiones.
 6. Probar búsqueda, filtros y enlaces del portal.
 7. Corregir hasta alcanzar el criterio de paso.
+
+## Prueba de niveles incorporados
+
+1. Confirmar que Niveles 5 y 11 tienen manifest `published` y aparecen una sola vez en `_site/catalog.json`.
+2. Ejecutar `python scripts/test_vertical_slices.py` como regresión y los seis tests del artifact de Nivel 11.
+3. Recorrer siete estados de `join-row-explosion` y ocho de `notebook-pipeline-contract`.
+4. Verificar desbloqueos particulares de guiado y transferencia.
+5. Confirmar 19/19 y 21/21 conceptos implementados y sumar únicamente manifests `published` a 212/406/636.

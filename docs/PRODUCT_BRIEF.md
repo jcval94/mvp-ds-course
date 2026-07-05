@@ -61,7 +61,7 @@ aprobada incluye Nivel 1, Nivel 2 y Nivel 3 completos.
 
 **Usuario:** profesor de introducción a ciencia de datos.
 
-**Entrada:** uno de los 172 conceptos publicados, contexto aplicado y duración de 30 a 90 minutos.
+**Entrada:** uno de los 212 conceptos publicados, contexto aplicado y duración de 30 a 90 minutos.
 
 **Flujo principal:**
 
@@ -91,13 +91,15 @@ interacción, resuelve los ejercicios y usa los prompts sin completar secciones.
 - El feedback explica por qué cada opción es correcta o incorrecta.
 - El paquete docente incluye snapshot público real, plan offline, criterio de cierre y aviso de que el modo docente oculto no es seguridad real.
 - Cada paquete obtiene promedio de 4 o más sin dimensiones en 1.
-- La cobertura publicada suma 172 conceptos, 326 ejercicios y 516 prompts.
+- La cobertura publicada suma 212 conceptos, 406 ejercicios y 636 prompts.
+- La ruta curricular suma 12 niveles completos y publicados; Nivel 5 antecede
+  al modelado y Nivel 11 antecede a la operación.
 - Los snapshots públicos registran fuente, licencia, fecha y SHA-256.
 
 **No objetivos de la slice:**
 
 - Construir una app con backend.
-- Añadir niveles posteriores al cierre operativo de Nivel 10.
+- Añadir niveles posteriores al cierre operativo de Nivel 12.
 - Ejecutar un LLM desde el navegador.
 - Gestionar estudiantes o calificaciones.
 

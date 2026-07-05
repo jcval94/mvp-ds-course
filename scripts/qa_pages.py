@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Semantic browser QA for the ten-level GitHub Pages build."""
+"""Semantic browser QA for the twelve published levels."""
 
 from __future__ import annotations
 
@@ -20,12 +20,14 @@ LEVEL_DIRS = {
     2: "data-class-description-level-2",
     3: "data-class-probability-level-3",
     4: "data-class-relationships-level-4",
-    5: "data-class-modeling-level-5",
-    6: "data-class-evaluation-level-6",
-    7: "data-class-unsupervised-level-7",
-    8: "data-class-temporal-experiments-level-8",
-    9: "data-class-responsible-level-9",
-    10: "data-class-operations-level-10",
+    5: "data-class-sql-level-5",
+    6: "data-class-modeling-level-6",
+    7: "data-class-evaluation-level-7",
+    8: "data-class-unsupervised-level-8",
+    9: "data-class-temporal-experiments-level-9",
+    10: "data-class-responsible-level-10",
+    11: "data-class-product-engineering-level-11",
+    12: "data-class-operations-level-12",
 }
 
 
@@ -51,7 +53,7 @@ def no_overflow(page, label: str) -> None:
 
 def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None:
     exercised = 0
-    for level in (3, 4, 5, 6, 7, 8, 9, 10):
+    for level in range(3, 13):
         for module in payloads[level]["modules"].values():
             for lesson in module["lessons"]:
                 url = f"{BASE}/labs/level-{level}/{module['href']}?concept={lesson['id']}"
@@ -83,14 +85,14 @@ def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None
                     assert "Correcto" in page.locator("#feedback").inner_text() or "transferencia" in page.locator("#feedback").inner_text().lower()
                     exercised += 1
                 no_overflow(page, f"Nivel {level} {lesson['id']}")
-    # Niveles 3–10: 133 escenas × 2 ejercicios = 266.
-    assert exercised == 266
+    # Niveles publicados 3–12: 173 escenas × 2 ejercicios = 346.
+    assert exercised == 346
 
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     manifests = {level: manifest(level) for level in LEVEL_DIRS}
-    payloads = {level: payload(level) for level in (2, 3, 4, 5, 6, 7, 8, 9, 10)}
+    payloads = {level: payload(level) for level in range(2, 13)}
     console_errors: list[str] = []
     page_errors: list[str] = []
     handler = partial(SimpleHTTPRequestHandler, directory=str(ROOT / "_site"))
@@ -109,10 +111,10 @@ def main() -> None:
 
         page.goto(BASE, wait_until="networkidle")
         assert page.title() == "Resultados | DataClass Forge"
-        page.locator("#summaryRail").get_by_text("172", exact=True).wait_for()
-        page.locator("#summaryRail").get_by_text("326", exact=True).wait_for()
-        assert page.locator(".level-group").count() == 10
-        assert page.locator(".catalog-row").count() == 43
+        page.locator("#summaryRail").get_by_text("212", exact=True).wait_for()
+        page.locator("#summaryRail").get_by_text("406", exact=True).wait_for()
+        assert page.locator(".level-group").count() == 12
+        assert page.locator(".catalog-row").count() == 57
         assert page.locator(".data-row:not(.header)").count() == 4
         no_overflow(page, "portal desktop")
         page.screenshot(path=OUTPUT / "github-pages-desktop.png", full_page=True)
@@ -120,8 +122,8 @@ def main() -> None:
         page.locator("#search").fill("Modelado")
         assert page.locator(".catalog-row:not([hidden])").count() >= 1
         page.locator("#search").fill("")
-        page.get_by_role("button", name="Nivel 5").click()
-        assert page.locator('.level-group[data-level="5"]:not([hidden])').count() == 1
+        page.get_by_role("button", name="Nivel 6").click()
+        assert page.locator('.level-group[data-level="6"]:not([hidden])').count() == 1
 
         # Regression coverage: existing levels remain reachable and interactive.
         for level, href in [(1, manifests[1]["blocks"][0]["href"]), (2, manifests[2]["blocks"][0]["href"] + "?concept=mean")]:
@@ -138,20 +140,20 @@ def main() -> None:
         representative = [
             (3, "probabilidad-basica.html?concept=event", "level-3-event-desktop.png"),
             (4, "confusion.html?concept=aggregation-bias", "level-4-aggregation-desktop.png"),
-            (5, "regresion-lineal.html?concept=fit", "level-5-fit-desktop.png"),
-            (5, "preparacion-variables.html?concept=leakage", "level-5-leakage-desktop.png"),
-            (6, "matriz-confusion.html?concept=false-negative", "level-6-fn-desktop.png"),
-            (6, "curvas-calibracion.html?concept=calibration", "level-6-calibration-desktop.png"),
-            (7, "clustering.html?concept=k-means", "level-7-clustering-desktop.png"),
-            (7, "deteccion-anomalias.html?concept=anomaly-threshold", "level-7-anomaly-desktop.png"),
-            (8, "series-tiempo.html?concept=temporal-anomaly", "level-8-temporal-anomaly-desktop.png"),
-            (8, "validacion-temporal.html?concept=temporal-leakage", "level-8-leakage-desktop.png"),
-            (8, "ab-testing.html?concept=random-assignment", "level-8-randomization-desktop.png"),
-            (8, "experimentacion.html?concept=practical-effect", "level-8-practical-effect-desktop.png"),
-            (9, "etica-sesgo.html?concept=privacy", "level-9-privacy-desktop.png"),
-            (9, "mini-proyecto.html?concept=project-evaluation", "level-9-project-evaluation-desktop.png"),
-            (10, "monitoreo.html?concept=calibration-drift", "level-10-calibration-drift-desktop.png"),
-            (10, "entrega-responsable.html?concept=retirement", "level-10-retirement-desktop.png"),
+            (6, "regresion-lineal.html?concept=fit", "level-6-fit-desktop.png"),
+            (6, "preparacion-variables.html?concept=leakage", "level-6-leakage-desktop.png"),
+            (7, "matriz-confusion.html?concept=false-negative", "level-7-fn-desktop.png"),
+            (7, "curvas-calibracion.html?concept=calibration", "level-7-calibration-desktop.png"),
+            (8, "clustering.html?concept=k-means", "level-8-clustering-desktop.png"),
+            (8, "deteccion-anomalias.html?concept=anomaly-threshold", "level-8-anomaly-desktop.png"),
+            (9, "series-tiempo.html?concept=temporal-anomaly", "level-9-temporal-anomaly-desktop.png"),
+            (9, "validacion-temporal.html?concept=temporal-leakage", "level-9-leakage-desktop.png"),
+            (9, "ab-testing.html?concept=random-assignment", "level-9-randomization-desktop.png"),
+            (9, "experimentacion.html?concept=practical-effect", "level-9-practical-effect-desktop.png"),
+            (10, "etica-sesgo.html?concept=privacy", "level-10-privacy-desktop.png"),
+            (10, "mini-proyecto.html?concept=project-evaluation", "level-10-project-evaluation-desktop.png"),
+            (12, "monitoreo.html?concept=calibration-drift", "level-12-calibration-drift-desktop.png"),
+            (12, "entrega-responsable.html?concept=retirement", "level-12-retirement-desktop.png"),
         ]
         for level, route, filename in representative:
             page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
@@ -159,7 +161,7 @@ def main() -> None:
                 page.locator("#advance").click()
             page.screenshot(path=OUTPUT / filename, full_page=True)
 
-        for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (5, "preparacion-variables.html?concept=leakage"), (6, "matriz-confusion.html?concept=false-negative"), (7, "deteccion-anomalias.html?concept=anomaly-threshold"), (8, "ab-testing.html?concept=effect"), (9, "reproducibilidad.html?concept=versions"), (10, "incidentes.html?concept=postmortem")]:
+        for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (6, "preparacion-variables.html?concept=leakage"), (7, "matriz-confusion.html?concept=false-negative"), (8, "deteccion-anomalias.html?concept=anomaly-threshold"), (9, "ab-testing.html?concept=effect"), (10, "reproducibilidad.html?concept=versions"), (12, "incidentes.html?concept=postmortem")]:
             page.goto(f"{BASE}/labs/level-{level}/{route}&teacher=1", wait_until="networkidle")
             button = page.get_by_role("button", name="En vivo")
             assert button.count() == 1
@@ -170,7 +172,7 @@ def main() -> None:
         # Motion enabled uses a real transition; reduced motion disables it.
         motion = browser.new_context(viewport={"width": 1280, "height": 800}, reduced_motion="no-preference")
         motion_page = motion.new_page()
-        motion_page.goto(f"{BASE}/labs/level-5/regresion-lineal.html?concept=fit", wait_until="networkidle")
+        motion_page.goto(f"{BASE}/labs/level-6/regresion-lineal.html?concept=fit", wait_until="networkidle")
         duration = motion_page.locator(".edu-svg circle").first.evaluate("el => getComputedStyle(el).transitionDuration")
         assert duration not in {"0s", "0ms"}
         motion_page.locator("#advance").click()
@@ -187,13 +189,13 @@ def main() -> None:
         for level, route, filename in [
             (3, "probabilidad-basica.html?concept=event", "level-3-event-mobile.png"),
             (4, "confusion.html?concept=aggregation-bias", "level-4-aggregation-mobile.png"),
-            (5, "preparacion-variables.html?concept=leakage", "level-5-leakage-mobile.png"),
-            (6, "curvas-calibracion.html?concept=threshold-cost", "level-6-threshold-mobile.png"),
-            (7, "deteccion-anomalias.html?concept=anomaly-threshold", "level-7-anomaly-mobile.png"),
-            (8, "validacion-temporal.html?concept=temporal-leakage", "level-8-leakage-mobile.png"),
-            (8, "experimentacion.html?concept=guardrails", "level-8-guardrails-mobile.png"),
-            (9, "etica-sesgo.html?concept=representation", "level-9-representation-mobile.png"),
-            (10, "monitoreo.html?concept=alert-threshold", "level-10-alert-mobile.png"),
+            (6, "preparacion-variables.html?concept=leakage", "level-6-leakage-mobile.png"),
+            (7, "curvas-calibracion.html?concept=threshold-cost", "level-7-threshold-mobile.png"),
+            (8, "deteccion-anomalias.html?concept=anomaly-threshold", "level-8-anomaly-mobile.png"),
+            (9, "validacion-temporal.html?concept=temporal-leakage", "level-9-leakage-mobile.png"),
+            (9, "experimentacion.html?concept=guardrails", "level-9-guardrails-mobile.png"),
+            (10, "etica-sesgo.html?concept=representation", "level-10-representation-mobile.png"),
+            (12, "monitoreo.html?concept=alert-threshold", "level-12-alert-mobile.png"),
         ]:
             mobile_page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
             no_overflow(mobile_page, f"Nivel {level} mobile")
@@ -208,7 +210,7 @@ def main() -> None:
     server.shutdown(); server.server_close()
     if console_errors or page_errors:
         raise AssertionError("Errores de navegador:\n" + "\n".join([*console_errors, *page_errors]))
-    print("QA de navegador aprobada: portal, 10 niveles, 133 escenas continuas, 266 ejercicios, modo docente, movimiento, móvil y consola.")
+    print("QA de navegador aprobada: portal, 12 niveles publicados, 173 escenas continuas, 346 ejercicios, modo docente, movimiento, móvil y consola.")
 
 
 if __name__ == "__main__":

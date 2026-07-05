@@ -174,11 +174,15 @@ presente en `educational-svg-v1`. No existe renderer fallback.
 - Competencia de agentes que desplaza el objetivo principal de ciencia de datos.
 - Promedio menor a 4 o alguna dimensión en 1.
 - Placeholders fuera de templates.
-- Test de Nivel 6 usado para seleccionar modelo, umbral o regularización.
-- Cluster de Nivel 7 presentado como tipo real o anomalía tratada como fraude, error confirmado o motivo de borrado sin revisión humana.
-- Ventana de Nivel 8 que cruza el corte, comparación temporal presentada como causal o experimento modificado después de observar resultados.
-- Nivel 9 que infiere identidad o necesidad desde datos, usa celdas pequeñas, confunde paridad de una tasa con justicia total o publica sin procedencia.
-- Nivel 10 que automatiza alertas, ejecuta rollback sin comprobar, culpa a una persona en el postmortem, carece de autoridad de detención o no puede retirarse.
+- Nivel 5 que acepta SQL generado sin inspeccionar esquema, cardinalidad,
+  granularidad, conteos o procedencia; o que usa un JOIN que duplica la unidad.
+- Test de Nivel 7 usado para seleccionar modelo, umbral o regularización.
+- Cluster de Nivel 8 presentado como tipo real o anomalía tratada como fraude, error confirmado o motivo de borrado sin revisión humana.
+- Ventana de Nivel 9 que cruza el corte, comparación temporal presentada como causal o experimento modificado después de observar resultados.
+- Nivel 10 que infiere identidad o necesidad desde datos, usa celdas pequeñas, confunde paridad de una tasa con justicia total o publica sin procedencia.
+- Nivel 11 que acepta código generado sin contrato, revisión de diff, criterios
+  de aceptación y tests ejecutados; o que adelanta monitoreo de Nivel 12.
+- Nivel 12 que automatiza alertas, ejecuta rollback sin comprobar, culpa a una persona en el postmortem, carece de autoridad de detención o no puede retirarse.
 
 ## Human-in-the-loop
 

@@ -1,0 +1,37 @@
+{
+  "id": "dataset-confiable-nivel-5-v1",
+  "synthetic": true,
+  "generator": "level5-full-v1",
+  "period": {
+    "observed_end": "2026-11-15",
+    "audit_start": "2026-11-16",
+    "audit_end": "2026-11-18"
+  },
+  "dimensions": [
+    19,
+    7
+  ],
+  "unit": "un control curricular sobre una unidad analítica",
+  "join_key": "llave documentada por fuente",
+  "privacy": {
+    "personal_identifiers": false,
+    "synthetic": true
+  },
+  "growth": {
+    "from": "G3-espera",
+    "to": "G3-espera"
+  },
+  "data_state": [
+    "L4.4",
+    "dataset_confiable@L5.H1"
+  ],
+  "label": "Fixture sintética de controles; los demos en vivo usan snapshots públicos registrados",
+  "files": [
+    {
+      "path": "datasets/narrative/controles_dataset_nivel_5.csv",
+      "rows": 19,
+      "columns": 7,
+      "sha256": "11b53df55a255c260f1129b7f53311f7775dbbc98278a9eb565c4803c8cc1f34"
+    }
+  ]
+}

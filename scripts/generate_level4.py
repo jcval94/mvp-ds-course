@@ -137,7 +137,7 @@ def config() -> dict[str, object]:
     return {
         "level": 4, "output": "data-class-relationships-level-4", "title": "Relaciones y contexto",
         "summary": "El puesto crece con contexto explícito: asociación nunca se presenta como causa.", "blocks": blocks,
-        "previousConcept": "Potencia", "nextConcept": "Ajuste", "agentCompetency": "Conservar contexto y distinguir asociación de causalidad.",
+        "previousConcept": "Potencia", "nextConcept": "Dataset confiable con SQL", "agentCompetency": "Conservar contexto y distinguir asociación de causalidad.",
         "continuityDelta": "Don Juan revela sus ahorros; Mari entra pagada con autoridad operativa.", "growthDelta": "G2-piloto → G3-espera",
         "narrativeDatasets": [{"path": "datasets/narrative/noches_contexto_nivel_4.csv", "rows": rows, "schema": ["noche_id", "fecha", "dia_semana", "etapa_operativa", "temperatura_c", "lluvia_mm", "partido_cerca", "quincena", "ayudante_programado", "asientos_disponibles", "pedidos_totales", "tacos_vendidos", "espera_mediana_min", "merma_kg", "agotado_pastor", "alta_demanda"]}],
         "narrativeMetadata": {"metadataPath": "datasets/narrative/noches_nivel_4.metadata.json", "id": "relaciones-y-contexto-nivel-4", "synthetic": True, "generator": "level4-context-v1", "seed": 20260827, "period": {"start": "2026-08-27", "end": "2026-11-15", "nights": 48}, "dimensions": {"nights": [48, 16]}, "nightly_order_range": [40, 60], "validated_reversal": {"aggregate": round(overall, 6), "piloto": round(pre_r, 6), "espera_marcada": round(post_r, 6)}, "data_state": ["L3.5", "noches_contexto@L4.1", "relaciones@L4.2", "correlaciones@L4.3", "estratos_y_tablas@L4.4"], "label": "Dataset sintético narrativo; no representa personas reales"},

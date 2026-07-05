@@ -1,0 +1,135 @@
+{
+  "level": 8,
+  "title": "Aprendizaje no supervisado",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 10,
+  "exercise_count": 20,
+  "prompt_count": 30,
+  "blocks": [
+    {
+      "id": "clustering",
+      "number": 1,
+      "title": "Clustering",
+      "href": "clustering.html",
+      "concept_count": 4
+    },
+    {
+      "id": "dimensionality-reduction",
+      "number": 2,
+      "title": "Reducción dimensional",
+      "href": "reduccion-dimensional.html",
+      "concept_count": 3
+    },
+    {
+      "id": "anomaly-detection",
+      "number": 3,
+      "title": "Detección de anomalías",
+      "href": "deteccion-anomalias.html",
+      "concept_count": 3
+    }
+  ],
+  "datasets": [
+    "palmer-penguins",
+    "wine-quality"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_8.md",
+  "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-8-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
+  "narrativeDataset": {
+    "id": "segmentos-operativos-nivel-8",
+    "synthetic": true,
+    "generator": "level8-unsupervised-v1",
+    "seed": 20270506,
+    "period": {
+      "start": "2027-05-06",
+      "end": "2027-08-22",
+      "nights": 64
+    },
+    "dimensions": {
+      "nights": [
+        64,
+        11
+      ]
+    },
+    "features": [
+      "pedidos_totales",
+      "pedidos_programados",
+      "espera_mediana_min",
+      "merma_kg",
+      "proporcion_para_llevar"
+    ],
+    "standardization": "z-score con media y desviación de las 64 noches",
+    "kmeans": {
+      "k": 3,
+      "iterations": 12,
+      "cluster_sizes": [
+        22,
+        10,
+        32
+      ],
+      "inertia_by_k": {
+        "2": 144.699863,
+        "3": 106.262841,
+        "4": 68.306349,
+        "5": 48.62343
+      }
+    },
+    "pca": {
+      "pc1_loadings": [
+        0.497656,
+        0.175456,
+        0.499719,
+        0.484292,
+        0.48713
+      ],
+      "pc2_loadings": [
+        0.043388,
+        0.960901,
+        -0.004762,
+        -0.194902,
+        -0.191774
+      ],
+      "explained_variance_ratio": [
+        0.719607,
+        0.191809
+      ]
+    },
+    "anomaly_review": {
+      "score": "distancia al centro asignado",
+      "threshold": 1.948325,
+      "review_night_indices": [
+        19,
+        38,
+        47,
+        62
+      ],
+      "policy": "prioridad para revisión humana; no fraude ni borrado"
+    },
+    "service_policy": "máximo dos servicios de reunión por semana",
+    "data_state": [
+      "L7.6",
+      "segmentos@L8.1",
+      "componentes@L8.2",
+      "anomalias@L8.3"
+    ],
+    "label": "Dataset sintético narrativo; no representa personas reales",
+    "files": [
+      {
+        "path": "datasets/narrative/noches_segmentos_nivel_8.csv",
+        "rows": 64,
+        "columns": 11,
+        "sha256": "1adb98b5b10662a8e047db92af47bd797f1aca0d5ed4ede97f87dd992fb40ae3"
+      }
+    ],
+    "metadataPath": "datasets/narrative/noches_nivel_8.metadata.json",
+    "metadataSha256": "e6d3785cff0b62b6c810ad4950ef690b7db8c6812307800272aa8f0e31ea6851"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-03"
+}

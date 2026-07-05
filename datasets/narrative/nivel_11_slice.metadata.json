@@ -1,0 +1,36 @@
+{
+  "id": "pipeline-verificable-nivel-11-slice",
+  "synthetic": true,
+  "generator": "level11-verifiable-pipeline-slice-v1",
+  "period": {
+    "start": "2028-01-18",
+    "end": "2028-01-21"
+  },
+  "dimensions": [
+    6,
+    5
+  ],
+  "unit": "un caso de aceptación o fallo",
+  "artifact": "examples/level11_pipeline_slice",
+  "privacy": {
+    "personal_identifiers": false,
+    "real_secrets": false
+  },
+  "growth": {
+    "from": "G7-local",
+    "to": "G7-local"
+  },
+  "data_state": [
+    "L10.4",
+    "proyecto_reproducible@L11.1"
+  ],
+  "label": "Dataset sintético de casos; no contiene secretos reales ni representa un servicio productivo",
+  "files": [
+    {
+      "path": "datasets/narrative/casos_pipeline_nivel_11_slice.csv",
+      "rows": 6,
+      "columns": 5,
+      "sha256": "e25b4481407e843705139bd18d903296cd7e3b7cd404ed64189a9706a87f458d"
+    }
+  ]
+}

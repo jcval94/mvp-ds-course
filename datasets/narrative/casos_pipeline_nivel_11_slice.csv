@@ -1,0 +1,7 @@
+caso_id,entrada,criterio,resultado,detalle
+learn-session,sesion_contaminada,run_from_clean,fail,estado_oculto
+learn-path,ruta_local,portable_path,fail,archivo_ausente
+learn-contract,pipeline_explicito,six_tests,pass,sin_secretos
+guided-valid,registro_valido,returns_response,pass,cubierto
+guided-empty,registro_vacio,reject_invalid,fail,test_ausente
+transfer-log,request_valido,no_secret_in_logs,fail,TOKEN_DEMO_expuesto

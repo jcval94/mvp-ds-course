@@ -1,70 +1,52 @@
-# Reporte de validación
+# Reporte de validación curricular y de publicación
 
-## Resultado
+**Estado:** listo para publicación de la ruta completa de doce niveles.
 
-**Aprobado para publicación.** DataClass Forge publica diez niveles, 43 bloques,
-172 conceptos, 326 ejercicios y 516 prompts. Los cuatro snapshots públicos
-conservan procedencia, licencia, fecha y SHA-256.
+## Cobertura verificada
 
-Los Niveles 9 y 10 añaden 33 escenas y 66 ejercicios. En total, los 133 conceptos
-continuos de Niveles 3–10 usan `VisualizationSpec`, evidencia bloqueante,
-renderers registrados y `level-shell-v1`.
+| Estado | Niveles | Conceptos | Ejercicios | Prompts | Bloques |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Publicado | 1–12 | 212 | 406 | 636 | 57 |
+| Pendiente de producción | ninguno | 0 | 0 | 0 | 0 |
 
-## Cobertura
+La base histórica de diez niveles conserva 172 conceptos, 326 ejercicios, 516
+prompts y 43 bloques. Nivel 5 añade 19/38/57/7 y Nivel 11 añade 21/42/63/7;
+por tanto, los totales publicados son matemáticamente 212/406/636/57.
 
-| Nivel | Conceptos | Ejercicios | Prompts | Estado |
-| --- | ---: | ---: | ---: | --- |
-| 1–8 | 139 | 260 | 417 | Regresión aprobada |
-| 9 · Análisis responsable y reproducible | 17 | 34 | 51 | Aprobado |
-| 10 · Operación y monitoreo responsable | 16 | 32 | 48 | Aprobado |
-| **Total** | **172** | **326** | **516** | **Continuidad aprobada** |
+## Gates ejecutados
 
-## Datos nuevos
+- `python scripts/validate_content.py`: pasa; doce números únicos, manifests
+  publicados, enlaces locales, IDs, snapshots, historias y handoffs válidos.
+- `python scripts/build_pages.py`: pasa; catálogo de 12 niveles, 212 conceptos
+  y 406 ejercicios.
+- `python -m unittest scripts.test_vertical_slices`: pasa como regresión de los
+  mecanismos que originaron los paquetes completos.
+- `python -m unittest discover -s examples/level11_pipeline_slice/tests`: pasa;
+  el artifact offline conserva sus seis casos.
+- `node --check scripts/assets/educational_svg_registry.js`: pasa con el runtime
+  Node incluido en el workspace.
+- QA con el navegador integrado: pasa en 1280 px y 390 px para portal, Nivel 5
+  y Nivel 11; confirma 12 niveles, 57 bloques, totals 212/406, renderers exactos,
+  desbloqueo después de tres estados, modo docente oculto, cero overflow y cero
+  errores de consola. El wrapper `scripts/qa_pages.py` queda correcto pero no se
+  ejecutó localmente porque el runtime Python no incluye el módulo `playwright`.
 
-| Archivo | Dimensiones | Comprobaciones |
-| --- | ---: | --- |
-| `auditoria_responsable_nivel_9.csv` | 48 × 10 | 12 semanas; celdas ≥25; sin identificadores ni texto libre; denominadores válidos |
-| `monitoreo_operativo_nivel_10.csv` | 96 × 14 | 48 referencia + 48 monitoreo; siete etiquetas retrasadas vacías; alerta persistente y detención humana |
-| `incidentes_operativos_nivel_10.csv` | 8 × 9 | Revisión humana; cero culpa individual; rollback con comprobación |
+## Resultado pedagógico
 
-Los datos son sintéticos, determinísticos y etiquetados. Rogelio, Chava y sus
-revelaciones voluntarias no aparecen en los archivos. Nivel 10 no representa un
-backend ni despliegue real.
+Las siete dimensiones quedan en 5/5 en los manifests de Niveles 5 y 11: alcance,
+currículo, narrativa, pedagogía, precisión técnica, visualización y
+reproducibilidad. No hay bloqueos ni dimensiones en 1.
 
-## Rúbrica
+## Riesgos residuales
 
-| Dimensión | Puntaje | Evidencia |
-| --- | ---: | --- |
-| Alcance y currículo | 5 | Diez niveles y 43 bloques en orden canónico |
-| Narrativa | 5 | Historias aprobadas, voces y deltas hasta `L10.4` |
-| Pedagogía | 5 | Aprender, guiado, transferencia y En vivo por concepto |
-| Técnica | 5 | Fórmulas, denominadores, drift, retrasos y rollback validados |
-| Visual | 5 | 133 contratos sin fallback y evidencia semántica bloqueante |
-| Reproducibilidad | 5 | Semillas, metadata, dimensiones y hashes determinísticos |
-| Publicación | 5 | Diez niveles, escritorio/móvil, modo docente y consola limpia |
-
-**Promedio:** 5.0. **Mínimo:** 5. **Bloqueadores:** 0.
-
-## Ejecuciones
-
-- `python -m py_compile ...`: aprobado.
-- Generadores de Niveles 9 y 10 ejecutados con salidas determinísticas.
-- `python scripts/validate_content.py`: 172 conceptos, 326 ejercicios, 516 prompts y cuatro datasets públicos.
-- `python scripts/build_pages.py`: portal de diez niveles y 43 bloques.
-- `python scripts/qa_pages.py`: 133 escenas continuas, 266 ejercicios, modo docente, movimiento, móvil y consola limpia.
-- Revisión visual: privacidad, evaluación del proyecto, calibration drift, alertas y retiro legibles en escritorio y móvil.
-
-## Supuestos y riesgos residuales
-
-- Audiencia adulta principiante-intermedia; sesiones por bloque en español mexicano.
-- Los grupos de Nivel 9 son categorías agregadas y consentidas, no identidades.
-- Drift y alertas solo priorizan revisión humana; no prueban fraude, daño o fallo por sí mismos.
-- El modo docente oculto no es autenticación.
-- La operación de Nivel 10 es una simulación estática; implementar un sistema real requeriría una revisión de seguridad, privacidad y operación separada.
+- Los datasets narrativos de Niveles 5 y 11 son fixtures sintéticas etiquetadas;
+  el modo docente usa snapshots públicos reales registrados.
+- La implementación de referencia de Nivel 11 es offline y no almacena secretos
+  reales ni representa un servicio productivo.
+- Nivel 12 conserva el límite: recibe un producto operable y enseña readiness,
+  monitoreo, incidentes y retiro; no reconstruye el producto.
 
 ## Próxima vertical slice recomendada
 
-Revisión docente de cierre y publicación: elegir un concepto de Nivel 9 y otro de
-Nivel 10, ejecutar sus guiones En vivo con los snapshots públicos, registrar
-observaciones y publicar solo si no aparece un bloqueo. No se recomienda abrir un
-Nivel 11 antes de validar esa transferencia con docentes.
+Piloto docente del handoff `dataset_confiable@L5.H1 → Nivel 6`, con observación
+de comprensión de granularidad, cardinalidad y leakage antes de ajustar textos.

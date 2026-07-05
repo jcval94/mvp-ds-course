@@ -71,12 +71,16 @@ Aprender  Ejercitar  Enseñar en vivo
 - Codex asume el rol técnico; Gemini y ChatGPT facilitan o revisan.
 - Cada episodio usa un objetivo principal de ciencia de datos y como máximo una
   competencia auxiliar de agentes.
-- Nivel 6 activa revisión técnica de particiones, denominadores y costos; Nivel 7
+- Nivel 5 activa inspección de esquemas, claves, cardinalidad, granularidad,
+  procedencia y validación de queries y JOINs generados por agentes.
+- Nivel 7 activa revisión técnica de particiones, denominadores y costos; Nivel 8
   activa revisión humana de segmentos y anomalías además de continuidad narrativa.
-- Nivel 8 activa auditoría de orden temporal, disponibilidad, asignación aleatoria,
+- Nivel 9 activa auditoría de orden temporal, disponibilidad, asignación aleatoria,
   preregistro de métricas, guardrails y multiplicidad.
-- Nivel 9 activa auditoría de representación, daño, privacidad, comunicación y reproducibilidad.
-- Nivel 10 activa gates, monitoreo con etiquetas retrasadas, respuesta a incidentes, handoff y retiro; toda alerta conserva revisión humana.
+- Nivel 10 activa auditoría de representación, daño, privacidad, comunicación y reproducibilidad.
+- Nivel 11 activa especificaciones para agentes de código, criterios de
+  aceptación, revisión de diffs, ejecución de tests y rechazo por incumplimiento.
+- Nivel 12 activa gates, monitoreo con etiquetas retrasadas, respuesta a incidentes, handoff y retiro; toda alerta conserva revisión humana.
 
 ## Señales de skill débil
 

@@ -38,8 +38,11 @@ y no pueden usarse como fuente principal de Enseñar en vivo.
   dimensiones, esquema, estados y SHA-256 de los dos CSV de Nivel 2.
 - `pedidos_piloto_nivel_3.csv` y `noches_piloto_nivel_3.csv`: 1,360 pedidos y 32 noches del piloto reversible.
 - `noches_contexto_nivel_4.csv`: 48 noches con contexto operativo y una reversión agregada validada.
-- `noches_modelado_nivel_5.csv`: 64 noches; separa entradas previas de resultados posteriores para prevenir leakage.
-- Los tres archivos `*.metadata.json` de Niveles 3–5 fijan semilla, periodo, dimensiones, estado y SHA-256.
+- `noches_modelado_nivel_6.csv`: 64 noches; separa entradas previas de resultados posteriores para prevenir leakage.
+- `cierres_nivel_5_slice.csv`, `turnos_nivel_5_slice.csv` y
+  `eventos_nivel_5_slice.csv`: slice de JOIN con 6 noches, 8 turnos y 8 etiquetas.
+- `casos_pipeline_nivel_11_slice.csv`: seis casos sintéticos de contrato, test y fallo; no contiene secretos reales.
+- Los archivos `*.metadata.json` fijan generador, periodo, dimensiones, estado y SHA-256; las slices se distinguen de datasets de niveles completos.
 
 Sus dimensiones, hashes e invariantes se validan en
 `scripts/validate_content.py` y se registran en `docs/CONTINUITY_LEDGER.md`.

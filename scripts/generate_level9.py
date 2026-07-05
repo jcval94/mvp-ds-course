@@ -1,113 +1,117 @@
 #!/usr/bin/env python3
-"""Generate Level 9: responsible analysis, communication and reproducibility."""
+"""Generate Level 9: temporal data and reproducible experimentation."""
 
 from __future__ import annotations
 
 from datetime import date, timedelta
+import math
 import random
+import statistics
 
 from advanced_level_support import lesson
 from narrative_level_factory import generate
 
 
-SEED = 20270923
+SEED = 20270826
+EXPERIMENT_SEED = 20271103
 
 
-def audit_dataset() -> list[dict[str, object]]:
-    """Aggregate, consented audit cells; never individual people or inferred traits."""
-    rng = random.Random(SEED)
-    groups = [
-        ("canal_digital", "digital"),
-        ("mostrador", "presencial"),
-        ("apoyo_accesible_solicitado", "mixto"),
-        ("sin_apoyo_reportado", "mixto"),
-    ]
-    rows: list[dict[str, object]] = []
-    start = date(2027, 11, 1)
-    for week in range(12):
-        for group_index, (group, channel) in enumerate(groups):
-            eligible = 28 + group_index * 4 + rng.randint(0, 8)
-            offer_rate = [0.90, 0.69, 0.61, 0.84][group_index] + week * 0.006
-            offered = min(eligible, round(eligible * offer_rate))
-            completed = max(0, offered - rng.randint(1, 4))
-            wait = round([7.1, 10.8, 12.4, 8.0][group_index] - week * 0.06 + rng.uniform(-0.7, 0.7), 1)
-            complaints = max(0, round((eligible - completed) * 0.18 + rng.uniform(-0.5, 0.8)))
-            rows.append({
-                "periodo_semana": (start + timedelta(days=7 * week)).isoformat(),
-                "grupo_auditoria_agregado": group,
-                "canal": channel,
-                "elegibles": eligible,
-                "ofrecidos": offered,
-                "completados": completed,
-                "espera_mediana_min": wait,
-                "quejas_agregadas": complaints,
-                "retencion_dias": 30,
-                "consentimiento_agregado": 1,
-            })
-    assert len(rows) == 48
-    assert all(row["elegibles"] >= 25 for row in rows)
-    assert all(row["ofrecidos"] <= row["elegibles"] for row in rows)
-    assert all(row["completados"] <= row["ofrecidos"] for row in rows)
+def dates_for(start: date, count: int, weekdays: set[int]) -> list[date]:
+    out=[]; current=start
+    while len(out)<count:
+        if current.weekday() in weekdays: out.append(current)
+        current += timedelta(days=1)
+    return out
+
+
+def nightly_dataset() -> list[dict[str, object]]:
+    rng=random.Random(SEED)
+    baseline=dates_for(date(2027,8,26),40,{3,4,5,6})
+    pilot=dates_for(baseline[-1]+timedelta(days=1),60,{2,3,4,5,6})
+    names={2:"miércoles",3:"jueves",4:"viernes",5:"sábado",6:"domingo"}; rows=[]
+    for idx,night in enumerate([*baseline,*pilot],1):
+        phase="base" if idx<=40 else "piloto_prepedido"
+        day_effect={2:-2,3:0,4:5,5:10,6:4}[night.weekday()]
+        trend=.13*idx; seasonal=3.2*math.sin(idx*2*math.pi/20)
+        rain=round(max(0,rng.gauss(.45 if idx%13==0 else .08,.5)),1)
+        event=int(idx%17==0); maintenance=int(idx==73)
+        preorders=0 if phase=="base" else max(3,min(18,round(7+.10*(idx-40)+2*event+rng.gauss(0,1.4))))
+        orders=round(62+trend+day_effect+seasonal-1.8*rain+3*event+2*(phase!="base")+rng.gauss(0,2.5)-12*maintenance)
+        orders=max(60 if phase=="base" else 70,min(85 if phase=="base" else 95,orders))
+        wait=round(max(5,7.8+.23*(orders-65)+.11*preorders-1.2*(phase!="base")+rng.uniform(-1,1)),1)
+        cancel=round(max(0,min(.12,.018+.0022*preorders+.018*maintenance+rng.uniform(-.008,.008))),3)
+        rows.append({"noche_id":f"L9-N{idx:03d}","fecha":night.isoformat(),"dia_semana":names[night.weekday()],"indice_tiempo":idx,"semana":((idx-1)//(4 if idx<=40 else 5))+1,"fase":phase,"miercoles_abierto":int(night.weekday()==2),"prepedido_disponible":int(phase!="base"),"cupo_prepedido":0 if phase=="base" else 18,"asientos_disponibles":12 if phase=="base" else 16,"temperatura_c":round(20+5*math.sin(idx/18)+rng.uniform(-1.5,1.5),1),"lluvia_mm":rain,"evento_local":event,"mantenimiento_documentado":maintenance,"pedidos_totales":orders,"prepedidos_totales":preorders,"espera_mediana_min":wait,"tasa_cancelacion":cancel})
+    assert len(rows)==100 and sum(r["mantenimiento_documentado"] for r in rows)==1
     return rows
 
 
-def config() -> dict[str, object]:
-    rows = audit_dataset()
-    specs = [
-        ("representation", "Representación", "Auditar quién aparece y quién falta antes de generalizar.", "Representación describe qué poblaciones aparecen y cuáles quedan fuera.", "cobertura y ausencias por grupo", "Paco compara el canal digital con el mostrador y solicitudes de apoyo.", "Una mesa llena no significa que escuchamos a todos.", "Conservo denominadores y marco ausencias.", (48, 4), "L9-E1", "auditoria_agregada@L9.1", "grupo_auditoria_agregado, elegibles, ofrecidos"),
-        ("fairness", "Fairness", "Comparar tasas por grupo sin confundir una métrica con justicia total.", "Fairness exige definir grupo, resultado y daño relevante.", "tasas con denominadores comparables", "Las tasas de oferta difieren entre grupos agregados.", "Enséñame a quién le funciona y a quién le cuesta.", "Comparo tasas y daño; no declaro justicia total.", (.61, .90), "L9-E1", "auditoria_agregada@L9.1", "grupo_auditoria_agregado, elegibles, ofrecidos"),
-        ("harm", "Daño", "Trazar consecuencias concentradas que un promedio puede ocultar.", "Un análisis de daño sigue rutas desde una decisión hasta sus consecuencias.", "ruta de decisión a consecuencia", "Una regla de cupo aumenta espera para quien solicita apoyo.", "Si el promedio mejora pero alguien queda afuera, todavía hay problema.", "Registro alcance, severidad y reversibilidad.", (8.0, 12.4), "L9-E1", "mapa_dano@L9.1", "espera_mediana_min, quejas_agregadas"),
-        ("privacy", "Privacidad", "Minimizar campos, acceso y retención según propósito.", "Privacidad limita colección, uso, acceso y retención.", "campos, propósito, acceso y retención", "Rogelio explica por voluntad propia qué ajuste necesita y pide no conservar detalles.", "Eso me lo dijo él; no lo adivinó ninguna tabla.", "Guardo solo la solicitud operativa agregada por treinta días.", (90, 30), "L9-E1", "politica_privacidad@L9.1", "retencion_dias, consentimiento_agregado"),
-        ("audience", "Audiencia", "Adaptar detalle y lenguaje sin alterar la evidencia.", "La audiencia determina contexto, lenguaje y acción necesaria.", "capas de detalle por audiencia", "El mismo hallazgo debe servir a Don Juan, al turno y a una revisión.", "A mí dime qué hacemos; al archivo déjale cómo lo supimos.", "Cambio la capa, no el resultado ni su certeza.", (1, 3), "L9-E2", "informe_responsable@L9.2", "grupo_auditoria_agregado, espera_mediana_min"),
-        ("uncertainty-communication", "Comunicación de incertidumbre", "Presentar estimación, rango y supuestos juntos.", "Comunicar incertidumbre separa estimación, rango y supuestos.", "estimación e intervalo anotado", "Paco prepara una tasa semanal con variación visible.", "No me entregues un decimal como si fuera promesa.", "Muestro rango y periodo junto a la estimación.", (.69, .84), "L9-E2", "informe_responsable@L9.2", "periodo_semana, elegibles, ofrecidos"),
-        ("annotation", "Anotación", "Conectar una marca visual con contexto verificable y un límite.", "Una anotación conecta una marca visual con contexto verificable.", "marca, fuente y límite", "Una semana cambia después de una capacitación documentada.", "Señala lo que pasó; no inventes que eso lo causó.", "Anoto evento y fuente sin atribuir causalidad.", (6, 7), "L9-E2", "informe_responsable@L9.2", "periodo_semana, espera_mediana_min"),
-        ("data-narrative", "Narrativa de datos", "Encadenar evidencia, interpretación, decisión y revisión.", "Una narrativa de datos conserva la cadena de evidencia.", "evidencia, interpretación y decisión", "Paco ordena el informe para que la recomendación no aparezca antes de la evidencia.", "La historia sirve si también deja ver dónde se puede equivocar.", "Cada afirmación conserva fuente, alcance y siguiente revisión.", (3, 4), "L9-E2", "informe_responsable@L9.2", "ofrecidos, completados, espera_mediana_min"),
-        ("seeds", "Semillas", "Repetir aleatoriedad computacional y probar sensibilidad.", "Una semilla fija aleatoriedad computacional reproducible.", "ejecuciones repetidas con semilla", "Paco reproduce el muestreo del reporte.", "Si lo vuelves a correr, quiero saber por qué cambia.", "Registro semilla y repito con otra como sensibilidad.", (2027, 2027), "L9-E3", "reproducibilidad@L9.3", "periodo_semana, grupo_auditoria_agregado"),
-        ("versions", "Versiones", "Enlazar datos, código, reglas y salidas.", "Versionar enlaza cada salida con entradas y transformaciones.", "linaje de datos, código y salida", "Una regla de agregación cambia entre dos informes.", "No sobrescribas el camino aunque el total se parezca.", "Cada salida nombra versiones y hash.", (3, 4), "L9-E3", "reproducibilidad@L9.3", "periodo_semana, retencion_dias"),
-        ("data-dictionary", "Diccionario de datos", "Definir unidad, tipo, origen, disponibilidad y límites.", "Un diccionario define significado, tipo, origen y límites.", "mapa semántico de campos", "El campo ofrecidos se confunde con completados.", "El nombre cortito no me dice qué contó.", "Documento numerador, unidad y momento de disponibilidad.", (10, 10), "L9-E3", "reproducibilidad@L9.3", "elegibles, ofrecidos, completados"),
-        ("clean-notebook", "Notebook limpio", "Ejecutar carga, validación, análisis y salida sin estado oculto.", "Un notebook limpio ejecuta de principio a fin sin estado oculto.", "pipeline ordenado y verificable", "Paco reinicia el análisis y descubre una celda fuera de orden.", "Si depende de un truco de ayer, hoy no está terminado.", "Reinicio, ejecuto todo y valido el hash final.", (7, 4), "L9-E3", "reproducibilidad@L9.3", "periodo_semana, grupo_auditoria_agregado"),
-        ("project-question", "Pregunta del proyecto", "Acotar población, resultado, periodo y decisión.", "Una pregunta analítica nombra unidad, resultado y decisión.", "alcance de la pregunta", "El mini-proyecto pregunta si el local puede abrir sin excluir solicitudes de apoyo.", "Quiero una pregunta que sí podamos responder y revisar.", "Congelo unidad, resultado, periodo y decisión.", (5, 3), "L9-E4", "mini_proyecto@L9.4", "periodo_semana, grupo_auditoria_agregado"),
-        ("project-data", "Datos del proyecto", "Elegir fuente por cobertura, calidad, permiso y procedencia.", "La elección de datos considera cobertura, calidad y permiso.", "procedencia y permiso de datos", "Paco descarta comentarios libres y conserva agregados consentidos.", "Tener el archivo no significa que debamos usarlo.", "La fuente elegida tiene propósito, retención y hash.", (2, 1), "L9-E4", "mini_proyecto@L9.4", "consentimiento_agregado, retencion_dias"),
-        ("project-analysis", "Análisis del proyecto", "Encadenar operaciones compatibles con pregunta y datos.", "El análisis aplica operaciones compatibles con pregunta y datos.", "flujo de análisis trazable", "Paco calcula coberturas, esperas y fallos por grupo agregado.", "Haz solo los pasos que ayuden a decidir.", "Valido denominadores y separo observación de explicación.", (6, 4), "L9-E4", "mini_proyecto@L9.4", "elegibles, ofrecidos, espera_mediana_min"),
-        ("project-evaluation", "Evaluación del proyecto", "Contrastar aceptación, fallos, privacidad y subgrupos.", "Evaluar contrasta aceptación y casos de fallo.", "tarjeta de criterios y fallos", "El promedio cumple pero un grupo conserva espera alta.", "No abras por promedio si el daño sigue escondido.", "El gate incluye privacidad, subgrupos y reversibilidad.", (8.2, 12.1), "L9-E4", "mini_proyecto@L9.4", "grupo_auditoria_agregado, espera_mediana_min"),
-        ("project-communication", "Comunicación del proyecto", "Entregar acción, evidencia, incertidumbre y siguiente revisión.", "Comunicar cierra con acción, incertidumbre y siguiente revisión.", "brief de decisión responsable", "Paco entrega una apertura limitada de un solo local.", "Dime qué sabemos, qué no y cuándo volvemos a mirar.", "La recomendación es reversible y no promete causalidad.", (1, 4), "L9-E4", "mini_proyecto@L9.4", "periodo_semana, ofrecidos, completados"),
-    ]
-    items = []
-    for i, spec in enumerate(specs, 1):
-        slug, title, objective, definition, mechanism, setup, don, paco, pair, episode, data_state, variables = spec
-        guest = None
-        if slug == "privacy": guest = {"name": "Rogelio", "line": "Yo pedí ese ajuste y autorizo que solo cuenten la solicitud agregada; no guarden el detalle."}
-        if slug == "project-communication": guest = {"name": "Chava", "line": "Yo sigo con mi taller de radio; el local no convierte mi historia en una etiqueta de datos."}
-        items.append(lesson(level=9, slug=slug, title=title, objective=objective, definition=definition,
-            mechanism=mechanism, setup=setup, don=don, paco=paco,
-            subtitles=(definition, paco), scene=i, episode=episode, data_state=data_state,
-            values=(pair, (pair[1], pair[0])), variables=variables,
-            unit="una observación es una celda semanal agregada con al menos 25 elegibles; no hay registros individuales",
-            limit="Los grupos son categorías de auditoría consentidas y agregadas; ninguna tabla infiere identidad, intención ni rasgos personales.",
-            context="Paco audita otra decisión del local con datos agregados", pressure="la recomendación debe ser útil sin ocultar exclusión, daño o incertidumbre",
-            decision="documentar evidencia, permiso, límite y revisión antes de recomendar", guest=guest))
-    blocks = [
-        {"id":"ethics","number":1,"title":"Ética y sesgo","description":"Representación, fairness, daño y privacidad.","href":"etica-sesgo.html","dataset_id":"palmer-penguins","concepts":items[:4]},
-        {"id":"communication","number":2,"title":"Comunicación","description":"Audiencia, incertidumbre, anotación y narrativa.","href":"comunicacion.html","dataset_id":"bike-sharing-day","concepts":items[4:8]},
-        {"id":"reproducibility","number":3,"title":"Reproducibilidad","description":"Semillas, versiones, diccionario y notebook limpio.","href":"reproducibilidad.html","dataset_id":"plant-growth","concepts":items[8:12]},
-        {"id":"mini-project","number":4,"title":"Mini-proyecto","description":"Pregunta, datos, análisis, evaluación y comunicación.","href":"mini-proyecto.html","dataset_id":"wine-quality","concepts":items[12:]},
-    ]
-    schema = list(rows[0])
-    return {"level":9,"output":"data-class-responsible-level-9","title":"Análisis responsable y reproducible",
-        "summary":"Paco audita representación, daño y privacidad antes de entregar un mini-proyecto trazable para un solo local.",
-        "blocks":blocks,"previousConcept":"Efecto práctico","nextConcept":"Criterio de aceptación",
-        "agentCompetency":"Auditar datos, argumentos y entregables sin inferir rasgos personales ni ocultar daño.",
-        "continuityDelta":"Rogelio y Chava revelan voluntariamente sus necesidades y planes; nunca se infieren desde datos.",
-        "growthDelta":"G6-prepedido → G7-local; un local de 5×4 m, 18 asientos y cuatro puestos pagados; no cadena.",
-        "narrativeDatasets":[{"path":"datasets/narrative/auditoria_responsable_nivel_9.csv","rows":rows,"schema":schema}],
-        "narrativeMetadata":{"metadataPath":"datasets/narrative/nivel_9.metadata.json","id":"auditoria-responsable-nivel-9","synthetic":True,
-            "generator":"level9-responsible-v1","seed":SEED,"period":{"start":rows[0]["periodo_semana"],"end":rows[-1]["periodo_semana"],"weeks":12},
-            "dimensions":[48,len(schema)],"privacy":{"unit":"celda semanal agregada","minimum_cell":25,"personal_identifiers":False,"free_text":False,"retention_days":30,"consent":"categorías reportadas voluntariamente y agregadas"},
-            "formulas":{"offer_rate":"ofrecidos / elegibles","completion_rate":"completados / ofrecidos"},
-            "growth":{"from":"G6-prepedido","to":"G7-local","constraint":"un local; 18 asientos; 4 puestos pagados"},
-            "data_state":["L8.4","auditoria_agregada@L9.1","informe_responsable@L9.2","reproducibilidad@L9.3","mini_proyecto@L9.4"],
-            "label":"Dataset sintético agregado; no representa ni permite identificar personas reales"}}
+def experiment_dataset(nights:list[dict[str,object]])->list[dict[str,object]]:
+    rng=random.Random(EXPERIMENT_SEED); assignments=["A"]*200+["B"]*200; rng.shuffle(assignments)
+    pilot=[r for r in nights if r["fase"]=="piloto_prepedido"]; rows=[]
+    for idx,treatment in enumerate(assignments,1):
+        night=pilot[(idx-1)%len(pilot)]; probability=.64 if treatment=="A" else .81
+        completed=int(rng.random()<probability)
+        wait=round(max(2,rng.gauss(7.2 if treatment=="A" else 7.9,1.4)),1)
+        canceled=int(not completed and rng.random()<(.18 if treatment=="A" else .15))
+        value=round(max(90,rng.gauss(218 if treatment=="A" else 221,32)),2) if completed else 0.0
+        rows.append({"asignacion_id":f"L9-X{idx:03d}","fecha":night["fecha"],"bloque_noche":night["noche_id"],"elegible_antes_asignacion":1,"variante":treatment,"mensaje":"confirmación_simple" if treatment=="A" else "confirmación_con_ventana","prepedido_completado":completed,"espera_entrega_min":wait,"cancelacion":canceled,"valor_pedido_mxn":value})
+    assert len(rows)==400 and sum(r["variante"]=="A" for r in rows)==200
+    return rows
 
 
-if __name__ == "__main__":
+def rate(rows:list[dict[str,object]],field:str)->float:
+    return statistics.mean(float(r[field]) for r in rows)
+
+
+def config()->dict[str,object]:
+    nights=nightly_dataset(); experiment=experiment_dataset(nights)
+    a=[r for r in experiment if r["variante"]=="A"]; b=[r for r in experiment if r["variante"]=="B"]
+    rate_a=rate(a,"prepedido_completado"); rate_b=rate(b,"prepedido_completado"); effect=rate_b-rate_a
+    se=math.sqrt(rate_a*(1-rate_a)/len(a)+rate_b*(1-rate_b)/len(b)); ci=(effect-1.96*se,effect+1.96*se)
+    wait_delta=statistics.mean(float(r["espera_entrega_min"]) for r in b)-statistics.mean(float(r["espera_entrega_min"]) for r in a)
+    cancel_delta=rate(b,"cancelacion")-rate(a,"cancelacion")
+    first=statistics.mean(r["pedidos_totales"] for r in nights[:20]); last=statistics.mean(r["pedidos_totales"] for r in nights[-20:])
+    lag_x=[r["pedidos_totales"] for r in nights[:-1]]; lag_y=[r["pedidos_totales"] for r in nights[1:]]
+    lag_corr=sum((x-statistics.mean(lag_x))*(y-statistics.mean(lag_y)) for x,y in zip(lag_x,lag_y))/math.sqrt(sum((x-statistics.mean(lag_x))**2 for x in lag_x)*sum((y-statistics.mean(lag_y))**2 for y in lag_y))
+    day_means={day:statistics.mean(r["pedidos_totales"] for r in nights if r["dia_semana"]==day) for day in {r["dia_semana"] for r in nights}}
+    maintenance=next(r for r in nights if r["mantenimiento_documentado"])
+    values={
+        "trend":((first,20),(last,last-first)),"seasonality":((min(day_means.values()),max(day_means.values())),(day_means["miércoles"],day_means["sábado"])),
+        "lag":((1,lag_corr),(7,round(lag_corr*.72,4))),"temporal-anomaly":((maintenance["indice_tiempo"],maintenance["pedidos_totales"]),(1,12)),
+        "windows":((20,1),(40,60)),"backtesting":((4,20),(80,20)),"temporal-leakage":((73,0),(73,1)),
+        "random-assignment":((400,2),(200,200)),"primary-metric":((sum(r["prepedido_completado"] for r in a),200),(sum(r["prepedido_completado"] for r in b),200)),
+        "sample-size":((100,.20),(400,.10)),"effect":((rate_a,rate_b),(effect,se)),
+        "guardrails":((effect,wait_delta),(cancel_delta,.02)),"multiple-tests":((4,.05),(4,.0125)),"practical-effect":((effect,.05),(ci[0],ci[1])),
+    }
+    specs=[
+        ("trend","Tendencia","Describir cambio de largo plazo sin atribuir causa.","Una tendencia resume cambio de largo plazo en una serie ordenada.","serie cronológica y línea suave","Paco ordena cien noches por fecha.","Quiero ver si va subiendo, no solo dos noches buenas.","Conservo cada fecha y el límite.",("La serie conserva las 100 noches en orden.","La diferencia entre inicio y cierre describe el periodo; no identifica qué la causó."),"L9-E1","serie_nocturna@L9.1","fecha, pedidos_totales"),
+        ("seasonality","Estacionalidad","Comparar posiciones repetidas del ciclo semanal.","La estacionalidad es un patrón que se repite en periodos regulares.","ciclos alineados por día de semana","Miércoles y sábado ocupan lugares distintos del ciclo.","No me mezcles un miércoles con un sábado.","Comparo la misma posición semanal.",("Las noches se alinean por día de semana.","El ciclo semanal observado no garantiza repetición futura ni explica sus causas."),"L9-E1","serie_nocturna@L9.1","dia_semana, pedidos_totales"),
+        ("lag","Rezago","Vincular un valor actual con otro anterior sin mezclar fechas.","Un rezago desplaza una serie para relacionar presente y pasado.","pares de noche anterior y actual","Paco desplaza pedidos una y siete noches.","Lo de ayer puede dejar trabajo para hoy.","Alineo cada par sin usar el futuro.",("Cada punto conserva un valor anterior y otro posterior.","La asociación rezagada no demuestra que una noche cause la siguiente."),"L9-E1","serie_nocturna@L9.1","pedidos_totales, rezago"),
+        ("temporal-anomaly","Anomalía temporal","Distinguir una desviación localizada de un patrón repetido.","Una anomalía temporal es una desviación localizada respecto del patrón esperado.","evento puntual y contexto de bitácora","Una noche de mantenimiento cae fuera del patrón.","Esa sí tuvo una razón anotada.","Marco el evento sin volverlo temporada.",("La noche 73 se separa del patrón y tiene mantenimiento documentado.","Un evento localizado no se convierte en tendencia, estación ni regla para borrar filas."),"L9-E1","serie_nocturna@L9.1","indice_tiempo, pedidos_totales, mantenimiento_documentado"),
+        ("windows","Ventanas temporales","Definir qué pasado está disponible en cada corte.","Una ventana temporal selecciona observaciones anteriores a un corte.","ventana deslizante o expansiva","El borde del historial avanza.","La regla solo puede mirar lo que ya pasó.","Guardo inicio, fin y horizonte.",("La ventana termina antes del resultado evaluado.","Una ventana expansiva conserva todo el pasado; una deslizante limita antigüedad."),"L9-E2","backtesting@L9.2","fecha, corte, horizonte"),
+        ("backtesting","Backtesting","Repetir evaluación usando pasado para futuro.","Backtesting simula decisiones históricas mediante varios cortes ordenados.","folds con train anterior y test posterior","Paco reproduce cuatro decisiones pasadas.","Pruébala como si estuviéramos en ese día.","Entreno atrás y evalúo adelante.",("Cada fold mantiene el entrenamiento antes de su evaluación.","Los cuatro resultados muestran estabilidad temporal sin convertir el futuro en entrenamiento."),"L9-E2","backtesting@L9.2","fold, train_end, test_start"),
+        ("temporal-leakage","Leakage temporal","Bloquear agregaciones o columnas posteriores al corte.","Leakage temporal usa información que aún no existía al decidir.","corte de disponibilidad y dato futuro","Una media centrada incluye mañana por accidente.","Si todavía no pasó, no lo uses.","Audito cada cálculo contra el corte.",("El corte separa información disponible y futura.","Una agregación contamina aunque su nombre parezca histórico si incorpora el objetivo o días posteriores."),"L9-E2","backtesting@L9.2","fecha, disponibilidad, media_movil"),
+        ("random-assignment","Asignación aleatoria","Asignar 400 prepedidos a A/B antes del resultado.","La asignación aleatoria usa azar para equilibrar explicaciones alternativas en expectativa.","flujo balanceado de asignaciones","Nora recibe cupos A y B sin elegir por pedido.","Que el mensaje no se escoja por conveniencia.","Asigno antes de observar finalización.",("Las 400 asignaciones elegibles se reparten 200/200.","La regla aleatoria permite comparar mensajes sin perfilar pedidos; el azar no garantiza igualdad exacta en todo."),"L9-E3","experimento_prepedido@L9.3","asignacion_id, variante, elegible_antes_asignacion"),
+        ("primary-metric","Métrica primaria","Congelar finalización con numerador y denominador.","Una métrica primaria define el resultado principal antes de observar diferencias.","tasa de prepedidos completados","Don Juan define qué cuenta como funcionar.","Primero dime qué cuenta como funcionar.","Escribo numerador y denominador antes de abrir.",("La tasa divide completados entre todos los asignados.","Cambiar la métrica tras mirar resultados aumentaría la oportunidad de una historia conveniente."),"L9-E3","experimento_prepedido@L9.3","prepedido_completado, variante"),
+        ("sample-size","Tamaño de muestra","Fijar tamaño antes de observar el efecto.","El tamaño de muestra depende del efecto mínimo, variabilidad y errores tolerados.","precisión esperada frente a n","Paco fija 400 asignaciones.","No pares cuando salga bonito.","El tamaño queda congelado desde el plan.",("El plan completa 400 asignaciones balanceadas.","Detener temprano por una diferencia favorable sesgaría la estimación y su incertidumbre."),"L9-E3","experimento_prepedido@L9.3","asignacion_id, efecto_minimo"),
+        ("effect","Efecto","Estimar B menos A con intervalo.","Un efecto compara resultados potenciales y se estima mediante el diseño aleatorizado.","diferencia de tasas e intervalo","Paco compara finalización entre mensajes.","Dime cuánto cambió y con qué margen.","Reporto diferencia e incertidumbre.",("El efecto estimado es la tasa B menos la tasa A.","La lectura causal se limita al mensaje, elegibles, periodo y cumplimiento del piloto."),"L9-E3","experimento_prepedido@L9.3","variante, prepedido_completado"),
+        ("guardrails","Guardrails","Comprobar que el efecto no rompa capacidad.","Un guardrail es una métrica que no debe deteriorarse al mejorar la principal.","panel de finalización, espera y cancelación","Nora revisa fila y entregas.","No quiero más pedidos si la fila se rompe.","Comparo límites antes del despliegue.",("Finalización se revisa junto con espera y cancelación.","Una mejora principal no autoriza desplegar si incumple capacidad, seguridad o servicio."),"L9-E4","decision_experimental@L9.4","espera_entrega_min, cancelacion, prepedido_completado"),
+        ("multiple-tests","Múltiples pruebas","Controlar falsos positivos al revisar varias métricas.","Probar muchas hipótesis aumenta la probabilidad de resultados extremos por azar.","familia de cuatro pruebas y criterio ajustado","Paco registra cuatro comparaciones.","Si preguntas muchas cosas, alguna sale por suerte.","Jerarquizo antes de buscar resultados.",("La familia contiene cuatro pruebas declaradas.","Jerarquizar o ajustar el criterio evita seleccionar únicamente la comparación favorable."),"L9-E4","decision_experimental@L9.4","familia_pruebas, alpha"),
+        ("practical-effect","Efecto práctico","Comparar efecto e intervalo con mínimo útil.","La relevancia práctica compara magnitud e incertidumbre con un umbral operativo.","intervalo frente a mínimo útil","Don Juan compara la mejora con costo y cupo.","Aunque sea distinto, ¿alcanza para cambiar el turno?","Uso el mínimo acordado y los guardrails.",("El intervalo del efecto se compara con cinco puntos porcentuales.","El despliegue exige magnitud útil y guardrails cumplidos; significancia por sí sola no basta."),"L9-E4","decision_experimental@L9.4","efecto, intervalo, minimo_util"),
+    ]
+    items=[]
+    for i,s in enumerate(specs,1):
+        guest={"name":"Nora","line":"Yo registro cupo, hora y entrega; si la fila rebasa el límite lo anoto antes de seguir."} if s[0] in {"random-assignment","guardrails"} else None
+        items.append(lesson(level=9,slug=s[0],title=s[1],objective=s[2],definition=s[3],mechanism=s[4],setup=s[5],don=s[6],paco=s[7],subtitles=s[8],scene=i,episode=s[9],data_state=s[10],values=values[s[0]],variables=s[11],unit="una observación es una noche ordenada o una asignación experimental, según el bloque",limit="El tiempo se evalúa con cortes ordenados; solo la asignación aleatoria sustenta un efecto causal limitado al piloto.",context="Paco prepara una decisión reversible de horario o prepedido",pressure="usar futuro o cambiar métricas después de mirar resultados produciría evidencia engañosa",decision="congelar corte, métrica, tamaño, guardrails y criterio antes de decidir",guest=guest))
+    blocks=[
+        {"id":"time-series","number":1,"title":"Series de tiempo","description":"Tendencia, estacionalidad, rezagos y eventos.","href":"series-tiempo.html","dataset_id":"bike-sharing-day","concepts":items[:4]},
+        {"id":"temporal-validation","number":2,"title":"Validación temporal","description":"Ventanas, backtesting y leakage temporal.","href":"validacion-temporal.html","dataset_id":"bike-sharing-day","concepts":items[4:7]},
+        {"id":"ab-testing","number":3,"title":"A/B testing","description":"Asignación, métrica, tamaño y efecto.","href":"ab-testing.html","dataset_id":"plant-growth","concepts":items[7:11]},
+        {"id":"experimentation","number":4,"title":"Experimentación","description":"Guardrails, multiplicidad y relevancia práctica.","href":"experimentacion.html","dataset_id":"plant-growth","concepts":items[11:]},
+    ]
+    night_schema=list(nights[0]); experiment_schema=list(experiment[0])
+    return {"level":9,"output":"data-class-temporal-experiments-level-9","title":"Datos temporales y experimentación","summary":"El puesto respeta el calendario, prueba un mensaje con asignación aleatoria y crece solo si el efecto útil conserva guardrails.","blocks":blocks,"previousConcept":"Umbral de anomalía","nextConcept":"Representación y fairness","agentCompetency":"Versionar cortes temporales y planes experimentales reproducibles.","continuityDelta":"Nora entra pagada; Paco documenta sin ampliar horario escolar.","growthDelta":"G5-servicios → G6-prepedido; cinco noches, 16 asientos y canal con cupo","narrativeDatasets":[{"path":"datasets/narrative/noches_temporales_nivel_9.csv","rows":nights,"schema":night_schema},{"path":"datasets/narrative/prepedidos_experimento_nivel_9.csv","rows":experiment,"schema":experiment_schema}],"narrativeMetadata":{"metadataPath":"datasets/narrative/nivel_9.metadata.json","id":"tiempo-experimento-nivel-9","synthetic":True,"generator":"level9-temporal-experiment-v1","seed":SEED,"experiment_seed":EXPERIMENT_SEED,"period":{"start":nights[0]["fecha"],"end":nights[-1]["fecha"],"nights":100},"dimensions":{"nights":[100,len(night_schema)],"assignments":[400,len(experiment_schema)]},"phases":{"base_nights":40,"pilot_nights":60},"time_policy":"cada entrenamiento termina antes de su horizonte; ninguna agregación usa futuro","experiment":{"unit":"prepedido elegible","assignment":{"A":200,"B":200},"primary_metric":"tasa de prepedidos completados","rate_a":round(rate_a,6),"rate_b":round(rate_b,6),"effect_b_minus_a":round(effect,6),"standard_error":round(se,6),"interval_95":[round(ci[0],6),round(ci[1],6)],"minimum_practical_effect":.05,"guardrails":{"wait_delta_minutes":round(wait_delta,6),"cancel_delta":round(cancel_delta,6),"max_wait_delta":1.5,"max_cancel_delta":.02}},"growth":{"from":"G5-servicios","to":"G6-prepedido","condition":"efecto práctico e intervalo por encima de 0.05; guardrails de espera y cancelación cumplidos"},"data_state":["L8.3","serie_nocturna@L9.1","backtesting@L9.2","experimento_prepedido@L9.3","decision_experimental@L9.4"],"label":"Datasets sintéticos narrativos; no representan personas reales"}}
+
+
+if __name__=="__main__":
     generate(config())

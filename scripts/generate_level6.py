@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Level 6: model evaluation without test contamination."""
+"""Generate Level 6: descriptive modeling without leakage or generalization claims."""
 
 from __future__ import annotations
 
@@ -8,141 +8,148 @@ import math
 import random
 import statistics
 
-from advanced_level_support import lesson
-from generate_level5 import dataset as level5_dataset
 from narrative_level_factory import generate
 
 
-SEED = 20270311
-MARGIN_PER_ORDER_MXN = 22
-COST_PER_WASTE_KG_MXN = 110
+def solve(matrix: list[list[float]], vector: list[float]) -> list[float]:
+    augmented = [row[:] + [value] for row, value in zip(matrix, vector)]
+    n = len(vector)
+    for col in range(n):
+        pivot = max(range(col, n), key=lambda row: abs(augmented[row][col]))
+        augmented[col], augmented[pivot] = augmented[pivot], augmented[col]
+        divisor = augmented[col][col]
+        if abs(divisor) < 1e-10:
+            raise ValueError("Matriz singular")
+        augmented[col] = [value / divisor for value in augmented[col]]
+        for row in range(n):
+            if row == col:
+                continue
+            factor = augmented[row][col]
+            augmented[row] = [value - factor * base for value, base in zip(augmented[row], augmented[col])]
+    return [row[-1] for row in augmented]
 
 
-def sigmoid(value: float) -> float:
-    return 1 / (1 + math.exp(-value))
+def ols(features: list[list[float]], target: list[float]) -> list[float]:
+    p = len(features[0])
+    xtx = [[sum(row[i] * row[j] for row in features) for j in range(p)] for i in range(p)]
+    xty = [sum(row[i] * y for row, y in zip(features, target)) for i in range(p)]
+    return solve(xtx, xty)
+
+
+def dot(left: list[float], right: list[float]) -> float:
+    return sum(a * b for a, b in zip(left, right))
 
 
 def dataset() -> list[dict[str, object]]:
-    rng = random.Random(SEED)
-    base = level5_dataset()
+    rng = random.Random(20261119)
     dates: list[date] = []
-    current = date(2027, 3, 11)
-    while len(dates) < 32:
+    current = date(2026, 11, 19)
+    while current <= date(2027, 3, 7):
         if current.weekday() in {3, 4, 5, 6}:
             dates.append(current)
         current += timedelta(days=1)
     names = {3: "jueves", 4: "viernes", 5: "sábado", 6: "domingo"}
     rows = []
-    sources: list[dict[str, object]] = [dict(row) for row in base]
-    for future_idx, night in enumerate(dates, start=65):
-        temperature = round(18 + 5 * math.sin(future_idx / 10) + rng.uniform(-2, 2), 1)
-        rain = round(max(0, rng.gauss(0.55 if future_idx % 10 == 0 else 0.12, 0.55)), 1)
-        game = int(future_idx % 9 in {0, 1}); planned = int(future_idx % 8 == 3)
-        inventory = round(24 + 2.3 * game + 1.8 * planned + rng.uniform(-1.6, 1.6), 1)
-        latent = 59 + .30 * temperature - .70 * rain + 4.8 * game + 4.1 * planned + .18 * inventory
-        sources.append({"fecha": night.isoformat(), "dia_semana": names[night.weekday()], "temperatura_c": temperature, "lluvia_mm": rain, "partido_cerca": game, "encargo_programado": planned, "inventario_carne_kg": inventory, "pedidos_totales": max(55, min(75, round(latent + rng.gauss(0, 3.2))))})
-    for idx, source in enumerate(sources, start=1):
-        temperature = float(source["temperatura_c"]); rain = float(source["lluvia_mm"])
-        game = int(source["partido_cerca"]); planned = int(source["encargo_programado"])
-        inventory = float(source["inventario_carne_kg"]); orders = int(source["pedidos_totales"])
-        score = sigmoid(-0.5 + .22 * (temperature - 16) - .18 * rain + .9 * game + .7 * planned + .35 * (inventory - 23))
-        actual = int(orders >= 66)
-        predicted_orders = round(59 + .27 * temperature - .55 * rain + 3.9 * game + 3.5 * planned + .15 * inventory, 2)
-        alert = int(score >= .55)
-        unserved = max(0, orders - 65) if actual and not alert else 0
-        extra_waste = round(max(0, (65 - orders) * .075), 2) if alert and not actual else 0.0
-        split = "train" if idx <= 48 else "validation" if idx <= 64 else "test"
+    for idx, night in enumerate(dates, start=1):
+        seasonal = 16 + 6 * math.sin((idx - 10) / 12)
+        temperature = round(seasonal + rng.uniform(-2.1, 2.1), 1)
+        rain = round(max(0, rng.gauss(0.8 if idx % 9 == 0 else 0.15, 0.65)), 1)
+        game = int(idx % 8 in {0, 1}); payday = int(night.day in {14, 15, 16, 29, 30, 31})
+        planned = int(idx % 8 == 3); helpers = 2 if night.weekday() in {4, 5} else 1
+        inventory = round(18.5 + 0.18 * idx + 1.6 * game + 1.8 * planned + rng.uniform(-1.0, 1.0), 1)
+        latent = 57 + 0.36 * temperature - 0.65 * rain + 4.4 * game + 2.8 * payday + 4.8 * planned + 1.8 * helpers + 0.24 * inventory
+        orders = max(55, min(75, round(latent + rng.gauss(0, 2.4))))
+        tacos = round(orders * (4.1 + 0.16 * planned) + rng.gauss(0, 7))
+        wait = round(max(5, 8.5 + 0.42 * (orders - 60) - 1.4 * helpers + rng.uniform(-0.8, 0.8)), 1)
+        waste = round(max(0.25, 1.8 + 0.11 * (inventory - 22) - 0.025 * orders + rng.uniform(-0.2, 0.2)), 2)
         rows.append({
-            "noche_id": f"L6-N{idx:02d}", "fecha": source["fecha"], "dia_semana": source["dia_semana"],
-            "split": split, "fold_desarrollo": ((idx - 1) % 4) + 1 if idx <= 64 else "",
-            "temperatura_c": temperature, "lluvia_mm": rain, "partido_cerca": game,
-            "encargo_programado": planned, "inventario_carne_kg": inventory,
-            "pedidos_totales": orders, "prediccion_pedidos": predicted_orders,
-            "alta_demanda": actual, "probabilidad_alta": round(score, 6), "alerta_umbral_055": alert,
-            "pedidos_no_atendidos_estimados": unserved, "merma_extra_estimada_kg": extra_waste,
-            "costo_fn_mxn": unserved * MARGIN_PER_ORDER_MXN,
-            "costo_fp_mxn": round(extra_waste * COST_PER_WASTE_KG_MXN, 2),
+            "noche_id": f"L6-N{idx:02d}", "fecha": night.isoformat(), "dia_semana": names[night.weekday()],
+            "temperatura_c": temperature, "lluvia_mm": rain, "partido_cerca": game, "quincena": payday,
+            "encargo_programado": planned, "inventario_carne_kg": inventory, "ayudantes_programados": helpers,
+            "asientos_disponibles": 12, "pedidos_totales": orders, "alta_demanda": int(orders >= 66),
+            "tacos_vendidos": tacos, "espera_mediana_min": wait, "merma_kg": waste,
         })
-    assert len(rows) == 96
-    assert [sum(row["split"] == split for row in rows) for split in ("train", "validation", "test")] == [48, 16, 32]
+    assert len(rows) == 64 and min(r["pedidos_totales"] for r in rows) >= 55 and max(r["pedidos_totales"] for r in rows) <= 75
     return rows
 
 
-def confusion(rows: list[dict[str, object]], threshold: float) -> dict[str, int]:
-    out = {"tp": 0, "tn": 0, "fp": 0, "fn": 0}
-    for row in rows:
-        pred = float(row["probabilidad_alta"]) >= threshold
-        actual = bool(row["alta_demanda"])
-        out["tp" if pred and actual else "fp" if pred else "fn" if actual else "tn"] += 1
-    return out
+def lesson(slug: str, title: str, objective: str, definition: str, mechanism: str, setup: str, don: str, paco: str, subtitles: tuple[str, str], scene: int, episode: str, state_name: str, values: tuple[tuple[float, float], tuple[float, float]], variables: str, kind: str = "model") -> dict[str, object]:
+    def visual_state(label: str, pair: tuple[float, float], note: str) -> dict[str, object]:
+        return {"label": label, "summary": note, "bars": [
+            {"label": "Valor A", "value": pair[0], "display": f"{pair[0]:.3f}"},
+            {"label": "Valor B", "value": pair[1], "display": f"{pair[1]:.3f}"},
+        ], "markers": [slug, "ajuste en 64 noches"], "note": note}
+    return {
+        "id": slug, "title": title, "objective": objective, "definition": definition,
+        "intuition": f"El visual revela {mechanism} y conserva cada noche observada.",
+        "error": "Presentar ajuste en muestra como desempeño futuro, causalidad o decisión automática.",
+        "scene": f"L6-S{scene:02d}", "episode": episode, "setup": setup, "donJuan": don, "paco": paco,
+        "subtitles": subtitles, "visualKind": kind, "mechanism": mechanism,
+        "action": f"Revelar {title.lower()}", "cue": f"Compara los estados de {title.lower()} y conserva unidades.",
+        "states": [visual_state("Entrada documentada", values[0], subtitles[0]), visual_state("Resultado reproducible", values[1], subtitles[1])],
+        "dataState": state_name, "unit": "una observación es una noche del puesto", "variables": variables,
+        "limit": "Ajuste descriptivo dentro de 64 noches; train/test, métricas y generalización pertenecen a Nivel 7.",
+        "practiceCases": [
+            {"question": f"¿Qué conclusión guiada sobre {title.lower()} respeta el momento de decisión?", "correct": subtitles[1], "wrong1": "El ajuste garantiza pedidos futuros.", "wrong2": "Una variable posterior puede entrar porque mejora el ajuste.", "feedback": subtitles[1], "hint": "Revisa si cada entrada existía antes del turno y cita el estado final.", "evidence": f"Un incidente nuevo recalcula {mechanism} con otra noche o entrada.", "context": f"Paco prueba {title.lower()} para una compra reversible del siguiente turno", "pressure": "usar información posterior produciría una respuesta imposible de aplicar a tiempo", "decision": "conservar solo señales previas y limitar la lectura a las 64 noches"},
+            {"question": f"¿Qué debe cambiar al transferir {title.lower()} a otra decisión?", "correct": "Se recorren los nuevos estados y se recalcula; no se reutiliza la respuesta anterior.", "wrong1": "Nada: el primer ajuste es universal.", "wrong2": "Se puede omitir el momento temporal de cada variable.", "feedback": "La transferencia requiere evidencia y cálculo nuevos con el mismo contrato temporal.", "hint": "Distingue procedimiento reproducible de resultado fijo.", "evidence": f"Otra decisión usa valores diferentes para {title.lower()} y mantiene bloqueadas las salidas posteriores.", "context": "Don Juan cambia la pregunta de compras por una de capacidad", "pressure": "la conclusión debe seguir siendo comprensible y auditable por el turno", "decision": "aplicar el procedimiento, documentar el resultado y mantener su límite"},
+        ],
+    }
 
 
 def config() -> dict[str, object]:
-    rows = dataset()
-    train = rows[:48]; validation = rows[48:64]; test = rows[64:]
-    thresholds = [.35, .45, .55, .65, .75]
-    def validation_cost(t: float) -> float:
-        return sum((max(0, int(r["pedidos_totales"]) - 65) * MARGIN_PER_ORDER_MXN if float(r["probabilidad_alta"]) < t and r["alta_demanda"] else max(0, 65 - int(r["pedidos_totales"])) * .075 * COST_PER_WASTE_KG_MXN if float(r["probabilidad_alta"]) >= t and not r["alta_demanda"] else 0) for r in validation)
-    chosen = min(thresholds, key=validation_cost)
-    cm = confusion(test, chosen)
-    errors = [float(r["pedidos_totales"]) - float(r["prediccion_pedidos"]) for r in test]
-    mae = statistics.mean(abs(x) for x in errors); mse = statistics.mean(x*x for x in errors); rmse = math.sqrt(mse)
-    y = [float(r["pedidos_totales"]) for r in test]; baseline = statistics.mean(y)
-    r2 = 1 - sum(x*x for x in errors) / sum((x-baseline)**2 for x in y)
-    precision = cm["tp"] / max(1, cm["tp"] + cm["fp"]); recall = cm["tp"] / max(1, cm["tp"] + cm["fn"])
-    specificity = cm["tn"] / max(1, cm["tn"] + cm["fp"]); f1 = 2*precision*recall/max(.0001, precision+recall)
-    values = {
-        "train": ((96, 48), (48, 0)), "validation": ((48, 16), (len(thresholds), chosen)), "test": ((64, 32), (32, chosen)),
-        "cross-validation": ((64, 4), (48, 16)), "mae": ((len(test), max(abs(x) for x in errors)), (mae, 1)),
-        "mse": ((mae, max(abs(x) for x in errors)), (mse, 2)), "rmse": ((mse, 2), (rmse, 1)), "r2": ((baseline, statistics.mean((x-baseline)**2 for x in y)), (r2, rmse)),
-        "true-positive": ((cm["tp"], len(test)), (cm["tp"], 0)), "true-negative": ((cm["tn"], len(test)), (cm["tn"], 0)),
-        "false-positive": ((cm["fp"], len(test)), (cm["fp"], COST_PER_WASTE_KG_MXN)), "false-negative": ((cm["fn"], len(test)), (cm["fn"], MARGIN_PER_ORDER_MXN)),
-        "precision": ((cm["tp"], cm["tp"]+cm["fp"]), (precision, chosen)), "recall": ((cm["tp"], cm["tp"]+cm["fn"]), (recall, chosen)),
-        "specificity": ((cm["tn"], cm["tn"]+cm["fp"]), (specificity, chosen)), "f1": ((precision, recall), (f1, chosen)),
-        "roc": ((0, 0), (1, 1)), "pr": ((recall, precision), (cm["tp"], cm["fp"])),
-        "threshold-cost": ((.35, validation_cost(.35)), (chosen, validation_cost(chosen))), "calibration": ((.25, .22), (.75, .69)),
-        "bias": ((6.5, 1), (3.2, 2)), "variance": ((1.2, 5.8), (2.7, 3.1)),
-        "overfitting": ((1.8, 6.1), (3.0, 3.7)), "regularization": ((0, 5.9), (.4, 3.4)),
+    rows = dataset(); y = [float(r["pedidos_totales"]) for r in rows]
+    inventory = [float(r["inventario_carne_kg"]) for r in rows]
+    simple_x = [[1.0, x] for x in inventory]; simple_beta = ols(simple_x, y)
+    fitted = [dot(row, simple_beta) for row in simple_x]; residuals = [actual - pred for actual, pred in zip(y, fitted)]
+    multi_x = [[1.0, float(r["temperatura_c"]), float(r["lluvia_mm"]), float(r["partido_cerca"]), float(r["encargo_programado"]), float(r["ayudantes_programados"])] for r in rows]
+    multi_beta = ols(multi_x, y); multi_pred = [dot(row, multi_beta) for row in multi_x]
+    scores_raw = [(-0.5 + 0.22 * (float(r["temperatura_c"]) - 16) - 0.18 * float(r["lluvia_mm"]) + 0.9 * float(r["partido_cerca"]) + 0.7 * float(r["encargo_programado"]) + 0.35 * (float(r["inventario_carne_kg"]) - 23)) for r in rows]
+    probs = [1 / (1 + math.exp(-value)) for value in scores_raw]
+    alerts50 = sum(value >= 0.5 for value in probs); alerts70 = sum(value >= 0.7 for value in probs)
+    tree_positive = sum((r["encargo_programado"] == 1 or (r["partido_cerca"] == 1 and r["inventario_carne_kg"] >= 25)) for r in rows)
+    mean_inventory, sd_inventory = statistics.mean(inventory), statistics.stdev(inventory)
+    collinear = [2 * value + 1 for value in inventory]
+    specs = [
+        ("fit", "Ajuste", "Ajustar una recta descriptiva conservando puntos y errores.", "Ajustar estima parámetros que acercan predicciones a resultados observados.", "recta estimada sobre observaciones", "Una recta resume inventario y pedidos.", "Que la raya no tape las noches.", "Dejo puntos y errores visibles.", ("El ajuste minimiza errores cuadrados en estas filas.", "Es descriptivo dentro de estas 64 noches, no desempeño futuro."), (statistics.mean(y), statistics.mean(fitted)), (simple_beta[0], simple_beta[1]), "L6-E1", "regresion_simple@L6.2", "inventario_carne_kg → pedidos_totales"),
+        ("slope", "Pendiente", "Interpretar cambio ajustado con unidades.", "La pendiente es cambio ajustado en la salida por unidad de entrada.", "cambio vertical por unidad horizontal", "Se mueve inventario una unidad.", "Si sube uno, ¿cuánto cambia la raya?", "Leo el cambio con sus unidades.", ("La pendiente conserva unidades.", "Describe asociación lineal, no efecto causal."), (1, simple_beta[1]), (simple_beta[1], len(rows)), "L6-E1", "regresion_simple@L6.2", "kg de inventario y pedidos"),
+        ("intercept", "Intercepto", "Decidir si el valor en entrada cero es interpretable.", "El intercepto es la salida ajustada cuando todas las entradas son cero.", "cruce de la recta con el eje", "La recta se prolonga a inventario cero.", "¿Cero tiene sentido aquí?", "Solo lo interpreto si cae en un contexto válido.", ("El intercepto completa la ecuación.", "Puede ser necesario y carecer de interpretación práctica."), (0, simple_beta[0]), (min(inventory), simple_beta[0]), "L6-E1", "regresion_simple@L6.2", "inventario_carne_kg → pedidos_totales"),
+        ("residuals", "Residuales", "Calcular observado menos ajustado.", "Un residual es el valor observado menos el valor ajustado.", "distancia vertical con signo", "Se dibujan distancias de cada noche a la recta.", "Estas noches quedaron arriba o abajo.", "Resultado menos ajuste, una por una.", ("Cada residual conserva signo y unidad.", "Con intercepto, los residuales suman aproximadamente cero y revelan errores."), (min(residuals), max(residuals)), (sum(residuals), statistics.mean(abs(x) for x in residuals)), "L6-E1", "regresion_simple@L6.2", "pedidos observados, ajustados y residuales"),
+        ("assumptions", "Supuestos", "Revisar patrones residuales y alcance.", "La regresión lineal requiere revisar forma, dispersión y dependencia.", "diagnóstico de errores", "Se inspecciona lo que la recta dejó sin explicar.", "La raya no arregla todo.", "Compruebo qué patrón quedó.", ("Los supuestos se revisan con evidencia.", "Un patrón residual visible limita la lectura y no se oculta con un coeficiente."), (statistics.mean(residuals), statistics.stdev(residuals)), (min(residuals), max(residuals)), "L6-E1", "regresion_simple@L6.2", "residuales y orden temporal"),
+        ("explanatory-variables", "Variables explicativas", "Interpretar coeficientes condicionados a otras entradas.", "Una variable explicativa aporta información al ajuste de una salida.", "varias señales previas simultáneas", "Se agregan lluvia, partido y quincena.", "Antes del turno sí lo sabemos.", "Solo uso señales disponibles a tiempo.", ("Cada entrada debe existir antes de decidir.", "Su coeficiente es condicional a las demás entradas, no una causa."), (simple_beta[1], len(simple_beta)), (multi_beta[1], len(multi_beta)), "L6-E2", "regresion_multiple@L6.3", "temperatura, lluvia, partido, encargo y ayudantes → pedidos"),
+        ("interaction", "Interacción", "Representar que una asociación depende de otra entrada.", "Una interacción multiplica entradas para permitir pendientes diferentes.", "pendientes condicionadas", "Partido modifica la pendiente de temperatura.", "La regla cambia según la noche.", "Incluyo el término conjunto.", ("La interacción hace explícita una dependencia.", "Interpretar solo efectos principales ignoraría ese cambio."), (0, multi_beta[1]), (1, multi_beta[3]), "L6-E2", "regresion_multiple@L6.3", "temperatura × partido"),
+        ("collinearity", "Colinealidad", "Reconocer coeficientes inestables por entradas redundantes.", "La colinealidad aparece cuando entradas explicativas contienen información muy parecida.", "redundancia entre columnas", "Dos entradas casi duplicadas compiten.", "Dos señales dicen casi lo mismo.", "Comparo estabilidad, no solo ajuste.", ("Entradas redundantes dificultan separar contribuciones.", "El ajuste puede verse estable mientras coeficientes individuales cambian."), (1, pearson_like(inventory, collinear)), (len(inventory), 2), "L6-E2", "regresion_multiple@L6.3", "inventario y copia lineal"),
+        ("class", "Clase", "Definir una etiqueta objetivo antes de modelar.", "Una clase es una categoría objetivo documentada.", "etiqueta binaria", "Alta demanda se define antes de mirar el score.", "Primero dime qué cuenta como noche alta.", "La etiqueta sale de una regla documentada.", ("La clase responde una regla explícita.", "Cambiar la definición cambia la tarea; no cambia el pasado."), (sum(r["alta_demanda"] for r in rows), len(rows)), (66, 2), "L6-E3", "clasificacion@L6.4", "alta_demanda = pedidos_totales ≥ 66"),
+        ("score", "Score", "Distinguir un valor ordenable de una decisión.", "Un score ordena casos por evidencia del modelo.", "orden continuo antes del corte", "Cada noche recibe un valor.", "Ese número todavía no es un sí.", "Sirve para ordenar; falta la regla.", ("El score aún no es decisión.", "Score, clase y decisión son objetos distintos."), (min(scores_raw), max(scores_raw)), (statistics.mean(scores_raw), len(rows)), "L6-E3", "clasificacion@L6.4", "señales previas → score"),
+        ("threshold", "Umbral", "Convertir scores en alertas y observar el cambio.", "Un umbral convierte scores en decisiones binarias.", "corte operativo sobre scores", "Se mueve el corte de alerta.", "Si bajo el corte, aviso más veces.", "Y también cambian los errores.", ("El corte conecta modelo y costo operativo.", "Moverlo cambia alertas y costos; no mejora el modelo por sí solo."), (0.5, alerts50), (0.7, alerts70), "L6-E3", "clasificacion@L6.4", "probabilidad y umbral"),
+        ("probability", "Probabilidad", "Interpretar una salida 0–1 sin prometer certeza.", "Una probabilidad de clase expresa incertidumbre condicionada al modelo.", "transformación logística de score", "Scores pasan a escala de probabilidad.", "Que diga ochenta no es garantía.", "Es una probabilidad ajustada, no un destino.", ("La probabilidad se condiciona al modelo y entradas.", "Calibración y generalización quedan para Nivel 7."), (min(probs), max(probs)), (statistics.mean(probs), 1), "L6-E3", "clasificacion@L6.4", "score logístico descriptivo"),
+        ("decision-tree", "Árbol de decisión", "Recorrer divisiones binarias reproducibles.", "Un árbol divide el espacio mediante preguntas sucesivas.", "rutas binarias hasta hojas", "Se recorren preguntas sobre encargo y partido.", "Pregunta una cosa y luego otra.", "Cada ruta termina en una hoja.", ("Cada nodo usa una condición explícita.", "La ruta es reproducible en estas filas y no universal."), (2, 4), (tree_positive, len(rows)), "L6-E4", "arbol_reglas@L6.5", "encargo, partido e inventario"),
+        ("rules", "Reglas", "Traducir rutas a condiciones si/entonces.", "Una regla expresa una ruta como condiciones y conclusión.", "condiciones auditables", "Las rutas se escriben para el turno.", "Eso sí lo puede seguir el turno.", "Incluyo excepciones y alcance.", ("Una regla debe poder reproducirse.", "Comprensible no significa correcta fuera de las noches observadas."), (2, tree_positive), (3, len(rows) - tree_positive), "L6-E4", "arbol_reglas@L6.5", "reglas previas al turno"),
+        ("importance", "Importancia", "Interpretar uso de variables dentro de un árbol.", "La importancia resume reducción del criterio atribuida a divisiones.", "reducción descriptiva de error", "Se compara cuánto usa el árbol cada señal.", "Que salga primero no la vuelve causa.", "Solo resume uso dentro del árbol.", ("Importancia pertenece al modelo ajustado.", "No es causalidad y reparte crédito entre entradas relacionadas."), (0.48, 0.31), (0.15, 0.06), "L6-E4", "arbol_reglas@L6.5", "importancias del árbol"),
+        ("encoding", "Encoding", "Representar categorías sin imponer orden falso.", "Encoding transforma categorías a columnas numéricas documentadas.", "columnas indicadoras", "Día y banderas se convierten en columnas.", "Los nombres necesitan una forma de entrar.", "No les invento un orden.", ("Las categorías nominales no tienen distancia natural.", "One-hot evita imponer una distancia falsa entre días."), (4, 1), (4, 4), "L6-E5", "matriz_modelado_sin_leakage@L6.6", "dia_semana y banderas previas"),
+        ("scaling", "Scaling", "Centrar y escalar con parámetros guardados.", "Scaling transforma magnitud con parámetros reproducibles.", "centrado y desviación estándar", "Inventario se expresa en desviaciones.", "Cambió la regla, no las noches.", "Guardo parámetros y unidades.", ("Escalar no agrega información.", "Debe aplicarse con el mismo contrato y parámetros documentados."), (mean_inventory, sd_inventory), (statistics.mean([(x - mean_inventory) / sd_inventory for x in inventory]), statistics.stdev([(x - mean_inventory) / sd_inventory for x in inventory])), "L6-E5", "matriz_modelado_sin_leakage@L6.6", "inventario_carne_kg estandarizado"),
+        ("leakage", "Leakage", "Excluir información posterior al momento de decisión.", "Leakage usa información que no existiría cuando debe producirse la decisión.", "auditoría temporal de columnas", "Se intentan usar espera y merma posteriores.", "Eso lo sabemos cuando ya terminó.", "Entonces queda fuera de la entrada.", ("Cada columna se etiqueta por momento de disponibilidad.", "Tacos vendidos, espera y merma se rechazan; solo quedan señales previas."), (8, 3), (8, 0), "L6-E5", "matriz_modelado_sin_leakage@L6.6", "entradas previas; resultados posteriores bloqueados"),
+    ]
+    concepts = [lesson(s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], idx + 1, s[11], s[12], (s[9], s[10]), s[13]) for idx, s in enumerate(specs)]
+    blocks = [
+        {"id": "linear-regression", "number": 1, "title": "Regresión lineal", "description": "Ajuste, parámetros, residuales y supuestos.", "href": "regresion-lineal.html", "dataset_id": "bike-sharing-day", "concepts": concepts[:5]},
+        {"id": "multiple-regression", "number": 2, "title": "Regresión múltiple", "description": "Varias señales, interacción y colinealidad.", "href": "regresion-multiple.html", "dataset_id": "bike-sharing-day", "concepts": concepts[5:8]},
+        {"id": "classification", "number": 3, "title": "Clasificación", "description": "Clase, score, umbral y probabilidad.", "href": "clasificacion.html", "dataset_id": "wine-quality", "concepts": concepts[8:12]},
+        {"id": "interpretable-models", "number": 4, "title": "Modelos interpretables", "description": "Árbol, reglas e importancia.", "href": "modelos-interpretables.html", "dataset_id": "wine-quality", "concepts": concepts[12:15]},
+        {"id": "feature-preparation", "number": 5, "title": "Preparación de variables", "description": "Encoding, scaling y prevención de leakage.", "href": "preparacion-variables.html", "dataset_id": "wine-quality", "concepts": concepts[15:]},
+    ]
+    return {
+        "level": 6, "output": "data-class-modeling-level-6", "title": "Modelado supervisado",
+        "summary": "El kiosco anticipa sin adivinar: cada entrada existe antes del turno y cada ajuste conserva su límite.", "blocks": blocks,
+        "previousConcept": "Dataset confiable con SQL", "nextConcept": "Evaluación de modelos", "agentCompetency": "Construir pipelines reproducibles y prevenir leakage.",
+        "continuityDelta": "Chava entra pagado; Paco revela su solicitud de beca.", "growthDelta": "G3-espera → G4-kiosco",
+        "narrativeDatasets": [{"path": "datasets/narrative/noches_modelado_nivel_6.csv", "rows": rows, "schema": ["noche_id", "fecha", "dia_semana", "temperatura_c", "lluvia_mm", "partido_cerca", "quincena", "encargo_programado", "inventario_carne_kg", "ayudantes_programados", "asientos_disponibles", "pedidos_totales", "alta_demanda", "tacos_vendidos", "espera_mediana_min", "merma_kg"]}],
+        "narrativeMetadata": {"metadataPath": "datasets/narrative/noches_nivel_6.metadata.json", "id": "matriz-modelado-sin-leakage-nivel-6", "synthetic": True, "generator": "level6-modeling-v1", "seed": 20261119, "period": {"start": "2026-11-19", "end": "2027-03-07", "nights": 64}, "dimensions": {"nights": [64, 16]}, "nightly_order_range": [55, 75], "simple_regression": {"intercept": round(simple_beta[0], 8), "slope": round(simple_beta[1], 8), "residual_sum": round(sum(residuals), 10)}, "multiple_coefficients": [round(value, 8) for value in multi_beta], "score_formula": "-0.5 + 0.22*(temperatura-16) - 0.18*lluvia + 0.9*partido + 0.7*encargo + 0.35*(inventario-23)", "allowed_predictors": ["dia_semana", "temperatura_c", "lluvia_mm", "partido_cerca", "quincena", "encargo_programado", "inventario_carne_kg", "ayudantes_programados", "asientos_disponibles"], "blocked_leakage": ["tacos_vendidos", "espera_mediana_min", "merma_kg"], "fit_scope": "descriptivo_en_muestra", "data_state": ["dataset_confiable@L5.H1", "noches_modelado@L6.1", "regresion_simple@L6.2", "regresion_multiple@L6.3", "clasificacion@L6.4", "arbol_reglas@L6.5", "matriz_modelado_sin_leakage@L6.6"], "label": "Dataset sintético narrativo; no representa personas reales"},
     }
-    concepts = [
-        ("train","Train","Asignar datos al ajuste sin mezclarlos con evaluación.","Train es la partición usada para estimar parámetros.","asignación exclusiva de filas","Paco separa las primeras noches para ajustar.","Estas sí son para preparar la regla.","Las marco antes de calcular.",("Train contiene 48 noches y no recibe filas del futuro.","La partición de entrenamiento ajusta; no estima por sí sola desempeño futuro."),"L6-E1","particiones@L6.1","split, noche_id"),
-        ("validation","Validation","Elegir alternativas usando solo validación.","Validation compara decisiones sin tocar el test.","comparación de umbrales fuera de train","Don Juan compara compras posibles.","Prueba la opción sin abrir el sobre final.","Elijo aquí y dejo registro.",("Validation recibe 16 noches separadas.","El umbral se elige por costo en validation; test sigue sellado."),"L6-E1","particiones@L6.1","split, probabilidad_alta"),
-        ("test","Test","Usar test una sola vez tras congelar decisiones.","Test estima desempeño final sobre datos no usados para ajustar ni elegir.","apertura única de evidencia futura","El sobre con 32 noches queda cerrado.","Ese no se abre para ir corrigiendo.","Primero congelo el procedimiento.",("Test contiene 32 noches posteriores y permanece sellado.","Abrir test repetidamente lo convierte en otra validación y sesga la estimación."),"L6-E1","particiones@L6.1","split, fecha"),
-        ("cross-validation","Cross-validation","Rotar folds dentro del desarrollo.","Cross-validation rota subconjuntos de ajuste y validación para medir estabilidad.","rotación de cuatro folds sin test","Paco rota cuatro montones de desarrollo.","Que todos trabajen, pero sin tocar el sobre.","Cada fold valida una vez.",("Los cuatro folds pertenecen a las primeras 64 noches.","La rotación resume variación del desarrollo; las 32 noches test nunca entran."),"L6-E1","particiones@L6.1","fold_desarrollo, split"),
-        ("mae","MAE","Interpretar el error absoluto medio en pedidos.","MAE promedia magnitudes absolutas de error.","distancias absolutas observado-predicho","Don Juan cuenta cuántos pedidos se desvió.","Dímelo en pedidos, sin esconder el signo.","Tomo distancia y promedio.",("Cada error se mide en pedidos.","MAE resume el desvío típico sin elevar errores grandes al cuadrado."),"L6-E2","error_regresion@L6.2","pedidos_totales, prediccion_pedidos"),
-        ("mse","MSE","Reconocer la penalización cuadrática.","MSE promedia errores elevados al cuadrado.","áreas cuadráticas que amplifican errores","Una noche muy desviada pesa más.","Ese tropiezo grande no vale igual.","Al cuadrarlo gana peso.",("MSE usa pedidos al cuadrado.","MSE penaliza con fuerza errores grandes, pero pierde la unidad original."),"L6-E2","error_regresion@L6.2","pedidos_totales, prediccion_pedidos"),
-        ("rmse","RMSE","Volver el error cuadrático a pedidos.","RMSE es la raíz cuadrada del MSE.","raíz de la penalización cuadrática","Don Juan pide recuperar unidades.","Ahora sí háblame otra vez en pedidos.","Saco la raíz al final.",("MSE está en pedidos².","RMSE conserva la sensibilidad a errores grandes y vuelve a unidades de pedidos."),"L6-E2","error_regresion@L6.2","pedidos_totales, prediccion_pedidos"),
-        ("r2","R²","Comparar contra predecir el promedio.","R² compara error del modelo con error de una línea base promedio.","reducción relativa de error frente a baseline","Paco pone el promedio como rival.","Si no mejora esa cuenta sencilla, dime.","Comparo ambos errores.",("La línea base predice el promedio del test.","R² resume mejora relativa en este test; no es porcentaje de predicciones correctas."),"L6-E2","error_regresion@L6.2","pedidos_totales, prediccion_pedidos"),
-        ("true-positive","TP","Traducir un acierto de alerta al turno.","TP es una noche alta correctamente alertada.","celda real alta y predicción alta","Hubo carga y sí nos preparamos.","Esa coincidencia sí ayudó.","Marco la celda y su conteo.",("TP combina realidad alta y alerta.","Un TP es un acierto bajo la definición congelada de alta demanda."),"L6-E3","matriz_confusion@L6.3","alta_demanda, probabilidad_alta"),
-        ("true-negative","TN","Traducir un acierto de no alerta.","TN es una noche normal correctamente no alertada.","celda real normal y predicción normal","No hizo falta preparar de más.","Y la regla tampoco gritó.","Conservo el denominador de noches normales.",("TN combina realidad normal y ausencia de alerta.","Los TN muestran cuándo el sistema evita intervención innecesaria."),"L6-E3","matriz_confusion@L6.3","alta_demanda, probabilidad_alta"),
-        ("false-positive","FP","Conectar falsa alerta con merma.","FP es una alerta en una noche que no fue alta.","celda de falsa alerta y costo de merma","Nos preparamos de más y sobró.","Ese error cuesta merma.","Lo multiplico por el costo documentado.",("FP combina alerta y demanda normal.","Su costo se calcula con merma extra por 110 MXN/kg, no con una etiqueta moral."),"L6-E3","matriz_confusion@L6.3","merma_extra_estimada_kg, costo_fp_mxn"),
-        ("false-negative","FN","Conectar alerta omitida con pedidos no atendidos.","FN es una noche alta sin alerta.","celda de omisión y costo de faltante","Llegó la carga y nos faltó preparación.","Ese error deja pedidos sin atender.","Uso margen documentado, no una cifra inventada después.",("FN combina demanda alta y ausencia de alerta.","Su costo usa pedidos no atendidos por 22 MXN de margen; sigue siendo una estimación sintética."),"L6-E3","matriz_confusion@L6.3","pedidos_no_atendidos_estimados, costo_fn_mxn"),
-        ("precision","Precision","Medir qué fracción de alertas acertó.","Precision divide TP entre TP más FP.","denominador formado por todas las alertas","Don Juan pregunta cuántos avisos sirvieron.","De todo lo que avisó, ¿cuánto sí pasó?","Uso solo la columna de alertas.",("El denominador contiene TP+FP.","Precision responde por confiabilidad de alertas, no por cobertura de noches altas."),"L6-E4","metricas@L6.4","tp, fp"),
-        ("recall","Recall","Medir qué fracción de noches altas se detectó.","Recall divide TP entre TP más FN.","denominador formado por noches realmente altas","Don Juan pregunta cuántas cargas no se escaparon.","De las noches pesadas, ¿cuántas vimos venir?","Uso la fila de realidad alta.",("El denominador contiene TP+FN.","Recall mide cobertura de noches altas y cambia al mover el umbral."),"L6-E4","metricas@L6.4","tp, fn"),
-        ("specificity","Specificity","Medir qué fracción de noches normales se dejó en paz.","Specificity divide TN entre TN más FP.","denominador formado por noches realmente normales","Don Juan no quiere preparar de más siempre.","¿Cuántas noches tranquilas dejamos tranquilas?","Miro TN entre todas las normales.",("El denominador contiene TN+FP.","Specificity mide reconocimiento de noches normales; no sustituye recall."),"L6-E4","metricas@L6.4","tn, fp"),
-        ("f1","F1","Combinar precision y recall armónicamente.","F1 es la media armónica de precision y recall.","equilibrio que penaliza un valor muy bajo","Paco compara dos reglas con compromisos distintos.","No me tapes un lado con el otro.","La media armónica baja si uno falla.",("Precision y recall conservan denominadores distintos.","F1 ayuda a comparar equilibrio, pero no incorpora por sí sola costos en pesos."),"L6-E4","metricas@L6.4","precision, recall"),
-        ("roc","ROC","Comparar TPR y FPR a través de umbrales.","ROC traza tasa de verdaderos positivos contra tasa de falsos positivos.","recorrido de umbrales en tasas","Paco mueve el corte y registra dos tasas.","Enséñame qué ganamos y qué falsas alarmas aparecen.","Cada punto usa el mismo test congelado.",("Cada umbral produce TPR y FPR.","ROC muestra discriminación; en clases raras puede ocultar baja precision."),"L6-E5","curvas@L6.5","probabilidad_alta, alta_demanda"),
-        ("pr","PR","Comparar precision y recall a través de umbrales.","PR traza precision frente a recall.","compromiso bajo prevalencia observada","Las noches altas no son mayoría.","Entonces mira también cuántos avisos fallan.","La curva conserva la prevalencia.",("Cada umbral produce precision y recall.","PR hace visible el costo de falsas alertas cuando la clase positiva es menos frecuente."),"L6-E5","curvas@L6.5","probabilidad_alta, alta_demanda"),
-        ("threshold-cost","Umbral y costo","Elegir umbral con costo validado.","El umbral convierte scores en alertas y modifica FP, FN y costo.","curva de costo operativo en validation","Don Juan compara merma contra faltantes.","No elijas por bonito; elige con el costo acordado.","Congelo el mínimo validado antes del test.",("Los costos se calculan solo en validation.","El umbral elegido minimiza el costo documentado en validation y luego se evalúa una vez en test."),"L6-E5","curvas@L6.5","probabilidad_alta, costo_fp_mxn, costo_fn_mxn"),
-        ("calibration","Calibración","Comparar probabilidades con frecuencias observadas.","Calibración contrasta scores pronosticados con proporciones observadas.","diagrama de confiabilidad por bandas","Un setenta debería parecerse a siete de diez.","Si dice siete, revisa cuántas pasan de verdad.","Agrupo sin prometer certeza individual.",("Las probabilidades se agrupan por bandas.","Buena calibración es correspondencia promedio; no garantiza el resultado de una noche."),"L6-E5","curvas@L6.5","probabilidad_alta, alta_demanda"),
-        ("bias","Bias","Reconocer error sistemático por modelo demasiado simple.","Bias es error sistemático producido por supuestos restrictivos.","patrón residual persistente","La regla sencilla falla del mismo lado.","Siempre se queda corta en esas noches.","Busco patrón, no una excusa.",("El error conserva dirección en varios grupos.","Bias alto sugiere que el modelo no captura estructura disponible; no autoriza agregar cualquier variable."),"L6-E6","generalizacion@L6.6","prediccion_pedidos, pedidos_totales"),
-        ("variance","Variance","Reconocer inestabilidad entre muestras.","Variance describe cuánto cambia un ajuste al cambiar los datos de entrenamiento.","ajustes distintos entre folds","Cada montón deja una regla algo distinta.","¿Se mueve poquito o se desarma?","Comparo folds con el mismo procedimiento.",("Los folds producen resultados comparables.","Variance alta indica sensibilidad a la muestra, no variación natural de cada pedido."),"L6-E6","generalizacion@L6.6","fold_desarrollo, prediccion_pedidos"),
-        ("overfitting","Overfitting","Detectar brecha entre train y validation.","Overfitting ocurre cuando el modelo aprende detalles de train que no se sostienen fuera.","curvas de error que se separan","En su montón queda perfecto, afuera no.","Eso parece memoria, no ayuda nueva.","Comparo la brecha antes de celebrar.",("El error de train sigue bajando mientras validation empeora.","La brecha evidencia sobreajuste; test no se usa para escoger el punto de parada."),"L6-E6","generalizacion@L6.6","split, error"),
-        ("regularization","Regularización","Elegir penalización usando validation.","Regularización limita complejidad mediante una penalización ajustada fuera de train.","trayectoria de complejidad y error validado","Aprieta la regla, pero no hasta dejarla inútil.","Busco el mínimo en validation.","Guardo la fuerza elegida antes de abrir test.",("La penalización cambia complejidad y error.","Se elige en validation; test solo estima el procedimiento ya congelado."),"L6-E6","generalizacion@L6.6","penalizacion, error_validation"),
-    ]
-    items=[]
-    for i,s in enumerate(concepts,1):
-        items.append(lesson(level=6,slug=s[0],title=s[1],objective=s[2],definition=s[3],mechanism=s[4],setup=s[5],don=s[6],paco=s[7],subtitles=s[8],scene=i,episode=s[9],data_state=s[10],values=values[s[0]],variables=s[11],unit="una observación es una noche del puesto",limit="El test se usa una sola vez; las métricas describen este procedimiento y no prueban causalidad.",context="Paco evalúa una decisión reversible de preparación",pressure="merma y faltantes tienen costos distintos y el test no puede usarse para afinar",decision="documentar partición, métrica, costo y límite antes de actuar"))
-    blocks=[
-        {"id":"data-partition","number":1,"title":"Partición de datos","description":"Train, validation, test y cross-validation.","href":"particion-datos.html","dataset_id":"bike-sharing-day","concepts":items[:4]},
-        {"id":"regression-error","number":2,"title":"Error de regresión","description":"MAE, MSE, RMSE y R².","href":"error-regresion.html","dataset_id":"bike-sharing-day","concepts":items[4:8]},
-        {"id":"confusion-matrix","number":3,"title":"Matriz de confusión","description":"Consecuencias de TP, TN, FP y FN.","href":"matriz-confusion.html","dataset_id":"wine-quality","concepts":items[8:12]},
-        {"id":"classification-metrics","number":4,"title":"Métricas de clasificación","description":"Precision, recall, specificity y F1.","href":"metricas-clasificacion.html","dataset_id":"wine-quality","concepts":items[12:16]},
-        {"id":"curves-calibration","number":5,"title":"Curvas y calibración","description":"ROC, PR, costo de umbral y confiabilidad.","href":"curvas-calibracion.html","dataset_id":"wine-quality","concepts":items[16:20]},
-        {"id":"generalization","number":6,"title":"Generalización","description":"Bias, variance, overfitting y regularización.","href":"generalizacion.html","dataset_id":"bike-sharing-day","concepts":items[20:]},
-    ]
-    schema=list(rows[0])
-    return {"level":6,"output":"data-class-evaluation-level-6","title":"Evaluación de modelos","summary":"El kiosco congela decisiones, abre el test una sola vez y conecta errores con merma o faltantes.","blocks":blocks,"previousConcept":"Leakage","nextConcept":"Distancia","agentCompetency":"Definir evals, casos de prueba y costos de error.","continuityDelta":"Don Juan exige costos visibles; Paco congela el procedimiento antes del test.","growthDelta":"ninguno; G4-kiosco permanece sin expansión","narrativeDatasets":[{"path":"datasets/narrative/noches_evaluacion_nivel_6.csv","rows":rows,"schema":schema}],"narrativeMetadata":{"metadataPath":"datasets/narrative/noches_nivel_6.metadata.json","id":"evaluacion-modelos-nivel-6","synthetic":True,"generator":"level6-evaluation-v1","seed":SEED,"period":{"start":rows[0]["fecha"],"end":rows[-1]["fecha"],"nights":96},"dimensions":{"nights":[96,len(schema)]},"development_source":"datasets/narrative/noches_modelado_nivel_5.csv; primeras 64 noches conservadas","partitions":{"train":48,"validation":16,"test":32,"development_folds":4},"test_policy":"sellado hasta congelar modelo, umbral y regularización","costs":{"false_negative":f"pedidos_no_atendidos_estimados × {MARGIN_PER_ORDER_MXN} MXN","false_positive":f"merma_extra_estimada_kg × {COST_PER_WASTE_KG_MXN} MXN"},"chosen_threshold":chosen,"test_confusion":cm,"regression_metrics":{"mae":round(mae,6),"mse":round(mse,6),"rmse":round(rmse,6),"r2":round(r2,6)},"classification_metrics":{"precision":round(precision,6),"recall":round(recall,6),"specificity":round(specificity,6),"f1":round(f1,6)},"data_state":["L5.6","particiones@L6.1","error_regresion@L6.2","matriz_confusion@L6.3","metricas@L6.4","curvas@L6.5","generalizacion@L6.6"],"label":"Dataset sintético narrativo; no representa personas reales"}}
+
+
+def pearson_like(xs: list[float], ys: list[float]) -> float:
+    mx, my = statistics.mean(xs), statistics.mean(ys)
+    return sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / math.sqrt(sum((x - mx) ** 2 for x in xs) * sum((y - my) ** 2 for y in ys))
 
 
 if __name__ == "__main__":

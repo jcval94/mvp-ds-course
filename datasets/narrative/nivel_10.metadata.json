@@ -1,69 +1,48 @@
 {
-  "id": "operacion-responsable-nivel-10",
+  "id": "auditoria-responsable-nivel-10",
   "synthetic": true,
-  "generator": "level10-operations-v1",
-  "seed": 20280115,
+  "generator": "level10-responsible-v1",
+  "seed": 20270923,
   "period": {
-    "start": "2028-01-15",
-    "end": "2028-04-19",
-    "snapshots": 96
+    "start": "2027-11-01",
+    "end": "2028-01-17",
+    "weeks": 12
   },
-  "dimensions": {
-    "monitoring": [
-      96,
-      14
-    ],
-    "incidents": [
-      8,
-      9
-    ]
-  },
-  "reference_policy": {
-    "reference_snapshots": 48,
-    "monitoring_snapshots": 48,
-    "label_delay_days": 7,
-    "latest_unlabeled": 7
-  },
-  "alert_policy": {
-    "calibration_gap": 0.08,
-    "persistence_snapshots": 3,
-    "action": "human review; stop authority retained",
-    "automatic_decision": false
-  },
-  "rollback": {
-    "safe_version": "r2",
-    "current_version": "r3",
-    "verification_required": true
-  },
+  "dimensions": [
+    48,
+    10
+  ],
   "privacy": {
+    "unit": "celda semanal agregada",
+    "minimum_cell": 25,
     "personal_identifiers": false,
-    "unit": "snapshot agregado o incidente simulado"
+    "free_text": false,
+    "retention_days": 30,
+    "consent": "categorías reportadas voluntariamente y agregadas"
+  },
+  "formulas": {
+    "offer_rate": "ofrecidos / elegibles",
+    "completion_rate": "completados / ofrecidos"
   },
   "growth": {
-    "from": "G7-local",
+    "from": "G6-prepedido",
     "to": "G7-local",
-    "constraint": "sin crecimiento ni backend"
+    "constraint": "un local; 18 asientos; 4 puestos pagados"
   },
   "data_state": [
     "L9.4",
-    "readiness@L10.1",
-    "monitoring@L10.2",
-    "incidents@L10.3",
-    "handoff@L10.4"
+    "auditoria_agregada@L10.1",
+    "informe_responsable@L10.2",
+    "reproducibilidad@L10.3",
+    "mini_proyecto@L10.4"
   ],
-  "label": "Datasets sintéticos operativos; no representan personas, fraude ni un despliegue real",
+  "label": "Dataset sintético agregado; no representa ni permite identificar personas reales",
   "files": [
     {
-      "path": "datasets/narrative/monitoreo_operativo_nivel_10.csv",
-      "rows": 96,
-      "columns": 14,
-      "sha256": "658a6b63ccc25b7164eb5778a3a21bab8712fd3c7d5283d05f081a7abdab7dd1"
-    },
-    {
-      "path": "datasets/narrative/incidentes_operativos_nivel_10.csv",
-      "rows": 8,
-      "columns": 9,
-      "sha256": "c4ca732728ce68fec62a3fea4c0abb4720d4833fd68733a976880f891f56c3ab"
+      "path": "datasets/narrative/auditoria_responsable_nivel_10.csv",
+      "rows": 48,
+      "columns": 10,
+      "sha256": "08a738ba511e75d394a86e704899883d9962fedaec2f1caf15bfa8886d28ca0e"
     }
   ]
 }

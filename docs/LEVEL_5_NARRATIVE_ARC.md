@@ -6,35 +6,48 @@
 - **Estado:** aprobado para implementación.
 - **Fuente curricular:** `docs/CURRICULUM_MAP.md`, Nivel 5.
 - **Historia canónica:** `docs/stories/LEVEL_5.md`.
-- **Ledger de entrada:** `L4.4`.
-- **Conflicto:** el puesto necesita anticipar insumos y alta demanda sin presentar un ajuste descriptivo como garantía futura.
-- **Promesa:** construir regresiones, scores y reglas interpretables solo con información disponible antes del turno.
-- **Competencia auxiliar:** diseñar un pipeline reproducible y prevenir leakage.
-- **Estado del puesto:** `G4-kiosco`; kiosco 4 × 3, segundo comal, doce asientos, Mari y Chava pagados.
+- **Ledger de entrada:** `L4.4 / G3-espera`.
+- **Conflicto:** un reporte válido aumenta ventas y noches después de juntar cierres, turnos y eventos; nadie recibió un error, pero la misma noche aparece varias veces.
+- **Promesa:** construir una tabla analítica reproducible demostrando unidad, granularidad, cardinalidad, corte temporal, calidad y procedencia.
+- **Competencia auxiliar:** auditar una query generada por un agente antes de confiar en el resultado.
+- **Estado del puesto:** `G3-espera`; diez asientos, Mari pagada viernes y sábado, sin crecimiento.
+- **Periodo narrativo:** 16–18 de noviembre de 2026; se auditan datos ya observados hasta el 15 de noviembre, sin añadir ventas futuras.
 
-## Matriz incremental
+## Episodios
 
-| Episodio | Escenas | Dinámica | Ayudantes | Datos | Crecimiento |
-| --- | --- | --- | --- | --- | --- |
-| `L5-E1` Una raya para anticipar insumos | `L5-S01`–`L5-S05` | Don Juan pregunta cuánto comprar; Paco ajusta y conserva residuales | Mari confirma límites de preparación | `L4.4 → L5.1 → L5.2` | Kiosco 4 × 3 y segundo comal |
-| `L5-E2` Varias señales a la vez | `L5-S06`–`L5-S08` | Don Juan pide lenguaje simple; Paco compara entradas previas al turno | Chava se integra pagado para segundo comal y servicio | `L5.2 → L5.3` | Doce asientos |
-| `L5-E3` Alta demanda no es decisión | `L5-S09`–`L5-S12` | Don Juan define el costo operativo de una alerta; Paco separa clase, score, umbral y probabilidad | Mari y Chava describen consecuencias, no métricas | `L5.3 → L5.4` | Se mantiene `G4-kiosco` |
-| `L5-E4` Reglas que se pueden seguir | `L5-S13`–`L5-S15` | Don Juan exige reglas comprensibles; Paco comprueba rutas | Chava aporta checklists, no autoridad de modelado | `L5.4 → L5.5` | Ninguno |
-| `L5-E5` Lo que se sabe antes del turno | `L5-S16`–`L5-S18` | Paco revela que solicitó una beca; Don Juan respalda el plan sin cargarle el negocio | La plantilla mantiene límites y pago | `L5.5 → L5.6` | Ninguno |
+| Episodio | Escenas | Objetivo principal | Estado de datos | Puente |
+| --- | --- | --- | --- | --- |
+| `L5-E1` Cada renglón promete algo | `L5-S01`–`L5-S02` | Fijar unidad, granularidad, esquema, claves y cardinalidad | `L4.4 → fuentes_relacionadas@L5.1` | ¿Cómo convertimos una pregunta en operaciones verificables? |
+| `L5-E2` Preguntar sin perder la tabla | `L5-S03`–`L5-S04` | Usar SQL para seleccionar y agregar con denominadores explícitos | `L5.1 → consultas_auditadas@L5.2` | ¿Qué pasa al combinar tablas con distinta granularidad? |
+| `L5-E3` Los clientes que se multiplicaban | `L5-S05`–`L5-S07` | Elegir JOIN, anticipar cardinalidad y detectar explosión de filas | `L5.2 → joins_auditados@L5.3` | ¿Cómo conservamos orden y tiempo en consultas largas? |
+| `L5-E4` Lo disponible a esa hora | `L5-S08`–`L5-S10` | Encadenar CTE, ventanas y rezagos respetando fecha de corte | `L5.3 → sql_temporal@L5.4` | ¿Cómo se convierte esto en una tabla para modelar? |
+| `L5-E5` Una fila por noche antes de abrir | `L5-S11`–`L5-S13` | Definir población, ABT temporal y deduplicación | `L5.4 → abt_verificada@L5.5` | ¿Cómo llegan fuentes externas sin cambiar el significado? |
+| `L5-E6` No todos los archivos se leen igual | `L5-S14`–`L5-S16` | Elegir formato, paginar una API y ejecutar localmente según escala | `L5.5 → fuentes_versionadas@L5.6` | ¿Cómo demostramos que la tabla sigue cumpliendo su contrato? |
+| `L5-E7` El recibo de cada transformación | `L5-S17`–`L5-S19` | Validar contrato, integridad, linaje, snapshot y hash | `L5.6 → dataset_confiable@L5.H1` | Un modelo aprenderá exactamente de esta tabla, incluidos sus errores. |
 
 ## Deltas aprobados
 
-- **`continuityDelta`:** Paco revela su solicitud de beca; Chava entra con autoridad operativa y una afinidad por checklists, sin revelar todavía su taller de radio.
-- **`dataStateDelta`:** `L4.4 → noches_modelado@L5.1 → regresion_simple@L5.2 → regresion_multiple@L5.3 → clasificacion@L5.4 → arbol_reglas@L5.5 → matriz_modelado_sin_leakage@L5.6`.
-- **`growthDelta`:** `G3-espera → G4-kiosco`; la inversión es una decisión de Don Juan con ahorro y capacidad revisada, no el resultado automático de un modelo.
+- **`continuityDelta`:** Don Juan deja de aceptar “salieron más filas” como evidencia de crecimiento; Paco incorpora reconciliación antes/después y revisión de SQL asistido.
+- **`dataStateDelta`:** `L4.4 → fuentes_relacionadas@L5.1 → consultas_auditadas@L5.2 → joins_auditados@L5.3 → sql_temporal@L5.4 → abt_verificada@L5.5 → fuentes_versionadas@L5.6 → dataset_confiable@L5.H1`.
+- **`growthDelta`:** ninguno; `G3-espera` permanece sin cambios.
+- **Secretos:** ninguno se revela ni se infiere.
+
+## Aprobación narrativa
+
+- Don Juan solo habla de cierres, turnos, ventas, noches y consecuencias.
+- Paco actúa como hijo y estudiante fuera del horario escolar; no se convierte en administrador de bases de datos.
+- El narrador introduce toda terminología técnica en subtítulos.
+- Aprender usa el reporte inflado del 14 de noviembre; Ejercitar usa cierres y eventos del 7 y 8 de noviembre con conteos distintos.
+- La historia no altera fechas, plantilla, capacidad ni secretos aprobados.
 
 ## Cierre
 
-El subtítulo final pregunta: **“¿Cómo sabemos si sirve?”**, puente a Nivel 6.
+El subtítulo final establece: **“Un modelo solo puede aprender de la tabla que construiste, incluidos sus errores.”**
+La pregunta puente a Nivel 6 es: **“Ahora que cada fila conserva su significado, ¿qué patrón puede aprender sin mirar el futuro?”**
 
 ## Supuestos y límites
 
-- Las 64 noches son sintéticas, del 19 de noviembre de 2026 al 7 de marzo de 2027, con 55–75 pedidos por noche.
-- Los ajustes son descriptivos dentro de estas 64 filas; evaluación, train/test y generalización pertenecen a Nivel 6.
-- `tacos_vendidos`, `espera_mediana_min` y `merma_kg` son resultados posteriores y se bloquean como predictores.
-- En vivo usa Bike Sharing para regresión y Wine Quality para clasificación, árboles y preparación.
+- Las fuentes narrativas son sintéticas y no contienen clientes identificables.
+- “Clientes que se multiplican” describe conteos duplicados del reporte, no personas perfiladas.
+- DuckDB y Polars aparecen como herramientas de referencia; el objetivo es decidir y verificar, no memorizar APIs.
+- La historia completa queda aprobada y sus 19 escenas están implementadas en el nivel publicado.

@@ -22,6 +22,9 @@
 - [ ] No se infieren atributos sensibles por apariencia salvo objetivo explícito, necesidad y salvaguardas.
 - [ ] Ninguna característica oculta de personaje aparece como atributo observado o inferido.
 - [ ] Capacidad, asientos, horario, plantilla y rangos de pedidos son coherentes entre niveles.
+- [ ] En Nivel 5 se declaran granularidad, llaves, cardinalidad y conteos antes/después; una suma posterior al JOIN se reconcilia con unidades únicas.
+- [ ] En Nivel 11 cada test se vincula con un criterio; rutas locales y secretos reales quedan fuera del artifact y logs.
+- [ ] Nivel 12 recibe un artifact existente y no duplica construcción, empaquetado, CI/CD o deploy básico.
 
 ## Fallar si
 

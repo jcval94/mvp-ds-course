@@ -1,66 +1,70 @@
 {
-  "id": "evaluacion-modelos-nivel-6",
+  "id": "matriz-modelado-sin-leakage-nivel-6",
   "synthetic": true,
-  "generator": "level6-evaluation-v1",
-  "seed": 20270311,
+  "generator": "level6-modeling-v1",
+  "seed": 20261119,
   "period": {
     "start": "2026-11-19",
-    "end": "2027-05-02",
-    "nights": 96
+    "end": "2027-03-07",
+    "nights": 64
   },
   "dimensions": {
     "nights": [
-      96,
-      19
+      64,
+      16
     ]
   },
-  "development_source": "datasets/narrative/noches_modelado_nivel_5.csv; primeras 64 noches conservadas",
-  "partitions": {
-    "train": 48,
-    "validation": 16,
-    "test": 32,
-    "development_folds": 4
+  "nightly_order_range": [
+    55,
+    75
+  ],
+  "simple_regression": {
+    "intercept": 67.29504375,
+    "slope": 0.23387063,
+    "residual_sum": -0.0
   },
-  "test_policy": "sellado hasta congelar modelo, umbral y regularización",
-  "costs": {
-    "false_negative": "pedidos_no_atendidos_estimados × 22 MXN",
-    "false_positive": "merma_extra_estimada_kg × 110 MXN"
-  },
-  "chosen_threshold": 0.35,
-  "test_confusion": {
-    "tp": 30,
-    "tn": 0,
-    "fp": 2,
-    "fn": 0
-  },
-  "regression_metrics": {
-    "mae": 2.617813,
-    "mse": 10.088059,
-    "rmse": 3.176171,
-    "r2": 0.199956
-  },
-  "classification_metrics": {
-    "precision": 0.9375,
-    "recall": 1.0,
-    "specificity": 0.0,
-    "f1": 0.967742
-  },
+  "multiple_coefficients": [
+    70.32834843,
+    0.15732159,
+    0.40321072,
+    1.54898729,
+    3.03836723,
+    -0.54308989
+  ],
+  "score_formula": "-0.5 + 0.22*(temperatura-16) - 0.18*lluvia + 0.9*partido + 0.7*encargo + 0.35*(inventario-23)",
+  "allowed_predictors": [
+    "dia_semana",
+    "temperatura_c",
+    "lluvia_mm",
+    "partido_cerca",
+    "quincena",
+    "encargo_programado",
+    "inventario_carne_kg",
+    "ayudantes_programados",
+    "asientos_disponibles"
+  ],
+  "blocked_leakage": [
+    "tacos_vendidos",
+    "espera_mediana_min",
+    "merma_kg"
+  ],
+  "fit_scope": "descriptivo_en_muestra",
   "data_state": [
-    "L5.6",
-    "particiones@L6.1",
-    "error_regresion@L6.2",
-    "matriz_confusion@L6.3",
-    "metricas@L6.4",
-    "curvas@L6.5",
-    "generalizacion@L6.6"
+    "dataset_confiable@L5.H1",
+    "noches_modelado@L6.1",
+    "regresion_simple@L6.2",
+    "regresion_multiple@L6.3",
+    "clasificacion@L6.4",
+    "arbol_reglas@L6.5",
+    "matriz_modelado_sin_leakage@L6.6"
   ],
   "label": "Dataset sintético narrativo; no representa personas reales",
   "files": [
     {
-      "path": "datasets/narrative/noches_evaluacion_nivel_6.csv",
-      "rows": 96,
-      "columns": 19,
-      "sha256": "218812d6772106ab897dc4c1d28cecf2065e5c0d226d1386cb10b680beb15b55"
+      "path": "datasets/narrative/noches_modelado_nivel_6.csv",
+      "rows": 64,
+      "columns": 16,
+      "sha256": "82189fa1b29f1461829536cdcfeae49c50bbc2a969c9656aa1f9bf77c9268204"
     }
   ]
 }

@@ -1,0 +1,132 @@
+{
+  "level": 9,
+  "title": "Datos temporales y experimentación",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 14,
+  "exercise_count": 28,
+  "prompt_count": 42,
+  "blocks": [
+    {
+      "id": "time-series",
+      "number": 1,
+      "title": "Series de tiempo",
+      "href": "series-tiempo.html",
+      "concept_count": 4
+    },
+    {
+      "id": "temporal-validation",
+      "number": 2,
+      "title": "Validación temporal",
+      "href": "validacion-temporal.html",
+      "concept_count": 3
+    },
+    {
+      "id": "ab-testing",
+      "number": 3,
+      "title": "A/B testing",
+      "href": "ab-testing.html",
+      "concept_count": 4
+    },
+    {
+      "id": "experimentation",
+      "number": 4,
+      "title": "Experimentación",
+      "href": "experimentacion.html",
+      "concept_count": 3
+    }
+  ],
+  "datasets": [
+    "bike-sharing-day",
+    "plant-growth"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_9.md",
+  "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-9-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
+  "narrativeDataset": {
+    "id": "tiempo-experimento-nivel-9",
+    "synthetic": true,
+    "generator": "level9-temporal-experiment-v1",
+    "seed": 20270826,
+    "experiment_seed": 20271103,
+    "period": {
+      "start": "2027-08-26",
+      "end": "2028-01-23",
+      "nights": 100
+    },
+    "dimensions": {
+      "nights": [
+        100,
+        18
+      ],
+      "assignments": [
+        400,
+        10
+      ]
+    },
+    "phases": {
+      "base_nights": 40,
+      "pilot_nights": 60
+    },
+    "time_policy": "cada entrenamiento termina antes de su horizonte; ninguna agregación usa futuro",
+    "experiment": {
+      "unit": "prepedido elegible",
+      "assignment": {
+        "A": 200,
+        "B": 200
+      },
+      "primary_metric": "tasa de prepedidos completados",
+      "rate_a": 0.61,
+      "rate_b": 0.8,
+      "effect_b_minus_a": 0.19,
+      "standard_error": 0.044604,
+      "interval_95": [
+        0.102577,
+        0.277423
+      ],
+      "minimum_practical_effect": 0.05,
+      "guardrails": {
+        "wait_delta_minutes": 0.4725,
+        "cancel_delta": -0.02,
+        "max_wait_delta": 1.5,
+        "max_cancel_delta": 0.02
+      }
+    },
+    "growth": {
+      "from": "G5-servicios",
+      "to": "G6-prepedido",
+      "condition": "efecto práctico e intervalo por encima de 0.05; guardrails de espera y cancelación cumplidos"
+    },
+    "data_state": [
+      "L8.3",
+      "serie_nocturna@L9.1",
+      "backtesting@L9.2",
+      "experimento_prepedido@L9.3",
+      "decision_experimental@L9.4"
+    ],
+    "label": "Datasets sintéticos narrativos; no representan personas reales",
+    "files": [
+      {
+        "path": "datasets/narrative/noches_temporales_nivel_9.csv",
+        "rows": 100,
+        "columns": 18,
+        "sha256": "78dfba77a2c0a91d02a06d865b6b9962e97ec722453fe5c866ec598fa2f43c64"
+      },
+      {
+        "path": "datasets/narrative/prepedidos_experimento_nivel_9.csv",
+        "rows": 400,
+        "columns": 10,
+        "sha256": "e23abf6a4d161a4f2842b54bc2ea6cc4c73679d7537987f89bb3a71f7dd17fa4"
+      }
+    ],
+    "metadataPath": "datasets/narrative/nivel_9.metadata.json",
+    "metadataSha256": "3f82d0c76755c785a8e6e84852dfa8189f0d2f4539d39a9d47f89cd855d55d66"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-03"
+}

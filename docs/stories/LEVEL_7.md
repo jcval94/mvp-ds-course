@@ -1,4 +1,4 @@
-# Historia Nivel 7: Patrones que todavía son preguntas
+# Historia Nivel 7: Abrir el sobre una sola vez
 
 ## Control
 
@@ -6,33 +6,43 @@
 - **ID:** `don-juan-paco-level-7-v1`.
 - **Fuente curricular:** `docs/CURRICULUM_MAP.md`, Nivel 7.
 - **Arco:** `docs/LEVEL_7_NARRATIVE_ARC.md`.
-- **Entrada/salida:** `L6.6 / G4-kiosco → L7.3 / G5-servicios`.
+- **Entrada/salida:** `L6.6 / G4-kiosco → L7.6 / G4-kiosco`.
 
-Una observación es una noche, nunca una persona. El narrador introduce conceptos; Don Juan pregunta por operación; Paco ejecuta procedimientos; Mari aporta autoridad de preparación y revela por decisión propia una meta que no aparece en datos.
+El narrador concentra términos y conclusiones. Don Juan habla de compras, merma, faltantes y capacidad. Paco conserva voz de hijo y estudiante. Aprender y Ejercitar usan noches, evidencia y decisiones diferentes.
 
 ## Temario y escenas aprobadas
 
 | Escena | Concepto | Aprender | Don Juan | Paco | Subtítulo inicial | Subtítulo de evidencia | Ejercitar distinto |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `L7-S01` | distancia | Estandarizar cinco variables | “No revuelvas kilos y minutos así nomás.” | “Documento escala y columnas.” | La distancia depende de variables y escala. | Cercanía no descubre tipos naturales. | Otra escala cambia los vecinos. |
-| `L7-S02` | k-means | Alternar asignación y centros | “A ver cómo se acomodan esos montones.” | “Repito la misma regla.” | K-means alterna asignar y recalcular. | Los grupos son hipótesis exploratorias. | Otra inicialización mueve la solución. |
-| `L7-S03` | centroides | Mover promedios multivariables | “Ese centro no es una noche real, ¿cierto?” | “Es promedio de varias columnas.” | Un centroide es el promedio del grupo. | Puede no corresponder a una observación real. | Otro miembro desplaza el centro. |
-| `L7-S04` | número de grupos | Comparar k=2 a k=5 | “No quiero veinte nombres nomás porque caben.” | “Comparo mejora y utilidad.” | La inercia siempre baja al aumentar k. | Se conserva k=3 como hipótesis revisable. | Otro equipo prefiere k=2 por capacidad. |
-| `L7-S05` | PCA | Proyectar cinco cuentas en dos ejes | “Hazlo corto, pero dime qué dejas fuera.” | “Anoto la varianza conservada.” | PCA crea componentes ortogonales. | La proyección pierde parte de la variación. | Otra proyección conserva tres ejes. |
-| `L7-S06` | componentes | Leer cargas y signos | “No le pongas un nombre que no se ganó.” | “Leo cada carga.” | Una componente combina variables originales. | No es una causa ni una variable original. | Otro eje invierte signos. |
-| `L7-S07` | varianza explicada | Leer scree y acumulado | “Dime cuánto dejas fuera.” | “Sumo proporciones.” | Varianza explicada mide dispersión capturada. | No mide utilidad de negocio. | Otro corte conserva 80%. |
-| `L7-S08` | rareza | Comparar vecindades | “Lejos no quiere decir malo.” | “Lo mando a revisar con contexto.” | Rareza depende de referencia y escala. | No implica error, fraude ni intención. | Otra noche rara resulta válida. |
-| `L7-S09` | aislamiento | Recorrer particiones | “Revísala, pero no la acuses.” | “Guardo la ruta.” | Rutas cortas sugieren aislamiento. | El score solo prioriza revisión. | Otra semilla cambia una ruta. |
-| `L7-S10` | umbral de anomalía | Seleccionar cuatro revisiones | “Pon primero las más raras y luego vemos.” | “Conservo todas las filas.” | El umbral responde a capacidad de revisión. | No borra ni condena observaciones. | Otra capacidad mueve el corte. |
-
-## Revelación de Mari y crecimiento
-
-Durante `L7-S04`, Mari dice: “Yo quiero recuperar el puesto de aguas frescas de mi familia; este piloto me sirve si seguimos cuidando tiempos y carga.” La frase es voluntaria, no una deducción de clusters. Don Juan acuerda un piloto reversible de máximo dos reuniones por semana y asigna personal pagado; Paco solo documenta.
+| `L7-S01` | train | Separar 48 noches para ajustar | “Estas sí son para preparar la regla.” | “Las marco antes de calcular.” | Train es la partición usada para estimar parámetros. | Ajustar en train no estima desempeño futuro. | Otra partición detecta una fila duplicada. |
+| `L7-S02` | validation | Comparar cinco umbrales | “Prueba la opción sin abrir el sobre final.” | “Elijo aquí y dejo registro.” | Validation compara alternativas fuera de train. | El umbral se congela por costo antes de test. | Otra regla compara regularización. |
+| `L7-S03` | test | Sellar 32 noches futuras | “Ese no se abre para ir corrigiendo.” | “Primero congelo el procedimiento.” | Test no participa en ajuste ni selección. | Abrirlo repetidamente sesga la estimación. | Un sobre abierto obliga a invalidar la prueba. |
+| `L7-S04` | cross-validation | Rotar cuatro folds de desarrollo | “Que todos trabajen, pero sin tocar el sobre.” | “Cada fold valida una vez.” | Cross-validation rota ajuste y validación. | Los folds usan solo las primeras 64 noches. | Otra rotación descubre variación del ajuste. |
+| `L7-S05` | MAE | Promediar errores absolutos | “Dímelo en pedidos.” | “Tomo distancia y promedio.” | MAE conserva unidades de pedidos. | Resume desvío típico sin cuadrar. | Otro lote cambia el error mediano. |
+| `L7-S06` | MSE | Cuadrar cada error | “Ese tropiezo grande no vale igual.” | “Al cuadrarlo gana peso.” | MSE promedia errores al cuadrado. | Penaliza errores grandes y pierde unidad original. | Un error extremo cambia la comparación. |
+| `L7-S07` | RMSE | Sacar raíz al MSE | “Ahora sí háblame otra vez en pedidos.” | “Saco la raíz al final.” | RMSE vuelve a la unidad del resultado. | Conserva sensibilidad cuadrática. | Otra escala evita confundir pedidos². |
+| `L7-S08` | R² | Comparar contra el promedio | “Si no mejora esa cuenta sencilla, dime.” | “Comparo ambos errores.” | R² usa una línea base explícita. | No es porcentaje de aciertos. | Otro test produce R² negativo. |
+| `L7-S09` | TP | Resaltar aciertos de alerta | “Hubo carga y sí nos preparamos.” | “Marco la celda y su conteo.” | TP combina realidad alta y alerta. | Es un acierto bajo una clase congelada. | Otra noche cambia de celda por la realidad. |
+| `L7-S10` | TN | Resaltar aciertos de no alerta | “No hizo falta preparar de más.” | “Conservo las noches normales.” | TN combina realidad normal y no alerta. | Evita intervención innecesaria. | Otro conjunto cambia el denominador. |
+| `L7-S11` | FP | Convertir falsa alerta en merma | “Nos preparamos de más y sobró.” | “Uso el costo por kilo acordado.” | FP es alerta con demanda normal. | El costo usa merma extra × 110 MXN/kg. | Otra merma recalcula el costo. |
+| `L7-S12` | FN | Convertir omisión en faltantes | “Llegó la carga y nos faltó preparación.” | “Uso margen documentado.” | FN es demanda alta sin alerta. | El costo usa pedidos no atendidos × 22 MXN. | Otra omisión cambia pedidos perdidos. |
+| `L7-S13` | precision | Usar todas las alertas como denominador | “De lo que avisó, ¿cuánto sí pasó?” | “Uso TP más FP.” | Precision evalúa confiabilidad de alertas. | No mide cobertura de noches altas. | Otra prevalencia cambia precision. |
+| `L7-S14` | recall | Usar noches altas como denominador | “¿Cuántas vimos venir?” | “Uso TP más FN.” | Recall evalúa cobertura positiva. | Cambia al mover el umbral. | Otro costo prioriza recall. |
+| `L7-S15` | specificity | Usar noches normales como denominador | “¿Cuántas tranquilas dejamos tranquilas?” | “Uso TN más FP.” | Specificity evalúa reconocimiento negativo. | No sustituye recall. | Otro escenario prioriza evitar merma. |
+| `L7-S16` | F1 | Combinar precision y recall | “No me tapes un lado con el otro.” | “La media armónica baja si uno falla.” | F1 equilibra dos métricas. | No incorpora pesos monetarios. | Otra regla empata F1 con costos distintos. |
+| `L7-S17` | ROC | Recorrer TPR y FPR | “Muéstrame qué ganamos y qué falsas alarmas salen.” | “Cada punto usa el mismo conjunto.” | ROC recorre umbrales en tasas. | Puede ocultar baja precision en clases raras. | Otra prevalencia conserva ROC y cambia PR. |
+| `L7-S18` | PR | Recorrer precision y recall | “Mira también cuántos avisos fallan.” | “Conservo la prevalencia.” | PR muestra el compromiso positivo. | Es informativa cuando la clase positiva es escasa. | Otro corte cambia ambos ejes. |
+| `L7-S19` | threshold | Minimizar costo en validation | “No elijas por bonito.” | “Congelo el mínimo antes del test.” | El umbral conecta score y costo. | Se elige en validation, no en test. | Otra razón de costos elige otro corte. |
+| `L7-S20` | calibration | Comparar score y frecuencia | “Si dice siete, revisa cuántas pasan.” | “Agrupo sin prometer una noche.” | Calibración compara probabilidad y frecuencia. | No garantiza casos individuales. | Otra banda queda sobreconfiada. |
+| `L7-S21` | bias | Ver error sistemático | “Siempre se queda corta en esas noches.” | “Busco el patrón.” | Bias alto refleja supuestos restrictivos. | No autoriza agregar cualquier variable. | Otro modelo falla por curvatura. |
+| `L7-S22` | variance | Comparar ajustes entre folds | “¿Se mueve poquito o se desarma?” | “Repito el mismo procedimiento.” | Variance mide sensibilidad a la muestra. | No es variación de cada pedido. | Otro fold mueve el ajuste. |
+| `L7-S23` | overfitting | Ver brecha train-validation | “En su montón queda perfecto, afuera no.” | “Eso parece memoria.” | Overfitting no se sostiene fuera de train. | Test no elige el punto de parada. | Otro modelo complejo amplía la brecha. |
+| `L7-S24` | regularization | Elegir penalización en validation | “Aprieta la regla, pero no hasta dejarla inútil.” | “Guardo la fuerza elegida.” | Regularización limita complejidad. | Su fuerza se congela antes de test. | Otra penalización cambia bias y variance. |
 
 ## Deltas y cierre
 
-- **`continuityDelta`:** Mari revela su meta; los demás respetan su autoridad y autonomía.
-- **`dataStateDelta`:** `L6.6 → segmentos@L7.1 → componentes@L7.2 → anomalias@L7.3`.
-- **`growthDelta`:** `G4-kiosco → G5-servicios`, sin nuevo local, asientos ni trabajo familiar automático.
-- **Cierre:** **“¿Cómo cambia esto con el tiempo?”**
+- **`continuityDelta`:** Don Juan incorpora costos explícitos; Paco aprende a separar selección y evaluación.
+- **`dataStateDelta`:** `L6.6 → L7.1 → L7.2 → L7.3 → L7.4 → L7.5 → L7.6`.
+- **`growthDelta`:** ninguno; `G4-kiosco` permanece congelado.
+- **Cierre:** **“¿Hay patrones que no etiquetamos?”**
 

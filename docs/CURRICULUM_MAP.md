@@ -16,6 +16,22 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 - Mantener un objetivo principal de ciencia de datos por episodio y, como
   máximo, una competencia auxiliar de trabajo con agentes.
 
+La progresión canónica es:
+
+```text
+leer datos → describirlos → razonar con incertidumbre → estudiar relaciones
+→ construir datasets confiables → modelar → evaluar
+→ explorar estructura no supervisada → respetar tiempo y experimentación
+→ analizar responsablemente → convertir análisis y modelos en productos
+→ operar y monitorear esos productos
+```
+
+## Estado estructural de la ruta
+
+| Nivel | Temario | Historia | Nivel educativo | Cobertura cuantificada |
+| --- | --- | --- | --- | --- |
+| 1–12 | canónico | aprobada | publicado | incluida en los totales publicados |
+
 ## Nivel 1: Fundamentos
 
 | Bloque | Conceptos | Resultado esperado |
@@ -53,7 +69,30 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | Variables de confusión | causalidad, confusores, sesgo de agregación | Proponer explicaciones alternativas a una relación. |
 | Tablas cruzadas | proporciones, riesgo relativo, odds | Comparar variables categóricas con denominadores correctos. |
 
-## Nivel 5: Modelado supervisado
+## Nivel 5: Sistemas de Datos Modernos y SQL
+
+- **Estado del temario:** canónico.
+- **Estado de la historia:** aprobada para implementación en `docs/stories/LEVEL_5.md`.
+- **Estado del nivel educativo:** publicado; 19 ConceptSpecs, 19 módulos Aprender, 38 ejercicios y 19 paquetes docentes validados.
+- **Propósito:** construir fuentes relacionadas y datasets de análisis confiables antes de modelar.
+- **Prerrequisitos:** unidad de análisis, tipos y calidad de datos de Nivel 1; descripción de Nivel 2; denominadores y relaciones entre variables de Nivel 4.
+- **Resultado esperado:** construir y validar con SQL un dataset analítico a partir de tablas relacionadas, preservando esquema, claves, granularidad, cardinalidad y procedencia, sin duplicar ni perder unidades de análisis.
+- **Posición:** recibe `L4.4 / G3-espera` y produce el handoff validado `dataset_confiable@L5.H1` para Nivel 6.
+
+| Orden | Bloque | Conceptos definitivos | Resultado observable |
+| ---: | --- | --- | --- |
+| 1 | Arquitectura invisible de los datos | unidad y granularidad; esquema y claves | Identificar entidad, evento, snapshot, tipos, llave primaria/foránea y cardinalidad; explicar qué representa cada fila. |
+| 2 | SQL para hacer preguntas | consulta orientada a pregunta; agregación y grupos | Traducir pregunta → `SELECT/WHERE/CASE` o `GROUP BY/HAVING` → cambio de tabla → interpretación, sin memorizar sintaxis aislada. |
+| 3 | Relaciones y JOINs | semántica de JOIN y anti-join; cardinalidad de JOIN; explosión de filas | Elegir `INNER`, `LEFT` o anti-join, anticipar uno-a-uno/uno-a-muchos/muchos-a-muchos y reconciliar conteos antes de interpretar. |
+| 4 | SQL analítico y tiempo | CTE trazable; funciones de ventana; rezagos y fecha de corte | Encadenar transformaciones, usar `PARTITION BY/ROW_NUMBER/RANK` y calcular `LAG/LEAD` sin cruzar el corte temporal. |
+| 5 | Construcción de la tabla analítica | población y ventanas; ABT temporal; deduplicación por entidad | Construir una ABT con población, fecha de observación, ventanas de features/target, última observación válida y agregaciones sin leakage. |
+| 6 | Fuentes y formatos modernos | CSV frente a Parquet; API paginada; DuckDB y Polars | Elegir formato y herramienta según forma, escala y lectura; ingerir páginas con retry y límites explícitos sin prometer benchmarks universales. |
+| 7 | Calidad, contratos y procedencia | contrato y esquema; integridad de datos; linaje y snapshot | Validar nullabilidad, rango, unicidad e integridad referencial; registrar fuente, transformación, versión, licencia y SHA-256. |
+
+**No objetivos:** administración de servidores, tuning profundo, índices avanzados,
+Spark/cloud empresarial, certificación SQL o catálogo exhaustivo de comandos.
+
+## Nivel 6: Modelado supervisado
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
@@ -63,7 +102,7 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | Modelos interpretables | árbol de decisión, reglas, importancia | Seguir una decisión y detectar sobreajuste. |
 | Preparación de variables | encoding, escalado, leakage | Preparar datos sin filtrar información del futuro. |
 
-## Nivel 6: Evaluación de modelos
+## Nivel 7: Evaluación de modelos
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
@@ -74,7 +113,7 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | Curvas y calibración | ROC, PR, threshold, calibration | Ajustar umbral y revisar confiabilidad del score. |
 | Generalización | bias, variance, overfitting, regularización | Reconocer cuándo un modelo memoriza. |
 
-## Nivel 7: Aprendizaje no supervisado
+## Nivel 8: Aprendizaje no supervisado
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
@@ -82,7 +121,7 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | Reducción dimensional | PCA, componentes, varianza explicada | Visualizar estructura sin confundir componentes con variables originales. |
 | Detección de anomalías | rareza, aislamiento, umbral | Priorizar casos para revisión, no declarar fraude automáticamente. |
 
-## Nivel 8: Datos temporales y experimentación
+## Nivel 9: Datos temporales y experimentación
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
@@ -91,7 +130,7 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | A/B testing | asignación aleatoria, métrica, tamaño de muestra, efecto | Diseñar y leer una comparación controlada. |
 | Experimentación | guardrails, múltiples pruebas, efecto práctico | Separar significancia estadística de relevancia operativa. |
 
-## Nivel 9: Análisis responsable y reproducible
+## Nivel 10: Análisis responsable y reproducible
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
@@ -100,11 +139,36 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
 | Reproducibilidad | semillas, versiones, diccionario de datos, notebook limpio | Permitir que otra persona repita el análisis. |
 | Mini-proyecto | pregunta, datos, análisis, evaluación, comunicación | Integrar el flujo completo con una decisión verificable. |
 
-## Nivel 10: Operación y monitoreo responsable
+## Nivel 11: Ingeniería de Productos de Datos
+
+- **Estado del temario:** canónico.
+- **Estado de la historia:** aprobada para implementación en `docs/stories/LEVEL_11.md`.
+- **Estado del nivel educativo:** publicado; 21 ConceptSpecs, 21 módulos Aprender, 42 ejercicios y 21 paquetes docentes validados.
+- **Propósito:** convertir un análisis o modelo validado en un producto de datos versionado, comprobable y entregable antes de operarlo.
+- **Prerrequisitos:** datasets confiables de Nivel 5; modelado y evaluación de Niveles 6–7; reproducibilidad, privacidad y comunicación de Nivel 10.
+- **Resultado esperado:** especificar y construir un incremento de producto de datos con contrato de entrada/salida, criterios de aceptación, código revisable, tests ejecutables y artefactos reproducibles para handoff.
+- **Posición:** recibe `L10.4 / G7-local` y produce el handoff validado `producto_operable@L11.H1` para Nivel 12.
+
+| Orden | Bloque | Conceptos definitivos | Resultado observable |
+| ---: | --- | --- | --- |
+| 1 | Del notebook al proyecto | notebook frente a producción; ejecución reproducible; estructura y responsabilidades | Detectar estado oculto y convertir una secuencia frágil en un proyecto ejecutable desde cero. |
+| 2 | Código modular y contratos | funciones y módulos; contrato de entrada/salida; configuración y secretos | Separar transformación, inferencia y respuesta; validar schemas y sacar configuración/secretos del código. |
+| 3 | Testing para datos y ML | unit e integration tests; regression/golden/failure cases; fixtures y tests de schema | Distinguir “corre” de “conserva el comportamiento correcto” y probar límites reales. |
+| 4 | APIs y contratos de servicio | request/response; errores y versionado; FastAPI y health check | Diseñar una frontera validada con respuestas 2xx/4xx/5xx controladas y health check mínimo. |
+| 5 | Empaquetado y entornos | dependencias y lockfile; imagen y contenedor; runtime y artefacto | Distinguir código, entorno, imagen, contenedor y despliegue; producir un artefacto reproducible. |
+| 6 | Integración y entrega continua | pipeline CI; test/build gate y secrets; CI frente a CD | Detener una entrega ante lint/tests/build fallidos y separar integración de despliegue autorizado. |
+| 7 | Despliegue y operabilidad mínima | servicio y configuración por entorno; logs y fallos de arranque; handoff versionado | Desplegar una implementación de referencia con logs, health check, versión y candidato de rollback, sin adelantar monitoreo profundo. |
+
+**Implementación de referencia:** FastAPI, Docker, GitHub Actions y un despliegue
+conceptual principal en Cloud Run. Los conceptos sobreviven al cambio de proveedor.
+**No objetivos:** Kubernetes, Terraform, service mesh, microservicios empresariales,
+Linux profundo, certificación cloud, frontend avanzado o DevOps general.
+
+## Nivel 12: Operación y monitoreo responsable
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
-| Preparación de despliegue | criterio de aceptación, baseline, rollback, aprobación humana | Autorizar únicamente un procedimiento medible y reversible. |
+| Readiness operativo | readiness, baseline, ensayo de rollback, aprobación humana | Autorizar o detener la operación de un producto ya construido mediante evidencia, referencia, reversibilidad y autoridad. |
 | Monitoreo | data drift, performance drift, calibration drift, umbral de alerta | Detectar cambios sin convertir cada variación en incidente. |
 | Respuesta a incidentes | triage, impacto, rollback operativo, postmortem | Contener daño, preservar evidencia y corregir la causa raíz. |
 | Handoff responsable | model card, runbook, audit log, retiro | Entregar, operar y retirar un sistema de forma trazable. |
@@ -120,32 +184,28 @@ bloque de ciencia de datos.
 | 2 | Parámetros, entradas, salidas y operaciones compatibles | Ajusta un parámetro y explica qué operación y salida siguen siendo válidas. |
 | 3 | Incertidumbre, supuestos y validación de respuestas | Señala qué no se sabe y contrasta una respuesta del agente con evidencia. |
 | 4 | Contexto, asociación frente a causalidad | Escribe contexto suficiente y rechaza una explicación causal no sustentada. |
-| 5 | Pipelines, preparación y prevención de leakage | Ordena pasos y evita introducir información futura o del objetivo. |
-| 6 | Evals, casos de prueba y costos de error | Define aceptación y prueba fallos conectados con consecuencias del dominio. |
-| 7 | Revisión humana de segmentos y anomalías | Usa la salida como priorización y documenta la revisión humana. |
-| 8 | Versionado temporal y experimentos reproducibles | Fija corte temporal, versión, tratamiento y criterio de decisión. |
-| 9 | Procedencia, privacidad, auditoría y transferencia de skills | Entrega artefactos rastreables que otra persona puede ejecutar y revisar. |
-| 10 | Operación, monitoreo, incidentes y retiro | Define gates, alertas, rollback y responsabilidades que otra persona puede ejecutar. |
+| 5 | Esquemas, relaciones y validación de SQL asistido | Inspecciona esquemas y relaciones; verifica granularidad y procedencia; valida queries generadas por agentes y detecta JOINs que duplican o pierden unidades. |
+| 6 | Pipelines, preparación y prevención de leakage | Ordena pasos y evita introducir información futura o del objetivo. |
+| 7 | Evals, casos de prueba y costos de error | Define aceptación y prueba fallos conectados con consecuencias del dominio. |
+| 8 | Revisión humana de segmentos y anomalías | Usa la salida como priorización y documenta la revisión humana. |
+| 9 | Versionado temporal y experimentos reproducibles | Fija corte temporal, versión, tratamiento y criterio de decisión. |
+| 10 | Procedencia, privacidad, auditoría y transferencia de skills | Entrega artefactos rastreables que otra persona puede ejecutar y revisar. |
+| 11 | Especificación y revisión de código asistido | Escribe contratos y criterios de aceptación para agentes de código, revisa diffs, ejecuta tests y rechaza implementaciones que incumplen el contrato. |
+| 12 | Operación, monitoreo, incidentes y retiro | Define gates, alertas, rollback y responsabilidades que otra persona puede ejecutar. |
 
 ## Prioridades de producción
 
 ### Publicado
 
-1. Nivel 1 completo: 18 conceptos y 18 ejercicios.
-2. Nivel 2 completo: 21 conceptos y 42 ejercicios.
-3. Nivel 3 completo: 19 conceptos y 38 ejercicios.
-4. Nivel 4 completo: 15 conceptos y 30 ejercicios.
-5. Nivel 5 completo: 18 conceptos y 36 ejercicios.
+Los doce niveles tienen contenido completo y publicado: 212 conceptos, 406
+ejercicios, 636 prompts y 57 bloques. Los totales resultan de sumar a la base
+histórica 40 conceptos implementados, dos ejercicios y tres prompts por concepto,
+y catorce bloques nuevos.
 
 ### Próxima vertical slice
 
-Nivel 6 completo: partir de los modelos descriptivos de `L5.6`, definir costos de
-error, separar train/validation/test y evaluar sin reutilizar indebidamente el test.
-
-### Roadmap
-
-Evaluación, reducción dimensional, series de tiempo, experimentación, ética,
-comunicación y mini-proyectos.
+Revisar con docentes el handoff `dataset_confiable@L5.H1 → Nivel 6` en una clase
+piloto y registrar únicamente ajustes de comprensión; la ruta estructural queda cerrada.
 
 ## Contrato por concepto
 
@@ -169,7 +229,7 @@ Cada concepto incorporado debe declarar:
 - estado canónico del dataset antes y después del episodio;
 - `continuityDelta` verificable sin adelantar conocimiento.
 
-Cada nivel debe declarar `level-shell-v1`. Para Niveles 6–9 las familias base
+Cada nivel implementado debe declarar `level-shell-v1`. Para Niveles 7–10 las familias base
 son, respectivamente: evaluación y curvas de error; clusters y reducción;
 series/experimentos; fairness, procedencia, privacidad y auditoría. La familia
 orienta la selección, pero el mecanismo de cada concepto determina el `kind`.
@@ -188,6 +248,8 @@ Los demos de histograma inspiran la profundidad, no la forma exacta. Un concepto
 
 ## Cobertura publicada
 
-- **Niveles aprobados:** 1–10.
-- **Total:** 172 conceptos, 326 ejercicios y 516 prompts en 43 bloques.
-- **Cierre:** Nivel 10 termina con operación, monitoreo, respuesta a incidentes y retiro responsable.
+- **Niveles estructuralmente aprobados:** 1–12.
+- **Niveles con contenido completo y publicado:** 1–12 (12 niveles).
+- **Niveles pendientes de producción:** ninguno.
+- **Total publicado:** 212 conceptos, 406 ejercicios y 636 prompts en 57 bloques.
+- **Cierre:** Nivel 12 termina con operación, monitoreo, respuesta a incidentes y retiro responsable.

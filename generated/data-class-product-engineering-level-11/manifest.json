@@ -1,0 +1,111 @@
+{
+  "level": 11,
+  "title": "Ingeniería de Productos de Datos",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 21,
+  "exercise_count": 42,
+  "prompt_count": 63,
+  "blocks": [
+    {
+      "id": "notebook-project",
+      "number": 1,
+      "title": "Del notebook al proyecto",
+      "href": "notebook-proyecto.html",
+      "concept_count": 3
+    },
+    {
+      "id": "code-contracts",
+      "number": 2,
+      "title": "Código modular y contratos",
+      "href": "codigo-contratos.html",
+      "concept_count": 3
+    },
+    {
+      "id": "testing",
+      "number": 3,
+      "title": "Testing para datos y ML",
+      "href": "testing.html",
+      "concept_count": 3
+    },
+    {
+      "id": "service-contracts",
+      "number": 4,
+      "title": "APIs y contratos de servicio",
+      "href": "apis-servicio.html",
+      "concept_count": 3
+    },
+    {
+      "id": "packaging",
+      "number": 5,
+      "title": "Empaquetado y entornos",
+      "href": "empaquetado.html",
+      "concept_count": 3
+    },
+    {
+      "id": "continuous-delivery",
+      "number": 6,
+      "title": "Integración y entrega continua",
+      "href": "integracion-entrega.html",
+      "concept_count": 3
+    },
+    {
+      "id": "minimal-operations",
+      "number": 7,
+      "title": "Despliegue y operabilidad mínima",
+      "href": "operabilidad-minima.html",
+      "concept_count": 3
+    }
+  ],
+  "datasets": [
+    "wine-quality"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_11.md",
+  "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-11-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
+  "narrativeDataset": {
+    "id": "producto-operable-nivel-11-v1",
+    "synthetic": true,
+    "generator": "level11-full-v1",
+    "period": {
+      "start": "2028-01-18",
+      "end": "2028-01-21"
+    },
+    "dimensions": [
+      21,
+      7
+    ],
+    "unit": "un criterio verificable del producto",
+    "artifact": "examples/level11_pipeline_slice",
+    "privacy": {
+      "personal_identifiers": false,
+      "real_secrets": false
+    },
+    "growth": {
+      "from": "G7-local",
+      "to": "G7-local"
+    },
+    "data_state": [
+      "L10.4",
+      "producto_operable@L11.H1"
+    ],
+    "label": "Fixture sintética de aceptación; no contiene secretos ni despliegues reales",
+    "files": [
+      {
+        "path": "datasets/narrative/controles_producto_nivel_11.csv",
+        "rows": 21,
+        "columns": 7,
+        "sha256": "d6b9c97f109183f98a4a2989c7c85d83610c0b9be300c67217876d969603a08a"
+      }
+    ],
+    "metadataPath": "datasets/narrative/nivel_11.metadata.json",
+    "metadataSha256": "4df87a1393c6a0f4029d883b7c544a18a1c85221000f7937b302cedce26ebc5e"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-04"
+}

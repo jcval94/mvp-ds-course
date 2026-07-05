@@ -10,6 +10,11 @@ temario predeterminado -> historia independiente -> nivel educativo -> validaci�
 La historia no se improvisa dentro del HTML. Se escribe, revisa y aprueba antes
 de convertirla en módulos, ejercicios o interfaces.
 
+La ruta actual tiene doce posiciones curriculares, todas con temario canónico,
+historia aprobada y nivel educativo publicado. Nivel 5 produce el dataset
+confiable antes del modelado; Nivel 11 produce el producto operable antes de
+operación y monitoreo. Los doce manifests deben pasar el mismo gate.
+
 ## Fuentes de verdad
 
 | Decisión | Fuente canónica | Qué no debe decidirla |
@@ -169,7 +174,7 @@ no se disimula cambiando solamente el HTML.
 ## No objetivos
 
 - convertir la historia en la fuente del currículo;
-- escribir nueve niveles en una sola ejecución;
+- escribir doce niveles en una sola ejecución;
 - crear un LMS o backend;
 - usar personajes para reemplazar precisión técnica;
 - publicar una implementación cuya historia aún esté en borrador.

@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "average": 5.0,
+  "minimum_dimension": 5,
+  "blockers": [],
+  "checks": {
+    "scope": 5,
+    "curriculum": 5,
+    "narrative": 5,
+    "pedagogy": 5,
+    "technical": 5,
+    "visual": 5,
+    "reproducibility": 5
+  },
+  "browser_qa_required": true,
+  "evidence": {
+    "story": "docs/stories/LEVEL_5.md",
+    "scenes": 19,
+    "exercises_locked": 38,
+    "visualization_specs": 19,
+    "renderer_registry": "educational-svg-v1",
+    "experience_contract": "level-shell-v1",
+    "narrative_files": [
+      {
+        "path": "datasets/narrative/controles_dataset_nivel_5.csv",
+        "rows": 19,
+        "columns": 7,
+        "sha256": "11b53df55a255c260f1129b7f53311f7775dbbc98278a9eb565c4803c8cc1f34"
+      }
+    ],
+    "browser_qa": "scripts/qa_pages.py"
+  }
+}

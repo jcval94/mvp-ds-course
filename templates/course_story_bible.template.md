@@ -43,7 +43,7 @@
 | --- | --- | --- | --- | --- |
 | [nivel] | [estado] | [roles] | [rango] | [condición o sin cambio] |
 
-## Arco de nueve niveles
+## Arco de doce niveles
 
 | Nivel | Cambio del negocio o proyecto | Aprendizaje de datos | Competencia de agentes | Puente |
 | --- | --- | --- | --- | --- |

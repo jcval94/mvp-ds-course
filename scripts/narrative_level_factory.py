@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared deterministic factory for continuous narrative levels 3–10."""
+"""Shared deterministic factory for published continuous levels 3–12."""
 
 from __future__ import annotations
 
@@ -15,6 +15,18 @@ ASSETS = ROOT / "scripts" / "assets"
 
 
 VISUALIZATION_MATRIX = {
+    5: {
+        "grain": "grain-level-shift", "schema-keys": "schema-key-map",
+        "question-query": "query-operation-flow", "aggregation-groups": "groupby-grain-change",
+        "join-semantics": "join-survival-map", "join-cardinality": "join-cardinality-map",
+        "join-row-explosion": "join-row-explosion", "traceable-cte": "cte-count-lineage",
+        "window-functions": "window-partition-order", "lag-cutoff": "sql-lag-cutoff",
+        "population-windows": "abt-population-windows", "temporal-abt": "abt-builder",
+        "entity-deduplication": "dedup-last-valid", "csv-parquet": "row-columnar-read",
+        "paginated-api": "api-pagination-flow", "duckdb-polars": "local-engine-choice",
+        "data-contract": "data-contract-gate", "data-integrity": "data-integrity-checks",
+        "dataset-lineage": "dataset-lineage-map",
+    },
     3: {
         "event": "unit-set", "complement": "complement-partition", "independence": "probability-matrix",
         "conditional-probability": "nested-denominator", "bernoulli": "bernoulli-strip", "binomial": "binomial-pmf",
@@ -31,7 +43,7 @@ VISUALIZATION_MATRIX = {
         "causality": "causal-dag", "confounders": "confounder-strata", "aggregation-bias": "aggregation-reversal",
         "proportions": "proportions-2x2", "relative-risk": "risk-ratio", "odds": "odds-mosaic",
     },
-    5: {
+    6: {
         "fit": "regression-fit", "slope": "slope-triangle", "intercept": "intercept-crossing",
         "residuals": "residual-plot", "assumptions": "diagnostic-panels", "explanatory-variables": "coefficient-plot",
         "interaction": "interaction-lines", "collinearity": "collinearity-heatmap", "class": "class-scatter",
@@ -39,7 +51,7 @@ VISUALIZATION_MATRIX = {
         "decision-tree": "decision-tree", "rules": "rules-flow", "importance": "importance-bars",
         "encoding": "one-hot-heatmap", "scaling": "scaling-before-after", "leakage": "leakage-timeline",
     },
-    6: {
+    7: {
         "train": "train-split", "validation": "validation-tuning", "test": "sealed-test",
         "cross-validation": "cross-validation-folds", "mae": "mae-absolute-errors",
         "mse": "mse-squared-errors", "rmse": "rmse-root-scale", "r2": "r2-baseline-comparison",
@@ -51,14 +63,14 @@ VISUALIZATION_MATRIX = {
         "bias": "bias-underfit", "variance": "variance-instability",
         "overfitting": "overfitting-learning-curves", "regularization": "regularization-path",
     },
-    7: {
+    8: {
         "distance": "distance-geometry", "k-means": "kmeans-iteration",
         "centroids": "centroid-movement", "cluster-count": "cluster-k-comparison",
         "pca": "pca-projection", "components": "component-loadings",
         "explained-variance": "explained-variance-scree", "rarity": "rarity-neighborhood",
         "isolation": "isolation-path", "anomaly-threshold": "anomaly-threshold-review",
     },
-    8: {
+    9: {
         "trend": "time-trend-line", "seasonality": "seasonality-cycle",
         "lag": "lag-scatter", "temporal-anomaly": "temporal-anomaly-context",
         "windows": "rolling-windows", "backtesting": "backtest-folds",
@@ -67,7 +79,7 @@ VISUALIZATION_MATRIX = {
         "effect": "treatment-effect-interval", "guardrails": "guardrail-dashboard",
         "multiple-tests": "multiple-testing-grid", "practical-effect": "practical-significance-threshold",
     },
-    9: {
+    10: {
         "representation": "representation-coverage", "fairness": "fairness-rate-parity",
         "harm": "harm-pathway", "privacy": "privacy-data-minimization",
         "audience": "audience-layer", "uncertainty-communication": "uncertainty-interval-annotation",
@@ -78,8 +90,21 @@ VISUALIZATION_MATRIX = {
         "project-analysis": "project-analysis-flow", "project-evaluation": "project-evaluation-card",
         "project-communication": "project-communication-brief",
     },
-    10: {
-        "acceptance-criteria": "acceptance-gate", "baseline": "baseline-comparison",
+    11: {
+        "notebook-to-verifiable-pipeline": "notebook-pipeline-contract", "reproducible-execution": "clean-run-replay",
+        "project-structure": "project-boundary-map", "functions-modules": "function-boundary",
+        "io-contract": "code-contract-gate", "config-secrets": "config-secret-boundary",
+        "unit-integration-tests": "test-scope-map", "regression-failure-tests": "regression-case-matrix",
+        "fixtures-schema-tests": "fixture-schema-coverage", "request-response": "api-contract-flow",
+        "errors-versioning": "api-error-version-map", "fastapi-health": "service-health-check",
+        "dependencies-lockfile": "dependency-lock-graph", "image-container": "container-lifecycle",
+        "runtime-artifact": "runtime-artifact-map", "ci-pipeline": "ci-job-flow",
+        "ci-acceptance": "ci-acceptance-gate", "ci-cd": "ci-cd-boundary",
+        "service-environments": "artifact-promotion", "startup-logs": "startup-log-flow",
+        "versioned-handoff": "operable-handoff-map",
+    },
+    12: {
+        "operational-readiness": "acceptance-gate", "baseline": "baseline-comparison",
         "rollback": "rollback-decision", "human-approval": "human-approval-loop",
         "data-drift": "data-drift-distribution", "performance-drift": "performance-drift-line",
         "calibration-drift": "calibration-drift-curve", "alert-threshold": "alert-threshold-band",
@@ -91,6 +116,27 @@ VISUALIZATION_MATRIX = {
 }
 
 EVIDENCE_LABELS = {
+    "grain-level-shift": "filas y unidad antes y después del cambio de granularidad", "schema-key-map": "campos tipados y enlaces PK/FK",
+    "query-operation-flow": "pregunta, operaciones y tabla resultante", "groupby-grain-change": "grupos, numeradores y denominadores",
+    "join-survival-map": "matched, left-only y right-only", "join-cardinality-map": "nodos, enlaces y pares esperados",
+    "cte-count-lineage": "etapas y conteos de entrada y salida", "window-partition-order": "particiones, orden y filas conservadas",
+    "sql-lag-cutoff": "línea temporal, rezagos y corte", "abt-population-windows": "población y ventanas temporales separadas",
+    "abt-builder": "fuentes y fila final de la ABT", "dedup-last-valid": "versiones y observación válida seleccionada",
+    "row-columnar-read": "celdas leídas por fila o columna", "api-pagination-flow": "páginas, cursor, retry e IDs",
+    "local-engine-choice": "flujos SQL y columnar comparados", "data-contract-gate": "cambio compatible o rechazado",
+    "data-integrity-checks": "checks y filas afectadas", "dataset-lineage-map": "fuentes, transformaciones, versión y hash",
+    "join-row-explosion": "pares del JOIN, filas resultantes, noches únicas y suma reconciliada",
+    "clean-run-replay": "entrada, entorno, comando y salida repetida", "project-boundary-map": "componentes y fronteras de responsabilidad",
+    "function-boundary": "input, función, output y efectos", "code-contract-gate": "casos válidos e inválidos frente al schema",
+    "config-secret-boundary": "configuración, entorno y secreto redactado", "test-scope-map": "unidades y fronteras cubiertas",
+    "regression-case-matrix": "casos esperados, actuales y fallidos", "fixture-schema-coverage": "campos, nulos y bordes cubiertos",
+    "api-contract-flow": "request, validación, proceso y response", "api-error-version-map": "rutas por status y versión",
+    "service-health-check": "proceso, dependencias y resultado health", "dependency-lock-graph": "dependencias, versiones y lock",
+    "container-lifecycle": "Dockerfile, imagen y contenedor", "runtime-artifact-map": "capas de build, artifact, config y runtime",
+    "ci-job-flow": "commit, jobs, checks y evidencia", "ci-acceptance-gate": "diff, criterio, test y artifact bloqueado",
+    "ci-cd-boundary": "artifact verificado y autorización de entrega", "artifact-promotion": "mismo artifact entre entornos",
+    "startup-log-flow": "eventos de arranque y fallo visible", "operable-handoff-map": "contrato, artifact, health, logs y versión segura",
+    "notebook-pipeline-contract": "dependencias ocultas, ejecución limpia, contrato y resultados de tests",
     "unit-set": "unidades seleccionadas", "complement-partition": "partición completa", "probability-matrix": "celdas y tasas condicionadas",
     "nested-denominator": "universo, condición y evento", "bernoulli-strip": "ensayos 0/1", "binomial-pmf": "tallos y masa de probabilidad",
     "normal-density": "centro y curva de densidad", "poisson-timeline-pmf": "eventos y conteos por ventana", "sampling-dotplot": "puntos de estimaciones repetidas",
@@ -251,10 +297,23 @@ def enrich_lesson(level: int, block: dict[str, object], item: dict[str, object],
         "continuityDelta": item.get("continuityDelta", config["continuityDelta"]),
         "growthDelta": item.get("growthDelta", config["growthDelta"]),
     }
+    evidence_indexes = item.pop("exerciseEvidenceStateIndexes", None)
     exercises = []
     for exercise_index, evidence_case in enumerate(item["practiceCases"]):
         label = "guiado" if exercise_index == 0 else "transferencia"
         correct = evidence_case["correct"]
+        exercise_ids = required_ids
+        unlock_step = required_steps
+        contract_steps = required_steps
+        if evidence_indexes:
+            selected_indexes = evidence_indexes[exercise_index]
+            exercise_ids = [
+                mark["evidenceId"]
+                for state_index in selected_indexes
+                for mark in item["visual"]["states"][state_index]["marks"]
+            ]
+            unlock_step = max(selected_indexes)
+            contract_steps = unlock_step + 1
         exercises.append({
             "kind": label,
             "question": f"Observa {evidence_label} y cita una marca visible. {evidence_case['question']}",
@@ -266,9 +325,9 @@ def enrich_lesson(level: int, block: dict[str, object], item: dict[str, object],
             "hint": evidence_case["hint"],
             "evidence": f"{evidence_case['evidence']} Cita {evidence_label} y sus valores visibles.",
             "evidenceContract": {
-                "requiredSteps": required_steps,
-                "requiredEvidenceIds": required_ids,
-                "unlockAtStep": required_steps,
+                "requiredSteps": contract_steps,
+                "requiredEvidenceIds": exercise_ids,
+                "unlockAtStep": unlock_step,
             },
         })
     item["exercises"] = exercises
@@ -522,19 +581,20 @@ def generate(config: dict[str, object]) -> None:
     (out / "README.md").write_text(f"# Nivel {level}: {config['title']}\n\n{config['summary']}\n\nHistoria aprobada: `docs/stories/LEVEL_{level}.md`.\n", encoding="utf-8")
 
     manifest = {
-        "level": level, "title": config["title"], "status": "published", "entrypoint": "index.html",
+        "level": level, "title": config["title"], "status": config.get("publicationStatus", "published"), "entrypoint": "index.html",
         "concept_count": len(ordered), "exercise_count": len(ordered) * 2, "prompt_count": len(ordered) * 3,
         "blocks": [{"id": b["id"], "number": b["number"], "title": b["title"], "href": b["href"], "concept_count": len(b["concepts"])} for b in config["blocks"]],
         "datasets": sorted({b["dataset_id"] for b in config["blocks"]}),
         "curriculumSource": "docs/CURRICULUM_MAP.md", "storySource": f"docs/stories/LEVEL_{level}.md", "storyStatus": "approved",
         "experienceContract": "level-shell-v1", "blockNavigation": "left", "conceptNavigation": "top",
         "visualizationMatrix": f"level-{level}-visuals-v1", "rendererRegistry": "educational-svg-v1",
-        "narrativeDataset": metadata, "validation": "validation.json", "updated_at": "2026-07-03",
+        "narrativeDataset": metadata, "validation": "validation.json", "updated_at": config.get("updatedAt", "2026-07-03"),
     }
     write_json(out / "manifest.json", manifest)
-    checks = {"scope": 5, "curriculum": 5, "narrative": 5, "pedagogy": 5, "technical": 5, "visual": 5, "reproducibility": 5}
+    checks = config.get("checks", {"scope": 5, "curriculum": 5, "narrative": 5, "pedagogy": 5, "technical": 5, "visual": 5, "reproducibility": 5})
+    average = round(sum(checks.values()) / len(checks), 2)
     write_json(out / "validation.json", {
-        "status": "passed", "average": 5.0, "minimum_dimension": 5, "blockers": [], "checks": checks,
+        "status": config.get("validationStatus", "passed"), "average": average, "minimum_dimension": min(checks.values()), "blockers": [], "checks": checks,
         "browser_qa_required": True,
         "evidence": {"story": f"docs/stories/LEVEL_{level}.md", "scenes": len(ordered), "exercises_locked": len(ordered) * 2, "visualization_specs": len(ordered), "renderer_registry": "educational-svg-v1", "experience_contract": "level-shell-v1", "narrative_files": narrative_files, "browser_qa": "scripts/qa_pages.py"},
     })

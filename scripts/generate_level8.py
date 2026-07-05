@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Level 8: temporal data and reproducible experimentation."""
+"""Generate Level 8: unsupervised exploration with human review."""
 
 from __future__ import annotations
 
@@ -12,105 +12,108 @@ from advanced_level_support import lesson
 from narrative_level_factory import generate
 
 
-SEED = 20270826
-EXPERIMENT_SEED = 20271103
+SEED = 20270506
+FEATURES = ["pedidos_totales", "pedidos_programados", "espera_mediana_min", "merma_kg", "proporcion_para_llevar"]
 
 
-def dates_for(start: date, count: int, weekdays: set[int]) -> list[date]:
-    out=[]; current=start
-    while len(out)<count:
-        if current.weekday() in weekdays: out.append(current)
+def dataset() -> list[dict[str, object]]:
+    rng = random.Random(SEED)
+    dates=[]; current=date(2027,5,6)
+    while len(dates)<64:
+        if current.weekday() in {3,4,5,6}: dates.append(current)
         current += timedelta(days=1)
-    return out
-
-
-def nightly_dataset() -> list[dict[str, object]]:
-    rng=random.Random(SEED)
-    baseline=dates_for(date(2027,8,26),40,{3,4,5,6})
-    pilot=dates_for(baseline[-1]+timedelta(days=1),60,{2,3,4,5,6})
-    names={2:"miércoles",3:"jueves",4:"viernes",5:"sábado",6:"domingo"}; rows=[]
-    for idx,night in enumerate([*baseline,*pilot],1):
-        phase="base" if idx<=40 else "piloto_prepedido"
-        day_effect={2:-2,3:0,4:5,5:10,6:4}[night.weekday()]
-        trend=.13*idx; seasonal=3.2*math.sin(idx*2*math.pi/20)
-        rain=round(max(0,rng.gauss(.45 if idx%13==0 else .08,.5)),1)
-        event=int(idx%17==0); maintenance=int(idx==73)
-        preorders=0 if phase=="base" else max(3,min(18,round(7+.10*(idx-40)+2*event+rng.gauss(0,1.4))))
-        orders=round(62+trend+day_effect+seasonal-1.8*rain+3*event+2*(phase!="base")+rng.gauss(0,2.5)-12*maintenance)
-        orders=max(60 if phase=="base" else 70,min(85 if phase=="base" else 95,orders))
-        wait=round(max(5,7.8+.23*(orders-65)+.11*preorders-1.2*(phase!="base")+rng.uniform(-1,1)),1)
-        cancel=round(max(0,min(.12,.018+.0022*preorders+.018*maintenance+rng.uniform(-.008,.008))),3)
-        rows.append({"noche_id":f"L8-N{idx:03d}","fecha":night.isoformat(),"dia_semana":names[night.weekday()],"indice_tiempo":idx,"semana":((idx-1)//(4 if idx<=40 else 5))+1,"fase":phase,"miercoles_abierto":int(night.weekday()==2),"prepedido_disponible":int(phase!="base"),"cupo_prepedido":0 if phase=="base" else 18,"asientos_disponibles":12 if phase=="base" else 16,"temperatura_c":round(20+5*math.sin(idx/18)+rng.uniform(-1.5,1.5),1),"lluvia_mm":rain,"evento_local":event,"mantenimiento_documentado":maintenance,"pedidos_totales":orders,"prepedidos_totales":preorders,"espera_mediana_min":wait,"tasa_cancelacion":cancel})
-    assert len(rows)==100 and sum(r["mantenimiento_documentado"] for r in rows)==1
+    names={3:"jueves",4:"viernes",5:"sábado",6:"domingo"}; rows=[]
+    for idx,night in enumerate(dates,1):
+        profile=idx%3
+        service=int(idx%8 in {2,6})
+        programmed=(9+idx%8) if service else (idx%3)
+        orders=max(60,min(85,round((64,73,80)[profile]+4*service+rng.gauss(0,2.2))))
+        wait=round(max(5,(7.5,10.5,14.0)[profile]+1.5*service+rng.uniform(-1.2,1.2)),1)
+        waste=round(max(.2,(.7,1.2,1.8)[profile]+.12*service+rng.uniform(-.25,.25)),2)
+        takeaway=round(min(.82,max(.28,(.38,.56,.70)[profile]+rng.uniform(-.06,.06))),3)
+        if idx in {19,47}:
+            wait=round(wait+8.5,1); waste=round(waste+1.4,2)
+        rows.append({"noche_id":f"L8-N{idx:02d}","fecha":night.isoformat(),"dia_semana":names[night.weekday()],"servicio_reunion":service,"pedidos_programados":programmed,"pedidos_totales":orders,"espera_mediana_min":wait,"merma_kg":waste,"proporcion_para_llevar":takeaway,"ayudantes_programados":2,"asientos_disponibles":12})
+    assert len(rows)==64 and min(r["pedidos_totales"] for r in rows)>=60 and max(r["pedidos_totales"] for r in rows)<=85
+    assert all(sum(r["servicio_reunion"] for r in rows[w:w+4])<=2 for w in range(0,64,4))
     return rows
 
 
-def experiment_dataset(nights:list[dict[str,object]])->list[dict[str,object]]:
-    rng=random.Random(EXPERIMENT_SEED); assignments=["A"]*200+["B"]*200; rng.shuffle(assignments)
-    pilot=[r for r in nights if r["fase"]=="piloto_prepedido"]; rows=[]
-    for idx,treatment in enumerate(assignments,1):
-        night=pilot[(idx-1)%len(pilot)]; probability=.64 if treatment=="A" else .81
-        completed=int(rng.random()<probability)
-        wait=round(max(2,rng.gauss(7.2 if treatment=="A" else 7.9,1.4)),1)
-        canceled=int(not completed and rng.random()<(.18 if treatment=="A" else .15))
-        value=round(max(90,rng.gauss(218 if treatment=="A" else 221,32)),2) if completed else 0.0
-        rows.append({"asignacion_id":f"L8-X{idx:03d}","fecha":night["fecha"],"bloque_noche":night["noche_id"],"elegible_antes_asignacion":1,"variante":treatment,"mensaje":"confirmación_simple" if treatment=="A" else "confirmación_con_ventana","prepedido_completado":completed,"espera_entrega_min":wait,"cancelacion":canceled,"valor_pedido_mxn":value})
-    assert len(rows)==400 and sum(r["variante"]=="A" for r in rows)==200
-    return rows
+def standardized(rows: list[dict[str, object]]) -> list[list[float]]:
+    means=[statistics.mean(float(r[f]) for r in rows) for f in FEATURES]
+    sds=[statistics.stdev(float(r[f]) for r in rows) for f in FEATURES]
+    return [[(float(r[f])-m)/s for f,m,s in zip(FEATURES,means,sds)] for r in rows]
 
 
-def rate(rows:list[dict[str,object]],field:str)->float:
-    return statistics.mean(float(r[field]) for r in rows)
+def distance(a:list[float],b:list[float])->float:
+    return math.sqrt(sum((x-y)**2 for x,y in zip(a,b)))
+
+
+def kmeans(points:list[list[float]],k:int,iterations:int=12)->tuple[list[int],list[list[float]],float]:
+    centers=[points[i*len(points)//k][:] for i in range(k)]
+    labels=[0]*len(points)
+    for _ in range(iterations):
+        labels=[min(range(k),key=lambda j:distance(p,centers[j])) for p in points]
+        updated=[]
+        for j in range(k):
+            members=[p for p,l in zip(points,labels) if l==j]
+            updated.append([statistics.mean(v) for v in zip(*members)] if members else centers[j])
+        centers=updated
+    inertia=sum(distance(p,centers[l])**2 for p,l in zip(points,labels))
+    return labels,centers,inertia
+
+
+def power_component(points:list[list[float]],orthogonal:list[float]|None=None)->tuple[list[float],float]:
+    p=len(points[0]); cov=[[sum(row[i]*row[j] for row in points)/(len(points)-1) for j in range(p)] for i in range(p)]
+    v=[1/math.sqrt(p)]*p
+    for _ in range(30):
+        nxt=[sum(cov[i][j]*v[j] for j in range(p)) for i in range(p)]
+        if orthogonal:
+            projection=sum(a*b for a,b in zip(nxt,orthogonal)); nxt=[a-projection*b for a,b in zip(nxt,orthogonal)]
+        norm=math.sqrt(sum(x*x for x in nxt)); v=[x/norm for x in nxt]
+    eigen=sum(v[i]*sum(cov[i][j]*v[j] for j in range(p)) for i in range(p))
+    return v,eigen
 
 
 def config()->dict[str,object]:
-    nights=nightly_dataset(); experiment=experiment_dataset(nights)
-    a=[r for r in experiment if r["variante"]=="A"]; b=[r for r in experiment if r["variante"]=="B"]
-    rate_a=rate(a,"prepedido_completado"); rate_b=rate(b,"prepedido_completado"); effect=rate_b-rate_a
-    se=math.sqrt(rate_a*(1-rate_a)/len(a)+rate_b*(1-rate_b)/len(b)); ci=(effect-1.96*se,effect+1.96*se)
-    wait_delta=statistics.mean(float(r["espera_entrega_min"]) for r in b)-statistics.mean(float(r["espera_entrega_min"]) for r in a)
-    cancel_delta=rate(b,"cancelacion")-rate(a,"cancelacion")
-    first=statistics.mean(r["pedidos_totales"] for r in nights[:20]); last=statistics.mean(r["pedidos_totales"] for r in nights[-20:])
-    lag_x=[r["pedidos_totales"] for r in nights[:-1]]; lag_y=[r["pedidos_totales"] for r in nights[1:]]
-    lag_corr=sum((x-statistics.mean(lag_x))*(y-statistics.mean(lag_y)) for x,y in zip(lag_x,lag_y))/math.sqrt(sum((x-statistics.mean(lag_x))**2 for x in lag_x)*sum((y-statistics.mean(lag_y))**2 for y in lag_y))
-    day_means={day:statistics.mean(r["pedidos_totales"] for r in nights if r["dia_semana"]==day) for day in {r["dia_semana"] for r in nights}}
-    maintenance=next(r for r in nights if r["mantenimiento_documentado"])
+    rows=dataset(); points=standardized(rows)
+    labels,centers,inertia=kmeans(points,3)
+    inertias={k:round(kmeans(points,k)[2],6) for k in range(2,6)}
+    pc1,e1=power_component(points); pc2,e2=power_component(points,pc1); total=len(FEATURES)
+    scores=[distance(p,centers[l]) for p,l in zip(points,labels)]
+    threshold=sorted(scores)[-4]; review=[i+1 for i,s in enumerate(scores) if s>=threshold]
+    counts=[labels.count(i) for i in range(3)]
     values={
-        "trend":((first,20),(last,last-first)),"seasonality":((min(day_means.values()),max(day_means.values())),(day_means["miércoles"],day_means["sábado"])),
-        "lag":((1,lag_corr),(7,round(lag_corr*.72,4))),"temporal-anomaly":((maintenance["indice_tiempo"],maintenance["pedidos_totales"]),(1,12)),
-        "windows":((20,1),(40,60)),"backtesting":((4,20),(80,20)),"temporal-leakage":((73,0),(73,1)),
-        "random-assignment":((400,2),(200,200)),"primary-metric":((sum(r["prepedido_completado"] for r in a),200),(sum(r["prepedido_completado"] for r in b),200)),
-        "sample-size":((100,.20),(400,.10)),"effect":((rate_a,rate_b),(effect,se)),
-        "guardrails":((effect,wait_delta),(cancel_delta,.02)),"multiple-tests":((4,.05),(4,.0125)),"practical-effect":((effect,.05),(ci[0],ci[1])),
+        "distance":((1,1),(distance(points[0],points[1]),len(FEATURES))),"k-means":((3,0),(3,inertia)),
+        "centroids":((0,distance(centers[0],points[0])),(12,distance(centers[0],points[0])/3)),
+        "cluster-count":((2,inertias[2]),(3,inertias[3])),"pca":((len(FEATURES),64),(e1,e2)),
+        "components":((max(pc1),min(pc1)),(max(pc2),min(pc2))),"explained-variance":((e1/total,e2/total),((e1+e2)/total,2)),
+        "rarity":((statistics.mean(scores),max(scores)),(threshold,len(review))),"isolation":((12,6),(4,max(scores))),
+        "anomaly-threshold":((threshold,len(review)),(max(scores),64)),
     }
-    specs=[
-        ("trend","Tendencia","Describir cambio de largo plazo sin atribuir causa.","Una tendencia resume cambio de largo plazo en una serie ordenada.","serie cronológica y línea suave","Paco ordena cien noches por fecha.","Quiero ver si va subiendo, no solo dos noches buenas.","Conservo cada fecha y el límite.",("La serie conserva las 100 noches en orden.","La diferencia entre inicio y cierre describe el periodo; no identifica qué la causó."),"L8-E1","serie_nocturna@L8.1","fecha, pedidos_totales"),
-        ("seasonality","Estacionalidad","Comparar posiciones repetidas del ciclo semanal.","La estacionalidad es un patrón que se repite en periodos regulares.","ciclos alineados por día de semana","Miércoles y sábado ocupan lugares distintos del ciclo.","No me mezcles un miércoles con un sábado.","Comparo la misma posición semanal.",("Las noches se alinean por día de semana.","El ciclo semanal observado no garantiza repetición futura ni explica sus causas."),"L8-E1","serie_nocturna@L8.1","dia_semana, pedidos_totales"),
-        ("lag","Rezago","Vincular un valor actual con otro anterior sin mezclar fechas.","Un rezago desplaza una serie para relacionar presente y pasado.","pares de noche anterior y actual","Paco desplaza pedidos una y siete noches.","Lo de ayer puede dejar trabajo para hoy.","Alineo cada par sin usar el futuro.",("Cada punto conserva un valor anterior y otro posterior.","La asociación rezagada no demuestra que una noche cause la siguiente."),"L8-E1","serie_nocturna@L8.1","pedidos_totales, rezago"),
-        ("temporal-anomaly","Anomalía temporal","Distinguir una desviación localizada de un patrón repetido.","Una anomalía temporal es una desviación localizada respecto del patrón esperado.","evento puntual y contexto de bitácora","Una noche de mantenimiento cae fuera del patrón.","Esa sí tuvo una razón anotada.","Marco el evento sin volverlo temporada.",("La noche 73 se separa del patrón y tiene mantenimiento documentado.","Un evento localizado no se convierte en tendencia, estación ni regla para borrar filas."),"L8-E1","serie_nocturna@L8.1","indice_tiempo, pedidos_totales, mantenimiento_documentado"),
-        ("windows","Ventanas temporales","Definir qué pasado está disponible en cada corte.","Una ventana temporal selecciona observaciones anteriores a un corte.","ventana deslizante o expansiva","El borde del historial avanza.","La regla solo puede mirar lo que ya pasó.","Guardo inicio, fin y horizonte.",("La ventana termina antes del resultado evaluado.","Una ventana expansiva conserva todo el pasado; una deslizante limita antigüedad."),"L8-E2","backtesting@L8.2","fecha, corte, horizonte"),
-        ("backtesting","Backtesting","Repetir evaluación usando pasado para futuro.","Backtesting simula decisiones históricas mediante varios cortes ordenados.","folds con train anterior y test posterior","Paco reproduce cuatro decisiones pasadas.","Pruébala como si estuviéramos en ese día.","Entreno atrás y evalúo adelante.",("Cada fold mantiene el entrenamiento antes de su evaluación.","Los cuatro resultados muestran estabilidad temporal sin convertir el futuro en entrenamiento."),"L8-E2","backtesting@L8.2","fold, train_end, test_start"),
-        ("temporal-leakage","Leakage temporal","Bloquear agregaciones o columnas posteriores al corte.","Leakage temporal usa información que aún no existía al decidir.","corte de disponibilidad y dato futuro","Una media centrada incluye mañana por accidente.","Si todavía no pasó, no lo uses.","Audito cada cálculo contra el corte.",("El corte separa información disponible y futura.","Una agregación contamina aunque su nombre parezca histórico si incorpora el objetivo o días posteriores."),"L8-E2","backtesting@L8.2","fecha, disponibilidad, media_movil"),
-        ("random-assignment","Asignación aleatoria","Asignar 400 prepedidos a A/B antes del resultado.","La asignación aleatoria usa azar para equilibrar explicaciones alternativas en expectativa.","flujo balanceado de asignaciones","Nora recibe cupos A y B sin elegir por pedido.","Que el mensaje no se escoja por conveniencia.","Asigno antes de observar finalización.",("Las 400 asignaciones elegibles se reparten 200/200.","La regla aleatoria permite comparar mensajes sin perfilar pedidos; el azar no garantiza igualdad exacta en todo."),"L8-E3","experimento_prepedido@L8.3","asignacion_id, variante, elegible_antes_asignacion"),
-        ("primary-metric","Métrica primaria","Congelar finalización con numerador y denominador.","Una métrica primaria define el resultado principal antes de observar diferencias.","tasa de prepedidos completados","Don Juan define qué cuenta como funcionar.","Primero dime qué cuenta como funcionar.","Escribo numerador y denominador antes de abrir.",("La tasa divide completados entre todos los asignados.","Cambiar la métrica tras mirar resultados aumentaría la oportunidad de una historia conveniente."),"L8-E3","experimento_prepedido@L8.3","prepedido_completado, variante"),
-        ("sample-size","Tamaño de muestra","Fijar tamaño antes de observar el efecto.","El tamaño de muestra depende del efecto mínimo, variabilidad y errores tolerados.","precisión esperada frente a n","Paco fija 400 asignaciones.","No pares cuando salga bonito.","El tamaño queda congelado desde el plan.",("El plan completa 400 asignaciones balanceadas.","Detener temprano por una diferencia favorable sesgaría la estimación y su incertidumbre."),"L8-E3","experimento_prepedido@L8.3","asignacion_id, efecto_minimo"),
-        ("effect","Efecto","Estimar B menos A con intervalo.","Un efecto compara resultados potenciales y se estima mediante el diseño aleatorizado.","diferencia de tasas e intervalo","Paco compara finalización entre mensajes.","Dime cuánto cambió y con qué margen.","Reporto diferencia e incertidumbre.",("El efecto estimado es la tasa B menos la tasa A.","La lectura causal se limita al mensaje, elegibles, periodo y cumplimiento del piloto."),"L8-E3","experimento_prepedido@L8.3","variante, prepedido_completado"),
-        ("guardrails","Guardrails","Comprobar que el efecto no rompa capacidad.","Un guardrail es una métrica que no debe deteriorarse al mejorar la principal.","panel de finalización, espera y cancelación","Nora revisa fila y entregas.","No quiero más pedidos si la fila se rompe.","Comparo límites antes del despliegue.",("Finalización se revisa junto con espera y cancelación.","Una mejora principal no autoriza desplegar si incumple capacidad, seguridad o servicio."),"L8-E4","decision_experimental@L8.4","espera_entrega_min, cancelacion, prepedido_completado"),
-        ("multiple-tests","Múltiples pruebas","Controlar falsos positivos al revisar varias métricas.","Probar muchas hipótesis aumenta la probabilidad de resultados extremos por azar.","familia de cuatro pruebas y criterio ajustado","Paco registra cuatro comparaciones.","Si preguntas muchas cosas, alguna sale por suerte.","Jerarquizo antes de buscar resultados.",("La familia contiene cuatro pruebas declaradas.","Jerarquizar o ajustar el criterio evita seleccionar únicamente la comparación favorable."),"L8-E4","decision_experimental@L8.4","familia_pruebas, alpha"),
-        ("practical-effect","Efecto práctico","Comparar efecto e intervalo con mínimo útil.","La relevancia práctica compara magnitud e incertidumbre con un umbral operativo.","intervalo frente a mínimo útil","Don Juan compara la mejora con costo y cupo.","Aunque sea distinto, ¿alcanza para cambiar el turno?","Uso el mínimo acordado y los guardrails.",("El intervalo del efecto se compara con cinco puntos porcentuales.","El despliegue exige magnitud útil y guardrails cumplidos; significancia por sí sola no basta."),"L8-E4","decision_experimental@L8.4","efecto, intervalo, minimo_util"),
+    concepts=[
+        ("distance","Distancia","Comparar cercanía solo después de fijar escala.","Una distancia resume separación entre observaciones según variables y escala elegidas.","geometría de noches estandarizadas","Paco compara noches que parecían distintas.","Si una cuenta está en kilos y otra en minutos, no las revuelvas así nomás.","Primero estandarizo y documento las columnas.",("La distancia usa cinco variables operativas estandarizadas.","Cambiar variables o escala cambia qué noches quedan cerca; no descubre tipos naturales."),"L8-E1","segmentos@L8.1","pedidos_totales, pedidos_programados, espera_mediana_min, merma_kg, proporcion_para_llevar"),
+        ("k-means","K-means","Recorrer asignación y actualización de centros.","K-means alterna asignar cada observación al centro cercano y recalcular centros.","iteración asignar-recalcular","Tres centros empiezan en noches documentadas.","A ver cómo se van acomodando esos montones.","Repito la misma regla hasta estabilizar.",("Cada iteración alterna asignación y actualización.","K-means minimiza distancia interna bajo su escala; los grupos siguen siendo hipótesis exploratorias."),"L8-E1","segmentos@L8.1","variables_estandarizadas, cluster"),
+        ("centroids","Centroides","Interpretar centros como promedios del grupo.","Un centroide es el vector promedio de las observaciones asignadas.","movimiento del promedio multivariable","Los centros se mueven al cambiar sus miembros.","Ese centro no es una noche de verdad, ¿cierto?","Es un promedio de varias columnas.",("El centroide combina promedios estandarizados.","Puede no corresponder a una noche real y no representa una persona típica."),"L8-E1","segmentos@L8.1","cluster, variables_estandarizadas"),
+        ("cluster-count","Número de grupos","Comparar k sin declarar una verdad única.","El número de grupos es una decisión exploratoria apoyada por ajuste, estabilidad y utilidad.","comparación de inercia y revisión operativa","Dos y tres montones cuentan historias distintas.","No quiero veinte nombres nomás porque caben.","Comparo mejora y si el turno puede revisarlos.",("La inercia baja al aumentar k.","Se conserva k=3 como hipótesis revisable; la curva sola no prueba tres tipos reales."),"L8-E1","segmentos@L8.1","k, inercia"),
+        ("pca","PCA","Proyectar estructura en menos dimensiones.","PCA crea componentes ortogonales que capturan varianza sucesiva.","proyección de cinco variables a dos ejes","Paco necesita mostrar cinco cuentas sin cinco pantallas.","Hazlo más corto, pero no digas que quedó todo.","Anoto cuánta información visual se conserva.",("PCA combina cinco variables estandarizadas.","La proyección facilita explorar estructura y necesariamente pierde parte de la variación."),"L8-E2","componentes@L8.2","variables_estandarizadas, pc1, pc2"),
+        ("components","Componentes","Leer componentes mediante sus cargas.","Una componente es una combinación lineal de variables originales.","vectores de carga sobre ejes nuevos","El primer eje mezcla volumen, espera y merma.","Entonces no le pongas un nombre que no se ganó.","Leo dirección y magnitud de cada carga.",("Las cargas muestran contribución y signo.","Una componente no es una variable original ni una causa oculta."),"L8-E2","componentes@L8.2","cargas_pc1, cargas_pc2"),
+        ("explained-variance","Varianza explicada","Decidir cuántas componentes conservar.","La varianza explicada cuantifica la proporción de dispersión capturada por cada componente.","scree plot y acumulado","Paco compara uno, dos y más ejes.","Dime cuánto dejas fuera cuando cortas.","Sumo proporciones sin llamarlas exactitud.",("Cada barra aporta una fracción de varianza.","La varianza explicada no mide utilidad de negocio ni calidad de clusters."),"L8-E2","componentes@L8.2","eigenvalues, varianza_explicada"),
+        ("rarity","Rareza","Medir separación respecto de una vecindad.","Rareza describe cuán poco común es una observación bajo variables y referencia definidas.","distancia a centro y vecinos","Dos noches quedan lejos del resto.","Lejos no quiere decir malo.","Las mando a revisar con contexto.",("El score depende de variables, escala y periodo.","Rareza prioriza revisión; no declara error, fraude ni intención."),"L8-E3","anomalias@L8.3","distancia_centro, variables_estandarizadas"),
+        ("isolation","Aislamiento","Relacionar pocos cortes con aislamiento.","Un método de aislamiento separa observaciones mediante particiones; rutas cortas sugieren rareza.","longitud de ruta de particiones","Una noche se separa con pocas preguntas.","Revísala, pero no la acuses.","Guardo la ruta que produjo el score.",("Las rutas cortas elevan el score de aislamiento.","El score es una prioridad técnica y requiere revisar captura y operación."),"L8-E3","anomalias@L8.3","ruta_aislamiento, score"),
+        ("anomaly-threshold","Umbral de anomalía","Crear una cola acotada para revisión humana.","Un umbral de anomalía convierte scores en una lista priorizada, no en un veredicto.","corte sobre scores y capacidad de revisión","El turno solo puede revisar cuatro casos esta semana.","Pon primero los más raros y luego vemos qué pasó.","El corte responde a capacidad y conserva todos los registros.",("El umbral selecciona cuatro noches para revisión.","Ninguna fila se borra ni se etiqueta como fraude; la revisión humana documenta error o contexto válido."),"L8-E3","anomalias@L8.3","score_anomalia, umbral_revision"),
     ]
     items=[]
-    for i,s in enumerate(specs,1):
-        guest={"name":"Nora","line":"Yo registro cupo, hora y entrega; si la fila rebasa el límite lo anoto antes de seguir."} if s[0] in {"random-assignment","guardrails"} else None
-        items.append(lesson(level=8,slug=s[0],title=s[1],objective=s[2],definition=s[3],mechanism=s[4],setup=s[5],don=s[6],paco=s[7],subtitles=s[8],scene=i,episode=s[9],data_state=s[10],values=values[s[0]],variables=s[11],unit="una observación es una noche ordenada o una asignación experimental, según el bloque",limit="El tiempo se evalúa con cortes ordenados; solo la asignación aleatoria sustenta un efecto causal limitado al piloto.",context="Paco prepara una decisión reversible de horario o prepedido",pressure="usar futuro o cambiar métricas después de mirar resultados produciría evidencia engañosa",decision="congelar corte, métrica, tamaño, guardrails y criterio antes de decidir",guest=guest))
+    for i,s in enumerate(concepts,1):
+        guest={"name":"Mari","line":"Yo quiero recuperar el puesto de aguas frescas de mi familia; este piloto me sirve si seguimos cuidando tiempos y carga."} if s[0]=="cluster-count" else None
+        items.append(lesson(level=8,slug=s[0],title=s[1],objective=s[2],definition=s[3],mechanism=s[4],setup=s[5],don=s[6],paco=s[7],subtitles=s[8],scene=i,episode=s[9],data_state=s[10],values=values[s[0]],variables=s[11],unit="una observación es una noche operativa, nunca una persona",limit="Clusters y anomalías son hipótesis para revisión humana; no prueban tipos naturales, fraude ni causalidad.",context="Paco organiza una revisión de noches y servicios sin etiquetar personas",pressure="el piloto acepta máximo dos reuniones por semana y el turno solo puede revisar cuatro casos raros",decision="usar la salida para priorizar preguntas y documentar la revisión humana",guest=guest))
     blocks=[
-        {"id":"time-series","number":1,"title":"Series de tiempo","description":"Tendencia, estacionalidad, rezagos y eventos.","href":"series-tiempo.html","dataset_id":"bike-sharing-day","concepts":items[:4]},
-        {"id":"temporal-validation","number":2,"title":"Validación temporal","description":"Ventanas, backtesting y leakage temporal.","href":"validacion-temporal.html","dataset_id":"bike-sharing-day","concepts":items[4:7]},
-        {"id":"ab-testing","number":3,"title":"A/B testing","description":"Asignación, métrica, tamaño y efecto.","href":"ab-testing.html","dataset_id":"plant-growth","concepts":items[7:11]},
-        {"id":"experimentation","number":4,"title":"Experimentación","description":"Guardrails, multiplicidad y relevancia práctica.","href":"experimentacion.html","dataset_id":"plant-growth","concepts":items[11:]},
+        {"id":"clustering","number":1,"title":"Clustering","description":"Distancia, k-means, centroides y número de grupos.","href":"clustering.html","dataset_id":"palmer-penguins","concepts":items[:4]},
+        {"id":"dimensionality-reduction","number":2,"title":"Reducción dimensional","description":"PCA, componentes y varianza explicada.","href":"reduccion-dimensional.html","dataset_id":"palmer-penguins","concepts":items[4:7]},
+        {"id":"anomaly-detection","number":3,"title":"Detección de anomalías","description":"Rareza, aislamiento y umbral revisable.","href":"deteccion-anomalias.html","dataset_id":"wine-quality","concepts":items[7:]},
     ]
-    night_schema=list(nights[0]); experiment_schema=list(experiment[0])
-    return {"level":8,"output":"data-class-temporal-experiments-level-8","title":"Datos temporales y experimentación","summary":"El puesto respeta el calendario, prueba un mensaje con asignación aleatoria y crece solo si el efecto útil conserva guardrails.","blocks":blocks,"previousConcept":"Umbral de anomalía","nextConcept":"Representación y fairness","agentCompetency":"Versionar cortes temporales y planes experimentales reproducibles.","continuityDelta":"Nora entra pagada; Paco documenta sin ampliar horario escolar.","growthDelta":"G5-servicios → G6-prepedido; cinco noches, 16 asientos y canal con cupo","narrativeDatasets":[{"path":"datasets/narrative/noches_temporales_nivel_8.csv","rows":nights,"schema":night_schema},{"path":"datasets/narrative/prepedidos_experimento_nivel_8.csv","rows":experiment,"schema":experiment_schema}],"narrativeMetadata":{"metadataPath":"datasets/narrative/nivel_8.metadata.json","id":"tiempo-experimento-nivel-8","synthetic":True,"generator":"level8-temporal-experiment-v1","seed":SEED,"experiment_seed":EXPERIMENT_SEED,"period":{"start":nights[0]["fecha"],"end":nights[-1]["fecha"],"nights":100},"dimensions":{"nights":[100,len(night_schema)],"assignments":[400,len(experiment_schema)]},"phases":{"base_nights":40,"pilot_nights":60},"time_policy":"cada entrenamiento termina antes de su horizonte; ninguna agregación usa futuro","experiment":{"unit":"prepedido elegible","assignment":{"A":200,"B":200},"primary_metric":"tasa de prepedidos completados","rate_a":round(rate_a,6),"rate_b":round(rate_b,6),"effect_b_minus_a":round(effect,6),"standard_error":round(se,6),"interval_95":[round(ci[0],6),round(ci[1],6)],"minimum_practical_effect":.05,"guardrails":{"wait_delta_minutes":round(wait_delta,6),"cancel_delta":round(cancel_delta,6),"max_wait_delta":1.5,"max_cancel_delta":.02}},"growth":{"from":"G5-servicios","to":"G6-prepedido","condition":"efecto práctico e intervalo por encima de 0.05; guardrails de espera y cancelación cumplidos"},"data_state":["L7.3","serie_nocturna@L8.1","backtesting@L8.2","experimento_prepedido@L8.3","decision_experimental@L8.4"],"label":"Datasets sintéticos narrativos; no representan personas reales"}}
+    schema=list(rows[0])
+    return {"level":8,"output":"data-class-unsupervised-level-8","title":"Aprendizaje no supervisado","summary":"El puesto explora patrones no etiquetados y convierte salidas en preguntas para revisión humana.","blocks":blocks,"previousConcept":"Regularización","nextConcept":"Tendencia temporal","agentCompetency":"Revisar humanamente segmentos y anomalías antes de actuar.","continuityDelta":"Mari revela por decisión propia su meta del puesto de aguas frescas; Paco documenta sin inferirla desde datos.","growthDelta":"G4-kiosco → G5-servicios; piloto reversible de máximo dos reuniones por semana","narrativeDatasets":[{"path":"datasets/narrative/noches_segmentos_nivel_8.csv","rows":rows,"schema":schema}],"narrativeMetadata":{"metadataPath":"datasets/narrative/noches_nivel_8.metadata.json","id":"segmentos-operativos-nivel-8","synthetic":True,"generator":"level8-unsupervised-v1","seed":SEED,"period":{"start":rows[0]["fecha"],"end":rows[-1]["fecha"],"nights":64},"dimensions":{"nights":[64,len(schema)]},"features":FEATURES,"standardization":"z-score con media y desviación de las 64 noches","kmeans":{"k":3,"iterations":12,"cluster_sizes":counts,"inertia_by_k":inertias},"pca":{"pc1_loadings":[round(x,6) for x in pc1],"pc2_loadings":[round(x,6) for x in pc2],"explained_variance_ratio":[round(e1/total,6),round(e2/total,6)]},"anomaly_review":{"score":"distancia al centro asignado","threshold":round(threshold,6),"review_night_indices":review,"policy":"prioridad para revisión humana; no fraude ni borrado"},"service_policy":"máximo dos servicios de reunión por semana","data_state":["L7.6","segmentos@L8.1","componentes@L8.2","anomalias@L8.3"],"label":"Dataset sintético narrativo; no representa personas reales"}}
 
 
 if __name__=="__main__":
