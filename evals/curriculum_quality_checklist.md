@@ -15,9 +15,12 @@
 - [ ] Desde Nivel 2 existen un ejercicio guiado y otro de transferencia.
 - [ ] El criterio de dominio puede comprobarse.
 - [ ] La expansión del temario no reduce profundidad.
+- [ ] La ruta oficial conserva 12 posiciones y ubica Sistemas de Datos Modernos y SQL antes del modelado e Ingeniería de Productos de Datos antes de operación.
+- [ ] Si un nivel futuro queda en validación parcial, declara por separado temario diseñado, slices implementadas y cobertura publicada; su manifest no usa `published`.
 
 ## Fallar si
 
 - Un principiante necesita conocimientos no introducidos.
 - Se agrupan varios conceptos solo porque comparten una gráfica.
 - El objetivo usa verbos vagos como "conocer" sin evidencia observable.
+- Un nivel parcial se contabiliza como contenido completo o publicado.

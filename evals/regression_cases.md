@@ -1,17 +1,22 @@
 # Regression Cases
 
-## Casos bloqueantes de Niveles 3–10
+## Casos bloqueantes de Niveles 3–12
 
 - Debe fallar si Nivel 3 conserva el denominador general después de condicionar, interpreta un intervalo como probabilidad del parámetro o un p-value como probabilidad del nulo.
 - Debe fallar si Nivel 4 llama causa a una correlación, pierde la reversión agregada al regenerar u oculta denominadores en riesgo relativo u odds.
-- Debe fallar si Nivel 5 afirma desempeño futuro, introduce train/test antes de Nivel 6 o usa `tacos_vendidos`, `espera_mediana_min` o `merma_kg` como predictor.
-- Debe fallar si Nivel 6 usa test para elegir umbral o regularización, mezcla test en cross-validation, intercambia denominadores o desconecta FP/FN de sus costos.
-- Debe fallar si Nivel 7 presenta clusters como tipos reales, llama fraude a una anomalía, borra casos antes de revisión o excede dos servicios semanales.
-- Debe fallar si Nivel 8 desordena fechas, usa futuro en ventanas o backtesting, interpreta antes/después como causal, cambia métrica o tamaño tras mirar resultados, o despliega pese a incumplir guardrails.
-- Debe fallar si Nivel 9 infiere el secreto de Rogelio o Chava, incluye registros personales, usa celdas menores a 25, oculta denominadores o presenta una métrica de fairness como justicia total.
-- Debe fallar si Nivel 10 confunde data drift con fallo, inventa etiquetas retrasadas, alerta por una variación aislada, automatiza una sanción, revierte sin comprobar, culpa a una persona o impide retirar el procedimiento.
+- Debe fallar si Nivel 5 acepta una query generada sin inspeccionar esquema,
+  relaciones, cardinalidad, granularidad, conteos y procedencia; o si un JOIN
+  duplica la unidad de análisis.
+- Debe fallar si Nivel 6 afirma desempeño futuro, introduce train/test antes de Nivel 7 o usa `tacos_vendidos`, `espera_mediana_min` o `merma_kg` como predictor.
+- Debe fallar si Nivel 7 usa test para elegir umbral o regularización, mezcla test en cross-validation, intercambia denominadores o desconecta FP/FN de sus costos.
+- Debe fallar si Nivel 8 presenta clusters como tipos reales, llama fraude a una anomalía, borra casos antes de revisión o excede dos servicios semanales.
+- Debe fallar si Nivel 9 desordena fechas, usa futuro en ventanas o backtesting, interpreta antes/después como causal, cambia métrica o tamaño tras mirar resultados, o despliega pese a incumplir guardrails.
+- Debe fallar si Nivel 10 infiere el secreto de Rogelio o Chava, incluye registros personales, usa celdas menores a 25, oculta denominadores o presenta una métrica de fairness como justicia total.
+- Debe fallar si Nivel 11 acepta código sin contrato, criterios de aceptación,
+  revisión de diff y tests; o si adelanta alertas, drift o incidentes de Nivel 12.
+- Debe fallar si Nivel 12 vuelve a enseñar construcción de API, Docker, CI/CD o deploy; confunde data drift con fallo, inventa etiquetas retrasadas, alerta por una variación aislada, automatiza una sanción, revierte sin comprobar, culpa a una persona o impide retirar el procedimiento.
 - Debe fallar si Mari o Chava introducen ciencia de datos, trabajan sin pago o aparecen identificados en CSV.
-- Debe fallar si Paco revela la beca antes de Nivel 5, si la meta de Mari aparece antes de `L7-S04` o se infiere desde datos, o si el secreto de Chava aparece antes de Nivel 9.
+- Debe fallar si Paco revela la beca antes de Nivel 6, si la meta de Mari aparece antes de `L8-S04` o se infiere desde datos, o si el secreto de Chava aparece antes de Nivel 10.
 
 ## Caso 1: Histograma
 
@@ -241,3 +246,49 @@ auditoría separada, con fuente, estado y acción; la tabla canónica conserva t
 
 **Debe fallar si:** corrige 500 o 360 por intuición, elimina 30 o 36 por rareza,
 confunde leverage con error o infiere información personal del cliente.
+
+## Caso 25: Nivel nuevo publicado con cobertura incompleta
+
+**Solicitud:** publicar Sistemas de Datos Modernos y SQL o Ingeniería de Productos de Datos.
+
+**Debe producir:** temario e historia aprobados, 19 o 21 paquetes completos,
+manifest `published`, renderers registrados, ejercicios bloqueados por evidencia
+y cifras derivadas del manifest.
+
+**Debe fallar si:** aparece un segundo manifest con el mismo número, falta un
+concepto o se incrementan los totales antes de completar el DoD.
+
+## Caso 26: Handoff omitido entre construcción y operación
+
+**Solicitud:** pasar del análisis responsable a operación.
+
+**Debe producir:** Nivel 11 antes de Nivel 12, con contrato, criterios de
+aceptación, diff revisado y tests; `producto_operable@L11.H1` queda materializado
+solo después de aprobar su historia.
+
+**Debe fallar si:** salta directamente de `L10.4` a monitoreo o trata una salida
+de código generada como producto operable sin verificación.
+
+## Caso 27: JOIN válido con suma inflada
+
+**Debe producir:** conteo previo/posterior, llaves únicas, cardinalidad, suma
+reconciliada y corrección mediante preagregación o llave adecuada.
+
+**Debe fallar si:** acepta el total porque SQL ejecutó, cambia solo el tipo de
+JOIN o elimina filas sin regla de granularidad.
+
+## Caso 28: Diff elegante con tests insuficientes
+
+**Debe producir:** especificación, criterios mapeados a tests, diff revisado,
+caso de fallo y decisión humana de aceptar o rechazar.
+
+**Debe fallar si:** cuenta tests, confunde verde con contrato completo, introduce
+secreto/ruta local o amplía alcance sin autorización.
+
+## Caso 29: Nivel 12 vuelve a construir el producto
+
+**Debe producir:** un `producto_operable@L11.H1` como entrada y trabajar solo
+readiness, baseline, monitoreo, incidentes, rollback, auditoría y retiro.
+
+**Debe fallar si:** Nivel 12 enseña creación de API, Docker, estructura de repo,
+CI/CD inicial, deploy básico o tests de construcción.

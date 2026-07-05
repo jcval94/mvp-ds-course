@@ -6,34 +6,32 @@
 - **Estado:** aprobado para implementación.
 - **Fuente curricular:** `docs/CURRICULUM_MAP.md`, Nivel 8.
 - **Historia canónica:** `docs/stories/LEVEL_8.md`.
-- **Entrada/salida:** `L7.3 / G5-servicios → L8.4 / G6-prepedido`.
-- **Conflicto:** el puesto observa cambios en el tiempo y prueba un canal de prepedido, pero ni una tendencia ni una comparación antes/después identifican por sí solas un efecto.
-- **Promesa:** respetar el orden temporal y separar patrones históricos de evidencia experimental aleatorizada.
-- **Competencia auxiliar:** versionado temporal y planes experimentales reproducibles.
+- **Entrada/salida:** `L7.6 / G4-kiosco → L8.3 / G5-servicios`.
+- **Conflicto:** el puesto encuentra grupos y noches raras sin etiquetas, pero ninguna salida puede convertirse en tipo de persona o veredicto.
+- **Promesa:** explorar estructura y priorizar revisión humana.
+- **Competencia auxiliar:** revisión humana de segmentos y anomalías.
 
 ## Episodios
 
 | Episodio | Escenas | Decisión | Datos | Crecimiento |
 | --- | --- | --- | --- | --- |
-| `L8-E1` El orden sí importa | `L8-S01`–`L8-S04` | Describir tendencia, ciclo, rezago y evento sin causalidad | `L7.3 → serie_nocturna@L8.1` | Ninguno |
-| `L8-E2` Probar desde el pasado | `L8-S05`–`L8-S07` | Fijar ventanas, backtesting y corte de disponibilidad | `L8.1 → backtesting@L8.2` | Ninguno |
-| `L8-E3` Dos mensajes, una asignación | `L8-S08`–`L8-S11` | Aleatorizar 400 prepedidos y congelar métrica, tamaño y efecto | `L8.2 → experimento_prepedido@L8.3` | Nora entra pagada para coordinar entregas |
-| `L8-E4` Ganar sin romper otra cosa | `L8-S12`–`L8-S14` | Revisar guardrails, multiplicidad y efecto práctico | `L8.3 → decision_experimental@L8.4` | `G5-servicios → G6-prepedido` |
+| `L8-E1` Montones sin nombre | `L8-S01`–`L8-S04` | Comparar k y conservar clusters como hipótesis | `L7.6 → segmentos@L8.1` | Mari propone un piloto acotado |
+| `L8-E2` Cinco cuentas en dos ejes | `L8-S05`–`L8-S07` | Proyectar sin confundir componentes con variables | `L8.1 → componentes@L8.2` | Piloto máximo dos reuniones por semana |
+| `L8-E3` Raro no significa malo | `L8-S08`–`L8-S10` | Priorizar cuatro noches para revisión humana | `L8.2 → anomalias@L8.3` | `G4-kiosco → G5-servicios` |
 
 ## Deltas aprobados
 
-- **`continuityDelta`:** Nora Salas entra como tercera ayudante pagada con autoridad sobre fila y entrega, no sobre estadística. Paco permanece asesor parcial y conserva escuela y beca como prioridad.
-- **`dataStateDelta`:** `L7.3 → serie_nocturna@L8.1 → backtesting@L8.2 → experimento_prepedido@L8.3 → decision_experimental@L8.4`.
-- **`growthDelta`:** `G5-servicios → G6-prepedido`; cinco noches, 16 asientos y prepedido con cupo solo después de cumplir guardrails y capacidad.
+- **`continuityDelta`:** Mari revela por decisión propia que ahorra para recuperar el puesto de aguas frescas de su familia. La revelación ocurre en diálogo, no en datos ni por inferencia.
+- **`dataStateDelta`:** `L7.6 → segmentos@L8.1 → componentes@L8.2 → anomalias@L8.3`.
+- **`growthDelta`:** `G4-kiosco → G5-servicios`; piloto reversible de máximo dos reuniones por semana, con un ayudante pagado asignado.
 
 ## Cierre
 
-**“¿Quién podría resultar afectado?”**
+**“¿Cómo cambia esto con el tiempo?”**
 
 ## Supuestos y límites
 
-- La serie contiene 40 noches base y 60 noches de piloto en orden cronológico.
-- El experimento contiene 400 asignaciones sintéticas balanceadas; la unidad es un prepedido elegible, no una persona perfilada.
-- La aleatorización permite interpretar causalmente el mensaje dentro del piloto y sus supuestos, no atribuir al canal todos los cambios del negocio.
-- En vivo usa Bike Sharing para tiempo y PlantGrowth como experimento público real.
+- Una observación es una noche operativa, nunca una persona.
+- Las 64 noches y sus anomalías son sintéticas y no contienen nombres ni secretos.
+- K-means, PCA y aislamiento producen hipótesis y prioridades; no prueban segmentos naturales, fraude, intención ni causalidad.
 

@@ -1,0 +1,135 @@
+{
+  "level": 7,
+  "title": "Evaluación de modelos",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 24,
+  "exercise_count": 48,
+  "prompt_count": 72,
+  "blocks": [
+    {
+      "id": "data-partition",
+      "number": 1,
+      "title": "Partición de datos",
+      "href": "particion-datos.html",
+      "concept_count": 4
+    },
+    {
+      "id": "regression-error",
+      "number": 2,
+      "title": "Error de regresión",
+      "href": "error-regresion.html",
+      "concept_count": 4
+    },
+    {
+      "id": "confusion-matrix",
+      "number": 3,
+      "title": "Matriz de confusión",
+      "href": "matriz-confusion.html",
+      "concept_count": 4
+    },
+    {
+      "id": "classification-metrics",
+      "number": 4,
+      "title": "Métricas de clasificación",
+      "href": "metricas-clasificacion.html",
+      "concept_count": 4
+    },
+    {
+      "id": "curves-calibration",
+      "number": 5,
+      "title": "Curvas y calibración",
+      "href": "curvas-calibracion.html",
+      "concept_count": 4
+    },
+    {
+      "id": "generalization",
+      "number": 6,
+      "title": "Generalización",
+      "href": "generalizacion.html",
+      "concept_count": 4
+    }
+  ],
+  "datasets": [
+    "bike-sharing-day",
+    "wine-quality"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_7.md",
+  "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-7-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
+  "narrativeDataset": {
+    "id": "evaluacion-modelos-nivel-7",
+    "synthetic": true,
+    "generator": "level7-evaluation-v1",
+    "seed": 20270311,
+    "period": {
+      "start": "2026-11-19",
+      "end": "2027-05-02",
+      "nights": 96
+    },
+    "dimensions": {
+      "nights": [
+        96,
+        19
+      ]
+    },
+    "development_source": "datasets/narrative/noches_modelado_nivel_6.csv; primeras 64 noches conservadas",
+    "partitions": {
+      "train": 48,
+      "validation": 16,
+      "test": 32,
+      "development_folds": 4
+    },
+    "test_policy": "sellado hasta congelar modelo, umbral y regularización",
+    "costs": {
+      "false_negative": "pedidos_no_atendidos_estimados × 22 MXN",
+      "false_positive": "merma_extra_estimada_kg × 110 MXN"
+    },
+    "chosen_threshold": 0.35,
+    "test_confusion": {
+      "tp": 30,
+      "tn": 0,
+      "fp": 2,
+      "fn": 0
+    },
+    "regression_metrics": {
+      "mae": 2.617813,
+      "mse": 10.088059,
+      "rmse": 3.176171,
+      "r2": 0.199956
+    },
+    "classification_metrics": {
+      "precision": 0.9375,
+      "recall": 1.0,
+      "specificity": 0.0,
+      "f1": 0.967742
+    },
+    "data_state": [
+      "L6.6",
+      "particiones@L7.1",
+      "error_regresion@L7.2",
+      "matriz_confusion@L7.3",
+      "metricas@L7.4",
+      "curvas@L7.5",
+      "generalizacion@L7.6"
+    ],
+    "label": "Dataset sintético narrativo; no representa personas reales",
+    "files": [
+      {
+        "path": "datasets/narrative/noches_evaluacion_nivel_7.csv",
+        "rows": 96,
+        "columns": 19,
+        "sha256": "d1f8b1c127d287786301f8415813e70f930c60b065343cd434ff8641a8fb9327"
+      }
+    ],
+    "metadataPath": "datasets/narrative/noches_nivel_7.metadata.json",
+    "metadataSha256": "443316adc74f697be71dbac1f8b9456a1a7db5b8f9a4409826bcf82a4a51d056"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-03"
+}

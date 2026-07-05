@@ -29,11 +29,11 @@
 
 ## Cierre
 
-El subtítulo final pregunta: **“¿Podemos anticipar la demanda?”**
+El subtítulo final pregunta: **“¿Cómo juntamos las fuentes sin contar una noche dos veces?”**
 
 ## Supuestos y límites
 
 - Las 48 noches son sintéticas, del 27 de agosto al 15 de noviembre de 2026, con 40–60 pedidos por noche.
 - La reversión agregada por grupos es una construcción didáctica validada; no prueba causas.
-- Mari no aparece identificada en los CSV y su meta personal no se revela antes de Nivel 7.
+- Mari no aparece identificada en los CSV y su meta personal no se revela antes de Nivel 8.
 - En vivo usa únicamente Bike Sharing, Penguins y Wine Quality.

@@ -1,4 +1,4 @@
-# Historia Nivel 6: Abrir el sobre una sola vez
+# Historia Nivel 6: Anticipar sin adivinar
 
 ## Control
 
@@ -6,43 +6,38 @@
 - **ID:** `don-juan-paco-level-6-v1`.
 - **Fuente curricular:** `docs/CURRICULUM_MAP.md`, Nivel 6.
 - **Arco:** `docs/LEVEL_6_NARRATIVE_ARC.md`.
-- **Entrada/salida:** `L5.6 / G4-kiosco → L6.6 / G4-kiosco`.
+- **Entrada/salida:** `dataset_confiable@L5.H1 / G3-espera → L6.6 / G4-kiosco`.
+- **Compatibilidad histórica:** el snapshot conserva su procedencia desde `L4.4` y ahora se consume bajo el contrato `dataset_confiable@L5.H1` aprobado.
 
-El narrador concentra términos y conclusiones. Don Juan habla de compras, merma, faltantes y capacidad. Paco conserva voz de hijo y estudiante. Aprender y Ejercitar usan noches, evidencia y decisiones diferentes.
+Historia aprobada antes del generador. Los modelos son ajustes descriptivos dentro de 64 noches. El narrador, como subtítulo, introduce términos y conclusiones; Don Juan habla de compras, capacidad y costo; Paco prueba procedimientos de sus clases.
 
-## Temario y escenas aprobadas
+## Temario y matriz de escenas
 
-| Escena | Concepto | Aprender | Don Juan | Paco | Subtítulo inicial | Subtítulo de evidencia | Ejercitar distinto |
+| Escena | Concepto | Aprender | Don Juan | Paco | Subtítulo inicial | Subtítulo final | Transferencia distinta |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `L6-S01` | train | Separar 48 noches para ajustar | “Estas sí son para preparar la regla.” | “Las marco antes de calcular.” | Train es la partición usada para estimar parámetros. | Ajustar en train no estima desempeño futuro. | Otra partición detecta una fila duplicada. |
-| `L6-S02` | validation | Comparar cinco umbrales | “Prueba la opción sin abrir el sobre final.” | “Elijo aquí y dejo registro.” | Validation compara alternativas fuera de train. | El umbral se congela por costo antes de test. | Otra regla compara regularización. |
-| `L6-S03` | test | Sellar 32 noches futuras | “Ese no se abre para ir corrigiendo.” | “Primero congelo el procedimiento.” | Test no participa en ajuste ni selección. | Abrirlo repetidamente sesga la estimación. | Un sobre abierto obliga a invalidar la prueba. |
-| `L6-S04` | cross-validation | Rotar cuatro folds de desarrollo | “Que todos trabajen, pero sin tocar el sobre.” | “Cada fold valida una vez.” | Cross-validation rota ajuste y validación. | Los folds usan solo las primeras 64 noches. | Otra rotación descubre variación del ajuste. |
-| `L6-S05` | MAE | Promediar errores absolutos | “Dímelo en pedidos.” | “Tomo distancia y promedio.” | MAE conserva unidades de pedidos. | Resume desvío típico sin cuadrar. | Otro lote cambia el error mediano. |
-| `L6-S06` | MSE | Cuadrar cada error | “Ese tropiezo grande no vale igual.” | “Al cuadrarlo gana peso.” | MSE promedia errores al cuadrado. | Penaliza errores grandes y pierde unidad original. | Un error extremo cambia la comparación. |
-| `L6-S07` | RMSE | Sacar raíz al MSE | “Ahora sí háblame otra vez en pedidos.” | “Saco la raíz al final.” | RMSE vuelve a la unidad del resultado. | Conserva sensibilidad cuadrática. | Otra escala evita confundir pedidos². |
-| `L6-S08` | R² | Comparar contra el promedio | “Si no mejora esa cuenta sencilla, dime.” | “Comparo ambos errores.” | R² usa una línea base explícita. | No es porcentaje de aciertos. | Otro test produce R² negativo. |
-| `L6-S09` | TP | Resaltar aciertos de alerta | “Hubo carga y sí nos preparamos.” | “Marco la celda y su conteo.” | TP combina realidad alta y alerta. | Es un acierto bajo una clase congelada. | Otra noche cambia de celda por la realidad. |
-| `L6-S10` | TN | Resaltar aciertos de no alerta | “No hizo falta preparar de más.” | “Conservo las noches normales.” | TN combina realidad normal y no alerta. | Evita intervención innecesaria. | Otro conjunto cambia el denominador. |
-| `L6-S11` | FP | Convertir falsa alerta en merma | “Nos preparamos de más y sobró.” | “Uso el costo por kilo acordado.” | FP es alerta con demanda normal. | El costo usa merma extra × 110 MXN/kg. | Otra merma recalcula el costo. |
-| `L6-S12` | FN | Convertir omisión en faltantes | “Llegó la carga y nos faltó preparación.” | “Uso margen documentado.” | FN es demanda alta sin alerta. | El costo usa pedidos no atendidos × 22 MXN. | Otra omisión cambia pedidos perdidos. |
-| `L6-S13` | precision | Usar todas las alertas como denominador | “De lo que avisó, ¿cuánto sí pasó?” | “Uso TP más FP.” | Precision evalúa confiabilidad de alertas. | No mide cobertura de noches altas. | Otra prevalencia cambia precision. |
-| `L6-S14` | recall | Usar noches altas como denominador | “¿Cuántas vimos venir?” | “Uso TP más FN.” | Recall evalúa cobertura positiva. | Cambia al mover el umbral. | Otro costo prioriza recall. |
-| `L6-S15` | specificity | Usar noches normales como denominador | “¿Cuántas tranquilas dejamos tranquilas?” | “Uso TN más FP.” | Specificity evalúa reconocimiento negativo. | No sustituye recall. | Otro escenario prioriza evitar merma. |
-| `L6-S16` | F1 | Combinar precision y recall | “No me tapes un lado con el otro.” | “La media armónica baja si uno falla.” | F1 equilibra dos métricas. | No incorpora pesos monetarios. | Otra regla empata F1 con costos distintos. |
-| `L6-S17` | ROC | Recorrer TPR y FPR | “Muéstrame qué ganamos y qué falsas alarmas salen.” | “Cada punto usa el mismo conjunto.” | ROC recorre umbrales en tasas. | Puede ocultar baja precision en clases raras. | Otra prevalencia conserva ROC y cambia PR. |
-| `L6-S18` | PR | Recorrer precision y recall | “Mira también cuántos avisos fallan.” | “Conservo la prevalencia.” | PR muestra el compromiso positivo. | Es informativa cuando la clase positiva es escasa. | Otro corte cambia ambos ejes. |
-| `L6-S19` | threshold | Minimizar costo en validation | “No elijas por bonito.” | “Congelo el mínimo antes del test.” | El umbral conecta score y costo. | Se elige en validation, no en test. | Otra razón de costos elige otro corte. |
-| `L6-S20` | calibration | Comparar score y frecuencia | “Si dice siete, revisa cuántas pasan.” | “Agrupo sin prometer una noche.” | Calibración compara probabilidad y frecuencia. | No garantiza casos individuales. | Otra banda queda sobreconfiada. |
-| `L6-S21` | bias | Ver error sistemático | “Siempre se queda corta en esas noches.” | “Busco el patrón.” | Bias alto refleja supuestos restrictivos. | No autoriza agregar cualquier variable. | Otro modelo falla por curvatura. |
-| `L6-S22` | variance | Comparar ajustes entre folds | “¿Se mueve poquito o se desarma?” | “Repito el mismo procedimiento.” | Variance mide sensibilidad a la muestra. | No es variación de cada pedido. | Otro fold mueve el ajuste. |
-| `L6-S23` | overfitting | Ver brecha train-validation | “En su montón queda perfecto, afuera no.” | “Eso parece memoria.” | Overfitting no se sostiene fuera de train. | Test no elige el punto de parada. | Otro modelo complejo amplía la brecha. |
-| `L6-S24` | regularization | Elegir penalización en validation | “Aprieta la regla, pero no hasta dejarla inútil.” | “Guardo la fuerza elegida.” | Regularización limita complejidad. | Su fuerza se congela antes de test. | Otra penalización cambia bias y variance. |
+| `L6-S01` | ajuste | Una recta resume inventario y pedidos | “Que la raya no tape las noches.” | “Dejo puntos y errores visibles.” | Ajustar estima parámetros que acercan predicciones a resultados observados. | Es un ajuste descriptivo dentro de estas 64 noches, no desempeño futuro. | Temperatura y pedidos. |
+| `L6-S02` | pendiente | Se mueve inventario una unidad | “Si sube uno, ¿cuánto cambia la raya?” | “Leo el cambio con sus unidades.” | La pendiente es el cambio ajustado en la salida por unidad de entrada. | Describe asociación lineal, no efecto causal. | Otra variable previa al turno. |
+| `L6-S03` | intercepto | Se prolonga la recta a entrada cero | “¿Cero tiene sentido aquí?” | “Solo lo interpreto si cae en un contexto válido.” | El intercepto es la salida ajustada cuando todas las entradas valen cero. | Puede ser necesario para el ajuste y carecer de interpretación práctica. | Se centra la entrada. |
+| `L6-S04` | residuales | Se dibujan distancias verticales | “Estas noches quedaron arriba o abajo.” | “Resultado menos ajuste, una por una.” | Un residual es valor observado menos valor ajustado. | Los residuales suman aproximadamente cero con intercepto y revelan errores del ajuste. | Otro ajuste deja patrón curvo. |
+| `L6-S05` | supuestos | Se revisan linealidad, dispersión e independencia | “La raya no arregla todo.” | “Compruebo qué patrón quedó.” | La regresión lineal depende de supuestos sobre forma, errores y dependencia. | Un patrón residual visible limita la lectura; no se oculta con un coeficiente. | Se compara dispersión creciente. |
+| `L6-S06` | variables explicativas | Se agregan lluvia, partido y quincena | “Antes del turno sí lo sabemos.” | “Solo uso señales disponibles a tiempo.” | Una variable explicativa aporta información para ajustar la salida. | Su coeficiente es condicional a las demás entradas, no una causa. | Se cambia una entrada previa. |
+| `L6-S07` | interacción | Partido modifica la pendiente de temperatura | “La regla cambia según la noche.” | “Incluyo el término conjunto.” | Una interacción permite que la asociación de una entrada dependa de otra. | Interpretar solo coeficientes principales ignoraría ese cambio. | Lluvia por día. |
+| `L6-S08` | colinealidad | Dos entradas casi duplicadas vuelven inestables los coeficientes | “Dos señales dicen casi lo mismo.” | “Comparo estabilidad, no solo ajuste.” | La colinealidad dificulta separar contribuciones de variables relacionadas. | El ajuste global puede verse estable mientras coeficientes individuales cambian. | Inventario y una copia transformada. |
+| `L6-S09` | clase | Alta demanda se define como etiqueta | “Primero dime qué cuenta como noche alta.” | “La etiqueta sale de una regla documentada.” | Una clase es una categoría objetivo definida antes de decidir. | Cambiar la definición cambia la tarea; no cambia el pasado. | Se usa agotado como clase. |
+| `L6-S10` | score | Cada noche recibe un valor ordenable | “Ese número todavía no es un sí.” | “Sirve para ordenar; falta la regla.” | Un score resume evidencia para ordenar casos. | Score, clase y decisión son objetos distintos. | Otro conjunto de señales. |
+| `L6-S11` | umbral | Se mueve el corte de alerta | “Si bajo el corte, aviso más veces.” | “Y también cambian los errores.” | Un umbral convierte scores en decisiones. | Moverlo cambia alertas y costos; no mejora el modelo por sí solo. | Se prioriza evitar faltantes. |
+| `L6-S12` | probabilidad | Scores se transforman a escala 0–1 | “Que diga ochenta no es garantía.” | “Es una probabilidad ajustada, no un destino.” | Una probabilidad de clase expresa incertidumbre condicionada al modelo y entradas. | Solo se interpreta dentro del ajuste; calibración y generalización quedan para Nivel 7. | Se comparan dos noches. |
+| `L6-S13` | árbol de decisión | Se recorren divisiones binarias | “Pregunta una cosa y luego otra.” | “Cada ruta termina en una hoja.” | Un árbol divide el espacio mediante reglas sucesivas. | La ruta es reproducible sobre estas filas; no prueba que la regla sea universal. | Otro árbol pequeño. |
+| `L6-S14` | reglas | Las rutas se escriben como si/entonces | “Eso sí lo puede seguir el turno.” | “Incluyo excepciones y alcance.” | Una regla traduce una ruta en condiciones explícitas. | Comprensible no significa correcta fuera de los datos observados. | Se evalúa una noche fronteriza. |
+| `L6-S15` | importancia | Se compara reducción descriptiva de error | “Que salga primero no la vuelve causa.” | “Solo resume uso dentro del árbol.” | La importancia resume cuánto usa el modelo una variable para reducir su criterio. | No es causalidad y puede repartir crédito entre entradas relacionadas. | Se duplican señales. |
+| `L6-S16` | encoding | Día y banderas se convierten en columnas | “Los nombres necesitan una forma de entrar.” | “No les invento un orden.” | Encoding representa categorías numéricamente sin cambiar su significado. | One-hot evita imponer una distancia falsa entre días nominales. | Se codifica etapa. |
+| `L6-S17` | scaling | Entradas se centran y escalan | “Cambió la regla, no las noches.” | “Guardo parámetros y unidades.” | Scaling transforma magnitud usando parámetros documentados. | No agrega información y debe aplicarse con el mismo contrato. | Se compara estandarización y rango. |
+| `L6-S18` | leakage | Se intentan usar espera y merma posteriores | “Eso lo sabemos cuando ya terminó.” | “Entonces queda fuera de la entrada.” | Leakage ocurre cuando una entrada usa información no disponible al momento de decidir. | `tacos_vendidos`, espera y merma se rechazan; la matriz conserva solo señales previas. | Se audita otra columna posterior. |
 
-## Deltas y cierre
+## Crecimiento y relaciones
 
-- **`continuityDelta`:** Don Juan incorpora costos explícitos; Paco aprende a separar selección y evaluación.
-- **`dataStateDelta`:** `L5.6 → L6.1 → L6.2 → L6.3 → L6.4 → L6.5 → L6.6`.
-- **`growthDelta`:** ninguno; `G4-kiosco` permanece congelado.
-- **Cierre:** **“¿Hay patrones que no etiquetamos?”**
+Don Juan invierte parte de sus ahorros en un kiosco 4 × 3, segundo comal y doce asientos después de revisar capacidad y límites. Mari continúa pagada. Chava Ríos entra pagado para segundo comal, servicio y checklists; no interpreta modelos. Toma un taller de radio, dato oculto hasta Nivel 10 y ausente del CSV. Paco revela que solicitó una beca; Don Juan lo respalda como padre y no lo convierte en responsable permanente del puesto.
 
+## Separación y límites
+
+Aprender, guiado y transferencia usan evidencia diferente. Ninguna respuesta se habilita antes de recorrer estados. No hay train/test, métricas de generalización ni promesas futuras. En vivo usa Bike Sharing y Wine Quality. Cierre: **“¿Cómo sabemos si sirve?”**

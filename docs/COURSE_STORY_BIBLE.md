@@ -50,7 +50,7 @@
   `algoritmo`, `leakage`, `métrica`, `significancia` ni otros términos formales.
 - Puede concluir “con esto no compro todavía más carne”; no puede concluir “la
   muestra no es representativa”. Esa segunda frase corresponde al narrador.
-- Su conocimiento permanece exclusivamente en el negocio durante los nueve niveles.
+- Su conocimiento permanece exclusivamente en el negocio durante los doce niveles.
 
 ### Paco
 
@@ -72,7 +72,7 @@
 
 ## Matriz incremental de dinámica y relaciones
 
-| Relación | Nivel 1 | Niveles 2–3 | Niveles 4–6 | Niveles 7–9 | Invariante |
+| Relación | Nivel 1 | Niveles 2–3 | Niveles 4–7 | Niveles 8–12 | Invariante |
 | --- | --- | --- | --- | --- | --- |
 | Don Juan ↔ Paco | Don Juan asigna tareas concretas; Paco quiere demostrar que la escuela sirve | Don Juan empieza a pedir evidencia antes de cambiar compras; Paco aprende a declarar incertidumbre | Negocian recomendaciones y costos de error; Don Juan conserva la decisión final | Trabajan como socios familiares con roles distintos; Paco documenta y Don Juan protege la identidad del negocio | Son padre e hijo antes que “cliente” y “analista”; pueden discrepar sin ridiculizarse |
 | Don Juan ↔ Lupita | Coordinan horario de Paco y presupuesto sin asumir que ella trabajará en el puesto | Lupita cuestiona qué cambio añade trabajo y quién lo hará | Deciden juntos si la lata de ahorro puede financiar equipo sin comprometer la casa | Protegen límites entre negocio, familia y proyectos propios | Son adultos corresponsables; Lupita no traduce ni suaviza automáticamente a Don Juan |
@@ -81,7 +81,7 @@
 | Paco ↔ profesora Elena | Recibe tareas de tablas y calidad | Aprende descripción e incertidumbre con contraejemplos | Consulta límites conceptuales, no respuestas del negocio | Presenta un proyecto reproducible y acepta crítica | La profesora plantea preguntas; el narrador enseña al espectador |
 | Paco ↔ profesor Iván | Aprende contexto y comprobación básica | Detecta respuestas seguras pero incorrectas | Diseña prompts, evals y pruebas de fallo | Documenta privacidad, auditoría y transferencia de skills | IA nunca sustituye evidencia ni revisión humana |
 | Don Juan ↔ Mari | Todavía no se conocen | Mari aparece como posible apoyo operativo, sin compromiso laboral | Don Juan la contrata y paga para preparación y turno; escucha su contexto operativo | Mari puede asumir responsabilidades pactadas sin convertirse en autoridad de datos | La relación es laboral, explícita y pagada; Mari puede señalar límites de capacidad e inocuidad |
-| Don Juan ↔ Chava | Todavía no se conocen | Todavía no participa | Chava entra pagado en Nivel 5 para segundo comal, servicio y checklists | Consolida procedimientos operativos y conserva su proyecto personal | La experiencia operativa no le concede autoridad estadística ni obliga a revelar su vida privada |
+| Don Juan ↔ Chava | Todavía no se conocen | Todavía no participa | Chava entra pagado en Nivel 6 para segundo comal, servicio y checklists | Consolida procedimientos operativos y conserva su proyecto personal | La experiencia operativa no le concede autoridad estadística ni obliga a revelar su vida privada |
 | Familia ↔ Rogelio | Es un cliente conocido por pedidos grandes | Su caso evita confundir raro con falso | Recuerda que una compra no revela la vida de una persona | Su secreto ilustra privacidad y límites de inferencia | Nadie registra ni infiere su dieta en el dataset |
 | Narrador ↔ elenco | Nombra lo que los personajes descubren | Añade incertidumbre y límites | Separa asociación, predicción y decisión | Cierra con responsabilidad y trazabilidad | No participa dentro del mundo ni decide por los personajes |
 
@@ -187,7 +187,7 @@
 - **ID:** `mari-vega`.
 - **Rol:** ayudante pagada de preparación y operación de turno desde Nivel 4, inicialmente viernes y sábado.
 - **Motivación visible:** sostener un servicio ordenado, seguro y compatible con la capacidad real del puesto.
-- **Característica antes oculta:** ahorra para recuperar el puesto de aguas frescas de su familia; Mari la revela voluntariamente en `L7-S04`. Nunca se infiere desde datos.
+- **Característica antes oculta:** ahorra para recuperar el puesto de aguas frescas de su familia; Mari la revela voluntariamente en `L8-S04`. Nunca se infiere desde datos.
 - **Voz:** concreta, observadora y centrada en tiempos de preparación, inocuidad y fila.
 - **Autoridad:** preparación, seguridad alimentaria, capacidad y contexto del turno.
 - **Límite:** no introduce conceptos, no interpreta coeficientes y no aparece identificada en los CSV.
@@ -195,9 +195,9 @@
 ## CharacterCard: Chava Ríos
 
 - **ID:** `chava-rios`.
-- **Rol:** ayudante pagado de segundo comal, servicio y checklists desde Nivel 5.
+- **Rol:** ayudante pagado de segundo comal, servicio y checklists desde Nivel 6.
 - **Motivación visible:** reducir omisiones en el servicio y dejar el relevo claro.
-- **Característica oculta:** toma un taller de radio; no se revela antes de Nivel 9.
+- **Característica oculta:** toma un taller de radio; no se revela antes de Nivel 10.
 - **Voz:** ágil, cordial y aficionada a repetir instrucciones como lista de cabina.
 - **Autoridad:** flujo de servicio, segundo comal y comprobaciones operativas.
 - **Límite:** no evalúa modelos, no decide compras y no aparece identificado en los CSV.
@@ -205,7 +205,7 @@
 ## CharacterCard: Nora Salas
 
 - **ID:** `nora-salas`.
-- **Rol:** tercera ayudante pagada para cupos, fila y entrega de prepedidos desde Nivel 8.
+- **Rol:** tercera ayudante pagada para cupos, fila y entrega de prepedidos desde Nivel 9.
 - **Motivación visible:** evitar que el canal nuevo prometa más de lo que cocina y entrega puede sostener.
 - **Voz:** breve, ordenada y centrada en horarios, cupos y confirmaciones.
 - **Autoridad:** recepción operativa, secuencia de entrega y registro de incidencias.
@@ -242,14 +242,16 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 | 2 | Sin cambio físico | Igual | 30–45 pedidos observados por noche; no se atribuye causa | Ajusta compras y turnos solo con resúmenes verificables |
 | 3 | Añade recepción planificada de pedidos grandes | Igual; Lupita opina sobre carga, no cubre turnos | 35–50 pedidos/noche + hasta 1 pedido grande semanal | Piloto reversible; se comunica incertidumbre |
 | 4 | 10 asientos y área de espera marcada | Don Juan, Paco parcial y un ayudante pagado viernes/sábado | 40–60 pedidos/noche | Don Juan revela la lata y compra equipo menor tras revisar capacidad y relación con eventos |
-| 5 | Kiosco semifijo de 4 × 3 m, segundo comal, 12 asientos | Don Juan + 2 ayudantes pagados + Paco parcial | 55–75 pedidos/noche | Expansión financiada sin deuda; predicción solo apoya inventario |
-| 6 | Capacidad física congelada | Mismo equipo | 55–75 pedidos/noche | No crece: evalúa errores, merma y faltantes antes de otra inversión |
-| 7 | Piloto de servicio para reuniones, máximo 2 por semana | Se asigna un ayudante al servicio; Paco documenta | 60–85 pedidos/noche + pedidos programados | Segmentos y anomalías se revisan como hipótesis humanas |
-| 8 | Abre cinco noches, 16 asientos y canal de prepedido con cupo | Don Juan + 3 ayudantes pagados + Paco asesor parcial | 70–95 pedidos/noche | Horario y canal se prueban con experimento, guardrails y capacidad |
-| 9 | Un solo local de barrio de 5 × 4 m, 18 asientos; no es cadena | Don Juan + 4 personas pagadas; Paco documenta mientras continúa estudios | 90–120 pedidos/noche con tope declarado | Consolida privacidad, manual operativo y transferencia; no abre sucursal en el curso |
-| 10 | Conserva el mismo local, 18 asientos y cupos | Mismo equipo; responsabilidades y escalamiento explícitos | Mismo rango con límites monitoreados | No crece: practica gates, rollback, incidentes y retiro responsable |
+| 5 | Sin cambio físico; Sistemas de Datos Modernos y SQL | Igual que Nivel 4 | Conserva el rango aprobado de Nivel 4; audita datos ya cerrados | No crece; construye un dataset confiable sin alterar el lore |
+| 6 | Kiosco semifijo de 4 × 3 m, segundo comal, 12 asientos | Don Juan + 2 ayudantes pagados + Paco parcial | 55–75 pedidos/noche | Expansión financiada sin deuda; predicción solo apoya inventario |
+| 7 | Capacidad física congelada | Mismo equipo | 55–75 pedidos/noche | No crece: evalúa errores, merma y faltantes antes de otra inversión |
+| 8 | Piloto de servicio para reuniones, máximo 2 por semana | Se asigna un ayudante al servicio; Paco documenta | 60–85 pedidos/noche + pedidos programados | Segmentos y anomalías se revisan como hipótesis humanas |
+| 9 | Abre cinco noches, 16 asientos y canal de prepedido con cupo | Don Juan + 3 ayudantes pagados + Paco asesor parcial | 70–95 pedidos/noche | Horario y canal se prueban con experimento, guardrails y capacidad |
+| 10 | Un solo local de barrio de 5 × 4 m, 18 asientos; no es cadena | Don Juan + 4 personas pagadas; Paco documenta mientras continúa estudios | 90–120 pedidos/noche con tope declarado | Consolida privacidad, manual operativo y transferencia; no abre sucursal en el curso |
+| 11 | Conserva el mismo local; Ingeniería de Productos de Datos | Mismo equipo; Paco sigue como estudiante | Mismo rango y topes | No crece; prepara un producto operable sin adelantar monitoreo |
+| 12 | Conserva el mismo local, 18 asientos y cupos | Mismo equipo; responsabilidades y escalamiento explícitos | Mismo rango con límites monitoreados | No crece: practica gates, rollback, incidentes y retiro responsable |
 
-## Arco general de diez niveles
+## Arco general de doce niveles
 
 | Nivel | Cambio narrativo | Resultado de datos | Competencia auxiliar de agentes | Puente |
 | --- | --- | --- | --- | --- |
@@ -257,12 +259,14 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 | 2 | Don Juan necesita comprar sin desperdiciar | Resumir y visualizar distribuciones | Parámetros, entradas, salidas y operaciones compatibles | “¿Esto se repetirá o fue casualidad?” |
 | 3 | El primer piloto de pedidos grandes varía | Razonar sobre muestra e incertidumbre | Supuestos y validación de respuestas | “¿Qué cosas cambian juntas?” |
 | 4 | Partido, clima y ventas parecen relacionarse | Describir relaciones sin afirmar causalidad | Contexto y límites causales | “¿Podemos anticipar la demanda?” |
-| 5 | El nuevo kiosco necesita preparar insumos | Modelar regresión y clasificación | Pipeline y prevención de leakage | “¿Cómo sabemos si sirve?” |
-| 6 | Los errores significan merma o clientes sin producto | Evaluar modelos según costo | Evals y casos de prueba | “¿Hay patrones que no etiquetamos?” |
-| 7 | Aparecen servicios, segmentos y pedidos inusuales | Explorar grupos y anomalías como hipótesis | Revisión humana de salidas | “¿Cómo cambia esto con el tiempo?” |
-| 8 | El puesto prueba horario y prepedido | Analizar tiempo y experimentos | Versionado temporal y planes reproducibles | “¿Quién podría resultar afectado?” |
-| 9 | Paco entrega un sistema revisable mientras sigue estudiando | Comunicar, auditar y reproducir | Procedencia, privacidad y transferencia de skills | “¿Cómo lo operamos y detenemos si algo cambia?” |
-| 10 | El equipo practica monitoreo, rollback y retiro | Operar un procedimiento auditable y reversible | Gates, alertas, runbook y retiro | Cierre responsable sin convertir el negocio en cadena |
+| 5 | Un reporte multiplica noches al juntar fuentes | Construir y validar datasets analíticos con SQL | Esquemas, JOINs, granularidad y procedencia | `dataset_confiable@L5.H1` producido; pregunta qué puede aprender un modelo |
+| 6 | El nuevo kiosco necesita preparar insumos | Modelar regresión y clasificación | Pipeline y prevención de leakage | “¿Cómo sabemos si sirve?” |
+| 7 | Los errores significan merma o clientes sin producto | Evaluar modelos según costo | Evals y casos de prueba | “¿Hay patrones que no etiquetamos?” |
+| 8 | Aparecen servicios, segmentos y pedidos inusuales | Explorar grupos y anomalías como hipótesis | Revisión humana de salidas | “¿Cómo cambia esto con el tiempo?” |
+| 9 | El puesto prueba horario y prepedido | Analizar tiempo y experimentos | Versionado temporal y planes reproducibles | “¿Quién podría resultar afectado?” |
+| 10 | Paco entrega un sistema revisable mientras sigue estudiando | Comunicar, auditar y reproducir | Procedencia, privacidad y transferencia de skills | “¿Cómo lo convertimos en un producto entregable?” |
+| 11 | La demo solo funciona en la sesión de Paco | Convertir análisis y modelos en un producto de datos | Especificación, revisión de diffs y ejecución de tests | `producto_operable@L11.H1`; pregunta cómo saber si sigue funcionando |
+| 12 | El equipo practica monitoreo, rollback y retiro | Operar un procedimiento auditable y reversible | Gates, alertas, runbook y retiro | Cierre responsable sin convertir el negocio en cadena |
 
 ## Reglas de humor y secretos
 

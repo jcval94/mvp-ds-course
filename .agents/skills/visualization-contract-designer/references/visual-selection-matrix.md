@@ -5,14 +5,19 @@
   colas, curvas superpuestas y potencia.
 - Nivel 4: scatterplots, líneas descriptivas, pequeños múltiples, rangos,
   DAG, comparaciones estratificadas, tabla 2×2, mosaico, heatmap y ratio plot.
-- Nivel 5: ajuste y residuales, diagnósticos, coeficientes, líneas de interacción,
+- Nivel 5: diagramas de esquema y relaciones, claves y cardinalidad, linaje,
+  granularidad, planes de JOIN y reconciliación de conteos. La slice aprobada usa
+  `join-row-explosion`; los otros conceptos siguen bloqueados por renderer y prueba.
+- Nivel 6: ajuste y residuales, diagnósticos, coeficientes, líneas de interacción,
   heatmap, scores, curva logística, árbol, flujo, one-hot, scaling y leakage.
-- Nivel 6: splits, matrices de confusión, ROC/PR, calibración, errores y learning curves.
-- Nivel 7: clusters, centroides, biplots, scree plots y anomaly scores.
-- Nivel 8: series temporales, rezagos, ventanas y diagramas experimentales.
-- Nivel 9: cobertura, tasas, rutas de daño, linaje y cadenas de afirmación.
-- Nivel 10: gates, drift, alertas persistentes, líneas de incidente y retiro.
-- Nivel 9: fairness, procedencia, privacidad y DAG de auditoría.
+- Nivel 7: splits, matrices de confusión, ROC/PR, calibración, errores y learning curves.
+- Nivel 8: clusters, centroides, biplots, scree plots y anomaly scores.
+- Nivel 9: series temporales, rezagos, ventanas y diagramas experimentales.
+- Nivel 10: cobertura, tasas, rutas de daño, linaje y cadenas de afirmación.
+- Nivel 11: contratos de producto, interfaces, flujo de build, revisión de diff,
+  matriz de aceptación y resultados de tests. La slice aprobada usa
+  `notebook-pipeline-contract`; los otros conceptos siguen bloqueados por renderer y prueba.
+- Nivel 12: gates, drift, alertas persistentes, líneas de incidente y retiro.
 
 Elegir por mecanismo: pertenencia→conjunto; cambio temporal→línea; relación
 numérica→scatterplot; distribución→densidad/PMF; incertidumbre→intervalos;

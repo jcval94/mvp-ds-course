@@ -1,87 +1,66 @@
 {
-  "id": "segmentos-operativos-nivel-7",
+  "id": "evaluacion-modelos-nivel-7",
   "synthetic": true,
-  "generator": "level7-unsupervised-v1",
-  "seed": 20270506,
+  "generator": "level7-evaluation-v1",
+  "seed": 20270311,
   "period": {
-    "start": "2027-05-06",
-    "end": "2027-08-22",
-    "nights": 64
+    "start": "2026-11-19",
+    "end": "2027-05-02",
+    "nights": 96
   },
   "dimensions": {
     "nights": [
-      64,
-      11
+      96,
+      19
     ]
   },
-  "features": [
-    "pedidos_totales",
-    "pedidos_programados",
-    "espera_mediana_min",
-    "merma_kg",
-    "proporcion_para_llevar"
-  ],
-  "standardization": "z-score con media y desviación de las 64 noches",
-  "kmeans": {
-    "k": 3,
-    "iterations": 12,
-    "cluster_sizes": [
-      22,
-      10,
-      32
-    ],
-    "inertia_by_k": {
-      "2": 144.699863,
-      "3": 106.262841,
-      "4": 68.306349,
-      "5": 48.62343
-    }
+  "development_source": "datasets/narrative/noches_modelado_nivel_6.csv; primeras 64 noches conservadas",
+  "partitions": {
+    "train": 48,
+    "validation": 16,
+    "test": 32,
+    "development_folds": 4
   },
-  "pca": {
-    "pc1_loadings": [
-      0.497656,
-      0.175456,
-      0.499719,
-      0.484292,
-      0.48713
-    ],
-    "pc2_loadings": [
-      0.043388,
-      0.960901,
-      -0.004762,
-      -0.194902,
-      -0.191774
-    ],
-    "explained_variance_ratio": [
-      0.719607,
-      0.191809
-    ]
+  "test_policy": "sellado hasta congelar modelo, umbral y regularización",
+  "costs": {
+    "false_negative": "pedidos_no_atendidos_estimados × 22 MXN",
+    "false_positive": "merma_extra_estimada_kg × 110 MXN"
   },
-  "anomaly_review": {
-    "score": "distancia al centro asignado",
-    "threshold": 1.948325,
-    "review_night_indices": [
-      19,
-      38,
-      47,
-      62
-    ],
-    "policy": "prioridad para revisión humana; no fraude ni borrado"
+  "chosen_threshold": 0.35,
+  "test_confusion": {
+    "tp": 30,
+    "tn": 0,
+    "fp": 2,
+    "fn": 0
   },
-  "service_policy": "máximo dos servicios de reunión por semana",
+  "regression_metrics": {
+    "mae": 2.617813,
+    "mse": 10.088059,
+    "rmse": 3.176171,
+    "r2": 0.199956
+  },
+  "classification_metrics": {
+    "precision": 0.9375,
+    "recall": 1.0,
+    "specificity": 0.0,
+    "f1": 0.967742
+  },
   "data_state": [
     "L6.6",
-    "segmentos@L7.1",
-    "componentes@L7.2",
-    "anomalias@L7.3"
+    "particiones@L7.1",
+    "error_regresion@L7.2",
+    "matriz_confusion@L7.3",
+    "metricas@L7.4",
+    "curvas@L7.5",
+    "generalizacion@L7.6"
   ],
   "label": "Dataset sintético narrativo; no representa personas reales",
   "files": [
     {
-      "path": "datasets/narrative/noches_segmentos_nivel_7.csv",
-      "rows": 64,
-      "columns": 11,
-      "sha256": "ac38efe27bc4a216eb8adba7c00f93d26e49ea322cb76aeff8f2a2f4d38d2f89"
+      "path": "datasets/narrative/noches_evaluacion_nivel_7.csv",
+      "rows": 96,
+      "columns": 19,
+      "sha256": "d1f8b1c127d287786301f8415813e70f930c60b065343cd434ff8641a8fb9327"
     }
   ]
 }

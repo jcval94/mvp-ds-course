@@ -5,7 +5,8 @@
 - [ ] `IDEA.md`, Brief y PRD describen el mismo usuario.
 - [ ] Los tres documentos describen el mismo problema y resultado.
 - [ ] `CURRICULUM_MAP.md` cubre los conceptos citados en el PRD.
-- [ ] Todos los documentos coinciden en 172 conceptos, 326 ejercicios y diez niveles publicados.
+- [ ] Todos los documentos coinciden en 212 conceptos, 406 ejercicios y doce niveles publicados.
+- [ ] Todos los documentos distinguen la base histórica de los 40 conceptos incorporados y no inventan cobertura.
 - [ ] Los modos tienen los mismos nombres, propósito compartido y contenido separado.
 - [ ] Los no objetivos no reaparecen como requisitos MVP.
 - [ ] El plan respeta la fase documental.

@@ -2,12 +2,16 @@
 
 ## Versión
 
-- **Ledger:** `L10.4-v1`.
+- **Ledger:** `L12.4-v1`.
 - **Versión anterior conservada:** `L2.4-v1`.
-- **Último episodio aprobado:** `L10-E4`.
+- **Último episodio aprobado:** `L12-E4`.
 - **Story Bible:** `don-juan-paco-course-v2`.
-- **Arco:** `don-juan-paco-level-10-v1`.
+- **Arco:** `don-juan-paco-level-12-v1`.
 - **Momento narrativo:** cierre de la ruta en abril de 2028; existe un solo local `G7-local` de 5 × 4 metros, 18 asientos y cuatro puestos pagados. El procedimiento queda explicable, reversible, monitoreado, auditable y retirable.
+- **Estado curricular:** las historias y el contenido de Niveles 1–12 están
+  aprobados y publicados. Nivel 5 produce `dataset_confiable@L5.H1`; Nivel 11
+  produce `producto_operable@L11.H1` para que los niveles posteriores no asuman
+  fuentes ni productos inexistentes.
 
 ## Hechos canónicos
 
@@ -54,14 +58,14 @@ aparecer antes de su ventana de revelación.
 | Personaje | Característica oculta | Estado al cierre de Nivel 1 | Ventana mínima | Uso permitido |
 | --- | --- | --- | --- | --- |
 | Don Juan | Ahorra una moneda de cada semana buena para comprar otro comal | No revelada | Nivel 4 | Financiar crecimiento sin deuda mágica |
-| Paco | Quiere usar el proyecto para solicitar una beca | No revelada | Nivel 5 | Tensión entre proyecto escolar, familia y futuro |
+| Paco | Quiere usar el proyecto para solicitar una beca | No revelada | Nivel 6 | Tensión entre proyecto escolar, familia y futuro |
 | Lupita | Diseña un menú de postres dominicales | No revelada | Nivel 3 | Mostrar que una expansión también cambia la carga de trabajo |
 | Beto | Crea stop-motion de tacos con plastilina | Revelada en `L2-E2`; no pública ni laboral | Nivel 2 | Probar comunicación visual con supervisión |
 | Profesora Elena | Creció ayudando en un puesto de frutas del tianguis | No revelada | Nivel 3 | Explicar su sensibilidad hacia pequeños negocios |
 | Profesor Iván | Inserta errores plausibles en demos para enseñar verificación | No revelada | Nivel 3 | Convertir desconfianza puntual en método de evaluación |
-| Señor Rogelio | Está a dieta, ama los tacos y no quiere ser reconocido al comprar para sí mismo | Revelada voluntariamente en `L9-S04`; ausente de datos | Nivel 9 | Privacidad; nunca burla, diagnóstico ni atributo del dataset |
-| Mari Vega | Ahorra para recuperar el puesto familiar de aguas frescas | Revelada voluntariamente en `L7-S04`; ausente de datos | Nivel 7 | Meta propia y piloto acotado, nunca inferencia algorítmica |
-| Chava Ríos | Toma un taller de radio | Revelada voluntariamente en `L9-S17`; ausente de datos | Nivel 9 | Comunicación sin caricatura ni etiqueta inferida |
+| Señor Rogelio | Está a dieta, ama los tacos y no quiere ser reconocido al comprar para sí mismo | Revelada voluntariamente en `L10-S04`; ausente de datos | Nivel 10 | Privacidad; nunca burla, diagnóstico ni atributo del dataset |
+| Mari Vega | Ahorra para recuperar el puesto familiar de aguas frescas | Revelada voluntariamente en `L8-S04`; ausente de datos | Nivel 8 | Meta propia y piloto acotado, nunca inferencia algorítmica |
+| Chava Ríos | Toma un taller de radio | Revelada voluntariamente en `L10-S17`; ausente de datos | Nivel 10 | Comunicación sin caricatura ni etiqueta inferida |
 
 ## Estado del crecimiento
 
@@ -123,18 +127,20 @@ aparecer antes de su ventana de revelación.
 
 Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata.json`; el generador es la fuente de verdad para evitar divergencia entre documentación y archivos.
 
-## Estado de Niveles 3–10
+## Estado de Niveles 3–12
 
 | Nivel | Periodo y dimensiones | Estado de datos | Estado del puesto | Revelaciones y límites |
 | --- | --- | --- | --- | --- |
 | 3 | 1,360 pedidos, 32 noches, 2026-07-02 a 2026-08-23 | `L2.4 → pedidos_piloto@L3.1 → eventos_y_variables@L3.2 → muestras@L3.3 → incertidumbre@L3.4 → pruebas@L3.5` | `G2-piloto`, sin cambio físico | Lupita, Elena e Iván revelan sus rasgos autorizados; no aparecen en datos |
 | 4 | 48 noches × 16 campos, 2026-08-27 a 2026-11-15 | `L3.5 → noches_contexto@L4.1 → relaciones@L4.2 → correlaciones@L4.3 → estratos_y_tablas@L4.4` | `G3-espera`, 10 asientos y área marcada | Don Juan revela ahorros; Mari entra pagada; asociación no se vuelve causa |
-| 5 | 64 noches × 16 campos, 2026-11-19 a 2027-03-07 | `L4.4 → noches_modelado@L5.1 → regresion_simple@L5.2 → regresion_multiple@L5.3 → clasificacion@L5.4 → arbol_reglas@L5.5 → matriz_modelado_sin_leakage@L5.6` | `G4-kiosco`, 4 × 3 m, segundo comal y 12 asientos | Chava entra pagado; Paco revela beca; ajuste solo descriptivo en muestra |
-| 6 | 96 noches × 19 campos, 2026-11-19 a 2027-05-02 | `L5.6 → particiones@L6.1 → error_regresion@L6.2 → matriz_confusion@L6.3 → metricas@L6.4 → curvas@L6.5 → generalizacion@L6.6` | `G4-kiosco`, capacidad congelada | 48 train, 16 validation, 32 test; errores conectados con costos sintéticos |
-| 7 | 64 noches × 11 campos, 2027-05-06 a 2027-08-22 | `L6.6 → segmentos@L7.1 → componentes@L7.2 → anomalias@L7.3` | `G5-servicios`, máximo dos reuniones por semana | Mari revela su meta por decisión propia; clusters y anomalías requieren revisión humana |
-| 8 | 100 noches × 18 campos y 400 asignaciones × 10 campos, 2027-08-26 a 2028-01-23 | `L7.3 → serie_nocturna@L8.1 → backtesting@L8.2 → experimento_prepedido@L8.3 → decision_experimental@L8.4` | `G6-prepedido`, cinco noches, 16 asientos y tres ayudantes pagados | Nora entra pagada; efecto experimental limitado al mensaje y guardrails cumplidos |
-| 9 | 48 celdas agregadas × 10 campos, 12 semanas | `L8.4 → auditoria_agregada@L9.1 → informe_responsable@L9.2 → reproducibilidad@L9.3 → mini_proyecto@L9.4` | `G7-local`, 5 × 4 m, 18 asientos y cuatro puestos pagados | Rogelio y Chava revelan información por decisión propia; mínimo 25 elegibles por celda, sin identificadores ni texto libre |
-| 10 | 96 snapshots × 14 campos y 8 incidentes × 9 campos, 2028-01-15 a 2028-04-19 | `L9.4 → readiness@L10.1 → monitoring@L10.2 → incidents@L10.3 → handoff@L10.4` | `G7-local`, sin crecimiento ni backend | Alertas requieren persistencia y revisión humana; rollback comprobado, postmortem sin culpa y retiro verificable |
+| 5 | Auditoría 2026-11-16 a 2026-11-18; 19 controles curriculares versionados | `L4.4 → L5.1 → L5.2 → L5.3 → L5.4 → L5.5 → L5.6 → dataset_confiable@L5.H1`; 19 escenas materializadas | `G3-espera`, sin crecimiento | Historia y nivel aprobados; no revela secretos ni añade ventas futuras |
+| 6 | 64 noches × 16 campos, 2026-11-19 a 2027-03-07 | `dataset_confiable@L5.H1 → noches_modelado@L6.1 → regresion_simple@L6.2 → regresion_multiple@L6.3 → clasificacion@L6.4 → arbol_reglas@L6.5 → matriz_modelado_sin_leakage@L6.6`; el snapshot publicado conserva `L4.4` como fuente histórica | `G4-kiosco`, 4 × 3 m, segundo comal y 12 asientos | Chava entra pagado; Paco revela beca; ajuste solo descriptivo en muestra |
+| 7 | 96 noches × 19 campos, 2026-11-19 a 2027-05-02 | `L6.6 → particiones@L7.1 → error_regresion@L7.2 → matriz_confusion@L7.3 → metricas@L7.4 → curvas@L7.5 → generalizacion@L7.6` | `G4-kiosco`, capacidad congelada | 48 train, 16 validation, 32 test; errores conectados con costos sintéticos |
+| 8 | 64 noches × 11 campos, 2027-05-06 a 2027-08-22 | `L7.6 → segmentos@L8.1 → componentes@L8.2 → anomalias@L8.3` | `G5-servicios`, máximo dos reuniones por semana | Mari revela su meta por decisión propia; clusters y anomalías requieren revisión humana |
+| 9 | 100 noches × 18 campos y 400 asignaciones × 10 campos, 2027-08-26 a 2028-01-23 | `L8.3 → serie_nocturna@L9.1 → backtesting@L9.2 → experimento_prepedido@L9.3 → decision_experimental@L9.4` | `G6-prepedido`, cinco noches, 16 asientos y tres ayudantes pagados | Nora entra pagada; efecto experimental limitado al mensaje y guardrails cumplidos |
+| 10 | 48 celdas agregadas × 10 campos, 12 semanas | `L9.4 → auditoria_agregada@L10.1 → informe_responsable@L10.2 → reproducibilidad@L10.3 → mini_proyecto@L10.4` | `G7-local`, 5 × 4 m, 18 asientos y cuatro puestos pagados | Rogelio y Chava revelan información por decisión propia; mínimo 25 elegibles por celda, sin identificadores ni texto libre |
+| 11 | 2028-01-18 a 2028-01-21; 21 criterios versionados y artifact offline | `L10.4 → L11.1 → L11.2 → L11.3 → L11.4 → L11.5 → L11.6 → producto_operable@L11.H1`; 21 escenas materializadas | `G7-local`, sin crecimiento | Historia y nivel aprobados; no usa secretos reales ni adelanta monitoreo |
+| 12 | 96 snapshots × 14 campos y 8 incidentes × 9 campos, 2028-01-22 a 2028-04-26 | `producto_operable@L11.H1 → readiness@L12.1 → monitoring@L12.2 → incidents@L12.3 → handoff@L12.4` | `G7-local`, sin crecimiento ni backend | Alertas requieren persistencia y revisión humana; rollback comprobado, postmortem sin culpa y retiro verificable |
 
 Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos. Mari, Chava y Nora no aparecen identificados en ningún archivo de datos.
 
@@ -145,8 +151,10 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - Revisar si dos noches representan otros días: se retoma en muestreo.
 - Mantener la escuela de Paco y el reparto familiar como restricciones de cualquier crecimiento.
 - Conservar sin revelar todos los secretos excepto el stop-motion de Beto, abierto en Nivel 2.
-- Respetar el test sellado y los costos documentados de Nivel 6 en cualquier comparación futura.
+- Respetar el test sellado y los costos documentados de Nivel 7 en cualquier comparación futura.
 - Mantener la escuela de Paco, un solo local y autoridad humana como restricciones permanentes.
+- Pilotear con docentes el handoff `dataset_confiable@L5.H1 → Nivel 6` sin cambiar la secuencia canónica.
+- Pilotear con docentes el handoff `producto_operable@L11.H1 → Nivel 12` sin adelantar monitoreo a Nivel 11.
 - Conservar model card, runbook, audit log y plan de retiro junto a cualquier uso futuro.
 
 ## Deltas aprobados
@@ -167,14 +175,16 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - **`growthDelta`:** ninguno; el puesto sigue en `G1` y no se atribuye causalmente el volumen observado.
 - **Revisión:** historia y arco de Nivel 2 aprobados antes de la implementación.
 
-## Deltas aprobados de Niveles 3–10
+## Deltas aprobados de Niveles 3–12
 
 - **Nivel 3:** `G1 → G2-piloto`; conserva tamaño y plantilla, comunica incertidumbre y cierra en `L3.5`.
 - **Nivel 4:** `G2-piloto → G3-espera`; agrega diez asientos, área marcada y Mari pagada, sin atribución causal.
-- **Nivel 5:** `G3-espera → G4-kiosco`; kiosco, segundo comal, doce asientos, Mari y Chava pagados; la matriz final excluye resultados posteriores.
-- **Nivel 6:** `G4-kiosco → G4-kiosco`; test sellado, costos explícitos y ninguna expansión.
-- **Nivel 7:** `G4-kiosco → G5-servicios`; Mari revela su meta y se autoriza un piloto reversible con revisión humana.
-- **Nivel 8:** `G5-servicios → G6-prepedido`; Nora entra pagada y el canal se autoriza solo tras backtesting, aleatorización, efecto práctico y guardrails.
-- **Nivel 9:** `G6-prepedido → G7-local`; abre un único local tras auditar representación, daño, privacidad, reproducibilidad y límites del mini-proyecto.
-- **Nivel 10:** `G7-local → G7-local`; no hay crecimiento ni backend, y la ruta cierra con gates, monitoreo, incidentes, handoff y retiro.
-- **Revisión:** historias y arcos 3 a 10 aprobados antes de ejecutar sus generadores.
+- **Nivel 6:** `G3-espera → G4-kiosco`; kiosco, segundo comal, doce asientos, Mari y Chava pagados; la matriz final excluye resultados posteriores.
+- **Nivel 7:** `G4-kiosco → G4-kiosco`; test sellado, costos explícitos y ninguna expansión.
+- **Nivel 8:** `G4-kiosco → G5-servicios`; Mari revela su meta y se autoriza un piloto reversible con revisión humana.
+- **Nivel 9:** `G5-servicios → G6-prepedido`; Nora entra pagada y el canal se autoriza solo tras backtesting, aleatorización, efecto práctico y guardrails.
+- **Nivel 10:** `G6-prepedido → G7-local`; abre un único local tras auditar representación, daño, privacidad, reproducibilidad y límites del mini-proyecto.
+- **Nivel 12:** `G7-local → G7-local`; no hay crecimiento ni backend, y la ruta cierra con gates, monitoreo, incidentes, handoff y retiro.
+- **Nivel 5:** `G3-espera → G3-espera`; audita fuentes cerradas y materializa `dataset_confiable@L5.H1` con 19 conceptos publicados.
+- **Nivel 11:** `G7-local → G7-local`; materializa `producto_operable@L11.H1` con 21 conceptos publicados y mantiene operación en Nivel 12.
+- **Revisión:** historias, arcos y niveles 1–12 están aprobados; Niveles 5 y 11 materializan `dataset_confiable@L5.H1` y `producto_operable@L11.H1`.

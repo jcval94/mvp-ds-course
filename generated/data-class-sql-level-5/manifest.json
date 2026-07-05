@@ -1,0 +1,112 @@
+{
+  "level": 5,
+  "title": "Sistemas de Datos Modernos y SQL",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 19,
+  "exercise_count": 38,
+  "prompt_count": 57,
+  "blocks": [
+    {
+      "id": "architecture",
+      "number": 1,
+      "title": "Arquitectura invisible de los datos",
+      "href": "arquitectura-datos.html",
+      "concept_count": 2
+    },
+    {
+      "id": "sql-questions",
+      "number": 2,
+      "title": "SQL para hacer preguntas",
+      "href": "sql-preguntas.html",
+      "concept_count": 2
+    },
+    {
+      "id": "joins",
+      "number": 3,
+      "title": "Relaciones y JOINs",
+      "href": "relaciones-joins.html",
+      "concept_count": 3
+    },
+    {
+      "id": "analytic-sql",
+      "number": 4,
+      "title": "SQL analítico y tiempo",
+      "href": "sql-analitico.html",
+      "concept_count": 3
+    },
+    {
+      "id": "abt",
+      "number": 5,
+      "title": "Construcción de la tabla analítica",
+      "href": "tabla-analitica.html",
+      "concept_count": 3
+    },
+    {
+      "id": "modern-sources",
+      "number": 6,
+      "title": "Fuentes y formatos modernos",
+      "href": "fuentes-modernas.html",
+      "concept_count": 3
+    },
+    {
+      "id": "quality-lineage",
+      "number": 7,
+      "title": "Calidad, contratos y procedencia",
+      "href": "calidad-procedencia.html",
+      "concept_count": 3
+    }
+  ],
+  "datasets": [
+    "bike-sharing-day"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_5.md",
+  "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-5-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
+  "narrativeDataset": {
+    "id": "dataset-confiable-nivel-5-v1",
+    "synthetic": true,
+    "generator": "level5-full-v1",
+    "period": {
+      "observed_end": "2026-11-15",
+      "audit_start": "2026-11-16",
+      "audit_end": "2026-11-18"
+    },
+    "dimensions": [
+      19,
+      7
+    ],
+    "unit": "un control curricular sobre una unidad analítica",
+    "join_key": "llave documentada por fuente",
+    "privacy": {
+      "personal_identifiers": false,
+      "synthetic": true
+    },
+    "growth": {
+      "from": "G3-espera",
+      "to": "G3-espera"
+    },
+    "data_state": [
+      "L4.4",
+      "dataset_confiable@L5.H1"
+    ],
+    "label": "Fixture sintética de controles; los demos en vivo usan snapshots públicos registrados",
+    "files": [
+      {
+        "path": "datasets/narrative/controles_dataset_nivel_5.csv",
+        "rows": 19,
+        "columns": 7,
+        "sha256": "11b53df55a255c260f1129b7f53311f7775dbbc98278a9eb565c4803c8cc1f34"
+      }
+    ],
+    "metadataPath": "datasets/narrative/nivel_5.metadata.json",
+    "metadataSha256": "44a94ed468c61051b4313d6660905bc8cb4ee8abf36266e6cb8f198ee493e6ad"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-04"
+}

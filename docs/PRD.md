@@ -55,7 +55,7 @@ Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, s
 ### `CourseStoryBible`
 
 - Premisa, audiencia, tono, mundo y reglas de humor.
-- Arco general de los nueve niveles.
+- Arco general de doce niveles, con historias, handoffs y contenido completo aprobados.
 - Reglas de autoridad narrativa y límites del contexto.
 - Referencias a las `CharacterCard` canónicas.
 - Matriz incremental de relaciones y crecimiento cuantificado del negocio.
@@ -220,7 +220,7 @@ Los diez conceptos del prototipo existente se mantienen dentro de una progresió
 
 **Usuario:** profesor de introducción a ciencia de datos.
 
-**Entrada:** uno de 172 conceptos de Niveles 1 a 10, contexto aplicado y
+**Entrada:** uno de 212 conceptos publicados en Niveles 1–12, contexto aplicado y
 duración de 30 a 90 minutos.
 
 **Cobertura:**
@@ -229,12 +229,14 @@ duración de 30 a 90 minutos.
 2. Nivel 2 · Descripción y visualización: 21 conceptos, 42 ejercicios y 63 prompts.
 3. Nivel 3 · Probabilidad e inferencia: 19 conceptos, 38 ejercicios y 57 prompts.
 4. Nivel 4 · Relaciones entre variables: 15 conceptos, 30 ejercicios y 45 prompts.
-5. Nivel 5 · Modelado supervisado: 18 conceptos, 36 ejercicios y 54 prompts.
-6. Nivel 6 · Evaluación de modelos: 24 conceptos, 48 ejercicios y 72 prompts.
-7. Nivel 7 · Aprendizaje no supervisado: 10 conceptos, 20 ejercicios y 30 prompts.
-8. Nivel 8 · Datos temporales y experimentación: 14 conceptos, 28 ejercicios y 42 prompts.
-9. Nivel 9 · Análisis responsable y reproducible: 17 conceptos, 34 ejercicios y 51 prompts.
-10. Nivel 10 · Operación y monitoreo responsable: 16 conceptos, 32 ejercicios y 48 prompts.
+5. Nivel 5 · Sistemas de Datos Modernos y SQL: 19 conceptos, 38 ejercicios y 57 prompts.
+6. Nivel 6 · Modelado supervisado: 18 conceptos, 36 ejercicios y 54 prompts.
+7. Nivel 7 · Evaluación de modelos: 24 conceptos, 48 ejercicios y 72 prompts.
+8. Nivel 8 · Aprendizaje no supervisado: 10 conceptos, 20 ejercicios y 30 prompts.
+9. Nivel 9 · Datos temporales y experimentación: 14 conceptos, 28 ejercicios y 42 prompts.
+10. Nivel 10 · Análisis responsable y reproducible: 17 conceptos, 34 ejercicios y 51 prompts.
+11. Nivel 11 · Ingeniería de Productos de Datos: 21 conceptos, 42 ejercicios y 63 prompts.
+12. Nivel 12 · Operación y monitoreo responsable: 16 conceptos, 32 ejercicios y 48 prompts.
 
 **Flujo principal:**
 
@@ -246,15 +248,15 @@ duración de 30 a 90 minutos.
 6. Construir el catálogo estático desde manifests aprobados.
 7. Publicar automáticamente mediante GitHub Actions.
 
-**Salida:** 172 paquetes conceptuales trazables, 43 laboratorios, catálogo
+**Salida:** 212 paquetes conceptuales trazables, 57 laboratorios, catálogo
 estático, snapshots y reportes de validación.
 
-**Prueba manual:** un docente recorre los 43 laboratorios, responde los 326
+**Prueba manual:** un docente recorre los 57 laboratorios, responde los 406
 ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 **Definition of Done:**
 
-- Existen 172 conceptos, 326 ejercicios y 516 prompts.
+- Existen 212 conceptos, 406 ejercicios y 636 prompts.
 - Cada artefacto usa la `ConceptSpec` correspondiente.
 - Cada ruta narrativa tiene Story Bible, fichas, arco y ledger sin referencias rotas.
 - Cada episodio declara estado previo, voces, dato canónico, cambio de continuidad
@@ -276,7 +278,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 - LMS, autenticación, persistencia o backend.
 - Integración con APIs de IA desde los HTML.
-- Cubrir niveles posteriores al Nivel 10 en esta entrega.
+- Publicar contenido que no haya pasado historia, renderer, evidencia, tests y manifest completo; Niveles 5 y 11 ya cumplen esos gates.
 - Evaluación formal o seguimiento del estudiante.
 
 ## Funcionalidades post-MVP
@@ -308,7 +310,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 | Visual obligatorio | Demos de inspiración y Brief | Skills, ejercicios, evals | Checklist pedagógico |
 | Contrato de evidencia | Auditoría visual de junio de 2026 | ConceptSpec, UI, QA y publicación | Revisión visual interactiva |
 | Shell homogéneo y renderer cerrado | Reconstrucción visual de julio de 2026 | Manifests, generadores, skills y QA | `level-shell-v1` y `data-renderer` |
-| Ocho niveles publicados | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
+| Diez niveles publicados dentro de una ruta de doce | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
 | Snapshots públicos fijos | Solicitud de usuario | Datasets, skills y evals | Hash, licencia y procedencia |
 | GitHub Pages automático | Solicitud de usuario | `site/` y workflow | Build en `main` |
 | Sin app en fase documental | `AGENTS.md` y PRD | Harness y Plan | Revisión de sobreingeniería |

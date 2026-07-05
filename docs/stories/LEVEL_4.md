@@ -32,8 +32,8 @@ Historia aprobada antes del generador. El narrador es siempre subtítulo. Mari h
 
 ## Crecimiento y personajes
 
-Don Juan abre una lata de monedas y explica que cualquier cambio sale de sus ahorros. Decide diez asientos y un área de espera tras revisar capacidad, seguridad y varias noches; no porque una correlación “lo ordene”. Mari Vega entra como ayudante pagada viernes y sábado. Su autoridad es operación y preparación; ahorra para recuperar el puesto familiar de aguas frescas, secreto reservado hasta Nivel 7 y ausente de datos.
+Don Juan abre una lata de monedas y explica que cualquier cambio sale de sus ahorros. Decide diez asientos y un área de espera tras revisar capacidad, seguridad y varias noches; no porque una correlación “lo ordene”. Mari Vega entra como ayudante pagada viernes y sábado. Su autoridad es operación y preparación; ahorra para recuperar el puesto familiar de aguas frescas, secreto reservado hasta Nivel 8 y ausente de datos.
 
 ## Separación y límites
 
-Aprender y Ejercitar usan noches, variables y decisiones diferentes. Cada respuesta requiere recorrer estados. No se afirma causalidad. En vivo conserva Bike Sharing, Penguins y Wine Quality. Cierre: **“¿Podemos anticipar la demanda?”**
+Aprender y Ejercitar usan noches, variables y decisiones diferentes. Cada respuesta requiere recorrer estados. No se afirma causalidad. En vivo conserva Bike Sharing, Penguins y Wine Quality. Cierre: **“¿Cómo juntamos las fuentes sin contar una noche dos veces?”**

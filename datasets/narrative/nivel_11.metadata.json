@@ -1,0 +1,36 @@
+{
+  "id": "producto-operable-nivel-11-v1",
+  "synthetic": true,
+  "generator": "level11-full-v1",
+  "period": {
+    "start": "2028-01-18",
+    "end": "2028-01-21"
+  },
+  "dimensions": [
+    21,
+    7
+  ],
+  "unit": "un criterio verificable del producto",
+  "artifact": "examples/level11_pipeline_slice",
+  "privacy": {
+    "personal_identifiers": false,
+    "real_secrets": false
+  },
+  "growth": {
+    "from": "G7-local",
+    "to": "G7-local"
+  },
+  "data_state": [
+    "L10.4",
+    "producto_operable@L11.H1"
+  ],
+  "label": "Fixture sintética de aceptación; no contiene secretos ni despliegues reales",
+  "files": [
+    {
+      "path": "datasets/narrative/controles_producto_nivel_11.csv",
+      "rows": 21,
+      "columns": 7,
+      "sha256": "d6b9c97f109183f98a4a2989c7c85d83610c0b9be300c67217876d969603a08a"
+    }
+  ]
+}

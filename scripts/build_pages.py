@@ -5,8 +5,10 @@ from __future__ import annotations
 
 import json
 from datetime import date
+import os
 from pathlib import Path
 import shutil
+import stat
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,12 +19,14 @@ LEVEL_PATHS = [
     ROOT / "generated" / "data-class-description-level-2",
     ROOT / "generated" / "data-class-probability-level-3",
     ROOT / "generated" / "data-class-relationships-level-4",
-    ROOT / "generated" / "data-class-modeling-level-5",
-    ROOT / "generated" / "data-class-evaluation-level-6",
-    ROOT / "generated" / "data-class-unsupervised-level-7",
-    ROOT / "generated" / "data-class-temporal-experiments-level-8",
-    ROOT / "generated" / "data-class-responsible-level-9",
-    ROOT / "generated" / "data-class-operations-level-10",
+    ROOT / "generated" / "data-class-sql-level-5",
+    ROOT / "generated" / "data-class-modeling-level-6",
+    ROOT / "generated" / "data-class-evaluation-level-7",
+    ROOT / "generated" / "data-class-unsupervised-level-8",
+    ROOT / "generated" / "data-class-temporal-experiments-level-9",
+    ROOT / "generated" / "data-class-responsible-level-10",
+    ROOT / "generated" / "data-class-product-engineering-level-11",
+    ROOT / "generated" / "data-class-operations-level-12",
 ]
 
 
@@ -45,7 +49,11 @@ def reset_build() -> None:
     if BUILD.parent != expected_parent or BUILD.name != "_site":
         raise SystemExit(f"Ruta de build insegura: {BUILD}")
     if BUILD.exists():
-        shutil.rmtree(BUILD)
+        def remove_readonly(function, path, error_info):
+            del error_info
+            os.chmod(path, stat.S_IWRITE)
+            function(path)
+        shutil.rmtree(BUILD, onerror=remove_readonly)
     BUILD.mkdir()
 
 
