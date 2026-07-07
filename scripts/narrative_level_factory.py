@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared deterministic factory for published continuous levels 3–12."""
+"""Shared deterministic factory for published continuous levels 3–13."""
 
 from __future__ import annotations
 
@@ -104,6 +104,32 @@ VISUALIZATION_MATRIX = {
         "versioned-handoff": "operable-handoff-map",
     },
     12: {
+        "model-boundary": "model-harness-boundary",
+        "context-window-budget": "context-budget-window",
+        "system-boundaries": "system-component-map",
+        "agent-vs-workflow": "agent-workflow-map",
+        "context-assembly": "context-assembly-flow",
+        "structured-output-contract": "structured-output-schema",
+        "knowledge-corpus": "knowledge-corpus-map",
+        "retrieval-evidence": "retrieval-evidence-loop",
+        "tool-contract": "tool-contract-card",
+        "tool-execution-errors": "tool-execution-loop",
+        "skill-procedure": "skill-procedure-map",
+        "progressive-disclosure": "progressive-disclosure-flow",
+        "agent-loop": "agent-execution-loop",
+        "loop-families": "loop-family-router",
+        "state-history-memory": "state-memory-map",
+        "stop-budgets": "stop-budget-gate",
+        "harness-engineering": "harness-architecture-map",
+        "environment-engineering": "environment-capability-map",
+        "hooks-checkpoints": "hooks-checkpoint-flow",
+        "trace-reconstruction": "trace-reconstruction-timeline",
+        "mcp-interoperability": "mcp-client-server-map",
+        "delegation-handoff": "delegation-handoff-map",
+        "multiagent-limits": "multiagent-risk-map",
+        "system-blueprint": "system-blueprint-map",
+    },
+    13: {
         "operational-readiness": "acceptance-gate", "baseline": "baseline-comparison",
         "rollback": "rollback-decision", "human-approval": "human-approval-loop",
         "data-drift": "data-drift-distribution", "performance-drift": "performance-drift-line",
@@ -197,6 +223,30 @@ EVIDENCE_LABELS = {
     "rollback-timeline": "pasos, responsables y comprobación", "postmortem-loop": "hechos, controles y acciones sistémicas",
     "model-card": "propósito, datos, métricas y límites", "runbook-flow": "señal, acción, detención y escalamiento",
     "audit-log-chain": "evento, momento, actor, versión y motivo", "retirement-archive": "desactivar, archivar, comunicar y verificar",
+    "model-harness-boundary": "modelo, contexto, aplicación, entorno y harness",
+    "context-budget-window": "tokens disponibles, selección, descarte y compaction",
+    "system-component-map": "modelo, aplicación, workflow, agente y sistema",
+    "agent-workflow-map": "pasos fijos, decisión dinámica, observación y acción",
+    "context-assembly-flow": "contexto disponible, selección, ensamblaje y recuperación",
+    "structured-output-schema": "schema, salida, validación y reparación",
+    "knowledge-corpus-map": "corpus, chunk, metadata y procedencia",
+    "retrieval-evidence-loop": "consulta, ranking, evidencia, cita y abstención",
+    "tool-contract-card": "nombre, input schema, output schema y permiso",
+    "tool-execution-loop": "argumentos, ejecución, resultado, error y retry",
+    "skill-procedure-map": "instrucciones, scripts, referencias, validaciones y cierre",
+    "progressive-disclosure-flow": "descubrir, activar y ejecutar recursos",
+    "agent-execution-loop": "objetivo, observar, decidir, actuar y terminar",
+    "loop-family-router": "execution, tool-use, retrieval, verification, approval y recovery",
+    "state-memory-map": "contexto, historial, estado y memoria persistente",
+    "stop-budget-gate": "máximo de turnos, costo, tiempo, tools y retries",
+    "harness-architecture-map": "instrucciones, contexto, tools, skills, loops y verificación",
+    "environment-capability-map": "filesystem, terminal, Python, SQL, browser, git y APIs",
+    "hooks-checkpoint-flow": "pre-hook, tool, post-hook, checkpoint y recuperación",
+    "trace-reconstruction-timeline": "eventos, tool calls, outputs, checks y decisiones",
+    "mcp-client-server-map": "cliente, servidor, tools, resources, schemas y permisos",
+    "delegation-handoff-map": "supervisor, especialista, contexto transferido y responsabilidad",
+    "multiagent-risk-map": "costo, duplicación, pérdida de contexto y control",
+    "system-blueprint-map": "usuario, objetivo, harness, loop, verificación y traza",
 }
 
 

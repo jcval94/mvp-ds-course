@@ -137,7 +137,7 @@ Cada puntaje debe citar:
 
 ## Prueba manual de la cobertura publicada
 
-1. Confirmar 212 conceptos, 406 ejercicios y 636 prompts.
+1. Confirmar 236 conceptos, 454 ejercicios y 708 prompts.
 2. Recorrer los 43 laboratorios en desktop y móvil.
 3. Resolver cada ejercicio usando el visual.
 4. Simular el guion docente y el plan offline.
@@ -151,4 +151,4 @@ Cada puntaje debe citar:
 2. Ejecutar `python scripts/test_vertical_slices.py` como regresión y los seis tests del artifact de Nivel 11.
 3. Recorrer siete estados de `join-row-explosion` y ocho de `notebook-pipeline-contract`.
 4. Verificar desbloqueos particulares de guiado y transferencia.
-5. Confirmar 19/19 y 21/21 conceptos implementados y sumar únicamente manifests `published` a 212/406/636.
+5. Confirmar 19/19, 21/21, 24/24 y 16/16 conceptos implementados y sumar únicamente manifests `published` a 236/454/708.

@@ -130,7 +130,7 @@ Este prompt solo puede ejecutarse después de aprobación humana explícita. Lee
 ## 12. Revisión de sobreingeniería
 
 ```text
-Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente o cobertura posterior al Nivel 12. Mantén la fábrica documental, una ruta de doce niveles estáticos publicados y publicación automática de resultados validados.
+Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente prematura o cobertura posterior al Nivel 13. Mantén la fábrica documental, una ruta de trece niveles estáticos publicados y publicación automática de resultados validados.
 ```
 
 ## 13. Auditar Nivel 7
@@ -156,16 +156,20 @@ Verifica cobertura y denominadores por grupo agregado, mínimo 25 elegibles por 
 
 ## 17. Auditar Nivel 12
 
+Revisa que Nivel 12 diseñe sistemas de IA trazables con contexto, tools, skills, loops, harness, permisos, checkpoints y traza, sin ejecutar IA real ni adelantar monitoreo operativo.
+
+## 18. Auditar Nivel 13
+
 Verifica gate, baseline, autoridad humana y rollback antes de operar. Distingue data drift, performance drift y calibration drift; conserva siete etiquetas retrasadas sin inventarlas y exige tres señales persistentes antes de escalar. En incidentes revisa impacto, comprobación, postmortem sin culpa, model card, runbook, audit log y retiro. No construyas backend ni automatices decisiones.
 ```
 
-## 18. Auditar Nivel 5 publicado
+## 19. Auditar Nivel 5 publicado
 
 ```text
 Verifica los 19 conceptos y la historia aprobada de Sistemas de Datos Modernos y SQL. Exige renderer registrado por concepto, reconciliación de unidad y granularidad, dos prácticas con evidencia distinta y manifest `published`. Rechaza cualquier total que no derive de los 19 paquetes completos.
 ```
 
-## 19. Auditar Nivel 11 publicado
+## 20. Auditar Nivel 11 publicado
 
 ```text
 Verifica los 21 conceptos y la historia aprobada de Ingeniería de Productos de Datos. Ejecuta el artifact y sus tests, revisa contratos, diffs, secretos, gates y desbloqueo; exige manifest `published`. Rechaza el handoff si cualquiera de los 21 paquetes falta o adelanta monitoreo.

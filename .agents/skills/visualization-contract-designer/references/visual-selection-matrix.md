@@ -17,7 +17,8 @@
 - Nivel 11: contratos de producto, interfaces, flujo de build, revisión de diff,
   matriz de aceptación y resultados de tests. La slice aprobada usa
   `notebook-pipeline-contract`; los otros conceptos siguen bloqueados por renderer y prueba.
-- Nivel 12: gates, drift, alertas persistentes, líneas de incidente y retiro.
+- Nivel 12: fronteras modelo/harness, ensamblaje de contexto, retrieval-evidencia, matriz tool/skill, loops, estado, memoria, stop budgets, checkpoints, MCP, delegación y blueprint trazable.
+- Nivel 13: gates, drift, alertas persistentes, líneas de incidente y retiro.
 
 Elegir por mecanismo: pertenencia→conjunto; cambio temporal→línea; relación
 numérica→scatterplot; distribución→densidad/PMF; incertidumbre→intervalos;

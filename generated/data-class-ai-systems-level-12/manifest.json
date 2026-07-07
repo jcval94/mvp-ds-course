@@ -1,0 +1,142 @@
+{
+  "level": 12,
+  "title": "Ingeniería de Sistemas de IA",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 24,
+  "exercise_count": 48,
+  "prompt_count": 72,
+  "blocks": [
+    {
+      "id": "model-systems",
+      "number": 1,
+      "title": "Del modelo al sistema",
+      "href": "modelo-sistema.html",
+      "concept_count": 4
+    },
+    {
+      "id": "context-knowledge",
+      "number": 2,
+      "title": "Contexto y conocimiento",
+      "href": "contexto-conocimiento.html",
+      "concept_count": 4
+    },
+    {
+      "id": "tools-skills-disclosure",
+      "number": 3,
+      "title": "Tools, skills y disclosure",
+      "href": "tools-skills.html",
+      "concept_count": 4
+    },
+    {
+      "id": "loops-state-stop",
+      "number": 4,
+      "title": "Loops, estado y parada",
+      "href": "loops-estado.html",
+      "concept_count": 4
+    },
+    {
+      "id": "harness-environment",
+      "number": 5,
+      "title": "Harness y entorno",
+      "href": "harness-entorno.html",
+      "concept_count": 4
+    },
+    {
+      "id": "interop-delegation",
+      "number": 6,
+      "title": "Interoperabilidad y delegación",
+      "href": "interoperabilidad-delegacion.html",
+      "concept_count": 4
+    }
+  ],
+  "datasets": [
+    "bike-sharing-day",
+    "palmer-penguins",
+    "plant-growth",
+    "wine-quality"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_12.md",
+  "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-12-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
+  "narrativeDataset": {
+    "id": "sistema-ia-trazable-nivel-12",
+    "synthetic": true,
+    "generator": "level12-ai-systems-v1",
+    "seed": 20280218,
+    "period": {
+      "start": "2028-01-22",
+      "end": "2028-02-18",
+      "snapshots": 24
+    },
+    "dimensions": {
+      "components": [
+        24,
+        7
+      ],
+      "traces": [
+        12,
+        8
+      ]
+    },
+    "source_policy": {
+      "mcp_reference": "Model Context Protocol documentation and tools specification 2025-06-18",
+      "provider_neutral": true,
+      "real_ai_calls": false
+    },
+    "control_policy": {
+      "human_approval_required_for_write": true,
+      "stop_reasons": [
+        "complete",
+        "max_retries",
+        "approval_needed",
+        "human_review",
+        "insufficient_evidence"
+      ],
+      "automatic_decision": false
+    },
+    "privacy": {
+      "personal_identifiers": false,
+      "unit": "componente de arquitectura o evento de traza educativo",
+      "persistent_memory_requires_purpose": true
+    },
+    "growth": {
+      "from": "G7-local",
+      "to": "G7-local",
+      "constraint": "sin backend, proveedor ni expansión"
+    },
+    "data_state": [
+      "producto_operable@L11.H1",
+      "arquitectura_sistema_ia@L12.1",
+      "conocimiento_contextual@L12.2",
+      "capacidades_procedimentales@L12.3",
+      "loop_verificable@L12.4",
+      "harness_recuperable@L12.5",
+      "sistema_ia_trazable@L12.H1"
+    ],
+    "label": "Datasets sintéticos de arquitectura y trazas; no representan personas, secretos ni un servicio productivo",
+    "files": [
+      {
+        "path": "datasets/narrative/componentes_sistema_ia_nivel_12.csv",
+        "rows": 24,
+        "columns": 7,
+        "sha256": "0a6ca6d705141ae34adfa5d5918a6726f63b0729f74287e19a5df5581e92268f"
+      },
+      {
+        "path": "datasets/narrative/trazas_sistema_ia_nivel_12.csv",
+        "rows": 12,
+        "columns": 8,
+        "sha256": "e9a6e6859fd085a0f394526aa7c158f611f4583cec0f72b5d2f0c2b08b8034cd"
+      }
+    ],
+    "metadataPath": "datasets/narrative/nivel_12.metadata.json",
+    "metadataSha256": "a9991851357624e3ac603a736bd56193e80f9d76dbf512e74f5370c42ae2e989"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-07"
+}

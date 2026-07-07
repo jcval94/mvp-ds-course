@@ -27,7 +27,8 @@ LEVELS = [
     ROOT / "generated" / "data-class-temporal-experiments-level-9",
     ROOT / "generated" / "data-class-responsible-level-10",
     ROOT / "generated" / "data-class-product-engineering-level-11",
-    ROOT / "generated" / "data-class-operations-level-12",
+    ROOT / "generated" / "data-class-ai-systems-level-12",
+    ROOT / "generated" / "data-class-operations-level-13",
 ]
 
 
@@ -709,7 +710,8 @@ def validate_published_continuous_levels(public_dataset_ids: set[str]) -> None:
     ids9 = ["trend", "seasonality", "lag", "temporal-anomaly", "windows", "backtesting", "temporal-leakage", "random-assignment", "primary-metric", "sample-size", "effect", "guardrails", "multiple-tests", "practical-effect"]
     ids10 = ["representation", "fairness", "harm", "privacy", "audience", "uncertainty-communication", "annotation", "data-narrative", "seeds", "versions", "data-dictionary", "clean-notebook", "project-question", "project-data", "project-analysis", "project-evaluation", "project-communication"]
     ids11 = ["notebook-to-verifiable-pipeline", "reproducible-execution", "project-structure", "functions-modules", "io-contract", "config-secrets", "unit-integration-tests", "regression-failure-tests", "fixtures-schema-tests", "request-response", "errors-versioning", "fastapi-health", "dependencies-lockfile", "image-container", "runtime-artifact", "ci-pipeline", "ci-acceptance", "ci-cd", "service-environments", "startup-logs", "versioned-handoff"]
-    ids12 = ["operational-readiness", "baseline", "rollback", "human-approval", "data-drift", "performance-drift", "calibration-drift", "alert-threshold", "triage", "impact", "operational-rollback", "postmortem", "model-card", "runbook", "audit-log", "retirement"]
+    ids12 = ["model-boundary", "context-window-budget", "system-boundaries", "agent-vs-workflow", "context-assembly", "structured-output-contract", "knowledge-corpus", "retrieval-evidence", "tool-contract", "tool-execution-errors", "skill-procedure", "progressive-disclosure", "agent-loop", "loop-families", "state-history-memory", "stop-budgets", "harness-engineering", "environment-engineering", "hooks-checkpoints", "trace-reconstruction", "mcp-interoperability", "delegation-handoff", "multiagent-limits", "system-blueprint"]
+    ids13 = ["operational-readiness", "baseline", "rollback", "human-approval", "data-drift", "performance-drift", "calibration-drift", "alert-threshold", "triage", "impact", "operational-rollback", "postmortem", "model-card", "runbook", "audit-log", "retirement"]
     payload3 = validate_continuous_level(2, public_dataset_ids, ids3)
     payload4 = validate_continuous_level(3, public_dataset_ids, ids4)
     payload5 = validate_continuous_level(4, public_dataset_ids, ids5)
@@ -720,8 +722,9 @@ def validate_published_continuous_levels(public_dataset_ids: set[str]) -> None:
     payload10 = validate_continuous_level(9, public_dataset_ids, ids10)
     payload11 = validate_continuous_level(10, public_dataset_ids, ids11)
     payload12 = validate_continuous_level(11, public_dataset_ids, ids12)
+    payload13 = validate_continuous_level(12, public_dataset_ids, ids13)
 
-    for payload, expected_state in ((payload5, "dataset_confiable@L5.H1"), (payload11, "producto_operable@L11.H1")):
+    for payload, expected_state in ((payload5, "dataset_confiable@L5.H1"), (payload11, "producto_operable@L11.H1"), (payload12, "sistema_ia_trazable@L12.H1")):
         metadata = payload["narrativeDataset"]
         if expected_state not in metadata.get("data_state", []):
             fail(f"Handoff curricular ausente: {expected_state}")
@@ -848,8 +851,33 @@ def validate_published_continuous_levels(public_dataset_ids: set[str]) -> None:
     if meta9.get("growth", {}).get("to") != "G7-local":
         fail("Nivel 10 no documenta el único crecimiento autorizado")
 
-    l10_monitoring = ROOT / "datasets/narrative/monitoreo_operativo_nivel_12.csv"
-    l10_incidents = ROOT / "datasets/narrative/incidentes_operativos_nivel_12.csv"
+    l12_components = ROOT / "datasets/narrative/componentes_sistema_ia_nivel_12.csv"
+    l12_traces = ROOT / "datasets/narrative/trazas_sistema_ia_nivel_12.csv"
+    with l12_components.open("r", encoding="utf-8", newline="") as handle:
+        components12 = list(csv.DictReader(handle))
+    with l12_traces.open("r", encoding="utf-8", newline="") as handle:
+        traces12 = list(csv.DictReader(handle))
+    if len(components12) != 24 or len(traces12) != 12:
+        fail("Nivel 12 no conserva componentes y trazas esperadas")
+    if components12[0]["concepto"] != "model-boundary" or components12[-1]["salida"] != "sistema_ia_trazable":
+        fail("Nivel 12 no enlaza producto operable con sistema trazable")
+    stop_reasons12 = {row["stop_reason"] for row in traces12}
+    if not {"complete", "max_retries", "approval_needed", "human_review", "insufficient_evidence"}.issubset(stop_reasons12):
+        fail("Nivel 12 no cubre criterios de parada principales")
+    if any(row["permiso"] == "write" and row["stop_reason"] not in {"approval_needed", "complete"} for row in traces12):
+        fail("Nivel 12 permite escritura sin aprobación o cierre explícito")
+    meta12 = payload12["narrativeDataset"]
+    if meta12.get("control_policy", {}).get("automatic_decision") is not False:
+        fail("Nivel 12 automatiza decisiones del sistema de IA")
+    if meta12.get("control_policy", {}).get("human_approval_required_for_write") is not True:
+        fail("Nivel 12 no exige aprobación humana para escritura")
+    if meta12.get("source_policy", {}).get("real_ai_calls") is not False:
+        fail("Nivel 12 ejecuta IA real en vez de arquitectura educativa")
+    if meta12.get("growth", {}).get("from") != "G7-local" or meta12.get("growth", {}).get("to") != "G7-local":
+        fail("Nivel 12 crece durante ingeniería de sistemas")
+
+    l10_monitoring = ROOT / "datasets/narrative/monitoreo_operativo_nivel_13.csv"
+    l10_incidents = ROOT / "datasets/narrative/incidentes_operativos_nivel_13.csv"
     with l10_monitoring.open("r", encoding="utf-8", newline="") as handle:
         n10 = list(csv.DictReader(handle))
     with l10_incidents.open("r", encoding="utf-8", newline="") as handle:
@@ -862,7 +890,7 @@ def validate_published_continuous_levels(public_dataset_ids: set[str]) -> None:
         fail("Nivel 12 no activa el caso de alerta persistente")
     if any(row["culpa_individual"] != "0" or row["revision_humana"] != "1" for row in incidents10):
         fail("Nivel 12 culpa personas o elimina revisión humana")
-    meta10 = payload12["narrativeDataset"]
+    meta10 = payload13["narrativeDataset"]
     if meta10.get("alert_policy", {}).get("automatic_decision") is not False:
         fail("Nivel 12 automatiza alertas")
     if meta10.get("growth", {}).get("from") != "G7-local" or meta10.get("growth", {}).get("to") != "G7-local":
@@ -887,16 +915,22 @@ def validate_narrative_contract() -> None:
         ROOT / "docs" / "COURSE_STORY_BIBLE.md",
         ROOT / "docs" / "LEVEL_1_NARRATIVE_ARC.md",
         ROOT / "docs" / "LEVEL_2_NARRATIVE_ARC.md",
+        ROOT / "docs" / "LEVEL_12_NARRATIVE_ARC.md",
+        ROOT / "docs" / "LEVEL_13_NARRATIVE_ARC.md",
         ROOT / "docs" / "CONTINUITY_LEDGER.md",
         ROOT / "docs" / "stories" / "README.md",
         ROOT / "docs" / "stories" / "LEVEL_1.md",
         ROOT / "docs" / "stories" / "LEVEL_2.md",
+        ROOT / "docs" / "stories" / "LEVEL_12.md",
+        ROOT / "docs" / "stories" / "LEVEL_13.md",
         ROOT / "docs" / "pipeline" / "README.md",
         ROOT / "docs" / "LEVEL_1_ALFABETIZACION_VERTICAL_SLICE.md",
         ROOT / "docs" / "LEVEL_5_JOIN_ROW_EXPLOSION_VERTICAL_SLICE.md",
         ROOT / "docs" / "LEVEL_11_NOTEBOOK_PIPELINE_VERTICAL_SLICE.md",
         ROOT / "docs" / "reviews" / "LEVEL_5_NARRATIVE_REVIEW.md",
         ROOT / "docs" / "reviews" / "LEVEL_11_NARRATIVE_REVIEW.md",
+        ROOT / "docs" / "reviews" / "LEVEL_12_BOUNDARY_REVIEW.md",
+        ROOT / "docs" / "reviews" / "LEVEL_13_BOUNDARY_REVIEW.md",
         ROOT / "evals" / "narrative_continuity_checklist.md",
         ROOT / "evals" / "story_pipeline_checklist.md",
         ROOT / "templates" / "level_story.template.md",
@@ -959,7 +993,7 @@ def validate_narrative_contract() -> None:
             "Matriz incremental de crecimiento del puesto",
             "25–40 pedidos por noche",
             "18 asientos",
-            "Arco general de doce niveles",
+            "Arco general de trece niveles",
         ],
         ROOT / "docs" / "LEVEL_1_NARRATIVE_ARC.md": [
             "L1-E1",
@@ -1042,12 +1076,12 @@ def validate_narrative_contract() -> None:
             fail(f"Don Juan usa terminología técnica en la historia: {line}")
 
     story_bible = (ROOT / "docs" / "COURSE_STORY_BIBLE.md").read_text(encoding="utf-8")
-    for level in range(1, 13):
+    for level in range(1, 14):
         if story_bible.count(f"| {level} |") < 2:
             fail(f"Story Bible no declara arco y crecimiento del Nivel {level}")
 
-    expected_scene_counts = {5: 19, 11: 21}
-    for level in (5, 11):
+    expected_scene_counts = {5: 19, 11: 21, 12: 24, 13: 16}
+    for level in (5, 11, 12, 13):
         story = (ROOT / "docs" / "stories" / f"LEVEL_{level}.md").read_text(encoding="utf-8")
         if "**Estado:** aprobada para implementación" not in story:
             fail(f"La historia de Nivel {level} no está aprobada")
@@ -1056,8 +1090,11 @@ def validate_narrative_contract() -> None:
             fail(f"Nivel {level} no cubre su temario completo: {len(scenes)} escenas")
 
     level12_story = (ROOT / "docs" / "stories" / "LEVEL_12.md").read_text(encoding="utf-8").lower()
-    if "readiness operativo" not in level12_story or "aquí no se crea api" not in level12_story:
-        fail("Nivel 12 no está concentrado en operación de un producto existente")
+    if "sistema_ia_trazable@l12.h1" not in level12_story or "no ejecutar ia real" not in level12_story:
+        fail("Nivel 12 no está concentrado en ingeniería de sistemas de IA trazables")
+    level13_story = (ROOT / "docs" / "stories" / "LEVEL_13.md").read_text(encoding="utf-8").lower()
+    if "readiness operativo" not in level13_story or "aquí no se crea api" not in level13_story:
+        fail("Nivel 13 no está concentrado en operación de un sistema existente")
 
     private_terms = ["rogelio", "dieta", "lupita", "beto", "paco", "don juan"]
     narrative_data = raw_path.read_text(encoding="utf-8").lower() + prepared_path.read_text(
@@ -1082,7 +1119,7 @@ def main() -> int:
     public_dataset_ids = {str(item["id"]) for item in datasets}
     manifests = [validate_level(path) for path in LEVELS]
     published_levels = [int(manifest["level"]) for manifest in manifests]
-    if published_levels != list(range(1, 13)) or len(set(published_levels)) != len(published_levels):
+    if published_levels != list(range(1, 14)) or len(set(published_levels)) != len(published_levels):
         fail(f"Numeración publicada incorrecta o duplicada: {published_levels}")
     for path, manifest in zip(LEVELS, manifests):
         level = int(manifest["level"])
@@ -1104,7 +1141,7 @@ def main() -> int:
         "exercises": sum(item["exercise_count"] for item in manifests),
         "prompts": sum(item["prompt_count"] for item in manifests),
     }
-    expected = {"concepts": 212, "exercises": 406, "prompts": 636}
+    expected = {"concepts": 236, "exercises": 454, "prompts": 708}
     if totals != expected:
         fail(f"Totales incorrectos: {totals}, se esperaba {expected}")
     print(

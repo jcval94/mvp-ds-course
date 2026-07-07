@@ -1,69 +1,71 @@
 {
-  "id": "operacion-responsable-nivel-12",
+  "id": "sistema-ia-trazable-nivel-12",
   "synthetic": true,
-  "generator": "level12-operations-v1",
-  "seed": 20280115,
+  "generator": "level12-ai-systems-v1",
+  "seed": 20280218,
   "period": {
     "start": "2028-01-22",
-    "end": "2028-04-26",
-    "snapshots": 96
+    "end": "2028-02-18",
+    "snapshots": 24
   },
   "dimensions": {
-    "monitoring": [
-      96,
-      14
+    "components": [
+      24,
+      7
     ],
-    "incidents": [
-      8,
-      9
+    "traces": [
+      12,
+      8
     ]
   },
-  "reference_policy": {
-    "reference_snapshots": 48,
-    "monitoring_snapshots": 48,
-    "label_delay_days": 7,
-    "latest_unlabeled": 7
+  "source_policy": {
+    "mcp_reference": "Model Context Protocol documentation and tools specification 2025-06-18",
+    "provider_neutral": true,
+    "real_ai_calls": false
   },
-  "alert_policy": {
-    "calibration_gap": 0.08,
-    "persistence_snapshots": 3,
-    "action": "human review; stop authority retained",
+  "control_policy": {
+    "human_approval_required_for_write": true,
+    "stop_reasons": [
+      "complete",
+      "max_retries",
+      "approval_needed",
+      "human_review",
+      "insufficient_evidence"
+    ],
     "automatic_decision": false
-  },
-  "rollback": {
-    "safe_version": "r2",
-    "current_version": "r3",
-    "verification_required": true
   },
   "privacy": {
     "personal_identifiers": false,
-    "unit": "snapshot agregado o incidente simulado"
+    "unit": "componente de arquitectura o evento de traza educativo",
+    "persistent_memory_requires_purpose": true
   },
   "growth": {
     "from": "G7-local",
     "to": "G7-local",
-    "constraint": "sin crecimiento ni backend"
+    "constraint": "sin backend, proveedor ni expansión"
   },
   "data_state": [
     "producto_operable@L11.H1",
-    "readiness@L12.1",
-    "monitoring@L12.2",
-    "incidents@L12.3",
-    "handoff@L12.4"
+    "arquitectura_sistema_ia@L12.1",
+    "conocimiento_contextual@L12.2",
+    "capacidades_procedimentales@L12.3",
+    "loop_verificable@L12.4",
+    "harness_recuperable@L12.5",
+    "sistema_ia_trazable@L12.H1"
   ],
-  "label": "Datasets sintéticos operativos; no representan personas, fraude ni un servicio productivo",
+  "label": "Datasets sintéticos de arquitectura y trazas; no representan personas, secretos ni un servicio productivo",
   "files": [
     {
-      "path": "datasets/narrative/monitoreo_operativo_nivel_12.csv",
-      "rows": 96,
-      "columns": 14,
-      "sha256": "fbb733e16c2311a66ce120232c78311bb200253670521c92a8bd3d91ca7f5593"
+      "path": "datasets/narrative/componentes_sistema_ia_nivel_12.csv",
+      "rows": 24,
+      "columns": 7,
+      "sha256": "0a6ca6d705141ae34adfa5d5918a6726f63b0729f74287e19a5df5581e92268f"
     },
     {
-      "path": "datasets/narrative/incidentes_operativos_nivel_12.csv",
-      "rows": 8,
-      "columns": 9,
-      "sha256": "c4ca732728ce68fec62a3fea4c0abb4720d4833fd68733a976880f891f56c3ab"
+      "path": "datasets/narrative/trazas_sistema_ia_nivel_12.csv",
+      "rows": 12,
+      "columns": 8,
+      "sha256": "e9a6e6859fd085a0f394526aa7c158f611f4583cec0f72b5d2f0c2b08b8034cd"
     }
   ]
 }

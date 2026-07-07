@@ -11,7 +11,7 @@
 
 - [ ] La funcionalidad principal es transformar un concepto en material educativo.
 - [ ] Aprender, Ejercitar y Enseñar en vivo están definidos y separados por contenido.
-- [ ] La cobertura publicada contiene exactamente doce paquetes; Niveles 5 y 11 aparecen una sola vez y sus cifras derivan de manifests aprobados.
+- [ ] La cobertura publicada contiene exactamente trece niveles; Niveles 5, 11, 12 y 13 aparecen una sola vez y sus cifras derivan de manifests aprobados.
 - [ ] LMS, cuentas, seguimiento e integraciones están fuera.
 - [ ] No se construye app antes de validar documentos.
 
@@ -20,7 +20,7 @@
 - [ ] Usuario: profesor de introducción a ciencia de datos.
 - [ ] Entrada: concepto, nivel, contexto y duración.
 - [ ] Flujo: ConceptSpec -> tres modos -> evals.
-- [ ] Salida: 212 conceptos, 406 ejercicios, 636 prompts y 57 bloques.
+- [ ] Salida: 236 conceptos, 454 ejercicios, 708 prompts y 63 bloques.
 - [ ] Prueba manual definida.
 - [ ] Definition of Done verificable.
 - [ ] No objetivos específicos de la slice.

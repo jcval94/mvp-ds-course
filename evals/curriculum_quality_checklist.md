@@ -15,7 +15,7 @@
 - [ ] Desde Nivel 2 existen un ejercicio guiado y otro de transferencia.
 - [ ] El criterio de dominio puede comprobarse.
 - [ ] La expansión del temario no reduce profundidad.
-- [ ] La ruta oficial conserva 12 posiciones y ubica Sistemas de Datos Modernos y SQL antes del modelado e Ingeniería de Productos de Datos antes de operación.
+- [ ] La ruta oficial conserva 13 posiciones y ubica Sistemas de Datos Modernos y SQL antes del modelado, Ingeniería de Productos de Datos antes de Sistemas de IA e Ingeniería de Sistemas de IA antes de operación.
 - [ ] Si un nivel futuro queda en validación parcial, declara por separado temario diseñado, slices implementadas y cobertura publicada; su manifest no usa `published`.
 
 ## Fallar si

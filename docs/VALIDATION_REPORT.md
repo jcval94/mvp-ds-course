@@ -1,52 +1,46 @@
 # Reporte de validación curricular y de publicación
 
-**Estado:** listo para publicación de la ruta completa de doce niveles.
+**Estado:** listo para publicación de la ruta completa de trece niveles.
 
 ## Cobertura verificada
 
 | Estado | Niveles | Conceptos | Ejercicios | Prompts | Bloques |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Publicado | 1–12 | 212 | 406 | 636 | 57 |
+| Publicado | 1-13 | 236 | 454 | 708 | 63 |
 | Pendiente de producción | ninguno | 0 | 0 | 0 | 0 |
 
 La base histórica de diez niveles conserva 172 conceptos, 326 ejercicios, 516
-prompts y 43 bloques. Nivel 5 añade 19/38/57/7 y Nivel 11 añade 21/42/63/7;
-por tanto, los totales publicados son matemáticamente 212/406/636/57.
+prompts y 43 bloques. Nivel 5 añade 19/38/57/7, Nivel 11 añade 21/42/63/7,
+Nivel 12 añade 24/48/72/6 y Nivel 13 conserva 16/32/48/4; por tanto, los
+totales publicados son matemáticamente 236/454/708/63.
 
 ## Gates ejecutados
 
-- `python scripts/validate_content.py`: pasa; doce números únicos, manifests
-  publicados, enlaces locales, IDs, snapshots, historias y handoffs válidos.
-- `python scripts/build_pages.py`: pasa; catálogo de 12 niveles, 212 conceptos
-  y 406 ejercicios.
-- `python -m unittest scripts.test_vertical_slices`: pasa como regresión de los
-  mecanismos que originaron los paquetes completos.
-- `python -m unittest discover -s examples/level11_pipeline_slice/tests`: pasa;
-  el artifact offline conserva sus seis casos.
-- `node --check scripts/assets/educational_svg_registry.js`: pasa con el runtime
-  Node incluido en el workspace.
-- QA con el navegador integrado: pasa en 1280 px y 390 px para portal, Nivel 5
-  y Nivel 11; confirma 12 niveles, 57 bloques, totals 212/406, renderers exactos,
-  desbloqueo después de tres estados, modo docente oculto, cero overflow y cero
-  errores de consola. El wrapper `scripts/qa_pages.py` queda correcto pero no se
-  ejecutó localmente porque el runtime Python no incluye el módulo `playwright`.
+- `python scripts/validate_content.py`: pasa; confirma trece números únicos,
+  manifests publicados, enlaces locales, IDs, snapshots, historias y handoffs válidos.
+- `python scripts/build_pages.py`: pasa; construye catálogo de 13 niveles, 236
+  conceptos y 454 ejercicios.
+- `python scripts/qa_pages.py`: pasa; cubre portal, 13 niveles, 197 escenas
+  continuas, 394 ejercicios, modo docente, movimiento reducido y mobile.
+- `python scripts/test_vertical_slices.py`: pasa; confirma que Nivel 12 produce
+  `sistema_ia_trazable@L12.H1` y Nivel 13 conserva readiness operativo.
 
 ## Resultado pedagógico
 
-Las siete dimensiones quedan en 5/5 en los manifests de Niveles 5 y 11: alcance,
-currículo, narrativa, pedagogía, precisión técnica, visualización y
-reproducibilidad. No hay bloqueos ni dimensiones en 1.
+Los manifests publicados declaran promedio de rúbrica de 5/5, sin bloqueos ni
+dimensiones en 1. El nuevo Nivel 12 mantiene el contrato level-shell-v1,
+ejercicios dependientes de evidencia y visuales centrados en fronteras, loops,
+permisos, checkpoints y trazas.
 
 ## Riesgos residuales
 
-- Los datasets narrativos de Niveles 5 y 11 son fixtures sintéticas etiquetadas;
-  el modo docente usa snapshots públicos reales registrados.
-- La implementación de referencia de Nivel 11 es offline y no almacena secretos
-  reales ni representa un servicio productivo.
-- Nivel 12 conserva el límite: recibe un producto operable y enseña readiness,
-  monitoreo, incidentes y retiro; no reconstruye el producto.
+- Nivel 12 usa datasets narrativos sintéticos etiquetados para arquitectura y
+  trazas; el modo En vivo conserva snapshots públicos reales registrados.
+- Nivel 12 no ejecuta IA real, backend, API de proveedor ni servidor MCP real.
+- Nivel 13 recibe un sistema trazable ya diseñado y no reconstruye producto.
 
 ## Próxima vertical slice recomendada
 
-Piloto docente del handoff `dataset_confiable@L5.H1 → Nivel 6`, con observación
-de comprensión de granularidad, cardinalidad y leakage antes de ajustar textos.
+Piloto docente del handoff `producto_operable@L11.H1 → sistema_ia_trazable@L12.H1
+→ readiness@L13.1`, con prueba manual de reconstrucción de traza y decisión de
+parada antes de operar.

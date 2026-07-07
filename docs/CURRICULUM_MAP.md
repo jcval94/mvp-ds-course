@@ -23,14 +23,14 @@ leer datos → describirlos → razonar con incertidumbre → estudiar relacione
 → construir datasets confiables → modelar → evaluar
 → explorar estructura no supervisada → respetar tiempo y experimentación
 → analizar responsablemente → convertir análisis y modelos en productos
-→ operar y monitorear esos productos
+→ diseñar sistemas de IA trazables → operar y monitorear esos sistemas
 ```
 
 ## Estado estructural de la ruta
 
 | Nivel | Temario | Historia | Nivel educativo | Cobertura cuantificada |
 | --- | --- | --- | --- | --- |
-| 1–12 | canónico | aprobada | publicado | incluida en los totales publicados |
+| 1–13 | canónico | aprobada | publicado | incluida en los totales publicados |
 
 ## Nivel 1: Fundamentos
 
@@ -164,11 +164,32 @@ conceptual principal en Cloud Run. Los conceptos sobreviven al cambio de proveed
 **No objetivos:** Kubernetes, Terraform, service mesh, microservicios empresariales,
 Linux profundo, certificación cloud, frontend avanzado o DevOps general.
 
-## Nivel 12: Operación y monitoreo responsable
+## Nivel 12: Ingeniería de Sistemas de IA
+
+- **Estado del temario:** canónico.
+- **Estado de la historia:** aprobada para implementación en `docs/stories/LEVEL_12.md`.
+- **Estado del nivel educativo:** publicado; 24 ConceptSpecs, 24 módulos Aprender, 48 ejercicios y 24 paquetes docentes validados.
+- **Propósito:** diseñar y auditar un sistema de IA trazable que use contexto, conocimiento, tools, skills, loops y harness explícito sin ejecutar IA real en los laboratorios.
+- **Prerrequisitos:** tipos y schemas de Nivel 1; incertidumbre y abstención de Nivel 3; datasets/procedencia de Nivel 5; evals y fallos de Nivel 7; similitud/ranking de Nivel 8; checkpoints de Nivel 9; privacidad/auditoría de Nivel 10; contratos, tests, API, artifact, logs y handoff de Nivel 11.
+- **Resultado esperado:** dado `producto_operable@L11.H1`, diseñar y auditar `sistema_ia_trazable@L12.H1` distinguiendo modelo, harness, contexto, conocimiento, tools, skills, estado, memoria, loops, permisos, verificación, logs y criterios de parada.
+- **Posición:** recibe `producto_operable@L11.H1` y produce `sistema_ia_trazable@L12.H1` para operación responsable de Nivel 13.
+
+| Orden | Bloque | Conceptos definitivos | Resultado observable |
+| ---: | --- | --- | --- |
+| 1 | Del modelo al sistema | modelo e inferencia; ventana y presupuesto de contexto; app, workflow, agente y sistema; agente frente a workflow | Separar modelo, app, workflow, agente, sistema y harness con fronteras verificables. |
+| 2 | Contexto y conocimiento | context assembly y compaction; output estructurado y schema; corpus, chunks y metadata; retrieval, reranking y abstención | Ensamblar contexto útil, validar salidas, recuperar evidencia y abstenerse sin respaldo. |
+| 3 | Tools, skills y disclosure | contrato de tool; ejecución, error y retry de tool; skill como procedimiento reutilizable; progressive disclosure | Distinguir capacidad atómica de procedimiento reutilizable y activarlos con permisos y criterios. |
+| 4 | Loops, estado y parada | agent loop; familia de loops; contexto, historial, estado y memoria; criterios de parada y budgets | Representar vueltas controladas con estado, memoria, presupuestos y criterios de término. |
+| 5 | Harness y entorno | harness engineering; environment engineering; hooks, checkpoints y resumibilidad; reconstrucción de trayectoria | Diseñar el sistema alrededor del modelo con entorno, hooks, checkpoints y traza reconstruible. |
+| 6 | Interoperabilidad y delegación | MCP e interoperabilidad; delegación y handoffs; límites multiagente; blueprint de sistema de IA trazable | Explicar cliente, servidor, tools, resources, handoffs y límites multiagente para entregar un blueprint trazable. |
+
+**No objetivos:** chatbot genérico, backend, API de proveedor, servidor MCP real, multiagente prematuro, monitoreo profundo, incidentes o retiro operativo.
+
+## Nivel 13: Operación y monitoreo responsable
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
-| Readiness operativo | readiness, baseline, ensayo de rollback, aprobación humana | Autorizar o detener la operación de un producto ya construido mediante evidencia, referencia, reversibilidad y autoridad. |
+| Readiness operativo | readiness, baseline, ensayo de rollback, aprobación humana | Autorizar o detener la operación de un sistema de IA trazable mediante evidencia, referencia, reversibilidad y autoridad. |
 | Monitoreo | data drift, performance drift, calibration drift, umbral de alerta | Detectar cambios sin convertir cada variación en incidente. |
 | Respuesta a incidentes | triage, impacto, rollback operativo, postmortem | Contener daño, preservar evidencia y corregir la causa raíz. |
 | Handoff responsable | model card, runbook, audit log, retiro | Entregar, operar y retirar un sistema de forma trazable. |
@@ -191,21 +212,25 @@ bloque de ciencia de datos.
 | 9 | Versionado temporal y experimentos reproducibles | Fija corte temporal, versión, tratamiento y criterio de decisión. |
 | 10 | Procedencia, privacidad, auditoría y transferencia de skills | Entrega artefactos rastreables que otra persona puede ejecutar y revisar. |
 | 11 | Especificación y revisión de código asistido | Escribe contratos y criterios de aceptación para agentes de código, revisa diffs, ejecuta tests y rechaza implementaciones que incumplen el contrato. |
-| 12 | Operación, monitoreo, incidentes y retiro | Define gates, alertas, rollback y responsabilidades que otra persona puede ejecutar. |
+| 12 | Diseño y auditoría de sistemas de IA trazables | Distingue modelo, harness, contexto, tools, skills, loop, permisos, estado, memoria, parada y traza. |
+| 13 | Operación, monitoreo, incidentes y retiro | Define gates, alertas, rollback y responsabilidades que otra persona puede ejecutar. |
 
 ## Prioridades de producción
 
 ### Publicado
 
-Los doce niveles tienen contenido completo y publicado: 212 conceptos, 406
-ejercicios, 636 prompts y 57 bloques. Los totales resultan de sumar a la base
-histórica 40 conceptos implementados, dos ejercicios y tres prompts por concepto,
-y catorce bloques nuevos.
+Los trece niveles tienen contenido completo y publicado: 236 conceptos, 454
+ejercicios, 708 prompts y 63 bloques. Los totales resultan de sumar el nuevo
+Nivel 12 de 24 conceptos a la ruta publicada y preservar la operación como
+Nivel 13.
 
 ### Próxima vertical slice
 
-Revisar con docentes el handoff `dataset_confiable@L5.H1 → Nivel 6` en una clase
-piloto y registrar únicamente ajustes de comprensión; la ruta estructural queda cerrada.
+Documentar y pilotear una slice de `context-assembly → retrieval-evidence →
+tool-contract → agent-loop`, con entrada `producto_operable@L11.H1`, salida
+parcial `sistema_ia_trazable@L12.H1`, prueba manual de reconstrucción de traza
+y no objetivos explícitos: sin chatbot genérico, sin API de proveedor, sin
+backend y sin publicar automatización real.
 
 ## Contrato por concepto
 
@@ -248,8 +273,8 @@ Los demos de histograma inspiran la profundidad, no la forma exacta. Un concepto
 
 ## Cobertura publicada
 
-- **Niveles estructuralmente aprobados:** 1–12.
-- **Niveles con contenido completo y publicado:** 1–12 (12 niveles).
+- **Niveles estructuralmente aprobados:** 1–13.
+- **Niveles con contenido completo y publicado:** 1–13 (13 niveles).
 - **Niveles pendientes de producción:** ninguno.
-- **Total publicado:** 212 conceptos, 406 ejercicios y 636 prompts en 57 bloques.
-- **Cierre:** Nivel 12 termina con operación, monitoreo, respuesta a incidentes y retiro responsable.
+- **Total publicado:** 236 conceptos, 454 ejercicios y 708 prompts en 63 bloques.
+- **Cierre:** Nivel 13 termina con operación, monitoreo, respuesta a incidentes y retiro responsable.

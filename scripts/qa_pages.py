@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Semantic browser QA for the twelve published levels."""
+"""Semantic browser QA for the thirteen published levels."""
 
 from __future__ import annotations
 
@@ -27,7 +27,8 @@ LEVEL_DIRS = {
     9: "data-class-temporal-experiments-level-9",
     10: "data-class-responsible-level-10",
     11: "data-class-product-engineering-level-11",
-    12: "data-class-operations-level-12",
+    12: "data-class-ai-systems-level-12",
+    13: "data-class-operations-level-13",
 }
 
 
@@ -53,7 +54,7 @@ def no_overflow(page, label: str) -> None:
 
 def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None:
     exercised = 0
-    for level in range(3, 13):
+    for level in range(3, 14):
         for module in payloads[level]["modules"].values():
             for lesson in module["lessons"]:
                 url = f"{BASE}/labs/level-{level}/{module['href']}?concept={lesson['id']}"
@@ -85,14 +86,14 @@ def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None
                     assert "Correcto" in page.locator("#feedback").inner_text() or "transferencia" in page.locator("#feedback").inner_text().lower()
                     exercised += 1
                 no_overflow(page, f"Nivel {level} {lesson['id']}")
-    # Niveles publicados 3–12: 173 escenas × 2 ejercicios = 346.
-    assert exercised == 346
+    # Niveles publicados 3-13: 197 escenas x 2 ejercicios = 394.
+    assert exercised == 394
 
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     manifests = {level: manifest(level) for level in LEVEL_DIRS}
-    payloads = {level: payload(level) for level in range(2, 13)}
+    payloads = {level: payload(level) for level in range(2, 14)}
     console_errors: list[str] = []
     page_errors: list[str] = []
     handler = partial(SimpleHTTPRequestHandler, directory=str(ROOT / "_site"))
@@ -111,10 +112,10 @@ def main() -> None:
 
         page.goto(BASE, wait_until="networkidle")
         assert page.title() == "Resultados | DataClass Forge"
-        page.locator("#summaryRail").get_by_text("212", exact=True).wait_for()
-        page.locator("#summaryRail").get_by_text("406", exact=True).wait_for()
-        assert page.locator(".level-group").count() == 12
-        assert page.locator(".catalog-row").count() == 57
+        page.locator("#summaryRail").get_by_text("236", exact=True).wait_for()
+        page.locator("#summaryRail").get_by_text("454", exact=True).wait_for()
+        assert page.locator(".level-group").count() == 13
+        assert page.locator(".catalog-row").count() == 63
         assert page.locator(".data-row:not(.header)").count() == 4
         no_overflow(page, "portal desktop")
         page.screenshot(path=OUTPUT / "github-pages-desktop.png", full_page=True)
@@ -152,8 +153,10 @@ def main() -> None:
             (9, "experimentacion.html?concept=practical-effect", "level-9-practical-effect-desktop.png"),
             (10, "etica-sesgo.html?concept=privacy", "level-10-privacy-desktop.png"),
             (10, "mini-proyecto.html?concept=project-evaluation", "level-10-project-evaluation-desktop.png"),
-            (12, "monitoreo.html?concept=calibration-drift", "level-12-calibration-drift-desktop.png"),
-            (12, "entrega-responsable.html?concept=retirement", "level-12-retirement-desktop.png"),
+            (12, "contexto-conocimiento.html?concept=retrieval-evidence", "level-12-retrieval-evidence-desktop.png"),
+            (12, "harness-entorno.html?concept=trace-reconstruction", "level-12-trace-reconstruction-desktop.png"),
+            (13, "monitoreo.html?concept=calibration-drift", "level-13-calibration-drift-desktop.png"),
+            (13, "entrega-responsable.html?concept=retirement", "level-13-retirement-desktop.png"),
         ]
         for level, route, filename in representative:
             page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
@@ -161,7 +164,7 @@ def main() -> None:
                 page.locator("#advance").click()
             page.screenshot(path=OUTPUT / filename, full_page=True)
 
-        for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (6, "preparacion-variables.html?concept=leakage"), (7, "matriz-confusion.html?concept=false-negative"), (8, "deteccion-anomalias.html?concept=anomaly-threshold"), (9, "ab-testing.html?concept=effect"), (10, "reproducibilidad.html?concept=versions"), (12, "incidentes.html?concept=postmortem")]:
+        for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (6, "preparacion-variables.html?concept=leakage"), (7, "matriz-confusion.html?concept=false-negative"), (8, "deteccion-anomalias.html?concept=anomaly-threshold"), (9, "ab-testing.html?concept=effect"), (10, "reproducibilidad.html?concept=versions"), (12, "tools-skills.html?concept=tool-contract"), (13, "incidentes.html?concept=postmortem")]:
             page.goto(f"{BASE}/labs/level-{level}/{route}&teacher=1", wait_until="networkidle")
             button = page.get_by_role("button", name="En vivo")
             assert button.count() == 1
@@ -195,14 +198,18 @@ def main() -> None:
             (9, "validacion-temporal.html?concept=temporal-leakage", "level-9-leakage-mobile.png"),
             (9, "experimentacion.html?concept=guardrails", "level-9-guardrails-mobile.png"),
             (10, "etica-sesgo.html?concept=representation", "level-10-representation-mobile.png"),
-            (12, "monitoreo.html?concept=alert-threshold", "level-12-alert-mobile.png"),
+            (12, "loops-estado.html?concept=stop-budgets", "level-12-stop-budgets-mobile.png"),
+            (13, "monitoreo.html?concept=alert-threshold", "level-13-alert-mobile.png"),
         ]:
             mobile_page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
             no_overflow(mobile_page, f"Nivel {level} mobile")
             assert mobile_page.locator("[data-level-blocks]").count() == 1
             assert mobile_page.locator("[data-level-concepts]").count() == 1
             assert not mobile_page.locator("#check").is_enabled()
-            mobile_page.locator("#advance").click()
+            for _ in range(4):
+                if mobile_page.locator("#check").is_enabled():
+                    break
+                mobile_page.locator("#advance").click()
             assert mobile_page.locator("#check").is_enabled()
             mobile_page.screenshot(path=OUTPUT / filename, full_page=True)
         mobile.close(); context.close(); browser.close()
@@ -210,7 +217,7 @@ def main() -> None:
     server.shutdown(); server.server_close()
     if console_errors or page_errors:
         raise AssertionError("Errores de navegador:\n" + "\n".join([*console_errors, *page_errors]))
-    print("QA de navegador aprobada: portal, 12 niveles publicados, 173 escenas continuas, 346 ejercicios, modo docente, movimiento, móvil y consola.")
+    print("QA de navegador aprobada: portal, 13 niveles publicados, 197 escenas continuas, 394 ejercicios, modo docente, movimiento, móvil y consola.")
 
 
 if __name__ == "__main__":
