@@ -126,6 +126,23 @@ def main() -> None:
         page.get_by_role("button", name="Nivel 6").click()
         assert page.locator('.level-group[data-level="6"]:not([hidden])').count() == 1
 
+        page.goto(f"{BASE}/placement.html", wait_until="networkidle")
+        assert page.title() == "Diagnóstico | DataClass Forge"
+        page.get_by_text("104", exact=True).wait_for()
+        page.get_by_text("26", exact=True).wait_for()
+        assert page.locator("#visualFrame img").count() == 1
+        assert page.locator("#optionGrid button").count() == 4
+        no_overflow(page, "diagnostico desktop")
+        for _ in range(10):
+            if page.locator("#resultPanel").is_visible():
+                break
+            page.locator("#optionGrid button").first.click()
+            page.locator("#submitAnswer").click()
+            if page.locator("#nextQuestion").is_visible():
+                page.locator("#nextQuestion").click()
+        assert page.locator("#resultPanel").is_visible()
+        page.get_by_text("Resultado de orientación", exact=True).wait_for()
+
         # Regression coverage: existing levels remain reachable and interactive.
         for level, href in [(1, manifests[1]["blocks"][0]["href"]), (2, manifests[2]["blocks"][0]["href"] + "?concept=mean")]:
             page.goto(f"{BASE}/labs/level-{level}/{href}", wait_until="networkidle")
@@ -189,6 +206,9 @@ def main() -> None:
         mobile_page.goto(BASE, wait_until="networkidle")
         no_overflow(mobile_page, "portal mobile")
         mobile_page.screenshot(path=OUTPUT / "github-pages-mobile.png", full_page=True)
+        mobile_page.goto(f"{BASE}/placement.html", wait_until="networkidle")
+        no_overflow(mobile_page, "diagnostico mobile")
+        assert mobile_page.locator("#visualFrame img").count() == 1
         for level, route, filename in [
             (3, "probabilidad-basica.html?concept=event", "level-3-event-mobile.png"),
             (4, "confusion.html?concept=aggregation-bias", "level-4-aggregation-mobile.png"),

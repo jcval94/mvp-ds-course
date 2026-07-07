@@ -117,6 +117,7 @@ def main() -> None:
     methodology.mkdir()
     shutil.copy2(ROOT / "docs" / "VALIDATION_REPORT.md", methodology / "VALIDATION_REPORT.md")
     shutil.copytree(ROOT / "evals", methodology / "evals")
+    shutil.copytree(ROOT / "docs" / "placement", BUILD / "placement")
 
     totals = {
         "concepts": sum(level["concept_count"] for level in levels),

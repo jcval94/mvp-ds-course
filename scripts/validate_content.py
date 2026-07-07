@@ -76,6 +76,8 @@ def validate_links(html_path: Path) -> None:
         if not target:
             continue
         resolved = (html_path.parent / target).resolve()
+        if html_path.parent == ROOT / "site" and target.startswith("placement/"):
+            resolved = (ROOT / "docs" / target).resolve()
         if not resolved.exists():
             fail(f"Enlace local roto en {html_path}: {link}")
 
