@@ -25,7 +25,8 @@ bloqueos técnicos, narrativos, visuales ni pedagógicos.
 - 21 ConceptSpecs, 21 LearningModules, 42 ejercicios dependientes de evidencia,
   21 LiveTeachingPacks y 63 prompts.
 - El handoff `producto_operable@L11.H1` conserva contrato, artifact, tests,
-  health, logs y versión segura; Nivel 12 sigue siendo dueño de la operación.
+  health, logs y versión segura; Nivel 12 diseña el sistema de IA trazable y
+  Nivel 13 sigue siendo dueño de la operación.
 - El agente de código queda subordinado a especificación, criterios, diff y
   tests; una implementación que incumple el contrato se rechaza.
 

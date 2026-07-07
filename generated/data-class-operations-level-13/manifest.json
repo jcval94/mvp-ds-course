@@ -1,0 +1,126 @@
+{
+  "level": 13,
+  "title": "Operación y monitoreo responsable",
+  "status": "published",
+  "entrypoint": "index.html",
+  "concept_count": 16,
+  "exercise_count": 32,
+  "prompt_count": 48,
+  "blocks": [
+    {
+      "id": "operational-readiness",
+      "number": 1,
+      "title": "Readiness operativo",
+      "href": "readiness-operativo.html",
+      "concept_count": 4
+    },
+    {
+      "id": "monitoring",
+      "number": 2,
+      "title": "Monitoreo",
+      "href": "monitoreo.html",
+      "concept_count": 4
+    },
+    {
+      "id": "incident-response",
+      "number": 3,
+      "title": "Respuesta a incidentes",
+      "href": "incidentes.html",
+      "concept_count": 4
+    },
+    {
+      "id": "responsible-handoff",
+      "number": 4,
+      "title": "Entrega responsable",
+      "href": "entrega-responsable.html",
+      "concept_count": 4
+    }
+  ],
+  "datasets": [
+    "bike-sharing-day",
+    "palmer-penguins",
+    "plant-growth",
+    "wine-quality"
+  ],
+  "curriculumSource": "docs/CURRICULUM_MAP.md",
+  "storySource": "docs/stories/LEVEL_13.md",
+  "storyStatus": "approved",
+  "experienceContract": "level-shell-v1",
+  "blockNavigation": "left",
+  "conceptNavigation": "top",
+  "visualizationMatrix": "level-13-visuals-v1",
+  "rendererRegistry": "educational-svg-v1",
+  "narrativeDataset": {
+    "id": "operacion-responsable-nivel-13",
+    "synthetic": true,
+    "generator": "level13-operations-v1",
+    "seed": 20280115,
+    "period": {
+      "start": "2028-02-19",
+      "end": "2028-05-24",
+      "snapshots": 96
+    },
+    "dimensions": {
+      "monitoring": [
+        96,
+        14
+      ],
+      "incidents": [
+        8,
+        9
+      ]
+    },
+    "reference_policy": {
+      "reference_snapshots": 48,
+      "monitoring_snapshots": 48,
+      "label_delay_days": 7,
+      "latest_unlabeled": 7
+    },
+    "alert_policy": {
+      "calibration_gap": 0.08,
+      "persistence_snapshots": 3,
+      "action": "human review; stop authority retained",
+      "automatic_decision": false
+    },
+    "rollback": {
+      "safe_version": "r2",
+      "current_version": "r3",
+      "verification_required": true
+    },
+    "privacy": {
+      "personal_identifiers": false,
+      "unit": "snapshot agregado o incidente simulado"
+    },
+    "growth": {
+      "from": "G7-local",
+      "to": "G7-local",
+      "constraint": "sin crecimiento ni backend"
+    },
+    "data_state": [
+      "sistema_ia_trazable@L12.H1",
+      "readiness@L13.1",
+      "monitoring@L13.2",
+      "incidents@L13.3",
+      "handoff@L13.4"
+    ],
+    "label": "Datasets sintéticos operativos; no representan personas, fraude ni un servicio productivo",
+    "files": [
+      {
+        "path": "datasets/narrative/monitoreo_operativo_nivel_13.csv",
+        "rows": 96,
+        "columns": 14,
+        "sha256": "f329824702652072da8e6b3312f501a477dab12dc67f47eface299ab2dfdb7da"
+      },
+      {
+        "path": "datasets/narrative/incidentes_operativos_nivel_13.csv",
+        "rows": 8,
+        "columns": 9,
+        "sha256": "c4ca732728ce68fec62a3fea4c0abb4720d4833fd68733a976880f891f56c3ab"
+      }
+    ],
+    "metadataPath": "datasets/narrative/nivel_13.metadata.json",
+    "metadataSha256": "2b004b29059e00acc88eb79f934bcf7947ad7bc6056e688da5e2810d7e9c2c74"
+  },
+  "validation": "validation.json",
+  "updated_at": "2026-07-04"
+}

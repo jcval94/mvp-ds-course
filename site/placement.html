@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Diagnóstico ramificado de DataClass Forge para orientar niveles exentos y secciones de repaso.">
+  <title>Diagnóstico | DataClass Forge</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="placement-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="DataClass Forge, inicio">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <strong>DataClass Forge</strong>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="index.html#catalogo">Catálogo</a>
+      <a href="placement.html" aria-current="page">Diagnóstico</a>
+      <a href="methodology.html">Metodología</a>
+      <a href="https://github.com/jcval94/mvp-ds-course">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="placement-intro">
+      <p class="kicker">Nivelación adaptativa</p>
+      <h1>Diagnóstico de ruta</h1>
+      <p>Responde hasta 10 preguntas. El recorrido cambia según tus respuestas y devuelve niveles exentos, niveles a repasar y fortalezas que conviene verificar.</p>
+      <dl class="placement-metrics" id="placementMetrics" aria-label="Resumen del diagnóstico"></dl>
+    </section>
+
+    <section class="placement-shell" aria-live="polite">
+      <div class="placement-status">
+        <span id="stepLabel">Pregunta 1 de 10</span>
+        <span id="levelLabel">Cargando diagnóstico</span>
+      </div>
+      <div class="progress-track" aria-hidden="true"><i id="progressBar"></i></div>
+
+      <article class="question-panel" id="questionPanel">
+        <div class="visual-frame" id="visualFrame" hidden></div>
+        <p class="question-text" id="questionText">Cargando preguntas...</p>
+        <div class="option-grid" id="optionGrid"></div>
+        <p class="feedback" id="feedback" role="status"></p>
+        <div class="placement-actions">
+          <button type="button" id="submitAnswer" disabled>Responder</button>
+          <button type="button" id="nextQuestion" hidden>Siguiente</button>
+          <button type="button" id="restart">Reiniciar</button>
+        </div>
+      </article>
+
+      <article class="result-panel" id="resultPanel" hidden>
+        <h2>Resultado de orientación</h2>
+        <div class="result-grid" id="resultGrid"></div>
+        <div class="recommendations" id="recommendations"></div>
+        <div class="placement-actions">
+          <button type="button" id="restartFromResult">Tomar de nuevo</button>
+          <a href="index.html#catalogo">Abrir catálogo</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <strong>DataClass Forge</strong>
+    <p>Diagnóstico estático: no guarda respuestas ni ejecuta modelos.</p>
+    <a href="placement/diagnostic_question_bank.csv">Banco CSV</a>
+  </footer>
+
+  <script>
+  (async function () {
+    const MAX_QUESTIONS = 10;
+    const startId = "A01";
+    const state = { currentId: startId, selected: "", answered: false, history: [] };
+    const $ = (selector) => document.querySelector(selector);
+
+    function parseCsv(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let quoted = false;
+      for (let i = 0; i < text.length; i += 1) {
+        const ch = text[i];
+        const next = text[i + 1];
+        if (quoted && ch === '"' && next === '"') {
+          cell += '"';
+          i += 1;
+        } else if (ch === '"') {
+          quoted = !quoted;
+        } else if (!quoted && ch === ",") {
+          row.push(cell);
+          cell = "";
+        } else if (!quoted && ch === "\n") {
+          row.push(cell);
+          rows.push(row);
+          row = [];
+          cell = "";
+        } else if (ch !== "\r") {
+          cell += ch;
+        }
+      }
+      if (cell || row.length) {
+        row.push(cell);
+        rows.push(row);
+      }
+      const header = rows.shift();
+      return rows.filter((item) => item.length === header.length).map((item) =>
+        Object.fromEntries(header.map((key, index) => [key, item[index] || ""]))
+      );
+    }
+
+    async function loadCsv(path) {
+      const response = await fetch(path);
+      if (!response.ok) throw new Error("No se pudo cargar " + path);
+      return parseCsv(await response.text());
+    }
+
+    const [questions, routes, inventory] = await Promise.all([
+      loadCsv("placement/diagnostic_question_bank.csv"),
+      loadCsv("placement/diagnostic_routing.csv"),
+      loadCsv("placement/curriculum_inventory.csv")
+    ]);
+    const questionsById = Object.fromEntries(questions.map((q) => [q.question_id, q]));
+    const routesById = Object.fromEntries(routes.map((r) => [r.question_id, r]));
+    const levelTitles = new Map(inventory.map((item) => [item.level, item.level_title]));
+
+    [
+      ["Preguntas máximas", MAX_QUESTIONS],
+      ["Banco", questions.length],
+      ["Con gráficos", questions.filter((q) => q.visual_asset).length],
+      ["Niveles", new Set(inventory.map((item) => item.level)).size]
+    ].forEach(([label, value]) => {
+      const wrapper = document.createElement("div");
+      const dt = document.createElement("dt");
+      const dd = document.createElement("dd");
+      dt.textContent = label;
+      dd.textContent = value;
+      wrapper.append(dt, dd);
+      $("#placementMetrics").append(wrapper);
+    });
+
+    function normalizeAsset(path) {
+      return path.replace(/^docs\/placement\//, "placement/");
+    }
+
+    function renderQuestion() {
+      const question = questionsById[state.currentId];
+      state.selected = "";
+      state.answered = false;
+      $("#submitAnswer").disabled = true;
+      $("#nextQuestion").hidden = true;
+      $("#feedback").textContent = "";
+      $("#stepLabel").textContent = `Pregunta ${state.history.length + 1} de ${MAX_QUESTIONS}`;
+      $("#levelLabel").textContent = `Nivel ${question.level} · ${levelTitles.get(question.level) || question.block_id}`;
+      $("#progressBar").style.width = `${Math.round((state.history.length / MAX_QUESTIONS) * 100)}%`;
+      $("#questionText").textContent = question.stem.replace(/^Observa docs\/placement\/assets\/diagnostic-visuals\/[^.]+\.svg\. /, "");
+
+      const visual = $("#visualFrame");
+      visual.innerHTML = "";
+      if (question.visual_asset) {
+        const img = document.createElement("img");
+        img.src = normalizeAsset(question.visual_asset);
+        img.alt = "Gráfico de evidencia para la pregunta";
+        visual.append(img);
+        visual.hidden = false;
+      } else {
+        visual.hidden = true;
+      }
+
+      const grid = $("#optionGrid");
+      grid.innerHTML = "";
+      ["a", "b", "c", "d"].forEach((letter) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.option = letter.toUpperCase();
+        button.textContent = question[`option_${letter}`];
+        button.addEventListener("click", () => {
+          if (state.answered) return;
+          state.selected = button.dataset.option;
+          grid.querySelectorAll("button").forEach((item) => item.classList.toggle("selected", item === button));
+          $("#submitAnswer").disabled = false;
+        });
+        grid.append(button);
+      });
+    }
+
+    function submitAnswer() {
+      if (!state.selected || state.answered) return;
+      const question = questionsById[state.currentId];
+      const correct = state.selected === question.correct_option;
+      state.answered = true;
+      state.history.push({ id: question.question_id, level: Number(question.level), correct, tags: question.repasar_tags });
+      $("#feedback").textContent = correct ? question.feedback_correct : question.feedback_wrong;
+      $("#optionGrid").querySelectorAll("button").forEach((button) => {
+        button.disabled = true;
+        button.classList.toggle("correct", button.dataset.option === question.correct_option);
+        button.classList.toggle("wrong", button.dataset.option === state.selected && !correct);
+      });
+      $("#submitAnswer").disabled = true;
+      $("#nextQuestion").hidden = false;
+      $("#progressBar").style.width = `${Math.round((state.history.length / MAX_QUESTIONS) * 100)}%`;
+    }
+
+    function nextQuestion() {
+      const last = state.history[state.history.length - 1];
+      const route = routesById[last.id];
+      const next = last.correct ? route.next_if_correct : route.next_if_wrong;
+      if (!route || next === "END" || state.history.length >= MAX_QUESTIONS) {
+        renderResult();
+        return;
+      }
+      state.currentId = next;
+      renderQuestion();
+    }
+
+    function renderResult() {
+      $("#questionPanel").hidden = true;
+      $("#resultPanel").hidden = false;
+      $("#progressBar").style.width = "100%";
+      const correctLevels = new Set(state.history.filter((item) => item.correct).map((item) => item.level));
+      const wrongLevels = new Set(state.history.filter((item) => !item.correct).map((item) => item.level));
+      let contiguous = 0;
+      for (let level = 1; level <= 13; level += 1) {
+        if (correctLevels.has(level) && !wrongLevels.has(level)) contiguous = level;
+        else if (wrongLevels.has(level)) break;
+      }
+      const exempt = Array.from({ length: contiguous }, (_, index) => index + 1);
+      const review = Array.from(wrongLevels).sort((a, b) => a - b);
+      const strengths = Array.from(correctLevels).filter((level) => level > contiguous).sort((a, b) => a - b);
+      const confidence = wrongLevels.size === 0 ? "alta" : strengths.length ? "baja" : "media";
+      const cards = [
+        ["Exentos", exempt.length ? exempt.map((level) => `L${level}`).join(", ") : "Ninguno aún"],
+        ["Repasar", review.length ? review.map((level) => `L${level}`).join(", ") : "Sin huecos detectados"],
+        ["Fortalezas", strengths.length ? strengths.map((level) => `L${level}`).join(", ") : "Sin fortalezas aisladas"],
+        ["Confianza", confidence]
+      ];
+      $("#resultGrid").innerHTML = "";
+      cards.forEach(([label, value]) => {
+        const div = document.createElement("div");
+        div.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+        $("#resultGrid").append(div);
+      });
+      const tags = [...new Set(state.history.filter((item) => !item.correct).flatMap((item) => item.tags.split(";")).filter(Boolean))];
+      $("#recommendations").innerHTML = "<h3>Secciones recomendadas</h3>" + (tags.length
+        ? `<ul>${tags.map((tag) => `<li>${tag}</li>`).join("")}</ul>`
+        : "<p>No aparecieron secciones obligatorias de repaso; verifica manualmente si quieres eximir niveles altos.</p>");
+    }
+
+    function restart() {
+      state.currentId = startId;
+      state.selected = "";
+      state.answered = false;
+      state.history = [];
+      $("#questionPanel").hidden = false;
+      $("#resultPanel").hidden = true;
+      renderQuestion();
+    }
+
+    $("#submitAnswer").addEventListener("click", submitAnswer);
+    $("#nextQuestion").addEventListener("click", nextQuestion);
+    $("#restart").addEventListener("click", restart);
+    $("#restartFromResult").addEventListener("click", restart);
+    renderQuestion();
+  })().catch((error) => {
+    document.querySelector("#questionText").textContent = error.message;
+  });
+  </script>
+</body>
+</html>

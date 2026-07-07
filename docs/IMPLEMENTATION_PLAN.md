@@ -3,8 +3,8 @@
 ## Objetivo
 
 Mantener DataClass Forge como fábrica documental, añadir continuidad narrativa
-verificable y publicar automáticamente doce niveles educativos validados dentro
-de una ruta curricular de doce posiciones, sin
+verificable y publicar automáticamente trece niveles educativos validados dentro
+de una ruta curricular de trece posiciones, sin
 backend ni ejecución de IA desde el navegador.
 
 ## Gates de calidad
@@ -50,7 +50,7 @@ historia independiente `docs/stories/LEVEL_1.md` y templates narrativos.
 - declarar relación padre-hijo, preparatoria de Paco, voz, autoridad técnica,
   secretos, dinámica incremental y reglas de humor;
 - cuantificar tamaño inicial y crecimiento condicionado del puesto;
-- mapear un arco general de doce niveles y cuatro episodios de Nivel 1;
+- mapear un arco general de trece niveles y cuatro episodios de Nivel 1;
 - escribir primero la historia completa del nivel desde el temario, con 18
   escenas trazables y dos subtítulos del narrador por escena;
 - versionar `pedidos_crudos`, esquema, reporte de calidad y datos preparados;
@@ -111,7 +111,7 @@ resolver la práctica usando la evidencia.
 **Definition of Done:** precisión técnica, voces consistentes, esquema y skill
 verificables, promedio mínimo de 4 y ninguna dimensión en 1.
 
-**No objetivos:** escribir los doce niveles completos o publicar la historia sin revisión humana.
+**No objetivos:** escribir los trece niveles completos o publicar la historia sin revisión humana.
 
 ## Fase 3.6: Reformulación del Nivel 1 desde la historia aprobada
 
@@ -192,10 +192,10 @@ accesibles, esquema y skill verificables, promedio mínimo de 4 y ninguna dimens
 1. Validar manifests, conteos, hashes y estados.
 2. Construir `_site/` desde `site/`, niveles y datasets.
 3. Probar búsqueda, filtros, enlaces y responsive.
-4. Ejecutar QA semántica de los 406 ejercicios, animación y movimiento reducido.
+4. Ejecutar QA semántica de los 454 ejercicios, animación y movimiento reducido.
 5. Publicar mediante GitHub Actions en cada push a `main`.
 
-**Aceptación:** el catálogo muestra 212 conceptos y 406 ejercicios, y publica
+**Aceptación:** el catálogo muestra 236 conceptos y 454 ejercicios, y publica
 ningún paquete sin validación aprobada. Cada portada y laboratorio publicado
 incluye un botón visible `HOME` que regresa al portal principal, también en
 viewport móvil.
@@ -223,7 +223,7 @@ runbooks y simulaciones verificables.
 
 - Fuente: temarios, historias y datasets canónicos ya aprobados.
 - Contrato: 133 `VisualizationSpec`, registro cerrado `educational-svg-v1` y sin fallback.
-- Experiencia: doce niveles publicados bajo `level-shell-v1`; Niveles 1–2 conservan sus renderers y 5/11 usan el registro educativo cerrado.
+- Experiencia: trece niveles publicados bajo `level-shell-v1`; Niveles 1–2 conservan sus renderers y 5/11/12/13 usan el registro educativo cerrado.
 - Práctica: 266 ejercicios continuos citan series, ventanas, curvas, áreas, nodos, celdas o intervalos.
 - Publicación: generación → validación → build → navegador → `main` → Pages.
 | Narrativa sin evidencia | Ejercicio debe fallar sin visual |

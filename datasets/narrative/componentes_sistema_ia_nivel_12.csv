@@ -1,0 +1,25 @@
+escena,concepto,componente,entrada,salida,control,estado
+L12-S01,model-boundary,modelo,prompt y contexto,inferencia,harness,arquitectura
+L12-S02,context-window-budget,presupuesto_contexto,evidencia candidata,contexto compacto,límite_tokens,arquitectura
+L12-S03,system-boundaries,mapa_sistema,componentes,responsabilidades,fronteras,arquitectura
+L12-S04,agent-vs-workflow,selector_ruta,tarea,workflow_o_agente,criterio_decisión,arquitectura
+L12-S05,context-assembly,ensamblador,fuentes priorizadas,paquete_contexto,citas,contexto
+L12-S06,structured-output-contract,schema_salida,texto_modelo,json_validado,validación_schema,contexto
+L12-S07,knowledge-corpus,corpus,documentos,chunks_metadata,procedencia,contexto
+L12-S08,retrieval-evidence,retriever,consulta,evidencia_citada,abstención,contexto
+L12-S09,tool-contract,tool,argumentos_schema,resultado_schema,permiso,capacidad
+L12-S10,tool-execution-errors,ejecutor_tool,llamada,resultado_o_error,retry_limitado,capacidad
+L12-S11,skill-procedure,skill,objetivo_revisión,procedimiento,checklist,capacidad
+L12-S12,progressive-disclosure,disclosure,capacidad_descubierta,recurso_activado,lectura_selectiva,capacidad
+L12-S13,agent-loop,loop,observación,acción_verificada,stop_reason,loop
+L12-S14,loop-families,router_loop,problema,familia_loop,salida_esperada,loop
+L12-S15,state-history-memory,estado,historial,memoria_persistente,minimización,loop
+L12-S16,stop-budgets,budget_gate,turnos_tools_tiempo,parar_o_continuar,presupuesto,loop
+L12-S17,harness-engineering,harness,instrucciones_contexto_tools,ejecución_controlada,checks,harness
+L12-S18,environment-engineering,entorno,recursos_disponibles,acción_permitida,permisos,harness
+L12-S19,hooks-checkpoints,checkpoint,acción_riesgosa,estado_recuperable,hooks,harness
+L12-S20,trace-reconstruction,traza,eventos,trayectoria_reconstruible,integridad,harness
+L12-S21,mcp-interoperability,mcp,cliente_servidor,tools_resources,aprobación,interoperabilidad
+L12-S22,delegation-handoff,handoff,contexto_mínimo,respuesta_especialista,criterio_aceptación,interoperabilidad
+L12-S23,multiagent-limits,coordinación,tareas_paralelas,tradeoff,control,interoperabilidad
+L12-S24,system-blueprint,blueprint,producto_operable,sistema_ia_trazable,traza_y_parada,integrador

@@ -60,6 +60,7 @@ El mapa curricular incluye:
 - ética, comunicación y reproducibilidad;
 - mini-proyectos.
 - ingeniería de productos de datos;
+- ingeniería de sistemas de IA;
 - operación y monitoreo responsable.
 
 Consulta [docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md).
@@ -77,14 +78,16 @@ Consulta [docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md).
 - **Nivel 9 · Datos temporales y experimentación:** 14 conceptos y 28 ejercicios.
 - **Nivel 10 · Análisis responsable y reproducible:** 17 conceptos y 34 ejercicios.
 - **Nivel 11 · Ingeniería de Productos de Datos:** 21 conceptos y 42 ejercicios.
-- **Nivel 12 · Operación y monitoreo responsable:** 16 conceptos y 32 ejercicios.
-- **Total:** 212 conceptos, 406 ejercicios y 636 prompts para Codex, Gemini y ChatGPT.
+- **Nivel 12 · Ingeniería de Sistemas de IA:** 24 conceptos y 48 ejercicios.
+- **Nivel 13 · Operación y monitoreo responsable:** 16 conceptos y 32 ejercicios.
+- **Total:** 236 conceptos, 454 ejercicios y 708 prompts para Codex, Gemini y ChatGPT.
 
-La ruta oficial contiene 12 niveles, todos con contenido completo, validado y
+La ruta oficial contiene 13 niveles, todos con contenido completo, validado y
 publicado. Los nuevos Niveles 5 y 11 ocupan sus posiciones curriculares
-canónicas y producen los handoffs que consumen los Niveles 6 y 12.
+canónicas; el nuevo Nivel 12 inserta sistemas de IA trazables entre producto
+operable y operación responsable.
 
-Los doce niveles conservan la continuidad aprobada de Don Juan y
+Los trece niveles conservan la continuidad aprobada de Don Juan y
 Paco. Aprender y Ejercitar usan pedidos ficticios versionados del puesto; En
 vivo conserva snapshots públicos reales con procedencia, licencia y SHA-256.
 

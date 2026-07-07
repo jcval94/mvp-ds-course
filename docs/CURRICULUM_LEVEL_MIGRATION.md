@@ -1,4 +1,8 @@
-# Reporte de migración curricular a 12 niveles
+# Reporte histórico de migración curricular previa
+
+> Nota de continuidad: este reporte queda como antecedente histórico. La ruta
+> vigente publicada tiene 13 niveles después de insertar Nivel 12 · Ingeniería
+> de Sistemas de IA y preservar la operación como Nivel 13.
 
 > **Registro histórico:** este archivo conserva el estado al cerrar la migración
 > estructural. El estado vigente de producción está en `docs/CURRICULUM_MAP.md`

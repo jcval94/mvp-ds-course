@@ -5,7 +5,7 @@ separar la decisión narrativa de la implementación educativa y técnica.
 
 ## Convención
 
-- `LEVEL_1.md`, `LEVEL_2.md`, ..., `LEVEL_12.md`.
+- `LEVEL_1.md`, `LEVEL_2.md`, ..., `LEVEL_13.md`.
 - Cada archivo declara la versión exacta del temario que adapta.
 - Cada concepto tiene escena, subtítulos del narrador y continuidad verificable.
 - Una historia puede estar en `borrador`, `en revisión` o `aprobada`.
@@ -37,4 +37,5 @@ Consulta el procedimiento completo en [el pipeline](../pipeline/README.md).
 | 9 | [El calendario y la prueba justa](LEVEL_9.md) | aprobada |
 | 10 | [Antes de entregar, mirar a quién toca](LEVEL_10.md) | aprobada |
 | 11 | [La máquina que solo funcionaba con Paco](LEVEL_11.md) | aprobada para implementación parcial |
-| 12 | [Entregar también el freno](LEVEL_12.md) | aprobada |
+| 12 | [La caja que también deja huella](LEVEL_12.md) | aprobada |
+| 13 | [Entregar también el freno](LEVEL_13.md) | aprobada |

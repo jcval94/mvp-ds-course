@@ -55,7 +55,7 @@ Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, s
 ### `CourseStoryBible`
 
 - Premisa, audiencia, tono, mundo y reglas de humor.
-- Arco general de doce niveles, con historias, handoffs y contenido completo aprobados.
+- Arco general de trece niveles, con historias, handoffs y contenido completo aprobados.
 - Reglas de autoridad narrativa y límites del contexto.
 - Referencias a las `CharacterCard` canónicas.
 - Matriz incremental de relaciones y crecimiento cuantificado del negocio.
@@ -220,7 +220,7 @@ Los diez conceptos del prototipo existente se mantienen dentro de una progresió
 
 **Usuario:** profesor de introducción a ciencia de datos.
 
-**Entrada:** uno de 212 conceptos publicados en Niveles 1–12, contexto aplicado y
+**Entrada:** uno de 236 conceptos publicados en Niveles 1–13, contexto aplicado y
 duración de 30 a 90 minutos.
 
 **Cobertura:**
@@ -236,7 +236,8 @@ duración de 30 a 90 minutos.
 9. Nivel 9 · Datos temporales y experimentación: 14 conceptos, 28 ejercicios y 42 prompts.
 10. Nivel 10 · Análisis responsable y reproducible: 17 conceptos, 34 ejercicios y 51 prompts.
 11. Nivel 11 · Ingeniería de Productos de Datos: 21 conceptos, 42 ejercicios y 63 prompts.
-12. Nivel 12 · Operación y monitoreo responsable: 16 conceptos, 32 ejercicios y 48 prompts.
+12. Nivel 12 · Ingeniería de Sistemas de IA: 24 conceptos, 48 ejercicios y 72 prompts.
+13. Nivel 13 · Operación y monitoreo responsable: 16 conceptos, 32 ejercicios y 48 prompts.
 
 **Flujo principal:**
 
@@ -248,15 +249,15 @@ duración de 30 a 90 minutos.
 6. Construir el catálogo estático desde manifests aprobados.
 7. Publicar automáticamente mediante GitHub Actions.
 
-**Salida:** 212 paquetes conceptuales trazables, 57 laboratorios, catálogo
+**Salida:** 236 paquetes conceptuales trazables, 63 laboratorios, catálogo
 estático, snapshots y reportes de validación.
 
-**Prueba manual:** un docente recorre los 57 laboratorios, responde los 406
+**Prueba manual:** un docente recorre los 63 laboratorios, responde los 454
 ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 **Definition of Done:**
 
-- Existen 212 conceptos, 406 ejercicios y 636 prompts.
+- Existen 236 conceptos, 454 ejercicios y 708 prompts.
 - Cada artefacto usa la `ConceptSpec` correspondiente.
 - Cada ruta narrativa tiene Story Bible, fichas, arco y ledger sin referencias rotas.
 - Cada episodio declara estado previo, voces, dato canónico, cambio de continuidad
@@ -310,7 +311,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 | Visual obligatorio | Demos de inspiración y Brief | Skills, ejercicios, evals | Checklist pedagógico |
 | Contrato de evidencia | Auditoría visual de junio de 2026 | ConceptSpec, UI, QA y publicación | Revisión visual interactiva |
 | Shell homogéneo y renderer cerrado | Reconstrucción visual de julio de 2026 | Manifests, generadores, skills y QA | `level-shell-v1` y `data-renderer` |
-| Diez niveles publicados dentro de una ruta de doce | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
+| Trece niveles publicados dentro de la ruta canónica | Brief y PRD | Manifests, portal y prompts | Build y prueba manual |
 | Snapshots públicos fijos | Solicitud de usuario | Datasets, skills y evals | Hash, licencia y procedencia |
 | GitHub Pages automático | Solicitud de usuario | `site/` y workflow | Build en `main` |
 | Sin app en fase documental | `AGENTS.md` y PRD | Harness y Plan | Revisión de sobreingeniería |

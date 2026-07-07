@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic regression tests for completed Levels 5/11 and Level 12 boundary."""
+"""Deterministic regression tests for completed Levels 5/11/12 and Level 13 boundary."""
 
 from __future__ import annotations
 
@@ -57,6 +57,8 @@ class NewLevelPublicationTests(unittest.TestCase):
         expected = {
             "data-class-sql-level-5": (5, 19, 38, 57, 7),
             "data-class-product-engineering-level-11": (11, 21, 42, 63, 7),
+            "data-class-ai-systems-level-12": (12, 24, 48, 72, 6),
+            "data-class-operations-level-13": (13, 16, 32, 48, 4),
         }
         for dirname, counts in expected.items():
             manifest = json.loads((ROOT / "generated" / dirname / "manifest.json").read_text(encoding="utf-8"))
@@ -66,17 +68,30 @@ class NewLevelPublicationTests(unittest.TestCase):
     def test_no_duplicate_level_manifests(self) -> None:
         manifests = [json.loads(path.read_text(encoding="utf-8")) for path in (ROOT / "generated").glob("*/manifest.json") if "-slice" not in path.parent.name]
         levels = [manifest["level"] for manifest in manifests]
-        self.assertEqual(sorted(levels), list(range(1, 13)))
+        self.assertEqual(sorted(levels), list(range(1, 14)))
         self.assertEqual(len(levels), len(set(levels)))
 
-    def test_level12_starts_after_level11_and_uses_readiness(self) -> None:
+    def test_level12_starts_after_level11_and_builds_traceable_ai_system(self) -> None:
         metadata = json.loads((ROOT / "datasets" / "narrative" / "nivel_12.metadata.json").read_text(encoding="utf-8"))
         self.assertEqual(metadata["period"]["start"], "2028-01-22")
-        raw = (ROOT / "generated" / "data-class-operations-level-12" / "assets" / "curriculum.js").read_text(encoding="utf-8")
+        self.assertIn("sistema_ia_trazable@L12.H1", metadata["data_state"])
+        raw = (ROOT / "generated" / "data-class-ai-systems-level-12" / "assets" / "curriculum.js").read_text(encoding="utf-8")
+        payload = json.loads(re.match(r"window\.DCF_LEVEL = (.*);", raw, re.S).group(1))
+        ids = [lesson["id"] for block in payload["modules"].values() for lesson in block["lessons"]]
+        self.assertIn("model-boundary", ids)
+        self.assertIn("retrieval-evidence", ids)
+        self.assertIn("system-blueprint", ids)
+        self.assertNotIn("operational-readiness", ids)
+
+    def test_level13_starts_after_traceable_ai_system_and_uses_readiness(self) -> None:
+        metadata = json.loads((ROOT / "datasets" / "narrative" / "nivel_13.metadata.json").read_text(encoding="utf-8"))
+        self.assertEqual(metadata["period"]["start"], "2028-02-19")
+        self.assertEqual(metadata["data_state"][0], "sistema_ia_trazable@L12.H1")
+        raw = (ROOT / "generated" / "data-class-operations-level-13" / "assets" / "curriculum.js").read_text(encoding="utf-8")
         payload = json.loads(re.match(r"window\.DCF_LEVEL = (.*);", raw, re.S).group(1))
         ids = [lesson["id"] for block in payload["modules"].values() for lesson in block["lessons"]]
         self.assertIn("operational-readiness", ids)
-        self.assertNotIn("acceptance-criteria", ids)
+        self.assertNotIn("system-blueprint", ids)
 
 
 if __name__ == "__main__":

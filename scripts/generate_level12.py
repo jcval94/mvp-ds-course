@@ -1,120 +1,218 @@
 #!/usr/bin/env python3
-"""Generate Level 12: responsible operation, monitoring and retirement."""
+"""Generate Level 12: AI systems engineering."""
 
 from __future__ import annotations
 
-from datetime import date, timedelta
-import math
-import random
-
-from advanced_level_support import lesson
+from full_level_support import concept_lesson
 from narrative_level_factory import generate
 
 
-SEED = 20280115
+SPECS = [
+    ("model-boundary", "Modelo e inferencia", "modelo, contexto, aplicación, entorno, harness", "modelo como pieza dentro de un sistema con fronteras visibles"),
+    ("context-window-budget", "Ventana y presupuesto de contexto", "tokens, selección, descarte, compaction", "presupuesto de contexto que obliga a seleccionar y compactar"),
+    ("system-boundaries", "App, workflow, agente y sistema", "modelo, aplicación, workflow, agente, sistema", "componentes con responsabilidades distintas"),
+    ("agent-vs-workflow", "Agente frente a workflow", "pasos fijos, observación, decisión, acción", "diferencia entre ruta fija y decisión iterativa"),
+    ("context-assembly", "Context assembly y compaction", "contexto disponible, selección, ensamblaje, memoria", "ensamblaje de contexto relevante y reducción de ruido"),
+    ("structured-output-contract", "Output estructurado y schema", "schema, validación, parsing, reparación", "salida libre que pasa a contrato validable"),
+    ("knowledge-corpus", "Corpus, chunks y metadata", "documento, chunk, metadata, procedencia", "conocimiento externo organizado para recuperación"),
+    ("retrieval-evidence", "Retrieval, reranking y abstención", "consulta, ranking, evidencia, cita, abstención", "búsqueda que separa encontrar evidencia de usarla correctamente"),
+    ("tool-contract", "Contrato de tool", "nombre, input_schema, output_schema, permiso", "capacidad atómica expuesta por el sistema"),
+    ("tool-execution-errors", "Ejecución, error y retry de tool", "argumentos, ejecución, resultado, error, retry", "acción ejecutada con resultado verificable y manejo de fallo"),
+    ("skill-procedure", "Skill como procedimiento reutilizable", "instrucciones, scripts, referencias, validaciones", "procedimiento portable que coordina tools y criterios"),
+    ("progressive-disclosure", "Progressive disclosure", "descubrir, activar, ejecutar, recursos", "capacidad disponible sin cargar todo el procedimiento en contexto"),
+    ("agent-loop", "Agent loop", "objetivo, observar, decidir, actuar, terminar", "loop que permite continuar trabajando bajo observación"),
+    ("loop-families", "Familia de loops", "execution, tool-use, retrieval, verification, approval, recovery", "familias de loop agrupadas por problema y criterio de parada"),
+    ("state-history-memory", "Contexto, historial, estado y memoria", "contexto, historial, estado, memoria", "distinción entre lo que se usa ahora, lo ocurrido y lo que persiste"),
+    ("stop-budgets", "Criterios de parada y budgets", "max_turns, max_cost, max_time, max_tools, max_retries", "límites que hacen controlable la autonomía"),
+    ("harness-engineering", "Harness engineering", "instrucciones, contexto, tools, skills, loops, verificación", "sistema alrededor del modelo que controla trabajo repetible"),
+    ("environment-engineering", "Environment engineering", "filesystem, terminal, sql, browser, git", "entorno como parte de la capacidad real del agente"),
+    ("hooks-checkpoints", "Hooks, checkpoints y resumibilidad", "pre_hook, post_hook, checkpoint, recuperación", "controles alrededor de acciones y puntos de reanudación"),
+    ("trace-reconstruction", "Reconstrucción de trayectoria", "evento, tool_call, output, check, decisión", "traza que permite explicar qué hizo el sistema"),
+    ("mcp-interoperability", "MCP e interoperabilidad", "cliente, servidor, tools, resources, permisos", "contrato interoperable para capacidades y recursos externos"),
+    ("delegation-handoff", "Delegación y handoffs", "supervisor, especialista, contexto, responsabilidad", "traspaso controlado sin perder contexto ni responsabilidad"),
+    ("multiagent-limits", "Límites multiagente", "costo, duplicación, pérdida_contexto, control", "varios agentes como tradeoff, no mejora automática"),
+    ("system-blueprint", "Blueprint de sistema de IA trazable", "usuario, objetivo, harness, loop, verificación, traza", "blueprint integrador del sistema completo"),
+]
+
+BLOCKS = [
+    ("model-systems", "Del modelo al sistema", "Modelo, contexto, app, workflow, agente y frontera del sistema.", "modelo-sistema.html", "plant-growth", 0, 4, "arquitectura_sistema_ia@L12.1"),
+    ("context-knowledge", "Contexto y conocimiento", "Context assembly, output estructurado, corpus, retrieval y abstención.", "contexto-conocimiento.html", "bike-sharing-day", 4, 8, "conocimiento_contextual@L12.2"),
+    ("tools-skills-disclosure", "Tools, skills y disclosure", "Tools con contrato, errores, skills y progressive disclosure.", "tools-skills.html", "wine-quality", 8, 12, "capacidades_procedimentales@L12.3"),
+    ("loops-state-stop", "Loops, estado y parada", "Agent loop, familias de loops, memoria, estado y budgets.", "loops-estado.html", "palmer-penguins", 12, 16, "loop_verificable@L12.4"),
+    ("harness-environment", "Harness y entorno", "Harness, entorno, hooks, checkpoints y reconstrucción de trayectoria.", "harness-entorno.html", "wine-quality", 16, 20, "harness_recuperable@L12.5"),
+    ("interop-delegation", "Interoperabilidad y delegación", "MCP, handoffs, límites multiagente y blueprint completo.", "interoperabilidad-delegacion.html", "plant-growth", 20, 24, "sistema_ia_trazable@L12.H1"),
+]
 
 
-def monitoring_dataset() -> list[dict[str, object]]:
-    rng = random.Random(SEED)
-    rows: list[dict[str, object]] = []
-    start = date(2028, 1, 22)
-    for i in range(96):
-        phase = "referencia" if i < 48 else "monitoreo"
-        shift = 0 if i < 60 else min(1, (i - 59) / 24)
-        orders = round(78 + 5 * math.sin(i * 2 * math.pi / 7) + 8 * shift + rng.gauss(0, 2.2))
-        score_mean = round(.64 + .03 * math.sin(i / 8) + .08 * shift + rng.uniform(-.015, .015), 3)
-        actual_rate = round(.63 + .02 * math.sin(i / 8) - .07 * shift + rng.uniform(-.02, .02), 3)
-        mae = round(5.3 + .7 * math.sin(i / 10) + 3.2 * shift + rng.uniform(-.4, .4), 2)
-        calibration_gap = round(abs(score_mean - actual_rate), 3)
-        persistent = int(i >= 72 and calibration_gap > .08)
-        rows.append({
-            "snapshot_id": f"L12-M{i+1:03d}", "fecha": (start + timedelta(days=i)).isoformat(), "fase": phase,
-            "pedidos_totales": orders, "score_medio": score_mean, "frecuencia_observada": actual_rate,
-            "mae_confirmado": mae if i <= 88 else "", "retraso_etiqueta_dias": 7,
-            "brecha_calibracion": calibration_gap, "alerta_persistente": persistent,
-            "procedimiento_activo": int(i < 82), "aprobacion_humana": int(i < 82),
-            "version_datos": "v1" if i < 48 else "v2", "version_regla": "r3",
-        })
-    assert len(rows) == 96
-    assert all(row["mae_confirmado"] == "" for row in rows[-7:])
-    assert any(row["alerta_persistente"] for row in rows)
-    assert all(not row["procedimiento_activo"] for row in rows[82:])
-    return rows
-
-
-def incident_dataset() -> list[dict[str, object]]:
-    rows = [
-        ("INC-01","media","calibracion","pedidos digitales","8 días","ajustar alerta","verificado"),
-        ("INC-02","alta","privacidad","comentarios libres","2 horas","detener captura","verificado"),
-        ("INC-03","baja","disponibilidad","tablero docente","35 minutos","usar snapshot offline","verificado"),
-        ("INC-04","alta","desempeno","turno sábado","3 días","rollback a regla r2","verificado"),
-        ("INC-05","media","datos","conteo duplicado","1 día","restaurar datos v1","verificado"),
-        ("INC-06","media","operacion","alertas repetidas","5 días","exigir persistencia","verificado"),
-        ("INC-07","alta","equidad","solicitudes de apoyo","4 días","detener y revisar","verificado"),
-        ("INC-08","baja","retiro","archivo dependiente","1 día","archivar y notificar","verificado"),
+def component_rows() -> list[dict[str, object]]:
+    components = [
+        ("L12-S01", "model-boundary", "modelo", "prompt y contexto", "inferencia", "harness", "arquitectura"),
+        ("L12-S02", "context-window-budget", "presupuesto_contexto", "evidencia candidata", "contexto compacto", "límite_tokens", "arquitectura"),
+        ("L12-S03", "system-boundaries", "mapa_sistema", "componentes", "responsabilidades", "fronteras", "arquitectura"),
+        ("L12-S04", "agent-vs-workflow", "selector_ruta", "tarea", "workflow_o_agente", "criterio_decisión", "arquitectura"),
+        ("L12-S05", "context-assembly", "ensamblador", "fuentes priorizadas", "paquete_contexto", "citas", "contexto"),
+        ("L12-S06", "structured-output-contract", "schema_salida", "texto_modelo", "json_validado", "validación_schema", "contexto"),
+        ("L12-S07", "knowledge-corpus", "corpus", "documentos", "chunks_metadata", "procedencia", "contexto"),
+        ("L12-S08", "retrieval-evidence", "retriever", "consulta", "evidencia_citada", "abstención", "contexto"),
+        ("L12-S09", "tool-contract", "tool", "argumentos_schema", "resultado_schema", "permiso", "capacidad"),
+        ("L12-S10", "tool-execution-errors", "ejecutor_tool", "llamada", "resultado_o_error", "retry_limitado", "capacidad"),
+        ("L12-S11", "skill-procedure", "skill", "objetivo_revisión", "procedimiento", "checklist", "capacidad"),
+        ("L12-S12", "progressive-disclosure", "disclosure", "capacidad_descubierta", "recurso_activado", "lectura_selectiva", "capacidad"),
+        ("L12-S13", "agent-loop", "loop", "observación", "acción_verificada", "stop_reason", "loop"),
+        ("L12-S14", "loop-families", "router_loop", "problema", "familia_loop", "salida_esperada", "loop"),
+        ("L12-S15", "state-history-memory", "estado", "historial", "memoria_persistente", "minimización", "loop"),
+        ("L12-S16", "stop-budgets", "budget_gate", "turnos_tools_tiempo", "parar_o_continuar", "presupuesto", "loop"),
+        ("L12-S17", "harness-engineering", "harness", "instrucciones_contexto_tools", "ejecución_controlada", "checks", "harness"),
+        ("L12-S18", "environment-engineering", "entorno", "recursos_disponibles", "acción_permitida", "permisos", "harness"),
+        ("L12-S19", "hooks-checkpoints", "checkpoint", "acción_riesgosa", "estado_recuperable", "hooks", "harness"),
+        ("L12-S20", "trace-reconstruction", "traza", "eventos", "trayectoria_reconstruible", "integridad", "harness"),
+        ("L12-S21", "mcp-interoperability", "mcp", "cliente_servidor", "tools_resources", "aprobación", "interoperabilidad"),
+        ("L12-S22", "delegation-handoff", "handoff", "contexto_mínimo", "respuesta_especialista", "criterio_aceptación", "interoperabilidad"),
+        ("L12-S23", "multiagent-limits", "coordinación", "tareas_paralelas", "tradeoff", "control", "interoperabilidad"),
+        ("L12-S24", "system-blueprint", "blueprint", "producto_operable", "sistema_ia_trazable", "traza_y_parada", "integrador"),
     ]
-    return [{"incidente_id":a,"severidad":b,"tipo":c,"alcance":d,"duracion":e,"accion":f,"comprobacion":g,
-             "culpa_individual":0,"revision_humana":1} for a,b,c,d,e,f,g in rows]
+    return [
+        {
+            "escena": scene,
+            "concepto": concept,
+            "componente": component,
+            "entrada": source,
+            "salida": output,
+            "control": control,
+            "estado": state,
+        }
+        for scene, concept, component, source, output, control, state in components
+    ]
+
+
+def trace_rows() -> list[dict[str, object]]:
+    rows = [
+        ("TR-001", "preparar_decisión_turno", "search_corpus", "technical-review", "sin_contexto", "evidencia_citada", "continue", "read"),
+        ("TR-002", "validar_salida", "validate_schema", "technical-review", "respuesta_libre", "json_validado", "continue", "read"),
+        ("TR-003", "consultar_datos", "query_sales", "data-quality-review", "tool_ready", "resultado_sql", "continue", "read"),
+        ("TR-004", "reintentar_tool", "query_sales", "data-quality-review", "timeout", "retry_agotado", "max_retries", "read"),
+        ("TR-005", "pedir_aprobación", "request_approval", "risk-review", "acción_riesgosa", "humano_requerido", "approval_needed", "write"),
+        ("TR-006", "compactar_contexto", "compress_context", "context-review", "contexto_largo", "contexto_compacto", "continue", "read"),
+        ("TR-007", "recuperar_checkpoint", "load_checkpoint", "recovery-review", "sesión_interrumpida", "estado_recuperado", "continue", "read"),
+        ("TR-008", "delegar_revisión", "handoff_specialist", "pedagogy-review", "duda_pedagógica", "respuesta_citada", "continue", "read"),
+        ("TR-009", "comparar_agentes", "parallel_review", "coordination-review", "doble_respuesta", "conflicto_detectado", "human_review", "read"),
+        ("TR-010", "abstenerse", "search_corpus", "evidence-review", "sin_fuente", "respuesta_bloqueada", "insufficient_evidence", "read"),
+        ("TR-011", "registrar_traza", "append_trace", "trace-review", "decisión_lista", "log_inmutable", "complete", "write"),
+        ("TR-012", "cerrar_blueprint", "export_blueprint", "final-review", "checks_completos", "sistema_ia_trazable", "complete", "write"),
+    ]
+    return [
+        {
+            "traza_id": trace_id,
+            "objetivo": objective,
+            "tool": tool,
+            "skill": skill,
+            "estado_antes": before,
+            "estado_despues": after,
+            "stop_reason": stop,
+            "permiso": permission,
+        }
+        for trace_id, objective, tool, skill, before, after, stop, permission in rows
+    ]
 
 
 def config() -> dict[str, object]:
-    monitoring = monitoring_dataset(); incidents = incident_dataset()
-    specs = [
-        ("operational-readiness","Readiness operativo","Decidir si un producto ya construido puede entrar en operación bajo límites explícitos.","Readiness operativo contrasta artifact, baseline, privacidad, autoridad y reversibilidad antes de activar.","gate operativo sobre un producto ya construido","El equipo recibe `producto_operable@L11.H1` y revisa si puede encenderlo sin modificar su construcción.","Si falta una condición, sigue apagado.","El gate operativo queda versionado y requiere evidencia actual.",(3,2),"L12-E1","readiness@L12.1","aprobacion_humana, procedimiento_activo"),
-        ("baseline","Baseline","Comparar complejidad contra una referencia simple y relevante.","Un baseline establece referencia explícita de desempeño y costo.","referencia simple frente a propuesta","Una regla estable compite con el procedimiento nuevo.","Lo complicado tiene que ganarse su lugar.","Comparo error, estabilidad y costo contra la referencia.",(.72,.79),"L12-E1","readiness@L12.1","mae_confirmado, version_regla"),
-        ("rollback","Rollback","Diseñar condición, estado seguro y verificación antes del incidente.","Rollback restaura un procedimiento anterior verificable.","señal, estado seguro y comprobación","El equipo ensaya volver a la regla r2.","Quiero saber cómo regresamos antes de avanzar.","Documento señal, dueño, pasos y verificación.",(3,4),"L12-E1","readiness@L12.1","version_regla, procedimiento_activo"),
-        ("human-approval","Aprobación humana","Dar a una persona informada autoridad real para detener.","Aprobación humana requiere rol, información y poder real de detener.","bucle con evidencia, autoridad y motivo","Don Juan recibe evidencia y conserva el interruptor.","Si no puedo detenerlo, mi firma es adorno.","La aprobación deja actor, evidencia y motivo.",(1,1),"L12-E1","readiness@L12.1","aprobacion_humana, procedimiento_activo"),
-        ("data-drift","Data drift","Comparar entradas actuales con una referencia versionada.","Data drift es cambio en entradas respecto de referencia.","distribuciones de referencia y periodo actual","Los pedidos suben después de la apertura del local.","Que cambie la fila no prueba que la regla ya falle.","Separo cambio de entrada de desempeño confirmado.",(78,86),"L12-E2","monitoring@L12.2","fase, pedidos_totales"),
-        ("performance-drift","Performance drift","Seguir deterioro con resultados confirmados y retraso explícito.","Performance drift es deterioro de resultados medidos.","error confirmado a través del tiempo","El MAE aumenta, pero las últimas etiquetas tardan siete días.","No rellenes lo que todavía no sabemos.","Marco el retraso y no uso proxy como verdad.",(5.3,8.5),"L12-E2","monitoring@L12.2","fecha, mae_confirmado, retraso_etiqueta_dias"),
-        ("calibration-drift","Calibration drift","Revisar si scores conservan correspondencia con frecuencias.","Calibration drift rompe correspondencia entre score y frecuencia.","score frente a frecuencia por periodo","Los scores suben mientras la frecuencia observada baja.","Que ordene bien no significa que diga bien la probabilidad.","Comparo curva actual con referencia y límites.",(.03,.15),"L12-E2","monitoring@L12.2","score_medio, frecuencia_observada, brecha_calibracion"),
-        ("alert-threshold","Umbral de alerta","Combinar banda, persistencia, dueño y acción.","Una alerta combina umbral, duración y acción.","banda, persistencia y escalamiento","Variaciones aisladas generan ruido hasta exigir tres cortes.","Una campana que nunca calla deja de avisar.","La alerta exige persistencia y revisión humana.",(1,3),"L12-E2","monitoring@L12.2","brecha_calibracion, alerta_persistente"),
-        ("triage","Triage","Priorizar por daño, alcance y reversibilidad.","Triage prioriza incidentes por daño, alcance y reversibilidad.","severidad, alcance y reversibilidad","Ocho incidentes compiten por atención.","Primero lo que puede dañar, no lo que haga más ruido.","Clasifico con criterios y escalo privacidad y equidad.",(8,3),"L12-E3","incidents@L12.3","severidad, tipo, alcance"),
-        ("impact","Impacto","Registrar afectados, consecuencia, magnitud y duración.","Impacto registra quién, qué, cuánto y durante cuánto tiempo.","mapa de afectados y consecuencias","El error global oculta solicitudes de apoyo afectadas.","El promedio no recibe el daño; la gente sí.","Mapeo alcance y duración sin datos personales.",(1,4),"L12-E3","incidents@L12.3","alcance, duracion, tipo"),
-        ("operational-rollback","Rollback operativo","Ejecutar reversión con responsables y comprobación.","Rollback operativo sigue pasos, responsables y verificación.","línea de tiempo de reversión","El incidente INC-04 obliga a volver a r2.","Regresar no basta: comprueba que de verdad regresó.","Detengo, revierto, valido y registro.",(3,4),"L12-E3","incidents@L12.3","incidente_id, accion, comprobacion"),
-        ("postmortem","Postmortem","Reconstruir hechos y mejorar controles sin buscar culpable.","Un postmortem reconstruye hechos, controles y acciones.","ciclo de hechos, controles y acciones","El equipo revisa por qué la alerta temprana no escaló.","Arreglemos el sistema, no fabriquemos un culpable.","La acción correctiva tiene dueño y verificación.",(0,4),"L12-E3","incidents@L12.3","culpa_individual, revision_humana, comprobacion"),
-        ("model-card","Model card","Documentar propósito, datos, métricas, usos y límites.","Una model card documenta propósito, datos, métricas y límites.","tarjeta de propósito y límites","Paco resume el procedimiento para quien lo reciba.","La ficha debe decir cuándo no usarlo.","Documento no reemplaza seguridad ni aprobación.",(3,4),"L12-E4","handoff@L12.4","version_datos, version_regla"),
-        ("runbook","Runbook","Convertir señales en pasos verificables y escalamiento.","Un runbook convierte una condición en pasos verificables.","flujo de señal, acción, detención y ayuda","Nora ensaya la alerta sin depender de Paco.","Si el manual no dice cuándo parar, no está listo.","Cada paso tiene dueño, evidencia y salida segura.",(3,4),"L12-E4","handoff@L12.4","alerta_persistente, procedimiento_activo"),
-        ("audit-log","Audit log","Registrar evento, momento, actor, versión y motivo con integridad.","Un audit log registra qué ocurrió, cuándo, quién y por qué.","cadena reconstruible de cambios","El equipo reconstruye la reversión sin sobrescribir entradas.","Quiero el camino, no solo el número final.","Cada cambio conserva versión y motivo.",(4,5),"L12-E4","handoff@L12.4","snapshot_id, fecha, version_datos, version_regla"),
-        ("retirement","Retiro","Desactivar uso preservando evidencia, obligaciones y comunicación.","Retirar elimina uso activo preservando evidencia y obligaciones.","desactivar, archivar, comunicar y verificar","El procedimiento deja de aportar y el equipo practica apagarlo.","También termina bien lo que se sabe apagar.","El uso queda desactivado; archivo y dependencias se verifican.",(1,0),"L12-E4","handoff@L12.4","procedimiento_activo, version_regla"),
+    lessons = []
+    for index, spec in enumerate(SPECS, start=1):
+        slug, title, variables, mechanism = spec
+        block = next(block for block in BLOCKS if block[5] < index <= block[6])
+        data_state = "sistema_ia_trazable@L12.H1" if slug == "system-blueprint" else block[7]
+        item = concept_lesson(
+            level=12,
+            scene_number=index,
+            slug=slug,
+            title=title,
+            mechanism=mechanism,
+            variables=variables,
+            unit="un componente, capacidad, estado o evento de traza del sistema de IA educativo",
+            data_state=data_state,
+            episode=f"L12-E{BLOCKS.index(block) + 1}",
+        )
+        item["error"] = "Llamar agente a cualquier chatbot o asumir que más autonomía produce un sistema mejor."
+        item["practiceCases"][0]["wrong1"] = "Aceptar la salida porque parece razonable aunque falte evidencia visual."
+        item["practiceCases"][0]["wrong2"] = "Permitir la acción sin contrato, permiso, traza o criterio de parada."
+        item["practiceCases"][1]["wrong1"] = "Reutilizar el blueprint anterior aunque cambien contexto, capacidad o riesgo."
+        item["practiceCases"][1]["wrong2"] = "Agregar otro agente sin resolver primero la frontera y el control."
+        lessons.append(item)
+
+    component_data = component_rows()
+    trace_data = trace_rows()
+    blocks = [
+        {
+            "id": block_id,
+            "number": number,
+            "title": title,
+            "description": description,
+            "href": href,
+            "dataset_id": dataset_id,
+            "concepts": lessons[start:end],
+        }
+        for number, (block_id, title, description, href, dataset_id, start, end, _state) in enumerate(BLOCKS, start=1)
     ]
-    items=[]
-    for i,s in enumerate(specs,1):
-        slug,title,objective,definition,mechanism,setup,don,paco,pair,episode,data_state,variables=s
-        guest={"name":"Nora","line":"Yo puedo seguir el runbook y detener el procedimiento; si no entiendo una señal, escalo."} if slug in {"runbook","operational-rollback"} else None
-        items.append(lesson(level=12,slug=slug,title=title,objective=objective,definition=definition,mechanism=mechanism,
-            setup=setup,don=don,paco=paco,subtitles=(definition,paco),scene=i,episode=episode,data_state=data_state,
-            values=(pair,(pair[1],pair[0])),variables=variables,
-            unit="una observación es un snapshot diario agregado o un incidente operativo simulado; nunca una persona",
-            limit="Los tableros son estáticos y educativos: toda alerta requiere revisión humana; el producto ya existe y aquí no se construye, empaqueta ni despliega.",
-            context="El equipo simula otra condición operativa del único local",pressure="la respuesta debe ser reversible, auditable y proporcional al daño",
-            decision="detener cuando corresponda, conservar evidencia, verificar y escalar con autoridad explícita",guest=guest))
-    blocks=[
-        {"id":"operational-readiness","number":1,"title":"Readiness operativo","description":"Gate operativo, baseline, ensayo de rollback y autoridad humana sobre un artifact existente.","href":"readiness-operativo.html","dataset_id":"plant-growth","concepts":items[:4]},
-        {"id":"monitoring","number":2,"title":"Monitoreo","description":"Drift de datos, desempeño, calibración y alertas.","href":"monitoreo.html","dataset_id":"bike-sharing-day","concepts":items[4:8]},
-        {"id":"incident-response","number":3,"title":"Respuesta a incidentes","description":"Triage, impacto, rollback operativo y postmortem.","href":"incidentes.html","dataset_id":"wine-quality","concepts":items[8:12]},
-        {"id":"responsible-handoff","number":4,"title":"Entrega responsable","description":"Model card, runbook, audit log y retiro.","href":"entrega-responsable.html","dataset_id":"palmer-penguins","concepts":items[12:]},
-    ]
-    monitoring_schema=list(monitoring[0]); incident_schema=list(incidents[0])
-    return {"level":12,"output":"data-class-operations-level-12","title":"Operación y monitoreo responsable",
-        "summary":"El equipo opera un producto ya construido: readiness, monitoreo, incidentes, rollback, auditoría y retiro.",
-        "blocks":blocks,"previousConcept":"Producto de datos con contrato y tests","nextConcept":"Cierre de la ruta",
-        "agentCompetency":"Diseñar operación simulada con autoridad humana, reversibilidad, trazabilidad y retiro.",
-        "continuityDelta":"Paco entrega documentación y continúa sus estudios; Nora y Don Juan pueden detener y verificar sin depender de él.",
-        "growthDelta":"G7-local → G7-local; un solo local, 18 asientos y cuatro puestos pagados; no expansión.",
-        "narrativeDatasets":[
-            {"path":"datasets/narrative/monitoreo_operativo_nivel_12.csv","rows":monitoring,"schema":monitoring_schema},
-            {"path":"datasets/narrative/incidentes_operativos_nivel_12.csv","rows":incidents,"schema":incident_schema}],
-        "narrativeMetadata":{"metadataPath":"datasets/narrative/nivel_12.metadata.json","id":"operacion-responsable-nivel-12","synthetic":True,
-            "generator":"level12-operations-v1","seed":SEED,"period":{"start":monitoring[0]["fecha"],"end":monitoring[-1]["fecha"],"snapshots":96},
-            "dimensions":{"monitoring":[96,len(monitoring_schema)],"incidents":[8,len(incident_schema)]},
-            "reference_policy":{"reference_snapshots":48,"monitoring_snapshots":48,"label_delay_days":7,"latest_unlabeled":7},
-            "alert_policy":{"calibration_gap":.08,"persistence_snapshots":3,"action":"human review; stop authority retained","automatic_decision":False},
-            "rollback":{"safe_version":"r2","current_version":"r3","verification_required":True},
-            "privacy":{"personal_identifiers":False,"unit":"snapshot agregado o incidente simulado"},
-            "growth":{"from":"G7-local","to":"G7-local","constraint":"sin crecimiento ni backend"},
-            "data_state":["producto_operable@L11.H1","readiness@L12.1","monitoring@L12.2","incidents@L12.3","handoff@L12.4"],
-            "label":"Datasets sintéticos operativos; no representan personas, fraude ni un servicio productivo"},
-        "updatedAt":"2026-07-04"}
+    return {
+        "level": 12,
+        "output": "data-class-ai-systems-level-12",
+        "title": "Ingeniería de Sistemas de IA",
+        "summary": "Diseña un sistema de IA trazable con contexto, conocimiento, tools, skills, loops, permisos, checkpoints y harness explícito.",
+        "blocks": blocks,
+        "previousConcept": "Producto operable con contrato y handoff",
+        "nextConcept": "Readiness operativo",
+        "agentCompetency": "Diseñar y auditar un sistema de IA mediante contexto, tools, skills, loops y un harness explícito.",
+        "continuityDelta": "Paco convierte el producto operable en un blueprint trazable; Don Juan puede pedir evidencias, permisos y puntos de parada.",
+        "growthDelta": "G7-local → G7-local; un solo local, 18 asientos y cuatro puestos pagados; no expansión.",
+        "updatedAt": "2026-07-07",
+        "narrativeDatasets": [
+            {
+                "path": "datasets/narrative/componentes_sistema_ia_nivel_12.csv",
+                "rows": component_data,
+                "schema": list(component_data[0]),
+            },
+            {
+                "path": "datasets/narrative/trazas_sistema_ia_nivel_12.csv",
+                "rows": trace_data,
+                "schema": list(trace_data[0]),
+            },
+        ],
+        "narrativeMetadata": {
+            "metadataPath": "datasets/narrative/nivel_12.metadata.json",
+            "id": "sistema-ia-trazable-nivel-12",
+            "synthetic": True,
+            "generator": "level12-ai-systems-v1",
+            "seed": 20280218,
+            "period": {"start": "2028-01-22", "end": "2028-02-18", "snapshots": 24},
+            "dimensions": {"components": [24, 7], "traces": [12, 8]},
+            "source_policy": {
+                "mcp_reference": "Model Context Protocol documentation and tools specification 2025-06-18",
+                "provider_neutral": True,
+                "real_ai_calls": False,
+            },
+            "control_policy": {
+                "human_approval_required_for_write": True,
+                "stop_reasons": ["complete", "max_retries", "approval_needed", "human_review", "insufficient_evidence"],
+                "automatic_decision": False,
+            },
+            "privacy": {
+                "personal_identifiers": False,
+                "unit": "componente de arquitectura o evento de traza educativo",
+                "persistent_memory_requires_purpose": True,
+            },
+            "growth": {"from": "G7-local", "to": "G7-local", "constraint": "sin backend, proveedor ni expansión"},
+            "data_state": [
+                "producto_operable@L11.H1",
+                "arquitectura_sistema_ia@L12.1",
+                "conocimiento_contextual@L12.2",
+                "capacidades_procedimentales@L12.3",
+                "loop_verificable@L12.4",
+                "harness_recuperable@L12.5",
+                "sistema_ia_trazable@L12.H1",
+            ],
+            "label": "Datasets sintéticos de arquitectura y trazas; no representan personas, secretos ni un servicio productivo",
+        },
+    }
 
 
 if __name__ == "__main__":

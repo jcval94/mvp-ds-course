@@ -1,6 +1,6 @@
 ---
 name: visualization-contract-designer
-description: Diseña VisualizationSpecs y asigna renderers educativos SVG según pregunta, variables y mecanismo. Usar antes de ConceptSpec, LearningModule o PracticeExercise al crear o corregir visualizaciones de ciencia de datos en Niveles 1–12.
+description: Diseña VisualizationSpecs y asigna renderers educativos SVG según pregunta, variables y mecanismo. Usar antes de ConceptSpec, LearningModule o PracticeExercise al crear o corregir visualizaciones de ciencia de datos en Niveles 1–13.
 ---
 
 # Diseñador de contratos visuales

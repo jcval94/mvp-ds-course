@@ -1,37 +1,67 @@
-# Historia Nivel 12: Entregar también el freno
+# Historia Nivel 12: La caja que también deja huella
 
 ## Control
 
 - **Estado:** aprobada para implementación.
 - **ID:** `don-juan-paco-level-12-v1`.
+- **Fuente curricular:** `docs/CURRICULUM_MAP.md`, Nivel 12.
 - **Arco:** `docs/LEVEL_12_NARRATIVE_ARC.md`.
-- **Entrada/salida:** `producto_operable@L11.H1 / G7-local → L12.4 / G7-local`.
-- **Periodo:** 22 de enero a 26 de abril de 2028.
+- **Entrada/salida:** `producto_operable@L11.H1 / G7-local → sistema_ia_trazable@L12.H1 / G7-local`.
+- **Periodo:** 22 de enero a 18 de febrero de 2028.
+- **Audiencia/duración:** personas adultas principiantes-intermedias; seis sesiones de 35-45 minutos al producir el nivel completo.
+- **Supuesto:** el producto operable de Nivel 11 existe como artifact educativo; el nivel diseña el sistema alrededor del modelo sin ejecutar IA real.
 
-El producto ya fue construido y entregado por Nivel 11. Aquí no se crea API,
-contenedor, CI/CD ni despliegue: se decide si operar y se practican observación,
-contención, rollback, auditoría y retiro mediante snapshots y simulaciones. Don
-Juan conserva autoridad de negocio; el narrador define términos.
+## Temario predeterminado y escenas
 
-## Escenas aprobadas
+| Escena | Concepto | Incidente Aprender | Don Juan | Paco | Subtítulo inicial del narrador | Subtítulo final del narrador | Incidente distinto de Ejercitar |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `L12-S01` | modelo e inferencia | Paco muestra una respuesta correcta, pero el equipo no sabe qué pieza la produjo | “Entonces el motor no es todo el puesto.” | “Separo modelo, contexto, app y harness.” | Un modelo transforma entrada en salida, pero el sistema decide qué contexto llega y qué controles rodean la inferencia. | El mismo modelo puede producir sistemas distintos cuando cambian harness, evidencia y permisos. | Otra respuesta acierta texto, pero usa el canal equivocado y no deja traza. |
+| `L12-S02` | ventana y presupuesto de contexto | El manual completo no cabe junto con logs, pedido y reglas del turno | “Si no cabe todo, escoge lo que de verdad ayuda.” | “Asigno presupuesto de contexto y recorto con criterio.” | La ventana de contexto es finita y obliga a seleccionar, compactar o recuperar evidencia. | Presupuesto de contexto convierte una lista de documentos en una decisión auditable de entrada. | Otro turno mete demasiados anexos y pierde la regla crítica. |
+| `L12-S03` | app, workflow, agente y sistema | El diagrama mezcla pantalla, pasos fijos, decisiones y entorno en una sola caja | “No quiero confundir receta con cocinero.” | “Distingo app, workflow, agente y sistema.” | App, workflow, agente y sistema tienen responsabilidades distintas aunque compartan el mismo modelo. | Nombrar fronteras evita pedir autonomía donde basta un flujo fijo. | Otro mapa llama agente a un formulario con pasos rígidos. |
+| `L12-S04` | agente frente a workflow | La ruta fija resuelve pedidos simples, pero se atora ante evidencia faltante | “Si ya sabes los pasos, no finjas que improvisas.” | “Un workflow sigue pasos fijos; un agente decide la siguiente acción.” | Un workflow ejecuta pasos definidos; un agente observa el estado y elige acciones dentro de límites. | Agente no significa mejor, significa más decisión y más necesidad de control. | Otro caso usa agente para una tarea repetible y encarece la revisión. |
+| `L12-S05` | context assembly y compaction | Paco debe preparar contexto de turno con pedido, regla, incidente y resumen previo | “Que entre lo justo, no todo el cajón.” | “Ensamblo contexto con recuperación y compaction.” | Context assembly selecciona evidencia útil, reduce ruido y conserva lo necesario para responder. | Compactar bien preserva decisiones, fuentes y límites, no solo acorta texto. | Otra compactación borra la condición que activaba aprobación. |
+| `L12-S06` | output estructurado y schema | Una respuesta libre parece útil, pero no entra al handoff de turno | “Que conteste en forma, no en rollo.” | “Uso schema para validar y reparar salida.” | Un output estructurado convierte texto en campos verificables mediante schema. | Validar salida permite rechazar o reparar antes de usar una respuesta. | Otra salida trae campos correctos pero unidad equivocada. |
+| `L12-S07` | corpus, chunks y metadata | El manual del producto, runbook y cambios quedan en archivos largos sin procedencia | “El archivo necesita etiquetas claras.” | “Parto documentos en chunks con metadata y procedencia.” | Un corpus organiza documentos en chunks con metadata, versión, fuente y alcance. | Metadata útil permite recuperar evidencia sin perder origen ni fecha. | Otro chunk correcto queda inutilizable porque no registra versión. |
+| `L12-S08` | retrieval, reranking y abstención | La búsqueda trae tres fragmentos, pero ninguno sostiene la decisión riesgosa | “Si no encontró prueba, que lo diga.” | “Reranking y citas sostienen uso o abstención.” | Retrieval encuentra candidatos; reranking prioriza evidencia y la abstención evita inventar respaldo. | Citar evidencia no basta si el fragmento no responde la pregunta. | Otro resultado popular desplaza una fuente más específica. |
+| `L12-S09` | contrato de tool | El asistente quiere consultar ventas, pero nadie escribió qué recibe ni qué devuelve | “Antes de usar una llave, dime qué abre.” | “Defino nombre, input, output y permiso.” | Una tool expone una capacidad atómica con nombre, schema de entrada, salida y permisos. | Un contrato de tool permite invocar acciones sin esconder sus límites. | Otra tool tiene nombre claro pero acepta argumentos ambiguos. |
+| `L12-S10` | ejecución, error y retry de tool | La consulta falla una vez y el sistema insiste sin cambiar nada | “Cuando falle, quiero ver dónde se atoró.” | “Registro resultado, error y retry limitado.” | Ejecutar una tool produce resultado o error; retry requiere causa, límite y registro. | Reintentar sin cambiar condición solo multiplica ruido y riesgo. | Otro error requiere pedir permiso, no volver a llamar. |
+| `L12-S11` | skill como procedimiento reutilizable | La revisión técnica se repite con instrucciones, scripts y criterios dispersos | “Una guía buena dice cuándo usarla.” | “La skill conserva procedimiento, scripts y validación.” | Una skill empaqueta procedimiento, referencias, herramientas y criterios de validación. | Skill no es una tool: coordina pasos y juicio sobre un trabajo reusable. | Otra guía omite la prueba final y parece completa. |
+| `L12-S12` | progressive disclosure | Cargar todas las guías al inicio satura el contexto antes de saber el problema | “No cargues todo el manual en la mesa.” | “Descubro, activo y leo solo lo necesario.” | Progressive disclosure descubre capacidades y activa detalles cuando hacen falta. | Activar tarde reduce ruido, pero exige saber cuándo una capacidad aplica. | Otro flujo descubre la skill correcta y nunca abre sus criterios. |
+| `L12-S13` | agent loop | El sistema necesita mirar evidencia, elegir tool, verificar y volver a decidir | “Que mire, decida y deje huella.” | “El loop observa, decide, actúa y verifica.” | Un agent loop alterna objetivo, observación, decisión, acción y criterio de término. | La autonomía útil se mide por vueltas controladas, no por ausencia de límites. | Otro loop actúa dos veces sin registrar observación intermedia. |
+| `L12-S14` | familia de loops | Retrieval, verificación, recuperación y aprobación se mezclan en una sola ruta | “Cada vuelta debe tener motivo.” | “Elijo loop de retrieval, verificación, recuperación o aprobación.” | Las familias de loops resuelven problemas distintos y tienen salidas distintas. | Elegir el loop correcto evita usar recuperación cuando hacía falta aprobación. | Otro caso intenta reparar un fallo que debía escalarse. |
+| `L12-S15` | contexto, historial, estado y memoria | Paco confunde lo visible en la conversación con lo persistido para mañana | “No confundas recordar con guardar para siempre.” | “Separo contexto actual, historial, estado y memoria.” | Contexto, historial, estado y memoria no son sinónimos: cambian duración, uso y riesgo. | Persistir memoria exige propósito, permiso y forma de borrar. | Otra traza guarda una preferencia que solo era dato temporal. |
+| `L12-S16` | criterios de parada y budgets | El loop puede seguir pidiendo evidencia sin costo visible ni final claro | “Ponle alto antes de que se emocione.” | “Uso max_turns, tiempo, costo, tools y retries.” | Stop criteria y budgets hacen controlable un sistema que puede continuar. | Parar por límite también es una salida válida si conserva evidencia y motivo. | Otro caso llega a respuesta correcta después de exceder el presupuesto. |
+| `L12-S17` | harness engineering | El equipo lista prompt, tools y logs, pero no ve quién gobierna la ejecución | “Quiero ver la cocina, no solo el plato.” | “El harness junta instrucciones, tools, skills, checks y trazas.” | Harness engineering diseña el sistema alrededor del modelo: instrucciones, contexto, capacidades y verificación. | El harness explica por qué el mismo modelo actúa distinto en dos entornos. | Otro diseño cambia un permiso y altera todo el comportamiento. |
+| `L12-S18` | environment engineering | La capacidad real depende de filesystem, terminal, SQL, browser y git disponibles | “Si puede tocar archivos, también necesita permiso.” | “El entorno define qué acciones son reales y permitidas.” | Environment engineering declara recursos, permisos y límites del entorno de ejecución. | Una capacidad inexistente o no permitida debe aparecer antes de planear la acción. | Otro blueprint promete consultar SQL sin conexión ni schema. |
+| `L12-S19` | hooks, checkpoints y resumibilidad | Una acción riesgosa necesita revisión previa y punto de regreso | “Guarda el punto donde podamos volver.” | “Hooks y checkpoints gobiernan cada acción riesgosa.” | Hooks ejecutan controles antes o después de acciones; checkpoints permiten recuperar estado. | Resumir no es repetir todo: es continuar desde una evidencia confiable. | Otro checkpoint guarda salida pero no entrada ni permiso. |
+| `L12-S20` | reconstrucción de trayectoria | Don Juan pide explicar por qué el sistema recomendó detener un turno | “Enséñame el camino, no solo el final.” | “Reconstruyo eventos, tool calls, checks y decisiones.” | Una traza reconstruible enlaza observaciones, acciones, resultados, checks y decisiones. | Sin traza, una respuesta correcta no basta para auditar el sistema. | Otra traza tiene logs, pero no muestra qué evidencia cambió la decisión. |
+| `L12-S21` | MCP e interoperabilidad | Paco quiere que el sistema descubra capacidades externas sin acoplarse a una app | “Que hable con otros sin regalarle la caja.” | “MCP separa cliente, servidor, tools y resources.” | MCP conecta clientes con servidores que exponen tools y resources mediante contratos. | Interoperabilidad no elimina permisos, schemas ni revisión humana. | Otro servidor anuncia tools, pero no aclara qué datos expone. |
+| `L12-S22` | delegación y handoffs | Un especialista puede ayudar, pero llega con poco contexto y responsabilidad difusa | “Si lo pasas a otro, que no pierda la historia.” | “El handoff limita contexto, responsabilidad y pérdida.” | Delegar exige objetivo, contexto mínimo, autoridad, retorno y criterio de aceptación. | Un handoff bueno reduce carga sin soltar responsabilidad. | Otro agente devuelve una respuesta útil sin citar entrada ni límite. |
+| `L12-S23` | límites multiagente | Tres agentes revisan lo mismo, duplican costo y contradicen el estado | “Muchos ayudantes también pueden estorbar.” | “Comparo costo, duplicación, control y contexto.” | Multiagente introduce coordinación, pérdida de contexto y costos además de especialización. | Más agentes no mejoran un sistema si el cuello de botella es control o evidencia. | Otro diseño añade supervisor para ocultar falta de contrato. |
+| `L12-S24` | blueprint de sistema de IA trazable | El equipo reúne objetivo, contexto, tools, skills, loop, permisos, parada y traza | “Ahora sí dime qué pieza hace qué.” | “Entrego blueprint con harness, loop, permisos y parada.” | Un blueprint trazable conecta usuario, objetivo, harness, contexto, capacidades, loop, verificación y traza. | El sistema queda listo para readiness, monitoreo, incidentes y retiro de Nivel 13. | Otro blueprint luce completo, pero no define cuándo abstenerse ni quién aprueba. |
 
-| Escena | Concepto | Incidente Aprender | Subtítulo inicial | Subtítulo final | Ejercitar distinto |
-| --- | --- | --- | --- | --- | --- |
-| `L12-S01` | readiness operativo | Revisar artifact, baseline, privacidad, autoridad y reversibilidad | Readiness operativo contrasta evidencia actual antes de activar un producto ya construido. | Si falta una condición operativa, el procedimiento permanece apagado. | Otro gate falla privacidad aunque el build esté verde. |
-| `L12-S02` | baseline | Comparar contra regla sencilla | Un baseline establece referencia explícita de desempeño y costo. | Complejidad solo aporta si mejora una referencia relevante. | Otro baseline gana por estabilidad. |
-| `L12-S03` | rollback | Definir condición y estado seguro | Rollback restaura un procedimiento anterior verificable. | Reversibilidad se diseña antes del incidente. | Otra señal activa reversión. |
-| `L12-S04` | aprobación humana | Asignar autoridad y evidencia | Aprobación humana requiere rol, información y poder real de detener. | Un clic sin contexto no constituye supervisión. | Otro flujo carece de autoridad. |
-| `L12-S05` | data drift | Comparar distribuciones de entrada | Data drift es cambio en entradas respecto de referencia. | Drift no implica automáticamente pérdida de desempeño. | Otra variable cambia de escala. |
-| `L12-S06` | performance drift | Seguir error con etiquetas retrasadas | Performance drift es deterioro de resultados medidos. | Sin etiquetas oportunas, desempeño puede conocerse tarde. | Otro indicador usa proxy. |
-| `L12-S07` | calibration drift | Comparar score y frecuencia por periodo | Calibration drift rompe correspondencia entre score y frecuencia. | Discriminación estable no garantiza calibración estable. | Otro periodo se vuelve sobreconfiado. |
-| `L12-S08` | umbral de alerta | Definir banda, persistencia y escalamiento | Una alerta combina umbral, duración y acción. | Alertar cada variación produce fatiga y oculta incidentes. | Otra banda reduce ruido. |
-| `L12-S09` | triage | Clasificar severidad y urgencia | Triage prioriza incidentes por daño, alcance y reversibilidad. | Lo llamativo no siempre es lo más grave. | Otro incidente afecta privacidad. |
-| `L12-S10` | impacto | Mapear afectados y consecuencias | Impacto registra quién, qué, cuánto y durante cuánto tiempo. | Promedio global puede ocultar daño concentrado. | Otro mapa incluye terceros. |
-| `L12-S11` | rollback operativo | Ejecutar reversión y comprobar | Rollback operativo sigue pasos, responsables y verificación. | Revertir sin comprobar puede conservar el daño. | Otro rollback falla un paso. |
-| `L12-S12` | postmortem | Separar causa raíz de culpa | Un postmortem reconstruye hechos, controles y acciones. | Aprender exige corregir sistema, no buscar culpable. | Otro informe omite señales tempranas. |
-| `L12-S13` | model card | Resumir uso, límites y evaluación | Una model card documenta propósito, datos, métricas y límites. | Documentar no compensa un sistema inseguro. | Otra tarjeta omite población. |
-| `L12-S14` | runbook | Ordenar señales, acciones y escalamiento | Un runbook convierte una condición en pasos verificables. | Un runbook útil incluye detener y pedir ayuda. | Otro runbook no tiene dueño. |
-| `L12-S15` | audit log | Encadenar evento, actor y cambio | Un audit log registra qué ocurrió, cuándo, quién y por qué. | Registro sin integridad no permite reconstrucción. | Otro log pierde versión. |
-| `L12-S16` | retiro | Desactivar, archivar y comunicar | Retirar elimina uso activo preservando evidencia y obligaciones. | Un sistema sin dueño o beneficio suficiente debe poder apagarse. | Otro retiro olvida dependencias. |
+## Historia y tensión
 
-- **Cierre:** el equipo entrega un procedimiento explicable, reversible, monitoreado y retirable; Paco continúa sus estudios y el puesto sigue siendo un solo local.
+Paco vuelve con el producto operable de Nivel 11 y una idea tentadora: ponerle una interfaz de asistente para preparar decisiones del turno. Don Juan no rechaza la idea, pero pide algo concreto: si el sistema recomienda actuar, quiere saber qué miró, qué herramienta usó, quién podía detenerlo y cómo reconstruir el camino. El narrador convierte la inquietud en arquitectura de sistema de IA. Paco aprende que el modelo no es el sistema; el sistema incluye contexto, conocimiento, tools, skills, estado, memoria, loops, permisos, checkpoints y trazas.
+
+## Estado de salida
+
+- **Conocimiento:** Paco distingue modelo, app, workflow, agente, harness, tool, skill, estado, memoria y traza.
+- **Negocio:** `G7-local`, sin crecimiento ni plataforma nueva.
+- **Producto:** `sistema_ia_trazable@L12.H1` queda como blueprint verificable; no representa un servicio público ni una IA ejecutándose en producción.
+- **Continuidad:** el producto operable de Nivel 11 se conserva; operación, monitoreo, incidentes y retiro pasan a Nivel 13.
+- **Puente:** “¿Puede operarse, monitorearse, detenerse y retirarse sin depender de Paco?”
+
+## Contrato de modos
+
+- Aprender usa el diseño del asistente trazable para preparar decisiones del turno.
+- Ejercitar usa trazas y blueprints alternos con errores plausibles de contexto, permisos, loops y parada.
+- Transferencia cambia objetivo, capacidad o límite para exigir reconstrucción de traza.
+- Los tres casos requieren observar evidencia visual; no se responde por memoria de definiciones.
+
+## No objetivos
+
+- Construir chatbot genérico, backend, API de proveedor, servidor MCP real o app productiva.
+- No ejecutar IA real desde HTML ni automatizar decisiones del negocio.
+- Enseñar monitoreo profundo, drift, incidentes, postmortem, runbook operativo o retiro.
+- Presentar multiagente como mejora automática o autonomía como valor por sí mismo.

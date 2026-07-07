@@ -26,7 +26,8 @@ LEVEL_PATHS = [
     ROOT / "generated" / "data-class-temporal-experiments-level-9",
     ROOT / "generated" / "data-class-responsible-level-10",
     ROOT / "generated" / "data-class-product-engineering-level-11",
-    ROOT / "generated" / "data-class-operations-level-12",
+    ROOT / "generated" / "data-class-ai-systems-level-12",
+    ROOT / "generated" / "data-class-operations-level-13",
 ]
 
 
@@ -116,6 +117,7 @@ def main() -> None:
     methodology.mkdir()
     shutil.copy2(ROOT / "docs" / "VALIDATION_REPORT.md", methodology / "VALIDATION_REPORT.md")
     shutil.copytree(ROOT / "evals", methodology / "evals")
+    shutil.copytree(ROOT / "docs" / "placement", BUILD / "placement")
 
     totals = {
         "concepts": sum(level["concept_count"] for level in levels),

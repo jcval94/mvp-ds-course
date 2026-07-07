@@ -1,0 +1,13 @@
+traza_id,objetivo,tool,skill,estado_antes,estado_despues,stop_reason,permiso
+TR-001,preparar_decisión_turno,search_corpus,technical-review,sin_contexto,evidencia_citada,continue,read
+TR-002,validar_salida,validate_schema,technical-review,respuesta_libre,json_validado,continue,read
+TR-003,consultar_datos,query_sales,data-quality-review,tool_ready,resultado_sql,continue,read
+TR-004,reintentar_tool,query_sales,data-quality-review,timeout,retry_agotado,max_retries,read
+TR-005,pedir_aprobación,request_approval,risk-review,acción_riesgosa,humano_requerido,approval_needed,write
+TR-006,compactar_contexto,compress_context,context-review,contexto_largo,contexto_compacto,continue,read
+TR-007,recuperar_checkpoint,load_checkpoint,recovery-review,sesión_interrumpida,estado_recuperado,continue,read
+TR-008,delegar_revisión,handoff_specialist,pedagogy-review,duda_pedagógica,respuesta_citada,continue,read
+TR-009,comparar_agentes,parallel_review,coordination-review,doble_respuesta,conflicto_detectado,human_review,read
+TR-010,abstenerse,search_corpus,evidence-review,sin_fuente,respuesta_bloqueada,insufficient_evidence,read
+TR-011,registrar_traza,append_trace,trace-review,decisión_lista,log_inmutable,complete,write
+TR-012,cerrar_blueprint,export_blueprint,final-review,checks_completos,sistema_ia_trazable,complete,write

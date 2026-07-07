@@ -198,6 +198,7 @@ Casos obligatorios adicionales:
   guardrails, multiplicidad y mínimo práctico congelados.
 - Nivel 10: comprobar 48 celdas agregadas, mínimo 25 elegibles, cero identificadores
   o texto libre, denominadores válidos y revelaciones voluntarias ausentes del CSV.
-- Nivel 12: comprobar 48 snapshots de referencia y 48 de monitoreo, siete etiquetas
+- Nivel 12: comprobar 24 componentes de arquitectura y 12 trazas, stop reasons, permisos de escritura y ausencia de IA real.
+- Nivel 13: comprobar 48 snapshots de referencia y 48 de monitoreo, siete etiquetas
   retrasadas sin imputar, persistencia de tres cortes, revisión humana, rollback
   verificado, ocho incidentes sin culpa individual y crecimiento `G7-local → G7-local`.

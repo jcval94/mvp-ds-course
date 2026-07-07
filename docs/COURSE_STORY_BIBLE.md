@@ -50,7 +50,7 @@
   `algoritmo`, `leakage`, `métrica`, `significancia` ni otros términos formales.
 - Puede concluir “con esto no compro todavía más carne”; no puede concluir “la
   muestra no es representativa”. Esa segunda frase corresponde al narrador.
-- Su conocimiento permanece exclusivamente en el negocio durante los doce niveles.
+- Su conocimiento permanece exclusivamente en el negocio durante los trece niveles.
 
 ### Paco
 
@@ -249,9 +249,10 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 | 9 | Abre cinco noches, 16 asientos y canal de prepedido con cupo | Don Juan + 3 ayudantes pagados + Paco asesor parcial | 70–95 pedidos/noche | Horario y canal se prueban con experimento, guardrails y capacidad |
 | 10 | Un solo local de barrio de 5 × 4 m, 18 asientos; no es cadena | Don Juan + 4 personas pagadas; Paco documenta mientras continúa estudios | 90–120 pedidos/noche con tope declarado | Consolida privacidad, manual operativo y transferencia; no abre sucursal en el curso |
 | 11 | Conserva el mismo local; Ingeniería de Productos de Datos | Mismo equipo; Paco sigue como estudiante | Mismo rango y topes | No crece; prepara un producto operable sin adelantar monitoreo |
-| 12 | Conserva el mismo local, 18 asientos y cupos | Mismo equipo; responsabilidades y escalamiento explícitos | Mismo rango con límites monitoreados | No crece: practica gates, rollback, incidentes y retiro responsable |
+| 12 | Conserva el mismo local; Ingeniería de Sistemas de IA | Mismo equipo; Paco diseña un blueprint mientras sigue como estudiante | Mismo rango y topes | No crece: diseña contexto, tools, skills, loops, harness y trazas sin ejecutar IA real |
+| 13 | Conserva el mismo local, 18 asientos y cupos | Mismo equipo; responsabilidades y escalamiento explícitos | Mismo rango con límites monitoreados | No crece: practica gates, rollback, incidentes y retiro responsable |
 
-## Arco general de doce niveles
+## Arco general de trece niveles
 
 | Nivel | Cambio narrativo | Resultado de datos | Competencia auxiliar de agentes | Puente |
 | --- | --- | --- | --- | --- |
@@ -265,8 +266,9 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 | 8 | Aparecen servicios, segmentos y pedidos inusuales | Explorar grupos y anomalías como hipótesis | Revisión humana de salidas | “¿Cómo cambia esto con el tiempo?” |
 | 9 | El puesto prueba horario y prepedido | Analizar tiempo y experimentos | Versionado temporal y planes reproducibles | “¿Quién podría resultar afectado?” |
 | 10 | Paco entrega un sistema revisable mientras sigue estudiando | Comunicar, auditar y reproducir | Procedencia, privacidad y transferencia de skills | “¿Cómo lo convertimos en un producto entregable?” |
-| 11 | La demo solo funciona en la sesión de Paco | Convertir análisis y modelos en un producto de datos | Especificación, revisión de diffs y ejecución de tests | `producto_operable@L11.H1`; pregunta cómo saber si sigue funcionando |
-| 12 | El equipo practica monitoreo, rollback y retiro | Operar un procedimiento auditable y reversible | Gates, alertas, runbook y retiro | Cierre responsable sin convertir el negocio en cadena |
+| 11 | La demo solo funciona en la sesión de Paco | Convertir análisis y modelos en un producto de datos | Especificación, revisión de diffs y ejecución de tests | `producto_operable@L11.H1`; pregunta cómo convertirlo en sistema trazable |
+| 12 | Paco descubre que el modelo no es todo el sistema | Diseñar un sistema de IA con contexto, tools, skills, loops, harness y traza | Sistemas de IA trazables, permisos, estado, memoria y criterios de parada | `sistema_ia_trazable@L12.H1`; pregunta si puede operarse sin depender de Paco |
+| 13 | El equipo practica monitoreo, rollback y retiro | Operar un procedimiento auditable y reversible | Gates, alertas, runbook y retiro | Cierre responsable sin convertir el negocio en cadena |
 
 ## Reglas de humor y secretos
 

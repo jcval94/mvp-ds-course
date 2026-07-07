@@ -2,16 +2,17 @@
 
 ## Versión
 
-- **Ledger:** `L12.4-v1`.
+- **Ledger:** `L13.4-v1`.
 - **Versión anterior conservada:** `L2.4-v1`.
-- **Último episodio aprobado:** `L12-E4`.
+- **Último episodio aprobado:** `L13-E4`.
 - **Story Bible:** `don-juan-paco-course-v2`.
-- **Arco:** `don-juan-paco-level-12-v1`.
-- **Momento narrativo:** cierre de la ruta en abril de 2028; existe un solo local `G7-local` de 5 × 4 metros, 18 asientos y cuatro puestos pagados. El procedimiento queda explicable, reversible, monitoreado, auditable y retirable.
-- **Estado curricular:** las historias y el contenido de Niveles 1–12 están
+- **Arco:** `don-juan-paco-level-13-v1`.
+- **Momento narrativo:** cierre de la ruta en abril de 2028; existe un solo local `G7-local` de 5 × 4 metros, 18 asientos y cuatro puestos pagados. El sistema queda trazable, explicable, reversible, monitoreado, auditable y retirable.
+- **Estado curricular:** las historias y el contenido de Niveles 1–13 están
   aprobados y publicados. Nivel 5 produce `dataset_confiable@L5.H1`; Nivel 11
-  produce `producto_operable@L11.H1` para que los niveles posteriores no asuman
-  fuentes ni productos inexistentes.
+  produce `producto_operable@L11.H1`; Nivel 12 produce
+  `sistema_ia_trazable@L12.H1` para que operación no asuma arquitectura
+  inexistente.
 
 ## Hechos canónicos
 
@@ -127,7 +128,7 @@ aparecer antes de su ventana de revelación.
 
 Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata.json`; el generador es la fuente de verdad para evitar divergencia entre documentación y archivos.
 
-## Estado de Niveles 3–12
+## Estado de Niveles 3–13
 
 | Nivel | Periodo y dimensiones | Estado de datos | Estado del puesto | Revelaciones y límites |
 | --- | --- | --- | --- | --- |
@@ -140,7 +141,8 @@ Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata
 | 9 | 100 noches × 18 campos y 400 asignaciones × 10 campos, 2027-08-26 a 2028-01-23 | `L8.3 → serie_nocturna@L9.1 → backtesting@L9.2 → experimento_prepedido@L9.3 → decision_experimental@L9.4` | `G6-prepedido`, cinco noches, 16 asientos y tres ayudantes pagados | Nora entra pagada; efecto experimental limitado al mensaje y guardrails cumplidos |
 | 10 | 48 celdas agregadas × 10 campos, 12 semanas | `L9.4 → auditoria_agregada@L10.1 → informe_responsable@L10.2 → reproducibilidad@L10.3 → mini_proyecto@L10.4` | `G7-local`, 5 × 4 m, 18 asientos y cuatro puestos pagados | Rogelio y Chava revelan información por decisión propia; mínimo 25 elegibles por celda, sin identificadores ni texto libre |
 | 11 | 2028-01-18 a 2028-01-21; 21 criterios versionados y artifact offline | `L10.4 → L11.1 → L11.2 → L11.3 → L11.4 → L11.5 → L11.6 → producto_operable@L11.H1`; 21 escenas materializadas | `G7-local`, sin crecimiento | Historia y nivel aprobados; no usa secretos reales ni adelanta monitoreo |
-| 12 | 96 snapshots × 14 campos y 8 incidentes × 9 campos, 2028-01-22 a 2028-04-26 | `producto_operable@L11.H1 → readiness@L12.1 → monitoring@L12.2 → incidents@L12.3 → handoff@L12.4` | `G7-local`, sin crecimiento ni backend | Alertas requieren persistencia y revisión humana; rollback comprobado, postmortem sin culpa y retiro verificable |
+| 12 | 24 componentes × 7 campos y 12 trazas × 8 campos, 2028-01-22 a 2028-02-18 | `producto_operable@L11.H1 → arquitectura_sistema_ia@L12.1 → conocimiento_contextual@L12.2 → capacidades_procedimentales@L12.3 → loop_verificable@L12.4 → harness_recuperable@L12.5 → sistema_ia_trazable@L12.H1` | `G7-local`, sin crecimiento ni backend | Sistema de IA trazable con contexto, tools, skills, loops, permisos, checkpoints y stop reasons; no ejecuta IA real |
+| 13 | 96 snapshots × 14 campos y 8 incidentes × 9 campos, 2028-02-19 a 2028-05-24 | `sistema_ia_trazable@L12.H1 → readiness@L13.1 → monitoring@L13.2 → incidents@L13.3 → handoff@L13.4` | `G7-local`, sin crecimiento ni backend | Alertas requieren persistencia y revisión humana; rollback comprobado, postmortem sin culpa y retiro verificable |
 
 Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos. Mari, Chava y Nora no aparecen identificados en ningún archivo de datos.
 
@@ -154,7 +156,7 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - Respetar el test sellado y los costos documentados de Nivel 7 en cualquier comparación futura.
 - Mantener la escuela de Paco, un solo local y autoridad humana como restricciones permanentes.
 - Pilotear con docentes el handoff `dataset_confiable@L5.H1 → Nivel 6` sin cambiar la secuencia canónica.
-- Pilotear con docentes el handoff `producto_operable@L11.H1 → Nivel 12` sin adelantar monitoreo a Nivel 11.
+- Pilotear con docentes el handoff `producto_operable@L11.H1 → Nivel 12 → Nivel 13` sin adelantar monitoreo a Nivel 11 ni operación a Nivel 12.
 - Conservar model card, runbook, audit log y plan de retiro junto a cualquier uso futuro.
 
 ## Deltas aprobados
@@ -175,7 +177,7 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - **`growthDelta`:** ninguno; el puesto sigue en `G1` y no se atribuye causalmente el volumen observado.
 - **Revisión:** historia y arco de Nivel 2 aprobados antes de la implementación.
 
-## Deltas aprobados de Niveles 3–12
+## Deltas aprobados de Niveles 3–13
 
 - **Nivel 3:** `G1 → G2-piloto`; conserva tamaño y plantilla, comunica incertidumbre y cierra en `L3.5`.
 - **Nivel 4:** `G2-piloto → G3-espera`; agrega diez asientos, área marcada y Mari pagada, sin atribución causal.
@@ -184,7 +186,8 @@ Los metadatos, semillas, dimensiones y SHA-256 viven junto a los CSV narrativos.
 - **Nivel 8:** `G4-kiosco → G5-servicios`; Mari revela su meta y se autoriza un piloto reversible con revisión humana.
 - **Nivel 9:** `G5-servicios → G6-prepedido`; Nora entra pagada y el canal se autoriza solo tras backtesting, aleatorización, efecto práctico y guardrails.
 - **Nivel 10:** `G6-prepedido → G7-local`; abre un único local tras auditar representación, daño, privacidad, reproducibilidad y límites del mini-proyecto.
-- **Nivel 12:** `G7-local → G7-local`; no hay crecimiento ni backend, y la ruta cierra con gates, monitoreo, incidentes, handoff y retiro.
+- **Nivel 12:** `G7-local → G7-local`; no hay crecimiento ni backend, y se materializa `sistema_ia_trazable@L12.H1` con harness, contexto, tools, skills, loops, permisos, checkpoints y traza.
+- **Nivel 13:** `G7-local → G7-local`; no hay crecimiento ni backend, y la ruta cierra con gates, monitoreo, incidentes, handoff y retiro.
 - **Nivel 5:** `G3-espera → G3-espera`; audita fuentes cerradas y materializa `dataset_confiable@L5.H1` con 19 conceptos publicados.
-- **Nivel 11:** `G7-local → G7-local`; materializa `producto_operable@L11.H1` con 21 conceptos publicados y mantiene operación en Nivel 12.
-- **Revisión:** historias, arcos y niveles 1–12 están aprobados; Niveles 5 y 11 materializan `dataset_confiable@L5.H1` y `producto_operable@L11.H1`.
+- **Nivel 11:** `G7-local → G7-local`; materializa `producto_operable@L11.H1` con 21 conceptos publicados y mantiene sistemas de IA en Nivel 12.
+- **Revisión:** historias, arcos y niveles 1–13 están aprobados; Niveles 5, 11 y 12 materializan `dataset_confiable@L5.H1`, `producto_operable@L11.H1` y `sistema_ia_trazable@L12.H1`.
