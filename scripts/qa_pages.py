@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import csv
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -52,6 +53,14 @@ def no_overflow(page, label: str) -> None:
         raise AssertionError(f"Desbordamiento horizontal: {label}")
 
 
+def placement_maps() -> tuple[dict[str, str], dict[str, str]]:
+    with (ROOT / "docs" / "placement" / "diagnostic_question_bank.csv").open(encoding="utf-8", newline="") as handle:
+        questions = {row["question_id"]: row["correct_option"] for row in csv.DictReader(handle)}
+    with (ROOT / "docs" / "placement" / "diagnostic_routing.csv").open(encoding="utf-8", newline="") as handle:
+        routes = {row["question_id"]: row["next_if_correct"] for row in csv.DictReader(handle)}
+    return questions, routes
+
+
 def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None:
     exercised = 0
     for level in range(3, 14):
@@ -94,6 +103,7 @@ def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     manifests = {level: manifest(level) for level in LEVEL_DIRS}
     payloads = {level: payload(level) for level in range(2, 14)}
+    placement_answers, placement_routes = placement_maps()
     console_errors: list[str] = []
     page_errors: list[str] = []
     handler = partial(SimpleHTTPRequestHandler, directory=str(ROOT / "_site"))
@@ -133,13 +143,15 @@ def main() -> None:
         assert page.locator("#visualFrame img").count() == 1
         assert page.locator("#optionGrid button").count() == 4
         no_overflow(page, "diagnostico desktop")
+        current_question = "A01"
         for _ in range(10):
             if page.locator("#resultPanel").is_visible():
                 break
-            page.locator("#optionGrid button").first.click()
+            page.locator(f'#optionGrid button[data-option="{placement_answers[current_question]}"]').click()
             page.locator("#submitAnswer").click()
             if page.locator("#nextQuestion").is_visible():
                 page.locator("#nextQuestion").click()
+            current_question = placement_routes.get(current_question, "END")
         assert page.locator("#resultPanel").is_visible()
         page.get_by_text("Resultado de orientación", exact=True).wait_for()
 

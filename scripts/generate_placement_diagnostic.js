@@ -12,6 +12,149 @@ const csvEscape = (value) => {
   return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 };
 
+const spanishReplacements = [
+  ["Proposito", "Propósito"],
+  ["nivelacion", "nivelación"],
+  ["academica", "académica"],
+  ["dominante esta en", "dominante está en"],
+  ["vacia esta", "vacía está"],
+  ["vacía esta", "vacía está"],
+  ["es valida", "es válida"],
+  ["caso raro valido", "caso raro válido"],
+  ["que priorizas", "¿qué priorizas"],
+  ["Diagnostico", "Diagnóstico"],
+  ["diagnostico", "diagnóstico"],
+  ["Despues", "Después"],
+  ["graficos", "gráficos"],
+  ["grafico", "gráfico"],
+  ["metrica", "métrica"],
+  ["metricas", "métricas"],
+  ["precision", "precisión"],
+  ["linea", "línea"],
+  ["senal", "señal"],
+  ["revision", "revisión"],
+  ["pequeno", "pequeño"],
+  ["pequena", "pequeña"],
+  ["pequenas", "pequeñas"],
+  ["afirmacion", "afirmación"],
+  ["conversacion", "conversación"],
+  ["por si solo", "por sí solo"],
+  ["aun", "aún"],
+  ["dano", "daño"],
+  ["limites", "límites"],
+  ["limite", "límite"],
+  ["mas", "más"],
+  ["numero", "número"],
+  ["ningun", "ningún"],
+  ["hipotesis", "hipótesis"],
+  ["informacion", "información"],
+  ["interpretacion", "interpretación"],
+  ["evaluacion", "evaluación"],
+  ["validacion", "validación"],
+  ["preparacion", "preparación"],
+  ["visualizacion", "visualización"],
+  ["generalizacion", "generalización"],
+  ["diagnosticas", "diagnósticas"],
+  ["decision", "decisión"],
+  ["accion", "acción"],
+  ["conclusion", "conclusión"],
+  ["analisis", "análisis"],
+  ["automatica", "automática"],
+  ["automatico", "automático"],
+  ["autonomia", "autonomía"],
+  ["definicion", "definición"],
+  ["distribucion", "distribución"],
+  ["variacion", "variación"],
+  ["estimacion", "estimación"],
+  ["tamano", "tamaño"],
+  ["patron", "patrón"],
+  ["practica", "práctica"],
+  ["parametro", "parámetro"],
+  ["explosion", "explosión"],
+  ["critica", "crítica"],
+  ["critico", "crítico"],
+  ["criticos", "críticos"],
+  ["region", "región"],
+  ["proposito", "propósito"],
+  ["auditoria", "auditoría"],
+  ["minimo", "mínimo"],
+  ["minima", "mínima"],
+  ["minimizacion", "minimización"],
+  ["atomica", "atómica"],
+  ["sinonimos", "sinónimos"],
+  ["piramide", "pirámide"],
+  ["dimension", "dimensión"],
+  ["exencion", "exención"],
+  ["Operacion", "Operación"],
+  ["operacion", "operación"],
+  ["estan", "están"],
+  ["codigo", "código"],
+  ["modulos", "módulos"],
+  ["produccion", "producción"],
+  ["valido", "válido"],
+  ["validas", "válidas"],
+  ["invalidas", "inválidas"],
+  ["verificacion", "verificación"],
+  ["aprobacion", "aprobación"],
+  ["comprension", "comprensión"],
+  ["descripcion", "descripción"],
+  ["comunicacion", "comunicación"],
+  ["anomalias", "anomalías"],
+  ["experimentacion", "experimentación"],
+  ["sesion", "sesión"],
+  ["maximo", "máximo"],
+  ["items", "ítems"],
+  ["rotacion", "rotación"],
+  ["seccion", "sección"],
+  ["secciones", "secciones"],
+  ["llego", "llegó"],
+  ["lanzar automaticamente", "lanzar automáticamente"],
+  ["automaticamente", "automáticamente"],
+  ["representacion", "representación"],
+  ["unicos", "únicos"],
+  ["unicas", "únicas"],
+  ["vacia", "vacía"],
+  ["numerica", "numérica"],
+  ["numerico", "numérico"],
+  ["prediccion", "predicción"],
+  ["distincion", "distinción"],
+  ["guia", "guía"],
+  ["ultimo", "último"],
+  ["exito", "éxito"],
+  ["raiz", "raíz"],
+  ["Redisenar", "Rediseñar"],
+  ["redisenar", "rediseñar"],
+  ["categorias", "categorías"],
+  ["caida", "caída"],
+  ["despues", "después"],
+];
+
+const polishSpanish = (value) => {
+  if (typeof value !== "string") return value;
+  const replaced = spanishReplacements.reduce(
+    (text, [from, to]) => text.replace(new RegExp(`\\b${from}\\b`, "g"), to),
+    value,
+  );
+  return replaced
+    .replace(/(^|[.]\s+)Que ([^?]+\?)/g, "$1¿Qué $2")
+    .replace(/(^|[.]\s+)Como ([^?]+\?)/g, "$1¿Cómo $2")
+    .replace(/(^|[.]\s+)(Qué|Cómo|Cuál) ([^?]+\?)/g, "$1¿$2 $3");
+};
+
+const rotateOptions = (correct, wrongOptions, seed) => {
+  const letters = ["A", "B", "C", "D"];
+  const correctIndex = seed % letters.length;
+  const options = [...wrongOptions];
+  options.splice(correctIndex, 0, correct);
+  return {
+    option_a: options[0],
+    option_b: options[1],
+    option_c: options[2],
+    option_d: options[3],
+    correct_option: letters[correctIndex],
+  };
+};
+
 const writeCsv = (file, columns, rows) => {
   const lines = [columns.join(",")];
   for (const row of rows) {
@@ -151,7 +294,9 @@ const svgFor = (id, type, title, subtitle) => {
   const accent = ["#087f73", "#2f5d8c", "#8c4a2f", "#6f5f2a", "#604c8d", "#345f4f"][
     Number(id.slice(1)) % 6
   ];
-  const common = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t d"><title id="t">${title}</title><desc id="d">${subtitle}</desc><rect width="640" height="360" fill="#f7faf9"/><text x="32" y="38" font-family="Arial" font-size="22" font-weight="700" fill="#17312d">${title}</text><text x="32" y="66" font-family="Arial" font-size="14" fill="#3d5550">${subtitle}</text>`;
+  const visualTitle = polishSpanish(title);
+  const visualSubtitle = polishSpanish(subtitle);
+  const common = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t d"><title id="t">${visualTitle}</title><desc id="d">${visualSubtitle}</desc><rect width="640" height="360" fill="#f7faf9"/><text x="32" y="38" font-family="Arial" font-size="22" font-weight="700" fill="#17312d">${visualTitle}</text><text x="32" y="66" font-family="Arial" font-size="14" fill="#3d5550">${visualSubtitle}</text>`;
   const axis = `<line x1="70" y1="300" x2="570" y2="300" stroke="#8aa19b"/><line x1="70" y1="90" x2="70" y2="300" stroke="#8aa19b"/>`;
   let body = "";
 
@@ -245,47 +390,71 @@ const anchors = [
   ["A26", 12, "system-blueprint", ["system-blueprint", "trace-reconstruction"], "El blueprint final muestra objetivo, loop, permisos, parada y traza. Que habilita el handoff a operacion?", "Una trayectoria reconstruible con criterios de parada y aprobacion definidos.", "Una respuesta convincente sin logs.", "Un chatbot con mas autonomia y sin limites.", "Un backend real aunque el laboratorio no lo necesite.", "A", "Correcto: L12 entrega sistema trazable listo para readiness de L13.", "Sin parada, permisos y traza no hay operacion responsable.", "L12:system-blueprint;L12:trace-reconstruction"],
 ];
 
-const questions = anchors.map((anchor) => ({
-  question_id: anchor[0],
-  level: anchor[1],
-  block_id: anchor[2],
-  concept_ids: anchor[3].join("|"),
-  difficulty: anchor[1],
-  stem: `Observa ${visualPath(anchor[0])}. ${anchor[4]}`,
-  visual_asset: visualPath(anchor[0]),
-  option_a: anchor[5],
-  option_b: anchor[6],
-  option_c: anchor[7],
-  option_d: anchor[8],
-  correct_option: anchor[9],
-  feedback_correct: anchor[10],
-  feedback_wrong: anchor[11],
-  repasar_tags: anchor[12],
-}));
+const polishQuestion = (row) => {
+  const polished = { ...row };
+  for (const key of [
+    "stem",
+    "option_a",
+    "option_b",
+    "option_c",
+    "option_d",
+    "feedback_correct",
+    "feedback_wrong",
+  ]) {
+    polished[key] = polishSpanish(polished[key]);
+  }
+  return polished;
+};
+
+const questions = anchors.map((anchor) => {
+  const rotated = rotateOptions(
+    anchor[5],
+    [anchor[6], anchor[7], anchor[8]],
+    Number(anchor[0].slice(1)) - 1,
+  );
+  return polishQuestion({
+    question_id: anchor[0],
+    level: anchor[1],
+    block_id: anchor[2],
+    concept_ids: anchor[3].join("|"),
+    difficulty: anchor[1],
+    stem: `Observa ${visualPath(anchor[0])}. ${anchor[4]}`,
+    visual_asset: visualPath(anchor[0]),
+    ...rotated,
+    feedback_correct: anchor[10],
+    feedback_wrong: anchor[11],
+    repasar_tags: anchor[12],
+  });
+});
 
 for (const level of levels) {
   for (let i = 0; i < 6; i += 1) {
     const lesson = level.concepts[Math.floor((i * level.concepts.length) / 6)];
+    const objective = (lesson.objective || "").replace(/\.\s*$/, "");
     const qid = `L${String(level.manifest.level).padStart(2, "0")}Q${String(i + 1).padStart(2, "0")}`;
-    questions.push({
+    const rotated = rotateOptions(
+      `Usar ${lesson.concept_title.toLowerCase()} para resolver la consigna, citando unidad, evidencia visible y límite de conclusión.`,
+      [
+        lesson.error ||
+          `Usar ${lesson.concept_title.toLowerCase()} como definición de memoria sin revisar evidencia.`,
+        "Cambiar la unidad de análisis para que la respuesta parezca más clara.",
+        "Aceptar una conclusión automática aunque exceda los datos disponibles.",
+      ],
+      level.manifest.level * 6 + i,
+    );
+    questions.push(polishQuestion({
       question_id: qid,
       level: lesson.level,
       block_id: lesson.block_id,
       concept_ids: lesson.concept_id,
       difficulty: lesson.level,
-      stem: `Diagnostico de Nivel ${lesson.level} (${lesson.block_title}). Si el objetivo es "${lesson.objective}", que respuesta demuestra dominio de ${lesson.concept_title}?`,
+      stem: `Diagnóstico de Nivel ${lesson.level} (${lesson.block_title}). El objetivo es "${objective}". ¿Cuál respuesta demostraría dominio de ${lesson.concept_title}?`,
       visual_asset: "",
-      option_a: `Aplicar ${lesson.concept_title.toLowerCase()} citando unidad, evidencia y limite de conclusion.`,
-      option_b:
-        lesson.error ||
-        `Usar ${lesson.concept_title.toLowerCase()} como definicion de memoria sin revisar evidencia.`,
-      option_c: "Cambiar la unidad de analisis para que la respuesta parezca mas clara.",
-      option_d: "Aceptar una conclusion automatica aunque exceda los datos disponibles.",
-      correct_option: "A",
-      feedback_correct: `Correcto: conecta ${lesson.concept_title} con una accion observable y evidencia verificable.`,
-      feedback_wrong: `Repasa ${lesson.block_title}: la respuesta debe conservar unidad, evidencia, limite y el error comun del concepto.`,
+      ...rotated,
+      feedback_correct: `Correcto: conecta ${lesson.concept_title} con una acción observable y evidencia verificable.`,
+      feedback_wrong: `Repasa ${lesson.block_title}: la respuesta debe conservar unidad, evidencia, límite y el error común del concepto.`,
       repasar_tags: `L${lesson.level}:${lesson.block_id};${lesson.concept_id}`,
-    });
+    }));
   }
 }
 
@@ -446,7 +615,7 @@ Para cada estudiante entregar:
 - Producto/IA: acierta L11-L12 y falla L13; exento hasta L12, repasa operacion responsable.
 - Avanzado con huecos: acierta L12/L13 pero falla L5 o L7; fortalezas avanzadas, pero exencion contigua se detiene antes del hueco.
 `;
-fs.writeFileSync(path.join(outDir, "diagnostic_scoring.md"), scoring, "utf8");
+fs.writeFileSync(path.join(outDir, "diagnostic_scoring.md"), polishSpanish(scoring), "utf8");
 
 const walk = (answerBits) => {
   let current = "A01";
