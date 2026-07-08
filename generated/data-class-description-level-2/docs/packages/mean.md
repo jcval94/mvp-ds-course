@@ -43,9 +43,9 @@
 
 **Situación:** Un pedido grande mueve el punto de equilibrio de tacos por pedido.
 
-**Don Juan:** Mijo, esa cuenta se fue para arriba. ¿Qué pedido la jaló?
+**Don Juan:** Hijo, esa cuenta se fue para arriba. ¿Qué pedido la jaló?
 
-**Paco:** Déjame comparar antes y después, apá.
+**Paco:** Déjame comparar antes y después, Pa.
 
 **Subtítulos:** La media reparte el total por igual entre todos los pedidos. / Un extremo modifica la media; no vuelve típico ese tamaño.
 

@@ -22,7 +22,7 @@
 - [ ] La relación Don Juan–Paco muestra afecto, autoridad y desacuerdo sin tratarlos como cliente y analista.
 - [ ] Lupita participa en decisiones familiares sin convertirse en mediadora o mano de obra gratuita.
 - [ ] Beto no trabaja ni accede a datos, dinero o equipo peligroso.
-- [ ] Profesora Elena y profesor Iván plantean tareas; no sustituyen al narrador.
+- [ ] Profesora Elena y profesor Iván solo detonan tareas de forma ocasional; no sustituyen al narrador ni conducen la explicación técnica.
 - [ ] Rogelio funciona como caso narrativo sin convertir su dieta en atributo o inferencia.
 - [ ] Cada personaje principal o recurrente tiene característica oculta, ventana y uso permitido.
 

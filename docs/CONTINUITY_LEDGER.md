@@ -16,26 +16,34 @@
 
 ## Hechos canónicos
 
-1. Don Juan es papá de Paco y Beto, esposo de Lupita y dueño del puesto.
-2. Paco cursa segundo de preparatoria, estudia datos con la profesora Elena e IA
+1. Don Juan es papá de Paco, esposo de Lupita y dueño del puesto. Paco le dice “Pa”;
+   Don Juan le responde “Hijo”.
+2. Lupita es mamá de Paco y esposa de Don Juan. Paco le dice “Ma”; Lupita le
+   responde “Hijito”.
+3. Beto es amigo de Paco en la escuela, no su hermano, empleado, asistente ni
+   mascota narrativa.
+4. Paco cursa segundo de preparatoria, estudia datos con la profesora Elena e IA
    con el profesor Iván, y ayuda jueves, viernes y sábado después de hacer la tarea.
-3. Don Juan posee únicamente conocimiento del negocio. Nunca introduce ni concluye
+5. Don Juan posee únicamente conocimiento del negocio. Nunca introduce ni concluye
    conceptos de ciencia de datos; expresa consecuencias prácticas con lenguaje simple.
-4. El narrador introduce todos los términos y formula todas las conclusiones de ciencia de datos.
-5. Lupita protege el horario escolar y participa en decisiones familiares; no es
+6. El narrador introduce todos los términos y formula todas las conclusiones de ciencia de datos.
+7. Lupita protege el horario escolar y participa en decisiones familiares; no es
    parte automática de la plantilla. Beto visita el puesto, pero no trabaja en él.
-6. El puesto inicia bajo un toldo de 3 × 2 metros, con 8 asientos, un trompo, un
+8. Evaristo no aparece en Niveles 1–2; debuta en Nivel 3 como “El Ingeniero”.
+   El espectador sabe desde su debut que no es ingeniero ni experto en datos; Paco
+   lo descubre en Nivel 6.
+9. El puesto inicia bajo un toldo de 3 × 2 metros, con 8 asientos, un trompo, un
    comal, venta directa y 25–40 pedidos habituales por noche.
-7. El puesto no crece durante Nivel 1.
-8. El yogurt dañó notas en papel; las páginas rescatadas forman una muestra
+10. El puesto no crece durante Nivel 1.
+11. El yogurt dañó notas en papel; las páginas rescatadas forman una muestra
    posiblemente sesgada. Los valores dañados no se reconstruyeron.
-9. El dataset canónico procede de dos noches nuevas de captura didáctica.
-10. La unidad de análisis canónica de Nivel 1 es un pedido.
-11. El dataset no contiene nombres, edad, género, dieta, ropa ni atributos inferidos.
-12. `P-006` fue confirmado como registro duplicado mediante el ticket 184.
-13. `P-007` contiene 30 tacos y fue confirmado como pedido válido del señor Rogelio.
-14. `P-005=500` es una captura inválida pendiente de una fuente; no se sustituye por una conjetura.
-15. Un archivo digital puede borrarse o dañarse y un agente necesita contexto,
+12. El dataset canónico procede de dos noches nuevas de captura didáctica.
+13. La unidad de análisis canónica de Nivel 1 es un pedido.
+14. El dataset no contiene nombres, edad, género, dieta, ropa ni atributos inferidos.
+15. `P-006` fue confirmado como registro duplicado mediante el ticket 184.
+16. `P-007` contiene 30 tacos y fue confirmado como pedido válido del señor Rogelio.
+17. `P-005=500` es una captura inválida pendiente de una fuente; no se sustituye por una conjetura.
+18. Un archivo digital puede borrarse o dañarse y un agente necesita contexto,
     comprobaciones y límites explícitos.
 
 ## Estado incremental de personajes
@@ -46,9 +54,10 @@
 | Paco | Hijo mayor; estudiante y ayudante parcial | Conceptos de Nivel 1 introducidos por el narrador; uso básico de hoja e IA | Decidir por el negocio, usar conceptos futuros o aceptar una salida sin comprobar | Conecta tareas escolares con un procedimiento reproducible |
 | Narrador | Voz externa al mundo | Autoridad técnica según el currículo | Tomar decisiones familiares o del negocio | Separa evidencia, inferencia y decisión en cada episodio |
 | Lupita | Mamá, esposa y trabajadora independiente | Horarios, presupuesto familiar y carga de trabajo | Ser mediadora o empleada automática; introducir datos | Establece que la escuela de Paco y el reparto justo del trabajo son restricciones |
-| Beto | Hermano menor; no trabajador | Puede reconocer explicaciones simples | Acceder a datos, dinero o equipo; resolver conceptos | Funciona como prueba de lenguaje claro |
-| Profesora Elena | Docente de datos | Contenido curricular y pedagogía | Decidir por el puesto o sustituir al narrador | Asigna observación, contraejemplos y revisión de evidencia |
-| Profesor Iván | Docente de IA | Contexto, instrucciones, verificación y privacidad | Dictar conclusiones del negocio o sustituir al narrador | Asigna esquemas y procedimientos comprobables |
+| Beto | Amigo escolar de Paco; visitante, no trabajador | Puede reconocer explicaciones simples y hacer preguntas literales | Acceder a datos, dinero o equipo; resolver conceptos; ser culpable automático | Funciona como prueba de lenguaje claro |
+| Profesora Elena | Docente de datos; presencia ocasional | Contenido curricular y pedagogía dentro de clase | Decidir por el puesto, resolver el negocio o sustituir al narrador | Detona preguntas breves; el narrador enseña al espectador |
+| Profesor Iván | Docente de IA; presencia ocasional | Contexto, instrucciones, verificación y privacidad dentro de clase | Dictar conclusiones del negocio o sustituir al narrador | Detona consignas breves; el narrador enseña al espectador |
+| Evaristo | Cliente recurrente, vecino y falso experto por reputación ajena | Solo sabe lo que vio, oyó o quiso preguntar; el público sabe que no es ingeniero desde Nivel 3 | Introducir conceptos, dar respuestas técnicas, alterar datos o firmar decisiones | Sus preguntas básicas abren investigaciones que Paco comprueba y el narrador nombra |
 | Señor Rogelio | Cliente y encargado de cuadrilla | Sus propios pedidos y necesidades | Enseñar datos o convertirse en etiqueta del dataset | Confirma que un pedido raro puede ser válido |
 
 ## Estado de secretos narrativos
@@ -64,6 +73,7 @@ aparecer antes de su ventana de revelación.
 | Beto | Crea stop-motion de tacos con plastilina | Revelada en `L2-E2`; no pública ni laboral | Nivel 2 | Probar comunicación visual con supervisión |
 | Profesora Elena | Creció ayudando en un puesto de frutas del tianguis | No revelada | Nivel 3 | Explicar su sensibilidad hacia pequeños negocios |
 | Profesor Iván | Inserta errores plausibles en demos para enseñar verificación | No revelada | Nivel 3 | Convertir desconfianza puntual en método de evaluación |
+| Evaristo | No es ingeniero ni experto en datos; la colonia proyecta autoridad sobre él | El espectador lo sabe desde `L3-E1`; Paco lo descubre en Nivel 6 | Nivel 3 para el público; Nivel 6 para Paco | Comedia de reputación autoalimentada; nunca es evidencia ni autoridad técnica |
 | Señor Rogelio | Está a dieta, ama los tacos y no quiere ser reconocido al comprar para sí mismo | Revelada voluntariamente en `L10-S04`; ausente de datos | Nivel 10 | Privacidad; nunca burla, diagnóstico ni atributo del dataset |
 | Mari Vega | Ahorra para recuperar el puesto familiar de aguas frescas | Revelada voluntariamente en `L8-S04`; ausente de datos | Nivel 8 | Meta propia y piloto acotado, nunca inferencia algorítmica |
 | Chava Ríos | Toma un taller de radio | Revelada voluntariamente en `L10-S17`; ausente de datos | Nivel 10 | Comunicación sin caricatura ni etiqueta inferida |
@@ -132,10 +142,10 @@ Los SHA-256 y la semilla se leen de `datasets/narrative/pedidos_nivel_2.metadata
 
 | Nivel | Periodo y dimensiones | Estado de datos | Estado del puesto | Revelaciones y límites |
 | --- | --- | --- | --- | --- |
-| 3 | 1,360 pedidos, 32 noches, 2026-07-02 a 2026-08-23 | `L2.4 → pedidos_piloto@L3.1 → eventos_y_variables@L3.2 → muestras@L3.3 → incertidumbre@L3.4 → pruebas@L3.5` | `G2-piloto`, sin cambio físico | Lupita, Elena e Iván revelan sus rasgos autorizados; no aparecen en datos |
-| 4 | 48 noches × 16 campos, 2026-08-27 a 2026-11-15 | `L3.5 → noches_contexto@L4.1 → relaciones@L4.2 → correlaciones@L4.3 → estratos_y_tablas@L4.4` | `G3-espera`, 10 asientos y área marcada | Don Juan revela ahorros; Mari entra pagada; asociación no se vuelve causa |
-| 5 | Auditoría 2026-11-16 a 2026-11-18; 19 controles curriculares versionados | `L4.4 → L5.1 → L5.2 → L5.3 → L5.4 → L5.5 → L5.6 → dataset_confiable@L5.H1`; 19 escenas materializadas | `G3-espera`, sin crecimiento | Historia y nivel aprobados; no revela secretos ni añade ventas futuras |
-| 6 | 64 noches × 16 campos, 2026-11-19 a 2027-03-07 | `dataset_confiable@L5.H1 → noches_modelado@L6.1 → regresion_simple@L6.2 → regresion_multiple@L6.3 → clasificacion@L6.4 → arbol_reglas@L6.5 → matriz_modelado_sin_leakage@L6.6`; el snapshot publicado conserva `L4.4` como fuente histórica | `G4-kiosco`, 4 × 3 m, segundo comal y 12 asientos | Chava entra pagado; Paco revela beca; ajuste solo descriptivo en muestra |
+| 3 | 1,360 pedidos, 32 noches, 2026-07-02 a 2026-08-23 | `L2.4 → pedidos_piloto@L3.1 → eventos_y_variables@L3.2 → muestras@L3.3 → incertidumbre@L3.4 → pruebas@L3.5` | `G2-piloto`, sin cambio físico | Lupita, Elena e Iván revelan sus rasgos autorizados; Evaristo debuta y el público sabe que no es experto; no aparecen en datos |
+| 4 | 48 noches × 16 campos, 2026-08-27 a 2026-11-15 | `L3.5 → noches_contexto@L4.1 → relaciones@L4.2 → correlaciones@L4.3 → estratos_y_tablas@L4.4` | `G3-espera`, 10 asientos y área marcada | Don Juan revela ahorros; Mari entra pagada; Evaristo obliga a revisar denominadores; asociación no se vuelve causa |
+| 5 | Auditoría 2026-11-16 a 2026-11-18; 19 controles curriculares versionados | `L4.4 → L5.1 → L5.2 → L5.3 → L5.4 → L5.5 → L5.6 → dataset_confiable@L5.H1`; 19 escenas materializadas | `G3-espera`, sin crecimiento | Evaristo puede detonar una revisión con “¿cómo saben?”; no revela secretos ni añade ventas futuras |
+| 6 | 64 noches × 16 campos, 2026-11-19 a 2027-03-07 | `dataset_confiable@L5.H1 → noches_modelado@L6.1 → regresion_simple@L6.2 → regresion_multiple@L6.3 → clasificacion@L6.4 → arbol_reglas@L6.5 → matriz_modelado_sin_leakage@L6.6`; el snapshot publicado conserva `L4.4` como fuente histórica | `G4-kiosco`, 4 × 3 m, segundo comal y 12 asientos | Chava entra pagado; Paco revela beca y descubre en privado que Evaristo no es ingeniero; ajuste solo descriptivo en muestra |
 | 7 | 96 noches × 19 campos, 2026-11-19 a 2027-05-02 | `L6.6 → particiones@L7.1 → error_regresion@L7.2 → matriz_confusion@L7.3 → metricas@L7.4 → curvas@L7.5 → generalizacion@L7.6` | `G4-kiosco`, capacidad congelada | 48 train, 16 validation, 32 test; errores conectados con costos sintéticos |
 | 8 | 64 noches × 11 campos, 2027-05-06 a 2027-08-22 | `L7.6 → segmentos@L8.1 → componentes@L8.2 → anomalias@L8.3` | `G5-servicios`, máximo dos reuniones por semana | Mari revela su meta por decisión propia; clusters y anomalías requieren revisión humana |
 | 9 | 100 noches × 18 campos y 400 asignaciones × 10 campos, 2027-08-26 a 2028-01-23 | `L8.3 → serie_nocturna@L9.1 → backtesting@L9.2 → experimento_prepedido@L9.3 → decision_experimental@L9.4` | `G6-prepedido`, cinco noches, 16 asientos y tres ayudantes pagados | Nora entra pagada; efecto experimental limitado al mensaje y guardrails cumplidos |

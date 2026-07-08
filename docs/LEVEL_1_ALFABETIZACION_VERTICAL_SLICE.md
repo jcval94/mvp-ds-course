@@ -78,7 +78,7 @@ por qué una selección por conveniencia puede no representar a la población.
 
 ### Activación
 
-Don Juan señala el número `3` de P-002 y pregunta: “Mijo, ¿ese tres de cuál
+Don Juan señala el número `3` de P-002 y pregunta: “Hijo, ¿ese tres de cuál
 pedido es?”. Paco recuerda la tarea de observar registros; el estudiante predice
 antes de que el narrador introduzca fila, columna y unidad de análisis.
 

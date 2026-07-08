@@ -45,7 +45,7 @@
 
 **Don Juan:** Quiero saber cuál se repite más, no cuál queda bonito.
 
-**Paco:** Voy a contar cada tamaño, apá.
+**Paco:** Voy a contar cada tamaño, Pa.
 
 **Subtítulos:** La moda es el valor con mayor frecuencia y puede no ser única. / La frecuencia más alta identifica el tamaño más común de esta entrada.
 

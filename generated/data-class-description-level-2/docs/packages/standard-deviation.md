@@ -45,7 +45,7 @@
 
 **Don Juan:** Dime la separación en tacos, no en tacos cuadrados.
 
-**Paco:** Eso sí se puede contar en la mesa, apá.
+**Paco:** Eso sí se puede contar en la mesa, Pa.
 
 **Subtítulos:** La desviación estándar es la raíz de la varianza y conserva la unidad original. / Resume separación respecto de la media; no garantiza una forma normal.
 

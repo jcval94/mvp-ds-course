@@ -50,7 +50,7 @@ una skill como procedimiento con entrada, pasos, salida, comprobaciones y límit
 - Paco es su hijo, cursa segundo de preparatoria y ayuda jueves, viernes y sábado
   después de terminar la tarea. En una clase aprende datos y en otra IA.
 - Lupita protege la escuela y la distribución justa del trabajo familiar.
-- Beto es el hermano menor; hace preguntas literales, pero no trabaja en el puesto.
+- Beto es amigo de Paco en la escuela; hace preguntas literales, pero no trabaja en el puesto.
 - El puesto mide 3 × 2 metros, tiene un trompo, un comal, ocho asientos y atiende
   normalmente entre 25 y 40 pedidos por noche. No crece durante este nivel.
 - Los registros viven en tickets de papel y en la memoria de Don Juan; todavía
@@ -88,13 +88,13 @@ oír cuándo el trompo necesita carne y sabe que los viernes se terminan antes l
 tortillas. Lo que no puede hacer es recordar cada pedido después de una noche larga.
 
 Paco llega de la preparatoria, termina la tarea en la mesa de la casa y se pone
-el mandil para ayudar. La profesora Elena le pidió observar una actividad
+el mandil para ayudar. La profesora Elena dejó una consigna breve: observar una actividad
 cotidiana. Don Juan ve una oportunidad menos escolar:
 
-**Don Juan:** —Mijo, anote los pedidos. Quiero saber qué sale y a qué hora, no
+**Don Juan:** —Hijo, anote los pedidos. Quiero saber qué sale y a qué hora, no
 andar comprando cilantro con puro presentimiento.
 
-**Paco:** —Va, apá. Y de paso uso esto para la tarea.
+**Paco:** —Va, Pa. Y de paso uso esto para la tarea.
 
 #### Escena L1-S01 · Observación
 
@@ -106,7 +106,7 @@ solo renglón.
 **Don Juan:** —Todo ese renglón es un pedido. Si lo parte, luego ni quién sepa
 qué tacos iban juntos.
 
-**Paco:** —Entonces empiezo uno nuevo cuando cierro el ticket, apá.
+**Paco:** —Entonces empiezo uno nuevo cuando cierro el ticket, Pa.
 
 > **Subtítulo del narrador · evidencia:** Una observación es el registro de una unidad definida. Aquí, la unidad de análisis es un pedido.
 
@@ -186,10 +186,10 @@ garantiza que nada se borre ni que todo esté correcto.
 
 ### Episodio 2: Un esquema para no hacer adivinanzas
 
-En Laboratorio de IA, el profesor Iván pidió describir una tabla antes de usar
+En Laboratorio de IA, el profesor Iván dejó una consigna breve: describir una tabla antes de usar
 una herramienta. Paco abre el archivo frente a su papá.
 
-**Paco:** —Ya quedó digital, apá. Ahora sí la computadora debe entenderlo.
+**Paco:** —Ya quedó digital, Pa. Ahora sí la computadora debe entenderlo.
 
 **Don Juan:** —A ver si entiende mejor que yo por qué pusiste “Lunes” donde iba la hora.
 
@@ -267,7 +267,7 @@ encuentra un vacío, dos filas iguales, una cantidad de 500 y otra de 30.
 
 **Paco:** —Puedo poner un guion para que no se vea vacío.
 
-**Don Juan:** —El guion tampoco me dice cuántos fueron, mijo.
+**Don Juan:** —El guion tampoco me dice cuántos fueron, Hijo.
 
 > **Subtítulo del narrador · evidencia:** Un faltante representa ausencia de información. No equivale a cero, a un guion ni a un valor elegido para completar la tabla.
 
@@ -318,7 +318,7 @@ género, ropa ni nombres: no ayudan a la pregunta y crearían riesgos innecesari
 
 ### Episodio 4: La primera skill del puesto
 
-En su clase de IA, Paco recibió una tarea: escribir un procedimiento que otra
+En su clase de IA, Paco recibió una consigna breve: escribir un procedimiento que otra
 persona pueda repetir y comprobar. Abre el archivo original y se dispone a cambiarlo.
 
 **Don Juan:** —Primero haga una copia. En la cocina tampoco arreglamos la salsa
@@ -381,7 +381,7 @@ Paco documenta la skill `preparar_pedidos_n1`:
 **Don Juan:** —Ahora sí. No decide por nosotros, pero por lo menos no cambia de
 receta cada vez que abrimos la hoja.
 
-**Paco:** —Apá, ya están limpios… ¿pero qué nos dicen realmente estos pedidos?
+**Paco:** —Pa, ya están limpios… ¿pero qué nos dicen realmente estos pedidos?
 
 **Don Juan:** —Eso averígüelo antes de que compre veinte kilos de cilantro por una corazonada.
 

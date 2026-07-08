@@ -14,7 +14,7 @@ Historia aprobada antes del generador. El narrador es siempre subtítulo. Mari h
 
 | Escena | Concepto | Aprender | Don Juan | Paco | Subtítulo inicial | Subtítulo final | Transferencia distinta |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `L4-S01` | scatterplot | Cada noche ubica pedidos y espera | “Pon cada noche donde le toca.” | “Un punto por noche, apá.” | Un scatterplot coloca dos variables numéricas de la misma unidad de análisis. | La nube permite ver relación, grupos y extremos; no demuestra causa. | Temperatura frente a pedidos. |
+| `L4-S01` | scatterplot | Cada noche ubica pedidos y espera | “Pon cada noche donde le toca.” | “Un punto por noche, Pa.” | Un scatterplot coloca dos variables numéricas de la misma unidad de análisis. | La nube permite ver relación, grupos y extremos; no demuestra causa. | Temperatura frente a pedidos. |
 | `L4-S02` | tendencia | Se añade una línea descriptiva | “¿Para dónde va el montón?” | “Resumo la dirección sin borrar los puntos.” | Una tendencia resume el patrón central de una relación. | La línea describe estas noches y puede ocultar curvatura o grupos. | Merma frente a tacos vendidos. |
 | `L4-S03` | forma de relación | Se comparan forma lineal, curva y sin patrón | “No todas las rayas cuentan lo mismo.” | “Reviso la forma antes de resumir.” | La forma puede ser lineal, curva, escalonada o inexistente. | Una correlación única puede perder una relación no lineal. | Se contrasta espera y volumen. |
 | `L4-S04` | grupos | Se colorea por etapa operativa | “Ah, aquí hay dos montones.” | “Los separo sin inventar una causa.” | Los grupos pueden revelar patrones ocultos en el agregado. | Comparar estratos evita atribuir al conjunto lo que cambia por contexto. | Se agrupa por día. |
@@ -32,7 +32,7 @@ Historia aprobada antes del generador. El narrador es siempre subtítulo. Mari h
 
 ## Crecimiento y personajes
 
-Don Juan abre una lata de monedas y explica que cualquier cambio sale de sus ahorros. Decide diez asientos y un área de espera tras revisar capacidad, seguridad y varias noches; no porque una correlación “lo ordene”. Mari Vega entra como ayudante pagada viernes y sábado. Su autoridad es operación y preparación; ahorra para recuperar el puesto familiar de aguas frescas, secreto reservado hasta Nivel 8 y ausente de datos.
+Don Juan abre una lata de monedas y explica que cualquier cambio sale de sus ahorros. Decide diez asientos y un área de espera tras revisar capacidad, seguridad y varias noches; no porque una correlación “lo ordene”. Mari Vega entra como ayudante pagada viernes y sábado. Su autoridad es operación y preparación; ahorra para recuperar el puesto familiar de aguas frescas, secreto reservado hasta Nivel 8 y ausente de datos. Evaristo aparece de forma selectiva: su “¿de cuántos?” obliga a revisar denominadores, pero la evidencia sigue en la tabla y el narrador cierra técnicamente.
 
 ## Separación y límites
 

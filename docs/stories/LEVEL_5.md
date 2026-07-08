@@ -15,7 +15,7 @@
 
 | Escena | Concepto | Incidente Aprender | Don Juan | Paco | Subtítulo inicial del narrador | Subtítulo final del narrador | Incidente distinto de Ejercitar |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `L5-S01` | unidad y granularidad | Comparar cierres por noche, turnos por persona y eventos por etiqueta | “¿Cada renglón habla de una noche o de una persona?” | “Primero anoto qué representa, apá.” | La unidad de análisis es aquello que representa una fila; la granularidad añade las dimensiones que hacen única esa fila. | Cambiar de noche a noche-persona cambia conteos y operaciones válidas. | Un proveedor mezcla entregas y productos; el alumno fija la unidad correcta. |
+| `L5-S01` | unidad y granularidad | Comparar cierres por noche, turnos por persona y eventos por etiqueta | “¿Cada renglón habla de una noche o de una persona?” | “Primero anoto qué representa, Pa.” | La unidad de análisis es aquello que representa una fila; la granularidad añade las dimensiones que hacen única esa fila. | Cambiar de noche a noche-persona cambia conteos y operaciones válidas. | Un proveedor mezcla entregas y productos; el alumno fija la unidad correcta. |
 | `L5-S02` | esquema y claves | Marcar tipos, llave primaria, foránea y relaciones | “¿Con qué comprobamos que es la misma noche?” | “Con una llave documentada, no con que se parezcan.” | Un esquema define campos y tipos; las llaves identifican y relacionan entidades o eventos. | La cardinalidad esperada pertenece al contrato de la relación. | Otra tabla tiene una llave compuesta incompleta. |
 | `L5-S03` | consulta orientada a pregunta | Filtrar noches cerradas y clasificar quincena con `SELECT/WHERE/CASE` | “Enséñame solo las noches que sí cuentan.” | “Cada operación responde una parte de la pregunta.” | Una consulta selecciona campos y filas para responder una pregunta declarada. | SQL válido no garantiza una pregunta ni una interpretación válidas. | Otra consulta omite el filtro de cierre. |
 | `L5-S04` | agregación y grupos | Resumir ventas por etapa con `GROUP BY/HAVING` | “Dime cuántas noches sostienen ese total.” | “Conservo suma y número de noches.” | Agrupar cambia la granularidad y exige declarar funciones y denominadores. | `HAVING` filtra grupos ya agregados; no recupera filas ocultas. | Otro reporte compara totales con grupos de tamaño desigual. |
@@ -44,6 +44,9 @@ una noche con dos turnos y dos etiquetas forma cuatro combinaciones. Don Juan no
 culpa a Paco ni a la herramienta; exige que cada cifra vuelva a una noche real.
 Durante tres tardes, antes del turno y sin descuidar la escuela, Paco convierte
 esa vergüenza pequeña en un procedimiento de reconciliación y procedencia.
+Evaristo aparece cuando alguien sobreinterpreta el ventilador de su laptop vieja
+como “Procesamiento”. La escena se resuelve con conteos antes/después, llaves y
+granularidad; Evaristo no escribe SQL ni valida el resultado.
 
 ## Estado de salida
 

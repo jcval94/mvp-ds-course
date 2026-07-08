@@ -35,8 +35,8 @@
     observation: {
       scene: "L1-S01", episode: "La libreta, los pedidos y el yogurt",
       setup: "Paco empieza a registrar un pedido por renglón durante su turno con su papá.",
-      donJuan: "Mijo, todo ese renglón es un pedido. Si lo parte, luego ni quién sepa qué tacos iban juntos.",
-      paco: "Va, apá. Empiezo uno nuevo cuando cierro el ticket.",
+      donJuan: "Hijo, todo ese renglón es un pedido. Si lo parte, luego ni quién sepa qué tacos iban juntos.",
+      paco: "Va, Pa. Empiezo uno nuevo cuando cierro el ticket.",
       subtitles: [
         "Antes de analizar, hay que decidir qué representa cada registro.",
         "Una observación es el registro de una unidad definida. Aquí, la unidad de análisis es un pedido."
@@ -47,7 +47,7 @@
       scene: "L1-S02", episode: "La libreta, los pedidos y el yogurt",
       setup: "Don Juan revisa para qué servirá cada columna al preparar insumos.",
       donJuan: "Esta columna me dice cuántos fueron. La otra, cuáles. No las revuelva.",
-      paco: "Una pregunta por columna, apá.",
+      paco: "Una pregunta por columna, Pa.",
       subtitles: [
         "Cada columna debe registrar la misma característica para todos los pedidos.",
         "Una variable es una característica que puede tomar valores diferentes entre observaciones."
@@ -80,7 +80,7 @@
       scene: "L1-S05", episode: "La libreta, los pedidos y el yogurt",
       setup: "Un yogurt mancha las últimas páginas de la libreta y solo quedan algunos pedidos legibles.",
       donJuan: "Ya aprendimos que la mochila no es archivero y el yogurt no es respaldo.",
-      paco: "No voy a inventar lo que ya no se ve, apá.",
+      paco: "No voy a inventar lo que ya no se ve, Pa.",
       subtitles: [
         "Las páginas legibles contienen solo una parte de la población original.",
         "Esa parte es una muestra; si faltan sobre todo pedidos del cierre, puede representar mal a la población."
@@ -124,7 +124,7 @@
       scene: "L1-S09", episode: "Un esquema para no hacer adivinanzas",
       setup: "Paco había escrito Lunes donde Don Juan necesitaba una fecha y hora.",
       donJuan: "Lunes hay cada semana. Yo necesito saber cuál y a qué hora fue.",
-      paco: "Guardo el momento completo, apá.",
+      paco: "Guardo el momento completo, Pa.",
       subtitles: [
         "Una etiqueta como “Lunes” no identifica por sí sola un momento.",
         "`fecha_hora` puede ordenarse cronológicamente; “Lunes” es una categoría derivada, no una fecha completa."
@@ -145,7 +145,7 @@
     missing: {
       scene: "L1-S11", episode: "Lo raro no siempre está mal",
       setup: "El pedido P-003 no tiene registrada la cantidad.",
-      donJuan: "El guion tampoco me dice cuántos fueron, mijo.",
+      donJuan: "El guion tampoco me dice cuántos fueron, hijo.",
       paco: "Lo dejo vacío y anoto que no sirve para sumar tacos.",
       subtitles: [
         "En P-003, la cantidad no fue registrada.",

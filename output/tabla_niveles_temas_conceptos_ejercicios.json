@@ -1,0 +1,2726 @@
+[
+  {
+    "Nivel": 1,
+    "Tema": "Alfabetización de datos",
+    "Concepto": "Observación",
+    "Ejercicio": "¿Qué representa la fila P-002?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Alfabetización de datos",
+    "Concepto": "Variable",
+    "Ejercicio": "¿Qué variable ayuda a calcular cuántos tacos preparar?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Alfabetización de datos",
+    "Concepto": "Tabla",
+    "Ejercicio": "¿Qué vuelve interpretable el valor 3 de P-002?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Alfabetización de datos",
+    "Concepto": "Población",
+    "Ejercicio": "Si la pregunta cubre dos noches completas, ¿cuál es la población?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Alfabetización de datos",
+    "Concepto": "Muestra",
+    "Ejercicio": "¿Qué limita a las páginas legibles?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Tipos de variables",
+    "Concepto": "Numérica",
+    "Ejercicio": "¿Qué variable permite calcular una diferencia útil?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Tipos de variables",
+    "Concepto": "Categórica",
+    "Ejercicio": "¿Qué operación es compatible con tipo_taco?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Tipos de variables",
+    "Concepto": "Ordinal",
+    "Ejercicio": "¿Qué afirmación respeta el tipo ordinal?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Tipos de variables",
+    "Concepto": "Fecha",
+    "Ejercicio": "¿Qué valor identifica un momento completo?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Tipos de variables",
+    "Concepto": "Texto",
+    "Ejercicio": "¿Qué práctica conserva trazabilidad en comentario?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Calidad de datos",
+    "Concepto": "Faltantes",
+    "Ejercicio": "¿Qué debe hacerse inicialmente con num_tacos de P-003?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Calidad de datos",
+    "Concepto": "Duplicados",
+    "Ejercicio": "¿Qué confirma que P-006 es duplicado?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Calidad de datos",
+    "Concepto": "Rangos inválidos",
+    "Ejercicio": "¿Cuál tratamiento está respaldado?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Calidad de datos",
+    "Concepto": "Sesgo de medición",
+    "Ejercicio": "¿Qué evidencia sugiere sesgo de medición?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Preparación básica",
+    "Concepto": "Filtrar",
+    "Ejercicio": "¿Qué cambia después del filtro?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Preparación básica",
+    "Concepto": "Ordenar",
+    "Ejercicio": "¿Qué afirma correctamente la vista ordenada?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Preparación básica",
+    "Concepto": "Agrupar",
+    "Ejercicio": "¿Qué debe acompañar a 'agrupar por tipo_taco'?"
+  },
+  {
+    "Nivel": 1,
+    "Tema": "Preparación básica",
+    "Concepto": "Transformar",
+    "Ejercicio": "¿Qué vuelve verificable la transformación?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Media",
+    "Ejercicio": "Al añadir el pedido grande, ¿qué marcador se desplaza más?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Media",
+    "Ejercicio": "¿Qué comparación visible impide llamar típico al pedido grande?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Mediana",
+    "Ejercicio": "Después de ordenar y añadir el extremo, ¿qué centro conserva mejor su posición?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Mediana",
+    "Ejercicio": "¿Qué par de marcas queda más separado en el estado final?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Moda",
+    "Ejercicio": "Al destacar la frecuencia máxima, ¿qué tamaño queda marcado?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Moda",
+    "Ejercicio": "¿Qué barra sostiene la preparación de más bolsas?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Rango",
+    "Ejercicio": "¿Qué le ocurre al rango cuando el máximo pasa al nuevo extremo?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Rango",
+    "Ejercicio": "¿Qué marcas determinan el rango final mostrado?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Varianza",
+    "Ejercicio": "¿Qué ocurre con la banda de dispersión al añadir el pedido grande?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Varianza",
+    "Ejercicio": "¿Qué evidencia muestra el peso cuadrático del extremo?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Desviación estándar",
+    "Ejercicio": "En el estado comparado, ¿qué cambio se observa en ±1 DE?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Desviación estándar",
+    "Ejercicio": "¿Qué salida visible conserva la unidad útil para Don Juan?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Percentiles",
+    "Ejercicio": "¿Qué secuencia de cortes aparece al recorrer P25, P50 y P75?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Resumen numérico",
+    "Concepto": "Percentiles",
+    "Ejercicio": "En P75, ¿dónde queda el corte observado?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Histograma",
+    "Ejercicio": "Al cambiar de 7 a 22 bins, ¿qué permanece fijo en la etiqueta?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Histograma",
+    "Ejercicio": "¿Qué cambia visiblemente entre el primer y el último estado?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Densidad",
+    "Ejercicio": "¿Qué curva conserva más ondulaciones?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Densidad",
+    "Ejercicio": "¿Qué pasa al aumentar la banda hasta 2?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Forma",
+    "Ejercicio": "¿Qué comparación de tamaños de grupo muestran jueves y domingo?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Forma",
+    "Ejercicio": "¿Qué elemento cambia al pasar de todos los pedidos a domingo?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Sesgo",
+    "Ejercicio": "¿Hacia qué lado queda resaltada la cola?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Sesgo",
+    "Ejercicio": "¿Qué pedidos ocupan la zona sombreada final?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Multimodalidad",
+    "Ejercicio": "¿Cuántas concentraciones principales aparecen en los minutos del turno?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Multimodalidad",
+    "Ejercicio": "¿Qué separación aparece en el estado final?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Bins",
+    "Ejercicio": "¿Qué estado muestra el mayor detalle de intervalos?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Distribuciones",
+    "Concepto": "Bins",
+    "Ejercicio": "¿Qué patrón es comprobable en los tres estados?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Comparación visual",
+    "Concepto": "Gráfico de barras",
+    "Ejercicio": "¿Qué tipo de taco tiene la barra más alta?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Comparación visual",
+    "Concepto": "Gráfico de barras",
+    "Ejercicio": "¿Qué operación representan las etiquetas finales?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Comparación visual",
+    "Concepto": "Boxplot",
+    "Ejercicio": "¿Qué modalidad muestra la mediana más a la derecha?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Comparación visual",
+    "Concepto": "Boxplot",
+    "Ejercicio": "¿Qué diferencia visible acompaña a las cajas?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Comparación visual",
+    "Concepto": "Violin plot",
+    "Ejercicio": "¿Qué día muestra el menor tamaño de grupo en las etiquetas?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Comparación visual",
+    "Concepto": "Violin plot",
+    "Ejercicio": "¿Qué cambia al recorrer las tres bandas?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Comparación visual",
+    "Concepto": "ECDF",
+    "Ejercicio": "En el umbral final de 8 tacos, ¿qué modalidad acumula mayor proporción?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Comparación visual",
+    "Concepto": "ECDF",
+    "Ejercicio": "En el primer umbral de 2 tacos, ¿qué curva estaba más alta?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Valores atípicos",
+    "Concepto": "Outliers",
+    "Ejercicio": "¿Qué valor queda marcado más allá de la cerca superior?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Valores atípicos",
+    "Concepto": "Outliers",
+    "Ejercicio": "¿Qué acción acompaña al máximo en el estado final?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Valores atípicos",
+    "Concepto": "Leverage",
+    "Ejercicio": "¿Qué ocurre al retirar el minuto extremo de la recta descriptiva?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Valores atípicos",
+    "Concepto": "Leverage",
+    "Ejercicio": "¿Qué combinación muestra el estado final?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Valores atípicos",
+    "Concepto": "Error de captura",
+    "Ejercicio": "¿Qué caso nuevo mezcla un total de turno con un pedido?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Valores atípicos",
+    "Concepto": "Error de captura",
+    "Ejercicio": "¿Qué par queda clasificado como error confirmado?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Valores atípicos",
+    "Concepto": "Caso raro válido",
+    "Ejercicio": "¿Qué casos muestran los comprobantes como raros válidos?"
+  },
+  {
+    "Nivel": 2,
+    "Tema": "Valores atípicos",
+    "Concepto": "Caso raro válido",
+    "Ejercicio": "¿Qué acción visible corresponde a esos dos casos?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Probabilidad básica",
+    "Concepto": "Evento",
+    "Ejercicio": "Observa unidades seleccionadas y cita una marca visible. Incidente guiado de Evento: ¿Qué convierte a 'especie Adelie' en un evento?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Probabilidad básica",
+    "Concepto": "Evento",
+    "Ejercicio": "Observa unidades seleccionadas y cita una marca visible. Incidente de transferencia de Evento: Si cambias la regla del evento, ¿qué debe cambiar en la evidencia?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Probabilidad básica",
+    "Concepto": "Complemento",
+    "Ejercicio": "Observa partición completa y cita una marca visible. Incidente guiado de Complemento: Si el evento es 'Adelie', ¿qué representa el complemento?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Probabilidad básica",
+    "Concepto": "Complemento",
+    "Ejercicio": "Observa partición completa y cita una marca visible. Incidente de transferencia de Complemento: ¿Qué debe cumplirse para usar P(no A) = 1 - P(A)?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Probabilidad básica",
+    "Concepto": "Independencia",
+    "Ejercicio": "Observa celdas y tasas condicionadas y cita una marca visible. Incidente guiado de Independencia: ¿Qué evidencia contradice independencia entre especie e isla?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Probabilidad básica",
+    "Concepto": "Independencia",
+    "Ejercicio": "Observa celdas y tasas condicionadas y cita una marca visible. Incidente de transferencia de Independencia: ¿Qué conclusión prudente permite la comparación?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Probabilidad básica",
+    "Concepto": "Probabilidad condicional",
+    "Ejercicio": "Observa universo, condición y evento y cita una marca visible. Incidente guiado de Probabilidad condicional: Para P(Adelie | Torgersen), ¿cuál es el denominador correcto?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Probabilidad básica",
+    "Concepto": "Probabilidad condicional",
+    "Ejercicio": "Observa universo, condición y evento y cita una marca visible. Incidente de transferencia de Probabilidad condicional: ¿Qué error comete quien usa el total de 344 como denominador después del filtro?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Variables aleatorias",
+    "Concepto": "Bernoulli",
+    "Ejercicio": "Observa ensayos 0/1 y cita una marca visible. Incidente guiado de Bernoulli: ¿Qué representa un 1 en la variable Bernoulli de alta demanda?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Variables aleatorias",
+    "Concepto": "Bernoulli",
+    "Ejercicio": "Observa ensayos 0/1 y cita una marca visible. Incidente de transferencia de Bernoulli: Al subir el umbral de éxito, ¿qué debe ocurrir con la proporción de unos?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Variables aleatorias",
+    "Concepto": "Binomial",
+    "Ejercicio": "Observa tallos y masa de probabilidad y cita una marca visible. Incidente guiado de Binomial: ¿Qué cambia al pasar de Bernoulli a Binomial?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Variables aleatorias",
+    "Concepto": "Binomial",
+    "Ejercicio": "Observa tallos y masa de probabilidad y cita una marca visible. Incidente de transferencia de Binomial: Si n aumenta y p se mantiene, ¿qué interpretación del conteo es prudente?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Variables aleatorias",
+    "Concepto": "Normal",
+    "Ejercicio": "Observa centro y curva de densidad y cita una marca visible. Incidente guiado de Normal: ¿Qué rasgo visual sugiere una aproximación normal razonable?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Variables aleatorias",
+    "Concepto": "Normal",
+    "Ejercicio": "Observa centro y curva de densidad y cita una marca visible. Incidente de transferencia de Normal: ¿Cuál es el límite correcto al usar la normal aquí?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Variables aleatorias",
+    "Concepto": "Poisson",
+    "Ejercicio": "Observa eventos y conteos por ventana y cita una marca visible. Incidente guiado de Poisson: ¿Qué condición hace razonable pensar en Poisson?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Variables aleatorias",
+    "Concepto": "Poisson",
+    "Ejercicio": "Observa eventos y conteos por ventana y cita una marca visible. Incidente de transferencia de Poisson: ¿Qué sería una mala comparación para Poisson?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Muestreo",
+    "Concepto": "Variabilidad muestral",
+    "Ejercicio": "Observa puntos de estimaciones repetidas y cita una marca visible. Incidente guiado de Variabilidad muestral: ¿Por qué las medias de muestra no son idénticas?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Muestreo",
+    "Concepto": "Variabilidad muestral",
+    "Ejercicio": "Observa puntos de estimaciones repetidas y cita una marca visible. Incidente de transferencia de Variabilidad muestral: ¿Qué decisión es prudente con una muestra pequeña y muy alta?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Muestreo",
+    "Concepto": "Sesgo de selección",
+    "Ejercicio": "Observa marcos y distribuciones comparadas y cita una marca visible. Incidente guiado de Sesgo de selección: ¿Qué evidencia indica sesgo de selección?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Muestreo",
+    "Concepto": "Sesgo de selección",
+    "Ejercicio": "Observa marcos y distribuciones comparadas y cita una marca visible. Incidente de transferencia de Sesgo de selección: ¿Qué debe reportarse junto con una estimación de muestra sesgada?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Muestreo",
+    "Concepto": "Ley de los grandes números",
+    "Ejercicio": "Observa trayectoria de la media acumulada y cita una marca visible. Incidente guiado de Ley de los grandes números: ¿Qué patrón ilustra la ley de los grandes números?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Muestreo",
+    "Concepto": "Ley de los grandes números",
+    "Ejercicio": "Observa trayectoria de la media acumulada y cita una marca visible. Incidente de transferencia de Ley de los grandes números: ¿Qué NO promete esta ley?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Incertidumbre",
+    "Concepto": "Error estándar",
+    "Ejercicio": "Observa intervalos frente a n y cita una marca visible. Incidente guiado de Error estándar: ¿Qué reduce el error estándar de la media?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Incertidumbre",
+    "Concepto": "Error estándar",
+    "Ejercicio": "Observa intervalos frente a n y cita una marca visible. Incidente de transferencia de Error estándar: ¿Qué diferencia clave hay entre DE y error estándar?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Incertidumbre",
+    "Concepto": "Intervalo de confianza",
+    "Ejercicio": "Observa intervalos repetidos y cita una marca visible. Incidente guiado de Intervalo de confianza: ¿Qué interpretación es correcta para un intervalo del 95%?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Incertidumbre",
+    "Concepto": "Intervalo de confianza",
+    "Ejercicio": "Observa intervalos repetidos y cita una marca visible. Incidente de transferencia de Intervalo de confianza: ¿Qué hace un nivel de confianza más alto si n se mantiene?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Incertidumbre",
+    "Concepto": "Bootstrap",
+    "Ejercicio": "Observa distribución de remuestras y cita una marca visible. Incidente guiado de Bootstrap: ¿Qué produce una corrida bootstrap?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Incertidumbre",
+    "Concepto": "Bootstrap",
+    "Ejercicio": "Observa distribución de remuestras y cita una marca visible. Incidente de transferencia de Bootstrap: ¿Qué limitación debe reportarse al usar bootstrap?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "Hipótesis",
+    "Ejercicio": "Observa distribución nula y estadístico y cita una marca visible. Incidente guiado de Hipótesis: ¿Qué hace que una hipótesis sea estadística?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "Hipótesis",
+    "Ejercicio": "Observa distribución nula y estadístico y cita una marca visible. Incidente de transferencia de Hipótesis: ¿Qué conclusión prudente sale antes del p-value?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "p-value",
+    "Ejercicio": "Observa cola extrema sombreada y cita una marca visible. Incidente guiado de p-value: ¿Qué probabilidad representa el p-value?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "p-value",
+    "Ejercicio": "Observa cola extrema sombreada y cita una marca visible. Incidente de transferencia de p-value: ¿Qué debe acompañar a un p-value pequeño?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "Error tipo I",
+    "Ejercicio": "Observa región de rechazo y cita una marca visible. Incidente guiado de Error tipo I: ¿Qué representa alpha en este contexto?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "Error tipo I",
+    "Ejercicio": "Observa región de rechazo y cita una marca visible. Incidente de transferencia de Error tipo I: ¿Qué pasa si aumentas alpha de 0.01 a 0.10?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "Error tipo II",
+    "Ejercicio": "Observa área beta entre curvas y cita una marca visible. Incidente guiado de Error tipo II: ¿Qué describe un error tipo II?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "Error tipo II",
+    "Ejercicio": "Observa área beta entre curvas y cita una marca visible. Incidente de transferencia de Error tipo II: ¿Qué significa 'no significativo' con baja potencia?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "Potencia",
+    "Ejercicio": "Observa curva de potencia y cita una marca visible. Incidente guiado de Potencia: ¿Qué suele aumentar la potencia?"
+  },
+  {
+    "Nivel": 3,
+    "Tema": "Pruebas de hipótesis",
+    "Concepto": "Potencia",
+    "Ejercicio": "Observa curva de potencia y cita una marca visible. Incidente de transferencia de Potencia: ¿Qué debe especificarse al reportar potencia?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Relación visual",
+    "Concepto": "Scatterplot",
+    "Ejercicio": "Observa puntos de la nube y cita una marca visible. ¿Qué lectura de scatterplot está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Relación visual",
+    "Concepto": "Scatterplot",
+    "Ejercicio": "Observa puntos de la nube y cita una marca visible. Al transferir scatterplot a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Relación visual",
+    "Concepto": "Tendencia",
+    "Ejercicio": "Observa puntos y línea descriptiva y cita una marca visible. ¿Qué lectura de tendencia está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Relación visual",
+    "Concepto": "Tendencia",
+    "Ejercicio": "Observa puntos y línea descriptiva y cita una marca visible. Al transferir tendencia a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Relación visual",
+    "Concepto": "Forma de relación",
+    "Ejercicio": "Observa paneles lineal, curvo y sin patrón y cita una marca visible. ¿Qué lectura de forma de relación está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Relación visual",
+    "Concepto": "Forma de relación",
+    "Ejercicio": "Observa paneles lineal, curvo y sin patrón y cita una marca visible. Al transferir forma de relación a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Relación visual",
+    "Concepto": "Grupos",
+    "Ejercicio": "Observa puntos identificados por grupo y cita una marca visible. ¿Qué lectura de grupos está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Relación visual",
+    "Concepto": "Grupos",
+    "Ejercicio": "Observa puntos identificados por grupo y cita una marca visible. Al transferir grupos a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Dirección",
+    "Ejercicio": "Observa pendientes positiva, negativa y nula y cita una marca visible. ¿Qué lectura de dirección está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Dirección",
+    "Ejercicio": "Observa pendientes positiva, negativa y nula y cita una marca visible. Al transferir dirección a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Fuerza",
+    "Ejercicio": "Observa nubes con distinta dispersión y cita una marca visible. ¿Qué lectura de fuerza está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Fuerza",
+    "Ejercicio": "Observa nubes con distinta dispersión y cita una marca visible. Al transferir fuerza a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Pearson",
+    "Ejercicio": "Observa puntos y contribuciones de covarianza y cita una marca visible. ¿Qué lectura de pearson está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Pearson",
+    "Ejercicio": "Observa puntos y contribuciones de covarianza y cita una marca visible. Al transferir pearson a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Spearman",
+    "Ejercicio": "Observa posiciones de rango y cita una marca visible. ¿Qué lectura de spearman está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Spearman",
+    "Ejercicio": "Observa posiciones de rango y cita una marca visible. Al transferir spearman a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Correlación y extremos",
+    "Ejercicio": "Observa ajuste con el punto extremo y cita una marca visible. ¿Qué lectura de correlación y extremos está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Correlación",
+    "Concepto": "Correlación y extremos",
+    "Ejercicio": "Observa ajuste con el punto extremo y cita una marca visible. Al transferir correlación y extremos a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Confusión",
+    "Concepto": "Causalidad",
+    "Ejercicio": "Observa nodos y flechas alternativas y cita una marca visible. ¿Qué lectura de causalidad está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Confusión",
+    "Concepto": "Causalidad",
+    "Ejercicio": "Observa nodos y flechas alternativas y cita una marca visible. Al transferir causalidad a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Confusión",
+    "Concepto": "Confusores",
+    "Ejercicio": "Observa DAG y estratos y cita una marca visible. ¿Qué lectura de confusores está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Confusión",
+    "Concepto": "Confusores",
+    "Ejercicio": "Observa DAG y estratos y cita una marca visible. Al transferir confusores a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Confusión",
+    "Concepto": "Sesgo de agregación",
+    "Ejercicio": "Observa líneas por grupo y agregada y cita una marca visible. ¿Qué lectura de sesgo de agregación está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Confusión",
+    "Concepto": "Sesgo de agregación",
+    "Ejercicio": "Observa líneas por grupo y agregada y cita una marca visible. Al transferir sesgo de agregación a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Tablas cruzadas",
+    "Concepto": "Proporciones",
+    "Ejercicio": "Observa celdas de la tabla 2×2 y cita una marca visible. ¿Qué lectura de proporciones está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Tablas cruzadas",
+    "Concepto": "Proporciones",
+    "Ejercicio": "Observa celdas de la tabla 2×2 y cita una marca visible. Al transferir proporciones a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Tablas cruzadas",
+    "Concepto": "Riesgo relativo",
+    "Ejercicio": "Observa riesgos y referencia de razón 1 y cita una marca visible. ¿Qué lectura de riesgo relativo está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Tablas cruzadas",
+    "Concepto": "Riesgo relativo",
+    "Ejercicio": "Observa riesgos y referencia de razón 1 y cita una marca visible. Al transferir riesgo relativo a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Tablas cruzadas",
+    "Concepto": "Odds",
+    "Ejercicio": "Observa evento, no evento y escala de odds y cita una marca visible. ¿Qué lectura de odds está respaldada por el incidente guiado?"
+  },
+  {
+    "Nivel": 4,
+    "Tema": "Tablas cruzadas",
+    "Concepto": "Odds",
+    "Ejercicio": "Observa evento, no evento y escala de odds y cita una marca visible. Al transferir odds a otro grupo, ¿qué debe conservarse?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Arquitectura invisible de los datos",
+    "Concepto": "Unidad y granularidad",
+    "Ejercicio": "Observa filas y unidad antes y después del cambio de granularidad y cita una marca visible. ¿Qué decisión sobre unidad y granularidad está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Arquitectura invisible de los datos",
+    "Concepto": "Unidad y granularidad",
+    "Ejercicio": "Observa filas y unidad antes y después del cambio de granularidad y cita una marca visible. ¿Qué debe volver a comprobarse al transferir unidad y granularidad a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Arquitectura invisible de los datos",
+    "Concepto": "Esquema y claves",
+    "Ejercicio": "Observa campos tipados y enlaces PK/FK y cita una marca visible. ¿Qué decisión sobre esquema y claves está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Arquitectura invisible de los datos",
+    "Concepto": "Esquema y claves",
+    "Ejercicio": "Observa campos tipados y enlaces PK/FK y cita una marca visible. ¿Qué debe volver a comprobarse al transferir esquema y claves a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL para hacer preguntas",
+    "Concepto": "Consulta orientada a pregunta",
+    "Ejercicio": "Observa pregunta, operaciones y tabla resultante y cita una marca visible. ¿Qué decisión sobre consulta orientada a pregunta está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL para hacer preguntas",
+    "Concepto": "Consulta orientada a pregunta",
+    "Ejercicio": "Observa pregunta, operaciones y tabla resultante y cita una marca visible. ¿Qué debe volver a comprobarse al transferir consulta orientada a pregunta a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL para hacer preguntas",
+    "Concepto": "Agregación y grupos",
+    "Ejercicio": "Observa grupos, numeradores y denominadores y cita una marca visible. ¿Qué decisión sobre agregación y grupos está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL para hacer preguntas",
+    "Concepto": "Agregación y grupos",
+    "Ejercicio": "Observa grupos, numeradores y denominadores y cita una marca visible. ¿Qué debe volver a comprobarse al transferir agregación y grupos a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Relaciones y JOINs",
+    "Concepto": "Semántica de JOIN y anti-join",
+    "Ejercicio": "Observa matched, left-only y right-only y cita una marca visible. ¿Qué decisión sobre semántica de join y anti-join está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Relaciones y JOINs",
+    "Concepto": "Semántica de JOIN y anti-join",
+    "Ejercicio": "Observa matched, left-only y right-only y cita una marca visible. ¿Qué debe volver a comprobarse al transferir semántica de join y anti-join a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Relaciones y JOINs",
+    "Concepto": "Cardinalidad de JOIN",
+    "Ejercicio": "Observa nodos, enlaces y pares esperados y cita una marca visible. ¿Qué decisión sobre cardinalidad de join está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Relaciones y JOINs",
+    "Concepto": "Cardinalidad de JOIN",
+    "Ejercicio": "Observa nodos, enlaces y pares esperados y cita una marca visible. ¿Qué debe volver a comprobarse al transferir cardinalidad de join a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Relaciones y JOINs",
+    "Concepto": "Explosión de filas en un JOIN",
+    "Ejercicio": "Observa pares del JOIN, filas resultantes, noches únicas y suma reconciliada y cita una marca visible. ¿Qué decisión sobre explosión de filas en un join está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Relaciones y JOINs",
+    "Concepto": "Explosión de filas en un JOIN",
+    "Ejercicio": "Observa pares del JOIN, filas resultantes, noches únicas y suma reconciliada y cita una marca visible. ¿Qué debe volver a comprobarse al transferir explosión de filas en un join a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL analítico y tiempo",
+    "Concepto": "CTE trazable",
+    "Ejercicio": "Observa etapas y conteos de entrada y salida y cita una marca visible. ¿Qué decisión sobre cte trazable está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL analítico y tiempo",
+    "Concepto": "CTE trazable",
+    "Ejercicio": "Observa etapas y conteos de entrada y salida y cita una marca visible. ¿Qué debe volver a comprobarse al transferir cte trazable a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL analítico y tiempo",
+    "Concepto": "Funciones de ventana",
+    "Ejercicio": "Observa particiones, orden y filas conservadas y cita una marca visible. ¿Qué decisión sobre funciones de ventana está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL analítico y tiempo",
+    "Concepto": "Funciones de ventana",
+    "Ejercicio": "Observa particiones, orden y filas conservadas y cita una marca visible. ¿Qué debe volver a comprobarse al transferir funciones de ventana a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL analítico y tiempo",
+    "Concepto": "Rezagos y fecha de corte",
+    "Ejercicio": "Observa línea temporal, rezagos y corte y cita una marca visible. ¿Qué decisión sobre rezagos y fecha de corte está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "SQL analítico y tiempo",
+    "Concepto": "Rezagos y fecha de corte",
+    "Ejercicio": "Observa línea temporal, rezagos y corte y cita una marca visible. ¿Qué debe volver a comprobarse al transferir rezagos y fecha de corte a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Construcción de la tabla analítica",
+    "Concepto": "Población y ventanas",
+    "Ejercicio": "Observa población y ventanas temporales separadas y cita una marca visible. ¿Qué decisión sobre población y ventanas está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Construcción de la tabla analítica",
+    "Concepto": "Población y ventanas",
+    "Ejercicio": "Observa población y ventanas temporales separadas y cita una marca visible. ¿Qué debe volver a comprobarse al transferir población y ventanas a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Construcción de la tabla analítica",
+    "Concepto": "ABT temporal",
+    "Ejercicio": "Observa fuentes y fila final de la ABT y cita una marca visible. ¿Qué decisión sobre abt temporal está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Construcción de la tabla analítica",
+    "Concepto": "ABT temporal",
+    "Ejercicio": "Observa fuentes y fila final de la ABT y cita una marca visible. ¿Qué debe volver a comprobarse al transferir abt temporal a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Construcción de la tabla analítica",
+    "Concepto": "Deduplicación por entidad",
+    "Ejercicio": "Observa versiones y observación válida seleccionada y cita una marca visible. ¿Qué decisión sobre deduplicación por entidad está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Construcción de la tabla analítica",
+    "Concepto": "Deduplicación por entidad",
+    "Ejercicio": "Observa versiones y observación válida seleccionada y cita una marca visible. ¿Qué debe volver a comprobarse al transferir deduplicación por entidad a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Fuentes y formatos modernos",
+    "Concepto": "CSV frente a Parquet",
+    "Ejercicio": "Observa celdas leídas por fila o columna y cita una marca visible. ¿Qué decisión sobre csv frente a parquet está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Fuentes y formatos modernos",
+    "Concepto": "CSV frente a Parquet",
+    "Ejercicio": "Observa celdas leídas por fila o columna y cita una marca visible. ¿Qué debe volver a comprobarse al transferir csv frente a parquet a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Fuentes y formatos modernos",
+    "Concepto": "API paginada",
+    "Ejercicio": "Observa páginas, cursor, retry e IDs y cita una marca visible. ¿Qué decisión sobre api paginada está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Fuentes y formatos modernos",
+    "Concepto": "API paginada",
+    "Ejercicio": "Observa páginas, cursor, retry e IDs y cita una marca visible. ¿Qué debe volver a comprobarse al transferir api paginada a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Fuentes y formatos modernos",
+    "Concepto": "DuckDB y Polars",
+    "Ejercicio": "Observa flujos SQL y columnar comparados y cita una marca visible. ¿Qué decisión sobre duckdb y polars está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Fuentes y formatos modernos",
+    "Concepto": "DuckDB y Polars",
+    "Ejercicio": "Observa flujos SQL y columnar comparados y cita una marca visible. ¿Qué debe volver a comprobarse al transferir duckdb y polars a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Calidad, contratos y procedencia",
+    "Concepto": "Contrato y esquema",
+    "Ejercicio": "Observa cambio compatible o rechazado y cita una marca visible. ¿Qué decisión sobre contrato y esquema está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Calidad, contratos y procedencia",
+    "Concepto": "Contrato y esquema",
+    "Ejercicio": "Observa cambio compatible o rechazado y cita una marca visible. ¿Qué debe volver a comprobarse al transferir contrato y esquema a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Calidad, contratos y procedencia",
+    "Concepto": "Integridad de datos",
+    "Ejercicio": "Observa checks y filas afectadas y cita una marca visible. ¿Qué decisión sobre integridad de datos está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Calidad, contratos y procedencia",
+    "Concepto": "Integridad de datos",
+    "Ejercicio": "Observa checks y filas afectadas y cita una marca visible. ¿Qué debe volver a comprobarse al transferir integridad de datos a otro caso?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Calidad, contratos y procedencia",
+    "Concepto": "Linaje y snapshot",
+    "Ejercicio": "Observa fuentes, transformaciones, versión y hash y cita una marca visible. ¿Qué decisión sobre linaje y snapshot está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 5,
+    "Tema": "Calidad, contratos y procedencia",
+    "Concepto": "Linaje y snapshot",
+    "Ejercicio": "Observa fuentes, transformaciones, versión y hash y cita una marca visible. ¿Qué debe volver a comprobarse al transferir linaje y snapshot a otro caso?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Ajuste",
+    "Ejercicio": "Observa puntos y recta ajustada y cita una marca visible. ¿Qué conclusión guiada sobre ajuste respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Ajuste",
+    "Ejercicio": "Observa puntos y recta ajustada y cita una marca visible. ¿Qué debe cambiar al transferir ajuste a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Pendiente",
+    "Ejercicio": "Observa triángulo subida/avance y cita una marca visible. ¿Qué conclusión guiada sobre pendiente respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Pendiente",
+    "Ejercicio": "Observa triángulo subida/avance y cita una marca visible. ¿Qué debe cambiar al transferir pendiente a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Intercepto",
+    "Ejercicio": "Observa cruce con el eje y cita una marca visible. ¿Qué conclusión guiada sobre intercepto respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Intercepto",
+    "Ejercicio": "Observa cruce con el eje y cita una marca visible. ¿Qué debe cambiar al transferir intercepto a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Residuales",
+    "Ejercicio": "Observa segmentos y residuales y cita una marca visible. ¿Qué conclusión guiada sobre residuales respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Residuales",
+    "Ejercicio": "Observa segmentos y residuales y cita una marca visible. ¿Qué debe cambiar al transferir residuales a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Supuestos",
+    "Ejercicio": "Observa cuatro paneles diagnósticos y cita una marca visible. ¿Qué conclusión guiada sobre supuestos respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión lineal",
+    "Concepto": "Supuestos",
+    "Ejercicio": "Observa cuatro paneles diagnósticos y cita una marca visible. ¿Qué debe cambiar al transferir supuestos a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión múltiple",
+    "Concepto": "Variables explicativas",
+    "Ejercicio": "Observa coeficientes e intervalos y cita una marca visible. ¿Qué conclusión guiada sobre variables explicativas respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión múltiple",
+    "Concepto": "Variables explicativas",
+    "Ejercicio": "Observa coeficientes e intervalos y cita una marca visible. ¿Qué debe cambiar al transferir variables explicativas a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión múltiple",
+    "Concepto": "Interacción",
+    "Ejercicio": "Observa líneas con pendientes diferentes y cita una marca visible. ¿Qué conclusión guiada sobre interacción respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión múltiple",
+    "Concepto": "Interacción",
+    "Ejercicio": "Observa líneas con pendientes diferentes y cita una marca visible. ¿Qué debe cambiar al transferir interacción a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión múltiple",
+    "Concepto": "Colinealidad",
+    "Ejercicio": "Observa celdas de relación entre entradas y cita una marca visible. ¿Qué conclusión guiada sobre colinealidad respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Regresión múltiple",
+    "Concepto": "Colinealidad",
+    "Ejercicio": "Observa celdas de relación entre entradas y cita una marca visible. ¿Qué debe cambiar al transferir colinealidad a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Clasificación",
+    "Concepto": "Clase",
+    "Ejercicio": "Observa puntos coloreados por clase y cita una marca visible. ¿Qué conclusión guiada sobre clase respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Clasificación",
+    "Concepto": "Clase",
+    "Ejercicio": "Observa puntos coloreados por clase y cita una marca visible. ¿Qué debe cambiar al transferir clase a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Clasificación",
+    "Concepto": "Score",
+    "Ejercicio": "Observa scores ordenados y cita una marca visible. ¿Qué conclusión guiada sobre score respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Clasificación",
+    "Concepto": "Score",
+    "Ejercicio": "Observa scores ordenados y cita una marca visible. ¿Qué debe cambiar al transferir score a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Clasificación",
+    "Concepto": "Umbral",
+    "Ejercicio": "Observa distribución y umbral y cita una marca visible. ¿Qué conclusión guiada sobre umbral respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Clasificación",
+    "Concepto": "Umbral",
+    "Ejercicio": "Observa distribución y umbral y cita una marca visible. ¿Qué debe cambiar al transferir umbral a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Clasificación",
+    "Concepto": "Probabilidad",
+    "Ejercicio": "Observa curva score a probabilidad y cita una marca visible. ¿Qué conclusión guiada sobre probabilidad respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Clasificación",
+    "Concepto": "Probabilidad",
+    "Ejercicio": "Observa curva score a probabilidad y cita una marca visible. ¿Qué debe cambiar al transferir probabilidad a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Modelos interpretables",
+    "Concepto": "Árbol de decisión",
+    "Ejercicio": "Observa nodos y hojas y cita una marca visible. ¿Qué conclusión guiada sobre árbol de decisión respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Modelos interpretables",
+    "Concepto": "Árbol de decisión",
+    "Ejercicio": "Observa nodos y hojas y cita una marca visible. ¿Qué debe cambiar al transferir árbol de decisión a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Modelos interpretables",
+    "Concepto": "Reglas",
+    "Ejercicio": "Observa ramas si/entonces y cita una marca visible. ¿Qué conclusión guiada sobre reglas respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Modelos interpretables",
+    "Concepto": "Reglas",
+    "Ejercicio": "Observa ramas si/entonces y cita una marca visible. ¿Qué debe cambiar al transferir reglas a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Modelos interpretables",
+    "Concepto": "Importancia",
+    "Ejercicio": "Observa magnitudes de importancia y cita una marca visible. ¿Qué conclusión guiada sobre importancia respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Modelos interpretables",
+    "Concepto": "Importancia",
+    "Ejercicio": "Observa magnitudes de importancia y cita una marca visible. ¿Qué debe cambiar al transferir importancia a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Preparación de variables",
+    "Concepto": "Encoding",
+    "Ejercicio": "Observa celdas de la matriz one-hot y cita una marca visible. ¿Qué conclusión guiada sobre encoding respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Preparación de variables",
+    "Concepto": "Encoding",
+    "Ejercicio": "Observa celdas de la matriz one-hot y cita una marca visible. ¿Qué debe cambiar al transferir encoding a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Preparación de variables",
+    "Concepto": "Scaling",
+    "Ejercicio": "Observa escalas antes y después y cita una marca visible. ¿Qué conclusión guiada sobre scaling respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Preparación de variables",
+    "Concepto": "Scaling",
+    "Ejercicio": "Observa escalas antes y después y cita una marca visible. ¿Qué debe cambiar al transferir scaling a otra decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Preparación de variables",
+    "Concepto": "Leakage",
+    "Ejercicio": "Observa corte temporal y disponibilidad y cita una marca visible. ¿Qué conclusión guiada sobre leakage respeta el momento de decisión?"
+  },
+  {
+    "Nivel": 6,
+    "Tema": "Preparación de variables",
+    "Concepto": "Leakage",
+    "Ejercicio": "Observa corte temporal y disponibilidad y cita una marca visible. ¿Qué debe cambiar al transferir leakage a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Partición de datos",
+    "Concepto": "Train",
+    "Ejercicio": "Observa filas asignadas a entrenamiento y cita una marca visible. ¿Qué conclusión guiada sobre train conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Partición de datos",
+    "Concepto": "Train",
+    "Ejercicio": "Observa filas asignadas a entrenamiento y cita una marca visible. ¿Qué exige transferir train a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Partición de datos",
+    "Concepto": "Validation",
+    "Ejercicio": "Observa alternativas comparadas en validación y cita una marca visible. ¿Qué conclusión guiada sobre validation conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Partición de datos",
+    "Concepto": "Validation",
+    "Ejercicio": "Observa alternativas comparadas en validación y cita una marca visible. ¿Qué exige transferir validation a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Partición de datos",
+    "Concepto": "Test",
+    "Ejercicio": "Observa sello y apertura única del test y cita una marca visible. ¿Qué conclusión guiada sobre test conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Partición de datos",
+    "Concepto": "Test",
+    "Ejercicio": "Observa sello y apertura única del test y cita una marca visible. ¿Qué exige transferir test a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Partición de datos",
+    "Concepto": "Cross-validation",
+    "Ejercicio": "Observa folds rotados sin tocar test y cita una marca visible. ¿Qué conclusión guiada sobre cross-validation conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Partición de datos",
+    "Concepto": "Cross-validation",
+    "Ejercicio": "Observa folds rotados sin tocar test y cita una marca visible. ¿Qué exige transferir cross-validation a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Error de regresión",
+    "Concepto": "MAE",
+    "Ejercicio": "Observa errores absolutos y cita una marca visible. ¿Qué conclusión guiada sobre mae conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Error de regresión",
+    "Concepto": "MAE",
+    "Ejercicio": "Observa errores absolutos y cita una marca visible. ¿Qué exige transferir mae a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Error de regresión",
+    "Concepto": "MSE",
+    "Ejercicio": "Observa errores elevados al cuadrado y cita una marca visible. ¿Qué conclusión guiada sobre mse conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Error de regresión",
+    "Concepto": "MSE",
+    "Ejercicio": "Observa errores elevados al cuadrado y cita una marca visible. ¿Qué exige transferir mse a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Error de regresión",
+    "Concepto": "RMSE",
+    "Ejercicio": "Observa raíz en unidades de pedidos y cita una marca visible. ¿Qué conclusión guiada sobre rmse conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Error de regresión",
+    "Concepto": "RMSE",
+    "Ejercicio": "Observa raíz en unidades de pedidos y cita una marca visible. ¿Qué exige transferir rmse a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Error de regresión",
+    "Concepto": "R²",
+    "Ejercicio": "Observa modelo frente a promedio base y cita una marca visible. ¿Qué conclusión guiada sobre r² conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Error de regresión",
+    "Concepto": "R²",
+    "Ejercicio": "Observa modelo frente a promedio base y cita una marca visible. ¿Qué exige transferir r² a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Matriz de confusión",
+    "Concepto": "TP",
+    "Ejercicio": "Observa celda TP resaltada y cita una marca visible. ¿Qué conclusión guiada sobre tp conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Matriz de confusión",
+    "Concepto": "TP",
+    "Ejercicio": "Observa celda TP resaltada y cita una marca visible. ¿Qué exige transferir tp a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Matriz de confusión",
+    "Concepto": "TN",
+    "Ejercicio": "Observa celda TN resaltada y cita una marca visible. ¿Qué conclusión guiada sobre tn conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Matriz de confusión",
+    "Concepto": "TN",
+    "Ejercicio": "Observa celda TN resaltada y cita una marca visible. ¿Qué exige transferir tn a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Matriz de confusión",
+    "Concepto": "FP",
+    "Ejercicio": "Observa celda FP y merma y cita una marca visible. ¿Qué conclusión guiada sobre fp conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Matriz de confusión",
+    "Concepto": "FP",
+    "Ejercicio": "Observa celda FP y merma y cita una marca visible. ¿Qué exige transferir fp a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Matriz de confusión",
+    "Concepto": "FN",
+    "Ejercicio": "Observa celda FN y pedidos no atendidos y cita una marca visible. ¿Qué conclusión guiada sobre fn conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Matriz de confusión",
+    "Concepto": "FN",
+    "Ejercicio": "Observa celda FN y pedidos no atendidos y cita una marca visible. ¿Qué exige transferir fn a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Métricas de clasificación",
+    "Concepto": "Precision",
+    "Ejercicio": "Observa TP entre alertas y cita una marca visible. ¿Qué conclusión guiada sobre precision conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Métricas de clasificación",
+    "Concepto": "Precision",
+    "Ejercicio": "Observa TP entre alertas y cita una marca visible. ¿Qué exige transferir precision a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Métricas de clasificación",
+    "Concepto": "Recall",
+    "Ejercicio": "Observa TP entre noches altas y cita una marca visible. ¿Qué conclusión guiada sobre recall conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Métricas de clasificación",
+    "Concepto": "Recall",
+    "Ejercicio": "Observa TP entre noches altas y cita una marca visible. ¿Qué exige transferir recall a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Métricas de clasificación",
+    "Concepto": "Specificity",
+    "Ejercicio": "Observa TN entre noches normales y cita una marca visible. ¿Qué conclusión guiada sobre specificity conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Métricas de clasificación",
+    "Concepto": "Specificity",
+    "Ejercicio": "Observa TN entre noches normales y cita una marca visible. ¿Qué exige transferir specificity a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Métricas de clasificación",
+    "Concepto": "F1",
+    "Ejercicio": "Observa precision y recall combinados y cita una marca visible. ¿Qué conclusión guiada sobre f1 conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Métricas de clasificación",
+    "Concepto": "F1",
+    "Ejercicio": "Observa precision y recall combinados y cita una marca visible. ¿Qué exige transferir f1 a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Curvas y calibración",
+    "Concepto": "ROC",
+    "Ejercicio": "Observa TPR frente a FPR y cita una marca visible. ¿Qué conclusión guiada sobre roc conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Curvas y calibración",
+    "Concepto": "ROC",
+    "Ejercicio": "Observa TPR frente a FPR y cita una marca visible. ¿Qué exige transferir roc a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Curvas y calibración",
+    "Concepto": "PR",
+    "Ejercicio": "Observa precision frente a recall y cita una marca visible. ¿Qué conclusión guiada sobre pr conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Curvas y calibración",
+    "Concepto": "PR",
+    "Ejercicio": "Observa precision frente a recall y cita una marca visible. ¿Qué exige transferir pr a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Curvas y calibración",
+    "Concepto": "Umbral y costo",
+    "Ejercicio": "Observa umbral, errores y costo y cita una marca visible. ¿Qué conclusión guiada sobre umbral y costo conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Curvas y calibración",
+    "Concepto": "Umbral y costo",
+    "Ejercicio": "Observa umbral, errores y costo y cita una marca visible. ¿Qué exige transferir umbral y costo a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Curvas y calibración",
+    "Concepto": "Calibración",
+    "Ejercicio": "Observa probabilidad estimada frente a frecuencia y cita una marca visible. ¿Qué conclusión guiada sobre calibración conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Curvas y calibración",
+    "Concepto": "Calibración",
+    "Ejercicio": "Observa probabilidad estimada frente a frecuencia y cita una marca visible. ¿Qué exige transferir calibración a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Generalización",
+    "Concepto": "Bias",
+    "Ejercicio": "Observa patrón sistemático de error y cita una marca visible. ¿Qué conclusión guiada sobre bias conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Generalización",
+    "Concepto": "Bias",
+    "Ejercicio": "Observa patrón sistemático de error y cita una marca visible. ¿Qué exige transferir bias a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Generalización",
+    "Concepto": "Variance",
+    "Ejercicio": "Observa ajustes entre muestras y cita una marca visible. ¿Qué conclusión guiada sobre variance conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Generalización",
+    "Concepto": "Variance",
+    "Ejercicio": "Observa ajustes entre muestras y cita una marca visible. ¿Qué exige transferir variance a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Generalización",
+    "Concepto": "Overfitting",
+    "Ejercicio": "Observa brecha train-validation y cita una marca visible. ¿Qué conclusión guiada sobre overfitting conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Generalización",
+    "Concepto": "Overfitting",
+    "Ejercicio": "Observa brecha train-validation y cita una marca visible. ¿Qué exige transferir overfitting a otra decisión?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Generalización",
+    "Concepto": "Regularización",
+    "Ejercicio": "Observa complejidad y error validado y cita una marca visible. ¿Qué conclusión guiada sobre regularización conserva el alcance?"
+  },
+  {
+    "Nivel": 7,
+    "Tema": "Generalización",
+    "Concepto": "Regularización",
+    "Ejercicio": "Observa complejidad y error validado y cita una marca visible. ¿Qué exige transferir regularización a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Clustering",
+    "Concepto": "Distancia",
+    "Ejercicio": "Observa distancias entre noches y cita una marca visible. ¿Qué conclusión guiada sobre distancia conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Clustering",
+    "Concepto": "Distancia",
+    "Ejercicio": "Observa distancias entre noches y cita una marca visible. ¿Qué exige transferir distancia a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Clustering",
+    "Concepto": "K-means",
+    "Ejercicio": "Observa asignación y actualización y cita una marca visible. ¿Qué conclusión guiada sobre k-means conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Clustering",
+    "Concepto": "K-means",
+    "Ejercicio": "Observa asignación y actualización y cita una marca visible. ¿Qué exige transferir k-means a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Clustering",
+    "Concepto": "Centroides",
+    "Ejercicio": "Observa trayectoria de centroides y cita una marca visible. ¿Qué conclusión guiada sobre centroides conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Clustering",
+    "Concepto": "Centroides",
+    "Ejercicio": "Observa trayectoria de centroides y cita una marca visible. ¿Qué exige transferir centroides a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Clustering",
+    "Concepto": "Número de grupos",
+    "Ejercicio": "Observa soluciones para distintos k y cita una marca visible. ¿Qué conclusión guiada sobre número de grupos conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Clustering",
+    "Concepto": "Número de grupos",
+    "Ejercicio": "Observa soluciones para distintos k y cita una marca visible. ¿Qué exige transferir número de grupos a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Reducción dimensional",
+    "Concepto": "PCA",
+    "Ejercicio": "Observa noches proyectadas y cita una marca visible. ¿Qué conclusión guiada sobre pca conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Reducción dimensional",
+    "Concepto": "PCA",
+    "Ejercicio": "Observa noches proyectadas y cita una marca visible. ¿Qué exige transferir pca a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Reducción dimensional",
+    "Concepto": "Componentes",
+    "Ejercicio": "Observa cargas de variables y cita una marca visible. ¿Qué conclusión guiada sobre componentes conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Reducción dimensional",
+    "Concepto": "Componentes",
+    "Ejercicio": "Observa cargas de variables y cita una marca visible. ¿Qué exige transferir componentes a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Reducción dimensional",
+    "Concepto": "Varianza explicada",
+    "Ejercicio": "Observa varianza explicada acumulada y cita una marca visible. ¿Qué conclusión guiada sobre varianza explicada conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Reducción dimensional",
+    "Concepto": "Varianza explicada",
+    "Ejercicio": "Observa varianza explicada acumulada y cita una marca visible. ¿Qué exige transferir varianza explicada a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Detección de anomalías",
+    "Concepto": "Rareza",
+    "Ejercicio": "Observa vecindad de una noche rara y cita una marca visible. ¿Qué conclusión guiada sobre rareza conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Detección de anomalías",
+    "Concepto": "Rareza",
+    "Ejercicio": "Observa vecindad de una noche rara y cita una marca visible. ¿Qué exige transferir rareza a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Detección de anomalías",
+    "Concepto": "Aislamiento",
+    "Ejercicio": "Observa ruta de particiones y cita una marca visible. ¿Qué conclusión guiada sobre aislamiento conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Detección de anomalías",
+    "Concepto": "Aislamiento",
+    "Ejercicio": "Observa ruta de particiones y cita una marca visible. ¿Qué exige transferir aislamiento a otra decisión?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Detección de anomalías",
+    "Concepto": "Umbral de anomalía",
+    "Ejercicio": "Observa score, umbral y cola de revisión y cita una marca visible. ¿Qué conclusión guiada sobre umbral de anomalía conserva el alcance?"
+  },
+  {
+    "Nivel": 8,
+    "Tema": "Detección de anomalías",
+    "Concepto": "Umbral de anomalía",
+    "Ejercicio": "Observa score, umbral y cola de revisión y cita una marca visible. ¿Qué exige transferir umbral de anomalía a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Series de tiempo",
+    "Concepto": "Tendencia",
+    "Ejercicio": "Observa serie ordenada y tendencia y cita una marca visible. ¿Qué conclusión guiada sobre tendencia conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Series de tiempo",
+    "Concepto": "Tendencia",
+    "Ejercicio": "Observa serie ordenada y tendencia y cita una marca visible. ¿Qué exige transferir tendencia a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Series de tiempo",
+    "Concepto": "Estacionalidad",
+    "Ejercicio": "Observa ciclos alineados por periodo y cita una marca visible. ¿Qué conclusión guiada sobre estacionalidad conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Series de tiempo",
+    "Concepto": "Estacionalidad",
+    "Ejercicio": "Observa ciclos alineados por periodo y cita una marca visible. ¿Qué exige transferir estacionalidad a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Series de tiempo",
+    "Concepto": "Rezago",
+    "Ejercicio": "Observa pares valor anterior y actual y cita una marca visible. ¿Qué conclusión guiada sobre rezago conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Series de tiempo",
+    "Concepto": "Rezago",
+    "Ejercicio": "Observa pares valor anterior y actual y cita una marca visible. ¿Qué exige transferir rezago a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Series de tiempo",
+    "Concepto": "Anomalía temporal",
+    "Ejercicio": "Observa evento localizado y patrón esperado y cita una marca visible. ¿Qué conclusión guiada sobre anomalía temporal conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Series de tiempo",
+    "Concepto": "Anomalía temporal",
+    "Ejercicio": "Observa evento localizado y patrón esperado y cita una marca visible. ¿Qué exige transferir anomalía temporal a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Validación temporal",
+    "Concepto": "Ventanas temporales",
+    "Ejercicio": "Observa ventana y corte temporal y cita una marca visible. ¿Qué conclusión guiada sobre ventanas temporales conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Validación temporal",
+    "Concepto": "Ventanas temporales",
+    "Ejercicio": "Observa ventana y corte temporal y cita una marca visible. ¿Qué exige transferir ventanas temporales a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Validación temporal",
+    "Concepto": "Backtesting",
+    "Ejercicio": "Observa folds pasado-futuro y cita una marca visible. ¿Qué conclusión guiada sobre backtesting conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Validación temporal",
+    "Concepto": "Backtesting",
+    "Ejercicio": "Observa folds pasado-futuro y cita una marca visible. ¿Qué exige transferir backtesting a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Validación temporal",
+    "Concepto": "Leakage temporal",
+    "Ejercicio": "Observa corte y dato futuro bloqueado y cita una marca visible. ¿Qué conclusión guiada sobre leakage temporal conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Validación temporal",
+    "Concepto": "Leakage temporal",
+    "Ejercicio": "Observa corte y dato futuro bloqueado y cita una marca visible. ¿Qué exige transferir leakage temporal a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "A/B testing",
+    "Concepto": "Asignación aleatoria",
+    "Ejercicio": "Observa asignaciones balanceadas A/B y cita una marca visible. ¿Qué conclusión guiada sobre asignación aleatoria conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "A/B testing",
+    "Concepto": "Asignación aleatoria",
+    "Ejercicio": "Observa asignaciones balanceadas A/B y cita una marca visible. ¿Qué exige transferir asignación aleatoria a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "A/B testing",
+    "Concepto": "Métrica primaria",
+    "Ejercicio": "Observa numerador y denominador primarios y cita una marca visible. ¿Qué conclusión guiada sobre métrica primaria conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "A/B testing",
+    "Concepto": "Métrica primaria",
+    "Ejercicio": "Observa numerador y denominador primarios y cita una marca visible. ¿Qué exige transferir métrica primaria a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "A/B testing",
+    "Concepto": "Tamaño de muestra",
+    "Ejercicio": "Observa tamaño y ancho esperado y cita una marca visible. ¿Qué conclusión guiada sobre tamaño de muestra conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "A/B testing",
+    "Concepto": "Tamaño de muestra",
+    "Ejercicio": "Observa tamaño y ancho esperado y cita una marca visible. ¿Qué exige transferir tamaño de muestra a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "A/B testing",
+    "Concepto": "Efecto",
+    "Ejercicio": "Observa diferencia e intervalo y cita una marca visible. ¿Qué conclusión guiada sobre efecto conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "A/B testing",
+    "Concepto": "Efecto",
+    "Ejercicio": "Observa diferencia e intervalo y cita una marca visible. ¿Qué exige transferir efecto a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Experimentación",
+    "Concepto": "Guardrails",
+    "Ejercicio": "Observa métrica principal y límites operativos y cita una marca visible. ¿Qué conclusión guiada sobre guardrails conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Experimentación",
+    "Concepto": "Guardrails",
+    "Ejercicio": "Observa métrica principal y límites operativos y cita una marca visible. ¿Qué exige transferir guardrails a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Experimentación",
+    "Concepto": "Múltiples pruebas",
+    "Ejercicio": "Observa familia de pruebas y criterio ajustado y cita una marca visible. ¿Qué conclusión guiada sobre múltiples pruebas conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Experimentación",
+    "Concepto": "Múltiples pruebas",
+    "Ejercicio": "Observa familia de pruebas y criterio ajustado y cita una marca visible. ¿Qué exige transferir múltiples pruebas a otra decisión?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Experimentación",
+    "Concepto": "Efecto práctico",
+    "Ejercicio": "Observa efecto frente a mínimo útil y cita una marca visible. ¿Qué conclusión guiada sobre efecto práctico conserva el alcance?"
+  },
+  {
+    "Nivel": 9,
+    "Tema": "Experimentación",
+    "Concepto": "Efecto práctico",
+    "Ejercicio": "Observa efecto frente a mínimo útil y cita una marca visible. ¿Qué exige transferir efecto práctico a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Ética y sesgo",
+    "Concepto": "Representación",
+    "Ejercicio": "Observa cobertura y ausencias por grupo y cita una marca visible. ¿Qué conclusión guiada sobre representación conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Ética y sesgo",
+    "Concepto": "Representación",
+    "Ejercicio": "Observa cobertura y ausencias por grupo y cita una marca visible. ¿Qué exige transferir representación a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Ética y sesgo",
+    "Concepto": "Fairness",
+    "Ejercicio": "Observa tasas con denominadores comparables y cita una marca visible. ¿Qué conclusión guiada sobre fairness conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Ética y sesgo",
+    "Concepto": "Fairness",
+    "Ejercicio": "Observa tasas con denominadores comparables y cita una marca visible. ¿Qué exige transferir fairness a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Ética y sesgo",
+    "Concepto": "Daño",
+    "Ejercicio": "Observa ruta desde decisión hasta consecuencia y cita una marca visible. ¿Qué conclusión guiada sobre daño conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Ética y sesgo",
+    "Concepto": "Daño",
+    "Ejercicio": "Observa ruta desde decisión hasta consecuencia y cita una marca visible. ¿Qué exige transferir daño a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Ética y sesgo",
+    "Concepto": "Privacidad",
+    "Ejercicio": "Observa campos, propósito, acceso y retención y cita una marca visible. ¿Qué conclusión guiada sobre privacidad conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Ética y sesgo",
+    "Concepto": "Privacidad",
+    "Ejercicio": "Observa campos, propósito, acceso y retención y cita una marca visible. ¿Qué exige transferir privacidad a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Comunicación",
+    "Concepto": "Audiencia",
+    "Ejercicio": "Observa capas de detalle por audiencia y cita una marca visible. ¿Qué conclusión guiada sobre audiencia conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Comunicación",
+    "Concepto": "Audiencia",
+    "Ejercicio": "Observa capas de detalle por audiencia y cita una marca visible. ¿Qué exige transferir audiencia a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Comunicación",
+    "Concepto": "Comunicación de incertidumbre",
+    "Ejercicio": "Observa estimación, intervalo y supuestos y cita una marca visible. ¿Qué conclusión guiada sobre comunicación de incertidumbre conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Comunicación",
+    "Concepto": "Comunicación de incertidumbre",
+    "Ejercicio": "Observa estimación, intervalo y supuestos y cita una marca visible. ¿Qué exige transferir comunicación de incertidumbre a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Comunicación",
+    "Concepto": "Anotación",
+    "Ejercicio": "Observa marca, fuente y límite y cita una marca visible. ¿Qué conclusión guiada sobre anotación conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Comunicación",
+    "Concepto": "Anotación",
+    "Ejercicio": "Observa marca, fuente y límite y cita una marca visible. ¿Qué exige transferir anotación a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Comunicación",
+    "Concepto": "Narrativa de datos",
+    "Ejercicio": "Observa evidencia, interpretación y decisión y cita una marca visible. ¿Qué conclusión guiada sobre narrativa de datos conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Comunicación",
+    "Concepto": "Narrativa de datos",
+    "Ejercicio": "Observa evidencia, interpretación y decisión y cita una marca visible. ¿Qué exige transferir narrativa de datos a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Reproducibilidad",
+    "Concepto": "Semillas",
+    "Ejercicio": "Observa ejecuciones repetidas con semilla y cita una marca visible. ¿Qué conclusión guiada sobre semillas conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Reproducibilidad",
+    "Concepto": "Semillas",
+    "Ejercicio": "Observa ejecuciones repetidas con semilla y cita una marca visible. ¿Qué exige transferir semillas a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Reproducibilidad",
+    "Concepto": "Versiones",
+    "Ejercicio": "Observa linaje de datos, código y salida y cita una marca visible. ¿Qué conclusión guiada sobre versiones conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Reproducibilidad",
+    "Concepto": "Versiones",
+    "Ejercicio": "Observa linaje de datos, código y salida y cita una marca visible. ¿Qué exige transferir versiones a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Reproducibilidad",
+    "Concepto": "Diccionario de datos",
+    "Ejercicio": "Observa unidad, campo, tipo, origen y límite y cita una marca visible. ¿Qué conclusión guiada sobre diccionario de datos conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Reproducibilidad",
+    "Concepto": "Diccionario de datos",
+    "Ejercicio": "Observa unidad, campo, tipo, origen y límite y cita una marca visible. ¿Qué exige transferir diccionario de datos a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Reproducibilidad",
+    "Concepto": "Notebook limpio",
+    "Ejercicio": "Observa carga, validación, análisis y salida y cita una marca visible. ¿Qué conclusión guiada sobre notebook limpio conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Reproducibilidad",
+    "Concepto": "Notebook limpio",
+    "Ejercicio": "Observa carga, validación, análisis y salida y cita una marca visible. ¿Qué exige transferir notebook limpio a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Pregunta del proyecto",
+    "Ejercicio": "Observa población, resultado y decisión y cita una marca visible. ¿Qué conclusión guiada sobre pregunta del proyecto conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Pregunta del proyecto",
+    "Ejercicio": "Observa población, resultado y decisión y cita una marca visible. ¿Qué exige transferir pregunta del proyecto a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Datos del proyecto",
+    "Ejercicio": "Observa cobertura, calidad, permiso y procedencia y cita una marca visible. ¿Qué conclusión guiada sobre datos del proyecto conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Datos del proyecto",
+    "Ejercicio": "Observa cobertura, calidad, permiso y procedencia y cita una marca visible. ¿Qué exige transferir datos del proyecto a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Análisis del proyecto",
+    "Ejercicio": "Observa transformaciones y visuales trazables y cita una marca visible. ¿Qué conclusión guiada sobre análisis del proyecto conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Análisis del proyecto",
+    "Ejercicio": "Observa transformaciones y visuales trazables y cita una marca visible. ¿Qué exige transferir análisis del proyecto a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Evaluación del proyecto",
+    "Ejercicio": "Observa criterios, fallos y límites y cita una marca visible. ¿Qué conclusión guiada sobre evaluación del proyecto conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Evaluación del proyecto",
+    "Ejercicio": "Observa criterios, fallos y límites y cita una marca visible. ¿Qué exige transferir evaluación del proyecto a otra decisión?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Comunicación del proyecto",
+    "Ejercicio": "Observa acción, evidencia, incertidumbre y revisión y cita una marca visible. ¿Qué conclusión guiada sobre comunicación del proyecto conserva el alcance?"
+  },
+  {
+    "Nivel": 10,
+    "Tema": "Mini-proyecto",
+    "Concepto": "Comunicación del proyecto",
+    "Ejercicio": "Observa acción, evidencia, incertidumbre y revisión y cita una marca visible. ¿Qué exige transferir comunicación del proyecto a otra decisión?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Del notebook al proyecto",
+    "Concepto": "Notebook frente a producción",
+    "Ejercicio": "Observa dependencias ocultas, ejecución limpia, contrato y resultados de tests y cita una marca visible. ¿Qué decisión sobre notebook frente a producción está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Del notebook al proyecto",
+    "Concepto": "Notebook frente a producción",
+    "Ejercicio": "Observa dependencias ocultas, ejecución limpia, contrato y resultados de tests y cita una marca visible. ¿Qué debe volver a comprobarse al transferir notebook frente a producción a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Del notebook al proyecto",
+    "Concepto": "Ejecución reproducible",
+    "Ejercicio": "Observa entrada, entorno, comando y salida repetida y cita una marca visible. ¿Qué decisión sobre ejecución reproducible está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Del notebook al proyecto",
+    "Concepto": "Ejecución reproducible",
+    "Ejercicio": "Observa entrada, entorno, comando y salida repetida y cita una marca visible. ¿Qué debe volver a comprobarse al transferir ejecución reproducible a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Del notebook al proyecto",
+    "Concepto": "Estructura y responsabilidades",
+    "Ejercicio": "Observa componentes y fronteras de responsabilidad y cita una marca visible. ¿Qué decisión sobre estructura y responsabilidades está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Del notebook al proyecto",
+    "Concepto": "Estructura y responsabilidades",
+    "Ejercicio": "Observa componentes y fronteras de responsabilidad y cita una marca visible. ¿Qué debe volver a comprobarse al transferir estructura y responsabilidades a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Código modular y contratos",
+    "Concepto": "Funciones y módulos",
+    "Ejercicio": "Observa input, función, output y efectos y cita una marca visible. ¿Qué decisión sobre funciones y módulos está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Código modular y contratos",
+    "Concepto": "Funciones y módulos",
+    "Ejercicio": "Observa input, función, output y efectos y cita una marca visible. ¿Qué debe volver a comprobarse al transferir funciones y módulos a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Código modular y contratos",
+    "Concepto": "Contrato de entrada y salida",
+    "Ejercicio": "Observa casos válidos e inválidos frente al schema y cita una marca visible. ¿Qué decisión sobre contrato de entrada y salida está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Código modular y contratos",
+    "Concepto": "Contrato de entrada y salida",
+    "Ejercicio": "Observa casos válidos e inválidos frente al schema y cita una marca visible. ¿Qué debe volver a comprobarse al transferir contrato de entrada y salida a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Código modular y contratos",
+    "Concepto": "Configuración y secretos",
+    "Ejercicio": "Observa configuración, entorno y secreto redactado y cita una marca visible. ¿Qué decisión sobre configuración y secretos está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Código modular y contratos",
+    "Concepto": "Configuración y secretos",
+    "Ejercicio": "Observa configuración, entorno y secreto redactado y cita una marca visible. ¿Qué debe volver a comprobarse al transferir configuración y secretos a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Testing para datos y ML",
+    "Concepto": "Unit e integration tests",
+    "Ejercicio": "Observa unidades y fronteras cubiertas y cita una marca visible. ¿Qué decisión sobre unit e integration tests está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Testing para datos y ML",
+    "Concepto": "Unit e integration tests",
+    "Ejercicio": "Observa unidades y fronteras cubiertas y cita una marca visible. ¿Qué debe volver a comprobarse al transferir unit e integration tests a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Testing para datos y ML",
+    "Concepto": "Regression, golden y failure cases",
+    "Ejercicio": "Observa casos esperados, actuales y fallidos y cita una marca visible. ¿Qué decisión sobre regression, golden y failure cases está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Testing para datos y ML",
+    "Concepto": "Regression, golden y failure cases",
+    "Ejercicio": "Observa casos esperados, actuales y fallidos y cita una marca visible. ¿Qué debe volver a comprobarse al transferir regression, golden y failure cases a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Testing para datos y ML",
+    "Concepto": "Fixtures y tests de schema",
+    "Ejercicio": "Observa campos, nulos y bordes cubiertos y cita una marca visible. ¿Qué decisión sobre fixtures y tests de schema está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Testing para datos y ML",
+    "Concepto": "Fixtures y tests de schema",
+    "Ejercicio": "Observa campos, nulos y bordes cubiertos y cita una marca visible. ¿Qué debe volver a comprobarse al transferir fixtures y tests de schema a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "APIs y contratos de servicio",
+    "Concepto": "Request y response",
+    "Ejercicio": "Observa request, validación, proceso y response y cita una marca visible. ¿Qué decisión sobre request y response está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "APIs y contratos de servicio",
+    "Concepto": "Request y response",
+    "Ejercicio": "Observa request, validación, proceso y response y cita una marca visible. ¿Qué debe volver a comprobarse al transferir request y response a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "APIs y contratos de servicio",
+    "Concepto": "Errores y versionado",
+    "Ejercicio": "Observa rutas por status y versión y cita una marca visible. ¿Qué decisión sobre errores y versionado está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "APIs y contratos de servicio",
+    "Concepto": "Errores y versionado",
+    "Ejercicio": "Observa rutas por status y versión y cita una marca visible. ¿Qué debe volver a comprobarse al transferir errores y versionado a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "APIs y contratos de servicio",
+    "Concepto": "FastAPI y health check",
+    "Ejercicio": "Observa proceso, dependencias y resultado health y cita una marca visible. ¿Qué decisión sobre fastapi y health check está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "APIs y contratos de servicio",
+    "Concepto": "FastAPI y health check",
+    "Ejercicio": "Observa proceso, dependencias y resultado health y cita una marca visible. ¿Qué debe volver a comprobarse al transferir fastapi y health check a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Empaquetado y entornos",
+    "Concepto": "Dependencias y lockfile",
+    "Ejercicio": "Observa dependencias, versiones y lock y cita una marca visible. ¿Qué decisión sobre dependencias y lockfile está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Empaquetado y entornos",
+    "Concepto": "Dependencias y lockfile",
+    "Ejercicio": "Observa dependencias, versiones y lock y cita una marca visible. ¿Qué debe volver a comprobarse al transferir dependencias y lockfile a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Empaquetado y entornos",
+    "Concepto": "Imagen y contenedor",
+    "Ejercicio": "Observa Dockerfile, imagen y contenedor y cita una marca visible. ¿Qué decisión sobre imagen y contenedor está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Empaquetado y entornos",
+    "Concepto": "Imagen y contenedor",
+    "Ejercicio": "Observa Dockerfile, imagen y contenedor y cita una marca visible. ¿Qué debe volver a comprobarse al transferir imagen y contenedor a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Empaquetado y entornos",
+    "Concepto": "Runtime y artefacto",
+    "Ejercicio": "Observa capas de build, artifact, config y runtime y cita una marca visible. ¿Qué decisión sobre runtime y artefacto está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Empaquetado y entornos",
+    "Concepto": "Runtime y artefacto",
+    "Ejercicio": "Observa capas de build, artifact, config y runtime y cita una marca visible. ¿Qué debe volver a comprobarse al transferir runtime y artefacto a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Integración y entrega continua",
+    "Concepto": "Pipeline CI",
+    "Ejercicio": "Observa commit, jobs, checks y evidencia y cita una marca visible. ¿Qué decisión sobre pipeline ci está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Integración y entrega continua",
+    "Concepto": "Pipeline CI",
+    "Ejercicio": "Observa commit, jobs, checks y evidencia y cita una marca visible. ¿Qué debe volver a comprobarse al transferir pipeline ci a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Integración y entrega continua",
+    "Concepto": "Test/build gate y secrets",
+    "Ejercicio": "Observa diff, criterio, test y artifact bloqueado y cita una marca visible. ¿Qué decisión sobre test/build gate y secrets está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Integración y entrega continua",
+    "Concepto": "Test/build gate y secrets",
+    "Ejercicio": "Observa diff, criterio, test y artifact bloqueado y cita una marca visible. ¿Qué debe volver a comprobarse al transferir test/build gate y secrets a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Integración y entrega continua",
+    "Concepto": "CI frente a CD",
+    "Ejercicio": "Observa artifact verificado y autorización de entrega y cita una marca visible. ¿Qué decisión sobre ci frente a cd está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Integración y entrega continua",
+    "Concepto": "CI frente a CD",
+    "Ejercicio": "Observa artifact verificado y autorización de entrega y cita una marca visible. ¿Qué debe volver a comprobarse al transferir ci frente a cd a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Despliegue y operabilidad mínima",
+    "Concepto": "Servicio y configuración por entorno",
+    "Ejercicio": "Observa mismo artifact entre entornos y cita una marca visible. ¿Qué decisión sobre servicio y configuración por entorno está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Despliegue y operabilidad mínima",
+    "Concepto": "Servicio y configuración por entorno",
+    "Ejercicio": "Observa mismo artifact entre entornos y cita una marca visible. ¿Qué debe volver a comprobarse al transferir servicio y configuración por entorno a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Despliegue y operabilidad mínima",
+    "Concepto": "Logs y fallos de arranque",
+    "Ejercicio": "Observa eventos de arranque y fallo visible y cita una marca visible. ¿Qué decisión sobre logs y fallos de arranque está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Despliegue y operabilidad mínima",
+    "Concepto": "Logs y fallos de arranque",
+    "Ejercicio": "Observa eventos de arranque y fallo visible y cita una marca visible. ¿Qué debe volver a comprobarse al transferir logs y fallos de arranque a otro caso?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Despliegue y operabilidad mínima",
+    "Concepto": "Handoff versionado",
+    "Ejercicio": "Observa contrato, artifact, health, logs y versión segura y cita una marca visible. ¿Qué decisión sobre handoff versionado está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 11,
+    "Tema": "Despliegue y operabilidad mínima",
+    "Concepto": "Handoff versionado",
+    "Ejercicio": "Observa contrato, artifact, health, logs y versión segura y cita una marca visible. ¿Qué debe volver a comprobarse al transferir handoff versionado a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Del modelo al sistema",
+    "Concepto": "Modelo e inferencia",
+    "Ejercicio": "Observa modelo, contexto, aplicación, entorno y harness y cita una marca visible. ¿Qué decisión sobre modelo e inferencia está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Del modelo al sistema",
+    "Concepto": "Modelo e inferencia",
+    "Ejercicio": "Observa modelo, contexto, aplicación, entorno y harness y cita una marca visible. ¿Qué debe volver a comprobarse al transferir modelo e inferencia a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Del modelo al sistema",
+    "Concepto": "Ventana y presupuesto de contexto",
+    "Ejercicio": "Observa tokens disponibles, selección, descarte y compaction y cita una marca visible. ¿Qué decisión sobre ventana y presupuesto de contexto está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Del modelo al sistema",
+    "Concepto": "Ventana y presupuesto de contexto",
+    "Ejercicio": "Observa tokens disponibles, selección, descarte y compaction y cita una marca visible. ¿Qué debe volver a comprobarse al transferir ventana y presupuesto de contexto a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Del modelo al sistema",
+    "Concepto": "App, workflow, agente y sistema",
+    "Ejercicio": "Observa modelo, aplicación, workflow, agente y sistema y cita una marca visible. ¿Qué decisión sobre app, workflow, agente y sistema está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Del modelo al sistema",
+    "Concepto": "App, workflow, agente y sistema",
+    "Ejercicio": "Observa modelo, aplicación, workflow, agente y sistema y cita una marca visible. ¿Qué debe volver a comprobarse al transferir app, workflow, agente y sistema a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Del modelo al sistema",
+    "Concepto": "Agente frente a workflow",
+    "Ejercicio": "Observa pasos fijos, decisión dinámica, observación y acción y cita una marca visible. ¿Qué decisión sobre agente frente a workflow está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Del modelo al sistema",
+    "Concepto": "Agente frente a workflow",
+    "Ejercicio": "Observa pasos fijos, decisión dinámica, observación y acción y cita una marca visible. ¿Qué debe volver a comprobarse al transferir agente frente a workflow a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Contexto y conocimiento",
+    "Concepto": "Context assembly y compaction",
+    "Ejercicio": "Observa contexto disponible, selección, ensamblaje y recuperación y cita una marca visible. ¿Qué decisión sobre context assembly y compaction está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Contexto y conocimiento",
+    "Concepto": "Context assembly y compaction",
+    "Ejercicio": "Observa contexto disponible, selección, ensamblaje y recuperación y cita una marca visible. ¿Qué debe volver a comprobarse al transferir context assembly y compaction a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Contexto y conocimiento",
+    "Concepto": "Output estructurado y schema",
+    "Ejercicio": "Observa schema, salida, validación y reparación y cita una marca visible. ¿Qué decisión sobre output estructurado y schema está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Contexto y conocimiento",
+    "Concepto": "Output estructurado y schema",
+    "Ejercicio": "Observa schema, salida, validación y reparación y cita una marca visible. ¿Qué debe volver a comprobarse al transferir output estructurado y schema a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Contexto y conocimiento",
+    "Concepto": "Corpus, chunks y metadata",
+    "Ejercicio": "Observa corpus, chunk, metadata y procedencia y cita una marca visible. ¿Qué decisión sobre corpus, chunks y metadata está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Contexto y conocimiento",
+    "Concepto": "Corpus, chunks y metadata",
+    "Ejercicio": "Observa corpus, chunk, metadata y procedencia y cita una marca visible. ¿Qué debe volver a comprobarse al transferir corpus, chunks y metadata a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Contexto y conocimiento",
+    "Concepto": "Retrieval, reranking y abstención",
+    "Ejercicio": "Observa consulta, ranking, evidencia, cita y abstención y cita una marca visible. ¿Qué decisión sobre retrieval, reranking y abstención está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Contexto y conocimiento",
+    "Concepto": "Retrieval, reranking y abstención",
+    "Ejercicio": "Observa consulta, ranking, evidencia, cita y abstención y cita una marca visible. ¿Qué debe volver a comprobarse al transferir retrieval, reranking y abstención a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Tools, skills y disclosure",
+    "Concepto": "Contrato de tool",
+    "Ejercicio": "Observa nombre, input schema, output schema y permiso y cita una marca visible. ¿Qué decisión sobre contrato de tool está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Tools, skills y disclosure",
+    "Concepto": "Contrato de tool",
+    "Ejercicio": "Observa nombre, input schema, output schema y permiso y cita una marca visible. ¿Qué debe volver a comprobarse al transferir contrato de tool a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Tools, skills y disclosure",
+    "Concepto": "Ejecución, error y retry de tool",
+    "Ejercicio": "Observa argumentos, ejecución, resultado, error y retry y cita una marca visible. ¿Qué decisión sobre ejecución, error y retry de tool está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Tools, skills y disclosure",
+    "Concepto": "Ejecución, error y retry de tool",
+    "Ejercicio": "Observa argumentos, ejecución, resultado, error y retry y cita una marca visible. ¿Qué debe volver a comprobarse al transferir ejecución, error y retry de tool a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Tools, skills y disclosure",
+    "Concepto": "Skill como procedimiento reutilizable",
+    "Ejercicio": "Observa instrucciones, scripts, referencias, validaciones y cierre y cita una marca visible. ¿Qué decisión sobre skill como procedimiento reutilizable está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Tools, skills y disclosure",
+    "Concepto": "Skill como procedimiento reutilizable",
+    "Ejercicio": "Observa instrucciones, scripts, referencias, validaciones y cierre y cita una marca visible. ¿Qué debe volver a comprobarse al transferir skill como procedimiento reutilizable a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Tools, skills y disclosure",
+    "Concepto": "Progressive disclosure",
+    "Ejercicio": "Observa descubrir, activar y ejecutar recursos y cita una marca visible. ¿Qué decisión sobre progressive disclosure está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Tools, skills y disclosure",
+    "Concepto": "Progressive disclosure",
+    "Ejercicio": "Observa descubrir, activar y ejecutar recursos y cita una marca visible. ¿Qué debe volver a comprobarse al transferir progressive disclosure a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Loops, estado y parada",
+    "Concepto": "Agent loop",
+    "Ejercicio": "Observa objetivo, observar, decidir, actuar y terminar y cita una marca visible. ¿Qué decisión sobre agent loop está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Loops, estado y parada",
+    "Concepto": "Agent loop",
+    "Ejercicio": "Observa objetivo, observar, decidir, actuar y terminar y cita una marca visible. ¿Qué debe volver a comprobarse al transferir agent loop a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Loops, estado y parada",
+    "Concepto": "Familia de loops",
+    "Ejercicio": "Observa execution, tool-use, retrieval, verification, approval y recovery y cita una marca visible. ¿Qué decisión sobre familia de loops está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Loops, estado y parada",
+    "Concepto": "Familia de loops",
+    "Ejercicio": "Observa execution, tool-use, retrieval, verification, approval y recovery y cita una marca visible. ¿Qué debe volver a comprobarse al transferir familia de loops a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Loops, estado y parada",
+    "Concepto": "Contexto, historial, estado y memoria",
+    "Ejercicio": "Observa contexto, historial, estado y memoria persistente y cita una marca visible. ¿Qué decisión sobre contexto, historial, estado y memoria está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Loops, estado y parada",
+    "Concepto": "Contexto, historial, estado y memoria",
+    "Ejercicio": "Observa contexto, historial, estado y memoria persistente y cita una marca visible. ¿Qué debe volver a comprobarse al transferir contexto, historial, estado y memoria a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Loops, estado y parada",
+    "Concepto": "Criterios de parada y budgets",
+    "Ejercicio": "Observa máximo de turnos, costo, tiempo, tools y retries y cita una marca visible. ¿Qué decisión sobre criterios de parada y budgets está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Loops, estado y parada",
+    "Concepto": "Criterios de parada y budgets",
+    "Ejercicio": "Observa máximo de turnos, costo, tiempo, tools y retries y cita una marca visible. ¿Qué debe volver a comprobarse al transferir criterios de parada y budgets a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Harness y entorno",
+    "Concepto": "Harness engineering",
+    "Ejercicio": "Observa instrucciones, contexto, tools, skills, loops y verificación y cita una marca visible. ¿Qué decisión sobre harness engineering está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Harness y entorno",
+    "Concepto": "Harness engineering",
+    "Ejercicio": "Observa instrucciones, contexto, tools, skills, loops y verificación y cita una marca visible. ¿Qué debe volver a comprobarse al transferir harness engineering a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Harness y entorno",
+    "Concepto": "Environment engineering",
+    "Ejercicio": "Observa filesystem, terminal, Python, SQL, browser, git y APIs y cita una marca visible. ¿Qué decisión sobre environment engineering está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Harness y entorno",
+    "Concepto": "Environment engineering",
+    "Ejercicio": "Observa filesystem, terminal, Python, SQL, browser, git y APIs y cita una marca visible. ¿Qué debe volver a comprobarse al transferir environment engineering a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Harness y entorno",
+    "Concepto": "Hooks, checkpoints y resumibilidad",
+    "Ejercicio": "Observa pre-hook, tool, post-hook, checkpoint y recuperación y cita una marca visible. ¿Qué decisión sobre hooks, checkpoints y resumibilidad está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Harness y entorno",
+    "Concepto": "Hooks, checkpoints y resumibilidad",
+    "Ejercicio": "Observa pre-hook, tool, post-hook, checkpoint y recuperación y cita una marca visible. ¿Qué debe volver a comprobarse al transferir hooks, checkpoints y resumibilidad a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Harness y entorno",
+    "Concepto": "Reconstrucción de trayectoria",
+    "Ejercicio": "Observa eventos, tool calls, outputs, checks y decisiones y cita una marca visible. ¿Qué decisión sobre reconstrucción de trayectoria está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Harness y entorno",
+    "Concepto": "Reconstrucción de trayectoria",
+    "Ejercicio": "Observa eventos, tool calls, outputs, checks y decisiones y cita una marca visible. ¿Qué debe volver a comprobarse al transferir reconstrucción de trayectoria a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Interoperabilidad y delegación",
+    "Concepto": "MCP e interoperabilidad",
+    "Ejercicio": "Observa cliente, servidor, tools, resources, schemas y permisos y cita una marca visible. ¿Qué decisión sobre mcp e interoperabilidad está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Interoperabilidad y delegación",
+    "Concepto": "MCP e interoperabilidad",
+    "Ejercicio": "Observa cliente, servidor, tools, resources, schemas y permisos y cita una marca visible. ¿Qué debe volver a comprobarse al transferir mcp e interoperabilidad a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Interoperabilidad y delegación",
+    "Concepto": "Delegación y handoffs",
+    "Ejercicio": "Observa supervisor, especialista, contexto transferido y responsabilidad y cita una marca visible. ¿Qué decisión sobre delegación y handoffs está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Interoperabilidad y delegación",
+    "Concepto": "Delegación y handoffs",
+    "Ejercicio": "Observa supervisor, especialista, contexto transferido y responsabilidad y cita una marca visible. ¿Qué debe volver a comprobarse al transferir delegación y handoffs a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Interoperabilidad y delegación",
+    "Concepto": "Límites multiagente",
+    "Ejercicio": "Observa costo, duplicación, pérdida de contexto y control y cita una marca visible. ¿Qué decisión sobre límites multiagente está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Interoperabilidad y delegación",
+    "Concepto": "Límites multiagente",
+    "Ejercicio": "Observa costo, duplicación, pérdida de contexto y control y cita una marca visible. ¿Qué debe volver a comprobarse al transferir límites multiagente a otro caso?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Interoperabilidad y delegación",
+    "Concepto": "Blueprint de sistema de IA trazable",
+    "Ejercicio": "Observa usuario, objetivo, harness, loop, verificación y traza y cita una marca visible. ¿Qué decisión sobre blueprint de sistema de ia trazable está respaldada por las tres etapas?"
+  },
+  {
+    "Nivel": 12,
+    "Tema": "Interoperabilidad y delegación",
+    "Concepto": "Blueprint de sistema de IA trazable",
+    "Ejercicio": "Observa usuario, objetivo, harness, loop, verificación y traza y cita una marca visible. ¿Qué debe volver a comprobarse al transferir blueprint de sistema de ia trazable a otro caso?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Readiness operativo",
+    "Concepto": "Readiness operativo",
+    "Ejercicio": "Observa gate aprobado o procedimiento apagado y cita una marca visible. ¿Qué conclusión guiada sobre readiness operativo conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Readiness operativo",
+    "Concepto": "Readiness operativo",
+    "Ejercicio": "Observa gate aprobado o procedimiento apagado y cita una marca visible. ¿Qué exige transferir readiness operativo a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Readiness operativo",
+    "Concepto": "Baseline",
+    "Ejercicio": "Observa referencia simple frente a propuesta y cita una marca visible. ¿Qué conclusión guiada sobre baseline conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Readiness operativo",
+    "Concepto": "Baseline",
+    "Ejercicio": "Observa referencia simple frente a propuesta y cita una marca visible. ¿Qué exige transferir baseline a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Readiness operativo",
+    "Concepto": "Rollback",
+    "Ejercicio": "Observa señal, estado seguro y verificación y cita una marca visible. ¿Qué conclusión guiada sobre rollback conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Readiness operativo",
+    "Concepto": "Rollback",
+    "Ejercicio": "Observa señal, estado seguro y verificación y cita una marca visible. ¿Qué exige transferir rollback a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Readiness operativo",
+    "Concepto": "Aprobación humana",
+    "Ejercicio": "Observa evidencia, autoridad y poder de detener y cita una marca visible. ¿Qué conclusión guiada sobre aprobación humana conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Readiness operativo",
+    "Concepto": "Aprobación humana",
+    "Ejercicio": "Observa evidencia, autoridad y poder de detener y cita una marca visible. ¿Qué exige transferir aprobación humana a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Monitoreo",
+    "Concepto": "Data drift",
+    "Ejercicio": "Observa distribuciones de referencia y periodo actual y cita una marca visible. ¿Qué conclusión guiada sobre data drift conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Monitoreo",
+    "Concepto": "Data drift",
+    "Ejercicio": "Observa distribuciones de referencia y periodo actual y cita una marca visible. ¿Qué exige transferir data drift a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Monitoreo",
+    "Concepto": "Performance drift",
+    "Ejercicio": "Observa error observado a través del tiempo y cita una marca visible. ¿Qué conclusión guiada sobre performance drift conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Monitoreo",
+    "Concepto": "Performance drift",
+    "Ejercicio": "Observa error observado a través del tiempo y cita una marca visible. ¿Qué exige transferir performance drift a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Monitoreo",
+    "Concepto": "Calibration drift",
+    "Ejercicio": "Observa score frente a frecuencia por periodo y cita una marca visible. ¿Qué conclusión guiada sobre calibration drift conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Monitoreo",
+    "Concepto": "Calibration drift",
+    "Ejercicio": "Observa score frente a frecuencia por periodo y cita una marca visible. ¿Qué exige transferir calibration drift a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Monitoreo",
+    "Concepto": "Umbral de alerta",
+    "Ejercicio": "Observa banda, persistencia y escalamiento y cita una marca visible. ¿Qué conclusión guiada sobre umbral de alerta conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Monitoreo",
+    "Concepto": "Umbral de alerta",
+    "Ejercicio": "Observa banda, persistencia y escalamiento y cita una marca visible. ¿Qué exige transferir umbral de alerta a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Respuesta a incidentes",
+    "Concepto": "Triage",
+    "Ejercicio": "Observa severidad, alcance y reversibilidad y cita una marca visible. ¿Qué conclusión guiada sobre triage conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Respuesta a incidentes",
+    "Concepto": "Triage",
+    "Ejercicio": "Observa severidad, alcance y reversibilidad y cita una marca visible. ¿Qué exige transferir triage a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Respuesta a incidentes",
+    "Concepto": "Impacto",
+    "Ejercicio": "Observa afectados, consecuencia, magnitud y duración y cita una marca visible. ¿Qué conclusión guiada sobre impacto conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Respuesta a incidentes",
+    "Concepto": "Impacto",
+    "Ejercicio": "Observa afectados, consecuencia, magnitud y duración y cita una marca visible. ¿Qué exige transferir impacto a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Respuesta a incidentes",
+    "Concepto": "Rollback operativo",
+    "Ejercicio": "Observa pasos, responsables y comprobación y cita una marca visible. ¿Qué conclusión guiada sobre rollback operativo conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Respuesta a incidentes",
+    "Concepto": "Rollback operativo",
+    "Ejercicio": "Observa pasos, responsables y comprobación y cita una marca visible. ¿Qué exige transferir rollback operativo a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Respuesta a incidentes",
+    "Concepto": "Postmortem",
+    "Ejercicio": "Observa hechos, controles y acciones sistémicas y cita una marca visible. ¿Qué conclusión guiada sobre postmortem conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Respuesta a incidentes",
+    "Concepto": "Postmortem",
+    "Ejercicio": "Observa hechos, controles y acciones sistémicas y cita una marca visible. ¿Qué exige transferir postmortem a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Entrega responsable",
+    "Concepto": "Model card",
+    "Ejercicio": "Observa propósito, datos, métricas y límites y cita una marca visible. ¿Qué conclusión guiada sobre model card conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Entrega responsable",
+    "Concepto": "Model card",
+    "Ejercicio": "Observa propósito, datos, métricas y límites y cita una marca visible. ¿Qué exige transferir model card a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Entrega responsable",
+    "Concepto": "Runbook",
+    "Ejercicio": "Observa señal, acción, detención y escalamiento y cita una marca visible. ¿Qué conclusión guiada sobre runbook conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Entrega responsable",
+    "Concepto": "Runbook",
+    "Ejercicio": "Observa señal, acción, detención y escalamiento y cita una marca visible. ¿Qué exige transferir runbook a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Entrega responsable",
+    "Concepto": "Audit log",
+    "Ejercicio": "Observa evento, momento, actor, versión y motivo y cita una marca visible. ¿Qué conclusión guiada sobre audit log conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Entrega responsable",
+    "Concepto": "Audit log",
+    "Ejercicio": "Observa evento, momento, actor, versión y motivo y cita una marca visible. ¿Qué exige transferir audit log a otra decisión?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Entrega responsable",
+    "Concepto": "Retiro",
+    "Ejercicio": "Observa desactivar, archivar, comunicar y verificar y cita una marca visible. ¿Qué conclusión guiada sobre retiro conserva el alcance?"
+  },
+  {
+    "Nivel": 13,
+    "Tema": "Entrega responsable",
+    "Concepto": "Retiro",
+    "Ejercicio": "Observa desactivar, archivar, comunicar y verificar y cita una marca visible. ¿Qué exige transferir retiro a otra decisión?"
+  }
+]

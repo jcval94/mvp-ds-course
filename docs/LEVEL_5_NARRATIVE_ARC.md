@@ -30,6 +30,10 @@
 - **`continuityDelta`:** Don Juan deja de aceptar “salieron más filas” como evidencia de crecimiento; Paco incorpora reconciliación antes/después y revisión de SQL asistido.
 - **`dataStateDelta`:** `L4.4 → fuentes_relacionadas@L5.1 → consultas_auditadas@L5.2 → joins_auditados@L5.3 → sql_temporal@L5.4 → abt_verificada@L5.5 → fuentes_versionadas@L5.6 → dataset_confiable@L5.H1`.
 - **`growthDelta`:** ninguno; `G3-espera` permanece sin cambios.
+- **`evaristoDelta`:** Evaristo aparece en el incidente de filas duplicadas. Su
+  silencio o el ventilador de su laptop puede sobreinterpretarse como
+  “Procesamiento”, pero Paco reconcilia conteos y el narrador nombra JOIN,
+  cardinalidad y explosión de filas.
 - **Secretos:** ninguno se revela ni se infiere.
 
 ## Aprobación narrativa
@@ -39,6 +43,8 @@
 - El narrador introduce toda terminología técnica en subtítulos.
 - Aprender usa el reporte inflado del 14 de noviembre; Ejercitar usa cierres y eventos del 7 y 8 de noviembre con conteos distintos.
 - La historia no altera fechas, plantilla, capacidad ni secretos aprobados.
+- La pregunta “¿cómo saben?” de Evaristo puede abrir una revisión, pero no es
+  evidencia, query ni respuesta técnica.
 
 ## Cierre
 

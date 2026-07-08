@@ -89,35 +89,47 @@ renumeraron; no se crearon paquetes para 5 ni 11.
    migraron de mayor a menor para evitar cascadas.
 4. Los paquetes existentes se regeneraron desde sus generadores determinísticos;
    metadata y SHA-256 se recalcularon desde los archivos migrados.
-5. Los Niveles 5 y 11 quedaron sin manifest, generador, ejercicios ni HTML.
+5. En la migración original, los Niveles 5 y 11 quedaron reservados; en el estado
+   vigente posterior ya fueron materializados y publicados.
 
 ## Handoffs estructurales
 
-- `dataset_confiable@L5.H1` reserva la salida que deberá materializar Nivel 5
-  antes de regenerar Nivel 6 bajo la ruta nueva.
-- `producto_operable@L11.H1` reserva la salida que deberá materializar Nivel 11
-  antes de regenerar Nivel 12 bajo la ruta nueva.
-- Estos IDs no representan datasets, servicios o contenido ya producido y no
-  aportan cifras de cobertura.
+- `dataset_confiable@L5.H1` fue la salida reservada para Nivel 5 y ahora está
+  materializada en la ruta publicada.
+- `producto_operable@L11.H1` fue la salida reservada para Nivel 11 y ahora está
+  materializada antes de Nivel 12.
+- `sistema_ia_trazable@L12.H1` es la salida vigente de Nivel 12; Nivel 13 recibe
+  ese sistema como diseño trazable y practica operación, monitoreo e incidentes.
 
-## Cobertura
+## Cobertura histórica de esta migración
 
-- **Niveles estructuralmente aprobados:** 12.
-- **Niveles con contenido completo y publicado:** 10 (1–4, 6–10 y 12).
-- **Niveles pendientes de producción:** 2 (5 y 11).
-- **Totales publicados conservados:** 172 conceptos, 326 ejercicios, 516 prompts
-  y 43 bloques.
+- **Estado al momento de la migración:** 12 niveles estructurales, con 5 y 11
+  reservados.
+- **Uso actual de este documento:** registro histórico de cómo se movieron
+  identificadores, no fuente vigente de cobertura.
+
+## Cobertura vigente posterior
+
+- **Niveles publicados:** 13 (1–13).
+- **Niveles pendientes de producción:** ninguno.
+- **Totales publicados:** 236 conceptos, 454 ejercicios, 708 prompts y 63 bloques.
+- **Secuencia final:** Nivel 11 produce `producto_operable@L11.H1`; Nivel 12
+  produce `sistema_ia_trazable@L12.H1`; Nivel 13 valida readiness, monitoreo,
+  incidentes, handoff y retiro.
 
 ## Referencias no modificadas automáticamente
 
-- No se asignaron fechas, escenas, diálogos, invitados, secretos, datasets ni
-  renderers definitivos a los Niveles 5 y 11.
+- Durante la migración original no se asignaron fechas, escenas, diálogos,
+  invitados, secretos, datasets ni renderers definitivos a los Niveles 5 y 11;
+  esos vacíos ya fueron resueltos en los documentos vigentes.
 - No se desplazaron las fechas históricas de los niveles existentes. La futura
   autoría debe decidir cómo encajar las dos historias sin cambiar la cronología
   en silencio.
 - No se modificaron píxeles dentro de capturas históricas ni contenido de demos
   de referencia; sus nombres o referencias se migraron cuando correspondía.
-- No se inventaron conceptos, ejercicios, prompts, bloques ni cifras para las reservas.
+- No se inventaron conceptos, ejercicios, prompts, bloques ni cifras para las
+  reservas durante la migración; las cifras actuales provienen de manifests,
+  inventario y generadores publicados.
 
 ## Validación
 
@@ -127,15 +139,15 @@ registran en `docs/VALIDATION_REPORT.md` al cerrar la migración.
 ## Próxima vertical slice recomendada
 
 - **Usuario:** docente o creador de cursos de ciencia de datos.
-- **Entrada:** reserva curricular de Nivel 5, Story Bible, ledger y `L4.4`.
-- **Flujo principal:** aprobar historia → aprobar una `VisualizationSpec` → crear
-  una ConceptSpec sobre granularidad y JOIN → Aprender/Ejercitar/En vivo → evals.
-- **Salida:** una sola lección profunda que materialice
-  `dataset_confiable@L5.H1` y permita revisar el prerrequisito de Nivel 6.
-- **Prueba manual:** detectar un JOIN que duplica noches, corregirlo y reconciliar
-  conteos citando claves, granularidad y procedencia.
-- **Definition of Done:** historia aprobada, renderer registrado, evidencia
-  necesaria, feedback específico, snapshot público real para En vivo, promedio
-  ≥4 y ninguna dimensión en 1.
-- **No objetivos:** desarrollar todo Nivel 5, iniciar Nivel 11, crear backend,
-  LMS, cuentas o modificar el lore existente.
+- **Entrada:** `producto_operable@L11.H1`, `sistema_ia_trazable@L12.H1`, ledger
+  vigente y Story Bible actualizada.
+- **Flujo principal:** revisar trazas de Nivel 12 → comprobar readiness de Nivel 13
+  → ejecutar incidente simulado → validar rollback, postmortem y retiro.
+- **Salida:** una lección profunda de operación responsable que demuestre cuándo
+  un sistema trazable puede continuar, revertirse o retirarse.
+- **Prueba manual:** ante una alerta persistente, decidir si observar, escalar,
+  hacer rollback o retirar citando evidencia y runbook.
+- **Definition of Done:** evidencia visible, criterios de parada, responsable
+  humano, feedback específico, promedio ≥4 y ninguna dimensión en 1.
+- **No objetivos:** crear chatbot, backend, API real, MCP real, LMS, cuentas,
+  automatizaciones productivas o una nueva expansión del negocio.

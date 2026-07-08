@@ -36,7 +36,7 @@ Historia aprobada antes del generador. Los modelos son ajustes descriptivos dent
 
 ## Crecimiento y relaciones
 
-Don Juan invierte parte de sus ahorros en un kiosco 4 × 3, segundo comal y doce asientos después de revisar capacidad y límites. Mari continúa pagada. Chava Ríos entra pagado para segundo comal, servicio y checklists; no interpreta modelos. Toma un taller de radio, dato oculto hasta Nivel 10 y ausente del CSV. Paco revela que solicitó una beca; Don Juan lo respalda como padre y no lo convierte en responsable permanente del puesto.
+Don Juan invierte parte de sus ahorros en un kiosco 4 × 3, segundo comal y doce asientos después de revisar capacidad y límites. Mari continúa pagada. Chava Ríos entra pagado para segundo comal, servicio y checklists; no interpreta modelos. Toma un taller de radio, dato oculto hasta Nivel 10 y ausente del CSV. Paco revela que solicitó una beca; Don Juan lo respalda como padre y no lo convierte en responsable permanente del puesto. Paco descubre en privado que Evaristo no es ingeniero ni experto; no lo expone, pero no permite que su reputación se use como firma técnica, autorización o responsable de decisiones.
 
 ## Separación y límites
 

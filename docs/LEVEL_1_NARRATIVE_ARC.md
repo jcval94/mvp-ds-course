@@ -11,17 +11,18 @@
   revisarse y prepararse antes de analizarlos.
 - **Estado del puesto:** 3 × 2 metros, 8 asientos, un trompo, un comal, venta
   directa y 25–40 pedidos habituales por noche.
-- **Estado familiar:** Paco cursa segundo de preparatoria y ayuda tres noches;
-  Lupita y Beto son familia, no plantilla del puesto.
+- **Estado familiar y escolar:** Paco cursa segundo de preparatoria y ayuda tres
+  noches; Lupita es su mamá, Beto es su amigo de la escuela, y ninguno forma
+  parte de la plantilla del puesto.
 
 ## Matriz incremental de dinámica de Nivel 1
 
 | Episodio | Don Juan y Paco | Familia | Escuela | Narrador | Crecimiento |
 | --- | --- | --- | --- | --- | --- |
-| `L1-E1` | El padre asigna una tarea concreta; el hijo conecta una tarea escolar | Lupita protege el horario; Beto prueba si la explicación es simple | La profesora Elena propone observar qué representa un registro | Introduce unidad, observación, población y muestra | Ninguno |
-| `L1-E2` | Don Juan pregunta para qué sirve cada columna; Paco intenta explicar contexto | Solo se menciona la rutina familiar | El profesor Iván pide describir una tabla antes de usar IA | Introduce tipo, esquema y límite de la herramienta | Ninguno |
-| `L1-E3` | Don Juan aporta tickets y contexto; Paco aprende a no corregir por intuición | Lupita recuerda que anotar más cosas también implica más responsabilidad | La profesora Elena aporta el hábito de buscar contraejemplos | Clasifica problemas de calidad y concluye técnicamente | Ninguno |
-| `L1-E4` | Paco documenta; Don Juan decide si el procedimiento sirve al puesto | La familia no absorbe trabajo nuevo | El profesor Iván pide entrada, pasos, salida y comprobaciones | Define skill y diferencia operación de decisión | Ninguno |
+| `L1-E1` | El padre asigna una tarea concreta; el hijo conecta una tarea escolar | Lupita protege el horario; Beto prueba si la explicación es simple sin ser culpable automático | Una consigna breve propone observar qué representa un registro | Introduce unidad, observación, población y muestra | Ninguno |
+| `L1-E2` | Don Juan pregunta para qué sirve cada columna; Paco intenta explicar contexto | Solo se menciona la rutina familiar | Una consigna breve pide describir una tabla antes de usar IA | Introduce tipo, esquema y límite de la herramienta | Ninguno |
+| `L1-E3` | Don Juan aporta tickets y contexto; Paco aprende a no corregir por intuición | Lupita recuerda que anotar más cosas también implica más responsabilidad | Una pregunta breve detona buscar contraejemplos | Clasifica problemas de calidad y concluye técnicamente | Ninguno |
+| `L1-E4` | Paco documenta; Don Juan decide si el procedimiento sirve al puesto | La familia no absorbe trabajo nuevo | Una consigna breve pide entrada, pasos, salida y comprobaciones | Define skill y diferencia operación de decisión | Ninguno |
 
 ## Episodios
 
@@ -35,8 +36,8 @@
 ## Episodio L1-E1: La libreta y el yogurt
 
 - **Estado previo:** Don Juan recuerda ventas por experiencia del negocio; Paco
-  cursa preparatoria, sabe usar una hoja de cálculo y recibió de la profesora
-  Elena una tarea de observación, pero no sabe definir unidad de análisis.
+  cursa preparatoria, sabe usar una hoja de cálculo y recibió una consigna breve
+  de observación, pero no sabe definir unidad de análisis.
 - **Necesidad:** registrar qué se pidió y cuándo sin observar atributos personales sensibles.
 - **Tensión:** una parte de la libreta se mancha con yogurt y solo sobreviven algunas páginas.
 - **Aprender:** cada fila se define como un pedido; las columnas describen ese
@@ -59,7 +60,7 @@
 
 - **Estado previo:** existe una tabla cruda; Don Juan reconoce que cada ticket
   corresponde a un pedido, sin usar terminología de datos.
-- **Necesidad:** cumplir una tarea del profesor Iván: explicar la tabla a una
+- **Necesidad:** cumplir una consigna breve de IA: explicar la tabla a una
   herramienta y a otra persona sin depender de la memoria de Paco.
 - **Tensión:** `Lunes` se había tratado como fecha y algunos valores numéricos podían ser identificadores.
 - **Aprender:** `fecha_hora` es temporal; `num_tacos` es numérica;
@@ -144,3 +145,5 @@
 - Los pedidos y personajes secundarios son ficticios.
 - La historia está diseñada para 30 a 45 minutos por bloque, no como una sola sesión.
 - Las tablas narrativas son sintéticas; En vivo debe usar un snapshot público real.
+- Los profesores solo detonan tareas de forma ocasional; el narrador nombra
+  conceptos, límites y conclusiones técnicas.

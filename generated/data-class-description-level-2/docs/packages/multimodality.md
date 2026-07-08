@@ -45,7 +45,7 @@
 
 **Don Juan:** Se nos junta gente dos veces, no una.
 
-**Paco:** Lo compruebo en los minutos del turno, apá.
+**Paco:** Lo compruebo en los minutos del turno, Pa.
 
 **Subtítulos:** La multimodalidad aparece con más de una concentración. / Dos picos sugieren estructura para investigar, no identifican por sí solos la causa.
 

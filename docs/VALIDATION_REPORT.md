@@ -9,10 +9,10 @@
 | Publicado | 1-13 | 236 | 454 | 708 | 63 |
 | Pendiente de producción | ninguno | 0 | 0 | 0 | 0 |
 
-La base histórica de diez niveles conserva 172 conceptos, 326 ejercicios, 516
-prompts y 43 bloques. Nivel 5 añade 19/38/57/7, Nivel 11 añade 21/42/63/7,
-Nivel 12 añade 24/48/72/6 y Nivel 13 conserva 16/32/48/4; por tanto, los
-totales publicados son matemáticamente 236/454/708/63.
+El inventario vigente publicado cubre 13 niveles. Los manifiestos y
+`docs/placement/curriculum_inventory.csv` declaran 236 conceptos, 454 ejercicios,
+708 prompts y 63 bloques; Nivel 12 cubre Ingeniería de Sistemas de IA y Nivel 13
+conserva operación, monitoreo, incidentes, handoff y retiro.
 
 ## Gates ejecutados
 

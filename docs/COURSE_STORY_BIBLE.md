@@ -19,10 +19,12 @@
   por la mañana y su prioridad explícita es estudiar.
 - Ayuda en el puesto jueves, viernes y sábado de 18:00 a 22:00, después de tareas;
   el domingo participa solo de forma ocasional. No sustituye a un trabajador de tiempo completo.
-- En **Introducción a datos**, con la profesora Elena Cruz, recibe preguntas,
-  ejercicios y tareas relacionadas con tablas, evidencia y análisis.
+- En **Introducción a datos**, con la profesora Elena Cruz, recibe detonadores
+  breves, preguntas y tareas relacionadas con tablas, evidencia y análisis. La
+  profesora no conduce la historia principal ni sustituye la explicación del narrador.
 - En **Laboratorio de IA**, con el profesor Iván Salgado, aprende a dar contexto,
-  escribir instrucciones, comprobar salidas y reconocer límites.
+  escribir instrucciones, comprobar salidas y reconocer límites mediante consignas
+  breves. El profesor no funciona como autoridad narrativa de ciencia de datos.
 - Aunque Paco llegue con una tarea escolar, el **narrador siempre introduce al
   espectador** el nombre técnico, la definición y la conclusión de ciencia de datos.
 - Don Juan puede escuchar una explicación, pero nunca adopta jerga técnica. Traduce
@@ -37,7 +39,7 @@
 | Interpretar evidencia | Dice qué significa para el negocio en lenguaje cotidiano | Describe lo que observa y propone una comprobación | Distingue dato, inferencia y conclusión técnica | Interpretan solo dentro de su ámbito |
 | Tomar decisiones | Decide sobre el puesto y asume sus consecuencias | Recomienda y documenta; no decide por su padre | No dirige el negocio | Deciden únicamente sobre su propio ámbito |
 | Cerrar una lección | Da una conclusión práctica del negocio | Explica qué comprobará la próxima vez | Formula la conclusión de ciencia de datos | Pueden dejar una nueva pregunta |
-| Hablar de IA | Pregunta qué hace y qué puede salir mal, sin jerga | Usa la herramienta como estudiante | Explica contexto, verificación, privacidad y límites | El profesor Iván plantea ejercicios, no verdades automáticas |
+| Hablar de IA | Pregunta qué hace y qué puede salir mal, sin jerga | Usa la herramienta como estudiante | Explica contexto, verificación, privacidad y límites | El profesor Iván solo detona ejercicios ocasionales, no verdades automáticas |
 
 ## Reglas de voz
 
@@ -56,7 +58,8 @@
 
 - Habla como estudiante de preparatoria: curioso, rápido, a veces demasiado
   confiado en la tecnología y dispuesto a probar.
-- Usa “apá” con Don Juan; Don Juan responde “mijo”. El afecto se expresa mediante
+- Usa “Pa” con Don Juan y “Ma” con Lupita; Don Juan responde “Hijo” y Lupita
+  responde “Hijito”. El afecto se expresa mediante
   ayuda, comida, horarios y preocupación, no mediante discursos sentimentales.
 - Puede recordar una tarea o intuición escolar. Solo usa el nombre técnico después
   de que el narrador lo presentó al espectador en ese episodio.
@@ -77,9 +80,9 @@
 | Don Juan ↔ Paco | Don Juan asigna tareas concretas; Paco quiere demostrar que la escuela sirve | Don Juan empieza a pedir evidencia antes de cambiar compras; Paco aprende a declarar incertidumbre | Negocian recomendaciones y costos de error; Don Juan conserva la decisión final | Trabajan como socios familiares con roles distintos; Paco documenta y Don Juan protege la identidad del negocio | Son padre e hijo antes que “cliente” y “analista”; pueden discrepar sin ridiculizarse |
 | Don Juan ↔ Lupita | Coordinan horario de Paco y presupuesto sin asumir que ella trabajará en el puesto | Lupita cuestiona qué cambio añade trabajo y quién lo hará | Deciden juntos si la lata de ahorro puede financiar equipo sin comprometer la casa | Protegen límites entre negocio, familia y proyectos propios | Son adultos corresponsables; Lupita no traduce ni suaviza automáticamente a Don Juan |
 | Paco ↔ Lupita | Ella protege horario escolar y ayuda a separar casa, escuela y puesto | Le pregunta si una conclusión también considera esfuerzo familiar | Le exige documentar quién asume el trabajo de cada expansión | Revisa que el sistema pueda continuar aunque Paco estudie fuera | Ella no es mediadora automática ni mano de obra gratuita |
-| Paco ↔ Beto | Paco se desespera con sus preguntas y luego aprende a explicarle simple | Beto prueba si una visual se entiende sin jerga | Beto aporta ideas de comunicación, siempre con supervisión | Ayuda a contar la historia pública del puesto sin acceder a datos privados | Beto es hermano, no asistente ni mascota narrativa |
-| Paco ↔ profesora Elena | Recibe tareas de tablas y calidad | Aprende descripción e incertidumbre con contraejemplos | Consulta límites conceptuales, no respuestas del negocio | Presenta un proyecto reproducible y acepta crítica | La profesora plantea preguntas; el narrador enseña al espectador |
-| Paco ↔ profesor Iván | Aprende contexto y comprobación básica | Detecta respuestas seguras pero incorrectas | Diseña prompts, evals y pruebas de fallo | Documenta privacidad, auditoría y transferencia de skills | IA nunca sustituye evidencia ni revisión humana |
+| Paco ↔ Beto | Paco se desespera con sus preguntas y luego aprende a explicarle simple | Beto prueba si una visual se entiende sin jerga | Beto aporta ideas de comunicación, siempre con supervisión | Ayuda a contar la historia pública del puesto sin acceder a datos privados | Beto es amigo de la escuela, no hermano, asistente ni mascota narrativa |
+| Paco ↔ profesora Elena | Recibe detonadores breves de tablas y calidad | La clase abre contraejemplos ocasionales | Puede recordar una pregunta, no consultar respuestas del negocio | Presenta un proyecto reproducible y acepta crítica | La profesora detona; el narrador enseña y concluye ante el espectador |
+| Paco ↔ profesor Iván | Recibe consignas breves de contexto y comprobación | La clase muestra errores seguros pero incorrectos | Puede recordar pruebas de fallo, no recibir soluciones | Documenta privacidad, auditoría y transferencia de skills | IA nunca sustituye evidencia; el narrador conserva la autoridad técnica |
 | Don Juan ↔ Mari | Todavía no se conocen | Mari aparece como posible apoyo operativo, sin compromiso laboral | Don Juan la contrata y paga para preparación y turno; escucha su contexto operativo | Mari puede asumir responsabilidades pactadas sin convertirse en autoridad de datos | La relación es laboral, explícita y pagada; Mari puede señalar límites de capacidad e inocuidad |
 | Don Juan ↔ Chava | Todavía no se conocen | Todavía no participa | Chava entra pagado en Nivel 6 para segundo comal, servicio y checklists | Consolida procedimientos operativos y conserva su proyecto personal | La experiencia operativa no le concede autoridad estadística ni obliga a revelar su vida privada |
 | Familia ↔ Rogelio | Es un cliente conocido por pedidos grandes | Su caso evita confundir raro con falso | Recuerda que una compra no revela la vida de una persona | Su secreto ilustra privacidad y límites de inferencia | Nadie registra ni infiere su dieta en el dataset |
@@ -92,14 +95,14 @@
 - **Motivación visible:** servir bien, evitar desperdicio y mantener un ingreso estable.
 - **Característica oculta:** guarda en una lata una moneda de cada semana buena;
   quiere comprar un segundo comal sin endeudarse, pero no lo dice hasta Nivel 4.
-- **Voz:** breve, práctica, afectuosa sin solemnidad; usa “mijo”, “a ver” y “eso no me cuadra”.
+- **Voz:** breve, práctica, afectuosa sin solemnidad; usa “Hijo”, “a ver” y “eso no me cuadra”.
 - **Autoridad:** operación, sabor, capacidad, proveedores, clientes y consecuencias.
 - **Prohibición:** nunca define ni concluye sobre ciencia de datos, aunque avance la historia.
 
 ## CharacterCard: Paco
 
 - **ID:** `paco`.
-- **Rol:** hijo de Don Juan y Lupita, hermano mayor de Beto, estudiante de preparatoria y ayudante parcial.
+- **Rol:** hijo de Don Juan y Lupita, estudiante de preparatoria y ayudante parcial.
 - **Motivación visible:** ayudar al puesto y aplicar lo aprendido en sus dos clases.
 - **Característica oculta:** quiere presentar el puesto como proyecto final para
   solicitar una beca, pero teme que Don Juan piense que está usando a la familia como tarea.
@@ -123,7 +126,7 @@
 
 - **ID:** `lupita`.
 - **Nombre:** Guadalupe “Lupita” Hernández.
-- **Rol:** mamá de Paco y Beto, esposa de Don Juan; organiza su propio trabajo de
+- **Rol:** mamá de Paco, esposa de Don Juan; organiza su propio trabajo de
   costura por encargo y participa en decisiones familiares, no como empleada automática del puesto.
 - **Motivación visible:** proteger tiempo escolar, economía familiar y reparto justo del trabajo.
 - **Característica oculta:** diseña desde hace años un pequeño menú de postres para
@@ -136,7 +139,8 @@
 
 - **ID:** `beto`.
 - **Nombre:** Alberto “Beto” Hernández.
-- **Rol:** hermano menor de Paco; estudiante de primaria. Visita el puesto, pero no trabaja en él.
+- **Rol:** amigo de Paco en la escuela; estudiante visitante de primaria/secundaria
+  temprana según convenga a la escena. Visita el puesto, pero no trabaja en él.
 - **Motivación visible:** convivir, probar salsas que no le corresponden y hacer preguntas literales.
 - **Característica oculta:** crea videos de stop-motion con tacos de plastilina y
   mantiene, con supervisión de Lupita, una cuenta privada que casi nadie conoce.
@@ -154,8 +158,8 @@
   en un tianguis; por eso reconoce problemas de pequeños negocios, aunque no lo cuenta hasta Nivel 3.
 - **Voz:** pregunta antes de explicar y pide ejemplos contrarios.
 - **Autoridad:** diseño pedagógico y contenido de datos dentro de clase.
-- **Límite:** en la historia principal asigna tareas o hace preguntas; el narrador
-  introduce y concluye los conceptos para el espectador.
+- **Límite:** en la historia principal solo aparece de forma selectiva como detonador
+  breve; el narrador introduce y concluye los conceptos para el espectador.
 
 ## CharacterCard: profesor Iván
 
@@ -167,8 +171,8 @@
   demostraciones; revela la estrategia en Nivel 3 para convertir confianza en hábito de verificación.
 - **Voz:** entusiasta, breve y provocadora; suele preguntar “¿qué evidencia te haría cambiar de opinión?”.
 - **Autoridad:** uso educativo de IA, instrucciones, pruebas y privacidad.
-- **Límite:** no decide qué conclusión del negocio es correcta y no introduce
-  conceptos al espectador fuera de la mediación del narrador.
+- **Límite:** no decide qué conclusión del negocio es correcta, no conduce escenas
+  principales y no introduce conceptos al espectador fuera de la mediación del narrador.
 
 ## CharacterCard: señor Rogelio
 
@@ -181,6 +185,36 @@
 - **Voz:** segura en público, evasiva cuando le preguntan si todo el pedido es para la cuadrilla.
 - **Función narrativa:** caso raro válido, privacidad e imposibilidad de deducir intención desde una compra.
 - **Límite:** su secreto no es evidencia, etiqueta ni giro para avergonzarlo.
+
+## CharacterCard: Evaristo
+
+- **ID:** `evaristo`.
+- **Nombre:** Evaristo; en la colonia lo conocen como “El Ingeniero”.
+- **Rol:** cliente recurrente y vecino de la colonia; falso experto por reputación
+  ajena, no por engaño propio.
+- **Motivación visible:** comer tranquilo, entender lo suficiente para no quedar
+  atrapado en conversaciones técnicas y salir sin empeorar el malentendido.
+- **Característica oculta para el elenco:** no es ingeniero ni experto en datos.
+  El espectador lo sabe desde su debut; Paco lo descubre en Nivel 6.
+- **Habilidad real:** admite cuando no entiende y hace preguntas básicas que obligan
+  a volver al denominador, al momento de la información, a la decisión concreta o
+  a la evidencia que todavía falta.
+- **Voz:** breve, contenida y literal; usa “¿de cuántos?”, “¿y mañana?”,
+  “¿eso lo saben antes?”, “¿cómo saben?” y “yo no sé”.
+- **Función narrativa:** motor de comedia de reputación autoalimentada. Una pregunta
+  nacida de la confusión puede ser sobreinterpretada como genialidad y, después de
+  una comprobación real, aumentar su leyenda.
+- **Gag recurrente:** el “Procesamiento”. El silencio de Evaristo o el ruido del
+  ventilador de su laptop vieja puede ser interpretado como cálculo profundo. El
+  gag nunca sustituye una ejecución real, un resultado verificable ni una explicación.
+- **Autoridad:** ninguna sobre ciencia de datos, IA o negocio; solo puede afirmar lo
+  que realmente vio, oyó o quiso preguntar.
+- **Límite:** nunca introduce conceptos, nunca da la respuesta técnica, nunca altera
+  números, nunca convierte una conclusión falsa en verdadera y nunca busca obtener
+  estatus o dinero fingiendo conocimiento.
+- **Presencia canónica:** no aparece en Niveles 1–2; debuta en Nivel 3, se vuelve
+  recurrente entre Niveles 4–6 y aparece de forma selectiva después para no agotar
+  el mecanismo.
 
 ## CharacterCard: Mari Vega
 
@@ -276,6 +310,20 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 - Un secreto solo se revela en el nivel indicado por el ledger y nunca mediante inferencia algorítmica.
 - La dieta de Rogelio no se deduce de pedidos ni se usa para avergonzarlo.
 - Beto puede provocar preguntas o confusiones, pero no es culpable automático de cada accidente.
+- Evaristo no es un mentiroso profesional: nunca afirma tener credenciales ni busca
+  construir su leyenda. El humor nace de lo que otros proyectan sobre él.
+- El espectador conoce la verdad sobre Evaristo desde su debut. La escena funciona
+  por la diferencia entre su confusión real y la interpretación extraordinaria de los demás.
+- Una escena central de Evaristo sigue esta secuencia: confusión real, señal ambigua
+  o pregunta literal, sobreinterpretación, comprobación independiente y reputación reforzada.
+- La pregunta de Evaristo puede abrir una investigación; jamás es la evidencia ni la
+  respuesta técnica. Paco comprueba y el narrador nombra el concepto.
+- Las coincidencias alrededor de Evaristo nunca cambian los datos, ocultan un error
+  real ni vuelven verdadera una conclusión falsa.
+- No se usa el mecanismo principal de Evaristo más de una vez por episodio ni se le
+  obliga a aparecer en todos los niveles; su reputación debe crecer sin agotar el chiste.
+- Paco no revela públicamente la verdad después de Nivel 6, pero tampoco permite que
+  Evaristo sea usado como autoridad, firma técnica o responsable de decisiones.
 - Lupita no existe para resolver conflictos entre hombres ni para aportar trabajo gratuito.
 - Las bromas familiares no alteran números, evidencia ni respuesta correcta.
 
