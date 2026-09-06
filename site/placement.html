@@ -20,6 +20,7 @@
     .diagnostic-promise{border:1px solid var(--line);border-radius:20px;background:#fff;padding:22px}.diagnostic-promise strong{display:block;font-size:18px;letter-spacing:-.025em}.diagnostic-promise p{margin:7px 0 0;color:var(--muted);font-size:13px;line-height:1.55}
     .placement-metrics{margin:24px 0 0;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
     .placement-metrics div{padding:16px;border-left:1px solid var(--line)}.placement-metrics div:first-child{border-left:0}.placement-metrics dt{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.06em}.placement-metrics dd{margin:6px 0 0;font-size:17px;font-weight:800}
+    .technical-counts{margin:9px 0 0;color:#8a969f;font-size:9px;line-height:1.4}.technical-counts span{font-weight:750}
     .placement-shell{border-top:1px solid var(--ink);padding-top:24px}
     .placement-status{display:flex;justify-content:space-between;gap:18px;color:var(--muted);font-size:12px}.placement-status span:first-child{color:var(--ink);font-weight:850}
     .progress-track{height:7px;margin:12px 0 22px;background:#e7eceb;border-radius:99px;overflow:hidden}.progress-track i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
@@ -45,9 +46,7 @@
       <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="brand-copy"><strong>The Agentic Data Scientist</strong><small>powered by DataClass Forge</small></span>
     </a>
-    <nav aria-label="Navegación principal">
-      <a href="index.html">Inicio</a><a href="index.html#ruta">Mi ruta</a><a href="placement.html" aria-current="page">Diagnóstico</a><a href="index.html#catalogo">Catálogo</a><a href="methodology.html">Metodología</a>
-    </nav>
+    <nav aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="index.html#ruta">Mi ruta</a><a href="placement.html" aria-current="page">Diagnóstico</a><a href="index.html#catalogo">Catálogo</a><a href="methodology.html">Metodología</a></nav>
   </header>
 
   <main>
@@ -57,6 +56,7 @@
         <h1>No estudies lo que ya sabes.</h1>
         <p class="lead">Responde unas cuantas preguntas y encuentra el mejor punto para entrar a la ruta. Si ya dominas un tema, lo saltamos; si aparece un hueco importante, te decimos exactamente qué repasar.</p>
         <dl class="placement-metrics" id="placementMetrics" aria-label="Resumen del diagnóstico"></dl>
+        <p class="technical-counts">Transparencia del instrumento: <span id="bankCount"></span> preguntas disponibles · <span id="visualCount"></span> con apoyo visual.</p>
       </div>
       <aside class="diagnostic-promise"><strong>Tu resultado será una acción.</strong><p>No recibirás solo una puntuación. Obtendrás un nivel recomendado de inicio, temas de repaso y fortalezas que ya puedes aprovechar.</p></aside>
     </section>
@@ -64,31 +64,14 @@
     <section class="placement-shell" aria-live="polite">
       <div class="placement-status"><span id="stepLabel">Pregunta 1 de 10</span><span id="levelLabel">Cargando diagnóstico</span></div>
       <div class="progress-track" aria-hidden="true"><i id="progressBar"></i></div>
-
       <article class="question-panel" id="questionPanel">
-        <div class="visual-frame" id="visualFrame" hidden></div>
-        <p class="question-text" id="questionText">Cargando preguntas...</p>
-        <div class="option-grid" id="optionGrid"></div>
-        <p class="feedback" id="feedback" role="status"></p>
-        <div class="placement-actions">
-          <button type="button" id="submitAnswer" disabled>Comprobar respuesta</button>
-          <button type="button" id="nextQuestion" hidden>Continuar</button>
-          <button type="button" id="restart">Reiniciar</button>
-        </div>
+        <div class="visual-frame" id="visualFrame" hidden></div><p class="question-text" id="questionText">Cargando preguntas...</p><div class="option-grid" id="optionGrid"></div><p class="feedback" id="feedback" role="status"></p>
+        <div class="placement-actions"><button type="button" id="submitAnswer" disabled>Comprobar respuesta</button><button type="button" id="nextQuestion" hidden>Continuar</button><button type="button" id="restart">Reiniciar</button></div>
       </article>
-
       <article class="result-panel" id="resultPanel" hidden>
-        <p class="result-eyebrow">Resultado de orientación</p>
-        <h2>Tu ruta empieza aquí.</h2>
-        <p class="result-summary" id="resultSummary">Calculando el punto de entrada recomendado...</p>
-        <div class="start-card" id="startCard"></div>
-        <div class="result-grid" id="resultGrid"></div>
-        <div class="recommendations" id="recommendations"></div>
+        <p class="result-eyebrow">Resultado de orientación</p><h2>Tu ruta empieza aquí.</h2><p class="result-summary" id="resultSummary">Calculando el punto de entrada recomendado...</p><div class="start-card" id="startCard"></div><div class="result-grid" id="resultGrid"></div><div class="recommendations" id="recommendations"></div>
         <details class="technical-details"><summary>Cómo se calculó esta orientación</summary><p id="technicalResult"></p></details>
-        <div class="placement-actions">
-          <a id="startRouteLink" href="index.html#catalogo">Abrir mi ruta</a>
-          <button type="button" id="restartFromResult">Tomar de nuevo</button>
-        </div>
+        <div class="placement-actions"><a id="startRouteLink" href="index.html#catalogo">Abrir mi ruta</a><button type="button" id="restartFromResult">Tomar de nuevo</button></div>
       </article>
     </section>
   </main>
@@ -98,92 +81,21 @@
 
   <script>
   (async function () {
-    const MAX_QUESTIONS = 10;
-    const startId = "A01";
-    const state = { currentId: startId, selected: "", answered: false, history: [] };
-    const $ = (selector) => document.querySelector(selector);
-
-    function parseCsv(text) {
-      const rows = []; let row = []; let cell = ""; let quoted = false;
-      for (let i = 0; i < text.length; i += 1) {
-        const ch = text[i]; const next = text[i + 1];
-        if (quoted && ch === '"' && next === '"') { cell += '"'; i += 1; }
-        else if (ch === '"') quoted = !quoted;
-        else if (!quoted && ch === ",") { row.push(cell); cell = ""; }
-        else if (!quoted && ch === "\n") { row.push(cell); rows.push(row); row = []; cell = ""; }
-        else if (ch !== "\r") cell += ch;
-      }
-      if (cell || row.length) { row.push(cell); rows.push(row); }
-      const header = rows.shift();
-      return rows.filter((item) => item.length === header.length).map((item) => Object.fromEntries(header.map((key, index) => [key, item[index] || ""])));
-    }
-    async function loadCsv(path) { const response = await fetch(path); if (!response.ok) throw new Error("No se pudo cargar " + path); return parseCsv(await response.text()); }
-
-    const [questions, routes, inventory] = await Promise.all([
-      loadCsv("placement/diagnostic_question_bank.csv"), loadCsv("placement/diagnostic_routing.csv"), loadCsv("placement/curriculum_inventory.csv")
-    ]);
-    const questionsById = Object.fromEntries(questions.map((q) => [q.question_id, q]));
-    const routesById = Object.fromEntries(routes.map((r) => [r.question_id, r]));
-    const levelTitles = new Map(inventory.map((item) => [item.level, item.level_title]));
-    const levelEntrypoints = new Map(inventory.map((item) => [Number(item.level), item.entrypoint || ""]));
-
-    [["Duración", "≈ 5 min"],["Preguntas", "≤ 10"],["Cuenta", "No requiere"],["Resultado", "Ruta personal"]].forEach(([label, value]) => {
-      const wrapper = document.createElement("div"); const dt = document.createElement("dt"); const dd = document.createElement("dd"); dt.textContent = label; dd.textContent = value; wrapper.append(dt, dd); $("#placementMetrics").append(wrapper);
-    });
-
-    function normalizeAsset(path) { return path.replace(/^docs\/placement\//, "placement/"); }
-    function renderQuestion() {
-      const question = questionsById[state.currentId]; state.selected = ""; state.answered = false;
-      $("#submitAnswer").hidden = false; $("#submitAnswer").disabled = true; $("#nextQuestion").hidden = true; $("#feedback").textContent = "";
-      $("#stepLabel").textContent = `Pregunta ${state.history.length + 1} de ${MAX_QUESTIONS}`;
-      $("#levelLabel").textContent = `Explorando Nivel ${question.level} · ${levelTitles.get(question.level) || question.block_id}`;
-      $("#progressBar").style.width = `${Math.round((state.history.length / MAX_QUESTIONS) * 100)}%`;
-      $("#questionText").textContent = question.stem.replace(/^Observa docs\/placement\/assets\/diagnostic-visuals\/[^.]+\.svg\. /, "");
-      const visual = $("#visualFrame"); visual.innerHTML = "";
-      if (question.visual_asset) { const img = document.createElement("img"); img.src = normalizeAsset(question.visual_asset); img.alt = "Gráfico de evidencia para la pregunta"; visual.append(img); visual.hidden = false; } else visual.hidden = true;
-      const grid = $("#optionGrid"); grid.innerHTML = "";
-      ["a","b","c","d"].forEach((letter) => {
-        const button = document.createElement("button"); button.type = "button"; button.dataset.option = letter.toUpperCase(); button.textContent = question[`option_${letter}`];
-        button.addEventListener("click", () => { if (state.answered) return; state.selected = button.dataset.option; grid.querySelectorAll("button").forEach((item) => item.classList.toggle("selected", item === button)); $("#submitAnswer").disabled = false; });
-        grid.append(button);
-      });
-    }
-    function submitAnswer() {
-      if (!state.selected || state.answered) return;
-      const question = questionsById[state.currentId]; const correct = state.selected === question.correct_option; state.answered = true;
-      state.history.push({ id: question.question_id, level: Number(question.level), correct, tags: question.repasar_tags });
-      $("#feedback").textContent = correct ? question.feedback_correct : question.feedback_wrong;
-      $("#optionGrid").querySelectorAll("button").forEach((button) => { button.disabled = true; button.classList.toggle("correct", button.dataset.option === question.correct_option); button.classList.toggle("wrong", button.dataset.option === state.selected && !correct); });
-      $("#submitAnswer").hidden = true; $("#nextQuestion").hidden = false; $("#progressBar").style.width = `${Math.round((state.history.length / MAX_QUESTIONS) * 100)}%`;
-    }
-    function nextQuestion() {
-      const last = state.history[state.history.length - 1]; const route = routesById[last.id]; const next = route ? (last.correct ? route.next_if_correct : route.next_if_wrong) : "END";
-      if (!route || next === "END" || state.history.length >= MAX_QUESTIONS) { renderResult(); return; }
-      state.currentId = next; renderQuestion();
-    }
-    function renderResult() {
-      $("#questionPanel").hidden = true; $("#resultPanel").hidden = false; $("#progressBar").style.width = "100%";
-      const correctLevels = new Set(state.history.filter((item) => item.correct).map((item) => item.level));
-      const wrongLevels = new Set(state.history.filter((item) => !item.correct).map((item) => item.level));
-      let contiguous = 0; for (let level = 1; level <= 13; level += 1) { if (correctLevels.has(level) && !wrongLevels.has(level)) contiguous = level; else if (wrongLevels.has(level)) break; }
-      const startLevel = Math.min(13, Math.max(1, contiguous + 1));
-      const exempt = Array.from({ length: contiguous }, (_, index) => index + 1);
-      const review = Array.from(wrongLevels).sort((a,b) => a-b); const strengths = Array.from(correctLevels).filter((level) => level > contiguous).sort((a,b) => a-b);
-      const confidence = wrongLevels.size === 0 ? "Alta" : strengths.length ? "Baja" : "Media";
-      const title = levelTitles.get(String(startLevel)) || levelTitles.get(startLevel) || `Nivel ${startLevel}`;
-      $("#resultSummary").textContent = exempt.length ? `Puedes avanzar sin repetir ${exempt.length === 1 ? "el nivel que ya dominaste" : "los niveles que ya dominaste"}. Antes de seguir, usa los repasos sugeridos para cerrar huecos concretos.` : "No encontramos una base continua que convenga saltar. Empezar desde el inicio te dará la ruta más sólida, con posibilidad de avanzar rápido si los primeros retos resultan fáciles.";
-      $("#startCard").innerHTML = `<span>Empieza aquí</span><strong>Nivel ${startLevel} · ${title}</strong><p>Este es el primer nivel que no quedó cubierto de forma continua por tus respuestas.</p>`;
-      const cards = [["Puedes saltar", exempt.length ? exempt.map((level) => `Nivel ${level}`).join(", ") : "Por ahora ninguno"],["Conviene repasar", review.length ? review.map((level) => `Nivel ${level}`).join(", ") : "Sin huecos detectados"],["Fortalezas detectadas", strengths.length ? strengths.map((level) => `Nivel ${level}`).join(", ") : "Aún por verificar"]];
-      $("#resultGrid").innerHTML = ""; cards.forEach(([label,value]) => { const div = document.createElement("div"); div.innerHTML = `<span>${label}</span><strong>${value}</strong>`; $("#resultGrid").append(div); });
-      const tags = [...new Set(state.history.filter((item) => !item.correct).flatMap((item) => item.tags.split(";")).filter(Boolean))];
-      $("#recommendations").innerHTML = "<h3>Antes de avanzar</h3>" + (tags.length ? `<ul>${tags.map((tag) => `<li>${tag}</li>`).join("")}</ul>` : "<p>No apareció un repaso obligatorio. Puedes comenzar directamente en el nivel recomendado.</p>");
-      $("#technicalResult").textContent = `Respondidas: ${state.history.length}. Banco disponible: ${questions.length}. Preguntas con apoyo visual: ${questions.filter((q) => q.visual_asset).length}. Confianza orientativa: ${confidence.toLowerCase()}. El diagnóstico es estático y no guarda respuestas.`;
-      const entry = levelEntrypoints.get(startLevel); const routeLink = $("#startRouteLink"); routeLink.href = entry ? `labs/level-${startLevel}/${entry}` : `index.html#catalogo`; routeLink.textContent = `Empezar Nivel ${startLevel}`;
-      try { localStorage.setItem("dcf-placement-result", JSON.stringify({ startLevel, review, strengths })); } catch (_) {}
-    }
-    function restart() { state.currentId = startId; state.selected = ""; state.answered = false; state.history = []; $("#questionPanel").hidden = false; $("#resultPanel").hidden = true; renderQuestion(); }
-    $("#submitAnswer").addEventListener("click", submitAnswer); $("#nextQuestion").addEventListener("click", nextQuestion); $("#restart").addEventListener("click", restart); $("#restartFromResult").addEventListener("click", restart); renderQuestion();
-  })().catch((error) => { document.querySelector("#questionText").textContent = error.message; });
+    const MAX_QUESTIONS = 10; const startId = "A01"; const state = { currentId:startId, selected:"", answered:false, history:[] }; const $ = (selector) => document.querySelector(selector);
+    function parseCsv(text){const rows=[];let row=[],cell="",quoted=false;for(let i=0;i<text.length;i+=1){const ch=text[i],next=text[i+1];if(quoted&&ch==='"'&&next==='"'){cell+='"';i+=1}else if(ch==='"')quoted=!quoted;else if(!quoted&&ch===","){row.push(cell);cell=""}else if(!quoted&&ch==="\n"){row.push(cell);rows.push(row);row=[];cell=""}else if(ch!=="\r")cell+=ch}if(cell||row.length){row.push(cell);rows.push(row)}const header=rows.shift();return rows.filter((item)=>item.length===header.length).map((item)=>Object.fromEntries(header.map((key,index)=>[key,item[index]||""])))}
+    async function loadCsv(path){const response=await fetch(path);if(!response.ok)throw new Error("No se pudo cargar "+path);return parseCsv(await response.text())}
+    async function loadJson(path){const response=await fetch(path);if(!response.ok)throw new Error("No se pudo cargar "+path);return response.json()}
+    const [questions,routes,inventory,catalog]=await Promise.all([loadCsv("placement/diagnostic_question_bank.csv"),loadCsv("placement/diagnostic_routing.csv"),loadCsv("placement/curriculum_inventory.csv"),loadJson("catalog.json")]);
+    const questionsById=Object.fromEntries(questions.map((q)=>[q.question_id,q]));const routesById=Object.fromEntries(routes.map((r)=>[r.question_id,r]));const levelTitles=new Map(inventory.map((item)=>[item.level,item.level_title]));const levelEntrypoints=new Map(catalog.levels.map((item)=>[Number(item.level),item.entrypoint]));
+    [["Duración","≈ 5 min"],["Preguntas","≤ 10"],["Cuenta","No requiere"],["Resultado","Ruta personal"]].forEach(([label,value])=>{const wrapper=document.createElement("div"),dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=label;dd.textContent=value;wrapper.append(dt,dd);$("#placementMetrics").append(wrapper)});$("#bankCount").textContent=questions.length;$("#visualCount").textContent=questions.filter((q)=>q.visual_asset).length;
+    function normalizeAsset(path){return path.replace(/^docs\/placement\//,"placement/")}
+    function renderQuestion(){const question=questionsById[state.currentId];state.selected="";state.answered=false;$("#submitAnswer").hidden=false;$("#submitAnswer").disabled=true;$("#nextQuestion").hidden=true;$("#feedback").textContent="";$("#stepLabel").textContent=`Pregunta ${state.history.length+1} de ${MAX_QUESTIONS}`;$("#levelLabel").textContent=`Explorando Nivel ${question.level} · ${levelTitles.get(question.level)||question.block_id}`;$("#progressBar").style.width=`${Math.round((state.history.length/MAX_QUESTIONS)*100)}%`;$("#questionText").textContent=question.stem.replace(/^Observa docs\/placement\/assets\/diagnostic-visuals\/[^.]+\.svg\. /,"");const visual=$("#visualFrame");visual.innerHTML="";if(question.visual_asset){const img=document.createElement("img");img.src=normalizeAsset(question.visual_asset);img.alt="Gráfico de evidencia para la pregunta";visual.append(img);visual.hidden=false}else visual.hidden=true;const grid=$("#optionGrid");grid.innerHTML="";["a","b","c","d"].forEach((letter)=>{const button=document.createElement("button");button.type="button";button.dataset.option=letter.toUpperCase();button.textContent=question[`option_${letter}`];button.addEventListener("click",()=>{if(state.answered)return;state.selected=button.dataset.option;grid.querySelectorAll("button").forEach((item)=>item.classList.toggle("selected",item===button));$("#submitAnswer").disabled=false});grid.append(button)})}
+    function submitAnswer(){if(!state.selected||state.answered)return;const question=questionsById[state.currentId],correct=state.selected===question.correct_option;state.answered=true;state.history.push({id:question.question_id,level:Number(question.level),correct,tags:question.repasar_tags});$("#feedback").textContent=correct?question.feedback_correct:question.feedback_wrong;$("#optionGrid").querySelectorAll("button").forEach((button)=>{button.disabled=true;button.classList.toggle("correct",button.dataset.option===question.correct_option);button.classList.toggle("wrong",button.dataset.option===state.selected&&!correct)});$("#submitAnswer").hidden=true;$("#nextQuestion").hidden=false;$("#progressBar").style.width=`${Math.round((state.history.length/MAX_QUESTIONS)*100)}%`}
+    function nextQuestion(){const last=state.history[state.history.length-1],route=routesById[last.id],next=route?(last.correct?route.next_if_correct:route.next_if_wrong):"END";if(!route||next==="END"||state.history.length>=MAX_QUESTIONS){renderResult();return}state.currentId=next;renderQuestion()}
+    function renderResult(){$("#questionPanel").hidden=true;$("#resultPanel").hidden=false;$("#progressBar").style.width="100%";const correctLevels=new Set(state.history.filter((item)=>item.correct).map((item)=>item.level)),wrongLevels=new Set(state.history.filter((item)=>!item.correct).map((item)=>item.level));let contiguous=0;for(let level=1;level<=13;level+=1){if(correctLevels.has(level)&&!wrongLevels.has(level))contiguous=level;else if(wrongLevels.has(level))break}const startLevel=Math.min(13,Math.max(1,contiguous+1)),exempt=Array.from({length:contiguous},(_,index)=>index+1),review=Array.from(wrongLevels).sort((a,b)=>a-b),strengths=Array.from(correctLevels).filter((level)=>level>contiguous).sort((a,b)=>a-b),confidence=wrongLevels.size===0?"Alta":strengths.length?"Baja":"Media",title=levelTitles.get(String(startLevel))||`Nivel ${startLevel}`;$("#resultSummary").textContent=exempt.length?`Puedes avanzar sin repetir ${exempt.length===1?"el nivel que ya dominaste":"los niveles que ya dominaste"}. Antes de seguir, usa los repasos sugeridos para cerrar huecos concretos.`:"No encontramos una base continua que convenga saltar. Empezar desde el inicio te dará la ruta más sólida, con posibilidad de avanzar rápido si los primeros retos resultan fáciles.";$("#startCard").innerHTML=`<span>Empieza aquí</span><strong>Nivel ${startLevel} · ${title}</strong><p>Este es el primer nivel que no quedó cubierto de forma continua por tus respuestas.</p>`;const cards=[["Puedes saltar",exempt.length?exempt.map((level)=>`Nivel ${level}`).join(", "):"Por ahora ninguno"],["Conviene repasar",review.length?review.map((level)=>`Nivel ${level}`).join(", "):"Sin huecos detectados"],["Fortalezas detectadas",strengths.length?strengths.map((level)=>`Nivel ${level}`).join(", "):"Aún por verificar"]];$("#resultGrid").innerHTML="";cards.forEach(([label,value])=>{const div=document.createElement("div");div.innerHTML=`<span>${label}</span><strong>${value}</strong>`;$("#resultGrid").append(div)});const tags=[...new Set(state.history.filter((item)=>!item.correct).flatMap((item)=>item.tags.split(";")).filter(Boolean))];$("#recommendations").innerHTML="<h3>Antes de avanzar</h3>"+(tags.length?`<ul>${tags.map((tag)=>`<li>${tag}</li>`).join("")}</ul>`:"<p>No apareció un repaso obligatorio. Puedes comenzar directamente en el nivel recomendado.</p>");$("#technicalResult").textContent=`Respondidas: ${state.history.length}. Banco disponible: ${questions.length}. Preguntas con apoyo visual: ${questions.filter((q)=>q.visual_asset).length}. Confianza orientativa: ${confidence.toLowerCase()}. El diagnóstico es estático y no guarda respuestas.`;const routeLink=$("#startRouteLink"),entry=levelEntrypoints.get(startLevel);routeLink.href=entry||"index.html#catalogo";routeLink.textContent=`Empezar Nivel ${startLevel}`;try{localStorage.setItem("dcf-placement-result",JSON.stringify({startLevel,review,strengths}))}catch(_){}}
+    function restart(){state.currentId=startId;state.selected="";state.answered=false;state.history=[];$("#questionPanel").hidden=false;$("#resultPanel").hidden=true;renderQuestion()}
+    $("#submitAnswer").addEventListener("click",submitAnswer);$("#nextQuestion").addEventListener("click",nextQuestion);$("#restart").addEventListener("click",restart);$("#restartFromResult").addEventListener("click",restart);renderQuestion();
+  })().catch((error)=>{document.querySelector("#questionText").textContent=error.message});
   </script>
 </body>
 </html>
