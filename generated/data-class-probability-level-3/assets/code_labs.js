@@ -145,8 +145,7 @@
     if (applying) return;
     applying = true;
     try {
-      const id = currentConcept();
-      const lab = labs[id];
+      const lab = labs[currentConcept()];
       const section = document.querySelector("#codeLab");
       if (!section || !lab) return;
       section.hidden = false;
@@ -164,8 +163,16 @@
     }
   }
 
-  const observer = new MutationObserver(() => queueMicrotask(apply));
-  observer.observe(document.documentElement, {subtree:true, childList:true, characterData:true, attributes:true, attributeFilter:["class", "hidden"]});
-  window.addEventListener("popstate", apply);
-  setTimeout(apply, 0);
+  function scheduleApply() {
+    window.setTimeout(apply, 0);
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target instanceof Element && target.closest("#advance, #check, [data-ex], [data-level-concepts] button")) {
+      scheduleApply();
+    }
+  }, true);
+  window.addEventListener("popstate", scheduleApply);
+  scheduleApply();
 })();
