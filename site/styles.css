@@ -9,6 +9,7 @@
   --max: 1180px;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; color-scheme: light; }
 body {
   margin: 0;
