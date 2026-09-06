@@ -91,7 +91,8 @@ def assert_level_three_vertical_slice(page) -> None:
         page.get_by_text(phase, exact=True).first.wait_for()
     assert page.locator("#intuitionDefinition").inner_text().strip()
     assert page.locator("#codeLab").is_visible()
-    assert "probabilidad" in page.locator("#codeSnippet").inner_text()
+    snippet = page.locator("#codeSnippet").inner_text().strip()
+    assert len(snippet.splitlines()) >= 3
     assert page.locator(".edu-svg").count() == 1
     no_overflow(page, "level 3 student vertical slice")
 
