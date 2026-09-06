@@ -34,6 +34,8 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Run semantic browser QA
         run: python scripts/qa_pages.py
+      - name: Run student experience QA
+        run: python scripts/qa_student_experience.py
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
