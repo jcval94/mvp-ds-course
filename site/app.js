@@ -16,10 +16,10 @@
   };
 
   const summary = [
-    ["Conceptos", catalog.totals.concepts],
+    ["Conceptos verificados", catalog.totals.concepts],
     ["Ejercicios", catalog.totals.exercises],
     ["Niveles", catalog.levels.length],
-    ["Última actualización", catalog.updated_at],
+    ["Actualizado", catalog.updated_at],
   ];
   summary.forEach(([label, value]) => {
     const wrapper = create("div");
@@ -44,6 +44,22 @@
     $("#levelFilters").append(button);
   });
 
+  function saveLastMission(mission) {
+    try {
+      localStorage.setItem("dcf-last-mission", JSON.stringify(mission));
+    } catch (_) {
+      // The portal remains fully functional if storage is blocked.
+    }
+  }
+
+  function readLastMission() {
+    try {
+      return JSON.parse(localStorage.getItem("dcf-last-mission") || "null");
+    } catch (_) {
+      return null;
+    }
+  }
+
   catalog.levels.forEach((level) => {
     const group = create("section", {
       class: "level-group",
@@ -66,18 +82,53 @@
       });
       row.append(
         create("strong", {}, block.title),
-        create(
-          "span",
-          {},
-          `${block.concept_count} conceptos`
-        )
+        create("span", {}, `${block.concept_count} conceptos`)
       );
       const link = create("a", { href: block.href }, "Abrir");
+      link.addEventListener("click", () => {
+        saveLastMission({
+          href: block.href,
+          title: block.title,
+          level: level.level,
+          levelTitle: level.title,
+        });
+      });
       row.append(link);
       group.append(row);
     });
     $("#catalog").append(group);
   });
+
+  const firstLevel = catalog.levels[0];
+  const firstBlock = firstLevel && firstLevel.blocks ? firstLevel.blocks[0] : null;
+  const fallbackMission = firstBlock
+    ? {
+        href: firstBlock.href,
+        title: firstBlock.title,
+        level: firstLevel.level,
+        levelTitle: firstLevel.title,
+      }
+    : null;
+  const mission = readLastMission() || fallbackMission;
+
+  if (mission) {
+    const stored = Boolean(readLastMission());
+    $("#continueKicker").textContent = stored
+      ? `Continúa · Nivel ${mission.level}`
+      : `Empieza · Nivel ${mission.level}`;
+    $("#continueTitle").textContent = mission.title;
+    $("#continueMeta").textContent = stored
+      ? `${mission.levelTitle}. Guardado solo en este dispositivo; no requiere cuenta ni backend.`
+      : `${mission.levelTitle}. Este es el primer bloque publicado de la ruta.`;
+    $("#missionLink").href = mission.href;
+    $("#missionLink").textContent = stored ? "Continuar misión" : "Abrir primera misión";
+    $("#continueLink").href = mission.href;
+    $("#continueLink").textContent = stored ? "Continuar aprendiendo" : "Comenzar ruta";
+
+    [$("#missionLink"), $("#continueLink")].forEach((link) => {
+      link.addEventListener("click", () => saveLastMission(mission));
+    });
+  }
 
   const tableHeader = create("div", { class: "data-row header", role: "row" });
   ["Dataset", "Snapshot", "Licencia", "Uso didáctico"].forEach((label) =>
@@ -100,7 +151,7 @@
     ["Currículo", `${catalog.totals.concepts} conceptos trazables`],
     ["Práctica", `${catalog.totals.exercises} ejercicios basados en evidencia`],
     ["En vivo", "Codex + Gemini/ChatGPT + plan offline"],
-    ["Calidad", `Promedio ≥ 4 y ninguna dimensión en 1`],
+    ["Calidad", "Promedio ≥ 4 y ninguna dimensión en 1"],
   ].forEach(([term, description]) => {
     const wrapper = create("div");
     wrapper.append(create("dt", {}, term), create("dd", {}, description));
