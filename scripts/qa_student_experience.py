@@ -14,6 +14,28 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = "http://127.0.0.1:4175"
 BUILD = ROOT / "_site"
 
+LEVEL3_CODE_ROUTES = [
+    ("probabilidad-basica.html", "event"),
+    ("probabilidad-basica.html", "complement"),
+    ("probabilidad-basica.html", "independence"),
+    ("probabilidad-basica.html", "conditional-probability"),
+    ("variables-aleatorias.html", "bernoulli"),
+    ("variables-aleatorias.html", "binomial"),
+    ("variables-aleatorias.html", "normal"),
+    ("variables-aleatorias.html", "poisson"),
+    ("muestreo.html", "sampling-variability"),
+    ("muestreo.html", "selection-bias"),
+    ("muestreo.html", "law-large-numbers"),
+    ("muestreo.html", "standard-error"),
+    ("incertidumbre.html", "confidence-interval"),
+    ("incertidumbre.html", "bootstrap"),
+    ("pruebas-hipotesis.html", "hypothesis"),
+    ("pruebas-hipotesis.html", "p-value"),
+    ("pruebas-hipotesis.html", "type-i-error"),
+    ("pruebas-hipotesis.html", "type-ii-error"),
+    ("pruebas-hipotesis.html", "power"),
+]
+
 
 def no_overflow(page, label: str) -> None:
     overflow = page.evaluate(
@@ -80,6 +102,16 @@ def assert_level_three_vertical_slice(page) -> None:
     assert "concept=event" in page.locator("#continueLink").get_attribute("href")
 
 
+def assert_level_three_code_coverage(page) -> None:
+    for route, concept in LEVEL3_CODE_ROUTES:
+        page.goto(f"{BASE}/labs/level-3/{route}?concept={concept}", wait_until="networkidle")
+        assert page.locator("#codeLab").is_visible(), f"Código oculto: {concept}"
+        snippet = page.locator("#codeSnippet").inner_text().strip()
+        assert len(snippet.splitlines()) >= 3, f"Código insuficiente: {concept}"
+        assert not page.locator("#journeyCode").evaluate("el => el.classList.contains('muted')"), f"Paso Código marcado como opcional: {concept}"
+    assert len(LEVEL3_CODE_ROUTES) == 19
+
+
 def assert_placement_to_home(page) -> None:
     page.goto(BASE, wait_until="networkidle")
     page.evaluate(
@@ -114,6 +146,7 @@ def main() -> None:
         assert_home(page)
         assert_placement(page)
         assert_level_three_vertical_slice(page)
+        assert_level_three_code_coverage(page)
         assert_placement_to_home(page)
         desktop.close()
 
@@ -140,7 +173,7 @@ def main() -> None:
         browser.close()
 
     server.shutdown()
-    print("Student experience QA aprobada: desktop, tablet, phone, diagnóstico y continuidad.")
+    print("Student experience QA aprobada: desktop, tablet, phone, diagnóstico, continuidad y 19 code labs.")
 
 
 if __name__ == "__main__":
