@@ -2,75 +2,439 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Resultados validados de DataClass Forge: conceptos, ejercicios, datasets y laboratorios de ciencia de datos.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Ruta interactiva de ciencia de datos: aprende con historias, visualizaciones, práctica y decisiones reales. Material generado y validado por DataClass Forge.">
   <title>Resultados | DataClass Forge</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --student-navy: #101b28;
+      --student-lime: #c8f36a;
+      --student-soft: #eef7f5;
+      --student-card: #ffffff;
+    }
+    body.student-home { padding-bottom: 0; }
+    .student-home .site-header {
+      min-height: 68px;
+      height: auto;
+      gap: 22px;
+    }
+    .student-home .brand { min-width: 0; }
+    .student-home .brand-copy { display: grid; gap: 2px; min-width: 0; }
+    .student-home .brand-copy strong { font-size: 15px; white-space: nowrap; }
+    .student-home .brand-copy small { color: var(--muted); font-size: 10px; letter-spacing: .02em; }
+    .student-home .site-header nav a[aria-current="page"] { color: var(--accent); font-weight: 800; }
+    .student-hero {
+      padding: 42px 0 34px;
+      border: 0;
+    }
+    .student-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+      gap: 18px;
+    }
+    .student-hero-primary {
+      min-height: 390px;
+      border-radius: 26px;
+      background: var(--student-navy);
+      color: #fff;
+      padding: clamp(28px, 5vw, 48px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .student-hero-primary::after {
+      content: "";
+      width: 330px;
+      height: 330px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 50%;
+      position: absolute;
+      right: -110px;
+      top: -95px;
+      box-shadow: 0 0 0 55px rgba(255,255,255,.025), 0 0 0 110px rgba(255,255,255,.018);
+    }
+    .student-eyebrow {
+      margin: 0;
+      color: var(--student-lime);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+    .student-hero-primary h1 {
+      max-width: 760px;
+      margin: 14px 0 16px;
+      font-size: clamp(42px, 6vw, 70px);
+      line-height: .98;
+      letter-spacing: -.055em;
+      position: relative;
+      z-index: 1;
+    }
+    .student-hero-primary > div > p:not(.student-eyebrow) {
+      max-width: 660px;
+      margin: 0;
+      color: #c6d0db;
+      font-size: 17px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+    .student-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+      position: relative;
+      z-index: 2;
+    }
+    .student-primary,
+    .student-secondary {
+      min-height: 50px;
+      border-radius: 10px;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 850;
+    }
+    .student-primary { background: var(--student-lime); color: #142016; border: 1px solid var(--student-lime); }
+    .student-secondary { color: #fff; border: 1px solid rgba(255,255,255,.25); }
+    .student-hero-side { display: grid; gap: 18px; }
+    .student-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--student-card);
+      padding: 22px;
+    }
+    .student-card.highlight { background: #f7faec; border-color: #dce8bd; }
+    .student-card .label {
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .student-card h2,
+    .student-card h3 { margin: 10px 0 7px; letter-spacing: -.03em; }
+    .student-card h2 { font-size: 24px; }
+    .student-card h3 { font-size: 18px; }
+    .student-card p { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 0; }
+    .student-card a { display: inline-block; margin-top: 16px; color: var(--accent); font-size: 12px; font-weight: 850; border-bottom: 1px solid currentColor; }
+    .student-home .summary-rail {
+      margin: 18px 0 0;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .student-home .summary-rail div { min-width: 0; }
+    .student-home .summary-rail dd { font-size: 22px; }
+    .student-section {
+      padding: 72px 0;
+      border-top: 1px solid var(--ink);
+    }
+    .student-section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+    .student-section-heading h2 { margin: 0; font-size: 34px; letter-spacing: -.04em; }
+    .student-section-heading p { margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
+    .learning-path {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .learning-step { min-height: 130px; padding: 20px; border-right: 1px solid var(--line); }
+    .learning-step:last-child { border-right: 0; }
+    .learning-step .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+    .learning-step:first-child .step-number { background: var(--accent); color: #fff; }
+    .learning-step strong { display: block; margin-top: 14px; font-size: 13px; }
+    .learning-step span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .mission-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: 20px; }
+    .mission-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      background: var(--student-soft);
+    }
+    .mission-card .mission-kicker { color: var(--accent); font-size: 11px; font-weight: 850; text-transform: uppercase; letter-spacing: .08em; }
+    .mission-card h3 { margin: 10px 0 8px; font-size: 28px; letter-spacing: -.04em; }
+    .mission-card p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .mission-card a { margin-top: 20px; }
+    .method-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      background: #fff;
+    }
+    .method-card h3 { margin: 0 0 12px; font-size: 20px; letter-spacing: -.03em; }
+    .method-card p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 13px; }
+    .student-home #catalogo { padding-top: 72px; }
+    .student-home .section-heading { margin-bottom: 28px; }
+    .student-home .section-heading h2 { font-size: 34px; }
+    .trust-drawer {
+      margin: 0 0 70px;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+    }
+    .trust-drawer > summary {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-weight: 850;
+      list-style: none;
+    }
+    .trust-drawer > summary::-webkit-details-marker { display: none; }
+    .trust-drawer > summary::after { content: "+"; color: var(--accent); font-size: 23px; }
+    .trust-drawer[open] > summary::after { content: "−"; }
+    .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 10px 0 54px; }
+    .trust-grid .section { padding: 0; border-top: 0; }
+    .trust-grid .section-heading h2 { font-size: 24px; }
+    .mobile-nav { display: none; }
+
+    @media (min-width: 801px) and (max-width: 1024px) {
+      .student-home .site-header nav { gap: 18px; }
+      .student-home .site-header nav a:last-child { display: none; }
+      .student-hero-grid { grid-template-columns: 1fr; }
+      .student-hero-primary { min-height: 330px; }
+      .student-hero-side { grid-template-columns: 1fr 1fr; }
+      .learning-path { grid-template-columns: repeat(5, minmax(145px,1fr)); overflow-x: auto; }
+      .mission-grid { grid-template-columns: 1fr 1fr; }
+      .trust-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 800px) {
+      body.student-home { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
+      .student-home .site-header { min-height: 62px; padding-inline: 15px; }
+      .student-home .brand-copy small { display: none; }
+      .student-home .brand-copy strong { font-size: 13px; }
+      .student-home .site-header nav { display: none; }
+      .student-hero { padding: 18px 0 28px; }
+      .student-hero-grid { grid-template-columns: 1fr; }
+      .student-hero-primary { min-height: 385px; border-radius: 20px; padding: 24px; }
+      .student-hero-primary h1 { font-size: clamp(39px, 12vw, 52px); }
+      .student-hero-primary > div > p:not(.student-eyebrow) { font-size: 14px; }
+      .student-actions { display: grid; grid-template-columns: 1fr; width: 100%; }
+      .student-primary, .student-secondary { width: 100%; }
+      .student-hero-side { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .student-card { border-radius: 16px; padding: 16px; }
+      .student-card h2 { font-size: 20px; }
+      .student-card h3 { font-size: 15px; }
+      .student-card p { font-size: 11px; }
+      .student-home .summary-rail { grid-template-columns: 1fr 1fr; gap: 20px 0; }
+      .student-home .summary-rail div:nth-child(3) { padding-left: 0; border-left: 0; }
+      .student-section { padding: 56px 0; }
+      .student-section-heading { display: block; margin-bottom: 18px; }
+      .student-section-heading h2 { font-size: 27px; }
+      .student-section-heading p { font-size: 13px; }
+      .learning-path {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-inline: contain;
+      }
+      .learning-step { min-width: 72%; scroll-snap-align: start; border-right: 1px solid var(--line); }
+      .mission-grid { grid-template-columns: 1fr; }
+      .mission-card, .method-card { border-radius: 16px; padding: 20px; }
+      .mission-card h3 { font-size: 24px; }
+      .student-home #catalogo { padding-top: 56px; }
+      .student-home .section-heading h2 { font-size: 27px; }
+      .trust-grid { grid-template-columns: 1fr; gap: 36px; }
+      .mobile-nav {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        min-height: 68px;
+        padding-bottom: env(safe-area-inset-bottom);
+        background: rgba(255,255,255,.96);
+        border-top: 1px solid var(--line);
+        backdrop-filter: blur(14px);
+        z-index: 40;
+      }
+      .mobile-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 750;
+        min-height: 56px;
+      }
+      .mobile-nav a:first-child { color: var(--accent); }
+      .mobile-nav b { font-size: 17px; }
+    }
+  </style>
 </head>
-<body>
+<body class="student-home">
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="DataClass Forge, inicio">
+    <a class="brand" href="#top" aria-label="The Agentic Data Scientist, inicio">
       <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      <strong>DataClass Forge</strong>
+      <span class="brand-copy">
+        <strong>The Agentic Data Scientist</strong>
+        <small>powered by DataClass Forge</small>
+      </span>
     </a>
     <nav aria-label="Navegación principal">
-      <a href="#catalogo">Catálogo</a>
+      <a href="#top" aria-current="page">Inicio</a>
+      <a href="#ruta">Mi ruta</a>
       <a href="placement.html">Diagnóstico</a>
-      <a href="#datasets">Datasets</a>
-      <a href="#validacion">Validación</a>
-      <a href="https://github.com/jcval94/mvp-ds-course">GitHub</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="methodology.html">Metodología</a>
     </nav>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <h1>Resultados educativos de DataClass Forge</h1>
-      <p>Conceptos, ejercicios y paquetes para enseñar ciencia de datos con evidencia, datos públicos y revisión técnica.</p>
-      <dl class="summary-rail" id="summaryRail" aria-label="Resumen de cobertura"></dl>
-      <div class="hero-links">
-        <a class="primary-link" href="#catalogo">Explorar catálogo</a>
-        <a href="placement.html">Tomar diagnóstico</a>
-        <a href="methodology.html">Ver metodología</a>
+    <section class="student-hero" aria-labelledby="heroTitle">
+      <div class="student-hero-grid">
+        <article class="student-hero-primary">
+          <div>
+            <p class="student-eyebrow">Aprende tomando decisiones</p>
+            <h1 id="heroTitle">Ciencia de datos que se entiende, se practica y se usa.</h1>
+            <p>Historias, visualizaciones, código y ejercicios que terminan en una decisión concreta. El objetivo no es recorrer cientos de conceptos: es saber qué hacer con ellos.</p>
+          </div>
+          <div class="student-actions">
+            <a class="student-primary" id="continueLink" href="#catalogo">Comenzar ruta</a>
+            <a class="student-secondary" href="placement.html">No estudies lo que ya sabes · diagnóstico</a>
+          </div>
+        </article>
+
+        <aside class="student-hero-side" aria-label="Orientación rápida">
+          <div class="student-card highlight">
+            <span class="label">Primera visita</span>
+            <h2>Empieza por tu nivel.</h2>
+            <p>Hasta 10 preguntas para detectar qué puedes saltarte y qué conviene repasar.</p>
+            <a href="placement.html">Tomar diagnóstico</a>
+          </div>
+          <div class="student-card">
+            <span class="label">Método</span>
+            <h3>Historia → intuición → visual → código → decisión</h3>
+            <p>La misma gramática didáctica acompaña cada misión para reducir fricción y aumentar transferencia.</p>
+          </div>
+        </aside>
+      </div>
+
+      <dl class="summary-rail" id="summaryRail" aria-label="Cobertura total de la ruta"></dl>
+    </section>
+
+    <section id="ruta" class="student-section">
+      <div class="student-section-heading">
+        <div>
+          <h2>Tu forma de aprender</h2>
+          <p>Cada misión avanza desde un problema humano hasta una decisión verificable.</p>
+        </div>
+      </div>
+      <div class="learning-path" aria-label="Secuencia didáctica">
+        <div class="learning-step"><span class="step-number">1</span><strong>Historia</strong><span>Entiende por qué importa el problema.</span></div>
+        <div class="learning-step"><span class="step-number">2</span><strong>Intuición</strong><span>Construye el mecanismo sin empezar por la fórmula.</span></div>
+        <div class="learning-step"><span class="step-number">3</span><strong>Visual</strong><span>Manipula evidencia y observa qué cambia.</span></div>
+        <div class="learning-step"><span class="step-number">4</span><strong>Código</strong><span>Reproduce y extiende el análisis.</span></div>
+        <div class="learning-step"><span class="step-number">5</span><strong>Decisión</strong><span>Convierte el concepto en una acción defendible.</span></div>
+      </div>
+    </section>
+
+    <section class="student-section" aria-labelledby="missionHeading">
+      <div class="student-section-heading">
+        <div>
+          <h2 id="missionHeading">Qué hacer ahora</h2>
+          <p>Una sola siguiente acción. El catálogo completo queda disponible cuando quieras explorar.</p>
+        </div>
+      </div>
+      <div class="mission-grid">
+        <article class="mission-card">
+          <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
+          <h3 id="continueTitle">Tu primera misión</h3>
+          <p id="continueMeta">Abriremos el primer bloque publicado de la ruta. Cuando vuelvas, este acceso recordará localmente la última misión abierta desde el portal.</p>
+          <a class="student-primary" id="missionLink" href="#catalogo">Abrir misión</a>
+        </article>
+        <aside class="method-card">
+          <h3>No necesitas navegar 236 conceptos</h3>
+          <p>La cobertura completa sigue siendo visible y auditable, pero deja de ser la tarea principal del alumno. La interfaz prioriza el siguiente paso, mientras DataClass Forge conserva trazabilidad, datasets y gates de calidad detrás del curso.</p>
+        </aside>
       </div>
     </section>
 
     <section id="catalogo" class="section">
       <div class="section-heading">
-        <div><h2>Cobertura publicada</h2><p>Material validado por nivel, bloque y concepto.</p></div>
+        <div>
+          <h2>Ruta completa</h2>
+          <p>Explora los niveles cuando necesites contexto, repaso o una misión específica.</p>
+        </div>
       </div>
       <div class="filters" aria-label="Filtros del catálogo">
         <div id="levelFilters"></div>
         <label><span class="sr-only">Buscar concepto</span><input id="search" type="search" placeholder="Buscar concepto"></label>
       </div>
       <div id="catalog"></div>
-      <p class="publication-note">Solo se publican paquetes que pasan los evals técnicos y pedagógicos.</p>
+      <p class="publication-note">Solo aparecen paquetes que pasan los evals técnicos y pedagógicos.</p>
     </section>
 
-    <section id="datasets" class="section">
-      <div class="section-heading">
-        <div><h2>Datasets públicos</h2><p>Snapshots fijos, pequeños y reproducibles, con fuente y licencia visibles.</p></div>
-      </div>
-      <div class="data-table" id="datasetTable" role="table" aria-label="Datasets públicos"></div>
-    </section>
+    <details class="trust-drawer">
+      <summary>Fuentes, datasets y validación</summary>
+      <div class="trust-grid">
+        <section id="datasets" class="section">
+          <div class="section-heading">
+            <div><h2>Datasets públicos</h2><p>Snapshots reproducibles con fuente y licencia visibles.</p></div>
+          </div>
+          <div class="data-table" id="datasetTable" role="table" aria-label="Datasets públicos"></div>
+        </section>
 
-    <section id="validacion" class="section validation-section">
-      <div class="section-heading">
-        <div><h2>Validación</h2><p>La página publica únicamente resultados que pasan los gates del repositorio.</p></div>
+        <section id="validacion" class="section validation-section">
+          <div class="section-heading">
+            <div><h2>Validación</h2><p>La publicación conserva los gates del repositorio.</p></div>
+          </div>
+          <dl class="validation-list" id="validationList"></dl>
+          <div class="validation-links">
+            <a href="methodology.html">Abrir metodología</a>
+            <a href="https://github.com/jcval94/mvp-ds-course/tree/main/evals">Ver evals</a>
+          </div>
+        </section>
       </div>
-      <dl class="validation-list" id="validationList"></dl>
-      <div class="validation-links">
-        <a href="methodology.html">Abrir reporte</a>
-        <a href="https://github.com/jcval94/mvp-ds-course/tree/main/evals">Ver evals</a>
-      </div>
-    </section>
+    </details>
   </main>
 
   <footer>
-    <strong>DataClass Forge</strong>
-    <p>Generado desde el repositorio y publicado automáticamente con GitHub Actions.</p>
-    <a href="https://github.com/jcval94/mvp-ds-course">github.com/jcval94/mvp-ds-course</a>
+    <strong>The Agentic Data Scientist</strong>
+    <p>Experiencia educativa publicada desde resultados validados por DataClass Forge.</p>
+    <a href="https://github.com/jcval94/mvp-ds-course">Ver repositorio</a>
   </footer>
+
+  <nav class="mobile-nav" aria-label="Navegación móvil">
+    <a href="#top"><b>⌂</b><span>Inicio</span></a>
+    <a href="#ruta"><b>↗</b><span>Ruta</span></a>
+    <a href="placement.html"><b>◎</b><span>Diagnóstico</span></a>
+    <a href="#catalogo"><b>⌘</b><span>Catálogo</span></a>
+  </nav>
+
   <script src="app.js"></script>
 </body>
 </html>
