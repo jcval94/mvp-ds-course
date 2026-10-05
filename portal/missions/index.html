@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Misiones · Curso de ciencia de datos</title>
+  <link rel="stylesheet" href="../design/tokens/tokens.css">
+  <style>
+    main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; display: grid; gap: 20px; }
+    .list { display: grid; gap: 12px; }
+    .mission { display: grid; gap: 6px; }
+    .mission h2 { margin: 0; font-size: 18px; }
+    .mission p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .empty { color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .back { color: var(--accent); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../index.html">← Volver al curso</a>
+    <header class="hero">
+      <div class="eyebrow">Curso de ciencia de datos · Misiones</div>
+      <h1>Misiones</h1>
+      <p class="muted">Cada misión es una decisión real tomada con datos. Resuélvela y desbloquea los conceptos que usaste.</p>
+    </header>
+    <section class="list" id="missionList" aria-live="polite">
+      <p class="empty" id="missionEmpty">Cargando misiones…</p>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var list = document.getElementById("missionList");
+      var empty = document.getElementById("missionEmpty");
+      function render(data) {
+        var missions = (data && data.missions) || [];
+        if (!missions.length) {
+          empty.textContent = "Todavía no hay misiones publicadas. La primera está en preparación.";
+          return;
+        }
+        empty.remove();
+        missions.forEach(function (mission) {
+          var card = document.createElement("article");
+          card.className = "card mission";
+          card.setAttribute("data-mission-id", mission.id);
+          var title = document.createElement("h2");
+          title.textContent = mission.title;
+          var question = document.createElement("p");
+          question.textContent = mission.decision.question;
+          var concepts = document.createElement("p");
+          concepts.textContent = "Conceptos: " + mission.concepts.join(", ");
+          card.append(title, question, concepts);
+          list.append(card);
+        });
+      }
+      fetch("../missions.json")
+        .then(function (response) {
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          return response.json();
+        })
+        .then(render)
+        .catch(function () {
+          empty.textContent = "No se pudo cargar la lista de misiones. Recarga la página.";
+        });
+    })();
+  </script>
+</body>
+</html>

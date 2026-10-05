@@ -1,0 +1,31 @@
+# Misión piloto. Estado draft: no se anuncia en el portal hasta pasar a `ready`.
+# Se valida con schemas/mission.schema.json.
+
+schema_version: 1
+id: m01-wald
+title: ¿Dónde blindar los aviones?
+status: draft
+access: public
+
+decision:
+  question: Con blindaje limitado, ¿qué partes de los aviones conviene reforzar?
+  naive_answer: Donde regresan con más impactos.
+  ingenious_move: Preguntar por los aviones que no regresaron.
+
+case:
+  id: wald-bombers
+
+concepts:
+  - survivorship-bias
+  - sample-vs-population
+
+level:
+  number: 1
+
+kit: null
+video: null
+side_quest: null
+
+notes: >
+  El caso sigue como candidato en casos/staging/. La misión no puede pasar a
+  `ready` hasta que el caso esté `approved` y exista el kit.
