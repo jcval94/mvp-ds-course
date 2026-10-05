@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex">
+<title>Salud del curso · Curso de ciencia de datos</title>
+<link rel="stylesheet" href="../design/tokens/tokens.css">
+<link rel="stylesheet" href="../assets/views.css">
+</head>
+<body>
+<main>
+  <a class="standalone-back" href="../curso/?vista=salud" hidden>← Volver a tu ruta</a>
+  <div class="eyebrow">Curso de ciencia de datos · Observabilidad</div>
+  <section class="status-hero">
+    <span id="overall" class="pill">Calculando…</span>
+    <h1>Salud del curso</h1>
+    <p>Estado del sitio publicado: contenido validado, presupuestos de tamaño y lo que está en preparación. Se calcula desde los archivos del build; no es una evaluación pedagógica.</p>
+  </section>
+
+  <section class="kpis" aria-label="Indicadores del curso">
+    <div class="kpi"><span>Niveles</span><b id="kpiLevels">—</b><small>publicados</small></div>
+    <div class="kpi"><span>Conceptos</span><b id="kpiConcepts">—</b><small>verificados</small></div>
+    <div class="kpi"><span>Ejercicios</span><b id="kpiExercises">—</b><small>con feedback</small></div>
+    <div class="kpi"><span>Validación</span><b id="kpiValidation">—</b><small>promedio mínimo entre niveles</small></div>
+    <div class="kpi"><span>Misiones</span><b id="kpiMissions">—</b><small>publicadas</small></div>
+    <div class="kpi"><span>Casos</span><b id="kpiCases">—</b><small>aprobados</small></div>
+  </section>
+
+  <section id="checks" class="grid" aria-live="polite"></section>
+  <p id="healthError" class="empty" hidden>No se pudo cargar el estado del build. Recarga la página.</p>
+</main>
+<script>
+(function () {
+  var MB = 1048576;
+  function el(tag, className, value) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (value !== undefined) node.textContent = value;
+    return node;
+  }
+  function check(status, area, title, detail, value, ratio) {
+    var card = el("article", "card");
+    var meta = el("div", "meta");
+    meta.append(el("span", "pill " + status, status === "ok" ? "OK" : "Atención"), el("span", "", area));
+    card.append(meta, el("h3", "", title), el("p", "", detail));
+    if (value) card.append(el("div", "value", value));
+    if (ratio !== undefined) {
+      var meter = el("div", "meter" + (ratio > 0.8 ? " warn" : ""));
+      var fill = el("i");
+      fill.style.width = Math.min(100, Math.round(ratio * 100)) + "%";
+      meter.append(fill);
+      card.append(meter);
+    }
+    return { status: status, card: card };
+  }
+  function render(info, catalog, missions, cases) {
+    var budgets = info.budgets;
+    var sizeRatio = info.bytes / (budgets.dist_max_total_mb * MB);
+    var filesRatio = info.files / budgets.dist_max_files;
+    var validation = catalog.validation;
+    document.getElementById("kpiLevels").textContent = catalog.levels.length;
+    document.getElementById("kpiConcepts").textContent = catalog.totals.concepts;
+    document.getElementById("kpiExercises").textContent = catalog.totals.exercises;
+    document.getElementById("kpiValidation").textContent = validation.average.toFixed(2);
+    document.getElementById("kpiMissions").textContent = missions.missions.length;
+    document.getElementById("kpiCases").textContent = cases.approved.length;
+    var results = [
+      check(validation.average >= 4 && validation.minimum_dimension > 1 ? "ok" : "warn", "Contenido", "Puerta de publicación",
+        "Todos los niveles publicados tienen promedio ≥ 4 y ninguna dimensión en 1.", validation.average.toFixed(2) + " · mín. " + validation.minimum_dimension),
+      check(sizeRatio <= 0.8 ? "ok" : "warn", "Presupuesto", "Tamaño del sitio",
+        "Límite propio de " + budgets.dist_max_total_mb + " MB, por debajo de GitHub Pages y Cloudflare Pages.", (info.bytes / MB).toFixed(1) + " MB", sizeRatio),
+      check(filesRatio <= 0.8 ? "ok" : "warn", "Presupuesto", "Número de archivos",
+        "Límite propio de " + budgets.dist_max_files.toLocaleString("es-MX") + " archivos (Cloudflare Pages admite 20,000).", info.files.toLocaleString("es-MX"), filesRatio),
+      check(missions.missions.length ? "ok" : "warn", "Misiones", "Misiones publicadas",
+        missions.missions.length ? "Hay misiones disponibles para los alumnos." : "La primera misión sigue en preparación.", String(missions.missions.length)),
+      check(cases.approved.length ? "ok" : "warn", "Casos", "Banco de casos",
+        cases.in_review + " caso(s) en investigación; " + cases.approved.length + " aprobado(s).", String(cases.approved.length)),
+      check("ok", "Build", "Versión publicada",
+        "Commit del build y fecha. El mismo commit siempre produce el mismo sitio.", (info.commit || "").slice(0, 7) + " · " + (info.commit_time || "").slice(0, 10))
+    ];
+    var grid = document.getElementById("checks");
+    results.forEach(function (result) { grid.append(result.card); });
+    var attention = results.filter(function (result) { return result.status !== "ok"; }).length;
+    var overall = document.getElementById("overall");
+    overall.className = "pill " + (attention ? "warn" : "ok");
+    overall.textContent = attention ? attention + " punto(s) por atender" : "Todo en orden";
+  }
+  function getJson(path) { return fetch(path).then(function (response) { if (!response.ok) throw new Error(path); return response.json(); }); }
+  Promise.all([getJson("../build-info.json"), getJson("../catalog.json"), getJson("../missions.json"), getJson("../casos.json")])
+    .then(function (values) { render(values[0], values[1], values[2], values[3]); })
+    .catch(function () { document.getElementById("healthError").hidden = false; });
+})();
+</script>
+<script>if (window.top === window.self) document.querySelector(".standalone-back").hidden = false;</script>
+</body>
+</html>

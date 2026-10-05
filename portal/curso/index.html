@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Curso de ciencia de datos · Tu ruta</title>
+<link rel="stylesheet" href="../design/tokens/tokens.css">
+<style>
+/* Estructura de la página de referencia (AI News Daily): barra lateral + escenario con iframe. */
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); }
+body { overflow: hidden; }
+.catalog-shell { display: grid; grid-template-columns: var(--sidebar) minmax(0, 1fr); height: 100vh; }
+.course-sidebar { position: relative; z-index: 3; height: 100vh; border-right: 1px solid var(--line); background: linear-gradient(180deg, var(--panel-2) 0%, var(--bg) 100%); display: flex; flex-direction: column; min-width: 0; }
+.sidebar-head { padding: 22px 18px 14px; border-bottom: 1px solid var(--line); }
+.brand { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+.sidebar-head h1 { font-size: 22px; line-height: 1.08; margin: 7px 0 5px; }
+.sidebar-head p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.view-nav { padding: 10px 10px 0; display: grid; gap: 6px; }
+.view-link { display: grid; gap: 3px; text-decoration: none; color: var(--text); padding: 10px 11px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+.view-link:hover, .view-link.active { background: var(--panel-2); border-color: var(--accent-strong); box-shadow: inset 3px 0 0 var(--accent); }
+.view-link span { font-size: 9px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 850; }
+.view-link strong { font-size: 12px; }
+.view-link small { font-size: 10px; color: var(--muted); }
+.level-search-wrap { padding: 12px 12px 7px; }
+.level-search { width: 100%; border: 1px solid var(--line); border-radius: 11px; background: var(--bg); color: var(--text); padding: 10px 11px; outline: none; font: inherit; font-size: 13px; }
+.level-search:focus { border-color: var(--accent-strong); box-shadow: 0 0 0 3px var(--panel-2); }
+.level-list { overflow: auto; padding: 5px 8px 18px; display: grid; gap: 5px; align-content: start; }
+.level-item { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 3px 9px; text-decoration: none; color: var(--text); padding: 12px 11px; border: 1px solid transparent; border-radius: 12px; }
+.level-item:hover { background: var(--panel); border-color: var(--line); }
+.level-item.active { background: var(--panel-2); border-color: var(--accent-strong); box-shadow: inset 3px 0 0 var(--accent); }
+.level-item[hidden] { display: none; }
+.level-number { grid-column: 1; font-family: var(--font-pixel); font-size: 10px; color: var(--accent); letter-spacing: .02em; }
+.level-item strong { grid-column: 1 / -1; font-size: 13px; line-height: 1.35; }
+.level-item small { grid-column: 1; color: var(--muted); font-size: 10px; }
+.level-count { grid-column: 2; grid-row: 1; font-size: 10px; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+.empty-filter { display: none; padding: 16px; color: var(--muted); font-size: 12px; }
+.empty-filter.show { display: block; }
+.sidebar-foot { margin-top: auto; padding: 10px 14px 14px; color: var(--muted); font-size: 10px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 8px; }
+.sidebar-foot a { color: var(--accent); text-decoration: none; }
+.course-stage { min-width: 0; height: 100vh; background: var(--bg); }
+.course-frame { display: block; width: 100%; height: 100vh; border: 0; background: var(--bg); }
+.mobile-switcher { display: none; padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--panel); }
+.mobile-switcher label { display: block; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
+.mobile-switcher select { width: 100%; padding: 9px 10px; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 10px; font: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 760px) {
+  .catalog-shell { display: block; height: 100vh; }
+  .course-sidebar { display: none; }
+  .course-stage { height: 100vh; display: grid; grid-template-rows: auto 1fr; }
+  .mobile-switcher { display: block; }
+  .course-frame { height: 100%; min-height: 0; }
+}
+</style>
+</head>
+<body>
+<div class="catalog-shell">
+  <aside class="course-sidebar" aria-label="Navegación del curso">
+    <div class="sidebar-head">
+      <div class="brand">Curso de ciencia de datos</div>
+      <h1>Tu ruta</h1>
+      <p>Elige una vista o un nivel; todo se abre aquí mismo.</p>
+    </div>
+    <nav class="view-nav" aria-label="Vistas del curso">
+      <a class="view-link" href="?vista=inicio" data-view="inicio"><span>Portada</span><strong>Inicio</strong><small>catálogo · datasets · validación</small></a>
+      <a class="view-link" href="?vista=misiones" data-view="misiones"><span>Decisiones reales</span><strong>Misiones</strong><small>caso · conceptos · notebook · video</small></a>
+      <a class="view-link" href="?vista=casos" data-view="casos"><span>Evidencia histórica</span><strong>Banco de casos</strong><small>fuentes · mitos · estado</small></a>
+      <a class="view-link" href="?vista=capsulas" data-view="capsulas"><span>Misiones secundarias</span><strong>Cápsulas de oficina</strong><small>una historia · una gráfica</small></a>
+      <a class="view-link" href="?vista=diagnostico" data-view="diagnostico"><span>Punto de partida</span><strong>Diagnóstico</strong><small>hasta 10 preguntas</small></a>
+    </nav>
+    <div class="level-search-wrap"><input id="levelSearch" class="level-search" type="search" placeholder="Buscar nivel…" aria-label="Buscar nivel"></div>
+    <nav id="levelList" class="level-list" aria-label="Niveles del curso">
+      <div id="emptyFilter" class="empty-filter">No hay niveles que coincidan.</div>
+    </nav>
+    <div class="sidebar-foot"><span id="levelCount">Cargando niveles…</span><a href="?vista=salud" data-view="salud">Salud del curso</a></div>
+  </aside>
+  <main class="course-stage">
+    <div class="mobile-switcher"><label for="viewSelect">Vista</label><select id="viewSelect"></select></div>
+    <iframe id="courseFrame" class="course-frame" title="Inicio del curso" loading="eager"></iframe>
+  </main>
+</div>
+<script>
+(function () {
+  // Todas las rutas son relativas a esta página. Si el shell se mueve a la raíz, solo cambia BASE.
+  var BASE = "../";
+  var VIEWS = {
+    inicio: { label: "Inicio", href: "index.html" },
+    misiones: { label: "Misiones", href: "missions/index.html" },
+    casos: { label: "Banco de casos", href: "casos/index.html" },
+    capsulas: { label: "Cápsulas de oficina", href: "capsulas/index.html" },
+    diagnostico: { label: "Diagnóstico", href: "placement.html" },
+    salud: { label: "Salud del curso", href: "salud/index.html" }
+  };
+  var DEFAULT_VIEW = "inicio";
+  var levels = [];
+  var frame = document.getElementById("courseFrame");
+  var list = document.getElementById("levelList");
+  var emptyFilter = document.getElementById("emptyFilter");
+  var search = document.getElementById("levelSearch");
+  var select = document.getElementById("viewSelect");
+  var viewLinks = [].slice.call(document.querySelectorAll("[data-view]"));
+
+  function levelByNumber(number) {
+    return levels.filter(function (level) { return String(level.level) === String(number); })[0];
+  }
+
+  function load(href, title) {
+    var target = new URL(BASE + href, window.location.href).href;
+    if (frame.src !== target) frame.src = target;
+    frame.title = title;
+    document.title = title + " · Curso de ciencia de datos";
+  }
+
+  function markActive(kind, key) {
+    viewLinks.forEach(function (link) { link.classList.toggle("active", kind === "vista" && link.dataset.view === key); });
+    [].slice.call(list.querySelectorAll("[data-level]")).forEach(function (item) {
+      var active = kind === "nivel" && item.dataset.level === String(key);
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-current", active ? "page" : "false");
+    });
+    select.value = kind + ":" + key;
+  }
+
+  function show(kind, key, options) {
+    var push = !options || options.push !== false;
+    if (kind === "nivel" && levelByNumber(key)) {
+      var level = levelByNumber(key);
+      load(level.entrypoint, "Nivel " + level.level + " · " + level.title);
+    } else {
+      kind = "vista";
+      if (!VIEWS[key]) key = DEFAULT_VIEW;
+      load(VIEWS[key].href, VIEWS[key].label);
+    }
+    markActive(kind, key);
+    if (push) {
+      var url = new URL(window.location.href);
+      url.search = "?" + kind + "=" + encodeURIComponent(key);
+      history.pushState({ kind: kind, key: key }, "", url);
+    }
+  }
+
+  function fromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("nivel")) return ["nivel", params.get("nivel")];
+    return ["vista", params.get("vista") || DEFAULT_VIEW];
+  }
+
+  function buildSelect() {
+    select.innerHTML = "";
+    var views = document.createElement("optgroup");
+    views.label = "Vistas";
+    Object.keys(VIEWS).forEach(function (key) {
+      var option = new Option(VIEWS[key].label, "vista:" + key);
+      views.append(option);
+    });
+    select.append(views);
+    if (levels.length) {
+      var group = document.createElement("optgroup");
+      group.label = "Niveles";
+      levels.forEach(function (level) { group.append(new Option("Nivel " + level.level + " · " + level.title, "nivel:" + level.level)); });
+      select.append(group);
+    }
+  }
+
+  function renderLevels() {
+    levels.forEach(function (level) {
+      var item = document.createElement("a");
+      item.className = "level-item";
+      item.href = "?nivel=" + level.level;
+      item.dataset.level = String(level.level);
+      var number = document.createElement("span");
+      number.className = "level-number";
+      number.textContent = "NIVEL " + level.level;
+      var count = document.createElement("span");
+      count.className = "level-count";
+      count.textContent = level.exercise_count + " ejercicios";
+      var title = document.createElement("strong");
+      title.textContent = level.title;
+      var meta = document.createElement("small");
+      meta.textContent = level.concept_count + " conceptos";
+      item.append(number, count, title, meta);
+      item.addEventListener("click", function (event) { event.preventDefault(); show("nivel", level.level); });
+      list.insertBefore(item, emptyFilter);
+    });
+    var concepts = levels.reduce(function (sum, level) { return sum + level.concept_count; }, 0);
+    document.getElementById("levelCount").textContent = levels.length + " niveles · " + concepts + " conceptos";
+  }
+
+  viewLinks.forEach(function (link) {
+    link.addEventListener("click", function (event) { event.preventDefault(); show("vista", link.dataset.view); });
+  });
+  select.addEventListener("change", function () {
+    var parts = select.value.split(":");
+    show(parts[0], parts[1]);
+  });
+  search.addEventListener("input", function () {
+    var query = search.value.trim().toLocaleLowerCase("es");
+    var visible = 0;
+    [].slice.call(list.querySelectorAll("[data-level]")).forEach(function (item) {
+      var hit = !query || item.textContent.toLocaleLowerCase("es").indexOf(query) !== -1;
+      item.hidden = !hit;
+      if (hit) visible += 1;
+    });
+    emptyFilter.classList.toggle("show", visible === 0);
+  });
+  window.addEventListener("popstate", function () { var state = fromUrl(); show(state[0], state[1], { push: false }); });
+
+  buildSelect();
+  var initial = fromUrl();
+  if (initial[0] === "vista") show("vista", initial[1], { push: false });
+
+  fetch(BASE + "catalog.json")
+    .then(function (response) { if (!response.ok) throw new Error("HTTP " + response.status); return response.json(); })
+    .then(function (catalog) {
+      levels = (catalog.levels || []).slice().sort(function (a, b) { return a.level - b.level; });
+      renderLevels();
+      buildSelect();
+      var state = fromUrl();
+      show(state[0], state[1], { push: false });
+    })
+    .catch(function () {
+      document.getElementById("levelCount").textContent = "No se pudieron cargar los niveles";
+      if (initial[0] === "nivel") show("vista", DEFAULT_VIEW, { push: false });
+    });
+})();
+</script>
+</body>
+</html>

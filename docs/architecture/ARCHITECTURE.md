@@ -20,7 +20,7 @@ casos/               Banco de casos: cases.jsonl, staging/, data/ (contenido)
 kits/                Notebooks de Colab (contenido)
 capsulas/            Cápsulas de oficina (contenido + su propio generador)
 design/              Tokens visuales y capa 8 bits (engine)
-portal/              Plantillas nuevas del portal: misiones, 404 (engine)
+portal/              Shell del curso (estructura de la página de referencia), misiones, casos, salud, 404 (engine)
 site/                Portal actual de la fábrica (engine, sin cambios)
 harness/             Validación, build de dist/, checks y smoke tests (engine)
 studio/              Proyecto Remotion; render local, sin MP4 en Git

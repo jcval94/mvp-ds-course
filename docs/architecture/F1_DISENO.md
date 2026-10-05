@@ -29,6 +29,26 @@ Las imágenes `reference/design/github-pages-*-approved.png` documentan el aspec
 claro anterior como "aprobado". Con este paso dejan de representar el portal. Si
 apruebas el nuevo aspecto, se reemplazan por capturas del tema oscuro.
 
+## Paso 1b (hecho): la estructura de la página de referencia como shell del curso
+
+Rama `portal-shell` (encima de `f1-diseno`). Fuente: `Página.zip`, el mismo sitio de
+AI News Daily ya usado para los tokens, con nombres de archivo cortos.
+
+| Vista de la referencia | Vista del curso | Ruta | Datos |
+| --- | --- | --- | --- |
+| Selector de episodios (barra lateral + escenario) | **Tu ruta**: vistas + 13 niveles, búsqueda, selector móvil | `curso/` (`?vista=` / `?nivel=`) | `catalog.json` |
+| Review Hub del episodio | Nivel abierto en el escenario | `curso/?nivel=N` | niveles publicados |
+| Narrative Memory | **Banco de casos** | `casos/` | `casos.json` (solo aprobados y públicos; candidatos solo se cuentan) |
+| Salud del repo | **Salud del curso** | `salud/` | `build-info.json` + `catalog.json` |
+| — | Misiones con el mismo lenguaje visual | `missions/` | `missions.json` |
+
+- El shell vive en `dist/curso/`; la portada de la fábrica sigue en la raíz para no
+  romper `qa_pages.py`. Moverlo a la raíz: cambiar `BASE` en `portal/curso/index.html`,
+  mover la portada a `inicio.html` y ajustar `qa_pages.py`.
+- Los niveles todavía se ven en tema claro dentro del escenario: es el paso 2.
+- Pruebas: 14/14 del harness (nueva: casos públicos), smoke en `/` y `/mvp-ds-course/`
+  con 25 páginas cada uno más la navegación del shell, `qa_pages.py` y `actionlint` en verde.
+
 ## Paso 2 (siguiente): un nivel con el sistema visual
 
 Los niveles comparten `scripts/assets/level_shell_v1.css` y

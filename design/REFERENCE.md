@@ -1,7 +1,8 @@
 # Página de referencia
 
-- Archivo: `Pagina_Curso_Completa_2026-10-05.zip` (carpeta GitHub local del autor, 89 MB).
-- Contenido: réplica estática del sitio de AI News Daily publicada el 2026-10-05 (`published_site/`) y su código fuente (`source/`, commit `2f4b4e9`).
+- Archivo: `Página.zip` (87 MB), entregado por el autor el 2026-10-05. Es el mismo sitio que `Pagina_Curso_Completa_2026-10-05.zip`, con nombres de archivo acortados (la carpeta original no abría en Windows por rutas demasiado largas). Vistas idénticas byte a byte.
+- Contenido: réplica estática del sitio de AI News Daily publicada el 2026-10-05 (`site/`) y su código fuente (`source/`, commit `2f4b4e9`).
+- Se usa su **estructura** (shell, vistas) y sus **estilos** (tokens). El contenido de AI News Daily no se copia.
 - No se versiona aquí por tamaño (casi todo es video de episodios).
 
 ## Vistas revisadas

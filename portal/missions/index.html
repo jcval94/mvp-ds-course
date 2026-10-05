@@ -6,26 +6,24 @@
   <meta name="color-scheme" content="dark">
   <title>Misiones · Curso de ciencia de datos</title>
   <link rel="stylesheet" href="../design/tokens/tokens.css">
-  <link rel="stylesheet" href="../design/components/components.css">
-  <style>
-    main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; display: grid; gap: 20px; }
-    .list { display: grid; gap: 12px; }
-    .mission { display: grid; gap: 6px; }
-    .mission h2 { margin: 0; font-size: 18px; }
-    .mission p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
-    .empty { color: var(--muted); font-size: 14px; line-height: 1.6; }
-    .back { color: var(--accent); font-size: 13px; }
-  </style>
+  <link rel="stylesheet" href="../assets/views.css">
 </head>
 <body>
   <main>
-    <a class="back" href="../index.html">← Volver al curso</a>
-    <header class="hero">
-      <div class="eyebrow">Curso de ciencia de datos · Misiones</div>
-      <h1>Misiones</h1>
-      <p class="muted">Cada misión es una decisión real tomada con datos. Resuélvela y desbloquea los conceptos que usaste.</p>
-    </header>
-    <section class="list" id="missionList" aria-live="polite">
+    <a class="standalone-back" href="../curso/?vista=misiones" hidden>← Volver a tu ruta</a>
+    <section class="view-hero">
+      <div>
+        <div class="eyebrow">Curso de ciencia de datos · Misiones</div>
+        <h1>Misiones</h1>
+        <p>Cada misión es una decisión real tomada con datos. Resuélvela y desbloquea los conceptos que usaste.</p>
+      </div>
+      <aside class="snapshot">
+        <div class="eyebrow">Cómo funciona</div>
+        <strong>Caso → evidencia → decisión</strong>
+        <small>Cada misión trae su notebook y su video.</small>
+      </aside>
+    </section>
+    <section class="grid" id="missionList" aria-live="polite">
       <p class="empty" id="missionEmpty">Cargando misiones…</p>
     </section>
   </main>
@@ -42,14 +40,20 @@
         empty.remove();
         missions.forEach(function (mission) {
           var card = document.createElement("article");
-          card.className = "card mission";
+          card.className = "card story";
           card.setAttribute("data-mission-id", mission.id);
           var title = document.createElement("h2");
           title.textContent = mission.title;
           var question = document.createElement("p");
           question.textContent = mission.decision.question;
-          var concepts = document.createElement("p");
-          concepts.textContent = "Conceptos: " + mission.concepts.join(", ");
+          var concepts = document.createElement("div");
+          concepts.className = "chips";
+          mission.concepts.forEach(function (concept) {
+            var chip = document.createElement("span");
+            chip.className = "chip";
+            chip.textContent = concept;
+            concepts.append(chip);
+          });
           card.append(title, question, concepts);
           list.append(card);
         });
@@ -65,5 +69,6 @@
         });
     })();
   </script>
+<script>if (window.top === window.self) document.querySelector(".standalone-back").hidden = false;</script>
 </body>
 </html>

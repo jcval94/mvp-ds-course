@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Banco de casos · Curso de ciencia de datos</title>
+<link rel="stylesheet" href="../design/tokens/tokens.css">
+<link rel="stylesheet" href="../assets/views.css">
+</head>
+<body>
+<main>
+  <a class="standalone-back" href="../curso/?vista=casos" hidden>← Volver a tu ruta</a>
+  <section class="view-hero">
+    <div>
+      <div class="eyebrow">Banco de casos · evidencia histórica</div>
+      <h1>¿Qué decisiones reales vas a resolver?</h1>
+      <p>Cada misión parte de un momento en que alguien tuvo que decidir con datos. Aquí solo aparecen casos verificados: afirmaciones con fuente, incertidumbres declaradas y mitos que no repetimos.</p>
+    </div>
+    <aside class="snapshot" aria-live="polite">
+      <div class="eyebrow">Snapshot</div>
+      <strong id="snapshotDate">—</strong>
+      <small id="snapshotNote">Construido desde casos/cases.jsonl</small>
+    </aside>
+  </section>
+
+  <section class="kpis" aria-label="Indicadores del banco de casos">
+    <div class="kpi"><span>Aprobados</span><b id="kpiApproved">0</b><small>listos para una misión</small></div>
+    <div class="kpi"><span>En investigación</span><b id="kpiReview">0</b><small>candidatos y verificación</small></div>
+    <div class="kpi"><span>Conceptos</span><b id="kpiConcepts">0</b><small>cubiertos por casos aprobados</small></div>
+    <div class="kpi"><span>Misiones</span><b id="kpiMissions">0</b><small>publicadas</small></div>
+  </section>
+
+  <section class="legend" aria-label="Qué significa cada estado">
+    <div class="legend-card story"><i class="legend-dot"></i><div><strong>Caso aprobado</strong><small>Pasó verificación de fuentes y revisión humana. Puede sostener una misión.</small></div></div>
+    <div class="legend-card"><i class="legend-dot"></i><div><strong>En investigación</strong><small>Candidato o en verificación. No se muestra hasta que su evidencia esté completa.</small></div></div>
+  </section>
+
+  <div class="controls"><input id="caseSearch" type="search" placeholder="Buscar caso, concepto o fuente…" aria-label="Buscar caso"></div>
+  <section id="caseGrid" class="grid" aria-live="polite"></section>
+  <p id="caseEmpty" class="empty">Cargando casos…</p>
+</main>
+<script>
+(function () {
+  var grid = document.getElementById("caseGrid");
+  var empty = document.getElementById("caseEmpty");
+  function text(tag, className, value) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    node.textContent = value;
+    return node;
+  }
+  function render(cases, missions, info) {
+    document.getElementById("kpiApproved").textContent = cases.approved.length;
+    document.getElementById("kpiReview").textContent = cases.in_review;
+    document.getElementById("kpiConcepts").textContent = cases.concepts.length;
+    document.getElementById("kpiMissions").textContent = missions.missions.length;
+    if (info && info.commit_time) document.getElementById("snapshotDate").textContent = info.commit_time.slice(0, 10);
+    if (!cases.approved.length) {
+      empty.textContent = cases.in_review
+        ? "Todavía no hay casos aprobados. " + cases.in_review + " en investigación; aparecerán aquí cuando su evidencia esté verificada."
+        : "Todavía no hay casos en el banco.";
+      return;
+    }
+    empty.remove();
+    cases.approved.forEach(function (item) {
+      var card = document.createElement("article");
+      card.className = "card story";
+      card.dataset.search = [item.title, item.decision_question, (item.concepts || []).join(" "), (item.sources || []).join(" ")].join(" ").toLocaleLowerCase("es");
+      var meta = document.createElement("div");
+      meta.className = "meta";
+      meta.append(text("span", "pill story", "Aprobado"), text("span", "", item.level_hint ? "Nivel " + item.level_hint : ""));
+      card.append(meta, text("h2", "", item.title), text("p", "", item.decision_question));
+      if (item.claims && item.claims.length) {
+        var claims = document.createElement("ul");
+        item.claims.slice(0, 3).forEach(function (claim) { claims.append(text("li", "", claim)); });
+        card.append(claims);
+      }
+      var chips = document.createElement("div");
+      chips.className = "chips";
+      (item.concepts || []).forEach(function (concept) { chips.append(text("span", "chip", concept)); });
+      card.append(chips);
+      grid.append(card);
+    });
+  }
+  document.getElementById("caseSearch").addEventListener("input", function (event) {
+    var query = event.target.value.trim().toLocaleLowerCase("es");
+    [].slice.call(grid.children).forEach(function (card) { card.hidden = query && card.dataset.search.indexOf(query) === -1; });
+  });
+  function getJson(path) { return fetch(path).then(function (response) { if (!response.ok) throw new Error(path); return response.json(); }); }
+  Promise.all([getJson("../casos.json"), getJson("../missions.json"), getJson("../build-info.json").catch(function () { return null; })])
+    .then(function (values) { render(values[0], values[1], values[2]); })
+    .catch(function () { empty.textContent = "No se pudo cargar el banco de casos. Recarga la página."; });
+})();
+</script>
+<script>if (window.top === window.self) document.querySelector(".standalone-back").hidden = false;</script>
+</body>
+</html>
