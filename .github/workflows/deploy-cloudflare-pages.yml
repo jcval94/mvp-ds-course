@@ -1,0 +1,40 @@
+# Capa de deployment: Cloudflare Pages (lista, no activa).
+# Se activa cambiando el job `deploy` de ci.yml. Requiere los secrets
+# CLOUDFLARE_API_TOKEN y CLOUDFLARE_ACCOUNT_ID y un proyecto de Pages creado.
+name: Deploy · Cloudflare Pages
+
+on:
+  workflow_call:
+    inputs:
+      project-name:
+        description: Nombre del proyecto en Cloudflare Pages
+        required: true
+        type: string
+    secrets:
+      CLOUDFLARE_API_TOKEN:
+        required: true
+      CLOUDFLARE_ACCOUNT_ID:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: cloudflare-pages
+      cancel-in-progress: false
+    steps:
+      - name: Download dist/
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ inputs.project-name }} --branch=main

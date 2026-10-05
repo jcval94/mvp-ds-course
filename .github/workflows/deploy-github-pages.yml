@@ -1,0 +1,39 @@
+# Capa de deployment: GitHub Pages (activa). Solo publica el artefacto dist/ ya probado; no construye nada.
+name: Deploy · GitHub Pages
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download dist/
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+        with:
+          # Pages permaneció en deployment_queued más que el límite predeterminado
+          # de 10 minutos en tres ejecuciones consecutivas (heredado de pages.yml).
+          timeout: 1200000

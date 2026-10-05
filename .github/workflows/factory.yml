@@ -1,0 +1,49 @@
+# Dominio: fábrica de niveles. Conserva los pasos del antiguo pages.yml y agrega las pruebas de regresión existentes.
+name: Factory
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  factory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: harness/requirements.txt
+
+      - name: Install pinned dependencies
+        run: python -m pip install --disable-pip-version-check -r harness/requirements.txt
+
+      - name: Validate educational content
+        run: python scripts/validate_content.py
+
+      - name: Vertical slice regression tests
+        run: python scripts/test_vertical_slices.py
+
+      - name: Build factory site
+        run: python scripts/build_pages.py
+
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Semantic browser QA
+        run: python scripts/qa_pages.py
+
+      - name: Upload QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: factory-qa-screenshots
+          path: output/playwright
+          retention-days: 7
+          if-no-files-found: ignore
