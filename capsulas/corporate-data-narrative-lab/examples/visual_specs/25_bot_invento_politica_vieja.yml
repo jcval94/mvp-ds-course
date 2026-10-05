@@ -1,0 +1,10 @@
+title: "El bot que invento la politica vieja"
+case_id: "25"
+chart_type: "source_citations"
+question_answered: "Que debe revisar un sistema RAG ademas de encontrar texto parecido a la pregunta."
+comfortable_read: "Pero cito el documento."
+missing_context: "Oficialmente abandonada, pero oficial."
+correct_read: "Las correctas citan politica vigente; las malas citan historia."
+decision_changed: "filtrar documentos vigentes, mostrar fuente y mandar dudas raras a revision"
+annotations: ["vigente", "vencida", "sin dueno"]
+synthetic_data: true

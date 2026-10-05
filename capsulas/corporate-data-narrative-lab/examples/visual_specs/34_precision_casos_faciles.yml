@@ -1,0 +1,10 @@
+title: "La precision que festejaba casos faciles"
+case_id: "34"
+chart_type: "difficulty_matrix"
+question_answered: "Por que conviene revisar metricas por segmento antes de lanzar un modelo."
+comfortable_read: "Son casos reales."
+missing_context: "Tambien aplana lo dificil."
+correct_read: "En facil va perfecto; en dificil se cae."
+decision_changed: "evaluar por segmento y lanzar solo donde cumple"
+annotations: ["faciles", "medios", "dificiles"]
+synthetic_data: true

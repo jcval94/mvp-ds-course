@@ -1,0 +1,10 @@
+title: "El modelo vencido por siempre no"
+case_id: "84"
+chart_type: "barras contra línea base"
+question_answered: "¿Qué alternativa evita más costo total cuando incluimos revisiones e infraestructura?"
+comfortable_read: "Un F1 de 0.71 parece suficiente sin otro punto de comparación."
+missing_context: "La regla actual logra casi el mismo beneficio con menor costo."
+correct_read: "La regla evita 83 errores frente a 85 del modelo y requiere muchas menos revisiones."
+decision_changed: "probar primero una regla interpretable y exigir valor adicional al modelo complejo"
+annotations: ["siempre no", "regla simple", "modelo complejo"]
+synthetic_data: true

@@ -1,0 +1,10 @@
+title: "El agente que cerraba tickets sin leerlos"
+case_id: "26"
+chart_type: "reopened_tickets"
+question_answered: "Que metrica necesita un agente para distinguir cerrar un caso de resolverlo."
+comfortable_read: "Pero los tickets abiertos bajaron."
+missing_context: "El cliente marca sigo atorado."
+correct_read: "Donde mas cierra solo, mas reabre el cliente."
+decision_changed: "medir resolucion confirmada y limitar cierre automatico"
+annotations: ["cierres", "reaperturas", "resueltos"]
+synthetic_data: true

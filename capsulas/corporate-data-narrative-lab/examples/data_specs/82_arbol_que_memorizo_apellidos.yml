@@ -1,0 +1,9 @@
+case_id: "82"
+title: "El árbol que memorizó apellidos"
+concept: "sobreajuste, complejidad y generalización"
+scenario: "arbol_que_memorizo_apellidos"
+seed: 282
+observations: 7400
+variables: ["employee_record", "feature_group", "tree_depth", "train_score", "validation_score"]
+key_values: {"profundidad 2": 67, "profundidad 5": 74, "profundidad 32": 58}
+synthetic_data: true

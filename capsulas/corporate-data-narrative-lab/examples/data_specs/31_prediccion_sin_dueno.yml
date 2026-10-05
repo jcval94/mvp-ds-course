@@ -1,0 +1,9 @@
+case_id: "31"
+title: "La prediccion que llego sin dueno"
+concept: "propiedad operativa del producto de datos"
+scenario: "prediccion_sin_dueno"
+seed: 131
+observations: 1000
+variables: [alert_id, owner_area, accepted, closed]
+key_values: {alerts_sent: 300, accepted_share: 46, closed_share: 29}
+synthetic_data: true

@@ -1,0 +1,10 @@
+title: "La metrica que olvidaba el mes anterior"
+case_id: "57"
+chart_type: "window_metrics"
+question_answered: "Para que sirven CTEs y funciones de ventana en una metrica por periodo."
+comfortable_read: "Eso se calcula mirando la tabla."
+missing_context: "Ahora la decision depende de restar a mano."
+correct_read: "Se ve la variacion sin perder el valor mensual."
+decision_changed: "usar CTEs para ordenar pasos y ventanas para comparar periodos"
+annotations: ["mensual", "con LAG", "acumulado"]
+synthetic_data: true

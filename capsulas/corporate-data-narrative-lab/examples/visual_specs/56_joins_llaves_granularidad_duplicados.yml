@@ -1,0 +1,10 @@
+title: "El JOIN que duplico las ventas con mucha seguridad"
+case_id: "56"
+chart_type: "join_duplicates"
+question_answered: "Que debes revisar antes de hacer un JOIN entre dos tablas."
+comfortable_read: "Tal vez el producto mejoro."
+missing_context: "En promociones product_id aparece varias veces."
+correct_read: "Cada venta se repitio por cada promocion del producto."
+decision_changed: "identificar llave, granularidad y duplicados antes de unir"
+annotations: ["antes", "join bruto", "join correcto"]
+synthetic_data: true

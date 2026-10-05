@@ -1,0 +1,10 @@
+title: "La sucursal estrella que recibía lo fácil"
+case_id: "04"
+chart_type: "grouped_bars"
+question_answered: "¿Quién rinde mejor con casos semejantes?"
+comfortable_read: "Norte resuelve en menos tiempo."
+missing_context: "Sur recibe casi todos los casos complicados."
+correct_read: "La asignación explica gran parte de la diferencia."
+decision_changed: "Comparar por dificultad y auditar transferencias."
+annotations: ["promedio bruto", "casos difíciles sin reapertura"]
+synthetic_data: true

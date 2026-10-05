@@ -1,0 +1,9 @@
+case_id: "15"
+title: "El modelo que seguía perfecto porque nadie volvió a medirlo"
+concept: "drift y monitoreo"
+scenario: "production_model_drift"
+seed: 115
+observations: 9
+variables: [month, accuracy, population_shift_index, alert_usage_rate, new_product_active]
+key_values: {launch_accuracy: 0.86, current_accuracy: 0.61, ignored_alert_rate: 0.40}
+synthetic_data: true

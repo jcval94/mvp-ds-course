@@ -1,0 +1,9 @@
+case_id: "10"
+title: "El KPI que mejoró dejando de contar reaperturas"
+concept: "cambio de definición de KPI"
+scenario: "kpi_reopen_definition"
+seed: 110
+observations: 24
+variables: [month, definition_version, first_contact_resolution, reopened_cases]
+key_values: {old_rate: 0.68, official_new_rate: 0.84, comparable_rate: 0.71}
+synthetic_data: true

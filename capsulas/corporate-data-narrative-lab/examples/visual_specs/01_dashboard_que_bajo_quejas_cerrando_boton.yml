@@ -1,0 +1,10 @@
+title: "El botón que arregló las quejas"
+case_id: "01"
+chart_type: "multi_line_before_after"
+question_answered: "¿Bajó el enojo o solo el formulario?"
+comfortable_read: "Las quejas formales bajaron 40%."
+missing_context: "Abandonos y contactos por chat y redes."
+correct_read: "La demanda cambió de canal."
+decision_changed: "Restaurar una ruta visible y medir el recorrido."
+annotations: ["rediseño", "formularios abajo", "canales alternos arriba"]
+synthetic_data: true

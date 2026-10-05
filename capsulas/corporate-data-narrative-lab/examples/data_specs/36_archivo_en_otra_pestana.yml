@@ -1,0 +1,9 @@
+case_id: "36"
+title: "El archivo que vivia en otra pestana"
+concept: "rutas, montaje de Drive y carga de datos en Colab"
+scenario: "archivo_en_otra_pestana"
+seed: 136
+observations: 1000
+variables: [student_run, file_path, row_count, schema_ok]
+key_values: {same_path_share: 88, schema_ok_share: 81, unvalidated_share: 29}
+synthetic_data: true

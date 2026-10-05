@@ -1,0 +1,9 @@
+case_id: "63"
+title: "La sucursal con más quejas y más clientes"
+concept: "conteos, tasas y denominadores"
+scenario: "sucursal_con_mas_quejas_y_clientes"
+seed: 263
+observations: 42000
+variables: ["branch", "orders", "complaints", "complaints_per_1000"]
+key_values: {"Norte": 12, "Centro": 18, "Sur": 15}
+synthetic_data: true

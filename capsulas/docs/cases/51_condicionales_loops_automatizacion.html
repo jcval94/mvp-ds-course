@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El loop que mando el mismo aviso a todos</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">51</span>
+      <span class="topic-chip">Logica de automatizacion</span>
+    </div>
+    <h1>El loop que mando el mismo aviso a todos</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> condicionales, loops y logica de automatizacion</p>
+      <p><strong>Pregunta de la grafica:</strong> Que papel tiene un if dentro de un loop de automatizacion.</p>
+      <p><strong>Lectura correcta:</strong> La condicion separo quien necesitaba accion y quien no.</p>
+      <p><strong>Decision que cambia:</strong> agregar condiciones antes de repetir acciones</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El loop que mando el mismo aviso a todos</h1>
+<section>
+<h2>La automatizacion obediente</h2>
+<blockquote><strong>Nico:</strong><span>El script ya recorre todos los registros.</span></blockquote>
+<blockquote><strong>Irene:</strong><span>Tambien les manda el mismo aviso a todos.</span></blockquote>
+<blockquote><strong>Joel:</strong><span>Eso era la automatizacion.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>Eso era repeticion, no criterio.</span></blockquote>
+<blockquote><strong>Joel:</strong><span>Antes lo haciamos a mano.</span></blockquote>
+<blockquote><strong>la coordinadora:</strong><span>A mano al menos alguien distinguia pendientes de cerrados.</span></blockquote>
+<p>El loop procesa todo igual y manda avisos incorrectos. La pantalla no mostraba un fallo espectacular; mostraba un resultado plausible que nadie sabía reconstruir de principio a fin.</p>
+</section>
+<section>
+<h2>Repetir no es decidir</h2>
+<blockquote><strong>Joel:</strong><span>Hacemos dos scripts, uno para cada caso.</span></blockquote>
+<blockquote><strong>Irene:</strong><span>Mejor una condicion dentro del loop.</span></blockquote>
+<blockquote><strong>Joel:</strong><span>Pero dos scripts se sienten mas productivos.</span></blockquote>
+<blockquote><strong>la coordinadora:</strong><span>Y duplican el lugar donde equivocarnos.</span></blockquote>
+<blockquote><strong>Joel:</strong><span>El correo generico es educado.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>Educado y falso sigue siendo falso.</span></blockquote>
+<blockquote><strong>Irene:</strong><span>El loop procesa todo igual y manda avisos incorrectos.</span></blockquote>
+<blockquote><strong>la coordinadora:</strong><span>Enséñame casos procesados con y sin condicion antes de cerrar.</span></blockquote>
+<p>El grupo puso casos procesados con y sin condicion junto al resultado anterior. Poner los pasos junto al resultado convirtió una explicación vaga en una comprobación que podía ejecutar cualquier integrante.</p>
+</section>
+<section>
+<h2>La pregunta antes de la vuelta</h2>
+<blockquote><strong>Nico:</strong><span>Compare registros procesados antes y despues del if.</span></blockquote>
+<blockquote><strong>la coordinadora:</strong><span>Cuantos avisos dejaron de salir mal.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>La condicion separo quien necesitaba accion y quien no.</span></blockquote>
+<blockquote><strong>Irene:</strong><span>Entonces debemos agregar condiciones antes de repetir acciones.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>Un loop repite, pero la condicion decide cuando debe cambiar el camino.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="casos procesados con y sin condicion">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">casos procesados con y sin condicion</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="188" width="174" height="72" fill="#286d9b"/>
+  <text x="157" y="178" font-size="18" text-anchor="middle">39</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">sin if</text>
+  <rect x="272" y="147" width="174" height="113" fill="#d58b2f"/>
+  <text x="359" y="137" font-size="18" text-anchor="middle">61</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">dos scripts</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">94</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">loop con if</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La condicion evita repetir el error.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Irene:</strong><span>Que papel tiene un if dentro de un loop de automatizacion.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia muestra que repetir sin logica amplifica errores. El loop permite recorrer muchos registros; el condicional decide que accion corresponde en cada caso. Automatizar bien no es hacer mas, es hacer lo correcto muchas veces.</p>
+</section>
+<section>
+<h2>Menos correos, mas logica</h2>
+<blockquote><strong>la coordinadora:</strong><span>El loop solo enviara aviso si el estado lo requiere.</span></blockquote>
+<blockquote><strong>Joel:</strong><span>Hay que escribir la regla completa.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>Y dejar de molestar a quien ya termino.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>¿Qué cambiaremos después de revisar casos procesados con y sin condicion?</span></blockquote>
+<blockquote><strong>Irene:</strong><span>La decisión es agregar condiciones antes de repetir acciones.</span></blockquote>
+<blockquote><strong>Joel:</strong><span>Y volvemos a medir condicionales, loops y logica de automatizacion antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Joel:</strong><span>El siguiente ejercicio incluirá un caso normal, una excepción y una entrada vacía.</span></blockquote>
+<blockquote><strong>Irene:</strong><span>El loop trabajo muchisimo; el problema es que nunca pregunto a quien.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> un loop repite, pero la condicion decide cuando debe cambiar el camino.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="50_variables_listas_diccionarios.html">Anterior: La lista que no sabia de quien era cada dato</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="52_funciones_limpias_reutilizables.html">Siguiente: La formula que vivia en cinco lugares</a>
+  </nav>
+</body>
+</html>

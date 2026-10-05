@@ -1,0 +1,9 @@
+case_id: "48"
+title: "La tarea que tenia dueno, salida y no drama"
+concept: "tareas para agentes con responsable, salida y revision"
+scenario: "tarea_con_dueno_salida"
+seed: 148
+observations: 1000
+variables: [task_id, owner, expected_output, reviewer, verification]
+key_values: {open_task_success: 33, review_ready_success: 90, template_fields: 5}
+synthetic_data: true

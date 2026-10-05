@@ -1,0 +1,10 @@
+title: "El promedio de 14 minutos y el folio de seis horas"
+case_id: "05"
+chart_type: "long_tail_histogram"
+question_answered: "¿Dónde viven las esperas graves?"
+comfortable_read: "El promedio es 14 minutos."
+missing_context: "112 casos superan una hora."
+correct_read: "La cola concentra el daño."
+decision_changed: "Gestionar mediana, p90, p95 y antigüedad."
+annotations: ["p90", "p95", "4 horas o más"]
+synthetic_data: true

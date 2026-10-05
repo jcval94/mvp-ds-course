@@ -1,0 +1,10 @@
+title: "El viernes que duró tres minutos"
+case_id: "66"
+chart_type: "barras por hora de corte"
+question_answered: "¿Qué comparación permite saber si este viernes realmente empezó peor?"
+comfortable_read: "El viernes parece caer 72% frente al total del viernes anterior."
+missing_context: "El periodo actual solo contiene tres minutos de operación."
+correct_read: "A la misma hora, hoy registra 50 pedidos frente a 52 y 48."
+decision_changed: "esperar una ventana comparable y mostrar la hora de corte en cada reporte"
+annotations: ["hoy 09:03", "viernes A 09:03", "viernes B 09:03"]
+synthetic_data: true

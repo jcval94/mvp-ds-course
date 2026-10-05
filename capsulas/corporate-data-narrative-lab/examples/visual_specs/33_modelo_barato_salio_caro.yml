@@ -1,0 +1,10 @@
+title: "El modelo barato que salio caro"
+case_id: "33"
+chart_type: "error_cost"
+question_answered: "Que metrica falta cuando comparamos modelos solo por precision y precio de ejecucion."
+comfortable_read: "La precision se ve muy cercana."
+missing_context: "El presupuesto de reclamos sube con ganas."
+correct_read: "El caro en computo cuesta menos al final."
+decision_changed: "elegir modelo por costo esperado y no solo por costo de ejecucion"
+annotations: ["modelo barato", "modelo robusto", "solo computo"]
+synthetic_data: true

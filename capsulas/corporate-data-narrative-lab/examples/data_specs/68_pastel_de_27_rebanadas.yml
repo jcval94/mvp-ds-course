@@ -1,0 +1,9 @@
+case_id: "68"
+title: "El pastel de 27 rebanadas"
+concept: "selección de gráfica según la pregunta"
+scenario: "pastel_de_27_rebanadas"
+seed: 268
+observations: 27000
+variables: ["category", "sales", "share", "period_change"]
+key_values: {"electrónica": 32, "hogar": 24, "ropa": 18, "resto": 26}
+synthetic_data: true

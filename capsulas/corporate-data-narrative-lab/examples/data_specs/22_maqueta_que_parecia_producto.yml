@@ -1,0 +1,9 @@
+case_id: "22"
+title: "La maqueta que parecia producto"
+concept: "diferencia entre prototipo generativo y producto operable"
+scenario: "maqueta_que_parecia_producto"
+seed: 122
+observations: 1000
+variables: [component, readiness_score, owner, launch_blocker]
+key_values: {interface_ready: 92, data_ready: 46, controls_ready: 28}
+synthetic_data: true

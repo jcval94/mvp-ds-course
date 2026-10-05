@@ -1,0 +1,9 @@
+case_id: "17"
+title: "La campaña que vendió lo que ya estaba vendido"
+concept: "impacto incremental"
+scenario: "campaign_holdout"
+seed: 117
+observations: 100000
+variables: [customer_id, treatment, converted, unsubscribed, propensity_band]
+key_values: {treatment_conversion: 0.20, control_conversion: 0.18, additional_points: 2}
+synthetic_data: true

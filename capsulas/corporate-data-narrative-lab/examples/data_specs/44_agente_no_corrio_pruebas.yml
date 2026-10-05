@@ -1,0 +1,9 @@
+case_id: "44"
+title: "La prueba que el agente no queria correr"
+concept: "verificacion al usar agentes de desarrollo"
+scenario: "agente_no_corrio_pruebas"
+seed: 144
+observations: 1000
+variables: [changed_file, test_command, test_result, coverage_reason]
+key_values: {unit_pass_rate: 78, integration_pass_rate: 64, nearby_failure_rate: 31}
+synthetic_data: true

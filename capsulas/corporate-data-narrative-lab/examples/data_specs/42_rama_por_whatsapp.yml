@@ -1,0 +1,9 @@
+case_id: "42"
+title: "La rama que llego por WhatsApp"
+concept: "branches, commits, issues y pull requests"
+scenario: "rama_por_whatsapp"
+seed: 142
+observations: 1000
+variables: [change_id, issue_link, branch_name, pr_reviewed]
+key_values: {chat_traceability: 24, branch_traceability: 63, pr_traceability: 92}
+synthetic_data: true

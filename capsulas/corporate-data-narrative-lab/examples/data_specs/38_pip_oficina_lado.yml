@@ -1,0 +1,9 @@
+case_id: "38"
+title: "Pip instalo en la oficina de al lado"
+concept: "entornos virtuales y dependencias"
+scenario: "pip_oficina_lado"
+seed: 138
+observations: 1000
+variables: [environment, pip_path, python_path, package_version]
+key_values: {global_install_share: 64, matched_install_share: 95, untracked_envs: 3}
+synthetic_data: true

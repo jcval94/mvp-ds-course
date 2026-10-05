@@ -1,0 +1,9 @@
+case_id: "57"
+title: "La metrica que olvidaba el mes anterior"
+concept: "SQL analitico con CTEs, ventanas y metricas por periodo"
+scenario: "sql_analitico_ctes_ventanas_periodos"
+seed: 157
+observations: 1000
+variables: [month, metric_value, previous_value, period_delta]
+key_values: {monthly_context: 55, lag_context: 86, cumulative_context: 91}
+synthetic_data: true

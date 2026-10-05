@@ -1,0 +1,10 @@
+title: "La sucursal campeona por cuatro respuestas"
+case_id: "74"
+chart_type: "barras de muestra y estimación"
+question_answered: "¿Podemos afirmar que Lago supera a Centro cuando vemos el tamaño de sus muestras?"
+comfortable_read: "Lago parece campeona por registrar 100%."
+missing_context: "El resultado de Lago proviene de solo cuatro respuestas."
+correct_read: "La incertidumbre de Lago impide afirmar que supera al 91% de Centro."
+decision_changed: "esperar más respuestas y mostrar incertidumbre antes de declarar una ganadora"
+annotations: ["Lago respuestas", "Centro satisfecho", "Centro respuestas"]
+synthetic_data: true

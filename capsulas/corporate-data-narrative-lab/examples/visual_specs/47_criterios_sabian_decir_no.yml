@@ -1,0 +1,10 @@
+title: "Los criterios que si sabian decir no"
+case_id: "47"
+chart_type: "scope_matrix"
+question_answered: "Como ayudan los criterios de aceptacion a revisar trabajo generado por agentes."
+comfortable_read: "La revisora pidio otro ajuste."
+missing_context: "Lo obvio tarde se llama retrabajo."
+correct_read: "La matriz separa requerido, opcional y no alcance."
+decision_changed: "aceptar o rechazar con criterios previos y pruebas observables"
+annotations: ["sin criterios", "criterios vagos", "verificables"]
+synthetic_data: true

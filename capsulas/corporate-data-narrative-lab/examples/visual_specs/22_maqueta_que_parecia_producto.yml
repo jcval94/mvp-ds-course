@@ -1,0 +1,10 @@
+title: "La maqueta que parecia producto"
+case_id: "22"
+chart_type: "prototype_gap"
+question_answered: "Que tendria que estar listo para llamar producto a algo que ya se ve terminado."
+comfortable_read: "Pero al usuario no le importa de donde vienen."
+missing_context: "No nos ahorro permisos, soporte ni auditoria."
+correct_read: "Visualmente mucho; en controles y datos, bastante menos."
+decision_changed: "separar demo, piloto y producto con criterios de salida"
+annotations: ["interfaz", "datos", "soporte", "controles"]
+synthetic_data: true

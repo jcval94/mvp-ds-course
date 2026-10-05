@@ -1,0 +1,10 @@
+title: "Las dos líneas que parecían novios"
+case_id: "71"
+chart_type: "barras de cambio relativo"
+question_answered: "¿Qué queda de la relación cuando ambas series se comparan con una escala común?"
+comfortable_read: "Las líneas superpuestas parecen demostrar que más visitas reducen el margen."
+missing_context: "Cada eje usa una escala distinta y el descuento cambió al mismo tiempo."
+correct_read: "El margen cae 22% donde aumenta el descuento; visitas cambia 14% sin el mismo patrón."
+decision_changed: "mantener campañas y analizar descuentos como causa directa del margen"
+annotations: ["visitas", "margen", "descuento"]
+synthetic_data: true

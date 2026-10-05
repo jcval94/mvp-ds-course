@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El Python correcto estaba en otra puerta</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">37</span>
+      <span class="topic-chip">Interpretes de Python</span>
+    </div>
+    <h1>El Python correcto estaba en otra puerta</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> interpretes de Python en VS Code</p>
+      <p><strong>Pregunta de la grafica:</strong> Que informacion confirma que VS Code usa el mismo entorno que el proyecto.</p>
+      <p><strong>Lectura correcta:</strong> El editor apuntaba al global, no al entorno virtual.</p>
+      <p><strong>Decision que cambia:</strong> seleccionar interprete del proyecto y documentar activacion del entorno</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El Python correcto estaba en otra puerta</h1>
+<section>
+<h2>El mismo archivo</h2>
+<blockquote><strong>Caro:</strong><span>El script corre en mi VS Code y falla en el tuyo.</span></blockquote>
+<blockquote><strong>Benja:</strong><span>Tu VS Code esta usando otro Python.</span></blockquote>
+<blockquote><strong>Diana:</strong><span>Pero abrimos la misma carpeta.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Abrir carpeta no elige interprete.</span></blockquote>
+<blockquote><strong>Diana:</strong><span>Abajo dice Python, eso cuenta.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Cuenta como pista, no como garantia.</span></blockquote>
+<p>El codigo falla para unos y para otros usa paquetes viejos. Lo que había empezado como una forma de avanzar rápido terminó creando trabajo adicional para una persona específica.</p>
+</section>
+<section>
+<h2>La puerta equivocada</h2>
+<blockquote><strong>Diana:</strong><span>Reinstalamos todos los paquetes.</span></blockquote>
+<blockquote><strong>Benja:</strong><span>Primero veamos donde los instalarias.</span></blockquote>
+<blockquote><strong>Diana:</strong><span>En el Python que aparezca mas cerca.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Asi terminamos con paquetes en tres lugares.</span></blockquote>
+<blockquote><strong>Diana:</strong><span>Al menos alguno debe funcionar.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Ese no es un plan, es una rifa.</span></blockquote>
+<blockquote><strong>Benja:</strong><span>El codigo falla para unos y para otros usa paquetes viejos.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Quiero ver rutas de interprete antes de decidir.</span></blockquote>
+<p>Caro muestra ruta de interprete, version y paquetes instalados. El dato decisivo mostró en qué paso se desviaba el resultado y quién necesitaba actuar para corregirlo.</p>
+</section>
+<section>
+<h2>Ruta mata sospecha</h2>
+<blockquote><strong>Caro:</strong><span>Imprimi ruta, version y ubicacion de paquetes.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Cual Python esta ejecutando el proyecto.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>El editor apuntaba al global, no al entorno virtual.</span></blockquote>
+<blockquote><strong>Benja:</strong><span>Ahora entiendo por qué si el archivo se abre en VS Code, se ejecuta con el entorno correcto.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Respondía otra pregunta; no servía para seleccionar interprete del proyecto y documentar activacion del entorno.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="rutas de interprete">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">rutas de interprete</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="183" width="174" height="77" fill="#286d9b"/>
+  <text x="157" y="173" font-size="18" text-anchor="middle">41</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">global</text>
+  <rect x="272" y="85" width="174" height="175" fill="#d58b2f"/>
+  <text x="359" y="75" font-size="18" text-anchor="middle">93</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">venv</text>
+  <rect x="474" y="210" width="174" height="50" fill="#4c8b63"/>
+  <text x="561" y="200" font-size="18" text-anchor="middle">27</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">conda viejo</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La ruta del interprete explica diferencias de ejecucion.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Benja:</strong><span>Que informacion confirma que VS Code usa el mismo entorno que el proyecto.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La grafica compara interpretes globales y virtuales. La ruta del ejecutable, version y lista de paquetes deben coincidir con el proyecto. Seleccionar interprete evita instalar dependencias en el lugar equivocado.</p>
+</section>
+<section>
+<h2>Un proyecto, un interprete</h2>
+<blockquote><strong>el mentor:</strong><span>Fijamos el interprete del entorno virtual en el proyecto.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Dejen por escrito quién va a seleccionar interprete del proyecto y documentar activacion del entorno.</span></blockquote>
+<blockquote><strong>Diana:</strong><span>Hay que mirar una configuracion mas.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Y dejamos de perseguir errores imaginarios.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>¿Qué cambiaremos después de revisar rutas de interprete?</span></blockquote>
+<blockquote><strong>Benja:</strong><span>La decisión es seleccionar interprete del proyecto y documentar activacion del entorno.</span></blockquote>
+<blockquote><strong>Diana:</strong><span>Y volvemos a medir interpretes de Python en VS Code antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Diana:</strong><span>El editor mostrará la ruta del intérprete antes de ejecutar cualquier archivo.</span></blockquote>
+<blockquote><strong>Benja:</strong><span>No habia dos proyectos; habia dos Pythons peleando por el teclado.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> en VS Code, confirma el interprete antes de culpar al codigo.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="36_archivo_en_otra_pestana.html">Anterior: El archivo que vivia en otra pestana</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="38_pip_oficina_lado.html">Siguiente: Pip instalo en la oficina de al lado</a>
+  </nav>
+</body>
+</html>

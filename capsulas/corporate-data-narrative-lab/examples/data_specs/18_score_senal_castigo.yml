@@ -1,0 +1,9 @@
+case_id: "18"
+title: "El score que pasó de alerta a castigo"
+concept: "riesgo de automatización y revisión humana"
+scenario: "risk_score_automatic_action"
+seed: 118
+observations: 5000
+variables: [case_id, risk_score, automatic_block, human_review, final_outcome, appealed]
+key_values: {automatic_false_positive_rate: 0.19, reviewed_false_positive_rate: 0.05}
+synthetic_data: true

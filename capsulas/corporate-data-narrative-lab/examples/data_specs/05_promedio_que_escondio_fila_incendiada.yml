@@ -1,0 +1,9 @@
+case_id: "05"
+title: "El promedio de 14 minutos y el folio de seis horas"
+concept: "media engañosa y cola de distribución"
+scenario: "service_time_long_tail"
+seed: 105
+observations: 9000
+variables: [case_id, wait_minutes, reopened, queue_age]
+key_values: {mean_minutes: 14, median_minutes: 8, over_one_hour: 112, extreme_hours: 6}
+synthetic_data: true

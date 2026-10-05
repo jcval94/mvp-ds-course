@@ -1,0 +1,10 @@
+title: "La maquina que obedecio demasiado literal"
+case_id: "19"
+chart_type: "instruction_table"
+question_answered: "Si dos personas entienden la frase de formas distintas, que necesita la maquina para no inventar el criterio."
+comfortable_read: "Como palabra. Es lo mismo, no."
+missing_context: "Y ahora tenemos casos graves esperando turno."
+correct_read: "La version vaga ordena por palabra; la clara ordena por impacto."
+decision_changed: "escribir instrucciones con objetivo, datos de entrada, criterio y ejemplo de salida"
+annotations: ["frase vaga", "con criterio", "con ejemplo"]
+synthetic_data: true

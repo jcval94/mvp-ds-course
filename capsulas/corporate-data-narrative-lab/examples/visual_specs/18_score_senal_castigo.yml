@@ -1,0 +1,10 @@
+title: "El score que pasó de alerta a castigo"
+case_id: "18"
+chart_type: "automatic_vs_reviewed_bars"
+question_answered: "¿Qué cambia al revisar contexto?"
+comfortable_read: "Automatizar reduce tiempo."
+missing_context: "El bloqueo automático tiene 19% de errores."
+correct_read: "La revisión reduce errores a 5%."
+decision_changed: "Restaurar revisión y apelación."
+annotations: ["automático 19", "con revisión 5"]
+synthetic_data: true

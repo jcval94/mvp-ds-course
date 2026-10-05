@@ -1,0 +1,10 @@
+title: "El filtro que contrataba clones del gerente"
+case_id: "27"
+chart_type: "selection_by_group"
+question_answered: "Por que una variable aparentemente neutral puede copiar una exclusion pasada."
+comfortable_read: "El equipo actual funciona."
+missing_context: "Aprendio de quienes tuvieron oportunidad."
+correct_read: "Los perfiles no historicos caen mas aun con desempeno similar."
+decision_changed: "auditar sesgos, quitar proxies y mantener revision humana"
+annotations: ["historico", "no historico", "con revision"]
+synthetic_data: true

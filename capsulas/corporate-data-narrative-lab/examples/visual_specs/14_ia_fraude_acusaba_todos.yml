@@ -1,0 +1,10 @@
+title: "La IA que encontraba fraude en todas partes"
+case_id: "14"
+chart_type: "confusion_matrix"
+question_answered: "¿Cuántas alertas son útiles para Operación?"
+comfortable_read: "El modelo detecta 98% del fraude."
+missing_context: "Produce 7,760 falsos positivos."
+correct_read: "La cola supera la capacidad y daña clientes."
+decision_changed: "Ajustar umbral y mantener revisión humana."
+annotations: ["245 verdaderos positivos", "7,760 falsos positivos"]
+synthetic_data: true

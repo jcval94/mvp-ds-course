@@ -1,0 +1,9 @@
+case_id: "55"
+title: "La consulta que trajo toda la tienda"
+concept: "SQL basico con SELECT, WHERE, GROUP BY y ORDER BY"
+scenario: "sql_basico_select_where_group_order"
+seed: 155
+observations: 1000
+variables: [query_id, columns_selected, rows_filtered, grouped_result]
+key_values: {select_star_focus: 18, filtered_focus: 61, grouped_focus: 91}
+synthetic_data: true

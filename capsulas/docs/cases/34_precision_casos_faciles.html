@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La precision que festejaba casos faciles</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">34</span>
+      <span class="topic-chip">Evaluacion por segmentos</span>
+    </div>
+    <h1>La precision que festejaba casos faciles</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> evaluacion por segmentos y dificultad</p>
+      <p><strong>Pregunta de la grafica:</strong> Por que conviene revisar metricas por segmento antes de lanzar un modelo.</p>
+      <p><strong>Lectura correcta:</strong> En facil va perfecto; en dificil se cae.</p>
+      <p><strong>Decision que cambia:</strong> evaluar por segmento y lanzar solo donde cumple</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>La precision que festejaba casos faciles</h1>
+<section>
+<h2>El promedio feliz</h2>
+<blockquote><strong>Santi:</strong><span>La precision general esta altisima.</span></blockquote>
+<blockquote><strong>Marisol:</strong><span>La muestra tiene demasiados casos faciles.</span></blockquote>
+<blockquote><strong>Elia:</strong><span>Son casos reales.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Pero no son los que nos duelen.</span></blockquote>
+<blockquote><strong>Elia:</strong><span>El promedio resume todo.</span></blockquote>
+<blockquote><strong>el jefe:</strong><span>Tambien aplana lo dificil.</span></blockquote>
+<p>El modelo falla justo donde la decision importa mas. La falla ya interrumpía una tarea concreta y el plan original no podía seguir sin una corrección visible.</p>
+</section>
+<section>
+<h2>La prueba estaba muy comoda</h2>
+<blockquote><strong>Elia:</strong><span>Lanzamos y vamos aprendiendo.</span></blockquote>
+<blockquote><strong>Marisol:</strong><span>Aprender con casos caros suena a colegiatura.</span></blockquote>
+<blockquote><strong>Elia:</strong><span>El modelo solo se equivoca donde hay matices.</span></blockquote>
+<blockquote><strong>el jefe:</strong><span>Los matices son precisamente los reclamos grandes.</span></blockquote>
+<blockquote><strong>Elia:</strong><span>Podemos excluir excepciones.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Eso deja fuera el trabajo importante.</span></blockquote>
+<blockquote><strong>Marisol:</strong><span>El modelo falla justo donde la decision importa mas.</span></blockquote>
+<blockquote><strong>el jefe:</strong><span>Quiero ver matriz por dificultad antes de decidir.</span></blockquote>
+<p>Marisol divide desempeno por dificultad y valor de caso. La comparación reunió por primera vez la versión cómoda y el costo que había quedado fuera de la conversación.</p>
+</section>
+<section>
+<h2>Facil tambien cuenta, pero no decide solo</h2>
+<blockquote><strong>Santi:</strong><span>Separe la prueba por dificultad y valor.</span></blockquote>
+<blockquote><strong>el jefe:</strong><span>Donde acierta de verdad.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>En facil va perfecto; en dificil se cae.</span></blockquote>
+<blockquote><strong>Marisol:</strong><span>Ahora entiendo por qué la metrica promedio representa todos los tipos de caso.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Respondía otra pregunta; no servía para evaluar por segmento y lanzar solo donde cumple.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="matriz por dificultad">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">matriz por dificultad</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="85" width="174" height="175" fill="#286d9b"/>
+  <text x="157" y="75" font-size="18" text-anchor="middle">96</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">faciles</text>
+  <rect x="272" y="126" width="174" height="134" fill="#d58b2f"/>
+  <text x="359" y="116" font-size="18" text-anchor="middle">74</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">medios</text>
+  <rect x="474" y="186" width="174" height="74" fill="#4c8b63"/>
+  <text x="561" y="176" font-size="18" text-anchor="middle">41</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">dificiles</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">El promedio ocultaba el segmento de mayor riesgo.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Marisol:</strong><span>Por que conviene revisar metricas por segmento antes de lanzar un modelo.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia muestra que el promedio mezcla casos faciles y dificiles. Si los errores en el segmento dificil cuestan mas, la precision global no basta. Evaluar por segmentos evita aprobar modelos que funcionan solo en la parte comoda.</p>
+</section>
+<section>
+<h2>Lanzar donde si sabe</h2>
+<blockquote><strong>el jefe:</strong><span>Lanzamos solo en casos simples y revisamos los dificiles.</span></blockquote>
+<blockquote><strong>el jefe:</strong><span>Dejen por escrito quién va a evaluar por segmento y lanzar solo donde cumple.</span></blockquote>
+<blockquote><strong>Elia:</strong><span>El alcance inicial sera menor.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Y las fallas no caeran donde mas pesan.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>¿Qué cambiaremos después de revisar matriz por dificultad?</span></blockquote>
+<blockquote><strong>Marisol:</strong><span>La decisión es evaluar por segmento y lanzar solo donde cumple.</span></blockquote>
+<blockquote><strong>Elia:</strong><span>Y volvemos a medir evaluacion por segmentos y dificultad antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Elia:</strong><span>También separaremos casos fáciles y difíciles antes de comparar a los dos modelos.</span></blockquote>
+<blockquote><strong>el jefe:</strong><span>El reporte incluirá volumen y costo de fallar en cada segmento.</span></blockquote>
+<blockquote><strong>Marisol:</strong><span>El modelo era excelente nadando en alberca para ninos.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> una metrica promedio puede esconder fallas en los segmentos que importan.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="33_modelo_barato_salio_caro.html">Anterior: El modelo barato que salio caro</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="35_notebook_funcionaba_martes.html">Siguiente: La libreta que funcionaba el martes</a>
+  </nav>
+</body>
+</html>

@@ -1,0 +1,10 @@
+title: "El modelo que seguía perfecto porque nadie volvió a medirlo"
+case_id: "15"
+chart_type: "performance_and_drift_lines"
+question_answered: "¿El modelo sigue funcionando con la población actual?"
+comfortable_read: "El servicio está verde."
+missing_context: "La precisión cayó y Operación ignora alertas."
+correct_read: "Hay drift desde el producto nuevo."
+decision_changed: "Monitorear población, desempeño y uso."
+annotations: ["precisión 86% a 61%", "cambio de población"]
+synthetic_data: true

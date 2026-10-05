@@ -1,0 +1,10 @@
+title: "La campaña que vendió lo que ya estaba vendido"
+case_id: "17"
+chart_type: "treatment_control_bars"
+question_answered: "¿Cuántas ventas cambió el mensaje?"
+comfortable_read: "La campaña convirtió 20%."
+missing_context: "El grupo sin mensaje convirtió 18%."
+correct_read: "El impacto adicional es 2 puntos."
+decision_changed: "Medir con control y limitar saturación."
+annotations: ["con campaña 20%", "sin campaña 18%"]
+synthetic_data: true

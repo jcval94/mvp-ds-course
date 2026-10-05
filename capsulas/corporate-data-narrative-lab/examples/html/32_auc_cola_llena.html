@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El AUC alto y la cola llena</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El modelo separaba muy bien; nosotros juntamos todo en una fila imposible.">
+  <main>
+<h1>El AUC alto y la cola llena</h1>
+<section>
+<h2>La metrica bonita</h2>
+<blockquote><strong>Valeria:</strong><span>El AUC salio excelente, ya podemos aprobar.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>Operacion solo puede revisar ciertos casos por semana.</span></blockquote>
+<blockquote><strong>Patricia:</strong><span>La metrica tecnica es solida.</span></blockquote>
+<blockquote><strong>Valeria:</strong><span>La fila tambien tiene opinion.</span></blockquote>
+<blockquote><strong>Patricia:</strong><span>El modelo ordena mejor que antes.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Ordenar mucho no aumenta sillas.</span></blockquote>
+<p>La operacion no puede revisar las alertas y atiende casos por orden de llegada. El problema llegó con una fecha y una persona responsable de responder, dos detalles que el resumen inicial no contenía.</p>
+</section>
+<section>
+<h2>La fila fea</h2>
+<blockquote><strong>Patricia:</strong><span>Mandamos todas las alertas y que prioricen.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>Eso convierte el modelo en una bandeja llena.</span></blockquote>
+<blockquote><strong>Patricia:</strong><span>Pero una bandeja cientificamente llena.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Ayer revisaron casos baratos mientras esperaban los caros.</span></blockquote>
+<blockquote><strong>Patricia:</strong><span>El score estaba disponible.</span></blockquote>
+<blockquote><strong>Valeria:</strong><span>Disponible no es revisado.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>La operacion no puede revisar las alertas y atiende casos por orden de llegada.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Quiero ver curva y capacidad antes de decidir.</span></blockquote>
+<p>Valeria compara curva de desempeno con capacidad semanal. Al revisar la medida correcta, el equipo pudo abandonar una salida vistosa y elegir otra que sí resistía preguntas.</p>
+</section>
+<section>
+<h2>El umbral tambien trabaja</h2>
+<blockquote><strong>Valeria:</strong><span>Puse el desempeno junto a la capacidad real.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Donde cabe la operacion.</span></blockquote>
+<blockquote><strong>Valeria:</strong><span>El mejor umbral no es el mas vistoso, es el revisable.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>Ahora entiendo por qué una metrica tecnica alta basta para aprobar el modelo.</span></blockquote>
+<blockquote><strong>Valeria:</strong><span>Respondía otra pregunta; no servía para elegir umbral por valor, costo y capacidad.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="curva y capacidad">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">curva y capacidad</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="85" width="174" height="175" fill="#286d9b"/>
+  <text x="157" y="75" font-size="18" text-anchor="middle">91</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">AUC</text>
+  <rect x="272" y="149" width="174" height="111" fill="#d58b2f"/>
+  <text x="359" y="139" font-size="18" text-anchor="middle">58</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">alertas utiles</text>
+  <rect x="474" y="195" width="174" height="65" fill="#4c8b63"/>
+  <text x="561" y="185" font-size="18" text-anchor="middle">34</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">capacidad</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">Buen ranking no elimina la restriccion operativa.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Nico:</strong><span>Por que una metrica como AUC no basta para decidir si el modelo sirve al negocio.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia conecta ranking tecnico con capacidad. AUC resume separacion general, pero el negocio necesita saber cuantas alertas se atenderan, con que costo y que valor generan. El umbral debe elegirse con restricciones operativas.</p>
+</section>
+<section>
+<h2>Aprobar con capacidad</h2>
+<blockquote><strong>el director:</strong><span>Aprobamos el modelo solo con umbral y cupo definidos.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Dejen por escrito quién va a elegir umbral por valor, costo y capacidad.</span></blockquote>
+<blockquote><strong>Patricia:</strong><span>El reporte tecnico tendra una nota menos elegante.</span></blockquote>
+<blockquote><strong>Valeria:</strong><span>Y la operacion una fila que si puede terminar.</span></blockquote>
+<blockquote><strong>Valeria:</strong><span>¿Qué cambiaremos después de revisar curva y capacidad?</span></blockquote>
+<blockquote><strong>Nico:</strong><span>La decisión es elegir umbral por valor, costo y capacidad.</span></blockquote>
+<blockquote><strong>Patricia:</strong><span>Y volvemos a medir metrica tecnica contra capacidad operativa antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Nico:</strong><span>El modelo separaba muy bien; nosotros juntamos todo en una fila imposible.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> una metrica tecnica debe conectarse con capacidad, costo y decision de negocio.</p>
+</section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,10 @@
+title: "El AUC alto y la cola llena"
+case_id: "32"
+chart_type: "auc_capacity"
+question_answered: "Por que una metrica como AUC no basta para decidir si el modelo sirve al negocio."
+comfortable_read: "La metrica tecnica es solida."
+missing_context: "Ordenar mucho no aumenta sillas."
+correct_read: "El mejor umbral no es el mas vistoso, es el revisable."
+decision_changed: "elegir umbral por valor, costo y capacidad"
+annotations: ["AUC", "alertas utiles", "capacidad"]
+synthetic_data: true

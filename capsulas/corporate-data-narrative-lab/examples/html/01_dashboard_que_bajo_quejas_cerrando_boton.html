@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El botón que arregló las quejas</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="Le quitaron tres clics al cliente y cuatro aplausos al reporte.">
+  <main>
+<h1>El botón que arregló las quejas</h1>
+<section>
+<h2>El correo de felicitación</h2>
+<blockquote><strong>El jefe:</strong><span>¿Ya bajaron las quejas del portal?</span></blockquote>
+<blockquote><strong>Leo:</strong><span>Cuarenta por ciento desde que salió el rediseño.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>No manches. ¿Qué cambiaron?</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>El botón para levantar una queja.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>¿Lo hicieron más fácil?</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>Lo movimos a Ayuda, luego Contacto, luego Otros.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Y luego aparece una liga que dice `¿Todavía necesitas ayuda?`.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>Pues sí necesita. Se quiere quejar.</span></blockquote>
+<blockquote><strong>Leo:</strong><span>Sí, pero ahora tiene que estar muy seguro.</span></blockquote>
+<p>Faltaban quince minutos para mandar el correo. El rediseño había salido con dos personas, cuatro días y la instrucción de “limpiar la pantalla sin perder funcionalidad”. La funcionalidad seguía ahí. Nada más estaba haciendo prácticas profesionales de escondite.</p>
+</section>
+<section>
+<h2>Seis semanas después</h2>
+<blockquote><strong>Paula:</strong><span>Soporte trae el doble de mensajes que dicen `no encuentro dónde reportar esto`.</span></blockquote>
+<blockquote><strong>Leo:</strong><span>Pero las quejas formales siguen abajo.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Porque están llegando por chat.</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>Chat no cuenta como queja. Cuenta como conversación.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>El cliente está escribiendo en mayúsculas.</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>Conversación intensa.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>A ver, necesitamos cuidar el indicador sin ignorar al cliente.</span></blockquote>
+<blockquote><strong>Leo:</strong><span>Podemos crear una métrica de quejas que no encontraron dónde quejarse.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>¿Y cómo la llenamos?</span></blockquote>
+<blockquote><strong>Leo:</strong><span>Cuando se quejen de que no pudieron quejarse.</span></blockquote>
+<p>Nadie se rió de inmediato porque la propuesta ya tenía nombre de indicador y eso, en esa oficina, le daba una oportunidad real de llegar a comité.</p>
+</section>
+<section>
+<h2>Lo que estaba entrando por otra puerta</h2>
+<blockquote><strong>Paula:</strong><span>Espérense. Junté formularios, abandonos en Ayuda y contactos por chat y redes.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>¿Y cómo se ve la historia?</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Como que no bajó el enojo. Bajó el formulario.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 300" role="img" aria-label="Quejas registradas bajan mientras abandonos y contactos alternos suben">
+  <rect width="720" height="300" fill="#ffffff"/>
+  <text x="36" y="30" font-size="18" font-weight="bold">Contactos relacionados con quejas por semana</text>
+  <line x1="60" y1="245" x2="680" y2="245" stroke="#777"/>
+  <line x1="60" y1="55" x2="60" y2="245" stroke="#777"/>
+  <line x1="340" y1="55" x2="340" y2="245" stroke="#b6432d" stroke-dasharray="6 5"/>
+  <text x="348" y="72" font-size="13" fill="#b6432d">rediseño</text>
+  <polyline points="75,105 155,100 235,108 315,102 365,150 445,168 525,177 605,184 670,188" fill="none" stroke="#2468a2" stroke-width="5"/>
+  <polyline points="75,205 155,201 235,207 315,202 365,138 445,112 525,94 605,82 670,74" fill="none" stroke="#c84d36" stroke-width="5"/>
+  <polyline points="75,220 155,218 235,216 315,214 365,184 445,158 525,142 605,126 670,116" fill="none" stroke="#65717e" stroke-width="4"/>
+  <text x="500" y="199" font-size="14" fill="#2468a2">formularios</text>
+  <text x="515" y="90" font-size="14" fill="#c84d36">abandonos</text>
+  <text x="520" y="137" font-size="14" fill="#65717e">chat y redes</text>
+</svg>
+<blockquote class="learning-pause"><strong>Mónica:</strong><span>Antes de decir que mejoramos, ¿cuántas personas intentaron reportar algo y no llegaron al formulario?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> Los formularios bajaron justo cuando subieron los abandonos y los contactos por otros canales. El portal dejó de observar una parte de la demanda. Eso es sesgo de medición por cambio en el canal de captura.</p>
+</section>
+<section>
+<h2>El botón volvió</h2>
+<blockquote><strong>El jefe:</strong><span>Entonces regresamos el botón a la primera pantalla y medimos todo el recorrido.</span></blockquote>
+<blockquote><strong>Leo:</strong><span>Producto va a decir que ensucia el diseño.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Ahorita está limpio porque aventamos la mugre a Soporte.</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>¿Y el correo de felicitación?</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>Guárdenlo. Le quitaron tres clics al cliente y cuatro aplausos al reporte.</span></blockquote>
+<p>La prueba siguiente comparó una ruta visible contra la escondida y contó intentos, abandonos, formularios, chat y redes.</p>
+<p class="rule"><strong>Regla:</strong> Si cambias la puerta de entrada, no compares visitantes como si fuera la misma puerta.</p>
+</section>
+  </main>
+</body>
+</html>

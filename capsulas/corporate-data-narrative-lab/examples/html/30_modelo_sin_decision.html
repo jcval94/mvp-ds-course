@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El modelo que no sabia que decision tomar</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El modelo sabia quien se iba; nosotros no sabiamos que hacer con la despedida.">
+  <main>
+<h1>El modelo que no sabia que decision tomar</h1>
+<section>
+<h2>La lista de riesgo</h2>
+<blockquote><strong>Clara:</strong><span>Tenemos una lista de clientes con alto riesgo de irse.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Que hara el negocio con esa lista.</span></blockquote>
+<blockquote><strong>Ramon:</strong><span>La va a usar para retener.</span></blockquote>
+<blockquote><strong>Clara:</strong><span>Retener como, llamar, descontar o cambiar servicio.</span></blockquote>
+<blockquote><strong>Ramon:</strong><span>Eso lo define cada area.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Entonces el producto es una adivinanza compartida.</span></blockquote>
+<p>Las areas reciben scores pero nadie sabe si llamar, descontar o esperar. El plan seguía pareciendo razonable desde lejos, pero en la operación diaria ya estaba enviando el trabajo al lugar equivocado.</p>
+</section>
+<section>
+<h2>Saber no era actuar</h2>
+<blockquote><strong>Ramon:</strong><span>Mandamos el score y que prioricen.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Priorizar sin accion solo ordena la ansiedad.</span></blockquote>
+<blockquote><strong>Ramon:</strong><span>Podemos poner semaforo para que se vea claro.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Rojo no dice si conviene llamar o no molestar.</span></blockquote>
+<blockquote><strong>Ramon:</strong><span>Ventas pedira descuento para todos los rojos.</span></blockquote>
+<blockquote><strong>Clara:</strong><span>Finanzas acaba de sentir un escalofrio.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Las areas reciben scores pero nadie sabe si llamar, descontar o esperar.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Quiero ver arbol de decision antes de decidir.</span></blockquote>
+<p>Clara convierte el score en un arbol de decisiones por accion y costo. La comparación mostró la distancia entre el indicador presentado y la decisión que realmente necesitaba tomar el equipo.</p>
+</section>
+<section>
+<h2>El score necesita verbo</h2>
+<blockquote><strong>Clara:</strong><span>Cruce riesgo con accion posible y costo.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Quien necesita que respuesta.</span></blockquote>
+<blockquote><strong>Clara:</strong><span>Hay clientes para llamada, oferta y no intervencion.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Ahora entiendo por qué predecir algo importante ya es un producto.</span></blockquote>
+<blockquote><strong>Clara:</strong><span>Respondía otra pregunta; no servía para crear segmentos accionables y medir respuesta por accion.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="arbol de decision">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">arbol de decision</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="187" width="174" height="73" fill="#286d9b"/>
+  <text x="157" y="177" font-size="18" text-anchor="middle">34</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">solo score</text>
+  <rect x="272" y="105" width="174" height="155" fill="#d58b2f"/>
+  <text x="359" y="95" font-size="18" text-anchor="middle">72</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">accion definida</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">81</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">resultado medido</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La utilidad aparece cuando hay decision y seguimiento.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Diego:</strong><span>Que decision debe existir antes de entrenar o publicar un modelo predictivo.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> El arbol muestra que el score solo ordena probabilidad. Para crear producto hacen falta acciones, responsables, costos y resultados esperados. La prediccion vale cuando cambia una decision concreta y medible.</p>
+</section>
+<section>
+<h2>Prediccion con accion</h2>
+<blockquote><strong>la directora:</strong><span>Publicamos recomendaciones por accion, no solo riesgo.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Dejen por escrito quién va a crear segmentos accionables y medir respuesta por accion.</span></blockquote>
+<blockquote><strong>Ramon:</strong><span>El modelo se vera menos magico.</span></blockquote>
+<blockquote><strong>Clara:</strong><span>Y mas facil de usar el lunes.</span></blockquote>
+<blockquote><strong>Clara:</strong><span>¿Qué cambiaremos después de revisar arbol de decision?</span></blockquote>
+<blockquote><strong>Diego:</strong><span>La decisión es crear segmentos accionables y medir respuesta por accion.</span></blockquote>
+<blockquote><strong>Ramon:</strong><span>Y volvemos a medir definir la decision antes del modelo antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>El modelo sabia quien se iba; nosotros no sabiamos que hacer con la despedida.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> un modelo de datos debe ayudar a tomar una decision concreta.</p>
+</section>
+  </main>
+</body>
+</html>

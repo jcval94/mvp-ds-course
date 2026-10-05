@@ -1,0 +1,9 @@
+case_id: "25"
+title: "El bot que invento la politica vieja"
+concept: "RAG, fuentes y respuestas generativas"
+scenario: "bot_invento_politica_vieja"
+seed: 125
+observations: 1000
+variables: [answer_id, source_document, source_date, validity_status]
+key_values: {answers_reviewed: 120, expired_source_share: 24, valid_source_share: 68}
+synthetic_data: true

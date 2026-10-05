@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pip instalo en la oficina de al lado</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="Pip si trabajo; solo fue a la oficina equivocada.">
+  <main>
+<h1>Pip instalo en la oficina de al lado</h1>
+<section>
+<h2>Instalado pero invisible</h2>
+<blockquote><strong>Javi:</strong><span>Pip dice que pandas ya esta instalado.</span></blockquote>
+<blockquote><strong>Renata:</strong><span>El proyecto dice que no puede importarlo.</span></blockquote>
+<blockquote><strong>Ulises:</strong><span>Uno de los dos miente.</span></blockquote>
+<blockquote><strong>Javi:</strong><span>O hablan de entornos distintos.</span></blockquote>
+<blockquote><strong>Ulises:</strong><span>Use el comando de siempre.</span></blockquote>
+<blockquote><strong>la lider:</strong><span>El comando de siempre apunta al lugar de siempre.</span></blockquote>
+<p>Se duplican instalaciones, cambian versiones y nadie sabe que entorno corre. A esa altura ya existía un folio, una espera o una aprobación que no podía resolverse con otra explicación general.</p>
+</section>
+<section>
+<h2>La recepcion equivocada</h2>
+<blockquote><strong>Ulises:</strong><span>Instalamos otra vez.</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Eso puede empeorar el mapa.</span></blockquote>
+<blockquote><strong>Ulises:</strong><span>Si lo instalamos suficientes veces, aparecera.</span></blockquote>
+<blockquote><strong>la lider:</strong><span>Tambien aparecieron versiones diferentes.</span></blockquote>
+<blockquote><strong>Ulises:</strong><span>La computadora esta llena de soluciones.</span></blockquote>
+<blockquote><strong>Javi:</strong><span>Ninguna en el cuarto correcto.</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Se duplican instalaciones, cambian versiones y nadie sabe que entorno corre.</span></blockquote>
+<blockquote><strong>la lider:</strong><span>Quiero ver paquetes por ambiente antes de decidir.</span></blockquote>
+<p>Renata compara paquetes instalados por entorno y comando usado. La evidencia común hizo posible discutir la misma pregunta y abandonar las interpretaciones que cada área había completado por su cuenta.</p>
+</section>
+<section>
+<h2>El paquete estaba, pero no ahi</h2>
+<blockquote><strong>Javi:</strong><span>Compare pip, Python y paquetes por ruta.</span></blockquote>
+<blockquote><strong>la lider:</strong><span>Donde quedo instalado el paquete.</span></blockquote>
+<blockquote><strong>Javi:</strong><span>En el global, mientras el proyecto corre en el virtual.</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Ahora entiendo por qué si pip dice instalado, el programa ya lo puede importar.</span></blockquote>
+<blockquote><strong>Javi:</strong><span>Respondía otra pregunta; no servía para usar python -m pip dentro del entorno activo y guardar requirements.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="paquetes por ambiente">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">paquetes por ambiente</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="143" width="174" height="117" fill="#286d9b"/>
+  <text x="157" y="133" font-size="18" text-anchor="middle">64</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">pip global</text>
+  <rect x="272" y="85" width="174" height="175" fill="#d58b2f"/>
+  <text x="359" y="75" font-size="18" text-anchor="middle">95</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">python -m pip</text>
+  <rect x="474" y="190" width="174" height="70" fill="#4c8b63"/>
+  <text x="561" y="180" font-size="18" text-anchor="middle">38</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">sin venv</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">Instalar y ejecutar deben apuntar al mismo entorno.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Renata:</strong><span>Por que conviene usar python -m pip dentro del entorno activo.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia muestra que pip y Python pueden apuntar a lugares distintos. Usar python -m pip amarra la instalacion al interprete que ejecuta el proyecto. El archivo de dependencias deja una receta repetible.</p>
+</section>
+<section>
+<h2>Una puerta para instalar y correr</h2>
+<blockquote><strong>la lider:</strong><span>Instalamos desde el entorno activo y congelamos versiones.</span></blockquote>
+<blockquote><strong>la lider:</strong><span>Dejen por escrito quién va a usar python -m pip dentro del entorno activo y guardar requirements.</span></blockquote>
+<blockquote><strong>Ulises:</strong><span>El comando es mas largo.</span></blockquote>
+<blockquote><strong>Javi:</strong><span>Pero llega a la oficina correcta.</span></blockquote>
+<blockquote><strong>Javi:</strong><span>¿Qué cambiaremos después de revisar paquetes por ambiente?</span></blockquote>
+<blockquote><strong>Renata:</strong><span>La decisión es usar python -m pip dentro del entorno activo y guardar requirements.</span></blockquote>
+<blockquote><strong>Ulises:</strong><span>Y volvemos a medir entornos virtuales y dependencias antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Ulises:</strong><span>La instalación quedará ligada al entorno que realmente corre el proyecto.</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Pip si trabajo; solo fue a la oficina equivocada.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> instala dependencias desde el mismo Python que ejecuta el proyecto.</p>
+</section>
+  </main>
+</body>
+</html>

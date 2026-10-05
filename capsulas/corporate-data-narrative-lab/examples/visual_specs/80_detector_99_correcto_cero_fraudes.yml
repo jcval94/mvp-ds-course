@@ -1,0 +1,10 @@
+title: "El detector 99% correcto que encontró cero fraudes"
+case_id: "80"
+chart_type: "barras de recall y capacidad"
+question_answered: "¿Qué umbral encuentra más fraude sin rebasar la capacidad diaria de revisión?"
+comfortable_read: "El 99% de exactitud parece suficiente para automatizar."
+missing_context: "El fraude representa cerca de 1% y el modelo no detecta ninguno."
+correct_read: "El umbral operativo detecta 71 de cien fraudes dentro de capacidad."
+decision_changed: "mantener revisión humana y elegir umbral según fraude detectado y capacidad"
+annotations: ["umbral actual", "umbral operativo", "capacidad"]
+synthetic_data: true

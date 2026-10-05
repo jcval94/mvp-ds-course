@@ -1,0 +1,10 @@
+title: "La reunion donde todo era IA"
+case_id: "24"
+chart_type: "capability_matrix"
+question_answered: "Que preguntas ayudan a separar ML, GenAI, RAG y agentes sin pelear por la palabra IA."
+comfortable_read: "Todos usan tecnologia avanzada."
+missing_context: "A Operacion le gusta saber que puede romperse."
+correct_read: "Son familias distintas, con controles distintos."
+decision_changed: "nombrar la capacidad real antes de estimar costo, riesgo y control"
+annotations: ["reglas", "ML", "GenAI", "RAG", "agentes"]
+synthetic_data: true

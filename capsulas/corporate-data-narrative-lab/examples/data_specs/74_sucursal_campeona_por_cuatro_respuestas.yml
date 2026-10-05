@@ -1,0 +1,9 @@
+case_id: "74"
+title: "La sucursal campeona por cuatro respuestas"
+concept: "incertidumbre, tamaño de muestra e intervalos"
+scenario: "sucursal_campeona_por_cuatro_respuestas"
+seed: 274
+observations: 384
+variables: ["branch", "responses", "satisfied", "satisfaction_rate", "interval_width"]
+key_values: {"Lago respuestas": 4, "Centro satisfecho": 91, "Centro respuestas": 380}
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "65"
+title: "El equipo que perdió al mejorar"
+concept: "segmentación y paradoja de Simpson"
+scenario: "equipo_que_perdio_al_mejorar"
+seed: 265
+observations: 4200
+variables: ["team", "customer_type", "contacts", "conversions", "conversion_rate"]
+key_values: {"Azul total": 31, "Verde total": 27, "Verde ajustado": 34}
+synthetic_data: true

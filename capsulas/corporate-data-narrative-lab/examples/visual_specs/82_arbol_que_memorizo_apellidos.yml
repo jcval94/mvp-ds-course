@@ -1,0 +1,10 @@
+title: "El árbol que memorizó apellidos"
+case_id: "82"
+chart_type: "barras de complejidad y validación"
+question_answered: "¿Qué profundidad funciona mejor en datos nuevos aunque no sea perfecta en entrenamiento?"
+comfortable_read: "Cero errores en entrenamiento parece indicar el mejor modelo."
+missing_context: "El árbol usa identificadores y falla en personas nuevas."
+correct_read: "La profundidad cinco logra 74% en validación y supera al árbol profundo."
+decision_changed: "usar un modelo más simple, excluir identificadores y limitarlo a apoyo agregado"
+annotations: ["profundidad 2", "profundidad 5", "profundidad 32"]
+synthetic_data: true

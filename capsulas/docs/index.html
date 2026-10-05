@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Corporate Data Narrative Lab</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/site.js" defer></script>
+</head>
+<body data-page="index">
+  <header class="site-hero">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="catalog.json">catalog.json</a>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Historias breves con evidencia visual</p>
+        <h1>Una biblioteca para aprender ciencia de datos desde decisiones que casi salieron en comite.</h1>
+      </div>
+      <div class="hero-panel" aria-label="Resumen de la coleccion">
+        <strong>87</strong>
+        <span>casos publicados</span>
+        <span>86 temas navegables</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <section class="controls" aria-label="Filtros de casos">
+      <label class="search-label" for="case-search">Buscar por titulo, tema, concepto o pregunta</label>
+      <input id="case-search" class="search-input" type="search" placeholder="Ej. drift, KPI, RAG, Colab">
+      <div class="filter-row" aria-label="Filtrar por tema">
+        <button class="filter-button is-active" type="button" data-filter="all">Todos <span>87</span></button>
+<button class="filter-button" type="button" data-filter="ABT para ML">ABT para ML <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Ajuste por complejidad">Ajuste por complejidad <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Aleatorizacion">Aleatorizacion <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Anotaciones y contexto">Anotaciones y contexto <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Apelacion y gobernanza">Apelacion y gobernanza <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Autorizacion de agentes">Autorizacion de agentes <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Calidad de datos">Calidad de datos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Clases desbalanceadas">Clases desbalanceadas <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Clasificacion desbalanceada">Clasificacion desbalanceada <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Color y jerarquia visual">Color y jerarquia visual <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Conteos y tasas">Conteos y tasas <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Contratos de datos">Contratos de datos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Control de versiones">Control de versiones <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Correlacion y causalidad">Correlacion y causalidad <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Costo de error">Costo de error <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Criterios de aceptacion">Criterios de aceptacion <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Decision antes del modelo">Decision antes del modelo <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Definicion de KPI">Definicion de KPI <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Distribuciones y colas">Distribuciones y colas <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Distribuciones y percentiles">Distribuciones y percentiles <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Doble eje">Doble eje <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Documentacion reproducible">Documentacion reproducible <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Drift y monitoreo">Drift y monitoreo <span>2</span></button>
+<button class="filter-button" type="button" data-filter="Entornos virtuales">Entornos virtuales <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Errores y archivos">Errores y archivos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Escalas visuales">Escalas visuales <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Especificacion de prompts">Especificacion de prompts <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Esquema y contexto">Esquema y contexto <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Estacionalidad">Estacionalidad <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Estructuras de datos en Python">Estructuras de datos en Python <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Etiquetado y variables">Etiquetado y variables <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Evaluacion por segmentos">Evaluacion por segmentos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Explicabilidad y apelacion">Explicabilidad y apelacion <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Extrapolacion">Extrapolacion <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Fuga de objetivo">Fuga de objetivo <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Fuga temporal">Fuga temporal <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Funciones reutilizables">Funciones reutilizables <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Gobernanza de metricas">Gobernanza de metricas <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Human-in-the-loop">Human-in-the-loop <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Impacto incremental">Impacto incremental <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Incertidumbre y muestra">Incertidumbre y muestra <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Inferencia experimental">Inferencia experimental <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Instrucciones para IA">Instrucciones para IA <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Interpretes de Python">Interpretes de Python <span>1</span></button>
+<button class="filter-button" type="button" data-filter="JOINs y granularidad">JOINs y granularidad <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Lectura de fuentes">Lectura de fuentes <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Limpieza de datos">Limpieza de datos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Lineas base">Lineas base <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Logica de automatizacion">Logica de automatizacion <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Metrica proxy">Metrica proxy <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Metrica tecnica vs capacidad">Metrica tecnica vs capacidad <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Objetivos de agentes">Objetivos de agentes <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Pandas esencial">Pandas esencial <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Particiones de datos">Particiones de datos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Permisos de agentes">Permisos de agentes <span>1</span></button>
+<button class="filter-button" type="button" data-filter="PRD para agentes">PRD para agentes <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Programacion basica">Programacion basica <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Propiedad operativa">Propiedad operativa <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Prototipo vs producto">Prototipo vs producto <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Pruebas multiples">Pruebas multiples <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Pull requests y ramas">Pull requests y ramas <span>1</span></button>
+<button class="filter-button" type="button" data-filter="RAG y fuentes">RAG y fuentes <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Reproducibilidad de graficos">Reproducibilidad de graficos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Reproducibilidad en Colab">Reproducibilidad en Colab <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Reto narrativo en Python">Reto narrativo en Python <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Revision de cambios con asistentes">Revision de cambios con asistentes <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Riesgo y revision humana">Riesgo y revision humana <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Rutas y carga de datos">Rutas y carga de datos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Segmentacion y mezcla">Segmentacion y mezcla <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Seleccion de graficas">Seleccion de graficas <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Sesgo de asignacion">Sesgo de asignacion <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Sesgo de cobertura">Sesgo de cobertura <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Sesgo de medicion">Sesgo de medicion <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Sesgo de seleccion">Sesgo de seleccion <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Sesgo historico">Sesgo historico <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Sobreajuste">Sobreajuste <span>1</span></button>
+<button class="filter-button" type="button" data-filter="SQL analitico">SQL analitico <span>1</span></button>
+<button class="filter-button" type="button" data-filter="SQL basico">SQL basico <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Tareas revisables para agentes">Tareas revisables para agentes <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Taxonomia de IA">Taxonomia de IA <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Umbrales manipulables">Umbrales manipulables <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Umbrales y capacidad">Umbrales y capacidad <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Valores atipicos">Valores atipicos <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Ventanas de variables">Ventanas de variables <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Ventanas temporales">Ventanas temporales <span>1</span></button>
+<button class="filter-button" type="button" data-filter="Verificacion con pruebas">Verificacion con pruebas <span>1</span></button>
+      </div>
+      <p class="result-count"><span data-result-count>87</span> casos visibles</p>
+    </section>
+
+    <section class="case-grid" aria-label="Casos publicados">
+      <article class="case-card" data-card data-topic="Sesgo de medicion" data-search="01 El botón que arregló las quejas Sesgo de medicion sesgo de medición por cambio de canal multi_line_before_after ¿Bajó el enojo o solo el formulario? La demanda cambió de canal.">
+        <div class="card-topline">
+          <span class="case-number">01</span>
+          <span class="topic-chip">Sesgo de medicion</span>
+        </div>
+        <h2><a href="cases/01_dashboard_que_bajo_quejas_cerrando_boton.html">El botón que arregló las quejas</a></h2>
+        <p class="concept">sesgo de medición por cambio de canal</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>multi_line_before_after</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Bajó el enojo o solo el formulario?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Sesgo de cobertura" data-search="02 La encuesta que llegaba después del problema Sesgo de cobertura sesgo de cobertura y no respuesta funnel ¿Quién tuvo oportunidad de responder? El score representa a completadores que respondieron.">
+        <div class="card-topline">
+          <span class="case-number">02</span>
+          <span class="topic-chip">Sesgo de cobertura</span>
+        </div>
+        <h2><a href="cases/02_encuesta_que_solo_contestaron_los_felices.html">La encuesta que llegaba después del problema</a></h2>
+        <p class="concept">sesgo de cobertura y no respuesta</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>funnel</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Quién tuvo oportunidad de responder?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Fuga temporal" data-search="03 El modelo de 97% que llegaba cuatro horas tarde Fuga temporal fuga de información temporal availability_timeline ¿Qué información existía al decidir? La validación usa información futura.">
+        <div class="card-topline">
+          <span class="case-number">03</span>
+          <span class="topic-chip">Fuga temporal</span>
+        </div>
+        <h2><a href="cases/03_modelo_que_aprendio_horario_supervisor.html">El modelo de 97% que llegaba cuatro horas tarde</a></h2>
+        <p class="concept">fuga de información temporal</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>availability_timeline</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué información existía al decidir?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Sesgo de asignacion" data-search="04 La sucursal estrella que recibía lo fácil Sesgo de asignacion sesgo de asignación grouped_bars ¿Quién rinde mejor con casos semejantes? La asignación explica gran parte de la diferencia.">
+        <div class="card-topline">
+          <span class="case-number">04</span>
+          <span class="topic-chip">Sesgo de asignacion</span>
+        </div>
+        <h2><a href="cases/04_sucursal_estrella_casos_faciles.html">La sucursal estrella que recibía lo fácil</a></h2>
+        <p class="concept">sesgo de asignación</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>grouped_bars</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Quién rinde mejor con casos semejantes?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Distribuciones y colas" data-search="05 El promedio de 14 minutos y el folio de seis horas Distribuciones y colas media engañosa y cola de distribución long_tail_histogram ¿Dónde viven las esperas graves? La cola concentra el daño.">
+        <div class="card-topline">
+          <span class="case-number">05</span>
+          <span class="topic-chip">Distribuciones y colas</span>
+        </div>
+        <h2><a href="cases/05_promedio_que_escondio_fila_incendiada.html">El promedio de 14 minutos y el folio de seis horas</a></h2>
+        <p class="concept">media engañosa y cola de distribución</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>long_tail_histogram</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Dónde viven las esperas graves?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Metrica proxy" data-search="06 Las dos mil horas que regresaron como juntas Metrica proxy métrica proxy y productividad aparente stacked_before_after ¿A dónde fue el tiempo liberado? Solo 240 horas quedaron como capacidad real.">
+        <div class="card-topline">
+          <span class="case-number">06</span>
+          <span class="topic-chip">Metrica proxy</span>
+        </div>
+        <h2><a href="cases/06_automatizacion_que_ahorro_powerpoint.html">Las dos mil horas que regresaron como juntas</a></h2>
+        <p class="concept">métrica proxy y productividad aparente</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>stacked_before_after</dd></div>
+          <div><dt>Pregunta</dt><dd>¿A dónde fue el tiempo liberado?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Ajuste por complejidad" data-search="07 El ranking donde convenía hacerse menso Ajuste por complejidad velocidad sin ajuste por complejidad complexity_scatter ¿La velocidad cambia con la dificultad? El ranking mezcla desempeño con complejidad.">
+        <div class="card-topline">
+          <span class="case-number">07</span>
+          <span class="topic-chip">Ajuste por complejidad</span>
+        </div>
+        <h2><a href="cases/07_ranking_que_castigo_casos_dificiles.html">El ranking donde convenía hacerse menso</a></h2>
+        <p class="concept">velocidad sin ajuste por complejidad</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>complexity_scatter</dd></div>
+          <div><dt>Pregunta</dt><dd>¿La velocidad cambia con la dificultad?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Estacionalidad" data-search="08 El piloto que ganó en diciembre Estacionalidad estacionalidad y comparación temporal inválida seasonal_lines ¿Qué habría pasado sin piloto? El efecto adicional estimado es 7 puntos.">
+        <div class="card-topline">
+          <span class="case-number">08</span>
+          <span class="topic-chip">Estacionalidad</span>
+        </div>
+        <h2><a href="cases/08_piloto_que_gano_temporada_facil.html">El piloto que ganó en diciembre</a></h2>
+        <p class="concept">estacionalidad y comparación temporal inválida</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>seasonal_lines</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué habría pasado sin piloto?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Extrapolacion" data-search="09 Los 18 millones que salieron de doce clientes Extrapolacion extrapolación y población elegible eligibility_bars ¿A cuántos clientes aplica el ahorro? La proyección debe usar población elegible.">
+        <div class="card-topline">
+          <span class="case-number">09</span>
+          <span class="topic-chip">Extrapolacion</span>
+        </div>
+        <h2><a href="cases/09_ahorro_18_millones_12_clientes.html">Los 18 millones que salieron de doce clientes</a></h2>
+        <p class="concept">extrapolación y población elegible</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>eligibility_bars</dd></div>
+          <div><dt>Pregunta</dt><dd>¿A cuántos clientes aplica el ahorro?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Definicion de KPI" data-search="10 El KPI que mejoró dejando de contar reaperturas Definicion de KPI cambio de definición de KPI definition_version_lines ¿Mejoró el proceso o cambió la regla? Con definición constante el resultado es 71%.">
+        <div class="card-topline">
+          <span class="case-number">10</span>
+          <span class="topic-chip">Definicion de KPI</span>
+        </div>
+        <h2><a href="cases/10_kpi_mejoro_sin_reaperturas.html">El KPI que mejoró dejando de contar reaperturas</a></h2>
+        <p class="concept">cambio de definición de KPI</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>definition_version_lines</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Mejoró el proceso o cambió la regla?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Umbrales manipulables" data-search="11 La regla secreta que terminó en la capacitación Umbrales manipulables manipulación alrededor de un umbral threshold_histogram ¿La operación aprendió a evitar la alerta? El umbral fijo está siendo manipulado.">
+        <div class="card-topline">
+          <span class="case-number">11</span>
+          <span class="topic-chip">Umbrales manipulables</span>
+        </div>
+        <h2><a href="cases/11_regla_secreta_capacitacion.html">La regla secreta que terminó en la capacitación</a></h2>
+        <p class="concept">manipulación alrededor de un umbral</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>threshold_histogram</dd></div>
+          <div><dt>Pregunta</dt><dd>¿La operación aprendió a evitar la alerta?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Calidad de datos" data-search="12 La categoría Otros que ya era medio negocio Calidad de datos calidad de datos y taxonomía reclassified_bars ¿Qué problemas esconde Otros? La taxonomía y captura están rotas.">
+        <div class="card-topline">
+          <span class="case-number">12</span>
+          <span class="topic-chip">Calidad de datos</span>
+        </div>
+        <h2><a href="cases/12_otros_medio_negocio.html">La categoría Otros que ya era medio negocio</a></h2>
+        <p class="concept">calidad de datos y taxonomía</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>reclassified_bars</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué problemas esconde Otros?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Inferencia experimental" data-search="13 El experimento que ganó el martes a las once Inferencia experimental muestra pequeña y parada anticipada effect_with_interval_over_time ¿El efecto se mantiene al crecer la muestra? El resultado final es cercano a 2% e incierto.">
+        <div class="card-topline">
+          <span class="case-number">13</span>
+          <span class="topic-chip">Inferencia experimental</span>
+        </div>
+        <h2><a href="cases/13_experimento_gano_martes_once.html">El experimento que ganó el martes a las once</a></h2>
+        <p class="concept">muestra pequeña y parada anticipada</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>effect_with_interval_over_time</dd></div>
+          <div><dt>Pregunta</dt><dd>¿El efecto se mantiene al crecer la muestra?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Clasificacion desbalanceada" data-search="14 La IA que encontraba fraude en todas partes Clasificacion desbalanceada clases desbalanceadas y falsos positivos confusion_matrix ¿Cuántas alertas son útiles para Operación? La cola supera la capacidad y daña clientes.">
+        <div class="card-topline">
+          <span class="case-number">14</span>
+          <span class="topic-chip">Clasificacion desbalanceada</span>
+        </div>
+        <h2><a href="cases/14_ia_fraude_acusaba_todos.html">La IA que encontraba fraude en todas partes</a></h2>
+        <p class="concept">clases desbalanceadas y falsos positivos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>confusion_matrix</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Cuántas alertas son útiles para Operación?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Drift y monitoreo" data-search="15 El modelo que seguía perfecto porque nadie volvió a medirlo Drift y monitoreo drift y monitoreo performance_and_drift_lines ¿El modelo sigue funcionando con la población actual? Hay drift desde el producto nuevo.">
+        <div class="card-topline">
+          <span class="case-number">15</span>
+          <span class="topic-chip">Drift y monitoreo</span>
+        </div>
+        <h2><a href="cases/15_modelo_funcionaba_nadie_midio.html">El modelo que seguía perfecto porque nadie volvió a medirlo</a></h2>
+        <p class="concept">drift y monitoreo</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>performance_and_drift_lines</dd></div>
+          <div><dt>Pregunta</dt><dd>¿El modelo sigue funcionando con la población actual?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Gobernanza de metricas" data-search="16 El indicador definitivo final ahora sí Gobernanza de metricas gobernanza y versionado de métricas version_comparison_bars ¿Qué definición produce cada tasa? Cada tasa responde otra pregunta.">
+        <div class="card-topline">
+          <span class="case-number">16</span>
+          <span class="topic-chip">Gobernanza de metricas</span>
+        </div>
+        <h2><a href="cases/16_indicador_definitivo_final.html">El indicador definitivo final ahora sí</a></h2>
+        <p class="concept">gobernanza y versionado de métricas</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>version_comparison_bars</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué definición produce cada tasa?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Impacto incremental" data-search="17 La campaña que vendió lo que ya estaba vendido Impacto incremental impacto incremental treatment_control_bars ¿Cuántas ventas cambió el mensaje? El impacto adicional es 2 puntos.">
+        <div class="card-topline">
+          <span class="case-number">17</span>
+          <span class="topic-chip">Impacto incremental</span>
+        </div>
+        <h2><a href="cases/17_campana_credito_ventas_inevitables.html">La campaña que vendió lo que ya estaba vendido</a></h2>
+        <p class="concept">impacto incremental</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>treatment_control_bars</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Cuántas ventas cambió el mensaje?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Riesgo y revision humana" data-search="18 El score que pasó de alerta a castigo Riesgo y revision humana riesgo de automatización y revisión humana automatic_vs_reviewed_bars ¿Qué cambia al revisar contexto? La revisión reduce errores a 5%.">
+        <div class="card-topline">
+          <span class="case-number">18</span>
+          <span class="topic-chip">Riesgo y revision humana</span>
+        </div>
+        <h2><a href="cases/18_score_senal_castigo.html">El score que pasó de alerta a castigo</a></h2>
+        <p class="concept">riesgo de automatización y revisión humana</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>automatic_vs_reviewed_bars</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué cambia al revisar contexto?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Instrucciones para IA" data-search="19 La maquina que obedecio demasiado literal Instrucciones para IA instrucciones precisas para comunicarse con una maquina instruction_table Si dos personas entienden la frase de formas distintas, que necesita la maquina para no inventar el criterio. La version vaga ordena por palabra; la clara ordena por impacto.">
+        <div class="card-topline">
+          <span class="case-number">19</span>
+          <span class="topic-chip">Instrucciones para IA</span>
+        </div>
+        <h2><a href="cases/19_maquina_literal.html">La maquina que obedecio demasiado literal</a></h2>
+        <p class="concept">instrucciones precisas para comunicarse con una maquina</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>instruction_table</dd></div>
+          <div><dt>Pregunta</dt><dd>Si dos personas entienden la frase de formas distintas, que necesita la maquina para no inventar el criterio.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Etiquetado y variables" data-search="20 La categoria urgente que significaba todo Etiquetado y variables variables, etiquetas y lenguaje formal label_bars Que deberiamos guardar por separado para que prioridad no dependa de una palabra inflada. No. Unos hablan de fecha, otros de cliente y otros de miedo.">
+        <div class="card-topline">
+          <span class="case-number">20</span>
+          <span class="topic-chip">Etiquetado y variables</span>
+        </div>
+        <h2><a href="cases/20_categoria_urgente.html">La categoria urgente que significaba todo</a></h2>
+        <p class="concept">variables, etiquetas y lenguaje formal</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>label_bars</dd></div>
+          <div><dt>Pregunta</dt><dd>Que deberiamos guardar por separado para que prioridad no dependa de una palabra inflada.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Permisos de agentes" data-search="21 El asistente que respondio con copia a todos Permisos de agentes agentes con acciones y permisos authorization_flow Que cambia cuando una IA no solo redacta, sino que tambien puede enviar. Los problemas aparecen cuando pasa de borrador a accion.">
+        <div class="card-topline">
+          <span class="case-number">21</span>
+          <span class="topic-chip">Permisos de agentes</span>
+        </div>
+        <h2><a href="cases/21_asistente_correo_todos.html">El asistente que respondio con copia a todos</a></h2>
+        <p class="concept">agentes con acciones y permisos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>authorization_flow</dd></div>
+          <div><dt>Pregunta</dt><dd>Que cambia cuando una IA no solo redacta, sino que tambien puede enviar.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Prototipo vs producto" data-search="22 La maqueta que parecia producto Prototipo vs producto diferencia entre prototipo generativo y producto operable prototype_gap Que tendria que estar listo para llamar producto a algo que ya se ve terminado. Visualmente mucho; en controles y datos, bastante menos.">
+        <div class="card-topline">
+          <span class="case-number">22</span>
+          <span class="topic-chip">Prototipo vs producto</span>
+        </div>
+        <h2><a href="cases/22_maqueta_que_parecia_producto.html">La maqueta que parecia producto</a></h2>
+        <p class="concept">diferencia entre prototipo generativo y producto operable</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>prototype_gap</dd></div>
+          <div><dt>Pregunta</dt><dd>Que tendria que estar listo para llamar producto a algo que ya se ve terminado.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Autorizacion de agentes" data-search="23 El agente que encontro el boton de comprar Autorizacion de agentes herramientas, limites y autorizacion en agentes permission_actions Que permiso deberia pedir un agente antes de ejecutar una accion que cuesta dinero. Las compras explican pocos cierres y casi todo el gasto.">
+        <div class="card-topline">
+          <span class="case-number">23</span>
+          <span class="topic-chip">Autorizacion de agentes</span>
+        </div>
+        <h2><a href="cases/23_agente_boton_comprar.html">El agente que encontro el boton de comprar</a></h2>
+        <p class="concept">herramientas, limites y autorizacion en agentes</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>permission_actions</dd></div>
+          <div><dt>Pregunta</dt><dd>Que permiso deberia pedir un agente antes de ejecutar una accion que cuesta dinero.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Taxonomia de IA" data-search="24 La reunion donde todo era IA Taxonomia de IA diferencias entre IA, aprendizaje automatico, generativa, RAG y agentes capability_matrix Que preguntas ayudan a separar ML, GenAI, RAG y agentes sin pelear por la palabra IA. Son familias distintas, con controles distintos.">
+        <div class="card-topline">
+          <span class="case-number">24</span>
+          <span class="topic-chip">Taxonomia de IA</span>
+        </div>
+        <h2><a href="cases/24_reunion_donde_todo_era_ia.html">La reunion donde todo era IA</a></h2>
+        <p class="concept">diferencias entre IA, aprendizaje automatico, generativa, RAG y agentes</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>capability_matrix</dd></div>
+          <div><dt>Pregunta</dt><dd>Que preguntas ayudan a separar ML, GenAI, RAG y agentes sin pelear por la palabra IA.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="RAG y fuentes" data-search="25 El bot que invento la politica vieja RAG y fuentes RAG, fuentes y respuestas generativas source_citations Que debe revisar un sistema RAG ademas de encontrar texto parecido a la pregunta. Las correctas citan politica vigente; las malas citan historia.">
+        <div class="card-topline">
+          <span class="case-number">25</span>
+          <span class="topic-chip">RAG y fuentes</span>
+        </div>
+        <h2><a href="cases/25_bot_invento_politica_vieja.html">El bot que invento la politica vieja</a></h2>
+        <p class="concept">RAG, fuentes y respuestas generativas</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>source_citations</dd></div>
+          <div><dt>Pregunta</dt><dd>Que debe revisar un sistema RAG ademas de encontrar texto parecido a la pregunta.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Objetivos de agentes" data-search="26 El agente que cerraba tickets sin leerlos Objetivos de agentes agentes, objetivos mal definidos y metrica proxy reopened_tickets Que metrica necesita un agente para distinguir cerrar un caso de resolverlo. Donde mas cierra solo, mas reabre el cliente.">
+        <div class="card-topline">
+          <span class="case-number">26</span>
+          <span class="topic-chip">Objetivos de agentes</span>
+        </div>
+        <h2><a href="cases/26_agente_cerraba_tickets.html">El agente que cerraba tickets sin leerlos</a></h2>
+        <p class="concept">agentes, objetivos mal definidos y metrica proxy</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>reopened_tickets</dd></div>
+          <div><dt>Pregunta</dt><dd>Que metrica necesita un agente para distinguir cerrar un caso de resolverlo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Sesgo historico" data-search="27 El filtro que contrataba clones del gerente Sesgo historico sesgo en datos historicos y decisiones automatizadas selection_by_group Por que una variable aparentemente neutral puede copiar una exclusion pasada. Los perfiles no historicos caen mas aun con desempeno similar.">
+        <div class="card-topline">
+          <span class="case-number">27</span>
+          <span class="topic-chip">Sesgo historico</span>
+        </div>
+        <h2><a href="cases/27_filtro_cv_clones_gerente.html">El filtro que contrataba clones del gerente</a></h2>
+        <p class="concept">sesgo en datos historicos y decisiones automatizadas</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>selection_by_group</dd></div>
+          <div><dt>Pregunta</dt><dd>Por que una variable aparentemente neutral puede copiar una exclusion pasada.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Human-in-the-loop" data-search="28 El score que no sabia que era mudanza Human-in-the-loop human in the loop para decisiones de alto impacto threshold_errors Que papel debe tener una persona cuando el modelo afecta acceso, dinero o derechos. La revision conserva alertas y baja bloqueos injustos.">
+        <div class="card-topline">
+          <span class="case-number">28</span>
+          <span class="topic-chip">Human-in-the-loop</span>
+        </div>
+        <h2><a href="cases/28_score_sin_contexto.html">El score que no sabia que era mudanza</a></h2>
+        <p class="concept">human in the loop para decisiones de alto impacto</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>threshold_errors</dd></div>
+          <div><dt>Pregunta</dt><dd>Que papel debe tener una persona cuando el modelo afecta acceso, dinero o derechos.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Apelacion y gobernanza" data-search="29 La apelacion que pedia entrar a la cuenta bloqueada Apelacion y gobernanza apelacion y gobernanza de decisiones automatizadas appeal_flow Cuando una decision automatica afecta a alguien, que debe existir fuera del sistema que lo bloqueo. En el mismo paso que exige acceso negado.">
+        <div class="card-topline">
+          <span class="case-number">29</span>
+          <span class="topic-chip">Apelacion y gobernanza</span>
+        </div>
+        <h2><a href="cases/29_apelacion_cuenta_bloqueada.html">La apelacion que pedia entrar a la cuenta bloqueada</a></h2>
+        <p class="concept">apelacion y gobernanza de decisiones automatizadas</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>appeal_flow</dd></div>
+          <div><dt>Pregunta</dt><dd>Cuando una decision automatica afecta a alguien, que debe existir fuera del sistema que lo bloqueo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Decision antes del modelo" data-search="30 El modelo que no sabia que decision tomar Decision antes del modelo definir la decision antes del modelo decision_tree Que decision debe existir antes de entrenar o publicar un modelo predictivo. Hay clientes para llamada, oferta y no intervencion.">
+        <div class="card-topline">
+          <span class="case-number">30</span>
+          <span class="topic-chip">Decision antes del modelo</span>
+        </div>
+        <h2><a href="cases/30_modelo_sin_decision.html">El modelo que no sabia que decision tomar</a></h2>
+        <p class="concept">definir la decision antes del modelo</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>decision_tree</dd></div>
+          <div><dt>Pregunta</dt><dd>Que decision debe existir antes de entrenar o publicar un modelo predictivo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Propiedad operativa" data-search="31 La prediccion que llego sin dueno Propiedad operativa propiedad operativa del producto de datos owner_usage Que elemento operativo falta cuando una prediccion correcta no cambia nada. Las que tienen dueno sobreviven; las demas circulan.">
+        <div class="card-topline">
+          <span class="case-number">31</span>
+          <span class="topic-chip">Propiedad operativa</span>
+        </div>
+        <h2><a href="cases/31_prediccion_sin_dueno.html">La prediccion que llego sin dueno</a></h2>
+        <p class="concept">propiedad operativa del producto de datos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>owner_usage</dd></div>
+          <div><dt>Pregunta</dt><dd>Que elemento operativo falta cuando una prediccion correcta no cambia nada.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Metrica tecnica vs capacidad" data-search="32 El AUC alto y la cola llena Metrica tecnica vs capacidad metrica tecnica contra capacidad operativa auc_capacity Por que una metrica como AUC no basta para decidir si el modelo sirve al negocio. El mejor umbral no es el mas vistoso, es el revisable.">
+        <div class="card-topline">
+          <span class="case-number">32</span>
+          <span class="topic-chip">Metrica tecnica vs capacidad</span>
+        </div>
+        <h2><a href="cases/32_auc_cola_llena.html">El AUC alto y la cola llena</a></h2>
+        <p class="concept">metrica tecnica contra capacidad operativa</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>auc_capacity</dd></div>
+          <div><dt>Pregunta</dt><dd>Por que una metrica como AUC no basta para decidir si el modelo sirve al negocio.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Costo de error" data-search="33 El modelo barato que salio caro Costo de error costo de error y metrica de negocio error_cost Que metrica falta cuando comparamos modelos solo por precision y precio de ejecucion. El caro en computo cuesta menos al final.">
+        <div class="card-topline">
+          <span class="case-number">33</span>
+          <span class="topic-chip">Costo de error</span>
+        </div>
+        <h2><a href="cases/33_modelo_barato_salio_caro.html">El modelo barato que salio caro</a></h2>
+        <p class="concept">costo de error y metrica de negocio</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>error_cost</dd></div>
+          <div><dt>Pregunta</dt><dd>Que metrica falta cuando comparamos modelos solo por precision y precio de ejecucion.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Evaluacion por segmentos" data-search="34 La precision que festejaba casos faciles Evaluacion por segmentos evaluacion por segmentos y dificultad difficulty_matrix Por que conviene revisar metricas por segmento antes de lanzar un modelo. En facil va perfecto; en dificil se cae.">
+        <div class="card-topline">
+          <span class="case-number">34</span>
+          <span class="topic-chip">Evaluacion por segmentos</span>
+        </div>
+        <h2><a href="cases/34_precision_casos_faciles.html">La precision que festejaba casos faciles</a></h2>
+        <p class="concept">evaluacion por segmentos y dificultad</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>difficulty_matrix</dd></div>
+          <div><dt>Pregunta</dt><dd>Por que conviene revisar metricas por segmento antes de lanzar un modelo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Reproducibilidad en Colab" data-search="35 La libreta que funcionaba el martes Reproducibilidad en Colab setup reproducible en Google Colab colab_setup Que debe incluir la primera celda de Colab para que otra persona pueda correr el ejemplo. Faltan paquetes, ruta de datos y version de libreria.">
+        <div class="card-topline">
+          <span class="case-number">35</span>
+          <span class="topic-chip">Reproducibilidad en Colab</span>
+        </div>
+        <h2><a href="cases/35_notebook_funcionaba_martes.html">La libreta que funcionaba el martes</a></h2>
+        <p class="concept">setup reproducible en Google Colab</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>colab_setup</dd></div>
+          <div><dt>Pregunta</dt><dd>Que debe incluir la primera celda de Colab para que otra persona pueda correr el ejemplo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Rutas y carga de datos" data-search="36 El archivo que vivia en otra pestana Rutas y carga de datos rutas, montaje de Drive y carga de datos en Colab data_paths Que validaciones deben correr antes de confiar en una carga de datos en Colab. Menos de los que creian.">
+        <div class="card-topline">
+          <span class="case-number">36</span>
+          <span class="topic-chip">Rutas y carga de datos</span>
+        </div>
+        <h2><a href="cases/36_archivo_en_otra_pestana.html">El archivo que vivia en otra pestana</a></h2>
+        <p class="concept">rutas, montaje de Drive y carga de datos en Colab</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>data_paths</dd></div>
+          <div><dt>Pregunta</dt><dd>Que validaciones deben correr antes de confiar en una carga de datos en Colab.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Interpretes de Python" data-search="37 El Python correcto estaba en otra puerta Interpretes de Python interpretes de Python en VS Code python_paths Que informacion confirma que VS Code usa el mismo entorno que el proyecto. El editor apuntaba al global, no al entorno virtual.">
+        <div class="card-topline">
+          <span class="case-number">37</span>
+          <span class="topic-chip">Interpretes de Python</span>
+        </div>
+        <h2><a href="cases/37_python_en_otra_puerta.html">El Python correcto estaba en otra puerta</a></h2>
+        <p class="concept">interpretes de Python en VS Code</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>python_paths</dd></div>
+          <div><dt>Pregunta</dt><dd>Que informacion confirma que VS Code usa el mismo entorno que el proyecto.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Entornos virtuales" data-search="38 Pip instalo en la oficina de al lado Entornos virtuales entornos virtuales y dependencias package_envs Por que conviene usar python -m pip dentro del entorno activo. En el global, mientras el proyecto corre en el virtual.">
+        <div class="card-topline">
+          <span class="case-number">38</span>
+          <span class="topic-chip">Entornos virtuales</span>
+        </div>
+        <h2><a href="cases/38_pip_oficina_lado.html">Pip instalo en la oficina de al lado</a></h2>
+        <p class="concept">entornos virtuales y dependencias</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>package_envs</dd></div>
+          <div><dt>Pregunta</dt><dd>Por que conviene usar python -m pip dentro del entorno activo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Control de versiones" data-search="39 final_final_v7_ahora_si Control de versiones control de versiones para proyectos de datos version_history Que informacion guarda Git que un nombre de archivo no puede garantizar. Con nombres manuales no queda claro; con commits si.">
+        <div class="card-topline">
+          <span class="case-number">39</span>
+          <span class="topic-chip">Control de versiones</span>
+        </div>
+        <h2><a href="cases/39_final_final_v7.html">final_final_v7_ahora_si</a></h2>
+        <p class="concept">control de versiones para proyectos de datos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>version_history</dd></div>
+          <div><dt>Pregunta</dt><dd>Que informacion guarda Git que un nombre de archivo no puede garantizar.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Reproducibilidad de graficos" data-search="40 La grafica que cambio sola Reproducibilidad de graficos diferencias reproducibles en codigo y datos data_code_diff Que piezas deben guardarse para reproducir una grafica de negocio. El commit era igual; el corte de datos no.">
+        <div class="card-topline">
+          <span class="case-number">40</span>
+          <span class="topic-chip">Reproducibilidad de graficos</span>
+        </div>
+        <h2><a href="cases/40_grafica_cambio_sola.html">La grafica que cambio sola</a></h2>
+        <p class="concept">diferencias reproducibles en codigo y datos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>data_code_diff</dd></div>
+          <div><dt>Pregunta</dt><dd>Que piezas deben guardarse para reproducir una grafica de negocio.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Documentacion reproducible" data-search="41 El README que salvo el lunes Documentacion reproducible documentacion minima reproducible readme_checklist Que debe decir un README minimo para que otra persona reproduzca un analisis. Faltan objetivo, setup, datos, comando y salida esperada.">
+        <div class="card-topline">
+          <span class="case-number">41</span>
+          <span class="topic-chip">Documentacion reproducible</span>
+        </div>
+        <h2><a href="cases/41_readme_salvo_lunes.html">El README que salvo el lunes</a></h2>
+        <p class="concept">documentacion minima reproducible</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>readme_checklist</dd></div>
+          <div><dt>Pregunta</dt><dd>Que debe decir un README minimo para que otra persona reproduzca un analisis.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Pull requests y ramas" data-search="42 La rama que llego por WhatsApp Pull requests y ramas branches, commits, issues y pull requests branch_pr_flow Que aporta un pull request que no aporta mandar el archivo por mensaje. Se pierde problema, revision, prueba y aprobacion.">
+        <div class="card-topline">
+          <span class="case-number">42</span>
+          <span class="topic-chip">Pull requests y ramas</span>
+        </div>
+        <h2><a href="cases/42_rama_por_whatsapp.html">La rama que llego por WhatsApp</a></h2>
+        <p class="concept">branches, commits, issues y pull requests</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>branch_pr_flow</dd></div>
+          <div><dt>Pregunta</dt><dd>Que aporta un pull request que no aporta mandar el archivo por mensaje.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Revision de cambios con asistentes" data-search="43 El asistente que arreglo tambien lo que servia Revision de cambios con asistentes control de cambios al trabajar con asistentes de codigo reviewed_diff Que debes revisar antes de aceptar cambios generados por un asistente de codigo. La mitad del parche era sorpresa.">
+        <div class="card-topline">
+          <span class="case-number">43</span>
+          <span class="topic-chip">Revision de cambios con asistentes</span>
+        </div>
+        <h2><a href="cases/43_asistente_arreglo_todo.html">El asistente que arreglo tambien lo que servia</a></h2>
+        <p class="concept">control de cambios al trabajar con asistentes de codigo</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>reviewed_diff</dd></div>
+          <div><dt>Pregunta</dt><dd>Que debes revisar antes de aceptar cambios generados por un asistente de codigo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Verificacion con pruebas" data-search="44 La prueba que el agente no queria correr Verificacion con pruebas verificacion al usar agentes de desarrollo test_verification Que evidencia minima debe entregar un asistente antes de decir que termino. El caso cercano fallaba y nadie lo habia corrido.">
+        <div class="card-topline">
+          <span class="case-number">44</span>
+          <span class="topic-chip">Verificacion con pruebas</span>
+        </div>
+        <h2><a href="cases/44_agente_no_corrio_pruebas.html">La prueba que el agente no queria correr</a></h2>
+        <p class="concept">verificacion al usar agentes de desarrollo</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>test_verification</dd></div>
+          <div><dt>Pregunta</dt><dd>Que evidencia minima debe entregar un asistente antes de decir que termino.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Especificacion de prompts" data-search="45 El prompt con llaves Especificacion de prompts especificaciones y limites para asistentes de codigo prompt_boundaries Que limites debe incluir una instruccion para trabajar con un asistente sin perder control. En prompts abiertos, sobre todo cerca de configuracion.">
+        <div class="card-topline">
+          <span class="case-number">45</span>
+          <span class="topic-chip">Especificacion de prompts</span>
+        </div>
+        <h2><a href="cases/45_prompt_con_llaves.html">El prompt con llaves</a></h2>
+        <p class="concept">especificaciones y limites para asistentes de codigo</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>prompt_boundaries</dd></div>
+          <div><dt>Pregunta</dt><dd>Que limites debe incluir una instruccion para trabajar con un asistente sin perder control.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="PRD para agentes" data-search="46 El PRD de hazlo bonito PRD para agentes PRD para agentes y productos de datos acceptance_criteria Que debe incluir un PRD para que un agente no confunda gusto con objetivo. Con criterios claros cambia menos y resuelve mejor.">
+        <div class="card-topline">
+          <span class="case-number">46</span>
+          <span class="topic-chip">PRD para agentes</span>
+        </div>
+        <h2><a href="cases/46_prd_hazlo_bonito.html">El PRD de hazlo bonito</a></h2>
+        <p class="concept">PRD para agentes y productos de datos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>acceptance_criteria</dd></div>
+          <div><dt>Pregunta</dt><dd>Que debe incluir un PRD para que un agente no confunda gusto con objetivo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Criterios de aceptacion" data-search="47 Los criterios que si sabian decir no Criterios de aceptacion criterios de aceptacion y revision scope_matrix Como ayudan los criterios de aceptacion a revisar trabajo generado por agentes. La matriz separa requerido, opcional y no alcance.">
+        <div class="card-topline">
+          <span class="case-number">47</span>
+          <span class="topic-chip">Criterios de aceptacion</span>
+        </div>
+        <h2><a href="cases/47_criterios_sabian_decir_no.html">Los criterios que si sabian decir no</a></h2>
+        <p class="concept">criterios de aceptacion y revision</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>scope_matrix</dd></div>
+          <div><dt>Pregunta</dt><dd>Como ayudan los criterios de aceptacion a revisar trabajo generado por agentes.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Tareas revisables para agentes" data-search="48 La tarea que tenia dueno, salida y no drama Tareas revisables para agentes tareas para agentes con responsable, salida y revision review_flow Que campos hacen que una tarea para agentes sea ejecutable y revisable. Las que tienen dueno, archivos, pruebas y aprobador.">
+        <div class="card-topline">
+          <span class="case-number">48</span>
+          <span class="topic-chip">Tareas revisables para agentes</span>
+        </div>
+        <h2><a href="cases/48_tarea_con_dueno_salida.html">La tarea que tenia dueno, salida y no drama</a></h2>
+        <p class="concept">tareas para agentes con responsable, salida y revision</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>review_flow</dd></div>
+          <div><dt>Pregunta</dt><dd>Que campos hacen que una tarea para agentes sea ejecutable y revisable.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Programacion basica" data-search="49 El bloque de codigo que si hizo algo Programacion basica que es programar y ejecutar instrucciones instruction_steps Que diferencia hay entre explicar una tarea y programarla. Cuando cada paso existe en codigo y se puede correr.">
+        <div class="card-topline">
+          <span class="case-number">49</span>
+          <span class="topic-chip">Programacion basica</span>
+        </div>
+        <h2><a href="cases/49_primer_bloque_codigo.html">El bloque de codigo que si hizo algo</a></h2>
+        <p class="concept">que es programar y ejecutar instrucciones</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>instruction_steps</dd></div>
+          <div><dt>Pregunta</dt><dd>Que diferencia hay entre explicar una tarea y programarla.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Estructuras de datos en Python" data-search="50 La lista que no sabia de quien era cada dato Estructuras de datos en Python variables, listas, diccionarios y estructuras esenciales data_structures Cuando conviene usar una variable, una lista o un diccionario. El diccionario ayuda cuando cada valor necesita nombre.">
+        <div class="card-topline">
+          <span class="case-number">50</span>
+          <span class="topic-chip">Estructuras de datos en Python</span>
+        </div>
+        <h2><a href="cases/50_variables_listas_diccionarios.html">La lista que no sabia de quien era cada dato</a></h2>
+        <p class="concept">variables, listas, diccionarios y estructuras esenciales</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>data_structures</dd></div>
+          <div><dt>Pregunta</dt><dd>Cuando conviene usar una variable, una lista o un diccionario.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Logica de automatizacion" data-search="51 El loop que mando el mismo aviso a todos Logica de automatizacion condicionales, loops y logica de automatizacion automation_logic Que papel tiene un if dentro de un loop de automatizacion. La condicion separo quien necesitaba accion y quien no.">
+        <div class="card-topline">
+          <span class="case-number">51</span>
+          <span class="topic-chip">Logica de automatizacion</span>
+        </div>
+        <h2><a href="cases/51_condicionales_loops_automatizacion.html">El loop que mando el mismo aviso a todos</a></h2>
+        <p class="concept">condicionales, loops y logica de automatizacion</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>automation_logic</dd></div>
+          <div><dt>Pregunta</dt><dd>Que papel tiene un if dentro de un loop de automatizacion.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Funciones reutilizables" data-search="52 La formula que vivia en cinco lugares Funciones reutilizables funciones limpias y reutilizables function_reuse Que hace que una funcion sea limpia y reutilizable. Cuando todos llamaron la misma logica.">
+        <div class="card-topline">
+          <span class="case-number">52</span>
+          <span class="topic-chip">Funciones reutilizables</span>
+        </div>
+        <h2><a href="cases/52_funciones_limpias_reutilizables.html">La formula que vivia en cinco lugares</a></h2>
+        <p class="concept">funciones limpias y reutilizables</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>function_reuse</dd></div>
+          <div><dt>Pregunta</dt><dd>Que hace que una funcion sea limpia y reutilizable.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Errores y archivos" data-search="53 El archivo que desaparecia sin avisar Errores y archivos manejo de errores, archivos y buenas practicas error_handling Que tipo de errores conviene anticipar al leer y escribir archivos. Los fallos dejaron de ser adivinanzas.">
+        <div class="card-topline">
+          <span class="case-number">53</span>
+          <span class="topic-chip">Errores y archivos</span>
+        </div>
+        <h2><a href="cases/53_errores_archivos_buenas_practicas.html">El archivo que desaparecia sin avisar</a></h2>
+        <p class="concept">manejo de errores, archivos y buenas practicas</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>error_handling</dd></div>
+          <div><dt>Pregunta</dt><dd>Que tipo de errores conviene anticipar al leer y escribir archivos.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Reto narrativo en Python" data-search="54 La calculadora de diamantes que prometio castillos Reto narrativo en Python mini reto narrativo con calculadora de recursos en Minecraft minecraft_resources Que entradas y salidas necesita una calculadora de recursos para ser util. Cuando cada construccion consume ingredientes reales.">
+        <div class="card-topline">
+          <span class="case-number">54</span>
+          <span class="topic-chip">Reto narrativo en Python</span>
+        </div>
+        <h2><a href="cases/54_calculadora_recursos_minecraft.html">La calculadora de diamantes que prometio castillos</a></h2>
+        <p class="concept">mini reto narrativo con calculadora de recursos en Minecraft</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>minecraft_resources</dd></div>
+          <div><dt>Pregunta</dt><dd>Que entradas y salidas necesita una calculadora de recursos para ser util.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="SQL basico" data-search="55 La consulta que trajo toda la tienda SQL basico SQL basico con SELECT, WHERE, GROUP BY y ORDER BY basic_sql Como se conectan SELECT, WHERE, GROUP BY y ORDER BY en una pregunta simple. Muchas menos cuando la pregunta guia SELECT y WHERE.">
+        <div class="card-topline">
+          <span class="case-number">55</span>
+          <span class="topic-chip">SQL basico</span>
+        </div>
+        <h2><a href="cases/55_sql_basico_select_where_group_order.html">La consulta que trajo toda la tienda</a></h2>
+        <p class="concept">SQL basico con SELECT, WHERE, GROUP BY y ORDER BY</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>basic_sql</dd></div>
+          <div><dt>Pregunta</dt><dd>Como se conectan SELECT, WHERE, GROUP BY y ORDER BY en una pregunta simple.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="JOINs y granularidad" data-search="56 El JOIN que duplico las ventas con mucha seguridad JOINs y granularidad JOINs, llaves, granularidad y duplicados join_duplicates Que debes revisar antes de hacer un JOIN entre dos tablas. Cada venta se repitio por cada promocion del producto.">
+        <div class="card-topline">
+          <span class="case-number">56</span>
+          <span class="topic-chip">JOINs y granularidad</span>
+        </div>
+        <h2><a href="cases/56_joins_llaves_granularidad_duplicados.html">El JOIN que duplico las ventas con mucha seguridad</a></h2>
+        <p class="concept">JOINs, llaves, granularidad y duplicados</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>join_duplicates</dd></div>
+          <div><dt>Pregunta</dt><dd>Que debes revisar antes de hacer un JOIN entre dos tablas.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="SQL analitico" data-search="57 La metrica que olvidaba el mes anterior SQL analitico SQL analitico con CTEs, ventanas y metricas por periodo window_metrics Para que sirven CTEs y funciones de ventana en una metrica por periodo. Se ve la variacion sin perder el valor mensual.">
+        <div class="card-topline">
+          <span class="case-number">57</span>
+          <span class="topic-chip">SQL analitico</span>
+        </div>
+        <h2><a href="cases/57_sql_analitico_ctes_ventanas_periodos.html">La metrica que olvidaba el mes anterior</a></h2>
+        <p class="concept">SQL analitico con CTEs, ventanas y metricas por periodo</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>window_metrics</dd></div>
+          <div><dt>Pregunta</dt><dd>Para que sirven CTEs y funciones de ventana en una metrica por periodo.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="ABT para ML" data-search="58 La tabla madre que mezclaba pasado y futuro ABT para ML construccion de una ABT para aprendizaje automatico abt_cutoff Que decisiones de diseno definen una ABT para machine learning. Menos, pero de forma honesta.">
+        <div class="card-topline">
+          <span class="case-number">58</span>
+          <span class="topic-chip">ABT para ML</span>
+        </div>
+        <h2><a href="cases/58_abt_tabla_madre_ml.html">La tabla madre que mezclaba pasado y futuro</a></h2>
+        <p class="concept">construccion de una ABT para aprendizaje automatico</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>abt_cutoff</dd></div>
+          <div><dt>Pregunta</dt><dd>Que decisiones de diseno definen una ABT para machine learning.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Esquema y contexto" data-search="59 El esquema que nadie le conto al analista Esquema y contexto esquema y contexto de datos schema_context Que contexto debe acompanar a un esquema para analizar datos con confianza. En campos tecnicos usados como conceptos de negocio.">
+        <div class="card-topline">
+          <span class="case-number">59</span>
+          <span class="topic-chip">Esquema y contexto</span>
+        </div>
+        <h2><a href="cases/59_esquema_y_contexto.html">El esquema que nadie le conto al analista</a></h2>
+        <p class="concept">esquema y contexto de datos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>schema_context</dd></div>
+          <div><dt>Pregunta</dt><dd>Que contexto debe acompanar a un esquema para analizar datos con confianza.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Lectura de fuentes" data-search="60 Las primeras runas y el archivo que hablaba raro Lectura de fuentes lectura de CSV, Excel, JSON y APIs file_reading Que debes revisar al leer CSV, Excel, JSON o una API por primera vez. Las que usan el lector y parametros correctos.">
+        <div class="card-topline">
+          <span class="case-number">60</span>
+          <span class="topic-chip">Lectura de fuentes</span>
+        </div>
+        <h2><a href="cases/60_lectura_csv_excel_json_api.html">Las primeras runas y el archivo que hablaba raro</a></h2>
+        <p class="concept">lectura de CSV, Excel, JSON y APIs</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>file_reading</dd></div>
+          <div><dt>Pregunta</dt><dd>Que debes revisar al leer CSV, Excel, JSON o una API por primera vez.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Pandas esencial" data-search="61 El groupby que perdio los lunes Pandas esencial pandas esencial con filtros, joins, groupby y fechas pandas_flow Que validaciones conviene hacer antes de usar filtros, joins y groupby en pandas. Se perdieron al filtrar texto como si fuera fecha.">
+        <div class="card-topline">
+          <span class="case-number">61</span>
+          <span class="topic-chip">Pandas esencial</span>
+        </div>
+        <h2><a href="cases/61_pandas_filtros_joins_groupby_fechas.html">El groupby que perdio los lunes</a></h2>
+        <p class="concept">pandas esencial con filtros, joins, groupby y fechas</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>pandas_flow</dd></div>
+          <div><dt>Pregunta</dt><dd>Que validaciones conviene hacer antes de usar filtros, joins y groupby en pandas.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Limpieza de datos" data-search="62 La categoria Otro que se comio la limpieza Limpieza de datos limpieza real con nulos, duplicados, tipos, outliers y categorias rotas cleaning_quality Que debe documentarse al limpiar nulos, duplicados, tipos, outliers y categorias. La limpieza correcta arregla tipos sin esconder categorias.">
+        <div class="card-topline">
+          <span class="case-number">62</span>
+          <span class="topic-chip">Limpieza de datos</span>
+        </div>
+        <h2><a href="cases/62_limpieza_nulos_duplicados_tipos_outliers.html">La categoria Otro que se comio la limpieza</a></h2>
+        <p class="concept">limpieza real con nulos, duplicados, tipos, outliers y categorias rotas</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>cleaning_quality</dd></div>
+          <div><dt>Pregunta</dt><dd>Que debe documentarse al limpiar nulos, duplicados, tipos, outliers y categorias.</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Conteos y tasas" data-search="63 La sucursal con más quejas y más clientes Conteos y tasas conteos, tasas y denominadores barras de tasas ¿Qué sucursal tiene realmente más quejas en relación con los pedidos que atiende? Centro registra 18 quejas por cada mil pedidos, la tasa más alta.">
+        <div class="card-topline">
+          <span class="case-number">63</span>
+          <span class="topic-chip">Conteos y tasas</span>
+        </div>
+        <h2><a href="cases/63_sucursal_con_mas_quejas_y_clientes.html">La sucursal con más quejas y más clientes</a></h2>
+        <p class="concept">conteos, tasas y denominadores</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de tasas</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué sucursal tiene realmente más quejas en relación con los pedidos que atiende?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Distribuciones y percentiles" data-search="64 El promedio de entrega que nadie recibió Distribuciones y percentiles promedio, mediana y percentiles barras de percentiles ¿Qué número explica mejor por qué siguen llegando reclamos si el promedio es de cinco días? El diez por ciento más lento tarda al menos 16 días.">
+        <div class="card-topline">
+          <span class="case-number">64</span>
+          <span class="topic-chip">Distribuciones y percentiles</span>
+        </div>
+        <h2><a href="cases/64_promedio_entrega_que_nadie_recibio.html">El promedio de entrega que nadie recibió</a></h2>
+        <p class="concept">promedio, mediana y percentiles</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de percentiles</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué número explica mejor por qué siguen llegando reclamos si el promedio es de cinco días?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Segmentacion y mezcla" data-search="65 El equipo que perdió al mejorar Segmentacion y mezcla segmentación y paradoja de Simpson barras de tasa ajustada ¿Qué ocurre con el ranking cuando ambos equipos se comparan con la misma mezcla de clientes? Con una mezcla comparable, Verde obtiene 34% y supera a Azul.">
+        <div class="card-topline">
+          <span class="case-number">65</span>
+          <span class="topic-chip">Segmentacion y mezcla</span>
+        </div>
+        <h2><a href="cases/65_equipo_que_perdio_al_mejorar.html">El equipo que perdió al mejorar</a></h2>
+        <p class="concept">segmentación y paradoja de Simpson</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de tasa ajustada</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué ocurre con el ranking cuando ambos equipos se comparan con la misma mezcla de clientes?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Ventanas temporales" data-search="66 El viernes que duró tres minutos Ventanas temporales ventanas temporales y datos incompletos barras por hora de corte ¿Qué comparación permite saber si este viernes realmente empezó peor? A la misma hora, hoy registra 50 pedidos frente a 52 y 48.">
+        <div class="card-topline">
+          <span class="case-number">66</span>
+          <span class="topic-chip">Ventanas temporales</span>
+        </div>
+        <h2><a href="cases/66_viernes_que_duro_tres_minutos.html">El viernes que duró tres minutos</a></h2>
+        <p class="concept">ventanas temporales y datos incompletos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras por hora de corte</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué comparación permite saber si este viernes realmente empezó peor?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Valores atipicos" data-search="67 La compra de 900 refrigeradores Valores atipicos detección e investigación de outliers barras con valor extremo ¿Qué debemos hacer con el valor de 900 antes de calcular de nuevo el gasto? El documento fuente confirma nueve unidades y exige una corrección trazable.">
+        <div class="card-topline">
+          <span class="case-number">67</span>
+          <span class="topic-chip">Valores atipicos</span>
+        </div>
+        <h2><a href="cases/67_compra_de_900_refrigeradores.html">La compra de 900 refrigeradores</a></h2>
+        <p class="concept">detección e investigación de outliers</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras con valor extremo</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué debemos hacer con el valor de 900 antes de calcular de nuevo el gasto?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Seleccion de graficas" data-search="68 El pastel de 27 rebanadas Seleccion de graficas selección de gráfica según la pregunta barras ordenadas ¿Qué gráfica permite comparar muchas categorías y encontrar rápido cuál cayó más? Las barras muestran que electrónica concentra 32% y la caída principal.">
+        <div class="card-topline">
+          <span class="case-number">68</span>
+          <span class="topic-chip">Seleccion de graficas</span>
+        </div>
+        <h2><a href="cases/68_pastel_de_27_rebanadas.html">El pastel de 27 rebanadas</a></h2>
+        <p class="concept">selección de gráfica según la pregunta</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras ordenadas</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué gráfica permite comparar muchas categorías y encontrar rápido cuál cayó más?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Escalas visuales" data-search="69 El crecimiento gigante de dos puntos Escalas visuales ejes, escalas y magnitud visual barras con escala completa ¿Qué impresión cambia cuando vemos 78% y 80% desde una escala que comienza en cero? La conversión aumentó dos puntos porcentuales, de 78% a 80%.">
+        <div class="card-topline">
+          <span class="case-number">69</span>
+          <span class="topic-chip">Escalas visuales</span>
+        </div>
+        <h2><a href="cases/69_crecimiento_gigante_de_dos_puntos.html">El crecimiento gigante de dos puntos</a></h2>
+        <p class="concept">ejes, escalas y magnitud visual</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras con escala completa</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué impresión cambia cuando vemos 78% y 80% desde una escala que comienza en cero?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Color y jerarquia visual" data-search="70 El semáforo con catorce verdes Color y jerarquia visual color, jerarquía visual y categorías barras con color de énfasis ¿Qué debería comunicar el color para que una persona sepa dónde actuar primero? Tres sucursales deben detener operación y nueve requieren revisión hoy.">
+        <div class="card-topline">
+          <span class="case-number">70</span>
+          <span class="topic-chip">Color y jerarquia visual</span>
+        </div>
+        <h2><a href="cases/70_semaforo_con_catorce_verdes.html">El semáforo con catorce verdes</a></h2>
+        <p class="concept">color, jerarquía visual y categorías</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras con color de énfasis</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué debería comunicar el color para que una persona sepa dónde actuar primero?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Doble eje" data-search="71 Las dos líneas que parecían novios Doble eje doble eje y relaciones visuales engañosas barras de cambio relativo ¿Qué queda de la relación cuando ambas series se comparan con una escala común? El margen cae 22% donde aumenta el descuento; visitas cambia 14% sin el mismo patrón.">
+        <div class="card-topline">
+          <span class="case-number">71</span>
+          <span class="topic-chip">Doble eje</span>
+        </div>
+        <h2><a href="cases/71_dos_lineas_que_parecian_novios.html">Las dos líneas que parecían novios</a></h2>
+        <p class="concept">doble eje y relaciones visuales engañosas</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de cambio relativo</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué queda de la relación cuando ambas series se comparan con una escala común?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Anotaciones y contexto" data-search="72 La gráfica sin domicilio Anotaciones y contexto anotaciones y contexto para una decisión barras temporales anotadas ¿Qué dato adicional permite distinguir entre un problema de capacitación y uno del formulario? Los errores suben de 8 a 29 por mil después del despliegue del formulario.">
+        <div class="card-topline">
+          <span class="case-number">72</span>
+          <span class="topic-chip">Anotaciones y contexto</span>
+        </div>
+        <h2><a href="cases/72_grafica_sin_domicilio.html">La gráfica sin domicilio</a></h2>
+        <p class="concept">anotaciones y contexto para una decisión</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras temporales anotadas</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué dato adicional permite distinguir entre un problema de capacitación y uno del formulario?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Sesgo de seleccion" data-search="73 La encuesta del QR detrás del recibo Sesgo de seleccion sesgo de selección y representatividad barras por método de muestreo ¿Qué población representa cada resultado y quién quedó fuera de la invitación? La muestra aleatoria registra 68% y recupera problemas de espera.">
+        <div class="card-topline">
+          <span class="case-number">73</span>
+          <span class="topic-chip">Sesgo de seleccion</span>
+        </div>
+        <h2><a href="cases/73_encuesta_del_qr_detras_del_recibo.html">La encuesta del QR detrás del recibo</a></h2>
+        <p class="concept">sesgo de selección y representatividad</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras por método de muestreo</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué población representa cada resultado y quién quedó fuera de la invitación?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Incertidumbre y muestra" data-search="74 La sucursal campeona por cuatro respuestas Incertidumbre y muestra incertidumbre, tamaño de muestra e intervalos barras de muestra y estimación ¿Podemos afirmar que Lago supera a Centro cuando vemos el tamaño de sus muestras? La incertidumbre de Lago impide afirmar que supera al 91% de Centro.">
+        <div class="card-topline">
+          <span class="case-number">74</span>
+          <span class="topic-chip">Incertidumbre y muestra</span>
+        </div>
+        <h2><a href="cases/74_sucursal_campeona_por_cuatro_respuestas.html">La sucursal campeona por cuatro respuestas</a></h2>
+        <p class="concept">incertidumbre, tamaño de muestra e intervalos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de muestra y estimación</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Podemos afirmar que Lago supera a Centro cuando vemos el tamaño de sus muestras?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Pruebas multiples" data-search="75 El experimento que ganó en jueves Pruebas multiples pruebas múltiples y falsos descubrimientos barras de réplica experimental ¿Qué nos dice la réplica sobre el aumento de 14% encontrado entre tantos cortes? La réplica predefinida obtiene 1% y no confirma el efecto inicial.">
+        <div class="card-topline">
+          <span class="case-number">75</span>
+          <span class="topic-chip">Pruebas multiples</span>
+        </div>
+        <h2><a href="cases/75_experimento_que_gano_en_jueves.html">El experimento que ganó en jueves</a></h2>
+        <p class="concept">pruebas múltiples y falsos descubrimientos</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de réplica experimental</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué nos dice la réplica sobre el aumento de 14% encontrado entre tantos cortes?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Correlacion y causalidad" data-search="76 Los helados que causaban devoluciones Correlacion y causalidad correlación, confusión y causalidad barras por nivel de capacidad ¿Qué sucede con la relación entre helados y devoluciones cuando comparamos días con el mismo volumen? La tasa alcanza 11% cuando se rebasa capacidad, sin depender de helados.">
+        <div class="card-topline">
+          <span class="case-number">76</span>
+          <span class="topic-chip">Correlacion y causalidad</span>
+        </div>
+        <h2><a href="cases/76_helados_y_devoluciones.html">Los helados que causaban devoluciones</a></h2>
+        <p class="concept">correlación, confusión y causalidad</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras por nivel de capacidad</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué sucede con la relación entre helados y devoluciones cuando comparamos días con el mismo volumen?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Aleatorizacion" data-search="77 El piloto de capacitación con voluntarios Aleatorizacion aleatorización y grupos comparables barras de tratamiento y control ¿Cuánto del cambio podemos atribuir al curso cuando existe un grupo control comparable? En grupos comparables, la mejora adicional frente a control es de cuatro puntos.">
+        <div class="card-topline">
+          <span class="case-number">77</span>
+          <span class="topic-chip">Aleatorizacion</span>
+        </div>
+        <h2><a href="cases/77_capacitacion_con_voluntarios.html">El piloto de capacitación con voluntarios</a></h2>
+        <p class="concept">aleatorización y grupos comparables</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de tratamiento y control</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Cuánto del cambio podemos atribuir al curso cuando existe un grupo control comparable?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Fuga de objetivo" data-search="78 El modelo que ya sabía la devolución Fuga de objetivo target leakage en aprendizaje automático barras de desempeño temporal ¿Qué desempeño importa si solo usamos información disponible antes de autorizar el envío? Con variables disponibles al decidir, la precisión realista es 74%.">
+        <div class="card-topline">
+          <span class="case-number">78</span>
+          <span class="topic-chip">Fuga de objetivo</span>
+        </div>
+        <h2><a href="cases/78_modelo_que_sabia_la_devolucion.html">El modelo que ya sabía la devolución</a></h2>
+        <p class="concept">target leakage en aprendizaje automático</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de desempeño temporal</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué desempeño importa si solo usamos información disponible antes de autorizar el envío?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Particiones de datos" data-search="79 El examen con respuestas de práctica Particiones de datos separación de entrenamiento, validación y prueba barras de particiones de datos ¿Por qué el mes intacto ofrece una estimación más honesta que la prueba consultada muchas veces? En datos intactos, el F1 es 0.72 y refleja mejor el desempeño esperado.">
+        <div class="card-topline">
+          <span class="case-number">79</span>
+          <span class="topic-chip">Particiones de datos</span>
+        </div>
+        <h2><a href="cases/79_examen_con_respuestas_de_practica.html">El examen con respuestas de práctica</a></h2>
+        <p class="concept">separación de entrenamiento, validación y prueba</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de particiones de datos</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Por qué el mes intacto ofrece una estimación más honesta que la prueba consultada muchas veces?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Clases desbalanceadas" data-search="80 El detector 99% correcto que encontró cero fraudes Clases desbalanceadas desbalance de clases y métricas de clasificación barras de recall y capacidad ¿Qué umbral encuentra más fraude sin rebasar la capacidad diaria de revisión? El umbral operativo detecta 71 de cien fraudes dentro de capacidad.">
+        <div class="card-topline">
+          <span class="case-number">80</span>
+          <span class="topic-chip">Clases desbalanceadas</span>
+        </div>
+        <h2><a href="cases/80_detector_99_correcto_cero_fraudes.html">El detector 99% correcto que encontró cero fraudes</a></h2>
+        <p class="concept">desbalance de clases y métricas de clasificación</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de recall y capacidad</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué umbral encuentra más fraude sin rebasar la capacidad diaria de revisión?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Umbrales y capacidad" data-search="81 Una alerta para cada cliente Umbrales y capacidad umbrales, costos de error y capacidad operativa barras de volumen por umbral ¿Qué punto de corte concentra recuperación sin enviar más casos de los que el equipo puede atender? El corte de 0.74 produce 1,100 contactos y cabe en el turno.">
+        <div class="card-topline">
+          <span class="case-number">81</span>
+          <span class="topic-chip">Umbrales y capacidad</span>
+        </div>
+        <h2><a href="cases/81_alerta_para_cada_cliente.html">Una alerta para cada cliente</a></h2>
+        <p class="concept">umbrales, costos de error y capacidad operativa</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de volumen por umbral</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué punto de corte concentra recuperación sin enviar más casos de los que el equipo puede atender?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Sobreajuste" data-search="82 El árbol que memorizó apellidos Sobreajuste sobreajuste, complejidad y generalización barras de complejidad y validación ¿Qué profundidad funciona mejor en datos nuevos aunque no sea perfecta en entrenamiento? La profundidad cinco logra 74% en validación y supera al árbol profundo.">
+        <div class="card-topline">
+          <span class="case-number">82</span>
+          <span class="topic-chip">Sobreajuste</span>
+        </div>
+        <h2><a href="cases/82_arbol_que_memorizo_apellidos.html">El árbol que memorizó apellidos</a></h2>
+        <p class="concept">sobreajuste, complejidad y generalización</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de complejidad y validación</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué profundidad funciona mejor en datos nuevos aunque no sea perfecta en entrenamiento?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Ventanas de variables" data-search="83 La variable que llegó mañana Ventanas de variables ingeniería de variables con ventanas temporales barras de ventanas temporales ¿Qué versión del modelo podemos ejecutar el lunes sin usar actividad futura? El modelo ejecutable usa corte dominical y obtiene AUC de 0.76.">
+        <div class="card-topline">
+          <span class="case-number">83</span>
+          <span class="topic-chip">Ventanas de variables</span>
+        </div>
+        <h2><a href="cases/83_variable_que_llego_manana.html">La variable que llegó mañana</a></h2>
+        <p class="concept">ingeniería de variables con ventanas temporales</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de ventanas temporales</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué versión del modelo podemos ejecutar el lunes sin usar actividad futura?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Lineas base" data-search="84 El modelo vencido por siempre no Lineas base líneas base y valor incremental del modelo barras contra línea base ¿Qué alternativa evita más costo total cuando incluimos revisiones e infraestructura? La regla evita 83 errores frente a 85 del modelo y requiere muchas menos revisiones.">
+        <div class="card-topline">
+          <span class="case-number">84</span>
+          <span class="topic-chip">Lineas base</span>
+        </div>
+        <h2><a href="cases/84_modelo_vencido_por_siempre_no.html">El modelo vencido por siempre no</a></h2>
+        <p class="concept">líneas base y valor incremental del modelo</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras contra línea base</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué alternativa evita más costo total cuando incluimos revisiones e infraestructura?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Explicabilidad y apelacion" data-search="85 El crédito negado por la variable 47 Explicabilidad y apelacion explicabilidad, revisión humana y derecho a corregir barras de apelación y corrección ¿Qué razón permite a una persona comprobar el rechazo y qué ocurre cuando presenta evidencia nueva? Treinta y dos rechazos cambian al corregir domicilio y requieren revisión humana.">
+        <div class="card-topline">
+          <span class="case-number">85</span>
+          <span class="topic-chip">Explicabilidad y apelacion</span>
+        </div>
+        <h2><a href="cases/85_credito_negado_por_variable_47.html">El crédito negado por la variable 47</a></h2>
+        <p class="concept">explicabilidad, revisión humana y derecho a corregir</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de apelación y corrección</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué razón permite a una persona comprobar el rechazo y qué ocurre cuando presenta evidencia nueva?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Drift y monitoreo" data-search="86 El modelo prendido y perdido Drift y monitoreo monitoreo de desempeño y drift barras de salud del modelo ¿Qué señal muestra que el modelo falla aunque el servicio siga disponible? La precisión baja a 49% mientras disponibilidad permanece en 100%.">
+        <div class="card-topline">
+          <span class="case-number">86</span>
+          <span class="topic-chip">Drift y monitoreo</span>
+        </div>
+        <h2><a href="cases/86_modelo_prendido_y_perdido.html">El modelo prendido y perdido</a></h2>
+        <p class="concept">monitoreo de desempeño y drift</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de salud del modelo</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué señal muestra que el modelo falla aunque el servicio siga disponible?</dd></div>
+        </dl>
+      </article>
+      <article class="case-card" data-card data-topic="Contratos de datos" data-search="87 La columna que cambió de pesos a centavos Contratos de datos contratos de datos y confiabilidad de pipelines barras de validación de unidad ¿Qué validación habría detenido el archivo antes de publicar ingresos cien veces mayores? La mediana recibida es cien veces mayor y debe normalizarse desde la entrada.">
+        <div class="card-topline">
+          <span class="case-number">87</span>
+          <span class="topic-chip">Contratos de datos</span>
+        </div>
+        <h2><a href="cases/87_columna_de_pesos_a_centavos.html">La columna que cambió de pesos a centavos</a></h2>
+        <p class="concept">contratos de datos y confiabilidad de pipelines</p>
+        <dl class="card-meta">
+          <div><dt>Grafica</dt><dd>barras de validación de unidad</dd></div>
+          <div><dt>Pregunta</dt><dd>¿Qué validación habría detenido el archivo antes de publicar ingresos cien veces mayores?</dd></div>
+        </dl>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

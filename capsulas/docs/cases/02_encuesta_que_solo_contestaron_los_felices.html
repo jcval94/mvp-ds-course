@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La encuesta que llegaba después del problema</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">02</span>
+      <span class="topic-chip">Sesgo de cobertura</span>
+    </div>
+    <h1>La encuesta que llegaba después del problema</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> sesgo de cobertura y no respuesta</p>
+      <p><strong>Pregunta de la grafica:</strong> ¿Quién tuvo oportunidad de responder?</p>
+      <p><strong>Lectura correcta:</strong> El score representa a completadores que respondieron.</p>
+      <p><strong>Decision que cambia:</strong> Reportar cobertura y escuchar abandonos.</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>La encuesta que llegaba después del problema</h1>
+<section>
+<h2>Setenta y dos puntos</h2>
+<blockquote><strong>La jefa:</strong><span>El puntaje de satisfacción subió a 72. ¿Quién manda la felicitación?</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Antes, ¿quién contestó?</span></blockquote>
+<blockquote><strong>Tomás:</strong><span>Clientes.</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Sí, Tomás. ¿Cuáles?</span></blockquote>
+<blockquote><strong>Tomás:</strong><span>Los que terminaron el trámite y recibieron el correo.</span></blockquote>
+<blockquote><strong>Celia:</strong><span>¿Y los que se salieron antes?</span></blockquote>
+<blockquote><strong>Tomás:</strong><span>No les llegó.</span></blockquote>
+<blockquote><strong>Celia:</strong><span>Justo eran los que tenían más cosas que decir.</span></blockquote>
+<blockquote><strong>Tomás:</strong><span>Por eso no quisimos molestarlos.</span></blockquote>
+<p>La encuesta se activaba con `trámite completado`. Era el único evento estable del sistema y la presentación cerraba esa noche. Renata había pedido un disparador para abandono. Le dijeron que entraba “en la siguiente fase”, una fase que ya llevaba dos presupuestos viviendo con sus papás.</p>
+</section>
+<section>
+<h2>La voz del cliente, pero no de todos</h2>
+<blockquote><strong>La jefa:</strong><span>A ver, los 72 puntos sí son reales.</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Sí. Para la gente que terminó y contestó.</span></blockquote>
+<blockquote><strong>Tomás:</strong><span>Entonces podemos poner `voz del cliente`.</span></blockquote>
+<blockquote><strong>Celia:</strong><span>Pon `voz del cliente que sobrevivió al trámite`.</span></blockquote>
+<blockquote><strong>Tomás:</strong><span>Eso se oye agresivo.</span></blockquote>
+<blockquote><strong>Celia:</strong><span>El trámite también.</span></blockquote>
+<blockquote><strong>La jefa:</strong><span>¿Cuánta gente estamos dejando fuera?</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Todavía no sé. El reporte empieza cuando se manda la encuesta.</span></blockquote>
+<blockquote><strong>Celia:</strong><span>Qué práctico. La gente desaparece antes de que empiece el reporte.</span></blockquote>
+<p>Dos meses después, el puntaje subió otros tres puntos. También subieron las llamadas de personas que no podían terminar. En el informe, ambas cosas vivían en páginas distintas y nunca se saludaban.</p>
+</section>
+<section>
+<h2>El embudo completo</h2>
+<blockquote><strong>Renata:</strong><span>Abrí el proceso desde que la persona entra, no desde que recibe el correo.</span></blockquote>
+<blockquote><strong>La jefa:</strong><span>¿Cuántas empiezan?</span></blockquote>
+<blockquote><strong>Renata:</strong><span>Diez mil. Terminan seis mil doscientas. Responden mil quinientas.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 300" role="img" aria-label="Embudo de clientes que inician, terminan, reciben encuesta y responden">
+  <rect width="720" height="300" fill="#fff"/>
+  <text x="40" y="30" font-size="18" font-weight="bold">Quién tuvo oportunidad de opinar</text>
+  <rect x="70" y="55" width="580" height="42" fill="#286d9b"/>
+  <rect x="150" y="115" width="420" height="42" fill="#5a91b5"/>
+  <rect x="164" y="175" width="392" height="42" fill="#87afc8"/>
+  <rect x="285" y="235" width="150" height="34" fill="#c64e36"/>
+  <text x="86" y="82" font-size="15" fill="#fff">10,000 iniciaron</text>
+  <text x="166" y="142" font-size="15" fill="#fff">6,200 terminaron</text>
+  <text x="180" y="202" font-size="15" fill="#17313d">6,000 recibieron encuesta</text>
+  <text x="300" y="258" font-size="15" fill="#fff">1,500 respondieron</text>
+  <text x="460" y="108" font-size="14" fill="#9f3625">3,800 abandonaron antes del envío</text>
+</svg>
+<blockquote class="learning-pause"><strong>Celia:</strong><span>Entonces, cuando decimos satisfacción de clientes, ¿estamos hablando de diez mil personas o de las mil quinientas que sí llegaron hasta el final?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La calificación describe a quienes terminaron, recibieron la invitación y respondieron. No incluye a quienes abandonaron antes. Aquí hay sesgo de cobertura y también no respuesta; son dos ausencias distintas.</p>
+</section>
+<section>
+<h2>El correo nuevo</h2>
+<blockquote><strong>La jefa:</strong><span>Publicamos el puntaje, pero junto con cobertura y abandono.</span></blockquote>
+<blockquote><strong>Tomás:</strong><span>¿Y si el número baja cuando preguntemos antes?</span></blockquote>
+<blockquote><strong>Renata:</strong><span>No bajó la experiencia. Dejamos de entrevistar solo a los que llegaron.</span></blockquote>
+<blockquote><strong>Celia:</strong><span>El cliente inconforme no dio mala calificación; ni siquiera recibió el link.</span></blockquote>
+<p>El siguiente mes se envió una pregunta corta a una muestra de abandonos, con consentimiento y sin perseguir a nadie con cinco recordatorios.</p>
+<p class="rule"><strong>Regla:</strong> Una encuesta no representa a quien nunca tuvo oportunidad de contestarla.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="01_dashboard_que_bajo_quejas_cerrando_boton.html">Anterior: El botón que arregló las quejas</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="03_modelo_que_aprendio_horario_supervisor.html">Siguiente: El modelo de 97% que llegaba cuatro horas tarde</a>
+  </nav>
+</body>
+</html>

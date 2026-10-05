@@ -1,0 +1,9 @@
+case_id: "75"
+title: "El experimento que ganó en jueves"
+concept: "pruebas múltiples y falsos descubrimientos"
+scenario: "experimento_que_gano_en_jueves"
+seed: 275
+observations: 28000
+variables: ["experiment_id", "variant", "segment", "metric", "effect", "replication"]
+key_values: {"hallazgo inicial": 14, "réplica": 1, "conversión general": 0}
+synthetic_data: true

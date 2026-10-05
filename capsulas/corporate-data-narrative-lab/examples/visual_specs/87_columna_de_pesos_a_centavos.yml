@@ -1,0 +1,10 @@
+title: "La columna que cambió de pesos a centavos"
+case_id: "87"
+chart_type: "barras de validación de unidad"
+question_answered: "¿Qué validación habría detenido el archivo antes de publicar ingresos cien veces mayores?"
+comfortable_read: "El pipeline verde parece confirmar que la carga es correcta."
+missing_context: "El proveedor cambió la unidad de pesos a centavos sin renombrar la columna."
+correct_read: "La mediana recibida es cien veces mayor y debe normalizarse desde la entrada."
+decision_changed: "establecer contrato versionado, pruebas de rango y cuarentena ante cambios incompatibles"
+annotations: ["pesos esperados", "valor recibido", "valor normalizado"]
+synthetic_data: true

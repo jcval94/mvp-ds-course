@@ -1,0 +1,9 @@
+case_id: "67"
+title: "La compra de 900 refrigeradores"
+concept: "detección e investigación de outliers"
+scenario: "compra_de_900_refrigeradores"
+seed: 267
+observations: 430
+variables: ["purchase_order", "quantity", "unit", "source_document", "corrected_quantity"]
+key_values: {"orden típica": 6, "orden alta válida": 12, "orden capturada": 900}
+synthetic_data: true

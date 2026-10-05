@@ -1,0 +1,10 @@
+title: "El esquema que nadie le conto al analista"
+case_id: "59"
+chart_type: "schema_context"
+question_answered: "Que contexto debe acompanar a un esquema para analizar datos con confianza."
+comfortable_read: "Pero dice status."
+missing_context: "Intuitivo no es gobernanza."
+correct_read: "En campos tecnicos usados como conceptos de negocio."
+decision_changed: "documentar tablas, llaves, definiciones y duenos de datos"
+annotations: ["solo nombre", "con llave", "con definicion"]
+synthetic_data: true

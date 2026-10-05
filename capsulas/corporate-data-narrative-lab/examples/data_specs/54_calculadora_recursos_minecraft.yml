@@ -1,0 +1,9 @@
+case_id: "54"
+title: "La calculadora de diamantes que prometio castillos"
+concept: "mini reto narrativo con calculadora de recursos en Minecraft"
+scenario: "calculadora_recursos_minecraft"
+seed: 154
+observations: 1000
+variables: [recipe_id, inventory_item, needed_qty, missing_qty]
+key_values: {simple_estimate_accuracy: 84, recipe_accuracy: 92, missing_items: 7}
+synthetic_data: true

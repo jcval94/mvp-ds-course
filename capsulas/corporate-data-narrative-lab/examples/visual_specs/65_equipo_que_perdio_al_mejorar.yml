@@ -1,0 +1,10 @@
+title: "El equipo que perdió al mejorar"
+case_id: "65"
+chart_type: "barras de tasa ajustada"
+question_answered: "¿Qué ocurre con el ranking cuando ambos equipos se comparan con la misma mezcla de clientes?"
+comfortable_read: "Azul parece mejor porque su conversión total es 31%."
+missing_context: "Azul y Verde recibieron proporciones muy distintas de clientes nuevos."
+correct_read: "Con una mezcla comparable, Verde obtiene 34% y supera a Azul."
+decision_changed: "comparar dentro de segmentos y revisar la regla de asignación de prospectos"
+annotations: ["Azul total", "Verde total", "Verde ajustado"]
+synthetic_data: true

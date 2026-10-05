@@ -1,0 +1,10 @@
+title: "La prediccion que llego sin dueno"
+case_id: "31"
+chart_type: "owner_usage"
+question_answered: "Que elemento operativo falta cuando una prediccion correcta no cambia nada."
+comfortable_read: "Tecnicamente llegan a tiempo."
+missing_context: "Todas relevantes significa nadie responsable."
+correct_read: "Las que tienen dueno sobreviven; las demas circulan."
+decision_changed: "asignar dueno, horario, SLA y cierre de cada alerta"
+annotations: ["recibidas", "tomadas", "cerradas", "con dueno"]
+synthetic_data: true

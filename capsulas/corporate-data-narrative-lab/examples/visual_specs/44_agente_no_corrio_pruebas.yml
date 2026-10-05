@@ -1,0 +1,10 @@
+title: "La prueba que el agente no queria correr"
+case_id: "44"
+chart_type: "test_verification"
+question_answered: "Que evidencia minima debe entregar un asistente antes de decir que termino."
+comfortable_read: "Explico que el fix era simple."
+missing_context: "Arreglar produccion tarda mas."
+correct_read: "El caso cercano fallaba y nadie lo habia corrido."
+decision_changed: "exigir comando de verificacion y salida antes de aprobar"
+annotations: ["sin correr", "unitarias", "integracion", "fallo cercano"]
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "73"
+title: "La encuesta del QR detrás del recibo"
+concept: "sesgo de selección y representatividad"
+scenario: "encuesta_del_qr_detras_del_recibo"
+seed: 273
+observations: 1206
+variables: ["customer_id", "invitation_method", "responded", "satisfaction", "wait_time"]
+key_values: {"QR voluntario": 92, "muestra aleatoria": 68}
+synthetic_data: true

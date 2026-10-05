@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Los helados que causaban devoluciones</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">76</span>
+      <span class="topic-chip">Correlacion y causalidad</span>
+    </div>
+    <h1>Los helados que causaban devoluciones</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> correlación, confusión y causalidad</p>
+      <p><strong>Pregunta de la grafica:</strong> ¿Qué sucede con la relación entre helados y devoluciones cuando comparamos días con el mismo volumen?</p>
+      <p><strong>Lectura correcta:</strong> La tasa alcanza 11% cuando se rebasa capacidad, sin depender de helados.</p>
+      <p><strong>Decision que cambia:</strong> mantener helados y ajustar capacidad logística durante días de alta demanda</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>Los helados que causaban devoluciones</h1>
+<section>
+<h2>La curva del cono</h2>
+<blockquote><strong>René:</strong><span>Cada vez que vendemos más helado, suben las devoluciones.</span></blockquote>
+<blockquote><strong>la gerente de comercio:</strong><span>¿Los helados llegan derretidos?</span></blockquote>
+<blockquote><strong>Jacinto:</strong><span>Las devoluciones son de ropa y electrónicos.</span></blockquote>
+<blockquote><strong>Sol:</strong><span>Entonces falta un mecanismo que conecte ambas cosas.</span></blockquote>
+<blockquote><strong>René:</strong><span>La correlación es de 0.82.</span></blockquote>
+<blockquote><strong>Sol:</strong><span>Un número alto tampoco empaca televisores.</span></blockquote>
+<p>Las dos líneas subían juntas cada verano y la coincidencia se veía convincente. Sin embargo, las devoluciones pertenecían a productos que nunca habían compartido caja, ruta ni temperatura con un helado.</p>
+</section>
+<section>
+<h2>Sacar el congelador</h2>
+<blockquote><strong>la gerente de comercio:</strong><span>¿Qué pasa si retiramos helados en julio?</span></blockquote>
+<blockquote><strong>Jacinto:</strong><span>Perdemos una categoría rentable.</span></blockquote>
+<blockquote><strong>René:</strong><span>Pero podríamos bajar devoluciones.</span></blockquote>
+<blockquote><strong>Sol:</strong><span>En julio también suben temperatura y pedidos totales.</span></blockquote>
+<blockquote><strong>la gerente de comercio:</strong><span>¿Las devoluciones crecen como proporción o solo en cantidad?</span></blockquote>
+<blockquote><strong>Jacinto:</strong><span>La tasa sube cuando el almacén rebasa su capacidad diaria.</span></blockquote>
+<p>Sol agregó el volumen diario. Los días cálidos traían más visitas y más órdenes; cuando el almacén cruzaba su límite, aumentaban errores de surtido en varias categorías.</p>
+</section>
+<section>
+<h2>El tercer dato</h2>
+<blockquote><strong>Sol:</strong><span>Separé días por volumen de pedidos y temperatura.</span></blockquote>
+<blockquote><strong>René:</strong><span>Con el mismo volumen, vender helado no cambia la tasa.</span></blockquote>
+<blockquote><strong>Jacinto:</strong><span>La barra alta aparece al pasar doce mil pedidos diarios.</span></blockquote>
+<blockquote><strong>la gerente de comercio:</strong><span>Eso apunta a saturación logística.</span></blockquote>
+<blockquote><strong>Sol:</strong><span>Y nos da una causa operativa que sí podemos probar.</span></blockquote>
+<p>Al comparar días con carga similar, la presencia de helados dejó de separar resultados. La barra decisiva correspondía a capacidad excedida, una condición que logística podía anticipar y modificar.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Devoluciones según volumen de pedidos en días cálidos">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Devoluciones según volumen de pedidos en días cálidos</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="206" width="184" height="44" fill="#286d9b"/>
+  <text x="152" y="196" font-size="17" text-anchor="middle">3 % devolución</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">carga normal</text>
+  <rect x="268" y="192" width="184" height="58" fill="#d58b2f"/>
+  <text x="360" y="182" font-size="17" text-anchor="middle">4 % devolución</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">alta con capacidad</text>
+  <rect x="476" y="90" width="184" height="160" fill="#4c8b63"/>
+  <text x="568" y="80" font-size="17" text-anchor="middle">11 % devolución</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">capacidad rebasada</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">La tasa salta al rebasar capacidad, no al vender helado.</text>
+</svg>
+<blockquote class="learning-pause"><strong>René:</strong><span>¿Qué sucede con la relación entre helados y devoluciones cuando comparamos días con el mismo volumen?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La correlación original mezcla temporada, temperatura y volumen de pedidos. Con una carga comparable, vender más helado no aumenta la tasa de devolución. El salto ocurre cuando el almacén supera su capacidad diaria, un mecanismo plausible que puede probarse con turnos adicionales.</p>
+</section>
+<section>
+<h2>Liberar al postre</h2>
+<blockquote><strong>la gerente de comercio:</strong><span>Los helados se quedan.</span></blockquote>
+<blockquote><strong>Jacinto:</strong><span>Aumentaremos turnos cuando el pronóstico rebase capacidad.</span></blockquote>
+<blockquote><strong>René:</strong><span>Voy a reportar tasas, no solo devoluciones totales.</span></blockquote>
+<blockquote><strong>Sol:</strong><span>Y separaré correlación observada de explicación causal.</span></blockquote>
+<blockquote><strong>la gerente de comercio:</strong><span>Probemos la capacidad antes de culpar a una categoría.</span></blockquote>
+<blockquote><strong>René:</strong><span>Para repetir correlación, confusión y causalidad, ¿qué vamos a comprobar primero?</span></blockquote>
+<blockquote><strong>Sol:</strong><span>Vamos a mantener helados y ajustar capacidad logística durante días de alta demanda y a revisar si el efecto se mantiene.</span></blockquote>
+<blockquote><strong>René:</strong><span>El helado quedó libre; el culpable era julio con demasiados pedidos.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> una correlación propone preguntas, pero necesita mecanismo y comparaciones para sostener causalidad.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="75_experimento_que_gano_en_jueves.html">Anterior: El experimento que ganó en jueves</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="77_capacitacion_con_voluntarios.html">Siguiente: El piloto de capacitación con voluntarios</a>
+  </nav>
+</body>
+</html>

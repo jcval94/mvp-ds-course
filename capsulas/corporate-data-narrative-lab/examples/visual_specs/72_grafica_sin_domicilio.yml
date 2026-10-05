@@ -1,0 +1,10 @@
+title: "La gráfica sin domicilio"
+case_id: "72"
+chart_type: "barras temporales anotadas"
+question_answered: "¿Qué dato adicional permite distinguir entre un problema de capacitación y uno del formulario?"
+comfortable_read: "Una línea descendente parece confirmar que la capacitación falló."
+missing_context: "Faltan unidad, fechas y el momento del cambio de sistema."
+correct_read: "Los errores suben de 8 a 29 por mil después del despliegue del formulario."
+decision_changed: "corregir el formulario nuevo y medir la recuperación durante dos semanas"
+annotations: ["antes", "despliegue", "después"]
+synthetic_data: true

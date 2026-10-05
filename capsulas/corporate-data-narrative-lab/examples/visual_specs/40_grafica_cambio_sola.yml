@@ -1,0 +1,10 @@
+title: "La grafica que cambio sola"
+case_id: "40"
+chart_type: "data_code_diff"
+question_answered: "Que piezas deben guardarse para reproducir una grafica de negocio."
+comfortable_read: "Entonces alguien movio una formula."
+missing_context: "Eso es comodo y peligrosamente silencioso."
+correct_read: "El commit era igual; el corte de datos no."
+decision_changed: "registrar versiones de datos y parametros junto con cada salida"
+annotations: ["codigo", "datos", "parametros"]
+synthetic_data: true

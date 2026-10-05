@@ -1,0 +1,9 @@
+case_id: "72"
+title: "La gráfica sin domicilio"
+concept: "anotaciones y contexto para una decisión"
+scenario: "grafica_sin_domicilio"
+seed: 272
+observations: 14600
+variables: ["date", "captures", "errors", "errors_per_1000", "system_release"]
+key_values: {"antes": 7, "despliegue": 8, "después": 29}
+synthetic_data: true

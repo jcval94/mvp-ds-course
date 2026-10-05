@@ -1,0 +1,10 @@
+title: "El KPI que mejoró dejando de contar reaperturas"
+case_id: "10"
+chart_type: "definition_version_lines"
+question_answered: "¿Mejoró el proceso o cambió la regla?"
+comfortable_read: "El KPI subió a 84%."
+missing_context: "Las reaperturas dejaron de contar."
+correct_read: "Con definición constante el resultado es 71%."
+decision_changed: "Versionar y conservar serie comparable."
+annotations: ["cambio de definición", "oficial 84%", "comparable 71%"]
+synthetic_data: true

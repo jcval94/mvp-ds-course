@@ -1,0 +1,1919 @@
+{
+  "version": 1,
+  "generated_by": "tools/build_pages_site.py",
+  "case_count": 87,
+  "topics": [
+    {
+      "topic": "ABT para ML",
+      "count": 1
+    },
+    {
+      "topic": "Ajuste por complejidad",
+      "count": 1
+    },
+    {
+      "topic": "Aleatorizacion",
+      "count": 1
+    },
+    {
+      "topic": "Anotaciones y contexto",
+      "count": 1
+    },
+    {
+      "topic": "Apelacion y gobernanza",
+      "count": 1
+    },
+    {
+      "topic": "Autorizacion de agentes",
+      "count": 1
+    },
+    {
+      "topic": "Calidad de datos",
+      "count": 1
+    },
+    {
+      "topic": "Clases desbalanceadas",
+      "count": 1
+    },
+    {
+      "topic": "Clasificacion desbalanceada",
+      "count": 1
+    },
+    {
+      "topic": "Color y jerarquia visual",
+      "count": 1
+    },
+    {
+      "topic": "Conteos y tasas",
+      "count": 1
+    },
+    {
+      "topic": "Contratos de datos",
+      "count": 1
+    },
+    {
+      "topic": "Control de versiones",
+      "count": 1
+    },
+    {
+      "topic": "Correlacion y causalidad",
+      "count": 1
+    },
+    {
+      "topic": "Costo de error",
+      "count": 1
+    },
+    {
+      "topic": "Criterios de aceptacion",
+      "count": 1
+    },
+    {
+      "topic": "Decision antes del modelo",
+      "count": 1
+    },
+    {
+      "topic": "Definicion de KPI",
+      "count": 1
+    },
+    {
+      "topic": "Distribuciones y colas",
+      "count": 1
+    },
+    {
+      "topic": "Distribuciones y percentiles",
+      "count": 1
+    },
+    {
+      "topic": "Doble eje",
+      "count": 1
+    },
+    {
+      "topic": "Documentacion reproducible",
+      "count": 1
+    },
+    {
+      "topic": "Drift y monitoreo",
+      "count": 2
+    },
+    {
+      "topic": "Entornos virtuales",
+      "count": 1
+    },
+    {
+      "topic": "Errores y archivos",
+      "count": 1
+    },
+    {
+      "topic": "Escalas visuales",
+      "count": 1
+    },
+    {
+      "topic": "Especificacion de prompts",
+      "count": 1
+    },
+    {
+      "topic": "Esquema y contexto",
+      "count": 1
+    },
+    {
+      "topic": "Estacionalidad",
+      "count": 1
+    },
+    {
+      "topic": "Estructuras de datos en Python",
+      "count": 1
+    },
+    {
+      "topic": "Etiquetado y variables",
+      "count": 1
+    },
+    {
+      "topic": "Evaluacion por segmentos",
+      "count": 1
+    },
+    {
+      "topic": "Explicabilidad y apelacion",
+      "count": 1
+    },
+    {
+      "topic": "Extrapolacion",
+      "count": 1
+    },
+    {
+      "topic": "Fuga de objetivo",
+      "count": 1
+    },
+    {
+      "topic": "Fuga temporal",
+      "count": 1
+    },
+    {
+      "topic": "Funciones reutilizables",
+      "count": 1
+    },
+    {
+      "topic": "Gobernanza de metricas",
+      "count": 1
+    },
+    {
+      "topic": "Human-in-the-loop",
+      "count": 1
+    },
+    {
+      "topic": "Impacto incremental",
+      "count": 1
+    },
+    {
+      "topic": "Incertidumbre y muestra",
+      "count": 1
+    },
+    {
+      "topic": "Inferencia experimental",
+      "count": 1
+    },
+    {
+      "topic": "Instrucciones para IA",
+      "count": 1
+    },
+    {
+      "topic": "Interpretes de Python",
+      "count": 1
+    },
+    {
+      "topic": "JOINs y granularidad",
+      "count": 1
+    },
+    {
+      "topic": "Lectura de fuentes",
+      "count": 1
+    },
+    {
+      "topic": "Limpieza de datos",
+      "count": 1
+    },
+    {
+      "topic": "Lineas base",
+      "count": 1
+    },
+    {
+      "topic": "Logica de automatizacion",
+      "count": 1
+    },
+    {
+      "topic": "Metrica proxy",
+      "count": 1
+    },
+    {
+      "topic": "Metrica tecnica vs capacidad",
+      "count": 1
+    },
+    {
+      "topic": "Objetivos de agentes",
+      "count": 1
+    },
+    {
+      "topic": "Pandas esencial",
+      "count": 1
+    },
+    {
+      "topic": "Particiones de datos",
+      "count": 1
+    },
+    {
+      "topic": "Permisos de agentes",
+      "count": 1
+    },
+    {
+      "topic": "PRD para agentes",
+      "count": 1
+    },
+    {
+      "topic": "Programacion basica",
+      "count": 1
+    },
+    {
+      "topic": "Propiedad operativa",
+      "count": 1
+    },
+    {
+      "topic": "Prototipo vs producto",
+      "count": 1
+    },
+    {
+      "topic": "Pruebas multiples",
+      "count": 1
+    },
+    {
+      "topic": "Pull requests y ramas",
+      "count": 1
+    },
+    {
+      "topic": "RAG y fuentes",
+      "count": 1
+    },
+    {
+      "topic": "Reproducibilidad de graficos",
+      "count": 1
+    },
+    {
+      "topic": "Reproducibilidad en Colab",
+      "count": 1
+    },
+    {
+      "topic": "Reto narrativo en Python",
+      "count": 1
+    },
+    {
+      "topic": "Revision de cambios con asistentes",
+      "count": 1
+    },
+    {
+      "topic": "Riesgo y revision humana",
+      "count": 1
+    },
+    {
+      "topic": "Rutas y carga de datos",
+      "count": 1
+    },
+    {
+      "topic": "Segmentacion y mezcla",
+      "count": 1
+    },
+    {
+      "topic": "Seleccion de graficas",
+      "count": 1
+    },
+    {
+      "topic": "Sesgo de asignacion",
+      "count": 1
+    },
+    {
+      "topic": "Sesgo de cobertura",
+      "count": 1
+    },
+    {
+      "topic": "Sesgo de medicion",
+      "count": 1
+    },
+    {
+      "topic": "Sesgo de seleccion",
+      "count": 1
+    },
+    {
+      "topic": "Sesgo historico",
+      "count": 1
+    },
+    {
+      "topic": "Sobreajuste",
+      "count": 1
+    },
+    {
+      "topic": "SQL analitico",
+      "count": 1
+    },
+    {
+      "topic": "SQL basico",
+      "count": 1
+    },
+    {
+      "topic": "Tareas revisables para agentes",
+      "count": 1
+    },
+    {
+      "topic": "Taxonomia de IA",
+      "count": 1
+    },
+    {
+      "topic": "Umbrales manipulables",
+      "count": 1
+    },
+    {
+      "topic": "Umbrales y capacidad",
+      "count": 1
+    },
+    {
+      "topic": "Valores atipicos",
+      "count": 1
+    },
+    {
+      "topic": "Ventanas de variables",
+      "count": 1
+    },
+    {
+      "topic": "Ventanas temporales",
+      "count": 1
+    },
+    {
+      "topic": "Verificacion con pruebas",
+      "count": 1
+    }
+  ],
+  "cases": [
+    {
+      "id": "01",
+      "title": "El botón que arregló las quejas",
+      "slug": "dashboard_que_bajo_quejas_cerrando_boton",
+      "topic": "Sesgo de medicion",
+      "concept": "sesgo de medición por cambio de canal",
+      "chart_type": "multi_line_before_after",
+      "question_answered": "¿Bajó el enojo o solo el formulario?",
+      "correct_read": "La demanda cambió de canal.",
+      "decision_changed": "Restaurar una ruta visible y medir el recorrido.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/01_dashboard_que_bajo_quejas_cerrando_boton.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/01_dashboard_que_bajo_quejas_cerrando_boton.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/01_dashboard_que_bajo_quejas_cerrando_boton.yml",
+        "html": "corporate-data-narrative-lab/examples/html/01_dashboard_que_bajo_quejas_cerrando_boton.html"
+      },
+      "published_path": "cases/01_dashboard_que_bajo_quejas_cerrando_boton.html"
+    },
+    {
+      "id": "02",
+      "title": "La encuesta que llegaba después del problema",
+      "slug": "encuesta_que_solo_contestaron_los_felices",
+      "topic": "Sesgo de cobertura",
+      "concept": "sesgo de cobertura y no respuesta",
+      "chart_type": "funnel",
+      "question_answered": "¿Quién tuvo oportunidad de responder?",
+      "correct_read": "El score representa a completadores que respondieron.",
+      "decision_changed": "Reportar cobertura y escuchar abandonos.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/02_encuesta_que_solo_contestaron_los_felices.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/02_encuesta_que_solo_contestaron_los_felices.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/02_encuesta_que_solo_contestaron_los_felices.yml",
+        "html": "corporate-data-narrative-lab/examples/html/02_encuesta_que_solo_contestaron_los_felices.html"
+      },
+      "published_path": "cases/02_encuesta_que_solo_contestaron_los_felices.html"
+    },
+    {
+      "id": "03",
+      "title": "El modelo de 97% que llegaba cuatro horas tarde",
+      "slug": "modelo_que_aprendio_horario_supervisor",
+      "topic": "Fuga temporal",
+      "concept": "fuga de información temporal",
+      "chart_type": "availability_timeline",
+      "question_answered": "¿Qué información existía al decidir?",
+      "correct_read": "La validación usa información futura.",
+      "decision_changed": "Reconstruir cortes a las 14:00.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/03_modelo_que_aprendio_horario_supervisor.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/03_modelo_que_aprendio_horario_supervisor.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/03_modelo_que_aprendio_horario_supervisor.yml",
+        "html": "corporate-data-narrative-lab/examples/html/03_modelo_que_aprendio_horario_supervisor.html"
+      },
+      "published_path": "cases/03_modelo_que_aprendio_horario_supervisor.html"
+    },
+    {
+      "id": "04",
+      "title": "La sucursal estrella que recibía lo fácil",
+      "slug": "sucursal_estrella_casos_faciles",
+      "topic": "Sesgo de asignacion",
+      "concept": "sesgo de asignación",
+      "chart_type": "grouped_bars",
+      "question_answered": "¿Quién rinde mejor con casos semejantes?",
+      "correct_read": "La asignación explica gran parte de la diferencia.",
+      "decision_changed": "Comparar por dificultad y auditar transferencias.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/04_sucursal_estrella_casos_faciles.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/04_sucursal_estrella_casos_faciles.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/04_sucursal_estrella_casos_faciles.yml",
+        "html": "corporate-data-narrative-lab/examples/html/04_sucursal_estrella_casos_faciles.html"
+      },
+      "published_path": "cases/04_sucursal_estrella_casos_faciles.html"
+    },
+    {
+      "id": "05",
+      "title": "El promedio de 14 minutos y el folio de seis horas",
+      "slug": "promedio_que_escondio_fila_incendiada",
+      "topic": "Distribuciones y colas",
+      "concept": "media engañosa y cola de distribución",
+      "chart_type": "long_tail_histogram",
+      "question_answered": "¿Dónde viven las esperas graves?",
+      "correct_read": "La cola concentra el daño.",
+      "decision_changed": "Gestionar mediana, p90, p95 y antigüedad.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/05_promedio_que_escondio_fila_incendiada.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/05_promedio_que_escondio_fila_incendiada.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/05_promedio_que_escondio_fila_incendiada.yml",
+        "html": "corporate-data-narrative-lab/examples/html/05_promedio_que_escondio_fila_incendiada.html"
+      },
+      "published_path": "cases/05_promedio_que_escondio_fila_incendiada.html"
+    },
+    {
+      "id": "06",
+      "title": "Las dos mil horas que regresaron como juntas",
+      "slug": "automatizacion_que_ahorro_powerpoint",
+      "topic": "Metrica proxy",
+      "concept": "métrica proxy y productividad aparente",
+      "chart_type": "stacked_before_after",
+      "question_answered": "¿A dónde fue el tiempo liberado?",
+      "correct_read": "Solo 240 horas quedaron como capacidad real.",
+      "decision_changed": "Separar liberación de valor capturado.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/06_automatizacion_que_ahorro_powerpoint.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/06_automatizacion_que_ahorro_powerpoint.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/06_automatizacion_que_ahorro_powerpoint.yml",
+        "html": "corporate-data-narrative-lab/examples/html/06_automatizacion_que_ahorro_powerpoint.html"
+      },
+      "published_path": "cases/06_automatizacion_que_ahorro_powerpoint.html"
+    },
+    {
+      "id": "07",
+      "title": "El ranking donde convenía hacerse menso",
+      "slug": "ranking_que_castigo_casos_dificiles",
+      "topic": "Ajuste por complejidad",
+      "concept": "velocidad sin ajuste por complejidad",
+      "chart_type": "complexity_scatter",
+      "question_answered": "¿La velocidad cambia con la dificultad?",
+      "correct_read": "El ranking mezcla desempeño con complejidad.",
+      "decision_changed": "Comparar grupos semejantes y exigir calidad.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/07_ranking_que_castigo_casos_dificiles.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/07_ranking_que_castigo_casos_dificiles.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/07_ranking_que_castigo_casos_dificiles.yml",
+        "html": "corporate-data-narrative-lab/examples/html/07_ranking_que_castigo_casos_dificiles.html"
+      },
+      "published_path": "cases/07_ranking_que_castigo_casos_dificiles.html"
+    },
+    {
+      "id": "08",
+      "title": "El piloto que ganó en diciembre",
+      "slug": "piloto_que_gano_temporada_facil",
+      "topic": "Estacionalidad",
+      "concept": "estacionalidad y comparación temporal inválida",
+      "chart_type": "seasonal_lines",
+      "question_answered": "¿Qué habría pasado sin piloto?",
+      "correct_read": "El efecto adicional estimado es 7 puntos.",
+      "decision_changed": "Repetir fuera de temporada fácil.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/08_piloto_que_gano_temporada_facil.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/08_piloto_que_gano_temporada_facil.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/08_piloto_que_gano_temporada_facil.yml",
+        "html": "corporate-data-narrative-lab/examples/html/08_piloto_que_gano_temporada_facil.html"
+      },
+      "published_path": "cases/08_piloto_que_gano_temporada_facil.html"
+    },
+    {
+      "id": "09",
+      "title": "Los 18 millones que salieron de doce clientes",
+      "slug": "ahorro_18_millones_12_clientes",
+      "topic": "Extrapolacion",
+      "concept": "extrapolación y población elegible",
+      "chart_type": "eligibility_bars",
+      "question_answered": "¿A cuántos clientes aplica el ahorro?",
+      "correct_read": "La proyección debe usar población elegible.",
+      "decision_changed": "Usar rango y descontar costos.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/09_ahorro_18_millones_12_clientes.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/09_ahorro_18_millones_12_clientes.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/09_ahorro_18_millones_12_clientes.yml",
+        "html": "corporate-data-narrative-lab/examples/html/09_ahorro_18_millones_12_clientes.html"
+      },
+      "published_path": "cases/09_ahorro_18_millones_12_clientes.html"
+    },
+    {
+      "id": "10",
+      "title": "El KPI que mejoró dejando de contar reaperturas",
+      "slug": "kpi_mejoro_sin_reaperturas",
+      "topic": "Definicion de KPI",
+      "concept": "cambio de definición de KPI",
+      "chart_type": "definition_version_lines",
+      "question_answered": "¿Mejoró el proceso o cambió la regla?",
+      "correct_read": "Con definición constante el resultado es 71%.",
+      "decision_changed": "Versionar y conservar serie comparable.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/10_kpi_mejoro_sin_reaperturas.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/10_kpi_mejoro_sin_reaperturas.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/10_kpi_mejoro_sin_reaperturas.yml",
+        "html": "corporate-data-narrative-lab/examples/html/10_kpi_mejoro_sin_reaperturas.html"
+      },
+      "published_path": "cases/10_kpi_mejoro_sin_reaperturas.html"
+    },
+    {
+      "id": "11",
+      "title": "La regla secreta que terminó en la capacitación",
+      "slug": "regla_secreta_capacitacion",
+      "topic": "Umbrales manipulables",
+      "concept": "manipulación alrededor de un umbral",
+      "chart_type": "threshold_histogram",
+      "question_answered": "¿La operación aprendió a evitar la alerta?",
+      "correct_read": "El umbral fijo está siendo manipulado.",
+      "decision_changed": "Combinar señales y monitorear desplazamiento.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/11_regla_secreta_capacitacion.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/11_regla_secreta_capacitacion.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/11_regla_secreta_capacitacion.yml",
+        "html": "corporate-data-narrative-lab/examples/html/11_regla_secreta_capacitacion.html"
+      },
+      "published_path": "cases/11_regla_secreta_capacitacion.html"
+    },
+    {
+      "id": "12",
+      "title": "La categoría Otros que ya era medio negocio",
+      "slug": "otros_medio_negocio",
+      "topic": "Calidad de datos",
+      "concept": "calidad de datos y taxonomía",
+      "chart_type": "reclassified_bars",
+      "question_answered": "¿Qué problemas esconde Otros?",
+      "correct_read": "La taxonomía y captura están rotas.",
+      "decision_changed": "Corregir categorías antes de modelar.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/12_otros_medio_negocio.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/12_otros_medio_negocio.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/12_otros_medio_negocio.yml",
+        "html": "corporate-data-narrative-lab/examples/html/12_otros_medio_negocio.html"
+      },
+      "published_path": "cases/12_otros_medio_negocio.html"
+    },
+    {
+      "id": "13",
+      "title": "El experimento que ganó el martes a las once",
+      "slug": "experimento_gano_martes_once",
+      "topic": "Inferencia experimental",
+      "concept": "muestra pequeña y parada anticipada",
+      "chart_type": "effect_with_interval_over_time",
+      "question_answered": "¿El efecto se mantiene al crecer la muestra?",
+      "correct_read": "El resultado final es cercano a 2% e incierto.",
+      "decision_changed": "Fijar muestra, duración y regla antes.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/13_experimento_gano_martes_once.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/13_experimento_gano_martes_once.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/13_experimento_gano_martes_once.yml",
+        "html": "corporate-data-narrative-lab/examples/html/13_experimento_gano_martes_once.html"
+      },
+      "published_path": "cases/13_experimento_gano_martes_once.html"
+    },
+    {
+      "id": "14",
+      "title": "La IA que encontraba fraude en todas partes",
+      "slug": "ia_fraude_acusaba_todos",
+      "topic": "Clasificacion desbalanceada",
+      "concept": "clases desbalanceadas y falsos positivos",
+      "chart_type": "confusion_matrix",
+      "question_answered": "¿Cuántas alertas son útiles para Operación?",
+      "correct_read": "La cola supera la capacidad y daña clientes.",
+      "decision_changed": "Ajustar umbral y mantener revisión humana.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/14_ia_fraude_acusaba_todos.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/14_ia_fraude_acusaba_todos.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/14_ia_fraude_acusaba_todos.yml",
+        "html": "corporate-data-narrative-lab/examples/html/14_ia_fraude_acusaba_todos.html"
+      },
+      "published_path": "cases/14_ia_fraude_acusaba_todos.html"
+    },
+    {
+      "id": "15",
+      "title": "El modelo que seguía perfecto porque nadie volvió a medirlo",
+      "slug": "modelo_funcionaba_nadie_midio",
+      "topic": "Drift y monitoreo",
+      "concept": "drift y monitoreo",
+      "chart_type": "performance_and_drift_lines",
+      "question_answered": "¿El modelo sigue funcionando con la población actual?",
+      "correct_read": "Hay drift desde el producto nuevo.",
+      "decision_changed": "Monitorear población, desempeño y uso.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/15_modelo_funcionaba_nadie_midio.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/15_modelo_funcionaba_nadie_midio.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/15_modelo_funcionaba_nadie_midio.yml",
+        "html": "corporate-data-narrative-lab/examples/html/15_modelo_funcionaba_nadie_midio.html"
+      },
+      "published_path": "cases/15_modelo_funcionaba_nadie_midio.html"
+    },
+    {
+      "id": "16",
+      "title": "El indicador definitivo final ahora sí",
+      "slug": "indicador_definitivo_final",
+      "topic": "Gobernanza de metricas",
+      "concept": "gobernanza y versionado de métricas",
+      "chart_type": "version_comparison_bars",
+      "question_answered": "¿Qué definición produce cada tasa?",
+      "correct_read": "Cada tasa responde otra pregunta.",
+      "decision_changed": "Asignar dueño, versión y registro de cambios.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/16_indicador_definitivo_final.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/16_indicador_definitivo_final.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/16_indicador_definitivo_final.yml",
+        "html": "corporate-data-narrative-lab/examples/html/16_indicador_definitivo_final.html"
+      },
+      "published_path": "cases/16_indicador_definitivo_final.html"
+    },
+    {
+      "id": "17",
+      "title": "La campaña que vendió lo que ya estaba vendido",
+      "slug": "campana_credito_ventas_inevitables",
+      "topic": "Impacto incremental",
+      "concept": "impacto incremental",
+      "chart_type": "treatment_control_bars",
+      "question_answered": "¿Cuántas ventas cambió el mensaje?",
+      "correct_read": "El impacto adicional es 2 puntos.",
+      "decision_changed": "Medir con control y limitar saturación.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/17_campana_credito_ventas_inevitables.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/17_campana_credito_ventas_inevitables.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/17_campana_credito_ventas_inevitables.yml",
+        "html": "corporate-data-narrative-lab/examples/html/17_campana_credito_ventas_inevitables.html"
+      },
+      "published_path": "cases/17_campana_credito_ventas_inevitables.html"
+    },
+    {
+      "id": "18",
+      "title": "El score que pasó de alerta a castigo",
+      "slug": "score_senal_castigo",
+      "topic": "Riesgo y revision humana",
+      "concept": "riesgo de automatización y revisión humana",
+      "chart_type": "automatic_vs_reviewed_bars",
+      "question_answered": "¿Qué cambia al revisar contexto?",
+      "correct_read": "La revisión reduce errores a 5%.",
+      "decision_changed": "Restaurar revisión y apelación.",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/18_score_senal_castigo.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/18_score_senal_castigo.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/18_score_senal_castigo.yml",
+        "html": "corporate-data-narrative-lab/examples/html/18_score_senal_castigo.html"
+      },
+      "published_path": "cases/18_score_senal_castigo.html"
+    },
+    {
+      "id": "19",
+      "title": "La maquina que obedecio demasiado literal",
+      "slug": "maquina_literal",
+      "topic": "Instrucciones para IA",
+      "concept": "instrucciones precisas para comunicarse con una maquina",
+      "chart_type": "instruction_table",
+      "question_answered": "Si dos personas entienden la frase de formas distintas, que necesita la maquina para no inventar el criterio.",
+      "correct_read": "La version vaga ordena por palabra; la clara ordena por impacto.",
+      "decision_changed": "escribir instrucciones con objetivo, datos de entrada, criterio y ejemplo de salida",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/19_maquina_literal.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/19_maquina_literal.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/19_maquina_literal.yml",
+        "html": "corporate-data-narrative-lab/examples/html/19_maquina_literal.html"
+      },
+      "published_path": "cases/19_maquina_literal.html"
+    },
+    {
+      "id": "20",
+      "title": "La categoria urgente que significaba todo",
+      "slug": "categoria_urgente",
+      "topic": "Etiquetado y variables",
+      "concept": "variables, etiquetas y lenguaje formal",
+      "chart_type": "label_bars",
+      "question_answered": "Que deberiamos guardar por separado para que prioridad no dependa de una palabra inflada.",
+      "correct_read": "No. Unos hablan de fecha, otros de cliente y otros de miedo.",
+      "decision_changed": "separar severidad, fecha limite y excepcion con reglas visibles",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/20_categoria_urgente.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/20_categoria_urgente.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/20_categoria_urgente.yml",
+        "html": "corporate-data-narrative-lab/examples/html/20_categoria_urgente.html"
+      },
+      "published_path": "cases/20_categoria_urgente.html"
+    },
+    {
+      "id": "21",
+      "title": "El asistente que respondio con copia a todos",
+      "slug": "asistente_correo_todos",
+      "topic": "Permisos de agentes",
+      "concept": "agentes con acciones y permisos",
+      "chart_type": "authorization_flow",
+      "question_answered": "Que cambia cuando una IA no solo redacta, sino que tambien puede enviar.",
+      "correct_read": "Los problemas aparecen cuando pasa de borrador a accion.",
+      "decision_changed": "usar borradores con aprobacion humana y permisos por tipo de accion",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/21_asistente_correo_todos.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/21_asistente_correo_todos.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/21_asistente_correo_todos.yml",
+        "html": "corporate-data-narrative-lab/examples/html/21_asistente_correo_todos.html"
+      },
+      "published_path": "cases/21_asistente_correo_todos.html"
+    },
+    {
+      "id": "22",
+      "title": "La maqueta que parecia producto",
+      "slug": "maqueta_que_parecia_producto",
+      "topic": "Prototipo vs producto",
+      "concept": "diferencia entre prototipo generativo y producto operable",
+      "chart_type": "prototype_gap",
+      "question_answered": "Que tendria que estar listo para llamar producto a algo que ya se ve terminado.",
+      "correct_read": "Visualmente mucho; en controles y datos, bastante menos.",
+      "decision_changed": "separar demo, piloto y producto con criterios de salida",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/22_maqueta_que_parecia_producto.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/22_maqueta_que_parecia_producto.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/22_maqueta_que_parecia_producto.yml",
+        "html": "corporate-data-narrative-lab/examples/html/22_maqueta_que_parecia_producto.html"
+      },
+      "published_path": "cases/22_maqueta_que_parecia_producto.html"
+    },
+    {
+      "id": "23",
+      "title": "El agente que encontro el boton de comprar",
+      "slug": "agente_boton_comprar",
+      "topic": "Autorizacion de agentes",
+      "concept": "herramientas, limites y autorizacion en agentes",
+      "chart_type": "permission_actions",
+      "question_answered": "Que permiso deberia pedir un agente antes de ejecutar una accion que cuesta dinero.",
+      "correct_read": "Las compras explican pocos cierres y casi todo el gasto.",
+      "decision_changed": "limitar herramientas, pedir aprobacion para compras y registrar razones",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/23_agente_boton_comprar.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/23_agente_boton_comprar.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/23_agente_boton_comprar.yml",
+        "html": "corporate-data-narrative-lab/examples/html/23_agente_boton_comprar.html"
+      },
+      "published_path": "cases/23_agente_boton_comprar.html"
+    },
+    {
+      "id": "24",
+      "title": "La reunion donde todo era IA",
+      "slug": "reunion_donde_todo_era_ia",
+      "topic": "Taxonomia de IA",
+      "concept": "diferencias entre IA, aprendizaje automatico, generativa, RAG y agentes",
+      "chart_type": "capability_matrix",
+      "question_answered": "Que preguntas ayudan a separar ML, GenAI, RAG y agentes sin pelear por la palabra IA.",
+      "correct_read": "Son familias distintas, con controles distintos.",
+      "decision_changed": "nombrar la capacidad real antes de estimar costo, riesgo y control",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/24_reunion_donde_todo_era_ia.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/24_reunion_donde_todo_era_ia.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/24_reunion_donde_todo_era_ia.yml",
+        "html": "corporate-data-narrative-lab/examples/html/24_reunion_donde_todo_era_ia.html"
+      },
+      "published_path": "cases/24_reunion_donde_todo_era_ia.html"
+    },
+    {
+      "id": "25",
+      "title": "El bot que invento la politica vieja",
+      "slug": "bot_invento_politica_vieja",
+      "topic": "RAG y fuentes",
+      "concept": "RAG, fuentes y respuestas generativas",
+      "chart_type": "source_citations",
+      "question_answered": "Que debe revisar un sistema RAG ademas de encontrar texto parecido a la pregunta.",
+      "correct_read": "Las correctas citan politica vigente; las malas citan historia.",
+      "decision_changed": "filtrar documentos vigentes, mostrar fuente y mandar dudas raras a revision",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/25_bot_invento_politica_vieja.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/25_bot_invento_politica_vieja.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/25_bot_invento_politica_vieja.yml",
+        "html": "corporate-data-narrative-lab/examples/html/25_bot_invento_politica_vieja.html"
+      },
+      "published_path": "cases/25_bot_invento_politica_vieja.html"
+    },
+    {
+      "id": "26",
+      "title": "El agente que cerraba tickets sin leerlos",
+      "slug": "agente_cerraba_tickets",
+      "topic": "Objetivos de agentes",
+      "concept": "agentes, objetivos mal definidos y metrica proxy",
+      "chart_type": "reopened_tickets",
+      "question_answered": "Que metrica necesita un agente para distinguir cerrar un caso de resolverlo.",
+      "correct_read": "Donde mas cierra solo, mas reabre el cliente.",
+      "decision_changed": "medir resolucion confirmada y limitar cierre automatico",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/26_agente_cerraba_tickets.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/26_agente_cerraba_tickets.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/26_agente_cerraba_tickets.yml",
+        "html": "corporate-data-narrative-lab/examples/html/26_agente_cerraba_tickets.html"
+      },
+      "published_path": "cases/26_agente_cerraba_tickets.html"
+    },
+    {
+      "id": "27",
+      "title": "El filtro que contrataba clones del gerente",
+      "slug": "filtro_cv_clones_gerente",
+      "topic": "Sesgo historico",
+      "concept": "sesgo en datos historicos y decisiones automatizadas",
+      "chart_type": "selection_by_group",
+      "question_answered": "Por que una variable aparentemente neutral puede copiar una exclusion pasada.",
+      "correct_read": "Los perfiles no historicos caen mas aun con desempeno similar.",
+      "decision_changed": "auditar sesgos, quitar proxies y mantener revision humana",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/27_filtro_cv_clones_gerente.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/27_filtro_cv_clones_gerente.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/27_filtro_cv_clones_gerente.yml",
+        "html": "corporate-data-narrative-lab/examples/html/27_filtro_cv_clones_gerente.html"
+      },
+      "published_path": "cases/27_filtro_cv_clones_gerente.html"
+    },
+    {
+      "id": "28",
+      "title": "El score que no sabia que era mudanza",
+      "slug": "score_sin_contexto",
+      "topic": "Human-in-the-loop",
+      "concept": "human in the loop para decisiones de alto impacto",
+      "chart_type": "threshold_errors",
+      "question_answered": "Que papel debe tener una persona cuando el modelo afecta acceso, dinero o derechos.",
+      "correct_read": "La revision conserva alertas y baja bloqueos injustos.",
+      "decision_changed": "usar score como alerta, pedir contexto y dejar apelacion",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/28_score_sin_contexto.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/28_score_sin_contexto.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/28_score_sin_contexto.yml",
+        "html": "corporate-data-narrative-lab/examples/html/28_score_sin_contexto.html"
+      },
+      "published_path": "cases/28_score_sin_contexto.html"
+    },
+    {
+      "id": "29",
+      "title": "La apelacion que pedia entrar a la cuenta bloqueada",
+      "slug": "apelacion_cuenta_bloqueada",
+      "topic": "Apelacion y gobernanza",
+      "concept": "apelacion y gobernanza de decisiones automatizadas",
+      "chart_type": "appeal_flow",
+      "question_answered": "Cuando una decision automatica afecta a alguien, que debe existir fuera del sistema que lo bloqueo.",
+      "correct_read": "En el mismo paso que exige acceso negado.",
+      "decision_changed": "abrir canal externo, mostrar motivo y registrar revision",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/29_apelacion_cuenta_bloqueada.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/29_apelacion_cuenta_bloqueada.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/29_apelacion_cuenta_bloqueada.yml",
+        "html": "corporate-data-narrative-lab/examples/html/29_apelacion_cuenta_bloqueada.html"
+      },
+      "published_path": "cases/29_apelacion_cuenta_bloqueada.html"
+    },
+    {
+      "id": "30",
+      "title": "El modelo que no sabia que decision tomar",
+      "slug": "modelo_sin_decision",
+      "topic": "Decision antes del modelo",
+      "concept": "definir la decision antes del modelo",
+      "chart_type": "decision_tree",
+      "question_answered": "Que decision debe existir antes de entrenar o publicar un modelo predictivo.",
+      "correct_read": "Hay clientes para llamada, oferta y no intervencion.",
+      "decision_changed": "crear segmentos accionables y medir respuesta por accion",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/30_modelo_sin_decision.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/30_modelo_sin_decision.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/30_modelo_sin_decision.yml",
+        "html": "corporate-data-narrative-lab/examples/html/30_modelo_sin_decision.html"
+      },
+      "published_path": "cases/30_modelo_sin_decision.html"
+    },
+    {
+      "id": "31",
+      "title": "La prediccion que llego sin dueno",
+      "slug": "prediccion_sin_dueno",
+      "topic": "Propiedad operativa",
+      "concept": "propiedad operativa del producto de datos",
+      "chart_type": "owner_usage",
+      "question_answered": "Que elemento operativo falta cuando una prediccion correcta no cambia nada.",
+      "correct_read": "Las que tienen dueno sobreviven; las demas circulan.",
+      "decision_changed": "asignar dueno, horario, SLA y cierre de cada alerta",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/31_prediccion_sin_dueno.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/31_prediccion_sin_dueno.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/31_prediccion_sin_dueno.yml",
+        "html": "corporate-data-narrative-lab/examples/html/31_prediccion_sin_dueno.html"
+      },
+      "published_path": "cases/31_prediccion_sin_dueno.html"
+    },
+    {
+      "id": "32",
+      "title": "El AUC alto y la cola llena",
+      "slug": "auc_cola_llena",
+      "topic": "Metrica tecnica vs capacidad",
+      "concept": "metrica tecnica contra capacidad operativa",
+      "chart_type": "auc_capacity",
+      "question_answered": "Por que una metrica como AUC no basta para decidir si el modelo sirve al negocio.",
+      "correct_read": "El mejor umbral no es el mas vistoso, es el revisable.",
+      "decision_changed": "elegir umbral por valor, costo y capacidad",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/32_auc_cola_llena.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/32_auc_cola_llena.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/32_auc_cola_llena.yml",
+        "html": "corporate-data-narrative-lab/examples/html/32_auc_cola_llena.html"
+      },
+      "published_path": "cases/32_auc_cola_llena.html"
+    },
+    {
+      "id": "33",
+      "title": "El modelo barato que salio caro",
+      "slug": "modelo_barato_salio_caro",
+      "topic": "Costo de error",
+      "concept": "costo de error y metrica de negocio",
+      "chart_type": "error_cost",
+      "question_answered": "Que metrica falta cuando comparamos modelos solo por precision y precio de ejecucion.",
+      "correct_read": "El caro en computo cuesta menos al final.",
+      "decision_changed": "elegir modelo por costo esperado y no solo por costo de ejecucion",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/33_modelo_barato_salio_caro.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/33_modelo_barato_salio_caro.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/33_modelo_barato_salio_caro.yml",
+        "html": "corporate-data-narrative-lab/examples/html/33_modelo_barato_salio_caro.html"
+      },
+      "published_path": "cases/33_modelo_barato_salio_caro.html"
+    },
+    {
+      "id": "34",
+      "title": "La precision que festejaba casos faciles",
+      "slug": "precision_casos_faciles",
+      "topic": "Evaluacion por segmentos",
+      "concept": "evaluacion por segmentos y dificultad",
+      "chart_type": "difficulty_matrix",
+      "question_answered": "Por que conviene revisar metricas por segmento antes de lanzar un modelo.",
+      "correct_read": "En facil va perfecto; en dificil se cae.",
+      "decision_changed": "evaluar por segmento y lanzar solo donde cumple",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/34_precision_casos_faciles.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/34_precision_casos_faciles.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/34_precision_casos_faciles.yml",
+        "html": "corporate-data-narrative-lab/examples/html/34_precision_casos_faciles.html"
+      },
+      "published_path": "cases/34_precision_casos_faciles.html"
+    },
+    {
+      "id": "35",
+      "title": "La libreta que funcionaba el martes",
+      "slug": "notebook_funcionaba_martes",
+      "topic": "Reproducibilidad en Colab",
+      "concept": "setup reproducible en Google Colab",
+      "chart_type": "colab_setup",
+      "question_answered": "Que debe incluir la primera celda de Colab para que otra persona pueda correr el ejemplo.",
+      "correct_read": "Faltan paquetes, ruta de datos y version de libreria.",
+      "decision_changed": "agregar celda inicial de instalacion, versionado, carga de datos y verificacion",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/35_notebook_funcionaba_martes.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/35_notebook_funcionaba_martes.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/35_notebook_funcionaba_martes.yml",
+        "html": "corporate-data-narrative-lab/examples/html/35_notebook_funcionaba_martes.html"
+      },
+      "published_path": "cases/35_notebook_funcionaba_martes.html"
+    },
+    {
+      "id": "36",
+      "title": "El archivo que vivia en otra pestana",
+      "slug": "archivo_en_otra_pestana",
+      "topic": "Rutas y carga de datos",
+      "concept": "rutas, montaje de Drive y carga de datos en Colab",
+      "chart_type": "data_paths",
+      "question_answered": "Que validaciones deben correr antes de confiar en una carga de datos en Colab.",
+      "correct_read": "Menos de los que creian.",
+      "decision_changed": "definir una sola ruta, validar columnas y mostrar conteo antes de analizar",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/36_archivo_en_otra_pestana.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/36_archivo_en_otra_pestana.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/36_archivo_en_otra_pestana.yml",
+        "html": "corporate-data-narrative-lab/examples/html/36_archivo_en_otra_pestana.html"
+      },
+      "published_path": "cases/36_archivo_en_otra_pestana.html"
+    },
+    {
+      "id": "37",
+      "title": "El Python correcto estaba en otra puerta",
+      "slug": "python_en_otra_puerta",
+      "topic": "Interpretes de Python",
+      "concept": "interpretes de Python en VS Code",
+      "chart_type": "python_paths",
+      "question_answered": "Que informacion confirma que VS Code usa el mismo entorno que el proyecto.",
+      "correct_read": "El editor apuntaba al global, no al entorno virtual.",
+      "decision_changed": "seleccionar interprete del proyecto y documentar activacion del entorno",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/37_python_en_otra_puerta.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/37_python_en_otra_puerta.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/37_python_en_otra_puerta.yml",
+        "html": "corporate-data-narrative-lab/examples/html/37_python_en_otra_puerta.html"
+      },
+      "published_path": "cases/37_python_en_otra_puerta.html"
+    },
+    {
+      "id": "38",
+      "title": "Pip instalo en la oficina de al lado",
+      "slug": "pip_oficina_lado",
+      "topic": "Entornos virtuales",
+      "concept": "entornos virtuales y dependencias",
+      "chart_type": "package_envs",
+      "question_answered": "Por que conviene usar python -m pip dentro del entorno activo.",
+      "correct_read": "En el global, mientras el proyecto corre en el virtual.",
+      "decision_changed": "usar python -m pip dentro del entorno activo y guardar requirements",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/38_pip_oficina_lado.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/38_pip_oficina_lado.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/38_pip_oficina_lado.yml",
+        "html": "corporate-data-narrative-lab/examples/html/38_pip_oficina_lado.html"
+      },
+      "published_path": "cases/38_pip_oficina_lado.html"
+    },
+    {
+      "id": "39",
+      "title": "final_final_v7_ahora_si",
+      "slug": "final_final_v7",
+      "topic": "Control de versiones",
+      "concept": "control de versiones para proyectos de datos",
+      "chart_type": "version_history",
+      "question_answered": "Que informacion guarda Git que un nombre de archivo no puede garantizar.",
+      "correct_read": "Con nombres manuales no queda claro; con commits si.",
+      "decision_changed": "usar commits pequenos con mensajes y datos versionados por referencia",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/39_final_final_v7.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/39_final_final_v7.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/39_final_final_v7.yml",
+        "html": "corporate-data-narrative-lab/examples/html/39_final_final_v7.html"
+      },
+      "published_path": "cases/39_final_final_v7.html"
+    },
+    {
+      "id": "40",
+      "title": "La grafica que cambio sola",
+      "slug": "grafica_cambio_sola",
+      "topic": "Reproducibilidad de graficos",
+      "concept": "diferencias reproducibles en codigo y datos",
+      "chart_type": "data_code_diff",
+      "question_answered": "Que piezas deben guardarse para reproducir una grafica de negocio.",
+      "correct_read": "El commit era igual; el corte de datos no.",
+      "decision_changed": "registrar versiones de datos y parametros junto con cada salida",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/40_grafica_cambio_sola.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/40_grafica_cambio_sola.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/40_grafica_cambio_sola.yml",
+        "html": "corporate-data-narrative-lab/examples/html/40_grafica_cambio_sola.html"
+      },
+      "published_path": "cases/40_grafica_cambio_sola.html"
+    },
+    {
+      "id": "41",
+      "title": "El README que salvo el lunes",
+      "slug": "readme_salvo_lunes",
+      "topic": "Documentacion reproducible",
+      "concept": "documentacion minima reproducible",
+      "chart_type": "readme_checklist",
+      "question_answered": "Que debe decir un README minimo para que otra persona reproduzca un analisis.",
+      "correct_read": "Faltan objetivo, setup, datos, comando y salida esperada.",
+      "decision_changed": "agregar objetivo, datos, setup, comandos y salida esperada",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/41_readme_salvo_lunes.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/41_readme_salvo_lunes.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/41_readme_salvo_lunes.yml",
+        "html": "corporate-data-narrative-lab/examples/html/41_readme_salvo_lunes.html"
+      },
+      "published_path": "cases/41_readme_salvo_lunes.html"
+    },
+    {
+      "id": "42",
+      "title": "La rama que llego por WhatsApp",
+      "slug": "rama_por_whatsapp",
+      "topic": "Pull requests y ramas",
+      "concept": "branches, commits, issues y pull requests",
+      "chart_type": "branch_pr_flow",
+      "question_answered": "Que aporta un pull request que no aporta mandar el archivo por mensaje.",
+      "correct_read": "Se pierde problema, revision, prueba y aprobacion.",
+      "decision_changed": "abrir issue, trabajar en branch, explicar commit y revisar PR",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/42_rama_por_whatsapp.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/42_rama_por_whatsapp.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/42_rama_por_whatsapp.yml",
+        "html": "corporate-data-narrative-lab/examples/html/42_rama_por_whatsapp.html"
+      },
+      "published_path": "cases/42_rama_por_whatsapp.html"
+    },
+    {
+      "id": "43",
+      "title": "El asistente que arreglo tambien lo que servia",
+      "slug": "asistente_arreglo_todo",
+      "topic": "Revision de cambios con asistentes",
+      "concept": "control de cambios al trabajar con asistentes de codigo",
+      "chart_type": "reviewed_diff",
+      "question_answered": "Que debes revisar antes de aceptar cambios generados por un asistente de codigo.",
+      "correct_read": "La mitad del parche era sorpresa.",
+      "decision_changed": "dar alcance explicito, revisar diff y separar cambios no pedidos",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/43_asistente_arreglo_todo.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/43_asistente_arreglo_todo.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/43_asistente_arreglo_todo.yml",
+        "html": "corporate-data-narrative-lab/examples/html/43_asistente_arreglo_todo.html"
+      },
+      "published_path": "cases/43_asistente_arreglo_todo.html"
+    },
+    {
+      "id": "44",
+      "title": "La prueba que el agente no queria correr",
+      "slug": "agente_no_corrio_pruebas",
+      "topic": "Verificacion con pruebas",
+      "concept": "verificacion al usar agentes de desarrollo",
+      "chart_type": "test_verification",
+      "question_answered": "Que evidencia minima debe entregar un asistente antes de decir que termino.",
+      "correct_read": "El caso cercano fallaba y nadie lo habia corrido.",
+      "decision_changed": "exigir comando de verificacion y salida antes de aprobar",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/44_agente_no_corrio_pruebas.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/44_agente_no_corrio_pruebas.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/44_agente_no_corrio_pruebas.yml",
+        "html": "corporate-data-narrative-lab/examples/html/44_agente_no_corrio_pruebas.html"
+      },
+      "published_path": "cases/44_agente_no_corrio_pruebas.html"
+    },
+    {
+      "id": "45",
+      "title": "El prompt con llaves",
+      "slug": "prompt_con_llaves",
+      "topic": "Especificacion de prompts",
+      "concept": "especificaciones y limites para asistentes de codigo",
+      "chart_type": "prompt_boundaries",
+      "question_answered": "Que limites debe incluir una instruccion para trabajar con un asistente sin perder control.",
+      "correct_read": "En prompts abiertos, sobre todo cerca de configuracion.",
+      "decision_changed": "especificar archivos permitidos, no tocar secretos y pedir confirmacion ante riesgo",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/45_prompt_con_llaves.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/45_prompt_con_llaves.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/45_prompt_con_llaves.yml",
+        "html": "corporate-data-narrative-lab/examples/html/45_prompt_con_llaves.html"
+      },
+      "published_path": "cases/45_prompt_con_llaves.html"
+    },
+    {
+      "id": "46",
+      "title": "El PRD de hazlo bonito",
+      "slug": "prd_hazlo_bonito",
+      "topic": "PRD para agentes",
+      "concept": "PRD para agentes y productos de datos",
+      "chart_type": "acceptance_criteria",
+      "question_answered": "Que debe incluir un PRD para que un agente no confunda gusto con objetivo.",
+      "correct_read": "Con criterios claros cambia menos y resuelve mejor.",
+      "decision_changed": "reescribir PRD con usuario, problema, decision, no objetivos y aceptacion",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/46_prd_hazlo_bonito.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/46_prd_hazlo_bonito.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/46_prd_hazlo_bonito.yml",
+        "html": "corporate-data-narrative-lab/examples/html/46_prd_hazlo_bonito.html"
+      },
+      "published_path": "cases/46_prd_hazlo_bonito.html"
+    },
+    {
+      "id": "47",
+      "title": "Los criterios que si sabian decir no",
+      "slug": "criterios_sabian_decir_no",
+      "topic": "Criterios de aceptacion",
+      "concept": "criterios de aceptacion y revision",
+      "chart_type": "scope_matrix",
+      "question_answered": "Como ayudan los criterios de aceptacion a revisar trabajo generado por agentes.",
+      "correct_read": "La matriz separa requerido, opcional y no alcance.",
+      "decision_changed": "aceptar o rechazar con criterios previos y pruebas observables",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/47_criterios_sabian_decir_no.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/47_criterios_sabian_decir_no.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/47_criterios_sabian_decir_no.yml",
+        "html": "corporate-data-narrative-lab/examples/html/47_criterios_sabian_decir_no.html"
+      },
+      "published_path": "cases/47_criterios_sabian_decir_no.html"
+    },
+    {
+      "id": "48",
+      "title": "La tarea que tenia dueno, salida y no drama",
+      "slug": "tarea_con_dueno_salida",
+      "topic": "Tareas revisables para agentes",
+      "concept": "tareas para agentes con responsable, salida y revision",
+      "chart_type": "review_flow",
+      "question_answered": "Que campos hacen que una tarea para agentes sea ejecutable y revisable.",
+      "correct_read": "Las que tienen dueno, archivos, pruebas y aprobador.",
+      "decision_changed": "crear tareas con contexto, archivos, salida esperada, pruebas y aprobador",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/48_tarea_con_dueno_salida.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/48_tarea_con_dueno_salida.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/48_tarea_con_dueno_salida.yml",
+        "html": "corporate-data-narrative-lab/examples/html/48_tarea_con_dueno_salida.html"
+      },
+      "published_path": "cases/48_tarea_con_dueno_salida.html"
+    },
+    {
+      "id": "49",
+      "title": "El bloque de codigo que si hizo algo",
+      "slug": "primer_bloque_codigo",
+      "topic": "Programacion basica",
+      "concept": "que es programar y ejecutar instrucciones",
+      "chart_type": "instruction_steps",
+      "question_answered": "Que diferencia hay entre explicar una tarea y programarla.",
+      "correct_read": "Cuando cada paso existe en codigo y se puede correr.",
+      "decision_changed": "convertir instrucciones humanas en bloques de codigo pequenos y ejecutables",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/49_primer_bloque_codigo.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/49_primer_bloque_codigo.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/49_primer_bloque_codigo.yml",
+        "html": "corporate-data-narrative-lab/examples/html/49_primer_bloque_codigo.html"
+      },
+      "published_path": "cases/49_primer_bloque_codigo.html"
+    },
+    {
+      "id": "50",
+      "title": "La lista que no sabia de quien era cada dato",
+      "slug": "variables_listas_diccionarios",
+      "topic": "Estructuras de datos en Python",
+      "concept": "variables, listas, diccionarios y estructuras esenciales",
+      "chart_type": "data_structures",
+      "question_answered": "Cuando conviene usar una variable, una lista o un diccionario.",
+      "correct_read": "El diccionario ayuda cuando cada valor necesita nombre.",
+      "decision_changed": "usar variables para valores, listas para colecciones y diccionarios para datos con nombre",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/50_variables_listas_diccionarios.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/50_variables_listas_diccionarios.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/50_variables_listas_diccionarios.yml",
+        "html": "corporate-data-narrative-lab/examples/html/50_variables_listas_diccionarios.html"
+      },
+      "published_path": "cases/50_variables_listas_diccionarios.html"
+    },
+    {
+      "id": "51",
+      "title": "El loop que mando el mismo aviso a todos",
+      "slug": "condicionales_loops_automatizacion",
+      "topic": "Logica de automatizacion",
+      "concept": "condicionales, loops y logica de automatizacion",
+      "chart_type": "automation_logic",
+      "question_answered": "Que papel tiene un if dentro de un loop de automatizacion.",
+      "correct_read": "La condicion separo quien necesitaba accion y quien no.",
+      "decision_changed": "agregar condiciones antes de repetir acciones",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/51_condicionales_loops_automatizacion.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/51_condicionales_loops_automatizacion.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/51_condicionales_loops_automatizacion.yml",
+        "html": "corporate-data-narrative-lab/examples/html/51_condicionales_loops_automatizacion.html"
+      },
+      "published_path": "cases/51_condicionales_loops_automatizacion.html"
+    },
+    {
+      "id": "52",
+      "title": "La formula que vivia en cinco lugares",
+      "slug": "funciones_limpias_reutilizables",
+      "topic": "Funciones reutilizables",
+      "concept": "funciones limpias y reutilizables",
+      "chart_type": "function_reuse",
+      "question_answered": "Que hace que una funcion sea limpia y reutilizable.",
+      "correct_read": "Cuando todos llamaron la misma logica.",
+      "decision_changed": "extraer la logica repetida a una funcion con nombre claro y pruebas simples",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/52_funciones_limpias_reutilizables.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/52_funciones_limpias_reutilizables.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/52_funciones_limpias_reutilizables.yml",
+        "html": "corporate-data-narrative-lab/examples/html/52_funciones_limpias_reutilizables.html"
+      },
+      "published_path": "cases/52_funciones_limpias_reutilizables.html"
+    },
+    {
+      "id": "53",
+      "title": "El archivo que desaparecia sin avisar",
+      "slug": "errores_archivos_buenas_practicas",
+      "topic": "Errores y archivos",
+      "concept": "manejo de errores, archivos y buenas practicas",
+      "chart_type": "error_handling",
+      "question_answered": "Que tipo de errores conviene anticipar al leer y escribir archivos.",
+      "correct_read": "Los fallos dejaron de ser adivinanzas.",
+      "decision_changed": "validar rutas, manejar excepciones y registrar mensajes utiles",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/53_errores_archivos_buenas_practicas.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/53_errores_archivos_buenas_practicas.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/53_errores_archivos_buenas_practicas.yml",
+        "html": "corporate-data-narrative-lab/examples/html/53_errores_archivos_buenas_practicas.html"
+      },
+      "published_path": "cases/53_errores_archivos_buenas_practicas.html"
+    },
+    {
+      "id": "54",
+      "title": "La calculadora de diamantes que prometio castillos",
+      "slug": "calculadora_recursos_minecraft",
+      "topic": "Reto narrativo en Python",
+      "concept": "mini reto narrativo con calculadora de recursos en Minecraft",
+      "chart_type": "minecraft_resources",
+      "question_answered": "Que entradas y salidas necesita una calculadora de recursos para ser util.",
+      "correct_read": "Cuando cada construccion consume ingredientes reales.",
+      "decision_changed": "crear una funcion que calcule recursos por receta y avise faltantes",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/54_calculadora_recursos_minecraft.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/54_calculadora_recursos_minecraft.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/54_calculadora_recursos_minecraft.yml",
+        "html": "corporate-data-narrative-lab/examples/html/54_calculadora_recursos_minecraft.html"
+      },
+      "published_path": "cases/54_calculadora_recursos_minecraft.html"
+    },
+    {
+      "id": "55",
+      "title": "La consulta que trajo toda la tienda",
+      "slug": "sql_basico_select_where_group_order",
+      "topic": "SQL basico",
+      "concept": "SQL basico con SELECT, WHERE, GROUP BY y ORDER BY",
+      "chart_type": "basic_sql",
+      "question_answered": "Como se conectan SELECT, WHERE, GROUP BY y ORDER BY en una pregunta simple.",
+      "correct_read": "Muchas menos cuando la pregunta guia SELECT y WHERE.",
+      "decision_changed": "seleccionar columnas, filtrar filas, agrupar ventas y ordenar resultados",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/55_sql_basico_select_where_group_order.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/55_sql_basico_select_where_group_order.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/55_sql_basico_select_where_group_order.yml",
+        "html": "corporate-data-narrative-lab/examples/html/55_sql_basico_select_where_group_order.html"
+      },
+      "published_path": "cases/55_sql_basico_select_where_group_order.html"
+    },
+    {
+      "id": "56",
+      "title": "El JOIN que duplico las ventas con mucha seguridad",
+      "slug": "joins_llaves_granularidad_duplicados",
+      "topic": "JOINs y granularidad",
+      "concept": "JOINs, llaves, granularidad y duplicados",
+      "chart_type": "join_duplicates",
+      "question_answered": "Que debes revisar antes de hacer un JOIN entre dos tablas.",
+      "correct_read": "Cada venta se repitio por cada promocion del producto.",
+      "decision_changed": "identificar llave, granularidad y duplicados antes de unir",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/56_joins_llaves_granularidad_duplicados.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/56_joins_llaves_granularidad_duplicados.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/56_joins_llaves_granularidad_duplicados.yml",
+        "html": "corporate-data-narrative-lab/examples/html/56_joins_llaves_granularidad_duplicados.html"
+      },
+      "published_path": "cases/56_joins_llaves_granularidad_duplicados.html"
+    },
+    {
+      "id": "57",
+      "title": "La metrica que olvidaba el mes anterior",
+      "slug": "sql_analitico_ctes_ventanas_periodos",
+      "topic": "SQL analitico",
+      "concept": "SQL analitico con CTEs, ventanas y metricas por periodo",
+      "chart_type": "window_metrics",
+      "question_answered": "Para que sirven CTEs y funciones de ventana en una metrica por periodo.",
+      "correct_read": "Se ve la variacion sin perder el valor mensual.",
+      "decision_changed": "usar CTEs para ordenar pasos y ventanas para comparar periodos",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/57_sql_analitico_ctes_ventanas_periodos.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/57_sql_analitico_ctes_ventanas_periodos.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/57_sql_analitico_ctes_ventanas_periodos.yml",
+        "html": "corporate-data-narrative-lab/examples/html/57_sql_analitico_ctes_ventanas_periodos.html"
+      },
+      "published_path": "cases/57_sql_analitico_ctes_ventanas_periodos.html"
+    },
+    {
+      "id": "58",
+      "title": "La tabla madre que mezclaba pasado y futuro",
+      "slug": "abt_tabla_madre_ml",
+      "topic": "ABT para ML",
+      "concept": "construccion de una ABT para aprendizaje automatico",
+      "chart_type": "abt_cutoff",
+      "question_answered": "Que decisiones de diseno definen una ABT para machine learning.",
+      "correct_read": "Menos, pero de forma honesta.",
+      "decision_changed": "definir entidad, fecha de corte, ventana de features y etiqueta futura",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/58_abt_tabla_madre_ml.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/58_abt_tabla_madre_ml.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/58_abt_tabla_madre_ml.yml",
+        "html": "corporate-data-narrative-lab/examples/html/58_abt_tabla_madre_ml.html"
+      },
+      "published_path": "cases/58_abt_tabla_madre_ml.html"
+    },
+    {
+      "id": "59",
+      "title": "El esquema que nadie le conto al analista",
+      "slug": "esquema_y_contexto",
+      "topic": "Esquema y contexto",
+      "concept": "esquema y contexto de datos",
+      "chart_type": "schema_context",
+      "question_answered": "Que contexto debe acompanar a un esquema para analizar datos con confianza.",
+      "correct_read": "En campos tecnicos usados como conceptos de negocio.",
+      "decision_changed": "documentar tablas, llaves, definiciones y duenos de datos",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/59_esquema_y_contexto.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/59_esquema_y_contexto.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/59_esquema_y_contexto.yml",
+        "html": "corporate-data-narrative-lab/examples/html/59_esquema_y_contexto.html"
+      },
+      "published_path": "cases/59_esquema_y_contexto.html"
+    },
+    {
+      "id": "60",
+      "title": "Las primeras runas y el archivo que hablaba raro",
+      "slug": "lectura_csv_excel_json_api",
+      "topic": "Lectura de fuentes",
+      "concept": "lectura de CSV, Excel, JSON y APIs",
+      "chart_type": "file_reading",
+      "question_answered": "Que debes revisar al leer CSV, Excel, JSON o una API por primera vez.",
+      "correct_read": "Las que usan el lector y parametros correctos.",
+      "decision_changed": "elegir lector por formato y validar filas, columnas y tipos al entrar",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/60_lectura_csv_excel_json_api.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/60_lectura_csv_excel_json_api.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/60_lectura_csv_excel_json_api.yml",
+        "html": "corporate-data-narrative-lab/examples/html/60_lectura_csv_excel_json_api.html"
+      },
+      "published_path": "cases/60_lectura_csv_excel_json_api.html"
+    },
+    {
+      "id": "61",
+      "title": "El groupby que perdio los lunes",
+      "slug": "pandas_filtros_joins_groupby_fechas",
+      "topic": "Pandas esencial",
+      "concept": "pandas esencial con filtros, joins, groupby y fechas",
+      "chart_type": "pandas_flow",
+      "question_answered": "Que validaciones conviene hacer antes de usar filtros, joins y groupby en pandas.",
+      "correct_read": "Se perdieron al filtrar texto como si fuera fecha.",
+      "decision_changed": "convertir tipos, filtrar explicitamente, unir con llaves y agrupar despues de validar",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/61_pandas_filtros_joins_groupby_fechas.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/61_pandas_filtros_joins_groupby_fechas.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/61_pandas_filtros_joins_groupby_fechas.yml",
+        "html": "corporate-data-narrative-lab/examples/html/61_pandas_filtros_joins_groupby_fechas.html"
+      },
+      "published_path": "cases/61_pandas_filtros_joins_groupby_fechas.html"
+    },
+    {
+      "id": "62",
+      "title": "La categoria Otro que se comio la limpieza",
+      "slug": "limpieza_nulos_duplicados_tipos_outliers",
+      "topic": "Limpieza de datos",
+      "concept": "limpieza real con nulos, duplicados, tipos, outliers y categorias rotas",
+      "chart_type": "cleaning_quality",
+      "question_answered": "Que debe documentarse al limpiar nulos, duplicados, tipos, outliers y categorias.",
+      "correct_read": "La limpieza correcta arregla tipos sin esconder categorias.",
+      "decision_changed": "perfilado, reglas de limpieza, bitacora y validacion de impacto",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/62_limpieza_nulos_duplicados_tipos_outliers.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/62_limpieza_nulos_duplicados_tipos_outliers.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/62_limpieza_nulos_duplicados_tipos_outliers.yml",
+        "html": "corporate-data-narrative-lab/examples/html/62_limpieza_nulos_duplicados_tipos_outliers.html"
+      },
+      "published_path": "cases/62_limpieza_nulos_duplicados_tipos_outliers.html"
+    },
+    {
+      "id": "63",
+      "title": "La sucursal con más quejas y más clientes",
+      "slug": "sucursal_con_mas_quejas_y_clientes",
+      "topic": "Conteos y tasas",
+      "concept": "conteos, tasas y denominadores",
+      "chart_type": "barras de tasas",
+      "question_answered": "¿Qué sucursal tiene realmente más quejas en relación con los pedidos que atiende?",
+      "correct_read": "Centro registra 18 quejas por cada mil pedidos, la tasa más alta.",
+      "decision_changed": "priorizar la sucursal Centro y acompañar el conteo con su denominador",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/63_sucursal_con_mas_quejas_y_clientes.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/63_sucursal_con_mas_quejas_y_clientes.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/63_sucursal_con_mas_quejas_y_clientes.yml",
+        "html": "corporate-data-narrative-lab/examples/html/63_sucursal_con_mas_quejas_y_clientes.html"
+      },
+      "published_path": "cases/63_sucursal_con_mas_quejas_y_clientes.html"
+    },
+    {
+      "id": "64",
+      "title": "El promedio de entrega que nadie recibió",
+      "slug": "promedio_entrega_que_nadie_recibio",
+      "topic": "Distribuciones y percentiles",
+      "concept": "promedio, mediana y percentiles",
+      "chart_type": "barras de percentiles",
+      "question_answered": "¿Qué número explica mejor por qué siguen llegando reclamos si el promedio es de cinco días?",
+      "correct_read": "El diez por ciento más lento tarda al menos 16 días.",
+      "decision_changed": "publicar una promesa por percentil y atacar la cola de entregas tardías",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/64_promedio_entrega_que_nadie_recibio.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/64_promedio_entrega_que_nadie_recibio.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/64_promedio_entrega_que_nadie_recibio.yml",
+        "html": "corporate-data-narrative-lab/examples/html/64_promedio_entrega_que_nadie_recibio.html"
+      },
+      "published_path": "cases/64_promedio_entrega_que_nadie_recibio.html"
+    },
+    {
+      "id": "65",
+      "title": "El equipo que perdió al mejorar",
+      "slug": "equipo_que_perdio_al_mejorar",
+      "topic": "Segmentacion y mezcla",
+      "concept": "segmentación y paradoja de Simpson",
+      "chart_type": "barras de tasa ajustada",
+      "question_answered": "¿Qué ocurre con el ranking cuando ambos equipos se comparan con la misma mezcla de clientes?",
+      "correct_read": "Con una mezcla comparable, Verde obtiene 34% y supera a Azul.",
+      "decision_changed": "comparar dentro de segmentos y revisar la regla de asignación de prospectos",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/65_equipo_que_perdio_al_mejorar.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/65_equipo_que_perdio_al_mejorar.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/65_equipo_que_perdio_al_mejorar.yml",
+        "html": "corporate-data-narrative-lab/examples/html/65_equipo_que_perdio_al_mejorar.html"
+      },
+      "published_path": "cases/65_equipo_que_perdio_al_mejorar.html"
+    },
+    {
+      "id": "66",
+      "title": "El viernes que duró tres minutos",
+      "slug": "viernes_que_duro_tres_minutos",
+      "topic": "Ventanas temporales",
+      "concept": "ventanas temporales y datos incompletos",
+      "chart_type": "barras por hora de corte",
+      "question_answered": "¿Qué comparación permite saber si este viernes realmente empezó peor?",
+      "correct_read": "A la misma hora, hoy registra 50 pedidos frente a 52 y 48.",
+      "decision_changed": "esperar una ventana comparable y mostrar la hora de corte en cada reporte",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/66_viernes_que_duro_tres_minutos.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/66_viernes_que_duro_tres_minutos.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/66_viernes_que_duro_tres_minutos.yml",
+        "html": "corporate-data-narrative-lab/examples/html/66_viernes_que_duro_tres_minutos.html"
+      },
+      "published_path": "cases/66_viernes_que_duro_tres_minutos.html"
+    },
+    {
+      "id": "67",
+      "title": "La compra de 900 refrigeradores",
+      "slug": "compra_de_900_refrigeradores",
+      "topic": "Valores atipicos",
+      "concept": "detección e investigación de outliers",
+      "chart_type": "barras con valor extremo",
+      "question_answered": "¿Qué debemos hacer con el valor de 900 antes de calcular de nuevo el gasto?",
+      "correct_read": "El documento fuente confirma nueve unidades y exige una corrección trazable.",
+      "decision_changed": "corregir la unidad, conservar una bitácora y agregar validaciones de rango",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/67_compra_de_900_refrigeradores.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/67_compra_de_900_refrigeradores.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/67_compra_de_900_refrigeradores.yml",
+        "html": "corporate-data-narrative-lab/examples/html/67_compra_de_900_refrigeradores.html"
+      },
+      "published_path": "cases/67_compra_de_900_refrigeradores.html"
+    },
+    {
+      "id": "68",
+      "title": "El pastel de 27 rebanadas",
+      "slug": "pastel_de_27_rebanadas",
+      "topic": "Seleccion de graficas",
+      "concept": "selección de gráfica según la pregunta",
+      "chart_type": "barras ordenadas",
+      "question_answered": "¿Qué gráfica permite comparar muchas categorías y encontrar rápido cuál cayó más?",
+      "correct_read": "Las barras muestran que electrónica concentra 32% y la caída principal.",
+      "decision_changed": "usar barras ordenadas y revisar primero las categorías de mayor contribución",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/68_pastel_de_27_rebanadas.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/68_pastel_de_27_rebanadas.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/68_pastel_de_27_rebanadas.yml",
+        "html": "corporate-data-narrative-lab/examples/html/68_pastel_de_27_rebanadas.html"
+      },
+      "published_path": "cases/68_pastel_de_27_rebanadas.html"
+    },
+    {
+      "id": "69",
+      "title": "El crecimiento gigante de dos puntos",
+      "slug": "crecimiento_gigante_de_dos_puntos",
+      "topic": "Escalas visuales",
+      "concept": "ejes, escalas y magnitud visual",
+      "chart_type": "barras con escala completa",
+      "question_answered": "¿Qué impresión cambia cuando vemos 78% y 80% desde una escala que comienza en cero?",
+      "correct_read": "La conversión aumentó dos puntos porcentuales, de 78% a 80%.",
+      "decision_changed": "evaluar costo, intervalo y valor absoluto antes de ampliar el cambio",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/69_crecimiento_gigante_de_dos_puntos.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/69_crecimiento_gigante_de_dos_puntos.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/69_crecimiento_gigante_de_dos_puntos.yml",
+        "html": "corporate-data-narrative-lab/examples/html/69_crecimiento_gigante_de_dos_puntos.html"
+      },
+      "published_path": "cases/69_crecimiento_gigante_de_dos_puntos.html"
+    },
+    {
+      "id": "70",
+      "title": "El semáforo con catorce verdes",
+      "slug": "semaforo_con_catorce_verdes",
+      "topic": "Color y jerarquia visual",
+      "concept": "color, jerarquía visual y categorías",
+      "chart_type": "barras con color de énfasis",
+      "question_answered": "¿Qué debería comunicar el color para que una persona sepa dónde actuar primero?",
+      "correct_read": "Tres sucursales deben detener operación y nueve requieren revisión hoy.",
+      "decision_changed": "usar posición y etiquetas para categorías, y color solo para destacar riesgo",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/70_semaforo_con_catorce_verdes.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/70_semaforo_con_catorce_verdes.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/70_semaforo_con_catorce_verdes.yml",
+        "html": "corporate-data-narrative-lab/examples/html/70_semaforo_con_catorce_verdes.html"
+      },
+      "published_path": "cases/70_semaforo_con_catorce_verdes.html"
+    },
+    {
+      "id": "71",
+      "title": "Las dos líneas que parecían novios",
+      "slug": "dos_lineas_que_parecian_novios",
+      "topic": "Doble eje",
+      "concept": "doble eje y relaciones visuales engañosas",
+      "chart_type": "barras de cambio relativo",
+      "question_answered": "¿Qué queda de la relación cuando ambas series se comparan con una escala común?",
+      "correct_read": "El margen cae 22% donde aumenta el descuento; visitas cambia 14% sin el mismo patrón.",
+      "decision_changed": "mantener campañas y analizar descuentos como causa directa del margen",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/71_dos_lineas_que_parecian_novios.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/71_dos_lineas_que_parecian_novios.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/71_dos_lineas_que_parecian_novios.yml",
+        "html": "corporate-data-narrative-lab/examples/html/71_dos_lineas_que_parecian_novios.html"
+      },
+      "published_path": "cases/71_dos_lineas_que_parecian_novios.html"
+    },
+    {
+      "id": "72",
+      "title": "La gráfica sin domicilio",
+      "slug": "grafica_sin_domicilio",
+      "topic": "Anotaciones y contexto",
+      "concept": "anotaciones y contexto para una decisión",
+      "chart_type": "barras temporales anotadas",
+      "question_answered": "¿Qué dato adicional permite distinguir entre un problema de capacitación y uno del formulario?",
+      "correct_read": "Los errores suben de 8 a 29 por mil después del despliegue del formulario.",
+      "decision_changed": "corregir el formulario nuevo y medir la recuperación durante dos semanas",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/72_grafica_sin_domicilio.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/72_grafica_sin_domicilio.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/72_grafica_sin_domicilio.yml",
+        "html": "corporate-data-narrative-lab/examples/html/72_grafica_sin_domicilio.html"
+      },
+      "published_path": "cases/72_grafica_sin_domicilio.html"
+    },
+    {
+      "id": "73",
+      "title": "La encuesta del QR detrás del recibo",
+      "slug": "encuesta_del_qr_detras_del_recibo",
+      "topic": "Sesgo de seleccion",
+      "concept": "sesgo de selección y representatividad",
+      "chart_type": "barras por método de muestreo",
+      "question_answered": "¿Qué población representa cada resultado y quién quedó fuera de la invitación?",
+      "correct_read": "La muestra aleatoria registra 68% y recupera problemas de espera.",
+      "decision_changed": "mantener la mejora de cajas y usar una muestra aleatoria con seguimiento de no respuesta",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/73_encuesta_del_qr_detras_del_recibo.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/73_encuesta_del_qr_detras_del_recibo.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/73_encuesta_del_qr_detras_del_recibo.yml",
+        "html": "corporate-data-narrative-lab/examples/html/73_encuesta_del_qr_detras_del_recibo.html"
+      },
+      "published_path": "cases/73_encuesta_del_qr_detras_del_recibo.html"
+    },
+    {
+      "id": "74",
+      "title": "La sucursal campeona por cuatro respuestas",
+      "slug": "sucursal_campeona_por_cuatro_respuestas",
+      "topic": "Incertidumbre y muestra",
+      "concept": "incertidumbre, tamaño de muestra e intervalos",
+      "chart_type": "barras de muestra y estimación",
+      "question_answered": "¿Podemos afirmar que Lago supera a Centro cuando vemos el tamaño de sus muestras?",
+      "correct_read": "La incertidumbre de Lago impide afirmar que supera al 91% de Centro.",
+      "decision_changed": "esperar más respuestas y mostrar incertidumbre antes de declarar una ganadora",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/74_sucursal_campeona_por_cuatro_respuestas.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/74_sucursal_campeona_por_cuatro_respuestas.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/74_sucursal_campeona_por_cuatro_respuestas.yml",
+        "html": "corporate-data-narrative-lab/examples/html/74_sucursal_campeona_por_cuatro_respuestas.html"
+      },
+      "published_path": "cases/74_sucursal_campeona_por_cuatro_respuestas.html"
+    },
+    {
+      "id": "75",
+      "title": "El experimento que ganó en jueves",
+      "slug": "experimento_que_gano_en_jueves",
+      "topic": "Pruebas multiples",
+      "concept": "pruebas múltiples y falsos descubrimientos",
+      "chart_type": "barras de réplica experimental",
+      "question_answered": "¿Qué nos dice la réplica sobre el aumento de 14% encontrado entre tantos cortes?",
+      "correct_read": "La réplica predefinida obtiene 1% y no confirma el efecto inicial.",
+      "decision_changed": "declarar hipótesis y métrica antes de probar, y exigir réplica para hallazgos exploratorios",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/75_experimento_que_gano_en_jueves.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/75_experimento_que_gano_en_jueves.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/75_experimento_que_gano_en_jueves.yml",
+        "html": "corporate-data-narrative-lab/examples/html/75_experimento_que_gano_en_jueves.html"
+      },
+      "published_path": "cases/75_experimento_que_gano_en_jueves.html"
+    },
+    {
+      "id": "76",
+      "title": "Los helados que causaban devoluciones",
+      "slug": "helados_y_devoluciones",
+      "topic": "Correlacion y causalidad",
+      "concept": "correlación, confusión y causalidad",
+      "chart_type": "barras por nivel de capacidad",
+      "question_answered": "¿Qué sucede con la relación entre helados y devoluciones cuando comparamos días con el mismo volumen?",
+      "correct_read": "La tasa alcanza 11% cuando se rebasa capacidad, sin depender de helados.",
+      "decision_changed": "mantener helados y ajustar capacidad logística durante días de alta demanda",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/76_helados_y_devoluciones.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/76_helados_y_devoluciones.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/76_helados_y_devoluciones.yml",
+        "html": "corporate-data-narrative-lab/examples/html/76_helados_y_devoluciones.html"
+      },
+      "published_path": "cases/76_helados_y_devoluciones.html"
+    },
+    {
+      "id": "77",
+      "title": "El piloto de capacitación con voluntarios",
+      "slug": "capacitacion_con_voluntarios",
+      "topic": "Aleatorizacion",
+      "concept": "aleatorización y grupos comparables",
+      "chart_type": "barras de tratamiento y control",
+      "question_answered": "¿Cuánto del cambio podemos atribuir al curso cuando existe un grupo control comparable?",
+      "correct_read": "En grupos comparables, la mejora adicional frente a control es de cuatro puntos.",
+      "decision_changed": "negociar una prueba adicional y ampliar solo si el efecto aleatorio se sostiene",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/77_capacitacion_con_voluntarios.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/77_capacitacion_con_voluntarios.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/77_capacitacion_con_voluntarios.yml",
+        "html": "corporate-data-narrative-lab/examples/html/77_capacitacion_con_voluntarios.html"
+      },
+      "published_path": "cases/77_capacitacion_con_voluntarios.html"
+    },
+    {
+      "id": "78",
+      "title": "El modelo que ya sabía la devolución",
+      "slug": "modelo_que_sabia_la_devolucion",
+      "topic": "Fuga de objetivo",
+      "concept": "target leakage en aprendizaje automático",
+      "chart_type": "barras de desempeño temporal",
+      "question_answered": "¿Qué desempeño importa si solo usamos información disponible antes de autorizar el envío?",
+      "correct_read": "Con variables disponibles al decidir, la precisión realista es 74%.",
+      "decision_changed": "usar el modelo realista como apoyo y documentar la hora disponible de cada variable",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/78_modelo_que_sabia_la_devolucion.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/78_modelo_que_sabia_la_devolucion.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/78_modelo_que_sabia_la_devolucion.yml",
+        "html": "corporate-data-narrative-lab/examples/html/78_modelo_que_sabia_la_devolucion.html"
+      },
+      "published_path": "cases/78_modelo_que_sabia_la_devolucion.html"
+    },
+    {
+      "id": "79",
+      "title": "El examen con respuestas de práctica",
+      "slug": "examen_con_respuestas_de_practica",
+      "topic": "Particiones de datos",
+      "concept": "separación de entrenamiento, validación y prueba",
+      "chart_type": "barras de particiones de datos",
+      "question_answered": "¿Por qué el mes intacto ofrece una estimación más honesta que la prueba consultada muchas veces?",
+      "correct_read": "En datos intactos, el F1 es 0.72 y refleja mejor el desempeño esperado.",
+      "decision_changed": "conservar un conjunto final sin tocar y registrar cada decisión de modelado",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/79_examen_con_respuestas_de_practica.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/79_examen_con_respuestas_de_practica.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/79_examen_con_respuestas_de_practica.yml",
+        "html": "corporate-data-narrative-lab/examples/html/79_examen_con_respuestas_de_practica.html"
+      },
+      "published_path": "cases/79_examen_con_respuestas_de_practica.html"
+    },
+    {
+      "id": "80",
+      "title": "El detector 99% correcto que encontró cero fraudes",
+      "slug": "detector_99_correcto_cero_fraudes",
+      "topic": "Clases desbalanceadas",
+      "concept": "desbalance de clases y métricas de clasificación",
+      "chart_type": "barras de recall y capacidad",
+      "question_answered": "¿Qué umbral encuentra más fraude sin rebasar la capacidad diaria de revisión?",
+      "correct_read": "El umbral operativo detecta 71 de cien fraudes dentro de capacidad.",
+      "decision_changed": "mantener revisión humana y elegir umbral según fraude detectado y capacidad",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/80_detector_99_correcto_cero_fraudes.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/80_detector_99_correcto_cero_fraudes.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/80_detector_99_correcto_cero_fraudes.yml",
+        "html": "corporate-data-narrative-lab/examples/html/80_detector_99_correcto_cero_fraudes.html"
+      },
+      "published_path": "cases/80_detector_99_correcto_cero_fraudes.html"
+    },
+    {
+      "id": "81",
+      "title": "Una alerta para cada cliente",
+      "slug": "alerta_para_cada_cliente",
+      "topic": "Umbrales y capacidad",
+      "concept": "umbrales, costos de error y capacidad operativa",
+      "chart_type": "barras de volumen por umbral",
+      "question_answered": "¿Qué punto de corte concentra recuperación sin enviar más casos de los que el equipo puede atender?",
+      "correct_read": "El corte de 0.74 produce 1,100 contactos y cabe en el turno.",
+      "decision_changed": "usar un umbral compatible con capacidad y reservar revisión para la zona incierta",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/81_alerta_para_cada_cliente.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/81_alerta_para_cada_cliente.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/81_alerta_para_cada_cliente.yml",
+        "html": "corporate-data-narrative-lab/examples/html/81_alerta_para_cada_cliente.html"
+      },
+      "published_path": "cases/81_alerta_para_cada_cliente.html"
+    },
+    {
+      "id": "82",
+      "title": "El árbol que memorizó apellidos",
+      "slug": "arbol_que_memorizo_apellidos",
+      "topic": "Sobreajuste",
+      "concept": "sobreajuste, complejidad y generalización",
+      "chart_type": "barras de complejidad y validación",
+      "question_answered": "¿Qué profundidad funciona mejor en datos nuevos aunque no sea perfecta en entrenamiento?",
+      "correct_read": "La profundidad cinco logra 74% en validación y supera al árbol profundo.",
+      "decision_changed": "usar un modelo más simple, excluir identificadores y limitarlo a apoyo agregado",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/82_arbol_que_memorizo_apellidos.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/82_arbol_que_memorizo_apellidos.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/82_arbol_que_memorizo_apellidos.yml",
+        "html": "corporate-data-narrative-lab/examples/html/82_arbol_que_memorizo_apellidos.html"
+      },
+      "published_path": "cases/82_arbol_que_memorizo_apellidos.html"
+    },
+    {
+      "id": "83",
+      "title": "La variable que llegó mañana",
+      "slug": "variable_que_llego_manana",
+      "topic": "Ventanas de variables",
+      "concept": "ingeniería de variables con ventanas temporales",
+      "chart_type": "barras de ventanas temporales",
+      "question_answered": "¿Qué versión del modelo podemos ejecutar el lunes sin usar actividad futura?",
+      "correct_read": "El modelo ejecutable usa corte dominical y obtiene AUC de 0.76.",
+      "decision_changed": "versionar ventanas, probarlas por fecha y entrenar con el mismo corte de producción",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/83_variable_que_llego_manana.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/83_variable_que_llego_manana.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/83_variable_que_llego_manana.yml",
+        "html": "corporate-data-narrative-lab/examples/html/83_variable_que_llego_manana.html"
+      },
+      "published_path": "cases/83_variable_que_llego_manana.html"
+    },
+    {
+      "id": "84",
+      "title": "El modelo vencido por siempre no",
+      "slug": "modelo_vencido_por_siempre_no",
+      "topic": "Lineas base",
+      "concept": "líneas base y valor incremental del modelo",
+      "chart_type": "barras contra línea base",
+      "question_answered": "¿Qué alternativa evita más costo total cuando incluimos revisiones e infraestructura?",
+      "correct_read": "La regla evita 83 errores frente a 85 del modelo y requiere muchas menos revisiones.",
+      "decision_changed": "probar primero una regla interpretable y exigir valor adicional al modelo complejo",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/84_modelo_vencido_por_siempre_no.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/84_modelo_vencido_por_siempre_no.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/84_modelo_vencido_por_siempre_no.yml",
+        "html": "corporate-data-narrative-lab/examples/html/84_modelo_vencido_por_siempre_no.html"
+      },
+      "published_path": "cases/84_modelo_vencido_por_siempre_no.html"
+    },
+    {
+      "id": "85",
+      "title": "El crédito negado por la variable 47",
+      "slug": "credito_negado_por_variable_47",
+      "topic": "Explicabilidad y apelacion",
+      "concept": "explicabilidad, revisión humana y derecho a corregir",
+      "chart_type": "barras de apelación y corrección",
+      "question_answered": "¿Qué razón permite a una persona comprobar el rechazo y qué ocurre cuando presenta evidencia nueva?",
+      "correct_read": "Treinta y dos rechazos cambian al corregir domicilio y requieren revisión humana.",
+      "decision_changed": "limitar decisiones automáticas, mostrar razones comprobables y habilitar apelación humana",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/85_credito_negado_por_variable_47.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/85_credito_negado_por_variable_47.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/85_credito_negado_por_variable_47.yml",
+        "html": "corporate-data-narrative-lab/examples/html/85_credito_negado_por_variable_47.html"
+      },
+      "published_path": "cases/85_credito_negado_por_variable_47.html"
+    },
+    {
+      "id": "86",
+      "title": "El modelo prendido y perdido",
+      "slug": "modelo_prendido_y_perdido",
+      "topic": "Drift y monitoreo",
+      "concept": "monitoreo de desempeño y drift",
+      "chart_type": "barras de salud del modelo",
+      "question_answered": "¿Qué señal muestra que el modelo falla aunque el servicio siga disponible?",
+      "correct_read": "La precisión baja a 49% mientras disponibilidad permanece en 100%.",
+      "decision_changed": "monitorear servicio, datos y resultado; activar revisión ante drift sostenido",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/86_modelo_prendido_y_perdido.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/86_modelo_prendido_y_perdido.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/86_modelo_prendido_y_perdido.yml",
+        "html": "corporate-data-narrative-lab/examples/html/86_modelo_prendido_y_perdido.html"
+      },
+      "published_path": "cases/86_modelo_prendido_y_perdido.html"
+    },
+    {
+      "id": "87",
+      "title": "La columna que cambió de pesos a centavos",
+      "slug": "columna_de_pesos_a_centavos",
+      "topic": "Contratos de datos",
+      "concept": "contratos de datos y confiabilidad de pipelines",
+      "chart_type": "barras de validación de unidad",
+      "question_answered": "¿Qué validación habría detenido el archivo antes de publicar ingresos cien veces mayores?",
+      "correct_read": "La mediana recibida es cien veces mayor y debe normalizarse desde la entrada.",
+      "decision_changed": "establecer contrato versionado, pruebas de rango y cuarentena ante cambios incompatibles",
+      "source_paths": {
+        "case": "corporate-data-narrative-lab/examples/cases/87_columna_de_pesos_a_centavos.md",
+        "data_spec": "corporate-data-narrative-lab/examples/data_specs/87_columna_de_pesos_a_centavos.yml",
+        "visual_spec": "corporate-data-narrative-lab/examples/visual_specs/87_columna_de_pesos_a_centavos.yml",
+        "html": "corporate-data-narrative-lab/examples/html/87_columna_de_pesos_a_centavos.html"
+      },
+      "published_path": "cases/87_columna_de_pesos_a_centavos.html"
+    }
+  ]
+}

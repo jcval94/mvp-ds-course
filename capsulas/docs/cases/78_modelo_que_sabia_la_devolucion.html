@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El modelo que ya sabía la devolución</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">78</span>
+      <span class="topic-chip">Fuga de objetivo</span>
+    </div>
+    <h1>El modelo que ya sabía la devolución</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> target leakage en aprendizaje automático</p>
+      <p><strong>Pregunta de la grafica:</strong> ¿Qué desempeño importa si solo usamos información disponible antes de autorizar el envío?</p>
+      <p><strong>Lectura correcta:</strong> Con variables disponibles al decidir, la precisión realista es 74%.</p>
+      <p><strong>Decision que cambia:</strong> usar el modelo realista como apoyo y documentar la hora disponible de cada variable</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El modelo que ya sabía la devolución</h1>
+<section>
+<h2>Noventa y nueve por ciento</h2>
+<blockquote><strong>el gerente de operaciones:</strong><span>El modelo acierta 99% de las devoluciones.</span></blockquote>
+<blockquote><strong>Aída:</strong><span>¿Qué variables usa?</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>Precio, categoría y fecha de recepción en devoluciones.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>Esa fecha aparece cuando el paquete ya volvió.</span></blockquote>
+<blockquote><strong>el gerente de operaciones:</strong><span>Pero mejora muchísimo la precisión.</span></blockquote>
+<blockquote><strong>Aída:</strong><span>Porque le cuenta la respuesta antes del examen.</span></blockquote>
+<p>La cifra de 99% había eliminado todas las dudas del informe, pero no las del proceso. La variable más importante se generaba varios días después de la decisión que el modelo debía apoyar.</p>
+</section>
+<section>
+<h2>La fecha posterior</h2>
+<blockquote><strong>Mauro:</strong><span>Podemos conservarla como indicador indirecto.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>¿Indirecto de qué? Dice que la devolución fue recibida.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>El algoritmo le asignó mucho peso.</span></blockquote>
+<blockquote><strong>Aída:</strong><span>Eso confirma la fuga, no su utilidad operativa.</span></blockquote>
+<blockquote><strong>el gerente de operaciones:</strong><span>¿Qué sabremos justo antes de enviar?</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>Producto, cliente, pago y promesa de entrega; nada del regreso.</span></blockquote>
+<p>Mauro defendía el resultado porque la evaluación era impecable dentro del archivo histórico. El problema apareció al dibujar una línea de tiempo: producción nunca tendría aquella columna antes del envío.</p>
+</section>
+<section>
+<h2>Cerrar la ventana</h2>
+<blockquote><strong>Aída:</strong><span>Reentrené usando solo datos disponibles al autorizar el envío.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>La precisión baja a 74%.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>Pero ese resultado sí puede existir en producción.</span></blockquote>
+<blockquote><strong>el gerente de operaciones:</strong><span>Prefiero 74% real que 99% de recuerdo.</span></blockquote>
+<blockquote><strong>Aída:</strong><span>También separé la validación por fecha para respetar el orden.</span></blockquote>
+<p>Sin la señal posterior, el desempeño bajó y se volvió creíble. La nueva barra no impresionaba tanto, pero representaba una predicción que podía ejecutarse cuando todavía había algo que decidir.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Precisión con variables disponibles antes de decidir">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Precisión con variables disponibles antes de decidir</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="90" width="184" height="160" fill="#286d9b"/>
+  <text x="152" y="80" font-size="17" text-anchor="middle">99 % precisión</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">con dato futuro</text>
+  <rect x="268" y="130" width="184" height="120" fill="#d58b2f"/>
+  <text x="360" y="120" font-size="17" text-anchor="middle">74 % precisión</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">antes del envío</text>
+  <rect x="476" y="140" width="184" height="110" fill="#4c8b63"/>
+  <text x="568" y="130" font-size="17" text-anchor="middle">68 % precisión</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">base simple</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">El resultado realista excluye información posterior a la decisión.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Ceci:</strong><span>¿Qué desempeño importa si solo usamos información disponible antes de autorizar el envío?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La fecha de recepción de la devolución revela el objetivo y provoca fuga de información. Al retirarla, la precisión baja a 74%, pero ahora mide una situación posible en producción. El momento de disponibilidad es parte del significado de cada variable.</p>
+</section>
+<section>
+<h2>Predecir sin viajar</h2>
+<blockquote><strong>el gerente de operaciones:</strong><span>No bloquearemos pedidos automáticamente.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>La señal priorizará revisión de casos costosos.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>Agregaré disponibilidad temporal al catálogo de variables.</span></blockquote>
+<blockquote><strong>Aída:</strong><span>Y una prueba que falle si entra información posterior.</span></blockquote>
+<blockquote><strong>el gerente de operaciones:</strong><span>La evaluación debe parecerse al momento de uso.</span></blockquote>
+<blockquote><strong>Aída:</strong><span>Sobre target leakage en aprendizaje automático, ¿qué dato revisamos en el siguiente corte?</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>Primero vamos a usar el modelo realista como apoyo y documentar la hora disponible de cada variable; luego comparamos el resultado.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>El modelo no veía el futuro; estaba leyendo el recibo del regreso.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> cada variable debe existir en el momento exacto en que se tomará la decisión.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="77_capacitacion_con_voluntarios.html">Anterior: El piloto de capacitación con voluntarios</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="79_examen_con_respuestas_de_practica.html">Siguiente: El examen con respuestas de práctica</a>
+  </nav>
+</body>
+</html>

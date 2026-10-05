@@ -1,0 +1,10 @@
+title: "El README que salvo el lunes"
+case_id: "41"
+chart_type: "readme_checklist"
+question_answered: "Que debe decir un README minimo para que otra persona reproduzca un analisis."
+comfortable_read: "El codigo esta bastante claro."
+missing_context: "Eva esta de vacaciones y no dejo webhook mental."
+correct_read: "Faltan objetivo, setup, datos, comando y salida esperada."
+decision_changed: "agregar objetivo, datos, setup, comandos y salida esperada"
+annotations: ["sin README", "con comandos", "con salida"]
+synthetic_data: true

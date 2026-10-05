@@ -1,0 +1,9 @@
+case_id: "85"
+title: "El crédito negado por la variable 47"
+concept: "explicabilidad, revisión humana y derecho a corregir"
+scenario: "credito_negado_por_variable_47"
+seed: 285
+observations: 4200
+variables: ["application_id", "reason_code", "plain_reason", "appealed", "decision_changed", "data_source"]
+key_values: {"apelaciones": 120, "cambios totales": 38, "domicilio corregido": 32}
+synthetic_data: true

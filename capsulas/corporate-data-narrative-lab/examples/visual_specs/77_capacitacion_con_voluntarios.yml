@@ -1,0 +1,10 @@
+title: "El piloto de capacitación con voluntarios"
+case_id: "77"
+chart_type: "barras de tratamiento y control"
+question_answered: "¿Cuánto del cambio podemos atribuir al curso cuando existe un grupo control comparable?"
+comfortable_read: "Los voluntarios mejoran 30% y parecen probar el valor del curso."
+missing_context: "Quienes se inscribieron ya tenían menos errores y mayor motivación."
+correct_read: "En grupos comparables, la mejora adicional frente a control es de cuatro puntos."
+decision_changed: "negociar una prueba adicional y ampliar solo si el efecto aleatorio se sostiene"
+annotations: ["voluntarios", "asignación aleatoria", "control"]
+synthetic_data: true

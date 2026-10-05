@@ -1,0 +1,10 @@
+title: "El indicador definitivo final ahora sí"
+case_id: "16"
+chart_type: "version_comparison_bars"
+question_answered: "¿Qué definición produce cada tasa?"
+comfortable_read: "Existe una tasa oficial de mayo."
+missing_context: "Tres archivos usan eventos y poblaciones distintas."
+correct_read: "Cada tasa responde otra pregunta."
+decision_changed: "Asignar dueño, versión y registro de cambios."
+annotations: ["12.0%", "9.8%", "14.0%"]
+synthetic_data: true

@@ -1,0 +1,10 @@
+title: "La tabla madre que mezclaba pasado y futuro"
+case_id: "58"
+chart_type: "abt_cutoff"
+question_answered: "Que decisiones de diseno definen una ABT para machine learning."
+comfortable_read: "Es una columna muy predictiva."
+missing_context: "La ABT no puede viajar en el tiempo."
+correct_read: "Menos, pero de forma honesta."
+decision_changed: "definir entidad, fecha de corte, ventana de features y etiqueta futura"
+annotations: ["todas", "antes corte", "produccion"]
+synthetic_data: true

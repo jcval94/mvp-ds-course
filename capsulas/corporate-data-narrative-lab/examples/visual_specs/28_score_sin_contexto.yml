@@ -1,0 +1,10 @@
+title: "El score que no sabia que era mudanza"
+case_id: "28"
+chart_type: "threshold_errors"
+question_answered: "Que papel debe tener una persona cuando el modelo afecta acceso, dinero o derechos."
+comfortable_read: "El patron se parece a fraude."
+missing_context: "Tambien baja la oportunidad de explicar."
+correct_read: "La revision conserva alertas y baja bloqueos injustos."
+decision_changed: "usar score como alerta, pedir contexto y dejar apelacion"
+annotations: ["automatico", "umbral alto", "con revision"]
+synthetic_data: true

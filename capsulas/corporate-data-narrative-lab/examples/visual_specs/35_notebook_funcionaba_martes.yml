@@ -1,0 +1,10 @@
+title: "La libreta que funcionaba el martes"
+case_id: "35"
+chart_type: "colab_setup"
+question_answered: "Que debe incluir la primera celda de Colab para que otra persona pueda correr el ejemplo."
+comfortable_read: "Seguro no ejecutaron en orden."
+missing_context: "Con tus archivos montados y tus paquetes vivos."
+correct_read: "Faltan paquetes, ruta de datos y version de libreria."
+decision_changed: "agregar celda inicial de instalacion, versionado, carga de datos y verificacion"
+annotations: ["sin setup", "con paquetes", "con datos", "verificado"]
+synthetic_data: true

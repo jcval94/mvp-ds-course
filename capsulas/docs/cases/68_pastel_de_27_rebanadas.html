@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El pastel de 27 rebanadas</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">68</span>
+      <span class="topic-chip">Seleccion de graficas</span>
+    </div>
+    <h1>El pastel de 27 rebanadas</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> selección de gráfica según la pregunta</p>
+      <p><strong>Pregunta de la grafica:</strong> ¿Qué gráfica permite comparar muchas categorías y encontrar rápido cuál cayó más?</p>
+      <p><strong>Lectura correcta:</strong> Las barras muestran que electrónica concentra 32% y la caída principal.</p>
+      <p><strong>Decision que cambia:</strong> usar barras ordenadas y revisar primero las categorías de mayor contribución</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El pastel de 27 rebanadas</h1>
+<section>
+<h2>La rebanada color durazno</h2>
+<blockquote><strong>el director de tienda:</strong><span>¿Cuál categoría explica la caída de ventas?</span></blockquote>
+<blockquote><strong>Martín:</strong><span>La rebanada durazno bajó bastante.</span></blockquote>
+<blockquote><strong>Ximena:</strong><span>Hay tres tonos durazno.</span></blockquote>
+<blockquote><strong>Lola:</strong><span>Y 27 categorías alrededor del círculo.</span></blockquote>
+<blockquote><strong>el director de tienda:</strong><span>¿Cuál de los tres es electrónica?</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Déjeme acercar la leyenda otra vez.</span></blockquote>
+<p>La leyenda ocupaba más espacio que el círculo. Cada vez que alguien preguntaba por una categoría, Martín movía el cursor entre colores casi idénticos y la conversación volvía a empezar.</p>
+</section>
+<section>
+<h2>Veintisiete leyendas</h2>
+<blockquote><strong>Ximena:</strong><span>Podemos poner etiquetas dentro de cada rebanada.</span></blockquote>
+<blockquote><strong>Lola:</strong><span>Las pequeñas ya no tienen espacio para el nombre.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Entonces quitamos las categorías pequeñas.</span></blockquote>
+<blockquote><strong>el director de tienda:</strong><span>Justo quiero saber cuáles están cayendo.</span></blockquote>
+<blockquote><strong>Ximena:</strong><span>La gráfica se ve elegante en pantalla completa.</span></blockquote>
+<blockquote><strong>Lola:</strong><span>Pero la pregunta pide ordenar y comparar, no decorar el total.</span></blockquote>
+<p>La opción de ocultar categorías pequeñas hacía la imagen legible a costa de borrar información. El problema no era el tamaño de la pantalla, sino una forma visual incapaz de ordenar 27 comparaciones.</p>
+</section>
+<section>
+<h2>Ordenar para comparar</h2>
+<blockquote><strong>Lola:</strong><span>Pasé las categorías principales a barras de mayor a menor.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Electrónica aparece primero y cayó ocho puntos.</span></blockquote>
+<blockquote><strong>Ximena:</strong><span>Hogar casi no cambió; el pastel hacía parecer lo contrario.</span></blockquote>
+<blockquote><strong>el director de tienda:</strong><span>Ahora puedo señalar dónde investigar.</span></blockquote>
+<blockquote><strong>Lola:</strong><span>Y agrupé el resto sin esconder su suma.</span></blockquote>
+<p>Las barras permitieron leer posición y distancia sobre una misma escala. La categoría decisiva dejó de ser una tonalidad y recuperó nombre, magnitud y lugar en la lista.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Participación de ventas de las categorías principales">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Participación de ventas de las categorías principales</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="90" width="132" height="160" fill="#286d9b"/>
+  <text x="126" y="80" font-size="17" text-anchor="middle">32 %</text>
+  <text x="126" y="278" font-size="12" text-anchor="middle">electrónica</text>
+  <rect x="216" y="130" width="132" height="120" fill="#d58b2f"/>
+  <text x="282" y="120" font-size="17" text-anchor="middle">24 %</text>
+  <text x="282" y="278" font-size="12" text-anchor="middle">hogar</text>
+  <rect x="372" y="160" width="132" height="90" fill="#4c8b63"/>
+  <text x="438" y="150" font-size="17" text-anchor="middle">18 %</text>
+  <text x="438" y="278" font-size="12" text-anchor="middle">ropa</text>
+  <rect x="528" y="120" width="132" height="130" fill="#a44f73"/>
+  <text x="594" y="110" font-size="17" text-anchor="middle">26 %</text>
+  <text x="594" y="278" font-size="12" text-anchor="middle">resto</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">Ordenar categorías vuelve visible la comparación principal.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Ximena:</strong><span>¿Qué gráfica permite comparar muchas categorías y encontrar rápido cuál cayó más?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> Un pastel funciona con pocas partes cuando interesa su proporción del total. Con 27 categorías, los ángulos y colores son difíciles de comparar. Las barras ordenadas usan una base común y dejan ver de inmediato que electrónica concentra la mayor caída.</p>
+</section>
+<section>
+<h2>Servir otra gráfica</h2>
+<blockquote><strong>el director de tienda:</strong><span>El reporte usará barras cuando compare categorías.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>¿Guardamos el pastel para participación total?</span></blockquote>
+<blockquote><strong>Lola:</strong><span>Solo cuando haya pocas partes y esa sea la pregunta.</span></blockquote>
+<blockquote><strong>Ximena:</strong><span>Voy a documentar qué lectura necesita cada gráfica.</span></blockquote>
+<blockquote><strong>el director de tienda:</strong><span>Primero decisión, luego diseño.</span></blockquote>
+<blockquote><strong>Lola:</strong><span>Después de ajustar selección de gráfica según la pregunta, ¿qué podría cambiar la decisión?</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Toca usar barras ordenadas y revisar primero las categorías de mayor contribución; si cambia el dato, volvemos a decidir.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>El pastel tenía 27 rebanadas y ninguna venía con tenedor.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> elige la gráfica por la tarea de lectura, no por lo vistosa que se vea.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="67_compra_de_900_refrigeradores.html">Anterior: La compra de 900 refrigeradores</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="69_crecimiento_gigante_de_dos_puntos.html">Siguiente: El crecimiento gigante de dos puntos</a>
+  </nav>
+</body>
+</html>

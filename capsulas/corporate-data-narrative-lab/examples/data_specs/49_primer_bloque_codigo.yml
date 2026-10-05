@@ -1,0 +1,9 @@
+case_id: "49"
+title: "El bloque de codigo que si hizo algo"
+concept: "que es programar y ejecutar instrucciones"
+scenario: "primer_bloque_codigo"
+seed: 149
+observations: 1000
+variables: [exercise_id, instruction_type, runs, correct_output]
+key_values: {idea_success: 25, steps_success: 58, code_success: 91}
+synthetic_data: true

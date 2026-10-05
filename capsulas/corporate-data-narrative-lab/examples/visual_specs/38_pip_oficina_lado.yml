@@ -1,0 +1,10 @@
+title: "Pip instalo en la oficina de al lado"
+case_id: "38"
+chart_type: "package_envs"
+question_answered: "Por que conviene usar python -m pip dentro del entorno activo."
+comfortable_read: "Uno de los dos miente."
+missing_context: "El comando de siempre apunta al lugar de siempre."
+correct_read: "En el global, mientras el proyecto corre en el virtual."
+decision_changed: "usar python -m pip dentro del entorno activo y guardar requirements"
+annotations: ["pip global", "python -m pip", "sin venv"]
+synthetic_data: true

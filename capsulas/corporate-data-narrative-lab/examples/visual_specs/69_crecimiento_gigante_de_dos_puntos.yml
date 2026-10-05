@@ -1,0 +1,10 @@
+title: "El crecimiento gigante de dos puntos"
+case_id: "69"
+chart_type: "barras con escala completa"
+question_answered: "¿Qué impresión cambia cuando vemos 78% y 80% desde una escala que comienza en cero?"
+comfortable_read: "La altura relativa sugiere una mejora enorme."
+missing_context: "El eje original comenzaba en 76% y magnificaba la distancia."
+correct_read: "La conversión aumentó dos puntos porcentuales, de 78% a 80%."
+decision_changed: "evaluar costo, intervalo y valor absoluto antes de ampliar el cambio"
+annotations: ["antes", "después"]
+synthetic_data: true

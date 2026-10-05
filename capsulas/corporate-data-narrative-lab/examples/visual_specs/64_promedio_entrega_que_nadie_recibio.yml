@@ -1,0 +1,10 @@
+title: "El promedio de entrega que nadie recibió"
+case_id: "64"
+chart_type: "barras de percentiles"
+question_answered: "¿Qué número explica mejor por qué siguen llegando reclamos si el promedio es de cinco días?"
+comfortable_read: "El promedio de cinco días sugiere que la operación está controlada."
+missing_context: "Una parte de los pedidos tarda mucho más que el centro de la distribución."
+correct_read: "El diez por ciento más lento tarda al menos 16 días."
+decision_changed: "publicar una promesa por percentil y atacar la cola de entregas tardías"
+annotations: ["mediana", "promedio", "percentil 90"]
+synthetic_data: true

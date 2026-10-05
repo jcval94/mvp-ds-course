@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El asistente que arreglo tambien lo que servia</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El asistente arreglo el bug y de paso redecoró la cocina.">
+  <main>
+<h1>El asistente que arreglo tambien lo que servia</h1>
+<section>
+<h2>El bug desaparecio</h2>
+<blockquote><strong>Iris:</strong><span>El asistente ya corrigio el error.</span></blockquote>
+<blockquote><strong>Gael:</strong><span>Tambien cambio nombres, estilos y dos helpers.</span></blockquote>
+<blockquote><strong>Marta:</strong><span>Seguro lo vio necesario.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>O vio oportunidad.</span></blockquote>
+<blockquote><strong>Marta:</strong><span>El resultado se ve mas limpio.</span></blockquote>
+<blockquote><strong>el tech lead:</strong><span>La revision se ve mas imposible.</span></blockquote>
+<p>Se mezclan refactors, cambios visuales y bugfix en un solo parche dificil de revisar. El costo no era abstracto: alguien ya estaba corrigiendo a mano lo que la primera decisión había dejado pasar.</p>
+</section>
+<section>
+<h2>Tambien desaparecio medio estilo</h2>
+<blockquote><strong>Marta:</strong><span>Aceptamos todo si pasan pruebas.</span></blockquote>
+<blockquote><strong>Gael:</strong><span>Las pruebas no cubren el cambio visual.</span></blockquote>
+<blockquote><strong>Marta:</strong><span>Entonces confiamos en su gusto.</span></blockquote>
+<blockquote><strong>el tech lead:</strong><span>Su gusto movio un boton que ventas usa diario.</span></blockquote>
+<blockquote><strong>Marta:</strong><span>Pero arreglo el bug principal.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>Nadie discute eso; discutimos todo lo demas.</span></blockquote>
+<blockquote><strong>Gael:</strong><span>Se mezclan refactors, cambios visuales y bugfix en un solo parche dificil de revisar.</span></blockquote>
+<blockquote><strong>el tech lead:</strong><span>Quiero ver diff revisado antes de decidir.</span></blockquote>
+<p>Iris compara diff solicitado contra diff real por archivo. Con la medida adecuada, el equipo identificó qué supuesto fallaba y pudo revisar la decisión sin empezar de cero.</p>
+</section>
+<section>
+<h2>El diff cuenta la verdad</h2>
+<blockquote><strong>Iris:</strong><span>Separe el diff por alcance pedido y alcance extra.</span></blockquote>
+<blockquote><strong>el tech lead:</strong><span>Cuanto cambio venia de la tarea.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>La mitad del parche era sorpresa.</span></blockquote>
+<blockquote><strong>Gael:</strong><span>Ahora entiendo por qué si el asistente mejora el codigo, cualquier cambio adicional es bienvenido.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>Respondía otra pregunta; no servía para dar alcance explicito, revisar diff y separar cambios no pedidos.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="diff revisado">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">diff revisado</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="99" width="174" height="161" fill="#286d9b"/>
+  <text x="157" y="89" font-size="18" text-anchor="middle">48</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">pedido</text>
+  <rect x="272" y="85" width="174" height="175" fill="#d58b2f"/>
+  <text x="359" y="75" font-size="18" text-anchor="middle">52</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">extra</text>
+  <rect x="474" y="112" width="174" height="148" fill="#4c8b63"/>
+  <text x="561" y="102" font-size="18" text-anchor="middle">44</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">aceptado</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">El diff debe coincidir con la intencion.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Gael:</strong><span>Que debes revisar antes de aceptar cambios generados por un asistente de codigo.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia separa archivos tocados por la tarea y archivos modificados por iniciativa del asistente. Trabajar con Codex, Cursor, Claude Code o Gemini CLI exige especificar alcance, revisar diff, correr pruebas y rechazar cambios no pedidos.</p>
+</section>
+<section>
+<h2>Pedir con bardas</h2>
+<blockquote><strong>el tech lead:</strong><span>El parche se reduce al bug y el resto va a otra tarea.</span></blockquote>
+<blockquote><strong>el tech lead:</strong><span>Dejen por escrito quién va a dar alcance explicito, revisar diff y separar cambios no pedidos.</span></blockquote>
+<blockquote><strong>Marta:</strong><span>Perdemos una limpieza gratis.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>Ganamos una revision que si cabe en la cabeza.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>¿Qué cambiaremos después de revisar diff revisado?</span></blockquote>
+<blockquote><strong>Gael:</strong><span>La decisión es dar alcance explicito, revisar diff y separar cambios no pedidos.</span></blockquote>
+<blockquote><strong>Marta:</strong><span>Y volvemos a medir control de cambios al trabajar con asistentes de codigo antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Gael:</strong><span>El asistente arreglo el bug y de paso redecoró la cocina.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> con asistentes de codigo, controla alcance, revisa diff y conserva decision humana.</p>
+</section>
+  </main>
+</body>
+</html>

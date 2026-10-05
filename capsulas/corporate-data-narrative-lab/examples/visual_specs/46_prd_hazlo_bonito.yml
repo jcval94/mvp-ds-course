@@ -1,0 +1,10 @@
+title: "El PRD de hazlo bonito"
+case_id: "46"
+chart_type: "acceptance_criteria"
+question_answered: "Que debe incluir un PRD para que un agente no confunda gusto con objetivo."
+comfortable_read: "Bonito es importante."
+missing_context: "Claro para que accion."
+correct_read: "Con criterios claros cambia menos y resuelve mejor."
+decision_changed: "reescribir PRD con usuario, problema, decision, no objetivos y aceptacion"
+annotations: ["vago", "con usuario", "con decision", "con aceptacion"]
+synthetic_data: true

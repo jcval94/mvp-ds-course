@@ -1,0 +1,9 @@
+case_id: "40"
+title: "La grafica que cambio sola"
+concept: "diferencias reproducibles en codigo y datos"
+scenario: "grafica_cambio_sola"
+seed: 140
+observations: 1000
+variables: [output_id, code_commit, data_snapshot, parameters]
+key_values: {code_changes: 0, data_changed_rows: 6300, parameter_changes: 12}
+synthetic_data: true

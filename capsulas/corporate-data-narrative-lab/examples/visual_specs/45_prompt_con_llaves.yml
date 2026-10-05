@@ -1,0 +1,10 @@
+title: "El prompt con llaves"
+case_id: "45"
+chart_type: "prompt_boundaries"
+question_answered: "Que limites debe incluir una instruccion para trabajar con un asistente sin perder control."
+comfortable_read: "Era parte del problema."
+missing_context: "Eso no es permiso, es silencio peligroso."
+correct_read: "En prompts abiertos, sobre todo cerca de configuracion."
+decision_changed: "especificar archivos permitidos, no tocar secretos y pedir confirmacion ante riesgo"
+annotations: ["prompt abierto", "con limites", "con pruebas"]
+synthetic_data: true

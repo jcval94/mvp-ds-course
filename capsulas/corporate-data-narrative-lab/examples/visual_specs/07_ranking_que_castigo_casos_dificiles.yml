@@ -1,0 +1,10 @@
+title: "El ranking donde convenía hacerse menso"
+case_id: "07"
+chart_type: "complexity_scatter"
+question_answered: "¿La velocidad cambia con la dificultad?"
+comfortable_read: "Luis cierra más casos por día."
+missing_context: "Sara recibe casos más difíciles y reabre menos."
+correct_read: "El ranking mezcla desempeño con complejidad."
+decision_changed: "Comparar grupos semejantes y exigir calidad."
+annotations: ["Luis 12", "Sara 5 y 94% calidad"]
+synthetic_data: true

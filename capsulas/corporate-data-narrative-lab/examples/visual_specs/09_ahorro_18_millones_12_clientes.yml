@@ -1,0 +1,10 @@
+title: "Los 18 millones que salieron de doce clientes"
+case_id: "09"
+chart_type: "eligibility_bars"
+question_answered: "¿A cuántos clientes aplica el ahorro?"
+comfortable_read: "15,000 por 1,200 produce 18 millones."
+missing_context: "Solo 80 clientes son elegibles."
+correct_read: "La proyección debe usar población elegible."
+decision_changed: "Usar rango y descontar costos."
+annotations: ["1,200 totales", "80 elegibles", "12 observados"]
+synthetic_data: true

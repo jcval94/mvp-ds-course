@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El detector 99% correcto que encontró cero fraudes</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">80</span>
+      <span class="topic-chip">Clases desbalanceadas</span>
+    </div>
+    <h1>El detector 99% correcto que encontró cero fraudes</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> desbalance de clases y métricas de clasificación</p>
+      <p><strong>Pregunta de la grafica:</strong> ¿Qué umbral encuentra más fraude sin rebasar la capacidad diaria de revisión?</p>
+      <p><strong>Lectura correcta:</strong> El umbral operativo detecta 71 de cien fraudes dentro de capacidad.</p>
+      <p><strong>Decision que cambia:</strong> mantener revisión humana y elegir umbral según fraude detectado y capacidad</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El detector 99% correcto que encontró cero fraudes</h1>
+<section>
+<h2>Noventa y nueve</h2>
+<blockquote><strong>el director de riesgo:</strong><span>El detector tiene 99% de exactitud; podemos automatizar.</span></blockquote>
+<blockquote><strong>Lía:</strong><span>¿Cuántos fraudes encontró?</span></blockquote>
+<blockquote><strong>Chucho:</strong><span>Ninguno en la muestra final.</span></blockquote>
+<blockquote><strong>Vania:</strong><span>Entonces, ¿qué acertó?</span></blockquote>
+<blockquote><strong>Chucho:</strong><span>Todos los casos normales, que son casi todos.</span></blockquote>
+<blockquote><strong>Lía:</strong><span>Predecir no fraude para cada operación también logra 99%.</span></blockquote>
+<p>La exactitud había pasado todas las diapositivas sin una sola pregunta sobre los casos positivos. En cien mil operaciones, la clase dominante era tan grande que podía ocultar un detector completamente inmóvil.</p>
+</section>
+<section>
+<h2>La respuesta única</h2>
+<blockquote><strong>el director de riesgo:</strong><span>La cifra del proveedor sigue siendo correcta.</span></blockquote>
+<blockquote><strong>Vania:</strong><span>Correcta para contar tranquilidad, inútil para encontrar fraude.</span></blockquote>
+<blockquote><strong>Chucho:</strong><span>Si bajo el umbral, aparecerán muchas alertas.</span></blockquote>
+<blockquote><strong>Lía:</strong><span>Por eso necesitamos medir detección y carga de revisión.</span></blockquote>
+<blockquote><strong>el director de riesgo:</strong><span>¿Cuántos fraudes podemos dejar pasar?</span></blockquote>
+<blockquote><strong>Vania:</strong><span>No cero, pero tampoco cien; depende del daño y la capacidad.</span></blockquote>
+<p>Bajar el umbral no era una decisión puramente técnica. Cada alerta terminaba en una mesa con capacidad limitada y cada error podía retener una compra legítima o dejar pasar una pérdida.</p>
+</section>
+<section>
+<h2>Contar los fraudes</h2>
+<blockquote><strong>Lía:</strong><span>Con el umbral actual detectamos cero de cada cien fraudes.</span></blockquote>
+<blockquote><strong>Chucho:</strong><span>El umbral operativo detecta 71 y manda 430 alertas diarias.</span></blockquote>
+<blockquote><strong>Vania:</strong><span>El equipo puede revisar 450.</span></blockquote>
+<blockquote><strong>el director de riesgo:</strong><span>Ese punto sí conecta modelo y operación.</span></blockquote>
+<blockquote><strong>Lía:</strong><span>Y aún requiere monitorear falsos positivos por segmento.</span></blockquote>
+<p>La nueva comparación puso al centro los cien fraudes reales. El modelo dejó de esconderse detrás de operaciones normales y tuvo que mostrar cuántos casos encontraba y cuántas revisiones generaba.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Casos reales detectados por cada cien fraudes">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Casos reales detectados por cada cien fraudes</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="250" width="184" height="0" fill="#286d9b"/>
+  <text x="152" y="240" font-size="17" text-anchor="middle">0 por cien</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">umbral actual</text>
+  <rect x="268" y="99" width="184" height="151" fill="#d58b2f"/>
+  <text x="360" y="89" font-size="17" text-anchor="middle">71 por cien</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">umbral operativo</text>
+  <rect x="476" y="90" width="184" height="160" fill="#4c8b63"/>
+  <text x="568" y="80" font-size="17" text-anchor="middle">75 por cien</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">capacidad</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">Accuracy alto puede convivir con cero fraudes detectados.</text>
+</svg>
+<blockquote class="learning-pause"><strong>el director de riesgo:</strong><span>¿Qué umbral encuentra más fraude sin rebasar la capacidad diaria de revisión?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La exactitud de 99% se obtiene incluso prediciendo siempre la clase mayoritaria. El umbral operativo detecta 71 de cada cien fraudes y produce 430 alertas, dentro de una capacidad de 450. Recall, precisión y carga permiten evaluar la decisión real.</p>
+</section>
+<section>
+<h2>Una métrica con trabajo</h2>
+<blockquote><strong>el director de riesgo:</strong><span>No retiramos a las personas de revisión.</span></blockquote>
+<blockquote><strong>Vania:</strong><span>Usaremos el score para ordenar alertas dentro de capacidad.</span></blockquote>
+<blockquote><strong>Chucho:</strong><span>El reporte mostrará recall, precisión y matriz de confusión.</span></blockquote>
+<blockquote><strong>Lía:</strong><span>También comparará contra la regla de siempre no fraude.</span></blockquote>
+<blockquote><strong>el director de riesgo:</strong><span>La métrica principal debe encontrar lo que buscamos.</span></blockquote>
+<blockquote><strong>Lía:</strong><span>Después de ajustar desbalance de clases y métricas de clasificación, ¿qué podría cambiar la decisión?</span></blockquote>
+<blockquote><strong>Chucho:</strong><span>Toca mantener revisión humana y elegir umbral según fraude detectado y capacidad; si cambia el dato, volvemos a decidir.</span></blockquote>
+<blockquote><strong>Chucho:</strong><span>El modelo acertaba siempre que no pasara nada, que era casi siempre.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> en clases raras, evalúa los errores que importan y no solo el porcentaje total de aciertos.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="79_examen_con_respuestas_de_practica.html">Anterior: El examen con respuestas de práctica</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="81_alerta_para_cada_cliente.html">Siguiente: Una alerta para cada cliente</a>
+  </nav>
+</body>
+</html>

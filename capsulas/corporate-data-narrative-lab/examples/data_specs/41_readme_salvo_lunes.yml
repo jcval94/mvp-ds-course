@@ -1,0 +1,9 @@
+case_id: "41"
+title: "El README que salvo el lunes"
+concept: "documentacion minima reproducible"
+scenario: "readme_salvo_lunes"
+seed: 141
+observations: 1000
+variables: [project_id, has_setup, has_commands, expected_output]
+key_values: {new_user_success_without: 18, new_user_success_with: 87, setup_steps: 5}
+synthetic_data: true

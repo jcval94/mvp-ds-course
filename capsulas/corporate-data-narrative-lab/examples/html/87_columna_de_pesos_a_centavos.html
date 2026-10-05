@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La columna que cambió de pesos a centavos</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El pipeline llegó a tiempo; los pesos llegaron disfrazados de centavos.">
+  <main>
+<h1>La columna que cambió de pesos a centavos</h1>
+<section>
+<h2>El mejor día del siglo</h2>
+<blockquote><strong>la dueña de facturación:</strong><span>El ingreso de ayer creció diez mil por ciento.</span></blockquote>
+<blockquote><strong>Mayra:</strong><span>Las transacciones no crecieron.</span></blockquote>
+<blockquote><strong>Ciro:</strong><span>El pipeline terminó sin errores.</span></blockquote>
+<blockquote><strong>Vale:</strong><span>Cada importe viene cien veces más grande.</span></blockquote>
+<blockquote><strong>la dueña de facturación:</strong><span>¿Cambió el precio?</span></blockquote>
+<blockquote><strong>Mayra:</strong><span>Cambió la unidad: ahora el proveedor envía centavos.</span></blockquote>
+<p>Todos los indicadores técnicos estaban verdes: archivo recibido, columnas presentes, filas cargadas y tarea terminada. La anomalía vivía fuera de esas comprobaciones, en el significado económico de una cifra.</p>
+</section>
+<section>
+<h2>Todo cargó verde</h2>
+<blockquote><strong>Ciro:</strong><span>La columna todavía se llama amount.</span></blockquote>
+<blockquote><strong>Vale:</strong><span>El nombre sobrevivió; el significado no.</span></blockquote>
+<blockquote><strong>Ciro:</strong><span>Podemos dividir entre cien y cerrar.</span></blockquote>
+<blockquote><strong>Mayra:</strong><span>Primero confirmemos desde qué archivo y fecha aplica.</span></blockquote>
+<blockquote><strong>la dueña de facturación:</strong><span>¿Hay otros consumidores de esa columna?</span></blockquote>
+<blockquote><strong>Vale:</strong><span>Contabilidad, alertas de fraude y conciliación bancaria.</span></blockquote>
+<p>Dividir entre cien arreglaba el reporte principal, pero podía dejar tres sistemas con reglas distintas. Antes de tocar el dato, Mayra buscó la versión exacta del cambio y todos sus consumidores.</p>
+</section>
+<section>
+<h2>Revisar el contrato</h2>
+<blockquote><strong>Mayra:</strong><span>Comparé mediana, rango y versión del esquema.</span></blockquote>
+<blockquote><strong>Ciro:</strong><span>El salto coincide con la versión 3 del proveedor.</span></blockquote>
+<blockquote><strong>Vale:</strong><span>La documentación confirma centavos desde las cero horas.</span></blockquote>
+<blockquote><strong>la dueña de facturación:</strong><span>Entonces corregimos una sola vez en la entrada.</span></blockquote>
+<blockquote><strong>Mayra:</strong><span>Y bloqueamos la carga si unidad o rango rompen el contrato.</span></blockquote>
+<p>La mediana saltó de 480 pesos a 48,000 unidades numéricas en el mismo minuto en que cambió el esquema. Esa ruptura era suficientemente grande para detener la carga antes de llegar a cualquier reporte.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Ingreso mediano antes y después del cambio de unidad">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Ingreso mediano antes y después del cambio de unidad</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="248" width="184" height="2" fill="#286d9b"/>
+  <text x="152" y="238" font-size="17" text-anchor="middle">480 unidades</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">pesos esperados</text>
+  <rect x="268" y="90" width="184" height="160" fill="#d58b2f"/>
+  <text x="360" y="80" font-size="17" text-anchor="middle">48000 unidades</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">valor recibido</text>
+  <rect x="476" y="248" width="184" height="2" fill="#4c8b63"/>
+  <text x="568" y="238" font-size="17" text-anchor="middle">480 unidades</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">valor normalizado</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">El esquema conservó el nombre y cambió el significado.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Vale:</strong><span>¿Qué validación habría detenido el archivo antes de publicar ingresos cien veces mayores?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La carga técnica fue exitosa, pero el contrato no verificaba unidad ni rango. La mediana salta de 480 pesos a un valor equivalente a 48,000 porque la nueva versión usa centavos. Un contrato versionado y pruebas de distribución permiten poner el archivo en cuarentena.</p>
+</section>
+<section>
+<h2>Fallar con claridad</h2>
+<blockquote><strong>la dueña de facturación:</strong><span>El cierre esperará la recarga validada.</span></blockquote>
+<blockquote><strong>Ciro:</strong><span>Versionaré el esquema con unidad explícita.</span></blockquote>
+<blockquote><strong>Vale:</strong><span>Los archivos incompatibles irán a cuarentena.</span></blockquote>
+<blockquote><strong>Mayra:</strong><span>Las pruebas compararán rango, volumen y continuidad antes de publicar.</span></blockquote>
+<blockquote><strong>la dueña de facturación:</strong><span>Prefiero una carga detenida que un ingreso imaginario.</span></blockquote>
+<blockquote><strong>Ciro:</strong><span>Sobre contratos de datos y confiabilidad de pipelines, ¿qué dato revisamos en el siguiente corte?</span></blockquote>
+<blockquote><strong>Mayra:</strong><span>Primero vamos a establecer contrato versionado, pruebas de rango y cuarentena ante cambios incompatibles; luego comparamos el resultado.</span></blockquote>
+<blockquote><strong>Ciro:</strong><span>El pipeline llegó a tiempo; los pesos llegaron disfrazados de centavos.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> un pipeline confiable valida significado, unidad y esquema, no solo que el archivo llegue.</p>
+</section>
+  </main>
+</body>
+</html>

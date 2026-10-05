@@ -1,0 +1,9 @@
+case_id: "70"
+title: "El semáforo con catorce verdes"
+concept: "color, jerarquía visual y categorías"
+scenario: "semaforo_con_catorce_verdes"
+seed: 270
+observations: 54
+variables: ["branch", "raw_status", "decision_status", "inventory_level"]
+key_values: {"normal": 42, "revisar hoy": 9, "detener": 3}
+synthetic_data: true

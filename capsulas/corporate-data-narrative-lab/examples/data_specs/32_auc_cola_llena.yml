@@ -1,0 +1,9 @@
+case_id: "32"
+title: "El AUC alto y la cola llena"
+concept: "metrica tecnica contra capacidad operativa"
+scenario: "auc_cola_llena"
+seed: 132
+observations: 1000
+variables: [case_id, score, review_capacity, business_value]
+key_values: {auc: 91, review_capacity: 1200, weekly_alerts: 3600}
+synthetic_data: true

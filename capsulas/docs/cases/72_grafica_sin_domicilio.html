@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La gráfica sin domicilio</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">72</span>
+      <span class="topic-chip">Anotaciones y contexto</span>
+    </div>
+    <h1>La gráfica sin domicilio</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> anotaciones y contexto para una decisión</p>
+      <p><strong>Pregunta de la grafica:</strong> ¿Qué dato adicional permite distinguir entre un problema de capacitación y uno del formulario?</p>
+      <p><strong>Lectura correcta:</strong> Los errores suben de 8 a 29 por mil después del despliegue del formulario.</p>
+      <p><strong>Decision que cambia:</strong> corregir el formulario nuevo y medir la recuperación durante dos semanas</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>La gráfica sin domicilio</h1>
+<section>
+<h2>La línea que bajaba</h2>
+<blockquote><strong>el jefe de operaciones:</strong><span>Esta caída demuestra que la capacitación falló.</span></blockquote>
+<blockquote><strong>Rocío:</strong><span>¿Caída de qué y en qué semana?</span></blockquote>
+<blockquote><strong>Balam:</strong><span>La línea viene del reporte mensual.</span></blockquote>
+<blockquote><strong>Eva:</strong><span>No tiene eje horizontal ni unidad.</span></blockquote>
+<blockquote><strong>el jefe de operaciones:</strong><span>Pero se ve que algo empeoró.</span></blockquote>
+<blockquote><strong>Rocío:</strong><span>Sí. Lo que no se ve es qué, cuándo ni por qué.</span></blockquote>
+<p>La línea descendía con decisión sobre un fondo blanco. Sin escala ni fechas, servía para confirmar cualquier historia que ya estuviera en la sala, incluida la más cómoda: volver a capacitar.</p>
+</section>
+<section>
+<h2>Culpar al curso</h2>
+<blockquote><strong>Balam:</strong><span>Podemos repetir el curso el lunes.</span></blockquote>
+<blockquote><strong>Eva:</strong><span>El curso terminó dos semanas antes de la caída.</span></blockquote>
+<blockquote><strong>Balam:</strong><span>Entonces hacemos otro para reforzar.</span></blockquote>
+<blockquote><strong>Rocío:</strong><span>Ese viernes cambiamos el formulario de captura.</span></blockquote>
+<blockquote><strong>el jefe de operaciones:</strong><span>¿La línea empieza ahí?</span></blockquote>
+<blockquote><strong>Eva:</strong><span>Exactamente; el campo de unidades quedó debajo del botón guardar.</span></blockquote>
+<p>Eva recuperó el registro de despliegues y encontró una coincidencia precisa. El salto de errores comenzó horas después de mover un campo, no durante las semanas en que ocurrió el curso.</p>
+</section>
+<section>
+<h2>Poner fecha al cambio</h2>
+<blockquote><strong>Rocío:</strong><span>Agregué fecha, errores por mil y una marca del despliegue.</span></blockquote>
+<blockquote><strong>Balam:</strong><span>Ahora el salto ocurre justo después del formulario nuevo.</span></blockquote>
+<blockquote><strong>Eva:</strong><span>También puse la meta anterior como referencia.</span></blockquote>
+<blockquote><strong>el jefe de operaciones:</strong><span>Eso señala una revisión de interfaz, no otro curso.</span></blockquote>
+<blockquote><strong>Rocío:</strong><span>La anotación conecta el dato con un hecho verificable.</span></blockquote>
+<p>La misma línea, ahora con domicilio, dejó de ser una señal vaga. Unidad, fecha y anotación situaron el problema en un formulario concreto que el equipo podía probar y corregir.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Errores por mil capturas alrededor del cambio de sistema">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Errores por mil capturas alrededor del cambio de sistema</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="211" width="184" height="39" fill="#286d9b"/>
+  <text x="152" y="201" font-size="17" text-anchor="middle">7 por mil</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">antes</text>
+  <rect x="268" y="206" width="184" height="44" fill="#d58b2f"/>
+  <text x="360" y="196" font-size="17" text-anchor="middle">8 por mil</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">despliegue</text>
+  <rect x="476" y="90" width="184" height="160" fill="#4c8b63"/>
+  <text x="568" y="80" font-size="17" text-anchor="middle">29 por mil</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">después</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">El salto comienza después del cambio de formulario.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Balam:</strong><span>¿Qué dato adicional permite distinguir entre un problema de capacitación y uno del formulario?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La forma de una línea no explica su causa. Al mostrar errores por cada mil capturas, fechas y el momento del cambio de sistema, el salto queda alineado con el nuevo formulario. La anotación no prueba sola la causa, pero dirige una prueba concreta y evita repetir un curso sin evidencia.</p>
+</section>
+<section>
+<h2>Una anotación accionable</h2>
+<blockquote><strong>el jefe de operaciones:</strong><span>Movemos el campo y probamos con diez usuarios.</span></blockquote>
+<blockquote><strong>Eva:</strong><span>Mediré errores por mil durante dos semanas.</span></blockquote>
+<blockquote><strong>Balam:</strong><span>La capacitación queda fuera de esta corrección.</span></blockquote>
+<blockquote><strong>Rocío:</strong><span>Puede evaluarse aparte, con su propio antes y después.</span></blockquote>
+<blockquote><strong>el jefe de operaciones:</strong><span>Toda tendencia llevará unidad, periodo y eventos relevantes.</span></blockquote>
+<blockquote><strong>Rocío:</strong><span>Sobre anotaciones y contexto para una decisión, ¿qué dato revisamos en el siguiente corte?</span></blockquote>
+<blockquote><strong>Balam:</strong><span>Primero vamos a corregir el formulario nuevo y medir la recuperación durante dos semanas; luego comparamos el resultado.</span></blockquote>
+<blockquote><strong>Balam:</strong><span>La gráfica tenía flecha, pero nadie le había puesto dirección.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> anota el evento, la unidad y la referencia que permiten actuar sobre una tendencia.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="71_dos_lineas_que_parecian_novios.html">Anterior: Las dos líneas que parecían novios</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="73_encuesta_del_qr_detras_del_recibo.html">Siguiente: La encuesta del QR detrás del recibo</a>
+  </nav>
+</body>
+</html>

@@ -1,0 +1,9 @@
+case_id: "26"
+title: "El agente que cerraba tickets sin leerlos"
+concept: "agentes, objetivos mal definidos y metrica proxy"
+scenario: "agente_cerraba_tickets"
+seed: 126
+observations: 1000
+variables: [ticket_id, closed_by_agent, reopened, resolution_confirmed]
+key_values: {closure_rate: 91, reopen_rate: 37, confirmed_resolution: 54}
+synthetic_data: true

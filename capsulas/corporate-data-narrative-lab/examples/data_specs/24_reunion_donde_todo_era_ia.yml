@@ -1,0 +1,9 @@
+case_id: "24"
+title: "La reunion donde todo era IA"
+concept: "diferencias entre IA, aprendizaje automatico, generativa, RAG y agentes"
+scenario: "reunion_donde_todo_era_ia"
+seed: 124
+observations: 1000
+variables: [project_id, capability_type, input, output, action_scope]
+key_values: {projects_reviewed: 23, agent_projects: 5, rag_projects: 6}
+synthetic_data: true

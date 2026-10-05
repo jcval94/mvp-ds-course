@@ -1,0 +1,10 @@
+title: "La lista que no sabia de quien era cada dato"
+case_id: "50"
+chart_type: "data_structures"
+question_answered: "Cuando conviene usar una variable, una lista o un diccionario."
+comfortable_read: "Mientras no movamos nada, funciona."
+missing_context: "Hasta que agregas otro producto y se recorre todo."
+correct_read: "El diccionario ayuda cuando cada valor necesita nombre."
+decision_changed: "usar variables para valores, listas para colecciones y diccionarios para datos con nombre"
+annotations: ["lista suelta", "variables", "diccionario"]
+synthetic_data: true

@@ -1,0 +1,10 @@
+title: "El experimento que ganó en jueves"
+case_id: "75"
+chart_type: "barras de réplica experimental"
+question_answered: "¿Qué nos dice la réplica sobre el aumento de 14% encontrado entre tantos cortes?"
+comfortable_read: "Un segmento con 14% parece demostrar que la variante funciona."
+missing_context: "Se exploraron 36 combinaciones antes de elegir ese resultado."
+correct_read: "La réplica predefinida obtiene 1% y no confirma el efecto inicial."
+decision_changed: "declarar hipótesis y métrica antes de probar, y exigir réplica para hallazgos exploratorios"
+annotations: ["hallazgo inicial", "réplica", "conversión general"]
+synthetic_data: true

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El modelo prendido y perdido</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">86</span>
+      <span class="topic-chip">Drift y monitoreo</span>
+    </div>
+    <h1>El modelo prendido y perdido</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> monitoreo de desempeño y drift</p>
+      <p><strong>Pregunta de la grafica:</strong> ¿Qué señal muestra que el modelo falla aunque el servicio siga disponible?</p>
+      <p><strong>Lectura correcta:</strong> La precisión baja a 49% mientras disponibilidad permanece en 100%.</p>
+      <p><strong>Decision que cambia:</strong> monitorear servicio, datos y resultado; activar revisión ante drift sostenido</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El modelo prendido y perdido</h1>
+<section>
+<h2>Cien por ciento disponible</h2>
+<blockquote><strong>el gerente de plataforma:</strong><span>La API tuvo 100% de disponibilidad este trimestre.</span></blockquote>
+<blockquote><strong>Tania:</strong><span>La precisión de recomendaciones cayó de 72% a 49%.</span></blockquote>
+<blockquote><strong>Eder:</strong><span>Eso no aparece en infraestructura.</span></blockquote>
+<blockquote><strong>Raquel:</strong><span>Aparece en clientes que ignoran la primera opción.</span></blockquote>
+<blockquote><strong>el gerente de plataforma:</strong><span>¿Cuándo empezó?</span></blockquote>
+<blockquote><strong>Tania:</strong><span>Después de cambiar categorías y retirar 18% del catálogo.</span></blockquote>
+<p>El tablero de plataforma estaba completamente verde. En otro sistema, la tasa de aceptación llevaba doce semanas bajando sin que ambos equipos hubieran colocado las curvas en la misma conversación.</p>
+</section>
+<section>
+<h2>Recomendaciones viejas</h2>
+<blockquote><strong>Eder:</strong><span>Podemos reiniciar el servicio.</span></blockquote>
+<blockquote><strong>Tania:</strong><span>El servicio responde; no está enfermo de memoria.</span></blockquote>
+<blockquote><strong>Raquel:</strong><span>Sigue recomendando productos que ya no tienen sustituto.</span></blockquote>
+<blockquote><strong>el gerente de plataforma:</strong><span>¿No medíamos cambios en las entradas?</span></blockquote>
+<blockquote><strong>Eder:</strong><span>Medíamos nulos y latencia, no distribución de categorías.</span></blockquote>
+<blockquote><strong>Tania:</strong><span>Tampoco esperábamos etiquetas para medir acierto real.</span></blockquote>
+<p>Reiniciar era el remedio habitual para un servicio caído, pero aquí cada solicitud recibía respuesta. El problema estaba en el mundo que la respuesta intentaba representar: el catálogo ya era otro.</p>
+</section>
+<section>
+<h2>Tres señales</h2>
+<blockquote><strong>Tania:</strong><span>Puse juntas disponibilidad, drift de categorías y precisión semanal.</span></blockquote>
+<blockquote><strong>Raquel:</strong><span>La API permanece arriba mientras la precisión baja 23 puntos.</span></blockquote>
+<blockquote><strong>Eder:</strong><span>El drift cruza el límite la semana del nuevo catálogo.</span></blockquote>
+<blockquote><strong>el gerente de plataforma:</strong><span>Esa combinación sí debió abrir una revisión.</span></blockquote>
+<blockquote><strong>Tania:</strong><span>Podemos reentrenar y evaluar contra una regla de respaldo.</span></blockquote>
+<p>Las tres señales contaron una secuencia coherente. Primero cambió la mezcla de categorías; después bajó la precisión; durante todo el periodo, la disponibilidad siguió perfecta y por eso nunca activó una alerta.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Disponibilidad y precisión después del cambio de catálogo">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Disponibilidad y precisión después del cambio de catálogo</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="135" width="184" height="115" fill="#286d9b"/>
+  <text x="152" y="125" font-size="17" text-anchor="middle">72 %</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">precisión anterior</text>
+  <rect x="268" y="172" width="184" height="78" fill="#d58b2f"/>
+  <text x="360" y="162" font-size="17" text-anchor="middle">49 %</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">precisión actual</text>
+  <rect x="476" y="90" width="184" height="160" fill="#4c8b63"/>
+  <text x="568" y="80" font-size="17" text-anchor="middle">100 %</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">disponibilidad</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">Una API disponible puede servir predicciones que ya no funcionan.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Raquel:</strong><span>¿Qué señal muestra que el modelo falla aunque el servicio siga disponible?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La disponibilidad solo confirma que la API responde. Después del cambio de catálogo, el drift de categorías aumenta y la precisión cae de 72% a 49%. Monitorear servicio, entradas y resultados permite distinguir una falla técnica de un modelo que envejeció.</p>
+</section>
+<section>
+<h2>Una alerta que importa</h2>
+<blockquote><strong>el gerente de plataforma:</strong><span>Activaremos monitoreo en tres capas.</span></blockquote>
+<blockquote><strong>Eder:</strong><span>Servicio para latencia y errores; datos para cambios de entrada.</span></blockquote>
+<blockquote><strong>Raquel:</strong><span>Resultado para aceptación y compra cuando maduren etiquetas.</span></blockquote>
+<blockquote><strong>Tania:</strong><span>Y una alarma solo cuando exista una acción y un responsable.</span></blockquote>
+<blockquote><strong>el gerente de plataforma:</strong><span>Mientras reentrenamos, usaremos populares disponibles por categoría.</span></blockquote>
+<blockquote><strong>Tania:</strong><span>Después de ajustar monitoreo de desempeño y drift, ¿qué podría cambiar la decisión?</span></blockquote>
+<blockquote><strong>Eder:</strong><span>Toca monitorear servicio, datos y resultado; activar revisión ante drift sostenido; si cambia el dato, volvemos a decidir.</span></blockquote>
+<blockquote><strong>Eder:</strong><span>El modelo nunca se cayó; nomás dejó de saber dónde estaba parado.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> monitorea que el sistema responda, que los datos sean comparables y que la decisión siga funcionando.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="85_credito_negado_por_variable_47.html">Anterior: El crédito negado por la variable 47</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="87_columna_de_pesos_a_centavos.html">Siguiente: La columna que cambió de pesos a centavos</a>
+  </nav>
+</body>
+</html>

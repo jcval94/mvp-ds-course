@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La IA que encontraba fraude en todas partes</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="La IA no dejó pasar fraude; tampoco dejó pasar a casi nadie.">
+  <main>
+<h1>La IA que encontraba fraude en todas partes</h1>
+<section>
+<h2>Noventa y ocho por ciento</h2>
+<blockquote><strong>La directora:</strong><span>El modelo detecta noventa y ocho por ciento del fraude. Ya estamos.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>¿Cuántas operaciones está mandando a revisión?</span></blockquote>
+<blockquote><strong>Toño:</strong><span>Como ocho mil por semana.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>Podemos revisar mil doscientas.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>¿Cuántas de las ocho mil sí son fraude?</span></blockquote>
+<blockquote><strong>Toño:</strong><span>Doscientas cuarenta.</span></blockquote>
+<blockquote><strong>La directora:</strong><span>Pero detectamos casi todo.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>Sí. También detectamos siete mil setecientas sesenta personas que no hicieron nada.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>Son casos preventivos.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>Para ellos el bloqueo se siente bastante definitivo.</span></blockquote>
+<p>El fraude era raro: unas doscientas cincuenta operaciones entre cien mil. El modelo encontraba casi todas, pero marcaba cualquier cosa remotamente extraña. En la presentación eso se veía como sensibilidad. En Operación se veía como una fila que ya doblaba la esquina. Y seguía creciendo. Cada hora.</p>
+</section>
+<section>
+<h2>La solución de capacidad</h2>
+<blockquote><strong>La directora:</strong><span>Contratamos más revisores.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>Necesitaríamos multiplicar el equipo por siete.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>Podemos automatizar la revisión.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>¿Con qué?</span></blockquote>
+<blockquote><strong>Toño:</strong><span>Con otro modelo.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>¿Y quién revisa al segundo modelo?</span></blockquote>
+<blockquote><strong>Toño:</strong><span>El primero ya tiene mucha experiencia.</span></blockquote>
+<blockquote><strong>La directora:</strong><span>A ver, no hagamos una familia de modelos nada más para cuidar al primero.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>Mientras discutimos, hay siete mil personas esperando.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>No todas van a llamar.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>Porque algunas también quedaron sin acceso al teléfono registrado.</span></blockquote>
+<p>Durante el piloto, clientes legítimos esperaron dos días para usar su dinero. El fraude bajó, las quejas subieron y el equipo de revisión comenzó a resolver por orden de llegada porque ya no alcanzaba a investigar riesgo real.</p>
+</section>
+<section>
+<h2>Todos los cuadros</h2>
+<blockquote><strong>Abril:</strong><span>Puse los resultados en números, no solo en porcentajes.</span></blockquote>
+<blockquote><strong>La directora:</strong><span>¿Qué tan grande es el error?</span></blockquote>
+<blockquote><strong>Abril:</strong><span>Por cada fraude correcto mandamos treinta y dos operaciones normales.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 310" role="img" aria-label="Matriz de confusión del modelo de fraude">
+  <rect width="720" height="310" fill="#fff"/>
+  <text x="35" y="30" font-size="18" font-weight="bold">Resultado semanal sobre 100,000 operaciones</text>
+  <text x="285" y="62" font-size="14">Fraude real</text>
+  <text x="480" y="62" font-size="14">Operación normal</text>
+  <text x="85" y="130" font-size="14">Modelo alerta</text>
+  <text x="85" y="230" font-size="14">Modelo deja pasar</text>
+  <rect x="255" y="80" width="160" height="80" fill="#4c8b63"/>
+  <rect x="440" y="80" width="200" height="80" fill="#c64e36"/>
+  <rect x="255" y="180" width="160" height="80" fill="#d58b30"/>
+  <rect x="440" y="180" width="200" height="80" fill="#6da0bc"/>
+  <text x="310" y="125" font-size="20" fill="#fff">245</text>
+  <text x="505" y="125" font-size="20" fill="#fff">7,760</text>
+  <text x="325" y="225" font-size="20">5</text>
+  <text x="510" y="225" font-size="20">91,990</text>
+  <text x="470" y="285" font-size="13" fill="#9f3625">La mayoría de las alertas es falsa.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Lucía:</strong><span>Con capacidad para mil doscientas revisiones, ¿qué umbral encuentra riesgo sin llenar la cola de gente inocente?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> Detectar 98% del fraude suena excelente, pero la baja frecuencia del fraude genera miles de falsos positivos. Hay que mirar precisión, capacidad, costo y daño, no solo sensibilidad.</p>
+</section>
+<section>
+<h2>El modelo aprendió a escoger</h2>
+<blockquote><strong>La directora:</strong><span>Ajustamos el umbral, priorizamos por riesgo y nadie se bloquea sin revisión humana.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>Va a detectar un poco menos.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>Y vamos a poder investigar lo que detecta.</span></blockquote>
+<blockquote><strong>Lucía:</strong><span>La IA no dejó pasar fraude; tampoco dejó pasar a casi nadie.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> Una tasa alta de detección no basta cuando los falsos positivos saturan la operación.</p>
+</section>
+  </main>
+</body>
+</html>

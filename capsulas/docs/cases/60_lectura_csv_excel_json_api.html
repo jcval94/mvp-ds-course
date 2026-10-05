@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Las primeras runas y el archivo que hablaba raro</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">60</span>
+      <span class="topic-chip">Lectura de fuentes</span>
+    </div>
+    <h1>Las primeras runas y el archivo que hablaba raro</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> lectura de CSV, Excel, JSON y APIs</p>
+      <p><strong>Pregunta de la grafica:</strong> Que debes revisar al leer CSV, Excel, JSON o una API por primera vez.</p>
+      <p><strong>Lectura correcta:</strong> Las que usan el lector y parametros correctos.</p>
+      <p><strong>Decision que cambia:</strong> elegir lector por formato y validar filas, columnas y tipos al entrar</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>Las primeras runas y el archivo que hablaba raro</h1>
+<section>
+<h2>El archivo con runas</h2>
+<blockquote><strong>Mora:</strong><span>El CSV se abrio todo en una sola columna.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Probablemente usa otro separador.</span></blockquote>
+<blockquote><strong>Vicky:</strong><span>Pero es archivo de datos.</span></blockquote>
+<blockquote><strong>Mora:</strong><span>Datos no significa mismo idioma.</span></blockquote>
+<blockquote><strong>Vicky:</strong><span>Excel si lo abre.</span></blockquote>
+<blockquote><strong>la instructora:</strong><span>Excel adivina cosas que Python necesita explicitas.</span></blockquote>
+<p>Se mezclan separadores, hojas, objetos anidados y respuestas de API sin validar. El grupo avanzó hasta que un cambio mínimo produjo un número distinto y no quedó claro si era error, excepción o regla.</p>
+</section>
+<section>
+<h2>No todo es tabla al nacer</h2>
+<blockquote><strong>Vicky:</strong><span>Copiamos y pegamos a mano.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Eso convierte lectura en artesania.</span></blockquote>
+<blockquote><strong>Vicky:</strong><span>Podemos hacerlo solo esta vez.</span></blockquote>
+<blockquote><strong>la instructora:</strong><span>Esa frase funda muchos procesos eternos.</span></blockquote>
+<blockquote><strong>Vicky:</strong><span>JSON y API tambien parecen convertibles.</span></blockquote>
+<blockquote><strong>Mora:</strong><span>Primero hay que entender como vienen.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Se mezclan separadores, hojas, objetos anidados y respuestas de API sin validar.</span></blockquote>
+<blockquote><strong>la instructora:</strong><span>Enséñame fuentes leidas con validacion de formato antes de cerrar.</span></blockquote>
+<p>El grupo puso fuentes leidas con validacion de formato junto al resultado anterior. La evidencia separó cada etapa del procedimiento y permitió corregir una sola parte sin rehacer todo el ejercicio.</p>
+</section>
+<section>
+<h2>Cada fuente pide su llave</h2>
+<blockquote><strong>Mora:</strong><span>Probe lectores por formato y valide la entrada.</span></blockquote>
+<blockquote><strong>la instructora:</strong><span>Que fuentes entran correctamente.</span></blockquote>
+<blockquote><strong>Mora:</strong><span>Las que usan el lector y parametros correctos.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Entonces debemos elegir lector por formato y validar filas, columnas y tipos al entrar.</span></blockquote>
+<blockquote><strong>Mora:</strong><span>Leer datos empieza por reconocer formato, estructura y validaciones basicas.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="fuentes leidas con validacion de formato">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">fuentes leidas con validacion de formato</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="200" width="174" height="60" fill="#286d9b"/>
+  <text x="157" y="190" font-size="18" text-anchor="middle">33</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">adivinar</text>
+  <rect x="272" y="118" width="174" height="142" fill="#d58b2f"/>
+  <text x="359" y="108" font-size="18" text-anchor="middle">78</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">lector correcto</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">96</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">validado</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La validacion confirma que la fuente entro bien.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Diego:</strong><span>Que debes revisar al leer CSV, Excel, JSON o una API por primera vez.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia separa formato y validacion. CSV necesita separador y encoding, Excel hoja y encabezados, JSON estructura anidada y API estado de respuesta. Leer bien evita limpiar errores creados al importar.</p>
+</section>
+<section>
+<h2>Leer antes de limpiar</h2>
+<blockquote><strong>la instructora:</strong><span>Cada fuente tendra funcion de lectura y validacion inicial.</span></blockquote>
+<blockquote><strong>Vicky:</strong><span>La primera celda sera mas cuidadosa.</span></blockquote>
+<blockquote><strong>Mora:</strong><span>Y menos mistica.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>Tambien podremos repetirla mañana.</span></blockquote>
+<blockquote><strong>Mora:</strong><span>Exacto. Leer datos no deberia depender del humor del archivo.</span></blockquote>
+<blockquote><strong>la instructora:</strong><span>Ni del pulso de quien copia y pega.</span></blockquote>
+<blockquote><strong>Mora:</strong><span>¿Qué cambiaremos después de revisar fuentes leidas con validacion de formato?</span></blockquote>
+<blockquote><strong>Diego:</strong><span>La decisión es elegir lector por formato y validar filas, columnas y tipos al entrar.</span></blockquote>
+<blockquote><strong>Vicky:</strong><span>Y volvemos a medir lectura de CSV, Excel, JSON y APIs antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Diego:</strong><span>El CSV no estaba poseido; solo venia con separador regional.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> leer datos empieza por reconocer formato, estructura y validaciones basicas.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="59_esquema_y_contexto.html">Anterior: El esquema que nadie le conto al analista</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="61_pandas_filtros_joins_groupby_fechas.html">Siguiente: El groupby que perdio los lunes</a>
+  </nav>
+</body>
+</html>

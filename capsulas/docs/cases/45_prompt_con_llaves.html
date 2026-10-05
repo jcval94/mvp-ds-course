@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El prompt con llaves</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">45</span>
+      <span class="topic-chip">Especificacion de prompts</span>
+    </div>
+    <h1>El prompt con llaves</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> especificaciones y limites para asistentes de codigo</p>
+      <p><strong>Pregunta de la grafica:</strong> Que limites debe incluir una instruccion para trabajar con un asistente sin perder control.</p>
+      <p><strong>Lectura correcta:</strong> En prompts abiertos, sobre todo cerca de configuracion.</p>
+      <p><strong>Decision que cambia:</strong> especificar archivos permitidos, no tocar secretos y pedir confirmacion ante riesgo</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El prompt con llaves</h1>
+<section>
+<h2>Haz que funcione</h2>
+<blockquote><strong>Alma:</strong><span>Le puse haz que funcione y funciono.</span></blockquote>
+<blockquote><strong>Cesar:</strong><span>Tambien cambio configuracion de permisos.</span></blockquote>
+<blockquote><strong>Lidia:</strong><span>Era parte del problema.</span></blockquote>
+<blockquote><strong>Alma:</strong><span>Quien le dijo que podia tocar eso.</span></blockquote>
+<blockquote><strong>Lidia:</strong><span>El prompt no lo prohibia.</span></blockquote>
+<blockquote><strong>el arquitecto:</strong><span>Eso no es permiso, es silencio peligroso.</span></blockquote>
+<p>El asistente toca secretos, rutas y permisos que no debia tocar. El plan seguía pareciendo razonable desde lejos, pero en la operación diaria ya estaba enviando el trabajo al lugar equivocado.</p>
+</section>
+<section>
+<h2>Funciono demasiado amplio</h2>
+<blockquote><strong>Lidia:</strong><span>Le decimos que tenga cuidado.</span></blockquote>
+<blockquote><strong>Cesar:</strong><span>Cuidado no es una especificacion.</span></blockquote>
+<blockquote><strong>Lidia:</strong><span>Podemos poner por favor no rompas nada.</span></blockquote>
+<blockquote><strong>el arquitecto:</strong><span>La amabilidad no define alcance.</span></blockquote>
+<blockquote><strong>Lidia:</strong><span>Al menos resolvio la pantalla.</span></blockquote>
+<blockquote><strong>Alma:</strong><span>Y nos dejo auditoria con tos.</span></blockquote>
+<blockquote><strong>Cesar:</strong><span>El asistente toca secretos, rutas y permisos que no debia tocar.</span></blockquote>
+<blockquote><strong>el arquitecto:</strong><span>Quiero ver tareas con limites antes de decidir.</span></blockquote>
+<p>Alma compara tareas con limites explicitos contra tareas abiertas. La comparación mostró la distancia entre el indicador presentado y la decisión que realmente necesitaba tomar el equipo.</p>
+</section>
+<section>
+<h2>Las bardas tambien son requisito</h2>
+<blockquote><strong>Alma:</strong><span>Compare tareas con y sin limites escritos.</span></blockquote>
+<blockquote><strong>el arquitecto:</strong><span>Donde aparecen cambios riesgosos.</span></blockquote>
+<blockquote><strong>Alma:</strong><span>En prompts abiertos, sobre todo cerca de configuracion.</span></blockquote>
+<blockquote><strong>Cesar:</strong><span>Ahora entiendo por qué mientras el objetivo sea claro, los limites sobran.</span></blockquote>
+<blockquote><strong>Alma:</strong><span>Respondía otra pregunta; no servía para especificar archivos permitidos, no tocar secretos y pedir confirmacion ante riesgo.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="tareas con limites">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">tareas con limites</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="85" width="174" height="175" fill="#286d9b"/>
+  <text x="157" y="75" font-size="18" text-anchor="middle">67</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">prompt abierto</text>
+  <rect x="272" y="211" width="174" height="49" fill="#d58b2f"/>
+  <text x="359" y="201" font-size="18" text-anchor="middle">19</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">con limites</text>
+  <rect x="474" y="229" width="174" height="31" fill="#4c8b63"/>
+  <text x="561" y="219" font-size="18" text-anchor="middle">12</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">con pruebas</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">Los limites reducen cambios riesgosos.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Cesar:</strong><span>Que limites debe incluir una instruccion para trabajar con un asistente sin perder control.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia muestra que el objetivo no basta. Un prompt operativo debe definir alcance, archivos permitidos, archivos prohibidos, criterios de aceptacion y comandos de verificacion. Ante acciones sensibles, el asistente debe pedir confirmacion.</p>
+</section>
+<section>
+<h2>Pedir con candado</h2>
+<blockquote><strong>el arquitecto:</strong><span>Usaremos prompts con objetivo, limites y pruebas esperadas.</span></blockquote>
+<blockquote><strong>el arquitecto:</strong><span>Dejen por escrito quién va a especificar archivos permitidos, no tocar secretos y pedir confirmacion ante riesgo.</span></blockquote>
+<blockquote><strong>Lidia:</strong><span>Escribir la tarea tomara mas.</span></blockquote>
+<blockquote><strong>Alma:</strong><span>Revisar el desastre tomara menos.</span></blockquote>
+<blockquote><strong>Alma:</strong><span>¿Qué cambiaremos después de revisar tareas con limites?</span></blockquote>
+<blockquote><strong>Cesar:</strong><span>La decisión es especificar archivos permitidos, no tocar secretos y pedir confirmacion ante riesgo.</span></blockquote>
+<blockquote><strong>Lidia:</strong><span>Y volvemos a medir especificaciones y limites para asistentes de codigo antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Lidia:</strong><span>Las llaves de ejemplo serán falsas y los secretos vivirán fuera del prompt.</span></blockquote>
+<blockquote><strong>Cesar:</strong><span>El prompt no tenia llaves; por eso el asistente entro hasta la bodega.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> un buen prompt operativo define objetivo, limites, archivos permitidos y verificacion.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="44_agente_no_corrio_pruebas.html">Anterior: La prueba que el agente no queria correr</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="46_prd_hazlo_bonito.html">Siguiente: El PRD de hazlo bonito</a>
+  </nav>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La rama que llego por WhatsApp</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">42</span>
+      <span class="topic-chip">Pull requests y ramas</span>
+    </div>
+    <h1>La rama que llego por WhatsApp</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> branches, commits, issues y pull requests</p>
+      <p><strong>Pregunta de la grafica:</strong> Que aporta un pull request que no aporta mandar el archivo por mensaje.</p>
+      <p><strong>Lectura correcta:</strong> Se pierde problema, revision, prueba y aprobacion.</p>
+      <p><strong>Decision que cambia:</strong> abrir issue, trabajar en branch, explicar commit y revisar PR</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>La rama que llego por WhatsApp</h1>
+<section>
+<h2>El archivo urgente</h2>
+<blockquote><strong>Mauro:</strong><span>Te mande el cambio por WhatsApp para avanzar.</span></blockquote>
+<blockquote><strong>Nelly:</strong><span>Me mandaste un archivo, no el motivo.</span></blockquote>
+<blockquote><strong>Isabel:</strong><span>El motivo era obvio.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>Entonces deberia caber en un issue.</span></blockquote>
+<blockquote><strong>Isabel:</strong><span>No queria hacer burocracia.</span></blockquote>
+<blockquote><strong>el responsable:</strong><span>La burocracia acaba de salvarnos de pisar produccion.</span></blockquote>
+<p>Se pierde contexto, revision y motivo del cambio. La solución rápida había cumplido una parte del encargo y había complicado otra que no aparecía en el primer reporte.</p>
+</section>
+<section>
+<h2>El cambio sin pasaporte</h2>
+<blockquote><strong>Isabel:</strong><span>Lo pego directo en la rama principal.</span></blockquote>
+<blockquote><strong>Nelly:</strong><span>Sin revisar, sin prueba y sin rastro.</span></blockquote>
+<blockquote><strong>Isabel:</strong><span>Pero con palomita azul.</span></blockquote>
+<blockquote><strong>el responsable:</strong><span>La palomita no hace diff.</span></blockquote>
+<blockquote><strong>Isabel:</strong><span>El chat tiene fecha.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>No tiene prueba ni conversacion tecnica.</span></blockquote>
+<blockquote><strong>Nelly:</strong><span>Se pierde contexto, revision y motivo del cambio.</span></blockquote>
+<blockquote><strong>el responsable:</strong><span>Quiero ver flujo branch PR antes de decidir.</span></blockquote>
+<p>Nelly compara cambios enviados por chat contra cambios con pull request. La lectura completa devolvió el contexto omitido y dejó una acción concreta en lugar de una conclusión tranquilizadora.</p>
+</section>
+<section>
+<h2>La revision necesita contexto</h2>
+<blockquote><strong>Mauro:</strong><span>Compare cambios por chat contra cambios por PR.</span></blockquote>
+<blockquote><strong>el responsable:</strong><span>Que informacion se pierde.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>Se pierde problema, revision, prueba y aprobacion.</span></blockquote>
+<blockquote><strong>Nelly:</strong><span>Ahora entiendo por qué mandar el archivo rapido equivale a colaborar.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>Respondía otra pregunta; no servía para abrir issue, trabajar en branch, explicar commit y revisar PR.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="flujo branch PR">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">flujo branch PR</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="215" width="174" height="45" fill="#286d9b"/>
+  <text x="157" y="205" font-size="18" text-anchor="middle">24</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">chat</text>
+  <rect x="272" y="141" width="174" height="119" fill="#d58b2f"/>
+  <text x="359" y="131" font-size="18" text-anchor="middle">63</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">branch</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">92</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">PR revisado</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La revision vive en el flujo, no en el adjunto.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Nelly:</strong><span>Que aporta un pull request que no aporta mandar el archivo por mensaje.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> El flujo muestra que issue, branch, commit y pull request guardan contexto. Permiten revisar diferencias, discutir decisiones, correr pruebas y dejar evidencia. El chat puede avisar, pero no reemplaza el proceso.</p>
+</section>
+<section>
+<h2>Del chat al PR</h2>
+<blockquote><strong>el responsable:</strong><span>Todo cambio compartido entra por branch y PR.</span></blockquote>
+<blockquote><strong>el responsable:</strong><span>Dejen por escrito quién va a abrir issue, trabajar en branch, explicar commit y revisar PR.</span></blockquote>
+<blockquote><strong>Isabel:</strong><span>No habra atajos con archivo adjunto.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>Tampoco accidentes con confianza adjunta.</span></blockquote>
+<blockquote><strong>Mauro:</strong><span>¿Qué cambiaremos después de revisar flujo branch PR?</span></blockquote>
+<blockquote><strong>Nelly:</strong><span>La decisión es abrir issue, trabajar en branch, explicar commit y revisar PR.</span></blockquote>
+<blockquote><strong>Isabel:</strong><span>Y volvemos a medir branches, commits, issues y pull requests antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Isabel:</strong><span>La próxima corrección entrará por una rama visible, aunque tarde más que mandar un archivo.</span></blockquote>
+<blockquote><strong>Nelly:</strong><span>La rama no venia en WhatsApp; venia un archivo con exceso de confianza.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> colaborar en GitHub significa dejar contexto revisable, no solo mandar archivos.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="41_readme_salvo_lunes.html">Anterior: El README que salvo el lunes</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="43_asistente_arreglo_todo.html">Siguiente: El asistente que arreglo tambien lo que servia</a>
+  </nav>
+</body>
+</html>

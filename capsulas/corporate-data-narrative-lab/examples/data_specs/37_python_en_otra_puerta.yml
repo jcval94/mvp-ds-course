@@ -1,0 +1,9 @@
+case_id: "37"
+title: "El Python correcto estaba en otra puerta"
+concept: "interpretes de Python en VS Code"
+scenario: "python_en_otra_puerta"
+seed: 137
+observations: 1000
+variables: [machine_id, interpreter_path, python_version, package_match]
+key_values: {global_match: 41, venv_match: 93, old_env_match: 27}
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "77"
+title: "El piloto de capacitación con voluntarios"
+concept: "aleatorización y grupos comparables"
+scenario: "capacitacion_con_voluntarios"
+seed: 277
+observations: 240
+variables: ["agent_id", "shift", "assignment", "errors_before", "errors_after"]
+key_values: {"voluntarios": 30, "asignación aleatoria": 9, "control": 5}
+synthetic_data: true

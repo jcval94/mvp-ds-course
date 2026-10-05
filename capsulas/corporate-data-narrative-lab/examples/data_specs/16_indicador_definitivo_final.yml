@@ -1,0 +1,9 @@
+case_id: "16"
+title: "El indicador definitivo final ahora sí"
+concept: "gobernanza y versionado de métricas"
+scenario: "metric_definition_versions"
+seed: 116
+observations: 3
+variables: [version, owner, event_date, population_rule, cancellation_rate]
+key_values: {request_date_rate: 0.12, application_date_rate: 0.098, renewal_inclusive_rate: 0.14}
+synthetic_data: true

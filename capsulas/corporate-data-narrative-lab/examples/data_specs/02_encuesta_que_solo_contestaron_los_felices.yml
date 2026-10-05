@@ -1,0 +1,9 @@
+case_id: "02"
+title: "La encuesta que llegaba después del problema"
+concept: "sesgo de cobertura y no respuesta"
+scenario: "survey_completion_funnel"
+seed: 102
+observations: 10000
+variables: [started, completed, invited, responded, satisfaction_score]
+key_values: {started: 10000, completed: 6200, invited: 6000, responded: 1500, score: 72}
+synthetic_data: true

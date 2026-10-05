@@ -1,0 +1,10 @@
+title: "El bloque de codigo que si hizo algo"
+case_id: "49"
+chart_type: "instruction_steps"
+question_answered: "Que diferencia hay entre explicar una tarea y programarla."
+comfortable_read: "Pero la intencion esta clarisima."
+missing_context: "Necesitas decirle donde estan, que sumar y que mostrar."
+correct_read: "Cuando cada paso existe en codigo y se puede correr."
+decision_changed: "convertir instrucciones humanas en bloques de codigo pequenos y ejecutables"
+annotations: ["idea", "pasos", "codigo"]
+synthetic_data: true

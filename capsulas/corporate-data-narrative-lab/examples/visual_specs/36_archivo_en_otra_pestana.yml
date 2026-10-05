@@ -1,0 +1,10 @@
+title: "El archivo que vivia en otra pestana"
+case_id: "36"
+chart_type: "data_paths"
+question_answered: "Que validaciones deben correr antes de confiar en una carga de datos en Colab."
+comfortable_read: "Pero se ve clarito."
+missing_context: "Cada quien subio uno con nombre diferente."
+correct_read: "Menos de los que creian."
+decision_changed: "definir una sola ruta, validar columnas y mostrar conteo antes de analizar"
+annotations: ["ruta unica", "mismo conteo", "columnas ok", "sin validar"]
+synthetic_data: true

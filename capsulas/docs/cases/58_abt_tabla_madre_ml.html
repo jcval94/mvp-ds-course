@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La tabla madre que mezclaba pasado y futuro</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">58</span>
+      <span class="topic-chip">ABT para ML</span>
+    </div>
+    <h1>La tabla madre que mezclaba pasado y futuro</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> construccion de una ABT para aprendizaje automatico</p>
+      <p><strong>Pregunta de la grafica:</strong> Que decisiones de diseno definen una ABT para machine learning.</p>
+      <p><strong>Lectura correcta:</strong> Menos, pero de forma honesta.</p>
+      <p><strong>Decision que cambia:</strong> definir entidad, fecha de corte, ventana de features y etiqueta futura</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>La tabla madre que mezclaba pasado y futuro</h1>
+<section>
+<h2>Todo junto</h2>
+<blockquote><strong>Abril:</strong><span>Ya arme la tabla madre con todas las columnas utiles.</span></blockquote>
+<blockquote><strong>Tomas:</strong><span>Incluiste la fecha de cancelacion.</span></blockquote>
+<blockquote><strong>Vega:</strong><span>Es una columna muy predictiva.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>Porque ocurre despues de la decision.</span></blockquote>
+<blockquote><strong>Vega:</strong><span>Pero esta en la base.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>La ABT no puede viajar en el tiempo.</span></blockquote>
+<p>La tabla incluye datos posteriores a la decision y el modelo presume resultados irreales. La pantalla no mostraba un fallo espectacular; mostraba un resultado plausible que nadie sabía reconstruir de principio a fin.</p>
+</section>
+<section>
+<h2>La columna del futuro</h2>
+<blockquote><strong>Vega:</strong><span>La dejamos y en produccion la ponemos vacia.</span></blockquote>
+<blockquote><strong>Tomas:</strong><span>Entonces entrenas con una verdad que luego quitas.</span></blockquote>
+<blockquote><strong>Vega:</strong><span>Podemos llamarla variable aspiracional.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>Aspiracional para el modelo, carisima para nosotros.</span></blockquote>
+<blockquote><strong>Vega:</strong><span>Sin ella baja el desempeno.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>Baja a un numero que puede existir.</span></blockquote>
+<blockquote><strong>Tomas:</strong><span>La tabla incluye datos posteriores a la decision y el modelo presume resultados irreales.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>Enséñame features disponibles antes y despues de la fecha de corte antes de cerrar.</span></blockquote>
+<p>El grupo puso features disponibles antes y despues de la fecha de corte junto al resultado anterior. Poner los pasos junto al resultado convirtió una explicación vaga en una comprobación que podía ejecutar cualquier integrante.</p>
+</section>
+<section>
+<h2>Fecha de corte primero</h2>
+<blockquote><strong>Abril:</strong><span>Separe columnas por disponibilidad al corte.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>Que sabia el modelo antes de decidir.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>Menos, pero de forma honesta.</span></blockquote>
+<blockquote><strong>Tomas:</strong><span>Entonces debemos definir entidad, fecha de corte, ventana de features y etiqueta futura.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>Una ABT debe respetar entidad, tiempo de decision y disponibilidad de datos.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="features disponibles antes y despues de la fecha de corte">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">features disponibles antes y despues de la fecha de corte</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="85" width="174" height="175" fill="#286d9b"/>
+  <text x="157" y="75" font-size="18" text-anchor="middle">96</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">todas</text>
+  <rect x="272" y="137" width="174" height="123" fill="#d58b2f"/>
+  <text x="359" y="127" font-size="18" text-anchor="middle">68</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">antes corte</text>
+  <rect x="474" y="133" width="174" height="127" fill="#4c8b63"/>
+  <text x="561" y="123" font-size="18" text-anchor="middle">70</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">produccion</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La tabla valida solo con datos disponibles al decidir.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Tomas:</strong><span>Que decisiones de diseno definen una ABT para machine learning.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La grafica separa entidad, fecha de corte, features historicas y etiqueta futura. La ABT no es un pegado masivo; es una foto del mundo antes de decidir. Si incluye futuro, valida una fantasia.</p>
+</section>
+<section>
+<h2>La tabla aprende a esperar</h2>
+<blockquote><strong>la gerente:</strong><span>La ABT se reconstruye con corte temporal y etiqueta posterior.</span></blockquote>
+<blockquote><strong>Vega:</strong><span>El score de prueba bajara.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>Y dejara de hacer trampa elegante.</span></blockquote>
+<blockquote><strong>Abril:</strong><span>¿Qué cambiaremos después de revisar features disponibles antes y despues de la fecha de corte?</span></blockquote>
+<blockquote><strong>Tomas:</strong><span>La decisión es definir entidad, fecha de corte, ventana de features y etiqueta futura.</span></blockquote>
+<blockquote><strong>Vega:</strong><span>Y volvemos a medir construccion de una ABT para aprendizaje automatico antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Tomas:</strong><span>La tabla madre sabia demasiado porque habia leido el final.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> una ABT debe respetar entidad, tiempo de decision y disponibilidad de datos.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="57_sql_analitico_ctes_ventanas_periodos.html">Anterior: La metrica que olvidaba el mes anterior</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="59_esquema_y_contexto.html">Siguiente: El esquema que nadie le conto al analista</a>
+  </nav>
+</body>
+</html>

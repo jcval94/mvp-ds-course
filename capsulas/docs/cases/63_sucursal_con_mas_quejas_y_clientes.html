@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La sucursal con más quejas y más clientes</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">63</span>
+      <span class="topic-chip">Conteos y tasas</span>
+    </div>
+    <h1>La sucursal con más quejas y más clientes</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> conteos, tasas y denominadores</p>
+      <p><strong>Pregunta de la grafica:</strong> ¿Qué sucursal tiene realmente más quejas en relación con los pedidos que atiende?</p>
+      <p><strong>Lectura correcta:</strong> Centro registra 18 quejas por cada mil pedidos, la tasa más alta.</p>
+      <p><strong>Decision que cambia:</strong> priorizar la sucursal Centro y acompañar el conteo con su denominador</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>La sucursal con más quejas y más clientes</h1>
+<section>
+<h2>La lista de culpables</h2>
+<blockquote><strong>la directora:</strong><span>Norte juntó 240 quejas; mañana voy a poner orden.</span></blockquote>
+<blockquote><strong>Majo:</strong><span>También atendió veinte mil pedidos.</span></blockquote>
+<blockquote><strong>Bruno:</strong><span>Pero 240 sigue siendo el número más grande.</span></blockquote>
+<blockquote><strong>Fabián:</strong><span>Porque es la sucursal más grande.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>¿Me están diciendo que muchas quejas pueden ser pocas?</span></blockquote>
+<blockquote><strong>Majo:</strong><span>Estoy diciendo que falta saber entre cuántos pedidos ocurrieron.</span></blockquote>
+<p>Bruno había ordenado la tabla de mayor a menor y la primera fila parecía sentencia. En el calendario ya figuraba una visita correctiva, aunque nadie había abierto la columna de pedidos.</p>
+</section>
+<section>
+<h2>Un número sin piso</h2>
+<blockquote><strong>Bruno:</strong><span>Podemos visitar las tres y regañar parejo.</span></blockquote>
+<blockquote><strong>Fabián:</strong><span>Eso sería justo para el calendario, no para el problema.</span></blockquote>
+<blockquote><strong>Bruno:</strong><span>El correo ya dice que Norte salió en rojo.</span></blockquote>
+<blockquote><strong>Majo:</strong><span>El color lo puso el conteo bruto.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>¿Cuál equipo tiene más quejas por el trabajo que recibe?</span></blockquote>
+<blockquote><strong>Majo:</strong><span>Centro: 18 por cada mil pedidos; Norte tiene 12.</span></blockquote>
+<p>La discusión cambió cuando Majo escribió los denominadores junto a los conteos. Centro atendía menos, pero acumulaba una queja por cada 56 pedidos; Norte, una por cada 83.</p>
+</section>
+<section>
+<h2>La misma medida</h2>
+<blockquote><strong>Fabián:</strong><span>Entonces Centro se veía chico porque atiende menos volumen.</span></blockquote>
+<blockquote><strong>Bruno:</strong><span>Y yo ya había reservado la sala de Norte.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Cancela la sala y abre la hoja completa.</span></blockquote>
+<blockquote><strong>Majo:</strong><span>Aquí están las tres tasas con el mismo denominador.</span></blockquote>
+<blockquote><strong>Bruno:</strong><span>Ahora sí estoy comparando sucursales y no tamaños de sucursal.</span></blockquote>
+<p>Majo proyectó una sola medida para las tres sucursales. La barra más alta cambió de lugar y, con ella, cambió también el destino de la visita del día siguiente.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Quejas por cada mil pedidos">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Quejas por cada mil pedidos</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="143" width="184" height="107" fill="#286d9b"/>
+  <text x="152" y="133" font-size="17" text-anchor="middle">12 por mil</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">Norte</text>
+  <rect x="268" y="90" width="184" height="160" fill="#d58b2f"/>
+  <text x="360" y="80" font-size="17" text-anchor="middle">18 por mil</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">Centro</text>
+  <rect x="476" y="117" width="184" height="133" fill="#4c8b63"/>
+  <text x="568" y="107" font-size="17" text-anchor="middle">15 por mil</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">Sur</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">El volumen cambia el conteo; la tasa permite comparar.</text>
+</svg>
+<blockquote class="learning-pause"><strong>la directora:</strong><span>¿Qué sucursal tiene realmente más quejas en relación con los pedidos que atiende?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> El conteo bruto señala dónde hay más casos acumulados, pero no permite comparar desempeño entre sucursales de tamaños distintos. Al usar quejas por cada mil pedidos, Centro aparece con la tasa más alta. El denominador cambia la prioridad sin borrar la carga total de Norte.</p>
+</section>
+<section>
+<h2>Cambiar la visita</h2>
+<blockquote><strong>la directora:</strong><span>La visita será en Centro y revisaremos su proceso.</span></blockquote>
+<blockquote><strong>Fabián:</strong><span>Norte conservará el seguimiento por volumen total.</span></blockquote>
+<blockquote><strong>Bruno:</strong><span>¿Dejo el conteo en el reporte?</span></blockquote>
+<blockquote><strong>Majo:</strong><span>Sí, junto a pedidos y tasa. Los tres cuentan historias distintas.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Y ningún color rojo sin explicar qué divide.</span></blockquote>
+<blockquote><strong>Majo:</strong><span>Sobre conteos, tasas y denominadores, ¿qué dato revisamos en el siguiente corte?</span></blockquote>
+<blockquote><strong>Fabián:</strong><span>Primero vamos a priorizar la sucursal Centro y acompañar el conteo con su denominador; luego comparamos el resultado.</span></blockquote>
+<blockquote><strong>Bruno:</strong><span>Norte no tenía más problemas; tenía más clientes haciendo fila para contarlos.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> un conteo solo se compara cuando también conocemos el tamaño de la población.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="62_limpieza_nulos_duplicados_tipos_outliers.html">Anterior: La categoria Otro que se comio la limpieza</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="64_promedio_entrega_que_nadie_recibio.html">Siguiente: El promedio de entrega que nadie recibió</a>
+  </nav>
+</body>
+</html>

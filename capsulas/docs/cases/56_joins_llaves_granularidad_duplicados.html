@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El JOIN que duplico las ventas con mucha seguridad</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">56</span>
+      <span class="topic-chip">JOINs y granularidad</span>
+    </div>
+    <h1>El JOIN que duplico las ventas con mucha seguridad</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> JOINs, llaves, granularidad y duplicados</p>
+      <p><strong>Pregunta de la grafica:</strong> Que debes revisar antes de hacer un JOIN entre dos tablas.</p>
+      <p><strong>Lectura correcta:</strong> Cada venta se repitio por cada promocion del producto.</p>
+      <p><strong>Decision que cambia:</strong> identificar llave, granularidad y duplicados antes de unir</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El JOIN que duplico las ventas con mucha seguridad</h1>
+<section>
+<h2>El total subio solo</h2>
+<blockquote><strong>Hana:</strong><span>Despues del JOIN las ventas crecieron precioso.</span></blockquote>
+<blockquote><strong>Pedro:</strong><span>Sin campana y sin clientes nuevos.</span></blockquote>
+<blockquote><strong>Lucia:</strong><span>Tal vez el producto mejoro.</span></blockquote>
+<blockquote><strong>Hana:</strong><span>O la tabla se multiplico.</span></blockquote>
+<blockquote><strong>Lucia:</strong><span>Uni por product_id, eso era la llave.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>En promociones product_id aparece varias veces.</span></blockquote>
+<p>Ventas se multiplican porque promociones tiene varias filas por producto. El error apareció cuando otra persona intentó ejecutar los pasos y obtuvo una salida distinta con los mismos datos.</p>
+</section>
+<section>
+<h2>La union tenia eco</h2>
+<blockquote><strong>Lucia:</strong><span>Usamos DISTINCT al final.</span></blockquote>
+<blockquote><strong>Pedro:</strong><span>Eso puede borrar sintomas sin arreglar causa.</span></blockquote>
+<blockquote><strong>Lucia:</strong><span>Pero DISTINCT suena a limpieza elegante.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Elegante no significa correcto.</span></blockquote>
+<blockquote><strong>Lucia:</strong><span>El total nuevo le gustaba a direccion.</span></blockquote>
+<blockquote><strong>Hana:</strong><span>A contabilidad le va a gustar menos.</span></blockquote>
+<blockquote><strong>Pedro:</strong><span>Ventas se multiplican porque promociones tiene varias filas por producto.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Enséñame ventas antes y despues del join antes de cerrar.</span></blockquote>
+<p>El grupo puso ventas antes y despues del join junto al resultado anterior. La comparación permitió ubicar la instrucción ausente y repetir el ejercicio sin depender de cómo lo recordaba su autor.</p>
+</section>
+<section>
+<h2>Una fila contra muchas</h2>
+<blockquote><strong>Hana:</strong><span>Revise filas por llave antes de unir.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>Donde se duplicaron las ventas.</span></blockquote>
+<blockquote><strong>Hana:</strong><span>Cada venta se repitio por cada promocion del producto.</span></blockquote>
+<blockquote><strong>Pedro:</strong><span>Entonces debemos identificar llave, granularidad y duplicados antes de unir.</span></blockquote>
+<blockquote><strong>Hana:</strong><span>Antes de unir tablas, revisa llave unica, granularidad y filas duplicadas.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="ventas antes y despues del join">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">ventas antes y despues del join</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="173" width="174" height="87" fill="#286d9b"/>
+  <text x="157" y="163" font-size="18" text-anchor="middle">74</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">antes</text>
+  <rect x="272" y="85" width="174" height="175" fill="#d58b2f"/>
+  <text x="359" y="75" font-size="18" text-anchor="middle">148</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">join bruto</text>
+  <rect x="474" y="171" width="174" height="89" fill="#4c8b63"/>
+  <text x="561" y="161" font-size="18" text-anchor="middle">76</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">join correcto</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La duplicacion venia de granularidad distinta.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Pedro:</strong><span>Que debes revisar antes de hacer un JOIN entre dos tablas.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La grafica muestra que el JOIN cambio la granularidad. Una tabla estaba a nivel venta y otra a nivel producto promocion. Revisar llaves unicas, cardinalidad y duplicados evita inflar metricas con una union aparentemente valida.</p>
+</section>
+<section>
+<h2>La llave pide identificacion</h2>
+<blockquote><strong>la directora:</strong><span>Agregaremos promociones antes de unirlas a ventas.</span></blockquote>
+<blockquote><strong>Lucia:</strong><span>La consulta tendra una CTE mas.</span></blockquote>
+<blockquote><strong>Hana:</strong><span>Y las ventas dejaran de reproducirse.</span></blockquote>
+<blockquote><strong>Hana:</strong><span>¿Qué cambiaremos después de revisar ventas antes y despues del join?</span></blockquote>
+<blockquote><strong>Pedro:</strong><span>La decisión es identificar llave, granularidad y duplicados antes de unir.</span></blockquote>
+<blockquote><strong>Lucia:</strong><span>Y volvemos a medir JOINs, llaves, granularidad y duplicados antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Lucia:</strong><span>Antes del próximo JOIN escribiremos la llave y la granularidad esperada de cada tabla.</span></blockquote>
+<blockquote><strong>la directora:</strong><span>La consulta contará filas antes y después para detectar multiplicaciones inesperadas.</span></blockquote>
+<blockquote><strong>Pedro:</strong><span>El JOIN no vendio mas; nada mas conto la misma venta con entusiasmo.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> antes de unir tablas, revisa llave unica, granularidad y filas duplicadas.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="55_sql_basico_select_where_group_order.html">Anterior: La consulta que trajo toda la tienda</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="57_sql_analitico_ctes_ventanas_periodos.html">Siguiente: La metrica que olvidaba el mes anterior</a>
+  </nav>
+</body>
+</html>

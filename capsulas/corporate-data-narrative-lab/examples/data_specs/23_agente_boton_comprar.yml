@@ -1,0 +1,9 @@
+case_id: "23"
+title: "El agente que encontro el boton de comprar"
+concept: "herramientas, limites y autorizacion en agentes"
+scenario: "agente_boton_comprar"
+seed: 123
+observations: 1000
+variables: [ticket_id, tool_used, cost, approval_required]
+key_values: {tickets_closed: 64, unapproved_spend: 18000, purchase_actions: 7}
+synthetic_data: true

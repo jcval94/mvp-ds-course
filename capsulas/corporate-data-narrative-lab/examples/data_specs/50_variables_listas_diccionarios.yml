@@ -1,0 +1,9 @@
+case_id: "50"
+title: "La lista que no sabia de quien era cada dato"
+concept: "variables, listas, diccionarios y estructuras esenciales"
+scenario: "variables_listas_diccionarios"
+seed: 150
+observations: 1000
+variables: [item_id, structure_type, field_named, read_error]
+key_values: {loose_list_accuracy: 44, variables_accuracy: 62, dict_accuracy: 93}
+synthetic_data: true

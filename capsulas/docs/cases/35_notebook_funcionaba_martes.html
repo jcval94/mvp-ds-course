@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La libreta que funcionaba el martes</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">35</span>
+      <span class="topic-chip">Reproducibilidad en Colab</span>
+    </div>
+    <h1>La libreta que funcionaba el martes</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> setup reproducible en Google Colab</p>
+      <p><strong>Pregunta de la grafica:</strong> Que debe incluir la primera celda de Colab para que otra persona pueda correr el ejemplo.</p>
+      <p><strong>Lectura correcta:</strong> Faltan paquetes, ruta de datos y version de libreria.</p>
+      <p><strong>Decision que cambia:</strong> agregar celda inicial de instalacion, versionado, carga de datos y verificacion</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>La libreta que funcionaba el martes</h1>
+<section>
+<h2>Corria en mi compu</h2>
+<blockquote><strong>Lau:</strong><span>En mi Colab corre perfecto.</span></blockquote>
+<blockquote><strong>Oscar:</strong><span>En el de la mitad del grupo no abre datos.</span></blockquote>
+<blockquote><strong>Mina:</strong><span>Seguro no ejecutaron en orden.</span></blockquote>
+<blockquote><strong>Lau:</strong><span>O el orden no instala lo que necesita.</span></blockquote>
+<blockquote><strong>Mina:</strong><span>Yo lo probe antes de clase.</span></blockquote>
+<blockquote><strong>la profe:</strong><span>Con tus archivos montados y tus paquetes vivos.</span></blockquote>
+<p>La clase no puede reproducir resultados porque faltan paquetes, rutas y versiones. El atajo dejó de parecer pequeño cuando otra área tuvo que absorber su consecuencia durante el mismo turno.</p>
+</section>
+<section>
+<h2>El martes como dependencia</h2>
+<blockquote><strong>Mina:</strong><span>Les digo que reinicien el entorno.</span></blockquote>
+<blockquote><strong>Oscar:</strong><span>Reiniciar borra justo lo que lo hacia funcionar.</span></blockquote>
+<blockquote><strong>Mina:</strong><span>Entonces que nadie cierre la pestana.</span></blockquote>
+<blockquote><strong>la profe:</strong><span>La materia no puede depender de una pestana heroica.</span></blockquote>
+<blockquote><strong>Mina:</strong><span>Podemos mandar capturas del resultado.</span></blockquote>
+<blockquote><strong>Lau:</strong><span>Eso ensena a mirar, no a reproducir.</span></blockquote>
+<blockquote><strong>Oscar:</strong><span>La clase no puede reproducir resultados porque faltan paquetes, rutas y versiones.</span></blockquote>
+<blockquote><strong>la profe:</strong><span>Quiero ver dependencias y versiones antes de decidir.</span></blockquote>
+<p>Lau compara ejecuciones con y sin celda de setup. Con ambos resultados a la vista, la discusión pasó de opiniones generales a una diferencia que podía señalarse.</p>
+</section>
+<section>
+<h2>Setup primero, magia despues</h2>
+<blockquote><strong>Lau:</strong><span>Probe la libreta desde entorno limpio.</span></blockquote>
+<blockquote><strong>la profe:</strong><span>Que falla antes del analisis.</span></blockquote>
+<blockquote><strong>Lau:</strong><span>Faltan paquetes, ruta de datos y version de libreria.</span></blockquote>
+<blockquote><strong>Oscar:</strong><span>Ahora entiendo por qué si corrio una vez, el entorno ya esta listo.</span></blockquote>
+<blockquote><strong>Lau:</strong><span>Respondía otra pregunta; no servía para agregar celda inicial de instalacion, versionado, carga de datos y verificacion.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="dependencias y versiones">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">dependencias y versiones</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="191" width="124" height="69" fill="#286d9b"/>
+  <text x="132" y="181" font-size="18" text-anchor="middle">38</text>
+  <text x="132" y="286" font-size="13" text-anchor="middle">sin setup</text>
+  <rect x="222" y="147" width="124" height="113" fill="#d58b2f"/>
+  <text x="284" y="137" font-size="18" text-anchor="middle">62</text>
+  <text x="284" y="286" font-size="13" text-anchor="middle">con paquetes</text>
+  <rect x="374" y="118" width="124" height="142" fill="#4c8b63"/>
+  <text x="436" y="108" font-size="18" text-anchor="middle">78</text>
+  <text x="436" y="286" font-size="13" text-anchor="middle">con datos</text>
+  <rect x="526" y="85" width="124" height="175" fill="#c64e36"/>
+  <text x="588" y="75" font-size="18" text-anchor="middle">96</text>
+  <text x="588" y="286" font-size="13" text-anchor="middle">verificado</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">El entorno limpio revela dependencias invisibles.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Oscar:</strong><span>Que debe incluir la primera celda de Colab para que otra persona pueda correr el ejemplo.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia compara ejecuciones con entorno heredado y limpio. Un setup reproducible instala dependencias, fija versiones clave, descarga o monta datos y verifica rutas. En Colab, el entorno es parte del ejemplo.</p>
+</section>
+<section>
+<h2>La libreta aprende a presentarse</h2>
+<blockquote><strong>la profe:</strong><span>La primera celda prepara todo y falla con mensaje claro.</span></blockquote>
+<blockquote><strong>la profe:</strong><span>Dejen por escrito quién va a agregar celda inicial de instalacion, versionado, carga de datos y verificacion.</span></blockquote>
+<blockquote><strong>Mina:</strong><span>La libreta tarda un minuto mas en arrancar.</span></blockquote>
+<blockquote><strong>Lau:</strong><span>Y deja de necesitar el martes de Oscar.</span></blockquote>
+<blockquote><strong>Lau:</strong><span>¿Qué cambiaremos después de revisar dependencias y versiones?</span></blockquote>
+<blockquote><strong>Oscar:</strong><span>La decisión es agregar celda inicial de instalacion, versionado, carga de datos y verificacion.</span></blockquote>
+<blockquote><strong>Mina:</strong><span>Y volvemos a medir setup reproducible en Google Colab antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Oscar:</strong><span>El notebook no estaba roto; estaba viviendo en el martes de Oscar.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> un notebook compartido debe construir su entorno antes de contar su historia.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="34_precision_casos_faciles.html">Anterior: La precision que festejaba casos faciles</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="36_archivo_en_otra_pestana.html">Siguiente: El archivo que vivia en otra pestana</a>
+  </nav>
+</body>
+</html>

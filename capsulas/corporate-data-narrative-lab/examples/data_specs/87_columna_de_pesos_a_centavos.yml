@@ -1,0 +1,9 @@
+case_id: "87"
+title: "La columna que cambió de pesos a centavos"
+concept: "contratos de datos y confiabilidad de pipelines"
+scenario: "columna_de_pesos_a_centavos"
+seed: 287
+observations: 180000
+variables: ["file_version", "amount", "currency_unit", "transaction_count", "median_amount", "validation_status"]
+key_values: {"pesos esperados": 480, "valor recibido": 48000, "valor normalizado": 480}
+synthetic_data: true

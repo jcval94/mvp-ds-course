@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El archivo que vivia en otra pestana</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body data-page="case">
+  <header class="case-header">
+    <nav class="topbar" aria-label="Navegacion principal">
+      <a class="brand" href="../index.html">Corporate Data Narrative Lab</a>
+      <a class="text-link" href="../index.html">Indice</a>
+    </nav>
+    <div class="case-kicker">
+      <span class="case-number">36</span>
+      <span class="topic-chip">Rutas y carga de datos</span>
+    </div>
+    <h1>El archivo que vivia en otra pestana</h1>
+    <div class="case-summary">
+      <p><strong>Concepto:</strong> rutas, montaje de Drive y carga de datos en Colab</p>
+      <p><strong>Pregunta de la grafica:</strong> Que validaciones deben correr antes de confiar en una carga de datos en Colab.</p>
+      <p><strong>Lectura correcta:</strong> Menos de los que creian.</p>
+      <p><strong>Decision que cambia:</strong> definir una sola ruta, validar columnas y mostrar conteo antes de analizar</p>
+    </div>
+  </header>
+
+  <main class="story-shell">
+<h1>El archivo que vivia en otra pestana</h1>
+<section>
+<h2>La pestana de al lado</h2>
+<blockquote><strong>Vero:</strong><span>El CSV esta abierto aqui junto al notebook.</span></blockquote>
+<blockquote><strong>Hector:</strong><span>Python no lee pestanas, lee rutas.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>Pero se ve clarito.</span></blockquote>
+<blockquote><strong>Vero:</strong><span>Se ve para ti, no para el runtime.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>Les dije que subieran el archivo.</span></blockquote>
+<blockquote><strong>el instructor:</strong><span>Cada quien subio uno con nombre diferente.</span></blockquote>
+<p>Cada estudiante sube datos con nombres distintos y aparecen resultados incompatibles. La decisión ya afectaba tiempos, permisos o dinero, así que posponer la revisión también tenía un costo claro.</p>
+</section>
+<section>
+<h2>Cada quien cargo su mundo</h2>
+<blockquote><strong>Nadia:</strong><span>Que cambien la ruta a mano.</span></blockquote>
+<blockquote><strong>Hector:</strong><span>Entonces cada resultado tendra una biografia distinta.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>Podemos decir que es aprendizaje personalizado.</span></blockquote>
+<blockquote><strong>el instructor:</strong><span>Uno cargo la muestra vieja y gano otra conclusion.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>Al menos todos hicieron analisis.</span></blockquote>
+<blockquote><strong>Vero:</strong><span>De archivos que no eran el mismo.</span></blockquote>
+<blockquote><strong>Hector:</strong><span>Cada estudiante sube datos con nombres distintos y aparecen resultados incompatibles.</span></blockquote>
+<blockquote><strong>el instructor:</strong><span>Quiero ver rutas y fuentes antes de decidir.</span></blockquote>
+<p>Vero compara rutas usadas y numero de filas cargadas. La nueva lectura permitió separar lo que el equipo esperaba de lo que el proceso estaba produciendo realmente.</p>
+</section>
+<section>
+<h2>La ruta tambien es dato</h2>
+<blockquote><strong>Vero:</strong><span>Liste rutas, columnas y filas cargadas.</span></blockquote>
+<blockquote><strong>el instructor:</strong><span>Cuantos analizaron la misma fuente.</span></blockquote>
+<blockquote><strong>Vero:</strong><span>Menos de los que creian.</span></blockquote>
+<blockquote><strong>Hector:</strong><span>Ahora entiendo por qué si el archivo se ve en el navegador, Python tambien sabe donde esta.</span></blockquote>
+<blockquote><strong>Vero:</strong><span>Respondía otra pregunta; no servía para definir una sola ruta, validar columnas y mostrar conteo antes de analizar.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="rutas y fuentes">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">rutas y fuentes</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="85" width="124" height="175" fill="#286d9b"/>
+  <text x="132" y="75" font-size="18" text-anchor="middle">88</text>
+  <text x="132" y="286" font-size="13" text-anchor="middle">ruta unica</text>
+  <rect x="222" y="115" width="124" height="145" fill="#d58b2f"/>
+  <text x="284" y="105" font-size="18" text-anchor="middle">73</text>
+  <text x="284" y="286" font-size="13" text-anchor="middle">mismo conteo</text>
+  <rect x="374" y="99" width="124" height="161" fill="#4c8b63"/>
+  <text x="436" y="89" font-size="18" text-anchor="middle">81</text>
+  <text x="436" y="286" font-size="13" text-anchor="middle">columnas ok</text>
+  <rect x="526" y="203" width="124" height="57" fill="#c64e36"/>
+  <text x="588" y="193" font-size="18" text-anchor="middle">29</text>
+  <text x="588" y="286" font-size="13" text-anchor="middle">sin validar</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La fuente debe comprobarse antes del analisis.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Hector:</strong><span>Que validaciones deben correr antes de confiar en una carga de datos en Colab.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia muestra rutas distintas y conteos distintos. Antes de graficar o modelar, conviene validar nombre de archivo, columnas esperadas, filas cargadas y fecha de fuente. La ruta es parte de la reproducibilidad.</p>
+</section>
+<section>
+<h2>Leer antes de concluir</h2>
+<blockquote><strong>el instructor:</strong><span>El notebook descarga una fuente unica y valida esquema.</span></blockquote>
+<blockquote><strong>el instructor:</strong><span>Dejen por escrito quién va a definir una sola ruta, validar columnas y mostrar conteo antes de analizar.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>Habra menos libertad creativa con nombres.</span></blockquote>
+<blockquote><strong>Vero:</strong><span>Y mas confianza en el resultado compartido.</span></blockquote>
+<blockquote><strong>Vero:</strong><span>¿Qué cambiaremos después de revisar rutas y fuentes?</span></blockquote>
+<blockquote><strong>Hector:</strong><span>La decisión es definir una sola ruta, validar columnas y mostrar conteo antes de analizar.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>Y volvemos a medir rutas, montaje de Drive y carga de datos en Colab antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Hector:</strong><span>El archivo estaba cerca visualmente, que es muy lejos para Python.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> antes de analizar, valida ruta, columnas y conteo de datos.</p>
+</section>
+  </main>
+
+  <nav class="case-pager" aria-label="Navegacion entre casos">
+    <a class="pager-link" href="35_notebook_funcionaba_martes.html">Anterior: La libreta que funcionaba el martes</a>
+    <a class="pager-link" href="../index.html">Todos los casos</a>
+    <a class="pager-link" href="37_python_en_otra_puerta.html">Siguiente: El Python correcto estaba en otra puerta</a>
+  </nav>
+</body>
+</html>

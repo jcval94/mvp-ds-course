@@ -1,0 +1,10 @@
+title: "El groupby que perdio los lunes"
+case_id: "61"
+chart_type: "pandas_flow"
+question_answered: "Que validaciones conviene hacer antes de usar filtros, joins y groupby en pandas."
+comfortable_read: "Tal vez esos dias no hubo ventas."
+missing_context: "Pandas no siempre se queja por ti."
+correct_read: "Se perdieron al filtrar texto como si fuera fecha."
+decision_changed: "convertir tipos, filtrar explicitamente, unir con llaves y agrupar despues de validar"
+annotations: ["sin validar", "fechas ok", "join validado"]
+synthetic_data: true

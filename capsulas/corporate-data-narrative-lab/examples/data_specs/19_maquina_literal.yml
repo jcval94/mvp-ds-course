@@ -1,0 +1,9 @@
+case_id: "19"
+title: "La maquina que obedecio demasiado literal"
+concept: "instrucciones precisas para comunicarse con una maquina"
+scenario: "maquina_literal"
+seed: 119
+observations: 1000
+variables: [instruction_text, criterion, expected_output, correct_priority]
+key_values: {vague_instruction: 38, criterion: 86, example_output: 94}
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "76"
+title: "Los helados que causaban devoluciones"
+concept: "correlación, confusión y causalidad"
+scenario: "helados_y_devoluciones"
+seed: 276
+observations: 365
+variables: ["date", "temperature", "ice_cream_sales", "orders", "returns", "capacity_exceeded"]
+key_values: {"carga normal": 3, "alta con capacidad": 4, "capacidad rebasada": 11}
+synthetic_data: true

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El árbol que memorizó apellidos</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El árbol conocía a todos por apellido y a nadie fuera de la oficina.">
+  <main>
+<h1>El árbol que memorizó apellidos</h1>
+<section>
+<h2>Cero errores</h2>
+<blockquote><strong>Felipe:</strong><span>El árbol clasifica sin un solo error el historial.</span></blockquote>
+<blockquote><strong>Nora:</strong><span>¿Qué profundidad tiene?</span></blockquote>
+<blockquote><strong>Agus:</strong><span>Treinta y dos niveles y más de mil ramas.</span></blockquote>
+<blockquote><strong>la responsable de talento:</strong><span>¿Qué usa en las últimas ramas?</span></blockquote>
+<blockquote><strong>Felipe:</strong><span>Folio, inicial del apellido y fecha exacta de ingreso.</span></blockquote>
+<blockquote><strong>Nora:</strong><span>Eso suena a memoria, no a patrón.</span></blockquote>
+<p>El diagrama era tan profundo que ninguna pantalla mostraba una ruta completa. Su exactitud perfecta venía de ramas capaces de aislar registros históricos uno por uno.</p>
+</section>
+<section>
+<h2>La regla del folio</h2>
+<blockquote><strong>Agus:</strong><span>Podemos usarlo para llamar a cada persona en riesgo.</span></blockquote>
+<blockquote><strong>la responsable de talento:</strong><span>No con reglas que identifican individuos.</span></blockquote>
+<blockquote><strong>Felipe:</strong><span>Si quitamos folio, baja el ajuste.</span></blockquote>
+<blockquote><strong>Nora:</strong><span>Quiero saber si mejora en personas que nunca vio.</span></blockquote>
+<blockquote><strong>Agus:</strong><span>En validación nueva cae a 58%.</span></blockquote>
+<blockquote><strong>la responsable de talento:</strong><span>Entonces el cero de entrenamiento no compra confianza.</span></blockquote>
+<p>Además del problema técnico, el uso propuesto afectaba personas. Un identificador podía convertir una coincidencia del pasado en una conversación laboral injustificada y difícil de apelar.</p>
+</section>
+<section>
+<h2>Podar para probar</h2>
+<blockquote><strong>Nora:</strong><span>Probé árboles de distintas profundidades sin identificadores.</span></blockquote>
+<blockquote><strong>Felipe:</strong><span>La validación alcanza 74% en profundidad cinco.</span></blockquote>
+<blockquote><strong>Agus:</strong><span>Después vuelve a bajar aunque entrenamiento siga subiendo.</span></blockquote>
+<blockquote><strong>la responsable de talento:</strong><span>Ese punto equilibra señal y generalización.</span></blockquote>
+<blockquote><strong>Nora:</strong><span>Aun así, no se usará para sancionar ni señalar personas.</span></blockquote>
+<p>La curva de validación subió hasta una profundidad moderada y luego retrocedió. Podar el árbol redujo su memoria y mejoró su capacidad de funcionar con registros que nunca había visto.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Desempeño de validación según profundidad del árbol">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Desempeño de validación según profundidad del árbol</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="105" width="184" height="145" fill="#286d9b"/>
+  <text x="152" y="95" font-size="17" text-anchor="middle">67 % validación</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">profundidad 2</text>
+  <rect x="268" y="90" width="184" height="160" fill="#d58b2f"/>
+  <text x="360" y="80" font-size="17" text-anchor="middle">74 % validación</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">profundidad 5</text>
+  <rect x="476" y="125" width="184" height="125" fill="#4c8b63"/>
+  <text x="568" y="115" font-size="17" text-anchor="middle">58 % validación</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">profundidad 32</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">Más profundidad mejora memoria, no necesariamente generalización.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Agus:</strong><span>¿Qué profundidad funciona mejor en datos nuevos aunque no sea perfecta en entrenamiento?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> El árbol de 32 niveles memoriza entrenamiento y cae a 58% en validación. Sin identificadores, una profundidad de cinco alcanza 74% y generaliza mejor. La brecha entre entrenamiento y validación muestra sobreajuste; además, el uso debe evitar daño individual.</p>
+</section>
+<section>
+<h2>Usar patrones, no nombres</h2>
+<blockquote><strong>la responsable de talento:</strong><span>Usaremos tendencias por área para revisar condiciones de trabajo.</span></blockquote>
+<blockquote><strong>Agus:</strong><span>No habrá listas individuales para jefaturas.</span></blockquote>
+<blockquote><strong>Felipe:</strong><span>Eliminaré identificadores y limitaré complejidad.</span></blockquote>
+<blockquote><strong>Nora:</strong><span>También mediremos estabilidad en periodos nuevos.</span></blockquote>
+<blockquote><strong>la responsable de talento:</strong><span>La intervención será sobre procesos y con revisión humana.</span></blockquote>
+<blockquote><strong>Nora:</strong><span>Para repetir sobreajuste, complejidad y generalización, ¿qué vamos a comprobar primero?</span></blockquote>
+<blockquote><strong>Felipe:</strong><span>Vamos a usar un modelo más simple, excluir identificadores y limitarlo a apoyo agregado y a revisar si el efecto se mantiene.</span></blockquote>
+<blockquote><strong>Felipe:</strong><span>El árbol conocía a todos por apellido y a nadie fuera de la oficina.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> un modelo útil aprende patrones que sobreviven fuera de sus datos de entrenamiento.</p>
+</section>
+  </main>
+</body>
+</html>
