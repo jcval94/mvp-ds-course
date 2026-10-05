@@ -1,26 +1,26 @@
-# Narrative
+# capsulas/
 
-Repositorio de `corporate-data-narrative-lab`: historias breves de oficina que
-enseñan ciencia de datos con una sola gráfica SVG.
+Cápsulas de oficina: historias breves que enseñan ciencia de datos con una sola
+gráfica SVG. Importadas con historial completo desde el repo
+[`narrative`](https://github.com/jcval94/narrative) (commit `904d027`).
 
-## Sitio público
+## Dentro del monorepo
 
-El sitio de GitHub Pages vive en [`docs/`](docs/) y se regenera desde las
-fuentes canónicas del laboratorio.
-
-En GitHub, configura Pages así:
-
-- Source: `Deploy from a branch`
-- Branch: `main`
-- Folder: `/docs`
-
-Para reconstruirlo localmente:
+- Fuente canónica: `corporate-data-narrative-lab/` (casos Markdown, specs YAML,
+  herramientas y pruebas). Sus reglas siguen en `corporate-data-narrative-lab/AGENTS.md`.
+- El sitio generado **ya no se versiona**: `capsulas/docs/` está en `.gitignore`.
+  El harness lo construye directamente en `dist/capsulas/`:
 
 ```powershell
-cd corporate-data-narrative-lab
-python tools/build_pages_site.py
-python -m pytest
+python -m harness build
 ```
 
-No edites `docs/` a mano. Cambia los casos en
-`corporate-data-narrative-lab/examples/` y vuelve a generar el sitio.
+- Para revisar o probar solo las cápsulas:
+
+```powershell
+cd capsulas/corporate-data-narrative-lab
+python -m pytest
+python tools/build_pages_site.py   # escribe en capsulas/docs/ (ignorado por Git)
+```
+
+El repo `narrative` original sigue publicado sin cambios hasta demostrar paridad.
