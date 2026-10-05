@@ -1,16 +1,14 @@
 :root {
-  --ink: #162231;
-  --muted: #627081;
-  --line: #d9e0e5;
-  --accent: #087f7b;
-  --accent-dark: #056964;
-  --soft: #f5f8f8;
-  --white: #fff;
+  /* Colores desde design/tokens/tokens.css (cargado antes). Alias heredados del portal: */
+  --ink: var(--text);
+  --accent-dark: var(--accent-strong);
+  --soft: var(--panel-2);
+  --white: var(--bg);
   --max: 1180px;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; color-scheme: light; }
+html { scroll-behavior: smooth; color-scheme: dark; }
 body {
   margin: 0;
   min-width: 320px;
@@ -50,7 +48,7 @@ button, input { font: inherit; }
 .brand-mark i:nth-child(2) { height: 12px; }
 .brand-mark i:nth-child(3) { height: 18px; }
 .site-header nav { display: flex; align-items: center; gap: 28px; }
-.site-header nav a { color: #3d4b5c; font-size: 13px; }
+.site-header nav a { color: var(--muted); font-size: 13px; }
 .site-header nav a:hover, .site-header nav a:focus-visible { color: var(--accent); }
 main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
 .hero {
@@ -86,7 +84,7 @@ main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
   border: 1px solid var(--accent);
   border-radius: 4px;
   padding: 0 24px;
-  color: white;
+  color: var(--on-accent);
   background: var(--accent);
 }
 .hero-links .primary-link:hover { background: var(--accent-dark); }
@@ -119,7 +117,7 @@ main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
 #levelFilters button {
   border: 0;
   border-bottom: 1px solid transparent;
-  background: white;
+  background: transparent;
   padding: 5px 0;
   color: var(--muted);
   font-size: 12px;
@@ -129,8 +127,8 @@ main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
 #search {
   width: 190px;
   border: 0;
-  border-bottom: 1px solid #9ca9b4;
-  background: white;
+  border-bottom: 1px solid var(--muted);
+  background: transparent;
   padding: 8px 2px;
   color: var(--ink);
   font-size: 12px;
@@ -238,9 +236,9 @@ footer a { color: var(--accent); }
 .placement-shell { border-top: 1px solid var(--ink); padding-top: 26px; }
 .placement-status { display: flex; justify-content: space-between; gap: 18px; color: var(--muted); font-size: 13px; }
 .placement-status span:first-child { color: var(--ink); font-weight: 800; }
-.progress-track { height: 7px; margin: 14px 0 24px; background: #e8eeee; overflow: hidden; }
+.progress-track { height: 7px; margin: 14px 0 24px; background: var(--panel-2); overflow: hidden; }
 .progress-track i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s ease; }
-.question-panel, .result-panel { border: 1px solid var(--line); padding: 24px; background: #fff; }
+.question-panel, .result-panel { border: 1px solid var(--line); padding: 24px; background: var(--panel); }
 .visual-frame {
   border: 1px solid var(--line);
   background: var(--soft);
@@ -259,13 +257,13 @@ footer a { color: var(--accent); }
   border: 1px solid var(--line);
   border-radius: 6px;
   color: var(--ink);
-  background: white;
+  background: var(--panel-2);
   text-align: left;
   cursor: pointer;
 }
 .option-grid button:hover, .option-grid button:focus-visible, .option-grid button.selected { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
-.option-grid button.correct { border-color: #087f73; background: #e9f6f3; }
-.option-grid button.wrong { border-color: #b24b2a; background: #fff0e8; }
+.option-grid button.correct { border-color: var(--ok); background: var(--ok-bg); }
+.option-grid button.wrong { border-color: var(--critical); background: var(--critical-bg); }
 .feedback { min-height: 24px; margin: 18px 0 0; color: var(--muted); line-height: 1.5; }
 .placement-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; align-items: center; }
 .placement-actions button, .placement-actions a {
@@ -274,14 +272,14 @@ footer a { color: var(--accent); }
   border-radius: 4px;
   padding: 0 18px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 800;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
 }
 .placement-actions button:disabled { opacity: .45; cursor: not-allowed; }
-.placement-actions button:nth-child(3), .placement-actions a { background: white; color: var(--accent); }
+.placement-actions button:nth-child(3), .placement-actions a { background: var(--panel); color: var(--accent); }
 .result-panel h2 { margin: 0 0 20px; font-size: 30px; letter-spacing: -.035em; }
 .result-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .result-grid div { min-height: 95px; padding: 16px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }

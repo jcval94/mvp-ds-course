@@ -6,13 +6,14 @@
   <meta name="description" content="Ruta interactiva de ciencia de datos: aprende con historias, visualizaciones, práctica y decisiones reales. Material generado y validado por DataClass Forge.">
   <title>Resultados | DataClass Forge</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="design/tokens/tokens.css">
   <link rel="stylesheet" href="styles.css">
   <style>
     :root {
-      --student-navy: #101b28;
-      --student-lime: #c8f36a;
-      --student-soft: #eef7f5;
-      --student-card: #ffffff;
+      --student-navy: var(--panel);
+      --student-lime: var(--accent);
+      --student-soft: var(--panel-2);
+      --student-card: var(--panel);
     }
     body.student-home { padding-bottom: 0; }
     .student-home .site-header {
@@ -37,8 +38,9 @@
     .student-hero-primary {
       min-height: 390px;
       border-radius: 26px;
-      background: var(--student-navy);
-      color: #fff;
+      background: radial-gradient(circle at top right, var(--panel-2) 0, transparent 40%), var(--student-navy);
+      border: 1px solid var(--line);
+      color: var(--text);
       padding: clamp(28px, 5vw, 48px);
       position: relative;
       overflow: hidden;
@@ -79,7 +81,7 @@
     .student-hero-primary > div > p:not(.student-eyebrow) {
       max-width: 660px;
       margin: 0;
-      color: #c6d0db;
+      color: var(--text-soft);
       font-size: 17px;
       line-height: 1.6;
       position: relative;
@@ -105,8 +107,8 @@
       font-size: 13px;
       font-weight: 850;
     }
-    .student-primary { background: var(--student-lime); color: #142016; border: 1px solid var(--student-lime); }
-    .student-secondary { color: #fff; border: 1px solid rgba(255,255,255,.25); }
+    .student-primary { background: var(--student-lime); color: var(--on-accent); border: 1px solid var(--student-lime); }
+    .student-secondary { color: var(--text); border: 1px solid rgba(255,255,255,.25); }
     .student-hero-side { display: grid; gap: 18px; }
     .student-card {
       border: 1px solid var(--line);
@@ -114,7 +116,7 @@
       background: var(--student-card);
       padding: 22px;
     }
-    .student-card.highlight { background: #f7faec; border-color: #dce8bd; }
+    .student-card.highlight { background: var(--panel-2); border-color: var(--accent-strong); }
     .student-card .label {
       color: var(--accent);
       font-size: 10px;
@@ -155,7 +157,7 @@
       border: 1px solid var(--line);
       border-radius: 18px;
       overflow: hidden;
-      background: #fff;
+      background: var(--panel);
     }
     .learning-step { min-height: 130px; padding: 20px; border-right: 1px solid var(--line); }
     .learning-step:last-child { border-right: 0; }
@@ -170,7 +172,7 @@
       font-size: 11px;
       font-weight: 850;
     }
-    .learning-step:first-child .step-number { background: var(--accent); color: #fff; }
+    .learning-step:first-child .step-number { background: var(--accent); color: var(--on-accent); }
     .learning-step strong { display: block; margin-top: 14px; font-size: 13px; }
     .learning-step span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.45; }
     .mission-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: 20px; }
@@ -188,7 +190,7 @@
       border: 1px solid var(--line);
       border-radius: 20px;
       padding: 28px;
-      background: #fff;
+      background: var(--panel);
     }
     .method-card h3 { margin: 0 0 12px; font-size: 20px; letter-spacing: -.03em; }
     .method-card p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 13px; }
@@ -274,7 +276,7 @@
         bottom: 0;
         min-height: 68px;
         padding-bottom: env(safe-area-inset-bottom);
-        background: rgba(255,255,255,.96);
+        background: rgba(8,13,19,.96);
         border-top: 1px solid var(--line);
         backdrop-filter: blur(14px);
         z-index: 40;
