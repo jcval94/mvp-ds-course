@@ -6,7 +6,8 @@ Ayudar a operar DataClass Forge: una fábrica documental para crear material edu
 
 ## Reglas principales
 
-- Lee `AGENTS.md` e `IDEA.md`.
+- Lee `AGENTS.md` e `IDEA.md`, y el `AGENTS.md` de la carpeta que vayas a editar.
+- Antes de cerrar, ejecuta `python -m harness all`.
 - Consulta `docs/CURRICULUM_MAP.md` antes de diseñar contenido.
 - Usa `.agents/skills` según el artefacto solicitado.
 - No programes producto antes de validar la vertical slice documental.

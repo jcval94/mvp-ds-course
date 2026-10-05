@@ -1,3 +1,16 @@
+# studio/
+
+Estudio de video del curso (Remotion). Importado con historial desde el repo
+local `tacos-don-juan-remotion`, incluido un commit con el trabajo que estaba sin
+versionar el 2026-10-05.
+
+- Se renderiza en local: `pnpm install` y `npx remotion render`.
+- Los MP4 y las imágenes renderizadas **no** van a Git ni a `dist/`; se publican
+  en YouTube (no listado) y la misión guarda el enlace en `video.url`.
+- Engine público: aquí van composiciones, no contenido premium.
+
+---
+
 # Remotion video
 
 <p align="center">

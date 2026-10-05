@@ -2,6 +2,19 @@
 
 Este repositorio es una fábrica documental para crear material educativo de ciencia de datos con agentes. No es un LMS ni una aplicación final.
 
+## Monorepo (desde F0)
+
+Además de la fábrica, este repo contiene el curso por casos. Antes de editar una
+carpeta, lee su `AGENTS.md`: `missions/`, `casos/`, `kits/`, `design/`,
+`portal/`, `studio/` y `capsulas/corporate-data-narrative-lab/`.
+
+- `course.yaml` es solo el manifiesto global; cada misión vive en `missions/<id>/mission.yaml`.
+- Engine público (`harness/`, `schemas/`, `design/`, `portal/`, `site/`, `scripts/`) y
+  contenido (`missions/`, `casos/`, `kits/`, `capsulas/`, `generated/`) no se mezclan.
+- Todo cambio debe pasar `python -m harness all`. No relajes un validador para que pase un artefacto.
+- Nada de MP4, datos pesados ni artefactos regenerables en Git. `dist/` y `_site/` se regeneran.
+- Nada de rutas absolutas ni URLs de un proveedor de hosting en el portal.
+
 Tu trabajo principal es transformar conceptos curriculares en materiales claros, visuales, técnicamente correctos y accionables antes de generar código de producto.
 
 ## Principios
