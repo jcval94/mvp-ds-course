@@ -1,0 +1,57 @@
+/* design · componentes v0.2.0
+   Requiere design/tokens/tokens.css cargado antes. Capa de juego 8 bits al final. */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); }
+
+/* Shell: barra lateral + escenario */
+.shell { display: grid; grid-template-columns: var(--sidebar) minmax(0, 1fr); min-height: 100vh; }
+.shell-sidebar { border-right: 1px solid var(--line); background: linear-gradient(180deg, #0e1721 0%, #091019 100%); display: flex; flex-direction: column; min-width: 0; }
+.shell-stage { min-width: 0; }
+@media (max-width: 760px) { .shell { display: block; } .shell-sidebar { display: none; } }
+
+/* Texto */
+.eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+.muted { color: var(--muted); }
+
+/* Hero */
+.hero { padding: 30px 32px; border: 1px solid var(--line); border-radius: var(--r-hero); background: radial-gradient(circle at top right, #17344b 0, transparent 34%), var(--panel); box-shadow: 0 18px 60px #0006; }
+.hero h1 { font-size: clamp(30px, 4.5vw, 52px); line-height: 1.05; margin: .28em 0 .2em; letter-spacing: -.02em; }
+
+/* Tarjetas e indicadores */
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; }
+.kpi { background: linear-gradient(180deg, #111c28, #0c141d); border: 1px solid var(--line); border-radius: 15px; padding: 15px; }
+.kpi span { display: block; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.kpi b { display: block; font-size: 28px; margin-top: 5px; letter-spacing: -.03em; }
+
+/* Pastillas */
+.pill { display: inline-block; border-radius: 999px; padding: 4px 9px; font-weight: 800; font-size: 11px; letter-spacing: .05em; border: 1px solid var(--line); }
+.pill.ok { color: var(--ok); background: var(--ok-bg); border-color: #1f5a43; }
+.pill.warn { color: var(--warn); background: var(--warn-bg); border-color: #6b5226; }
+.pill.story { color: var(--story); background: var(--story-bg); border-color: #4e3d6e; }
+
+/* Pestañas */
+.tabs { display: flex; gap: 7px; flex-wrap: wrap; padding: 5px; background: #0b131c; border: 1px solid var(--line); border-radius: 14px; width: max-content; max-width: 100%; }
+.tab { appearance: none; border: 0; background: transparent; color: #8fa3b5; border-radius: 10px; padding: 10px 13px; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.tab[aria-selected="true"] { background: #152433; color: var(--text); box-shadow: inset 0 0 0 1px #294057; }
+
+/* Botones y búsqueda */
+.button { display: inline-block; background: var(--accent); color: var(--on-accent); font-weight: 800; border-radius: var(--r-control); padding: 10px 15px; text-decoration: none; border: 0; cursor: pointer; }
+.button.secondary { background: var(--panel-2); color: var(--text); border: 1px solid var(--line); }
+.search { width: 100%; border: 1px solid var(--line); border-radius: var(--r-control); background: #0a1119; color: var(--text); padding: 10px 11px; outline: none; }
+.search:focus { border-color: #3f8daf; box-shadow: 0 0 0 3px #17405a55; }
+
+/* ---------- Capa de juego (8 bits) ---------- */
+.px-font { font-family: var(--font-pixel); letter-spacing: 0; text-transform: uppercase; }
+.px-border { border: 0; box-shadow:
+  0 calc(var(--px) * -1) 0 0 var(--line), 0 var(--px) 0 0 var(--line),
+  calc(var(--px) * -1) 0 0 0 var(--line), var(--px) 0 0 0 var(--line); border-radius: 0; }
+.px-badge { font-family: var(--font-pixel); font-size: 10px; color: var(--on-accent); background: var(--accent); padding: 6px 8px; box-shadow: 0 var(--px) 0 0 var(--accent-strong); }
+.xp-bar { height: calc(var(--px) * 3); background: var(--panel-2); box-shadow: 0 0 0 var(--px) var(--line); }
+.xp-bar > i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--ok) 0 calc(var(--px) * 3), #3fa57e calc(var(--px) * 3) calc(var(--px) * 4)); }
+.dialog-box { background: var(--panel); padding: 14px 16px; box-shadow:
+  0 calc(var(--px) * -1) 0 0 var(--text), 0 var(--px) 0 0 var(--text),
+  calc(var(--px) * -1) 0 0 0 var(--text), var(--px) 0 0 0 var(--text); }
+.sprite { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

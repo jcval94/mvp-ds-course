@@ -2,8 +2,10 @@
 
 Sistema visual del curso. Fuente única de colores, tipografía y componentes.
 
-- `tokens/tokens.css`: variables CSS y componentes base.
+- `tokens/tokens.css`: solo variables CSS (colores, tipografía, radios). Lo carga todo el portal.
 - `tokens/tokens.json`: los mismos valores para Remotion y Python.
+- `components/components.css`: componentes base (hero, card, pill, tabs…) y capa 8 bits.
+  Requiere `tokens.css` antes. El portal heredado (`site/`) no lo usa para no chocar con sus clases.
 - `REFERENCE.md`: de dónde salen los tokens (página de referencia del 2026-10-05).
 
 Dos capas: **base** (la página de referencia: tema oscuro, acento cian, Inter) y
@@ -12,4 +14,6 @@ Dos capas: **base** (la página de referencia: tema oscuro, acento cian, Inter) 
 Se publica en `dist/design/`. Las páginas lo enlazan con rutas relativas, nunca
 con rutas absolutas ni dominios de un proveedor de hosting.
 
-El harness exige paridad entre `tokens.css` y `tokens.json`.
+El harness exige paridad entre `tokens.css` y `tokens.json`, y prohíbe colores
+literales en `site/` y `portal/` (única excepción: `portal/404.html`, que no puede
+cargar assets relativos).
