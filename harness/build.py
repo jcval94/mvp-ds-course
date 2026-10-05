@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from .config import DIST, HOST_CONFIG_FILES, LEGACY_BUILD, ROOT, HarnessError, load_course, load_missions
+from .config import DIST, HOST_CONFIG_FILES, LEGACY_BUILD, ROOT, HarnessError, load_cases, load_course, load_missions
 
 PUBLIC_MISSION_STATES = {"ready", "published"}
 NON_PUBLISHED_NAMES = {"README.md", "AGENTS.md", "CLAUDE.md", "REFERENCE.md"}
@@ -94,6 +94,29 @@ def public_missions(course: dict[str, Any], root: Path) -> list[dict[str, Any]]:
     return sorted(published, key=lambda item: item["id"])
 
 
+CASE_PUBLIC_FIELDS = ("id", "title", "decision_question", "concepts", "level_hint", "uncertainties", "myths_to_avoid", "sources", "analogy_limits")
+
+
+def public_cases(course: dict[str, Any], root: Path) -> dict[str, Any]:
+    """Approved cases allowed in the public build, plus counts. Candidates are only counted, never published."""
+    allowed_access = set(course["access"]["public_build_includes"])
+    ledger, staging = load_cases(root)
+    approved = []
+    for case in ledger.values():
+        if case.get("status") == "approved" and case.get("access") in allowed_access:
+            item = {key: case[key] for key in CASE_PUBLIC_FIELDS if key in case}
+            item["claims"] = [claim["claim"] for claim in case.get("verified_claims", [])]
+            approved.append(item)
+    approved.sort(key=lambda item: item["id"])
+    concepts = sorted({concept for case in approved for concept in case.get("concepts", [])})
+    return {
+        "schema_version": 1,
+        "approved": approved,
+        "in_review": len(staging) + sum(1 for case in ledger.values() if case.get("status") == "verified"),
+        "concepts": concepts,
+    }
+
+
 def file_inventory(dist: Path) -> list[dict[str, Any]]:
     inventory = []
     for path in sorted(item for item in dist.rglob("*") if item.is_file()):
@@ -127,6 +150,8 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
 
     missions = public_missions(course, root)
     _write_json(dist / "missions.json", {"schema_version": 1, "course": course["course"]["id"], "missions": missions})
+    cases = public_cases(course, root)
+    _write_json(dist / "casos.json", cases)
 
     inventory = file_inventory(dist)
     info = {
@@ -139,6 +164,8 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
         "bytes": sum(item["bytes"] for item in inventory),
         "content_sha256": hashlib.sha256(json.dumps(inventory, sort_keys=True).encode("utf-8")).hexdigest(),
         "public_missions": [item["id"] for item in missions],
+        "public_cases": [item["id"] for item in cases["approved"]],
+        "budgets": course["build"]["budgets"],
     }
     _write_json(dist / "build-info.json", info)
     return info

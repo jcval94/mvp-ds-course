@@ -152,3 +152,18 @@ def test_color_guard_rejects_literal_colors_in_portal_sources(tmp_path: Path) ->
 
 def test_current_portal_uses_only_design_tokens() -> None:
     assert validate.validate_color_literals() == []
+
+
+def test_public_cases_only_publish_approved_public_cases(repo: Path) -> None:
+    base = json.loads((repo / "casos" / "staging" / "wald-bombers.json").read_text(encoding="utf-8"))
+    approved = {**base, "id": "snow-cholera", "status": "approved", "access": "public",
+                "verified_claims": [{"claim": "Afirmación verificada de prueba.", "sources": ["https://example.org/a"]}],
+                "sources": ["https://example.org/a", "https://example.org/b"], "uncertainties": ["Incertidumbre de prueba."]}
+    premium = {**approved, "id": "moneyball", "access": "premium"}
+    (repo / "casos" / "cases.jsonl").write_text(json.dumps(approved) + "\n" + json.dumps(premium) + "\n", encoding="utf-8")
+    course = yaml.safe_load((repo / "course.yaml").read_text(encoding="utf-8"))
+    cases = build.public_cases(course, repo)
+    assert [item["id"] for item in cases["approved"]] == ["snow-cholera"]
+    assert cases["approved"][0]["claims"] == ["Afirmación verificada de prueba."]
+    assert "verified_claims" not in cases["approved"][0]
+    assert cases["in_review"] == 1  # el candidato de staging se cuenta, no se publica

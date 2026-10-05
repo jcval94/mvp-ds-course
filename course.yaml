@@ -40,7 +40,7 @@ components:
     publish: true
     mount: .
     access: public
-    description: Capa nueva del portal (misiones, 404). Agnóstica del hosting.
+    description: Shell del curso (estructura de la página de referencia), misiones, banco de casos, salud y 404. Agnóstico del hosting.
   design:
     path: design
     publish: true

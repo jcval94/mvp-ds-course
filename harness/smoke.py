@@ -52,6 +52,7 @@ def _serve(dist: Path, prefix: str) -> tuple[ThreadingHTTPServer, str]:
 def _targets(dist: Path) -> list[str]:
     catalog = json.loads((dist / "catalog.json").read_text(encoding="utf-8"))
     targets = ["", "methodology.html", "placement.html", "missions/", "capsulas/"]
+    targets += [item for item in ("casos/", "salud/", "curso/", "curso/?vista=casos") if (dist / item.split("?")[0] / "index.html").exists()]
     first_case = sorted((dist / "capsulas" / "cases").glob("*.html"))
     if first_case:
         targets.append(first_case[0].relative_to(dist).as_posix())
@@ -90,6 +91,23 @@ def _check_page(page, base: str, target: str, origin: str) -> list[str]:
     return [f"{target or '(inicio)'}: {problem}" for problem in problems]
 
 
+def _check_shell(page, base: str, prefix: str, levels: list[dict[str, Any]]) -> list[str]:
+    """The course shell lists every level, opens one from the URL and switches views in its stage."""
+    problems: list[str] = []
+    page.goto(base + "curso/?nivel=3", wait_until="networkidle")
+    listed = page.locator("#levelList [data-level]").count()
+    if listed != len(levels):
+        problems.append(f"[{prefix}] curso/: {listed} niveles en la barra lateral, se esperaban {len(levels)}")
+    frame_src = page.locator("#courseFrame").get_attribute("src") or ""
+    if "labs/level-3/" not in frame_src or page.locator("#levelList [data-level='3'].active").count() != 1:
+        problems.append(f"[{prefix}] curso/?nivel=3: el escenario no abrió el Nivel 3")
+    page.locator("[data-view='casos']").first.click()
+    page.wait_for_load_state("networkidle")
+    if "casos/index.html" not in (page.locator("#courseFrame").get_attribute("src") or "") or "vista=casos" not in page.url:
+        problems.append(f"[{prefix}] curso/: la vista Banco de casos no se abrió en el escenario")
+    return problems
+
+
 def run(base_paths: list[str] | None = None, root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     from playwright.sync_api import sync_playwright
 
@@ -115,6 +133,10 @@ def run(base_paths: list[str] | None = None, root: Path = ROOT, dist: Path | Non
                 for target in targets:
                     failures += [f"[{prefix}] {item}" for item in _check_page(page, base, target, origin)]
 
+                levels = json.loads((dist / "catalog.json").read_text(encoding="utf-8"))["levels"]
+                if (dist / "curso" / "index.html").exists() and levels:
+                    failures += _check_shell(page, base, prefix, levels)
+
                 page.goto(base + "missions/", wait_until="networkidle")
                 cards = page.locator("[data-mission-id]").count()
                 if cards != len(missions):
@@ -129,7 +151,7 @@ def run(base_paths: list[str] | None = None, root: Path = ROOT, dist: Path | Non
                 mobile = browser.new_context(viewport={"width": 390, "height": 844})
                 mobile.route("**/*", lambda route: route.continue_() if route.request.url.startswith(origin) else route.abort())
                 mobile_page = mobile.new_page()
-                for target in ["", "missions/", "capsulas/"]:
+                for target in ["", "missions/", "capsulas/"] + [item for item in ("casos/", "salud/", "curso/") if (dist / item / "index.html").exists()]:
                     mobile_page.goto(base + target, wait_until="networkidle")
                     if mobile_page.evaluate("() => document.documentElement.scrollWidth > document.documentElement.clientWidth"):
                         failures.append(f"[{prefix}] {target or '(inicio)'}: desbordamiento horizontal en móvil")

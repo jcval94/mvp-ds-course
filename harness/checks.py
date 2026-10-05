@@ -90,7 +90,7 @@ def check_portability(dist: Path = DIST) -> list[str]:
             for marker in HOST_COUPLING_MARKERS:
                 if marker in text:
                     errors.append(f"{path.relative_to(dist).as_posix()}: contiene '{marker}' y acopla el sitio a un proveedor")
-    for required in ("index.html", "404.html", "missions.json", "build-info.json"):
+    for required in ("index.html", "404.html", "missions.json", "casos.json", "build-info.json", "curso/index.html"):
         if not (dist / required).is_file():
             errors.append(f"dist/{required} no existe")
     return errors
