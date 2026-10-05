@@ -5,3 +5,21 @@ venv/
 .env
 _site/
 datasets/_downloads/
+
+# Build portable del portal (se regenera con `python -m harness build`)
+dist/
+
+# Artefactos regenerables de dominios importados
+capsulas/docs/
+capsulas/corporate-data-narrative-lab/outputs/*
+!capsulas/corporate-data-narrative-lab/outputs/.gitkeep
+studio/node_modules/
+studio/out/
+studio/dist/
+
+# Medios pesados: viven fuera de Git (YouTube, Releases o almacenamiento externo)
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.zip
