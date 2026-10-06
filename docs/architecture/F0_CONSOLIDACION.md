@@ -76,7 +76,7 @@ fusionar el PR en `main`; la CI del PR corre fábrica, cápsulas y portal sin de
 | 1 | ~~`qa_student_experience.py` falla en `main`~~ | Resuelto en esta rama (§6.1) |
 | 2 | Generadores desalineados con `generated/` (42 archivos) | Decidir si se regeneran y se reaprueban, o se congelan |
 | 3 | `qa_pages.py` reescribe capturas versionadas | Mover la evidencia a artefactos de CI y dejar solo las aprobadas en `reference/` |
-| 4 | Dos fuentes de portal (`site/` y `portal/`) | Unificar en F3 con el shell de la página de referencia |
+| 4 | Dos fuentes de portal (`site/` y `portal/`) | Unificar con la landing de The Agentic D. Scientist (`design/REFERENCE.md`) |
 | 5 | `codex/add-home-navigation` sin fusionar (y checkout local); `codex/corporate-data-narrative-lab` en `narrative` sin fusionar | Decidir antes de seguir; pueden chocar con `README.md`/`AGENTS.md` |
 | 6 | `studio/pnpm-workspace.yaml` trae `allowBuilds: esbuild: set this to true or false` | Fijar `true` o `false` antes del primer `pnpm install` |
 | 7 | Estudio fuera de CI y sin tokens conectados | F1 |
@@ -103,13 +103,23 @@ Con esto el script pasa en escritorio, tableta y teléfono. Es la causa de que
 los 17 commits posteriores (Nivel 3 con *code labs*, diagnóstico, navegación)
 hasta que se fusione una rama con estas correcciones.
 
+### 6.2 Corrección posterior: referencia visual
+
+Los tokens iniciales de `design/` salieron de una réplica de AI News Daily que no
+era la página del curso. Se reemplazaron por los de The Agentic D. Scientist
+(proyecto "Remix of Continuum 1"): secciones claras, hero `#050d0a`, ámbar
+`#fdaa3e`, Plus Jakarta Sans y nunca verde. Afecta solo a `design/`,
+`portal/404.html` y `portal/missions/`; `site/` no cambia en F0. Detalle en
+`design/REFERENCE.md`.
+
 ## 7. Siguiente paso exacto (F1 · Diseño)
 
-En una rama `f1-diseno`: conectar `site/styles.css` a `design/tokens/tokens.css`
-reemplazando sus colores literales por variables, agregar a `harness validate`
-la regla "sin hexadecimales fuera de `design/tokens/`" para `site/` y `portal/`,
-y aprobar con `qa_pages.py`, `harness all` y una comparación de capturas antes y
-después.
+En una rama `f1-continuum`: convertir la portada de `site/` en la landing de The
+Agentic D. Scientist con los tokens de `design/` (Plus Jakarta Sans
+auto-hospedada), conectar `site/styles.css` a esos tokens sin colores literales,
+agregar a `harness validate` la regla "sin colores literales fuera de
+`design/tokens/`" para `site/` y `portal/`, y aprobar con `qa_pages.py`,
+`qa_student_experience.py`, `harness all` y una comparación de capturas.
 
 ## 8. Cómo fusionar y cómo revertir
 

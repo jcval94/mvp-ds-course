@@ -17,4 +17,4 @@ Reglas de portabilidad (el harness las verifica):
 - El sitio funciona servido en la raíz (Cloudflare Pages) y bajo una subruta
   (GitHub Pages de proyecto: `/mvp-ds-course/`).
 
-En F3 `site/` y `portal/` se unificarán en el shell de la página de referencia.
+`site/` y `portal/` se unificarán con la landing de The Agentic D. Scientist (ver `design/REFERENCE.md`).

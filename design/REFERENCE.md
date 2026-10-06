@@ -1,19 +1,34 @@
 # Página de referencia
 
-- Archivo: `Pagina_Curso_Completa_2026-10-05.zip` (carpeta GitHub local del autor, 89 MB).
-- Contenido: réplica estática del sitio de AI News Daily publicada el 2026-10-05 (`published_site/`) y su código fuente (`source/`, commit `2f4b4e9`).
-- No se versiona aquí por tamaño (casi todo es video de episodios).
+- Archivo: `Remix of Continuum 1.zip` (proyecto de Lovable del autor, recibido el 2026-10-05).
+- Contenido: app React + TanStack Start + Supabase de **The Agentic D. Scientist**:
+  landing bilingüe, login, portal del alumno por plan y admin.
+- No se versiona aquí. Del proyecto solo se adopta el sistema visual y la
+  estructura de la landing; el login, Supabase y el admin quedan fuera hasta que
+  el curso necesite backend.
+- Sustituye a la referencia anterior (`Pagina_Curso_Completa_2026-10-05`, réplica
+  de AI News Daily), que no correspondía al curso.
 
-## Vistas revisadas
+## Qué se toma
 
-| Vista | Patrón que se adopta |
-| --- | --- |
-| `index.html` | Shell: barra lateral de 292 px + escenario con `iframe`; tarjetas de navegación con borde y acento interior al estar activas; búsqueda; selector en móvil. |
-| `episodes/<fecha>/index.html` | Hero con etiqueta, título grande, pregunta, pastilla de estado y botones; pestañas; mosaicos de puntaje. |
-| `memory/index.html` | Hero con título enorme y tarjeta de "snapshot"; 6 indicadores; tarjetas con acento morado para contenido narrativo; filtros tipo chip. |
-| `health/index.html` | Estados ok / warn / critical para el tablero docente. |
-| `metrics/index.html` | Histórico de puntajes para la vista de progreso. |
+| Elemento | Origen | Valor |
+| --- | --- | --- |
+| Acento | `#FDAA3E` en la landing | `--accent`, `--accent-hover` (`#fdb95e`), `--on-accent` (`#1a1a1a`) |
+| Hero y CTA final | `background: #050d0a` | `--hero` |
+| Secciones | blanco y `#fafaf7` alternados | `--surface`, `--surface-alt` |
+| Texto, bordes, marrón | `src/styles.css` (`oklch`) convertidos a hex | `--text`, `--muted`, `--line`, `--primary`, `--surface-soft`, `--critical` |
+| Tipografía | Plus Jakarta Sans 400–700 | `--font` |
+| Radios | `--radius: .75rem` (botón `rounded-xl`, tarjeta `rounded-2xl`) | `--r-control: 16px`, `--r-card: 20px` |
+| Regla de marca | `.lovable/memory`: "NEVER use green" | Sin verdes en tokens ni componentes |
 
-## Variaciones encontradas
+## Ajuste de accesibilidad
 
-Las vistas usan valores casi iguales con pequeñas diferencias (por ejemplo `--panel` entre `#0d141d` y `#0f1823`, `--accent` entre `#66d9ff` y `#7dd3fc`). Se normalizaron a los valores de `index.html`, con los extras de `memory/` (`--story`, `--story-bg`) y de `health/` (`--warn`, `--critical`).
+La landing usa `#a86a14` para texto ámbar sobre blanco (contraste 4.4:1). Aquí
+se usa `--accent-text: #94600f` (5.3:1) para cumplir AA en texto pequeño. El
+ámbar `#fdaa3e` se reserva para rellenos, íconos y texto sobre `--hero`.
+
+## Qué no se toma
+
+- Testimonios: nombres y fotos de plantilla. No se publican hasta tener reales.
+- `hero-bg.jpg`: foto heredada de la plantilla original (rastreador de hábitos).
+- Formulario de pago de demostración: los planes de pago llevan a un correo.
