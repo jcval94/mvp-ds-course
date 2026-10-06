@@ -53,8 +53,8 @@ def minimum_touch_target(page, selector: str, minimum: int = 44) -> None:
 
 def assert_home(page) -> None:
     page.goto(BASE, wait_until="networkidle")
-    page.get_by_text("The Agentic Data Scientist", exact=True).first.wait_for()
-    page.get_by_role("heading", name="Ciencia de datos que se entiende, se practica y se usa.").wait_for()
+    page.get_by_text("The Agentic D. Scientist", exact=True).first.wait_for()
+    page.get_by_role("heading", name="Conviértete en un Agentic Data Scientist").wait_for()
     page.get_by_text("Historia", exact=True).first.wait_for()
     page.get_by_text("Intuición", exact=True).first.wait_for()
     page.get_by_text("Visual", exact=True).first.wait_for()

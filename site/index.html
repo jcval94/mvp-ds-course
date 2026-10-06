@@ -3,436 +3,414 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="Ruta interactiva de ciencia de datos: aprende con historias, visualizaciones, práctica y decisiones reales. Material generado y validado por DataClass Forge.">
-  <title>Resultados | DataClass Forge</title>
+  <meta name="description" content="Conviértete en un Agentic Data Scientist. Laboratorios prácticos, misiones y decisiones con datos reales. Empieza gratis con los primeros dos niveles.">
+  <meta property="og:title" content="The Agentic D. Scientist">
+  <meta property="og:description" content="Curso de IA y ciencia de datos con laboratorios, misiones y decisiones reales.">
+  <title>The Agentic D. Scientist · Curso de IA y ciencia de datos</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="design/tokens/tokens.css">
   <link rel="stylesheet" href="styles.css">
   <style>
-    :root {
-      --student-navy: #101b28;
-      --student-lime: #c8f36a;
-      --student-soft: #eef7f5;
-      --student-card: #ffffff;
-    }
-    body.student-home { padding-bottom: 0; }
-    .student-home .site-header {
-      min-height: 68px;
-      height: auto;
-      gap: 22px;
-    }
-    .student-home .brand { min-width: 0; }
-    .student-home .brand-copy { display: grid; gap: 2px; min-width: 0; }
-    .student-home .brand-copy strong { font-size: 15px; white-space: nowrap; }
-    .student-home .brand-copy small { color: var(--muted); font-size: 10px; letter-spacing: .02em; }
-    .student-home .site-header nav a[aria-current="page"] { color: var(--accent); font-weight: 800; }
-    .student-hero {
-      padding: 42px 0 34px;
-      border: 0;
-    }
-    .student-hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
-      gap: 18px;
-    }
-    .student-hero-primary {
-      min-height: 390px;
-      border-radius: 26px;
-      background: var(--student-navy);
-      color: #fff;
-      padding: clamp(28px, 5vw, 48px);
+    /* Landing: estructura de The Agentic D. Scientist (Continuum). Colores solo desde design/tokens. */
+    body.landing { background: var(--surface); }
+    .landing main { max-width: none; padding: 0; }
+
+    /* Hero oscuro con encabezado encima */
+    .hero-section {
       position: relative;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      background:
+        radial-gradient(60% 70% at 88% 18%, color-mix(in srgb, var(--accent) 22%, transparent) 0, transparent 60%),
+        radial-gradient(45% 55% at 8% 100%, color-mix(in srgb, var(--primary) 45%, transparent) 0, transparent 70%),
+        var(--hero);
+      color: var(--hero-text);
     }
-    .student-hero-primary::after {
+    .hero-section::before {
       content: "";
-      width: 330px;
-      height: 330px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 50%;
       position: absolute;
-      right: -110px;
-      top: -95px;
-      box-shadow: 0 0 0 55px rgba(255,255,255,.025), 0 0 0 110px rgba(255,255,255,.018);
+      inset: 0;
+      background-image: radial-gradient(color-mix(in srgb, var(--hero-text) 9%, transparent) 1px, transparent 1px);
+      background-size: 26px 26px;
+      mask-image: linear-gradient(to left, var(--hero) 0, transparent 70%);
+      -webkit-mask-image: linear-gradient(to left, var(--hero) 0, transparent 70%);
+      pointer-events: none;
     }
-    .student-eyebrow {
-      margin: 0;
-      color: var(--student-lime);
-      font-size: 11px;
-      font-weight: 850;
-      letter-spacing: .09em;
-      text-transform: uppercase;
+    .landing .site-header {
+      position: relative;
+      background: transparent;
+      border-bottom: 0;
+      backdrop-filter: none;
+      color: var(--hero-text);
+      z-index: 5;
+    }
+    .landing .site-header nav a { color: var(--hero-text); }
+    .landing .site-header nav a:hover { color: var(--hero-soft); }
+    .landing .header-cta { background: var(--glass); color: var(--hero-text); border: 1px solid var(--glass-line); backdrop-filter: blur(6px); }
+    .landing .header-cta:hover { background: color-mix(in srgb, var(--hero-text) 18%, transparent); }
+    .hero-inner {
       position: relative;
       z-index: 1;
-    }
-    .student-hero-primary h1 {
-      max-width: 760px;
-      margin: 14px 0 16px;
-      font-size: clamp(42px, 6vw, 70px);
-      line-height: .98;
-      letter-spacing: -.055em;
-      position: relative;
-      z-index: 1;
-    }
-    .student-hero-primary > div > p:not(.student-eyebrow) {
-      max-width: 660px;
-      margin: 0;
-      color: #c6d0db;
-      font-size: 17px;
-      line-height: 1.6;
-      position: relative;
-      z-index: 1;
-    }
-    .student-actions {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+      gap: 40px;
       align-items: center;
-      gap: 12px;
-      margin-top: 30px;
-      position: relative;
-      z-index: 2;
+      padding-block: 72px 104px;
     }
-    .student-primary,
-    .student-secondary {
-      min-height: 50px;
-      border-radius: 10px;
-      padding: 0 20px;
+    .hero-kicker {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 850;
+      gap: 8px;
+      margin: 0;
+      padding: 5px 12px;
+      border-radius: var(--r-pill);
+      background: var(--glass);
+      border: 1px solid var(--glass-line);
+      color: var(--hero-soft);
+      font-size: 12px;
+      font-weight: 500;
     }
-    .student-primary { background: var(--student-lime); color: #142016; border: 1px solid var(--student-lime); }
-    .student-secondary { color: #fff; border: 1px solid rgba(255,255,255,.25); }
-    .student-hero-side { display: grid; gap: 18px; }
-    .student-card {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: var(--student-card);
-      padding: 22px;
-    }
-    .student-card.highlight { background: #f7faec; border-color: #dce8bd; }
-    .student-card .label {
-      color: var(--accent);
-      font-size: 10px;
-      font-weight: 850;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .student-card h2,
-    .student-card h3 { margin: 10px 0 7px; letter-spacing: -.03em; }
-    .student-card h2 { font-size: 24px; }
-    .student-card h3 { font-size: 18px; }
-    .student-card p { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 0; }
-    .student-card a { display: inline-block; margin-top: 16px; color: var(--accent); font-size: 12px; font-weight: 850; border-bottom: 1px solid currentColor; }
-    .student-home .summary-rail {
-      margin: 18px 0 0;
-      padding: 22px 0;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-    .student-home .summary-rail div { min-width: 0; }
-    .student-home .summary-rail dd { font-size: 22px; }
-    .student-section {
-      padding: 72px 0;
-      border-top: 1px solid var(--ink);
-    }
-    .student-section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 26px;
-    }
-    .student-section-heading h2 { margin: 0; font-size: 34px; letter-spacing: -.04em; }
-    .student-section-heading p { margin: 8px 0 0; color: var(--muted); line-height: 1.5; }
-    .learning-path {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      background: #fff;
-    }
-    .learning-step { min-height: 130px; padding: 20px; border-right: 1px solid var(--line); }
-    .learning-step:last-child { border-right: 0; }
-    .learning-step .step-number {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: var(--soft);
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 850;
-    }
-    .learning-step:first-child .step-number { background: var(--accent); color: #fff; }
-    .learning-step strong { display: block; margin-top: 14px; font-size: 13px; }
-    .learning-step span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.45; }
-    .mission-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: 20px; }
-    .mission-card {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 28px;
-      background: var(--student-soft);
-    }
-    .mission-card .mission-kicker { color: var(--accent); font-size: 11px; font-weight: 850; text-transform: uppercase; letter-spacing: .08em; }
-    .mission-card h3 { margin: 10px 0 8px; font-size: 28px; letter-spacing: -.04em; }
-    .mission-card p { margin: 0; color: var(--muted); line-height: 1.55; }
-    .mission-card a { margin-top: 20px; }
-    .method-card {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 28px;
-      background: #fff;
-    }
-    .method-card h3 { margin: 0 0 12px; font-size: 20px; letter-spacing: -.03em; }
-    .method-card p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 13px; }
-    .student-home #catalogo { padding-top: 72px; }
-    .student-home .section-heading { margin-bottom: 28px; }
-    .student-home .section-heading h2 { font-size: 34px; }
-    .trust-drawer {
-      margin: 0 0 70px;
-      border-top: 1px solid var(--ink);
-      border-bottom: 1px solid var(--line);
-    }
-    .trust-drawer > summary {
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      font-weight: 850;
-      list-style: none;
-    }
-    .trust-drawer > summary::-webkit-details-marker { display: none; }
-    .trust-drawer > summary::after { content: "+"; color: var(--accent); font-size: 23px; }
-    .trust-drawer[open] > summary::after { content: "−"; }
-    .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 10px 0 54px; }
-    .trust-grid .section { padding: 0; border-top: 0; }
-    .trust-grid .section-heading h2 { font-size: 24px; }
-    .mobile-nav { display: none; }
+    .hero-kicker .icon { width: 14px; height: 14px; color: var(--accent); }
+    .hero-copy h1 { margin: 22px 0 0; font-size: clamp(40px, 5.6vw, 62px); line-height: 1.08; letter-spacing: -.025em; font-weight: 700; max-width: 640px; }
+    .hero-copy p { margin: 24px 0 0; max-width: 580px; color: var(--hero-soft); font-size: 18px; line-height: 1.6; text-wrap: pretty; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
 
-    @media (min-width: 801px) and (max-width: 1024px) {
-      .student-home .site-header nav { gap: 18px; }
-      .student-home .site-header nav a:last-child { display: none; }
-      .student-hero-grid { grid-template-columns: 1fr; }
-      .student-hero-primary { min-height: 330px; }
-      .student-hero-side { grid-template-columns: 1fr 1fr; }
-      .learning-path { grid-template-columns: repeat(5, minmax(145px,1fr)); overflow-x: auto; }
-      .mission-grid { grid-template-columns: 1fr 1fr; }
+    /* Tarjeta "Qué hacer ahora" sobre el hero */
+    .progress-card {
+      border-radius: var(--r-card);
+      background: var(--glass);
+      border: 1px solid var(--glass-line);
+      padding: 26px;
+      backdrop-filter: blur(10px);
+    }
+    .progress-card .card-kicker { margin: 0; color: var(--hero-soft); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .progress-card .mission-kicker { display: block; margin-top: 16px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .progress-card h2 { margin: 8px 0 8px; font-size: 24px; line-height: 1.25; letter-spacing: -.015em; }
+    .progress-card p { margin: 0; color: var(--hero-soft); font-size: 14px; line-height: 1.55; }
+    .progress-card .btn { width: 100%; margin-top: 20px; }
+    .progress-card .card-secondary { display: block; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--glass-line); color: var(--hero-soft); font-size: 13px; line-height: 1.5; }
+    .progress-card .card-secondary b { color: var(--hero-text); font-weight: 600; }
+    .progress-card .card-secondary:hover b { color: var(--accent); }
+
+    /* Banda de indicadores */
+    .stats-band { padding: 30px 0; border-bottom: 1px solid var(--line); background: var(--surface); }
+
+    /* Qué aprenderás */
+    .what-band { position: relative; }
+    .what-band::before { content: ""; position: absolute; inset: 0; background: url("assets/shadow-bg.jpg") center / cover no-repeat; opacity: .55; pointer-events: none; }
+    .what-band .wrap { position: relative; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .feature-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 24px; transition: border-color .2s ease; }
+    .feature-card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+    .feature-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, transparent), color-mix(in srgb, var(--accent) 6%, transparent)); color: var(--accent-text); margin-bottom: 14px; }
+    .feature-icon .icon { width: 20px; height: 20px; }
+    .feature-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+    .feature-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+    /* Cómo aprenderás */
+    .method-head { margin: 64px 0 20px; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; }
+    .method-head h3 { margin: 0; font-size: 22px; letter-spacing: -.01em; }
+    .method-head p { margin: 0; color: var(--muted); font-size: 14px; }
+    .learning-path { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+    .learning-step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; min-height: 140px; }
+    .step-number { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: var(--surface-soft); color: var(--muted); font-size: 12px; font-weight: 700; }
+    .learning-step:first-child .step-number { background: var(--accent); color: var(--on-accent); }
+    .learning-step strong { display: block; margin-top: 14px; font-size: 15px; font-weight: 600; }
+    .learning-step span:not(.step-number) { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+    /* Currículum */
+    .curriculum-cta { margin-top: 32px; display: flex; justify-content: center; }
+
+    /* Planes */
+    .plan-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+    .plan-card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 24px; }
+    .plan-card.featured { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, var(--surface)); box-shadow: var(--shadow-lift); }
+    .plan-popular { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); white-space: nowrap; border-radius: var(--r-pill); background: var(--accent); color: var(--on-accent); padding: 4px 12px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .plan-card h3 { margin: 0; font-size: 18px; font-weight: 600; }
+    .plan-tagline { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .plan-price { margin: 20px 0 0; font-size: 30px; font-weight: 700; letter-spacing: -.02em; }
+    .plan-price small, .plan-from { display: block; color: var(--muted); font-size: 13px; font-weight: 500; letter-spacing: 0; }
+    .plan-price small { margin-top: 4px; }
+    .plan-from { margin-bottom: 2px; }
+    .plan-includes { margin: 22px 0 10px; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .plan-card ul { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 9px; flex: 1; align-content: start; }
+    .plan-card li { display: flex; gap: 8px; font-size: 14px; line-height: 1.45; }
+    .plan-card li .icon { width: 16px; height: 16px; margin-top: 2px; color: var(--accent-text); stroke-width: 3; }
+    .plan-card .btn { width: 100%; min-height: 46px; font-size: 14px; }
+    .plans-note { margin: 28px auto 0; max-width: 620px; text-align: center; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .plans-note a { color: var(--accent-text); font-weight: 700; }
+
+    /* Transparencia */
+    .trust-drawer { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 0 22px; }
+    .trust-drawer > summary { min-height: 64px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 600; list-style: none; }
+    .trust-drawer > summary::-webkit-details-marker { display: none; }
+    .trust-drawer > summary::after { content: "+"; color: var(--accent-text); font-size: 22px; }
+    .trust-drawer[open] > summary::after { content: "−"; }
+    .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; padding: 8px 0 32px; }
+    .trust-grid h2 { margin: 0; font-size: 20px; }
+    .trust-grid p.lead { margin: 6px 0 18px; color: var(--muted); font-size: 13px; }
+
+    /* CTA final */
+    .final-cta { position: relative; overflow: hidden; padding: 96px 0; text-align: center; color: var(--hero-text); background: radial-gradient(50% 80% at 50% 0%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 70%), var(--hero); }
+    .final-cta h2 { margin: 0; font-size: clamp(30px, 4vw, 40px); line-height: 1.15; letter-spacing: -.02em; }
+    .final-cta p { margin: 16px auto 0; max-width: 460px; color: var(--hero-soft); }
+    .final-cta .btn { margin-top: 32px; }
+
+    .band-tight { padding: 40px 0; }
+    .landing footer { max-width: var(--max); }
+
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; padding-block: 48px 72px; }
+      .progress-card { max-width: 560px; }
+      .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .learning-path { grid-template-columns: repeat(5, minmax(150px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
+      .plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
       .trust-grid { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 800px) {
-      body.student-home { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
-      .student-home .site-header { min-height: 62px; padding-inline: 15px; }
-      .student-home .brand-copy small { display: none; }
-      .student-home .brand-copy strong { font-size: 13px; }
-      .student-home .site-header nav { display: none; }
-      .student-hero { padding: 18px 0 28px; }
-      .student-hero-grid { grid-template-columns: 1fr; }
-      .student-hero-primary { min-height: 385px; border-radius: 20px; padding: 24px; }
-      .student-hero-primary h1 { font-size: clamp(39px, 12vw, 52px); }
-      .student-hero-primary > div > p:not(.student-eyebrow) { font-size: 14px; }
-      .student-actions { display: grid; grid-template-columns: 1fr; width: 100%; }
-      .student-primary, .student-secondary { width: 100%; }
-      .student-hero-side { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .student-card { border-radius: 16px; padding: 16px; }
-      .student-card h2 { font-size: 20px; }
-      .student-card h3 { font-size: 15px; }
-      .student-card p { font-size: 11px; }
-      .student-home .summary-rail { grid-template-columns: 1fr 1fr; gap: 20px 0; }
-      .student-home .summary-rail div:nth-child(3) { padding-left: 0; border-left: 0; }
-      .student-section { padding: 56px 0; }
-      .student-section-heading { display: block; margin-bottom: 18px; }
-      .student-section-heading h2 { font-size: 27px; }
-      .student-section-heading p { font-size: 13px; }
-      .learning-path {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        overscroll-behavior-inline: contain;
-      }
-      .learning-step { min-width: 72%; scroll-snap-align: start; border-right: 1px solid var(--line); }
-      .mission-grid { grid-template-columns: 1fr; }
-      .mission-card, .method-card { border-radius: 16px; padding: 20px; }
-      .mission-card h3 { font-size: 24px; }
-      .student-home #catalogo { padding-top: 56px; }
-      .student-home .section-heading h2 { font-size: 27px; }
-      .trust-grid { grid-template-columns: 1fr; gap: 36px; }
-      .mobile-nav {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        min-height: 68px;
-        padding-bottom: env(safe-area-inset-bottom);
-        background: rgba(255,255,255,.96);
-        border-top: 1px solid var(--line);
-        backdrop-filter: blur(14px);
-        z-index: 40;
-      }
-      .mobile-nav a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        color: var(--muted);
-        font-size: 10px;
-        font-weight: 750;
-        min-height: 56px;
-      }
-      .mobile-nav a:first-child { color: var(--accent); }
-      .mobile-nav b { font-size: 17px; }
+      body.landing { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
+      .landing .header-cta { display: none; }
+      .hero-inner { padding-block: 28px 56px; gap: 28px; }
+      .hero-copy h1 { font-size: clamp(36px, 10vw, 46px); }
+      .hero-copy p { font-size: 16px; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; }
+      .progress-card { padding: 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .learning-path { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; }
+      .learning-step { min-width: 72%; scroll-snap-align: start; }
+      .plan-grid { grid-template-columns: 1fr; }
+      .trust-drawer { padding: 0 16px; }
+      .final-cta { padding: 72px 0; }
     }
   </style>
 </head>
-<body class="student-home">
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="The Agentic Data Scientist, inicio">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="brand-copy">
-        <strong>The Agentic Data Scientist</strong>
-        <small>powered by DataClass Forge</small>
-      </span>
-    </a>
-    <nav aria-label="Navegación principal">
-      <a href="#top" aria-current="page">Inicio</a>
-      <a href="#ruta">Mi ruta</a>
-      <a href="placement.html">Diagnóstico</a>
-      <a href="#catalogo">Catálogo</a>
-      <a href="methodology.html">Metodología</a>
-    </nav>
-  </header>
+<body class="landing">
+  <!-- Íconos: Lucide (ISC, https://lucide.dev). -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></symbol>
+      <symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol>
+      <symbol id="i-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></symbol>
+      <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/></symbol>
+      <symbol id="i-graduation-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></symbol>
+      <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    </defs>
+  </svg>
 
   <main id="top">
-    <section class="student-hero" aria-labelledby="heroTitle">
-      <div class="student-hero-grid">
-        <article class="student-hero-primary">
-          <div>
-            <p class="student-eyebrow">Aprende tomando decisiones</p>
-            <h1 id="heroTitle">Ciencia de datos que se entiende, se practica y se usa.</h1>
-            <p>Historias, visualizaciones, código y ejercicios que terminan en una decisión concreta. El objetivo no es recorrer cientos de conceptos: es saber qué hacer con ellos.</p>
-          </div>
-          <div class="student-actions">
-            <a class="student-primary" id="continueLink" href="#catalogo">Comenzar ruta</a>
-            <a class="student-secondary" href="placement.html">No estudies lo que ya sabes · diagnóstico</a>
-          </div>
-        </article>
+    <section class="hero-section" aria-labelledby="heroTitle">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="The Agentic D. Scientist, inicio">
+          <svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg>
+          <strong>The Agentic D. Scientist</strong>
+        </a>
+        <nav aria-label="Navegación principal">
+          <a href="#what">Qué aprenderás</a>
+          <a href="#catalogo">Currículum</a>
+          <a href="#planes">Planes</a>
+          <a href="placement.html">Diagnóstico</a>
+          <a href="methodology.html">Metodología</a>
+        </nav>
+        <a class="header-cta" data-start-free href="#catalogo">Empezar gratis <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      </header>
 
-        <aside class="student-hero-side" aria-label="Orientación rápida">
-          <div class="student-card highlight">
-            <span class="label">Primera visita</span>
-            <h2>Empieza por tu nivel.</h2>
-            <p>Hasta 10 preguntas para detectar qué puedes saltarte y qué conviene repasar.</p>
-            <a href="placement.html">Tomar diagnóstico</a>
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="hero-kicker"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg>Curso intensivo de IA y ciencia de datos</p>
+          <h1 id="heroTitle">Conviértete en un Agentic Data Scientist</h1>
+          <p>Aprende a construir agentes de IA y soluciones de Data Science modernas. Laboratorios prácticos, misiones semanales y comunidad.</p>
+          <div class="hero-actions">
+            <a class="btn btn-accent student-primary" id="continueLink" href="#catalogo">Empezar gratis</a>
+            <a class="btn btn-ghost" href="#catalogo">Ver currículum</a>
           </div>
-          <div class="student-card">
-            <span class="label">Método</span>
-            <h3>Historia → intuición → visual → código → decisión</h3>
-            <p>La misma gramática didáctica acompaña cada misión para reducir fricción y aumentar transferencia.</p>
-          </div>
+        </div>
+
+        <aside class="progress-card" aria-labelledby="missionHeading">
+          <p class="card-kicker" id="missionHeading">Qué hacer ahora</p>
+          <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
+          <h2 id="continueTitle">Tu primera misión</h2>
+          <p id="continueMeta">Abriremos el primer bloque publicado. Cuando vuelvas, este acceso recordará en este dispositivo la última misión que abriste.</p>
+          <a class="btn btn-accent" id="missionLink" href="#catalogo">Abrir misión</a>
+          <a class="card-secondary" href="placement.html"><b>¿Ya sabes algo? Haz el diagnóstico.</b> Hasta 10 preguntas para saltarte lo que ya dominas.</a>
         </aside>
       </div>
-
-      <dl class="summary-rail" id="summaryRail" aria-label="Cobertura total de la ruta"></dl>
     </section>
 
-    <section id="ruta" class="student-section">
-      <div class="student-section-heading">
-        <div>
-          <h2>Tu forma de aprender</h2>
+    <div class="stats-band">
+      <div class="wrap"><dl class="summary-rail" id="summaryRail" aria-label="Cobertura total de la ruta"></dl></div>
+    </div>
+
+    <section id="what" class="band band-white what-band" aria-labelledby="whatTitle">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Qué aprenderás</p>
+          <h2 class="section-title" id="whatTitle">De los fundamentos de datos a desplegar sistemas de IA</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-database"/></svg></span><h3>Fundamentos de Data Science</h3><p>Estadística, Python y manejo de datos del mundo real.</p></article>
+          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg></span><h3>LLMs y prompting avanzado</h3><p>Aprovecha modelos modernos con técnicas que funcionan en producción.</p></article>
+          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-bot"/></svg></span><h3>Agentes autónomos</h3><p>Diseña, orquesta y evalúa agentes que toman decisiones.</p></article>
+          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-rocket"/></svg></span><h3>MLOps ligero</h3><p>Versiona, monitorea y despliega tus proyectos con confianza.</p></article>
+          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-graduation-cap"/></svg></span><h3>Portafolio real</h3><p>Termina con repositorios y un portafolio listo para reclutadores.</p></article>
+          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span><h3>Comunidad activa</h3><p>Discute, comparte y crece con otras personas que hacen ciencia de datos.</p></article>
+        </div>
+
+        <div id="ruta" class="method-head">
+          <h3>Cómo aprenderás</h3>
           <p>Cada misión avanza desde un problema humano hasta una decisión verificable.</p>
         </div>
-      </div>
-      <div class="learning-path" aria-label="Secuencia didáctica">
-        <div class="learning-step"><span class="step-number">1</span><strong>Historia</strong><span>Entiende por qué importa el problema.</span></div>
-        <div class="learning-step"><span class="step-number">2</span><strong>Intuición</strong><span>Construye el mecanismo sin empezar por la fórmula.</span></div>
-        <div class="learning-step"><span class="step-number">3</span><strong>Visual</strong><span>Manipula evidencia y observa qué cambia.</span></div>
-        <div class="learning-step"><span class="step-number">4</span><strong>Código</strong><span>Reproduce y extiende el análisis.</span></div>
-        <div class="learning-step"><span class="step-number">5</span><strong>Decisión</strong><span>Convierte el concepto en una acción defendible.</span></div>
-      </div>
-    </section>
-
-    <section class="student-section" aria-labelledby="missionHeading">
-      <div class="student-section-heading">
-        <div>
-          <h2 id="missionHeading">Qué hacer ahora</h2>
-          <p>Una sola siguiente acción. El catálogo completo queda disponible cuando quieras explorar.</p>
+        <div class="learning-path" aria-label="Secuencia didáctica">
+          <div class="learning-step"><span class="step-number">1</span><strong>Historia</strong><span>Entiende por qué importa el problema.</span></div>
+          <div class="learning-step"><span class="step-number">2</span><strong>Intuición</strong><span>Construye el mecanismo sin empezar por la fórmula.</span></div>
+          <div class="learning-step"><span class="step-number">3</span><strong>Visual</strong><span>Manipula evidencia y observa qué cambia.</span></div>
+          <div class="learning-step"><span class="step-number">4</span><strong>Código</strong><span>Reproduce y extiende el análisis.</span></div>
+          <div class="learning-step"><span class="step-number">5</span><strong>Decisión</strong><span>Convierte el concepto en una acción defendible.</span></div>
         </div>
       </div>
-      <div class="mission-grid">
-        <article class="mission-card">
-          <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
-          <h3 id="continueTitle">Tu primera misión</h3>
-          <p id="continueMeta">Abriremos el primer bloque publicado de la ruta. Cuando vuelvas, este acceso recordará localmente la última misión abierta desde el portal.</p>
-          <a class="student-primary" id="missionLink" href="#catalogo">Abrir misión</a>
-        </article>
-        <aside class="method-card">
-          <h3>No necesitas navegar 236 conceptos</h3>
-          <p>La cobertura completa sigue siendo visible y auditable, pero deja de ser la tarea principal del alumno. La interfaz prioriza el siguiente paso, mientras DataClass Forge conserva trazabilidad, datasets y gates de calidad detrás del curso.</p>
-        </aside>
-      </div>
     </section>
 
-    <section id="catalogo" class="section">
-      <div class="section-heading">
-        <div>
-          <h2>Ruta completa</h2>
-          <p>Explora los niveles cuando necesites contexto, repaso o una misión específica.</p>
+    <section id="catalogo" class="band band-alt" aria-labelledby="curriculumTitle">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Currículum</p>
+          <h2 class="section-title" id="curriculumTitle">Niveles progresivos</h2>
+          <p class="section-lead">Trece niveles, de los fundamentos a operar sistemas de IA. Los niveles 1 y 2 son gratis.</p>
+        </div>
+        <div class="filters" aria-label="Filtros del currículum">
+          <div id="levelFilters"></div>
+          <label><span class="sr-only">Buscar concepto</span><input id="search" type="search" placeholder="Buscar concepto"></label>
+        </div>
+        <div id="catalog"></div>
+        <p class="publication-note">Solo aparecen paquetes que pasan los evals técnicos y pedagógicos.</p>
+        <div class="curriculum-cta">
+          <a class="btn btn-dark" data-start-free href="#catalogo">Probar Nivel 1 gratis <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
       </div>
-      <div class="filters" aria-label="Filtros del catálogo">
-        <div id="levelFilters"></div>
-        <label><span class="sr-only">Buscar concepto</span><input id="search" type="search" placeholder="Buscar concepto"></label>
-      </div>
-      <div id="catalog"></div>
-      <p class="publication-note">Solo aparecen paquetes que pasan los evals técnicos y pedagógicos.</p>
     </section>
 
-    <details class="trust-drawer">
-      <summary>Fuentes, datasets y validación</summary>
-      <div class="trust-grid">
-        <section id="datasets" class="section">
-          <div class="section-heading">
-            <div><h2>Datasets públicos</h2><p>Snapshots reproducibles con fuente y licencia visibles.</p></div>
-          </div>
-          <div class="data-table" id="datasetTable" role="table" aria-label="Datasets públicos"></div>
-        </section>
-
-        <section id="validacion" class="section validation-section">
-          <div class="section-heading">
-            <div><h2>Validación</h2><p>La publicación conserva los gates del repositorio.</p></div>
-          </div>
-          <dl class="validation-list" id="validationList"></dl>
-          <div class="validation-links">
-            <a href="methodology.html">Abrir metodología</a>
-            <a href="https://github.com/jcval94/mvp-ds-course/tree/main/evals">Ver evals</a>
-          </div>
-        </section>
+    <section id="planes" class="band band-white" aria-labelledby="plansTitle">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="kicker">Planes</p>
+          <h2 class="section-title" id="plansTitle">Elige cómo quieres avanzar</h2>
+        </div>
+        <div class="plan-grid">
+          <article class="plan-card" data-plan="free">
+            <h3>Free</h3>
+            <p class="plan-tagline">Para empezar a explorar.</p>
+            <p class="plan-price">$0</p>
+            <p class="plan-includes">Incluye:</p>
+            <ul>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Nivel 1: Fundamentos</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Nivel 2: Descripción y visualización</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Materiales públicos del curso</span></li>
+            </ul>
+            <a class="btn btn-dark" data-start-free href="#catalogo">Empezar gratis</a>
+          </article>
+          <article class="plan-card" data-plan="augmented_studio">
+            <h3>Augmented Studio</h3>
+            <p class="plan-tagline">Para autodidactas constantes.</p>
+            <p class="plan-price">$89 MXN<small>al mes · o $999 MXN al año</small></p>
+            <p class="plan-includes">Incluye:</p>
+            <ul>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Acceso a la plataforma y ejercicios</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Comunidad</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>AI Newspaper semanal</span></li>
+            </ul>
+            <a class="btn btn-dark" href="mailto:hola@agenticds.com?subject=Quiero%20el%20plan%20Augmented%20Studio">Quiero este plan</a>
+          </article>
+          <article class="plan-card featured" data-plan="agentic_ds">
+            <span class="plan-popular">Más popular</span>
+            <h3>Agentic Data Scientist</h3>
+            <p class="plan-tagline">El programa completo de 12 semanas.</p>
+            <p class="plan-price"><span class="plan-from">Desde</span>$11,900<small>hasta $16,900 MXN</small></p>
+            <p class="plan-includes">Incluye:</p>
+            <ul>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todo lo de Augmented Studio</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>12 semanas de programa</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Clases en vivo</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Laboratorios guiados</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Misiones semanales</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Repositorios y plantillas</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Portafolio terminado</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Certificado</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>1 año de acceso a la plataforma</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Acceso permanente a los videos</span></li>
+            </ul>
+            <a class="btn btn-accent" href="mailto:hola@agenticds.com?subject=Quiero%20el%20programa%20Agentic%20Data%20Scientist">Quiero este plan</a>
+          </article>
+          <article class="plan-card" data-plan="business">
+            <h3>Agentic Data Transformation</h3>
+            <p class="plan-tagline">Para equipos de 10, 20 o hasta 30 personas.</p>
+            <p class="plan-price">A medida</p>
+            <p class="plan-includes">Incluye:</p>
+            <ul>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Programa para equipos</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Onboarding y diagnóstico</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Sesiones privadas</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Reportes de avance</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Soporte dedicado</span></li>
+            </ul>
+            <a class="btn btn-dark" href="mailto:hola@agenticds.com?subject=Agentic%20Data%20Transformation%20para%20mi%20equipo">Contactar ventas</a>
+          </article>
+        </div>
+        <p class="plans-note">Los pagos todavía no están en línea: escríbenos a <a href="mailto:hola@agenticds.com">hola@agenticds.com</a> y te contactamos para activar tu acceso.</p>
       </div>
-    </details>
+    </section>
+
+    <section class="band band-alt band-tight" aria-label="Fuentes, datasets y validación">
+      <div class="wrap">
+        <details class="trust-drawer">
+          <summary>Fuentes, datasets y validación</summary>
+          <div class="trust-grid">
+            <section id="datasets">
+              <h2>Datasets públicos</h2>
+              <p class="lead">Snapshots reproducibles con fuente y licencia visibles.</p>
+              <div class="data-table" id="datasetTable" role="table" aria-label="Datasets públicos"></div>
+            </section>
+            <section id="validacion">
+              <h2>Validación</h2>
+              <p class="lead">La publicación conserva los gates del repositorio.</p>
+              <dl class="validation-list" id="validationList"></dl>
+              <div class="validation-links">
+                <a href="methodology.html">Abrir metodología</a>
+                <a href="https://github.com/jcval94/mvp-ds-course/tree/main/evals">Ver evals</a>
+              </div>
+            </section>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="finalTitle">
+      <div class="wrap">
+        <h2 id="finalTitle">¿Listo para construir con IA?</h2>
+        <p>Empieza gratis con los primeros dos niveles. Sin tarjeta.</p>
+        <a class="btn btn-accent" data-start-free href="#catalogo">Empezar gratis <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <strong>The Agentic Data Scientist</strong>
-    <p>Experiencia educativa publicada desde resultados validados por DataClass Forge.</p>
-    <a href="https://github.com/jcval94/mvp-ds-course">Ver repositorio</a>
+    <a class="brand" href="#top"><svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg><strong>The Agentic D. Scientist</strong></a>
+    <nav aria-label="Pie de página">
+      <a href="#planes">Planes</a>
+      <a href="#catalogo">Currículum</a>
+      <a href="methodology.html">Metodología</a>
+      <a href="https://github.com/jcval94/mvp-ds-course">Repositorio</a>
+    </nav>
+    <p>© 2026 The Agentic D. Scientist · Todos los derechos reservados.</p>
   </footer>
 
   <nav class="mobile-nav" aria-label="Navegación móvil">
-    <a href="#top"><b>⌂</b><span>Inicio</span></a>
-    <a href="#ruta"><b>↗</b><span>Ruta</span></a>
-    <a href="placement.html"><b>◎</b><span>Diagnóstico</span></a>
-    <a href="#catalogo"><b>⌘</b><span>Catálogo</span></a>
+    <a href="#top" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg><span>Inicio</span></a>
+    <a href="#catalogo"><svg class="icon" aria-hidden="true"><use href="#i-graduation-cap"/></svg><span>Currículum</span></a>
+    <a href="placement.html"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg><span>Diagnóstico</span></a>
+    <a href="#planes"><svg class="icon" aria-hidden="true"><use href="#i-rocket"/></svg><span>Planes</span></a>
   </nav>
 
   <script src="app.js"></script>
