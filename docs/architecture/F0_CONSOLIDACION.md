@@ -7,14 +7,14 @@ Fecha: 2026-10-05 · Rama: `f0-consolidar` (base: `main` @ `be1617d`) · Arquite
 | Área | Hallazgo | Consecuencia |
 | --- | --- | --- |
 | Repo | 46 commits, pack de 18 MiB, mayor blob 1.3 MB (PNG aprobado). Historial sano | Sin saneamiento |
-| Workflow | Un solo `pages.yml`: valida, construye `_site/`, QA Playwright y despliega | Se modulariza sin perder pasos |
+| Workflow | Un solo `pages.yml`: valida, construye `_site/`, `qa_pages`, `qa_student_experience` y despliega | Se modulariza sin perder pasos (corrección: la primera versión omitía `qa_student_experience`; ver §6.1) |
 | Pages | Deploy por artefacto (sin Jekyll). Sin rutas absolutas ni dominios propios en el sitio | `dist/` puede ser agnóstico sin tocar la fábrica |
 | `generated/` | 452 archivos, 8.4 MB. Al correr `generate_level2..13.py` cambian 42 archivos | No es regenerable byte a byte: es contenido aprobado y sigue en Git |
 | `datasets/` | 832 KB, con registro, licencias y hashes | Sin cambios |
 | `output/playwright/` | 38 capturas versionadas que `qa_pages.py` reescribe en cada corrida | Se conservan (la documentación las cita); deuda abajo |
 | Skills / evals | 12 skills en `.agents/skills`, 11 checklists en `evals/` | Intactos |
 | Dependencias | Fábrica: biblioteca estándar + Playwright (sin versión fijada) | Versiones fijadas en `harness/requirements.txt` |
-| Línea base | `validate_content` ✔ · `test_vertical_slices` 7/7 ✔ · `qa_pages` ✔ (3 min 22 s) · `qa_student_experience` ✘ (falla en `main`, no está en CI) | Paridad medida contra esta base |
+| Línea base | `validate_content` ✔ · `test_vertical_slices` 7/7 ✔ · `qa_pages` ✔ (3 min 22 s) · `qa_student_experience` ✘ (falla en `main` y **sí está en CI**: por eso Pages no despliega desde `0acb694`, 2026-09-06) | Paridad medida contra esta base |
 | `narrative` | `main` local = GitHub `904d027`. 15 commits, pack 1.1 MiB, mayor blob 271 KB. `docs/` se regenera idéntico; 19 pruebas ✔ | Importado completo; `docs/` deja de versionarse |
 | `tacos-don-juan-remotion` | Sin remoto. 1 commit con el andamio; el trabajo real (Composition, lockfile) estaba sin versionar. MP4 (860 KB) y PNG sin versionar | Commit de snapshot sin MP4/PNG/node_modules y luego importado |
 | Estado local | En tu laptop, `mvp-ds-course` está en la rama `codex/add-home-navigation` (sin fusionar) y existe `backup/autostash-2026-07-07` solo local | La entrega no toca tu árbol de trabajo |
@@ -73,7 +73,7 @@ fusionar el PR en `main`; la CI del PR corre fábrica, cápsulas y portal sin de
 
 | # | Tema | Acción propuesta |
 | --- | --- | --- |
-| 1 | `qa_student_experience.py` falla en `main` (aserción "Continúa · Nivel 3") | Corregir en F1 o retirarlo; no está en CI |
+| 1 | ~~`qa_student_experience.py` falla en `main`~~ | Resuelto en esta rama (§6.1) |
 | 2 | Generadores desalineados con `generated/` (42 archivos) | Decidir si se regeneran y se reaprueban, o se congelan |
 | 3 | `qa_pages.py` reescribe capturas versionadas | Mover la evidencia a artefactos de CI y dejar solo las aprobadas en `reference/` |
 | 4 | Dos fuentes de portal (`site/` y `portal/`) | Unificar en F3 con el shell de la página de referencia |
@@ -84,6 +84,24 @@ fusionar el PR en `main`; la CI del PR corre fábrica, cápsulas y portal sin de
 | 9 | `narrative` y `tacos-don-juan-remotion` siguen activos | Archivar tras 1–2 semanas de paridad en producción |
 | 10 | Carpetas locales `ds-course-hub`, `ds-course-design`, `ds-case-vault`, `ds-colab-kits` ya integradas | Borrarlas después de fusionar |
 | 11 | `harness smoke` bloquea recursos externos | Si se agregan fuentes externas, añadir verificación propia |
+
+### 6.1 Corrección posterior: `qa_student_experience` vuelve a la CI
+
+La auditoría inicial afirmaba que `qa_student_experience.py` no estaba en la CI.
+Era falso: `pages.yml` lo corre después de `qa_pages.py`, y la primera versión de
+`factory.yml` lo omitió. Se detectó al revisar las ejecuciones de Actions antes de
+abrir el PR. Cambios:
+
+| Commit | Cambio |
+| --- | --- |
+| `fix(site)` | Los filtros de nivel pasan a varias filas entre 801 y 900 px; la portada se desbordaba 14 px a 820 px |
+| `fix(qa)` | El texto de "Continúa · Nivel N" se compara con `text_content()` (el CSS lo pone en mayúsculas); en teléfono se vuelve a abrir la lección antes de medir `#advance` |
+| `ci(factory)` | `factory.yml` corre `qa_student_experience.py` otra vez, igual que `pages.yml` |
+
+Con esto el script pasa en escritorio, tableta y teléfono. Es la causa de que
+`main` no despliegue desde `0acb694`: el sitio público no muestra los ~10 commits
+de septiembre (*code labs* del Nivel 3, navegación) hasta que se fusione una rama
+con estas correcciones.
 
 ## 7. Siguiente paso exacto (F1 · Diseño)
 
