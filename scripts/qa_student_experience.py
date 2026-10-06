@@ -98,7 +98,7 @@ def assert_level_three_vertical_slice(page) -> None:
 
     # Opening a lesson must become the exact mission offered by the home.
     page.goto(BASE, wait_until="networkidle")
-    assert page.locator("#continueKicker").inner_text().startswith("Continúa · Nivel 3")
+    assert page.locator("#continueKicker").text_content().strip().startswith("Continúa · Nivel 3")
     assert page.locator("#continueTitle").inner_text().strip()
     assert "concept=event" in page.locator("#continueLink").get_attribute("href")
 
@@ -122,7 +122,7 @@ def assert_placement_to_home(page) -> None:
         }"""
     )
     page.reload(wait_until="networkidle")
-    assert page.locator("#continueKicker").inner_text().startswith("Tu ruta recomendada · Nivel 4")
+    assert page.locator("#continueKicker").text_content().strip().startswith("Tu ruta recomendada · Nivel 4")
     assert "Nivel 2" in page.locator("#continueMeta").inner_text()
     href = page.locator("#continueLink").get_attribute("href")
     assert href and "level-4" in href
@@ -167,6 +167,8 @@ def main() -> None:
         assert_placement(phone_page)
         minimum_touch_target(phone_page, "#nextQuestion")
         assert_level_three_vertical_slice(phone_page)
+        # La verificación anterior termina en la portada; el botón vive en la lección.
+        phone_page.goto(f"{BASE}/labs/level-3/probabilidad-basica.html?concept=event", wait_until="networkidle")
         minimum_touch_target(phone_page, "#advance")
         no_overflow(phone_page, "phone final")
         phone.close()

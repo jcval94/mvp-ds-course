@@ -39,6 +39,9 @@ jobs:
       - name: Semantic browser QA
         run: python scripts/qa_pages.py
 
+      - name: Student experience QA
+        run: python scripts/qa_student_experience.py
+
       - name: Upload QA screenshots
         if: always()
         uses: actions/upload-artifact@v4
