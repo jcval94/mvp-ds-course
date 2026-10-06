@@ -99,9 +99,9 @@ abrir el PR. Cambios:
 | `ci(factory)` | `factory.yml` corre `qa_student_experience.py` otra vez, igual que `pages.yml` |
 
 Con esto el script pasa en escritorio, tableta y teléfono. Es la causa de que
-`main` no despliegue desde `0acb694`: el sitio público no muestra los ~10 commits
-de septiembre (*code labs* del Nivel 3, navegación) hasta que se fusione una rama
-con estas correcciones.
+`main` no despliegue desde `0acb694` (2026-09-06): el sitio público no muestra
+los 17 commits posteriores (Nivel 3 con *code labs*, diagnóstico, navegación)
+hasta que se fusione una rama con estas correcciones.
 
 ## 7. Siguiente paso exacto (F1 · Diseño)
 
