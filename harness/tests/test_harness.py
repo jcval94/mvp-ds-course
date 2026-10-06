@@ -135,3 +135,20 @@ def test_smoke_detects_root_absolute_assets_under_a_subpath(tmp_path: Path) -> N
     smoke.run(base_paths=["/"], dist=tmp_path)
     with pytest.raises(HarnessError, match="recurso local no disponible"):
         smoke.run(base_paths=["/curso/"], dist=tmp_path)
+
+
+def test_color_guard_rejects_literal_colors_in_portal_sources(tmp_path: Path) -> None:
+    _write(tmp_path / "site" / "styles.css", ".a{color:#fff;background:white}.b{color:var(--text)}")
+    _write(tmp_path / "site" / "index.html", '<a href="#add">x</a><style>.c{border:1px solid #223043}</style><p style="color: #abc">y</p>')
+    _write(tmp_path / "site" / "app.js", 'const c = "#ff0000"; location.hash = "#add";')
+    _write(tmp_path / "portal" / "404.html", "<style>body{background:#080d13}</style>")
+    errors = validate.validate_color_literals(tmp_path)
+    joined = "\n".join(errors)
+    assert "site/styles.css" in joined and "#fff" in joined and "white" in joined
+    assert "site/index.html" in joined and "#223043" in joined and "#abc" in joined and "#add" not in joined
+    assert "site/app.js" in joined and "#ff0000" in joined
+    assert "portal/404.html" not in joined
+
+
+def test_current_portal_uses_only_design_tokens() -> None:
+    assert validate.validate_color_literals() == []
