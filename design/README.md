@@ -2,7 +2,10 @@
 
 Sistema visual del curso. Fuente única de colores, tipografía y componentes.
 
-- `tokens/tokens.css`: variables CSS y componentes base.
+- `tokens/tokens.css`: fuentes y variables CSS; sin reglas, para poder cargarse en cualquier página.
+- `components/components.css`: base, componentes y capa 8 bits (requiere `tokens.css`).
+- `themes/`: capas que adaptan páginas existentes (por ejemplo los laboratorios) a los tokens; `themes/levels.json` dice qué niveles las usan.
+- `fonts/`, `icons/`: Plus Jakarta Sans (OFL) e íconos Lucide (ISC).
 - `tokens/tokens.json`: los mismos valores para Remotion y Python.
 - `REFERENCE.md`: de dónde salen los tokens (The Agentic D. Scientist, proyecto
   "Remix of Continuum 1").

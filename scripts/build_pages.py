@@ -86,12 +86,43 @@ def normalize_lab_home_links(path: Path) -> None:
             html.write_text(updated, encoding="utf-8")
 
 
+def apply_course_theme(destination: Path, level_number: int, themes: dict[str, object]) -> bool:
+    """Publish a level with the course visual system when design/themes/levels.json lists it.
+
+    Only the published copy changes: generated/ stays as approved. The level keeps its own
+    stylesheet; tokens and the theme load after it and remap its variables.
+    """
+    stylesheet = next(
+        (theme["stylesheet"] for theme in themes["themes"] if level_number in theme["levels"]),
+        None,
+    )
+    if stylesheet is None:
+        return False
+    links = (
+        '<link rel="stylesheet" href="../../design/tokens/tokens.css">'
+        f'<link rel="stylesheet" href="../../design/{stylesheet}">'
+    )
+    brand = str(themes["brand"])
+    for html in destination.glob("*.html"):
+        text = html.read_text(encoding="utf-8")
+        if "</head>" not in text:
+            raise SystemExit(f"{html} no tiene </head>; no se puede aplicar el tema")
+        text = text.replace("</head>", links + "</head>", 1).replace("DataClass Forge", brand)
+        html.write_text(text, encoding="utf-8")
+    app = destination / "assets" / "app.js"
+    if app.exists():
+        app.write_text(app.read_text(encoding="utf-8").replace("DataClass Forge", brand), encoding="utf-8")
+    shutil.copy2(SITE_SOURCE / "favicon.svg", destination / "assets" / "favicon.svg")
+    return True
+
+
 def main() -> None:
     reset_build()
     shutil.copytree(SITE_SOURCE, BUILD, dirs_exist_ok=True)
     # El portal usa los tokens del sistema visual; se publican junto a él.
     shutil.copytree(ROOT / "design", BUILD / "design", ignore=shutil.ignore_patterns("*.md"))
     registry = json.loads((ROOT / "datasets" / "registry.json").read_text(encoding="utf-8"))
+    themes = json.loads((ROOT / "design" / "themes" / "levels.json").read_text(encoding="utf-8"))
     levels: list[dict[str, object]] = []
     validations: list[dict[str, object]] = []
 
@@ -100,6 +131,7 @@ def main() -> None:
         destination = BUILD / "labs" / f"level-{manifest['level']}"
         shutil.copytree(path, destination)
         normalize_lab_home_links(destination)
+        apply_course_theme(destination, int(manifest["level"]), themes)
         level = {
             **manifest,
             "entrypoint": f"labs/level-{manifest['level']}/{manifest['entrypoint']}",

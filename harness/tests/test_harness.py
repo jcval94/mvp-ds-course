@@ -152,3 +152,16 @@ def test_color_guard_rejects_literal_colors_in_portal_sources(tmp_path: Path) ->
 
 def test_current_portal_uses_only_design_tokens() -> None:
     assert validate.validate_color_literals() == []
+
+
+def test_level_theme_check_requires_tokens_theme_and_brand(tmp_path: Path) -> None:
+    from harness import checks
+
+    _write(tmp_path / "design" / "themes" / "levels.json", '{"brand": "X", "themes": [{"stylesheet": "themes/t.css", "levels": [1]}]}')
+    dist = tmp_path / "dist"
+    _write(dist / "design" / "themes" / "t.css", "")
+    _write(dist / "labs" / "level-1" / "index.html", "<head></head>DataClass Forge")
+    errors = "\n".join(checks.check_level_themes(tmp_path, dist))
+    assert "falta ../../design/tokens/tokens.css" in errors and "falta ../../design/themes/t.css" in errors and "DataClass Forge" in errors
+    _write(dist / "labs" / "level-1" / "index.html", '<link href="../../design/tokens/tokens.css"><link href="../../design/themes/t.css">')
+    assert checks.check_level_themes(tmp_path, dist) == []
