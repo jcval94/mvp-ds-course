@@ -1,0 +1,10 @@
+{
+  "description": "Niveles publicados con el sistema visual de The Agentic D. Scientist. scripts/build_pages.py inyecta estos temas en la copia publicada; generated/ no cambia.",
+  "brand": "The Agentic D. Scientist",
+  "themes": [
+    {
+      "stylesheet": "themes/level-legacy.css",
+      "levels": [1]
+    }
+  ]
+}

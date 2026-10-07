@@ -1,0 +1,81 @@
+/* Tema The Agentic D. Scientist para los laboratorios con shell heredado (Niveles 1 y 2).
+   Lo inyecta scripts/build_pages.py en la copia publicada, después de los estilos del
+   nivel y de ../tokens/tokens.css. No cambia generated/: solo reasigna variables, la
+   fuente y los pocos colores literales del nivel. Nunca verde. */
+
+:root {
+  --ink: var(--text);
+  --soft: var(--surface-alt);
+  --white: var(--surface);
+  --teal: var(--accent-text);
+  --teal-soft: var(--accent-soft);
+  --blue: var(--primary);
+  --blue-soft: var(--surface-soft);
+  --coral: var(--critical);
+  --coral-soft: color-mix(in srgb, var(--critical) 8%, var(--surface));
+  --gold: var(--accent);
+  --gold-soft: var(--accent-soft);
+  --green: var(--accent-text);
+  --green-soft: var(--accent-soft);
+  --red: var(--critical);
+  --shadow: 0 10px 30px color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+body { font-family: var(--font); }
+
+/* Encabezado: marca del curso con el ícono de cerebro */
+.brand-mark { flex: 0 0 auto; border: 0; padding: 0; width: 28px; height: 28px; background: var(--accent); -webkit-mask: url("../icons/brain.svg") center / contain no-repeat; mask: url("../icons/brain.svg") center / contain no-repeat; }
+.brand-mark i { display: none; }
+.brand strong { font-weight: 600; letter-spacing: -.01em; }
+.home-btn { border-radius: 12px; }
+@media (max-width: 680px) { .app-header { gap: 10px; } .brand { min-width: 0; } .brand-mark { width: 24px; height: 24px; } .brand strong { font-size: 15px; overflow: hidden; text-overflow: ellipsis; } }
+
+/* Navegación de módulos */
+.sidebar, .visual-toolbar, .teacher-panel { background: var(--surface-alt); }
+.module-link { color: var(--text); }
+.module-link.active { background: var(--accent-soft); color: var(--accent-text); border-left-color: var(--accent); }
+.module-number,
+.module-link:nth-of-type(n) .module-number { background: var(--surface-soft); color: var(--muted); border-radius: 8px; }
+.module-link.active .module-number { background: var(--accent); color: var(--on-accent); }
+@media (max-width: 680px) { .module-link.active { border-bottom-color: var(--accent); } }
+
+/* Conceptos del tema: píldoras completas (el puente del shell las dejaba en círculos de 26 px) */
+.shell-concepts .step button { width: auto; height: auto; min-height: 32px; border-radius: var(--r-pill); border-color: var(--line); background: var(--surface); }
+.shell-concepts .step.active button,
+.shell-concepts a.active,
+.step.active button { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.step button { border-color: var(--line); }
+
+/* Escena y subtítulo */
+.narrator-subtitle { background: var(--hero); border-inline-color: var(--hero); }
+.subtitle-label { color: var(--accent); }
+
+/* Botones */
+.primary-btn { background: var(--accent); border-color: var(--accent); color: var(--on-accent); border-radius: 10px; }
+.primary-btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.secondary-btn, .copy-btn { border-radius: 10px; }
+
+/* Visualizaciones */
+.data-table th { background: var(--surface-alt); }
+.data-table th, .data-table td { font-variant-numeric: tabular-nums; word-spacing: .15em; }
+.callout { border-color: var(--accent); color: var(--accent-text); }
+.ticket-dot { background: var(--surface-soft); box-shadow: 0 0 0 1px var(--line); }
+.ticket-dot.active { background: var(--accent); color: var(--on-accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.data-token { border-color: var(--line); }
+.data-token.matched { border-color: var(--accent); }
+.drop-zone { border-color: var(--muted); }
+.timeline { background: var(--line); }
+.scan-line { background: var(--accent); box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 50%, transparent); }
+.issue-missing { background: repeating-linear-gradient(135deg, var(--surface) 0 6px, var(--surface-soft) 6px 12px) !important; }
+.evidence-strip span { color: var(--primary); }
+.option:disabled { background: var(--surface-soft); }
+.option-dot { border-color: var(--muted); }
+
+/* Panel docente */
+.tool-section:nth-of-type(3) .tool-logo { background: var(--accent-text); }
+.prompt-box { background: var(--surface-soft); font-family: var(--font-mono); }
+
+/* Portada del nivel */
+.portal { background: var(--surface-alt); }
+.module-card { border-radius: var(--r-card); }
+.module-card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }

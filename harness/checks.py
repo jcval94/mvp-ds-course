@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 from html.parser import HTMLParser
 from pathlib import Path
@@ -117,11 +118,35 @@ def check_budgets(course: dict[str, Any], dist: Path = DIST) -> tuple[list[str],
     return errors, report
 
 
+def check_level_themes(root: Path = ROOT, dist: Path = DIST) -> list[str]:
+    """Levels listed in design/themes/levels.json must publish with tokens + their theme."""
+    config = root / "design" / "themes" / "levels.json"
+    if not config.exists():
+        return []
+    errors: list[str] = []
+    themes = json.loads(config.read_text(encoding="utf-8"))
+    for theme in themes["themes"]:
+        if not (dist / "design" / theme["stylesheet"]).is_file():
+            errors.append(f"design/{theme['stylesheet']}: el tema no se publicó en dist/")
+        for level in theme["levels"]:
+            pages = sorted((dist / "labs" / f"level-{level}").glob("*.html"))
+            if not pages:
+                errors.append(f"labs/level-{level}: nivel con tema sin páginas publicadas")
+            for page in pages:
+                text = page.read_text(encoding="utf-8", errors="ignore")
+                for needed in ("../../design/tokens/tokens.css", f"../../design/{theme['stylesheet']}"):
+                    if needed not in text:
+                        errors.append(f"{page.relative_to(dist).as_posix()}: falta {needed}")
+                if "DataClass Forge" in text:
+                    errors.append(f"{page.relative_to(dist).as_posix()}: conserva la marca DataClass Forge")
+    return errors
+
+
 def run(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     dist = dist or (root / "dist")
     if not (dist / "index.html").exists():
         raise HarnessError("dist/ no existe o está incompleto; ejecuta `python -m harness build`.")
-    errors = check_links(dist) + check_portability(dist)
+    errors = check_links(dist) + check_portability(dist) + check_level_themes(root, dist)
     budget_errors, report = check_budgets(load_course(root), dist)
     errors += budget_errors
     if errors:
