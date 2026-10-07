@@ -114,6 +114,45 @@ def validate_design_tokens(root: Path = ROOT) -> list[str]:
     return errors
 
 
+# Superficies del portal que deben tomar todo color de design/tokens/.
+COLOR_GUARDED_DIRS = ("site", "portal")
+# Excepción documentada: 404.html se sirve desde cualquier ruta y no puede cargar assets relativos.
+COLOR_LITERAL_EXCEPTIONS = {"portal/404.html"}
+CSS_HEX = re.compile(r"(?:^|[\s:(,])(#[0-9a-fA-F]{3,8})\b")
+CSS_NAMED = re.compile(r":\s*(white|black)\s*(?=[;}!])", re.I)
+# En JS solo #rrggbb o #rrggbbaa: los de 3 o 4 dígitos chocan con anclas como "#add".
+JS_HEX = re.compile(r"[\"'`](#[0-9a-fA-F]{6}(?:[0-9a-fA-F]{2})?)[\"'`]")
+
+
+def _css_fragments(path: Path, text: str) -> list[str]:
+    if path.suffix == ".css":
+        return [text]
+    if path.suffix == ".html":
+        styles = re.findall(r"<style[^>]*>(.*?)</style>", text, re.S | re.I)
+        inline = re.findall(r"\sstyle=\"([^\"]*)\"", text, re.I)
+        return styles + inline
+    return []
+
+
+def validate_color_literals(root: Path = ROOT) -> list[str]:
+    errors: list[str] = []
+    for directory in COLOR_GUARDED_DIRS:
+        for path in sorted((root / directory).rglob("*")):
+            relative = path.relative_to(root).as_posix()
+            if not path.is_file() or path.suffix not in {".css", ".html", ".js"} or relative in COLOR_LITERAL_EXCEPTIONS:
+                continue
+            text = path.read_text(encoding="utf-8")
+            found = set()
+            for fragment in _css_fragments(path, text):
+                found.update(CSS_HEX.findall(fragment))
+                found.update(CSS_NAMED.findall(fragment))
+            if path.suffix == ".js":
+                found.update(JS_HEX.findall(text))
+            if found:
+                errors.append(f"{relative}: colores literales {sorted(found)}; usa variables de design/tokens/tokens.css")
+    return errors
+
+
 def tracked_files(root: Path = ROOT) -> list[str]:
     try:
         output = subprocess.run(["git", "ls-files", "-z"], cwd=root, check=True, capture_output=True).stdout
@@ -153,6 +192,7 @@ def run(root: Path = ROOT) -> dict[str, Any]:
         raise HarnessError("Validación fallida:\n- " + "\n- ".join(course_errors))
     errors = validate_contracts(root)
     errors += validate_design_tokens(root)
+    errors += validate_color_literals(root)
     hygiene_errors, report = validate_repo_hygiene(load_course(root), root)
     errors += hygiene_errors
     if errors:

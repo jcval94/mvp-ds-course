@@ -15,7 +15,7 @@ from typing import Any
 from .config import DIST, HOST_CONFIG_FILES, LEGACY_BUILD, ROOT, HarnessError, load_course, load_missions
 
 PUBLIC_MISSION_STATES = {"ready", "published"}
-NON_PUBLISHED_NAMES = {"README.md", "AGENTS.md", "CLAUDE.md"}
+NON_PUBLISHED_NAMES = {"README.md", "AGENTS.md", "CLAUDE.md", "REFERENCE.md"}
 
 
 def _remove_tree(path: Path, expected_parent: Path, expected_name: str) -> None:
@@ -37,7 +37,7 @@ def _copy_tree(source: Path, destination: Path, *, skip_docs: bool, forbid_overw
         if path.is_dir() or any(part in skipped for part in relative.parts):
             continue
         target = destination / relative
-        if forbid_overwrite and target.exists():
+        if forbid_overwrite and target.exists() and target.read_bytes() != path.read_bytes():
             raise HarnessError(f"{source.name}/{relative.as_posix()} sobrescribiría un archivo ya publicado en dist/")
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, target)
@@ -120,7 +120,7 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
         _copy_tree(root / components["portal"]["path"], dist / components["portal"]["mount"], skip_docs=True, forbid_overwrite=True)
     # 3. Sistema visual.
     if components["design"]["publish"]:
-        _copy_tree(root / components["design"]["path"] / "tokens", dist / components["design"]["mount"] / "tokens", skip_docs=True, forbid_overwrite=True)
+        _copy_tree(root / components["design"]["path"], dist / components["design"]["mount"], skip_docs=True, forbid_overwrite=True)
     # 4. Cápsulas, construidas desde su fuente canónica.
     if components["capsulas"]["publish"]:
         build_capsulas(root, dist / components["capsulas"]["mount"])

@@ -15,6 +15,18 @@
     return element;
   };
 
+  // Niveles abiertos sin plan de pago (igual que FREE_LEVELS en la app de The Agentic D. Scientist).
+  const FREE_LEVELS = [1, 2];
+  const icon = (name) => {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", "icon");
+    svg.setAttribute("aria-hidden", "true");
+    const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    use.setAttribute("href", `#i-${name}`);
+    svg.append(use);
+    return svg;
+  };
+
   const readJson = (key) => {
     try { return JSON.parse(localStorage.getItem(key) || "null"); }
     catch (_) { return null; }
@@ -44,6 +56,7 @@
       activeLevel = value;
       document.querySelectorAll("#levelFilters button").forEach((item) => item.classList.toggle("active", item === button));
       applyFilters();
+      if (value !== "all") { const chosen = document.querySelector(`.level-group[data-level="${value}"]`); if (chosen) chosen.open = true; }
     });
     $("#levelFilters").append(button);
   });
@@ -53,9 +66,19 @@
   const placementResult = readJson("dcf-placement-result");
 
   catalog.levels.forEach((level) => {
-    const group = create("section", { class: "level-group", "data-level": String(level.level) });
-    const head = create("div", { class: "level-head" });
-    head.append(create("h3", {}, `Nivel ${level.level} · ${level.title}`), create("span", {}, `${level.concept_count} conceptos · ${level.exercise_count} ejercicios`));
+    const free = FREE_LEVELS.includes(Number(level.level));
+    // Cada nivel es plegable para que el currículum se lea como la lista de niveles de la landing.
+    const group = create("details", { class: free ? "level-group free" : "level-group", "data-level": String(level.level) });
+    if (Number(level.level) === 1) group.open = true;
+    const head = create("summary", { class: "level-head" });
+    const title = create("div", { class: "level-title" });
+    const heading = create("h3", {}, `Nivel ${level.level} · ${level.title}`);
+    const badge = create("span", { class: "plan-badge" });
+    if (!free) badge.append(icon("lock"));
+    badge.append(document.createTextNode(free ? "Gratis" : "Plan pagado"));
+    heading.append(badge);
+    title.append(heading, create("span", {}, `${level.concept_count} conceptos · ${level.exercise_count} ejercicios`));
+    head.append(create("span", { class: "level-number", "aria-hidden": "true" }, String(level.level)), title, create("span", { class: "level-toggle", "aria-hidden": "true" }));
     group.append(head);
     level.blocks.forEach((block) => {
       const row = create("div", { class: "catalog-row", "data-search": `${block.title} ${level.title}`.toLowerCase() });
@@ -77,6 +100,13 @@
   const fallbackMission = firstLevel && firstLevel.blocks && firstLevel.blocks[0]
     ? { href: firstLevel.blocks[0].href, title: firstLevel.blocks[0].title, level: firstLevel.level, levelTitle: firstLevel.title }
     : null;
+  // Botones "Empezar gratis": siempre al primer bloque del Nivel 1.
+  if (fallbackMission) {
+    document.querySelectorAll("[data-start-free]").forEach((link) => {
+      link.href = fallbackMission.href;
+      link.addEventListener("click", () => saveLastMission(fallbackMission));
+    });
+  }
   const storedMission = readLastMission();
   const placementMission = placementResult && placementResult.startLevel ? missionFromLevel(placementResult.startLevel) : null;
   const mission = storedMission || placementMission || fallbackMission;
@@ -100,7 +130,7 @@
       $("#continueKicker").textContent = `Empieza · Nivel ${mission.level}`;
       $("#continueMeta").textContent = `${mission.levelTitle}. Este es el primer bloque publicado de la ruta.`;
       $("#missionLink").textContent = "Abrir primera misión";
-      $("#continueLink").textContent = "Comenzar ruta";
+      $("#continueLink").textContent = "Empezar gratis";
     }
     $("#continueTitle").textContent = mission.title;
     $("#missionLink").href = mission.href; $("#continueLink").href = mission.href;
@@ -130,6 +160,7 @@
         if (!row.hidden) { groupVisible = true; visibleRows += 1; }
       });
       group.hidden = !groupVisible;
+      if (query && groupVisible) group.open = true;
     });
     let empty = $("#catalog .empty");
     if (!visibleRows && !empty) { empty = create("p", { class: "empty" }, "No hay bloques que coincidan con la búsqueda."); $("#catalog").append(empty); }

@@ -78,6 +78,8 @@ def validate_links(html_path: Path) -> None:
         resolved = (html_path.parent / target).resolve()
         if html_path.parent == ROOT / "site" and target.startswith("placement/"):
             resolved = (ROOT / "docs" / target).resolve()
+        if html_path.parent == ROOT / "site" and target.startswith("design/"):
+            resolved = (ROOT / target).resolve()
         if not resolved.exists():
             fail(f"Enlace local roto en {html_path}: {link}")
 

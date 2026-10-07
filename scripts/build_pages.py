@@ -89,6 +89,8 @@ def normalize_lab_home_links(path: Path) -> None:
 def main() -> None:
     reset_build()
     shutil.copytree(SITE_SOURCE, BUILD, dirs_exist_ok=True)
+    # El portal usa los tokens del sistema visual; se publican junto a él.
+    shutil.copytree(ROOT / "design", BUILD / "design", ignore=shutil.ignore_patterns("*.md"))
     registry = json.loads((ROOT / "datasets" / "registry.json").read_text(encoding="utf-8"))
     levels: list[dict[str, object]] = []
     validations: list[dict[str, object]] = []
