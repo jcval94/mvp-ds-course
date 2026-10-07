@@ -22,10 +22,13 @@ concepts:
 level:
   number: 1
 
-kit: null
+kit:
+  path: kits/m01-wald/m01_wald.ipynb
 video: null
 side_quest: null
 
 notes: >
-  El caso sigue como candidato en casos/staging/. La misión no puede pasar a
-  `ready` hasta que el caso esté `approved` y exista el kit.
+  Caso verificado (casos/staging/wald-bombers.json), aún no aprobado. Página
+  jugable en missions/m01-wald/app/ y kit de Colab listos; los datos son
+  sintéticos (casos/data/wald-bombers/). La misión sigue en draft: el harness no
+  la publica hasta que el caso esté approved y se pruebe con 2–3 alumnos.

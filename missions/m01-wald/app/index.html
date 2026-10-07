@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Misión 01: con blindaje limitado, ¿qué partes de los aviones conviene reforzar? Un ejercicio sobre el sesgo de supervivencia con datos simulados.">
+  <title>Misión 01 · ¿Dónde blindar los aviones? · The Agentic D. Scientist</title>
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../design/tokens/tokens.css">
+  <link rel="stylesheet" href="../../design/components/components.css">
+  <style>
+    /* Misión con capa 8 bits. Colores solo desde design/tokens. */
+    body { background: var(--surface-alt); }
+    .mission-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px max(16px, calc((100vw - var(--max)) / 2)); background: var(--surface); border-bottom: 1px solid var(--line); }
+    .mission-top a { color: var(--muted); font-size: 14px; text-decoration: none; }
+    .mission-top a:hover { color: var(--text); }
+    .mission-title { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .mission-title h1 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+    .progress { display: flex; align-items: center; gap: 10px; min-width: 180px; }
+    .progress .xp-bar { flex: 1; }
+    .progress span { font-family: var(--font-pixel); font-size: 9px; color: var(--muted); white-space: nowrap; }
+
+    main.mission { max-width: var(--max); margin: 0 auto; padding: 28px 16px 64px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: 24px; align-items: start; }
+    .sky { position: sticky; top: 16px; border-radius: var(--r-card); background: var(--hero); color: var(--hero-text); padding: 18px; }
+    .sky-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .sky-head strong { font-family: var(--font-pixel); font-size: 10px; letter-spacing: .02em; color: var(--accent); }
+    .sky-head span { font-size: 12px; color: color-mix(in srgb, var(--hero-text) 75%, transparent); }
+    #plane { display: block; width: 100%; height: auto; shape-rendering: crispEdges; }
+    #plane .cell { stroke: var(--hero); stroke-width: .06; cursor: pointer; transition: fill .2s ease; }
+    #plane .s-motor { fill: color-mix(in srgb, var(--surface-soft) 45%, var(--hero)); }
+    #plane .s-cabina { fill: color-mix(in srgb, var(--accent-soft) 70%, var(--hero)); }
+    #plane .s-fuselaje { fill: color-mix(in srgb, var(--surface-soft) 78%, var(--hero)); }
+    #plane .s-alas { fill: color-mix(in srgb, var(--surface-soft) 62%, var(--hero)); }
+    #plane .s-cola { fill: color-mix(in srgb, var(--surface-soft) 70%, var(--hero)); }
+    #plane .cell.hover { fill: color-mix(in srgb, var(--accent) 35%, var(--surface-soft)); }
+    #plane .cell.armored { fill: var(--accent); }
+    #plane .hit { fill: var(--critical); pointer-events: none; }
+    #plane.show-downed .hit { fill: var(--hero-text); }
+    .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 12px; font-size: 12px; color: color-mix(in srgb, var(--hero-text) 80%, transparent); }
+    .legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
+    .legend .k-hit { background: var(--critical); }
+    .legend .k-armor { background: var(--accent); }
+    .legend .k-downed { background: var(--hero-text); }
+
+    .panel { display: grid; gap: 16px; }
+    .dialog-box { padding: 20px 22px; }
+    .speaker { margin: 0 0 10px; font-family: var(--font-pixel); font-size: 10px; color: var(--accent-text); }
+    .panel h2 { margin: 0 0 8px; font-size: 22px; line-height: 1.25; letter-spacing: -.01em; }
+    .panel p { margin: 0 0 10px; color: var(--muted); line-height: 1.6; }
+    .panel p strong { color: var(--text); }
+    .note { font-size: 13px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .btn-px { font-family: var(--font-pixel); font-size: 11px; line-height: 1.4; padding: 12px 14px; border: 0; cursor: pointer; background: var(--accent); color: var(--on-accent); box-shadow: 0 var(--px) 0 0 var(--accent-text); }
+    .btn-px:active { transform: translateY(2px); box-shadow: 0 2px 0 0 var(--accent-text); }
+    .btn-px:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-px.ghost { background: var(--surface); color: var(--text); box-shadow: inset 0 0 0 2px var(--text), 0 var(--px) 0 0 var(--line); text-decoration: none; }
+    .sections { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-top: 8px; }
+    .section-btn { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 12px; border: 2px solid var(--line); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 10px; }
+    .section-btn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+    .section-btn small { color: var(--muted); font-weight: 500; }
+    table.evidence { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+    table.evidence th, table.evidence td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: right; }
+    table.evidence th:first-child, table.evidence td:first-child { text-align: left; }
+    table.evidence th { color: var(--muted); font-weight: 600; font-size: 12px; }
+    .bar { display: inline-block; height: 8px; background: var(--critical); vertical-align: middle; margin-right: 6px; }
+    .bar.alt { background: var(--text); }
+    .tally { display: grid; grid-template-columns: repeat(40, 1fr); gap: 2px; margin: 12px 0; }
+    .tally i { aspect-ratio: 1; background: var(--line); }
+    .tally i.back { background: var(--accent); }
+    .tally i.lost { background: var(--text); }
+    .score { display: flex; gap: 18px; flex-wrap: wrap; margin: 6px 0; }
+    .score div { min-width: 120px; }
+    .score b { display: block; font-family: var(--font-pixel); font-size: 18px; color: var(--text); margin-top: 6px; }
+    .score span { font-size: 12px; color: var(--muted); }
+    .attempts { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .choice { display: block; width: 100%; text-align: left; margin-top: 8px; padding: 12px 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; font-size: 14px; line-height: 1.45; cursor: pointer; }
+    .choice.right { border-color: var(--accent-text); background: var(--accent-soft); }
+    .choice.wrong { border-color: var(--critical); background: color-mix(in srgb, var(--critical) 8%, var(--surface)); }
+    .feedback { margin-top: 10px; font-size: 14px; }
+    .history { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px 22px; }
+    .history h3 { margin: 0 0 10px; font-size: 16px; }
+    .history ul { margin: 0 0 12px; padding-left: 18px; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    .history a { color: var(--accent-text); font-weight: 600; }
+    .synthetic { display: inline-block; margin-top: 6px; font-family: var(--font-pixel); font-size: 9px; color: var(--accent-text); }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 900px) {
+      main.mission { grid-template-columns: 1fr; padding-top: 16px; }
+      .sky { position: static; }
+      .progress { min-width: 120px; }
+      .mission-title h1 { font-size: 15px; }
+    }
+    @media (max-width: 520px) {
+      .mission-top { flex-wrap: wrap; }
+      .tally { grid-template-columns: repeat(25, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header class="mission-top">
+    <div class="mission-title">
+      <span class="px-badge">M01</span>
+      <h1>¿Dónde blindar los aviones?</h1>
+    </div>
+    <div class="progress" aria-label="Avance de la misión">
+      <div class="xp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="1" id="xp"><i id="xpFill" style="width:20%"></i></div>
+      <span id="xpLabel">1/5</span>
+    </div>
+    <a href="../../index.html">The Agentic D. Scientist</a>
+  </header>
+
+  <main class="mission">
+    <section class="sky" aria-label="Avión">
+      <div class="sky-head"><strong id="skyTitle">Radar · aviones que regresaron</strong><span id="skyNote">Muestra de 150 aviones</span></div>
+      <svg id="plane" role="img" aria-labelledby="skyTitle"></svg>
+      <div class="legend" id="legend">
+        <span><i class="k-hit"></i>Impacto en un avión que regresó</span>
+        <span><i class="k-armor"></i>Blindaje</span>
+        <span hidden id="legendDowned"><i class="k-downed"></i>Impacto en un avión derribado</span>
+      </div>
+    </section>
+
+    <section class="panel" aria-live="polite">
+      <!-- 1 · Briefing -->
+      <article class="dialog-box" data-step="1">
+        <p class="speaker">CENTRO DE MANDO</p>
+        <h2>Cada noche salen 1,000 aviones.</h2>
+        <p>Regresan <strong id="returnedCount">unos 740</strong>, llenos de agujeros. Tienes <strong>2 placas de blindaje</strong>: blindar todo haría al avión demasiado pesado.</p>
+        <p>Tu decisión: <strong>¿qué partes refuerzas?</strong></p>
+        <p class="note">Inspirado en el trabajo de Abraham Wald en el Statistical Research Group (Columbia, hacia 1943). Los aviones y sus impactos son simulados.</p>
+        <div class="actions"><button class="btn-px" type="button" data-go="2">VER LA EVIDENCIA</button></div>
+      </article>
+
+      <!-- 2 · Evidencia y decisión -->
+      <article class="dialog-box" data-step="2" hidden>
+        <p class="speaker">EVIDENCIA</p>
+        <h2>Estos son los impactos de los aviones que regresaron.</h2>
+        <p>Compara cuántos agujeros hay <strong>por cada 1% de la superficie</strong> del avión: así una parte grande no parece más golpeada solo por ser grande.</p>
+        <table class="evidence" id="evidenceTable"></table>
+        <p style="margin-top:14px"><strong>Elige 2 partes para blindar.</strong> También puedes tocarlas en el avión.</p>
+        <div class="sections" id="sectionButtons"></div>
+        <div class="actions"><button class="btn-px" type="button" id="launch" disabled>ENVIAR 1,000 AVIONES</button></div>
+      </article>
+
+      <!-- 3 · Resultado -->
+      <article class="dialog-box" data-step="3" hidden>
+        <p class="speaker">RESULTADO</p>
+        <h2 id="resultTitle">Así volvieron tus aviones.</h2>
+        <div class="score">
+          <div><span>Sin blindaje</span><b id="baseCount">–</b></div>
+          <div><span>Con tu blindaje</span><b id="armorCount">–</b></div>
+          <div><span>Diferencia</span><b id="diffCount">–</b></div>
+        </div>
+        <div class="tally" id="tally" aria-hidden="true"></div>
+        <p id="resultText"></p>
+        <ol class="attempts" id="attempts"></ol>
+        <div class="actions"><button class="btn-px" type="button" data-go="4">VER LOS QUE NO REGRESARON</button></div>
+      </article>
+
+      <!-- 4 · Revelación -->
+      <article class="dialog-box" data-step="4" hidden>
+        <p class="speaker">LO OCULTO</p>
+        <h2>Los agujeros que faltan son los que derriban.</h2>
+        <p>Ahora el radar muestra los impactos de los aviones <strong>derribados</strong>. Compara con los que regresaron:</p>
+        <table class="evidence" id="compareTable"></table>
+        <p>En los aviones que regresan, motores y cabina tienen pocos agujeros <strong>no porque reciban menos disparos</strong>, sino porque los aviones que recibieron ahí no volvieron.</p>
+        <p>Eso es el <strong>sesgo de supervivencia</strong>: tus datos solo incluyen a quienes pasaron un filtro, y el filtro esconde justo lo que buscas.</p>
+        <div class="actions">
+          <button class="btn-px ghost" type="button" data-go="2">INTENTAR DE NUEVO</button>
+          <button class="btn-px" type="button" data-go="5">SIGUIENTE</button>
+        </div>
+      </article>
+
+      <!-- 5 · Transferencia -->
+      <article class="dialog-box" data-step="5" hidden>
+        <p class="speaker">NUEVO CASO</p>
+        <h2>Una app de ejercicio encuesta a quienes la siguen usando después de 6 meses.</h2>
+        <p>9 de cada 10 dicen que les encanta. ¿Qué puedes concluir?</p>
+        <div id="choices"></div>
+        <p class="feedback" id="choiceFeedback" role="status"></p>
+      </article>
+
+      <aside class="history" data-step="5" hidden>
+        <h3>Lo que sí sabemos de la historia</h3>
+        <ul>
+          <li>Abraham Wald trabajó en el Statistical Research Group de la Universidad de Columbia durante la Segunda Guerra Mundial.</li>
+          <li>Hacia 1943 escribió memorandos para estimar la vulnerabilidad de un avión a partir de los daños de los que regresaban. Nunca se publicaron externamente; el Center for Naval Analyses los reimprimió en 1980.</li>
+          <li>Su método usaba los impactos de los aviones que regresaban y suponía, entre otras cosas, que los impactos previos no cambiaban la probabilidad de caer. Según W. Allen Wallis, también supuso impactos repartidos de manera uniforme.</li>
+        </ul>
+        <h3>Lo que no está documentado</h3>
+        <ul>
+          <li>No hay constancia de que Wald dibujara el famoso avión con puntos rojos ni de que ordenara blindar una zona concreta.</li>
+          <li>No hay cifras de cuántas tripulaciones se salvaron.</li>
+        </ul>
+        <p class="note">Fuentes: <a href="https://www.ams.org/samplings/feature-column/fc-2016-06">AMS Feature Column</a> · <a href="https://cna.org/reports/1980/a-method-of-estimating-plane-vulnerability">Center for Naval Analyses</a> · <a href="https://apps.dtic.mil/sti/pdfs/ADA091073.pdf">reimpresión CRC 432</a></p>
+        <span class="synthetic">DATOS SIMULADOS · CC0</span>
+        <div class="actions"><a class="btn-px" href="https://colab.research.google.com/github/jcval94/mvp-ds-course/blob/main/kits/m01-wald/m01_wald.ipynb" target="_blank" rel="noopener">ABRIR EN COLAB</a><a class="btn-px ghost" href="../../index.html#catalogo">VOLVER AL CURSO</a></div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="sim.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

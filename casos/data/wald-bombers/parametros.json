@@ -1,42 +1,79 @@
 {
-  "descripcion": "Parámetros del modelo simulado de la misión m01-wald. Son ilustrativos: no reproducen cifras históricas.",
+  "descripcion": "Parámetros del modelo simulado de la misión m01-wald. Son ilustrativos: no reproducen cifras históricas. Las áreas son la fracción de píxeles de cada sección en el avión de la misión.",
   "semilla": 1943,
   "aviones_por_mision": 1000,
-  "impactos_promedio": 2.6,
+  "impactos_promedio": 2.4,
   "secciones": [
     {
       "id": "motor",
       "nombre": "Motores",
-      "area": 0.15,
-      "letalidad": 0.5
+      "area": 0.163,
+      "letalidad": 0.5,
+      "pixel": "E"
     },
     {
       "id": "cabina",
       "nombre": "Cabina",
-      "area": 0.08,
-      "letalidad": 0.45
+      "area": 0.065,
+      "letalidad": 0.5,
+      "pixel": "C"
     },
     {
       "id": "fuselaje",
       "nombre": "Fuselaje",
-      "area": 0.35,
-      "letalidad": 0.02
+      "area": 0.171,
+      "letalidad": 0.03,
+      "pixel": "F"
     },
     {
       "id": "alas",
       "nombre": "Alas",
-      "area": 0.3,
-      "letalidad": 0.03
+      "area": 0.417,
+      "letalidad": 0.02,
+      "pixel": "W"
     },
     {
       "id": "cola",
       "nombre": "Cola",
-      "area": 0.12,
-      "letalidad": 0.05
+      "area": 0.184,
+      "letalidad": 0.04,
+      "pixel": "T"
     }
   ],
   "blindaje": {
     "placas": 2,
     "reduccion_letalidad": 0.75
+  },
+  "avion": {
+    "descripcion": "Vista superior en píxeles (nariz arriba). Cada letra es una sección; '.' es vacío.",
+    "filas": [
+      "................C................",
+      "...............CCC...............",
+      "...............CCC...............",
+      "...............CCC...............",
+      "...............CCC...............",
+      "...............CCC...............",
+      "...............FFF...............",
+      "......EE...EE..FFF..EE...EE......",
+      "......EE...EE..FFF..EE...EE......",
+      ".....WEEWWWEEWWFFFWWEEWWWEEW.....",
+      "...WWWEEWWWEEWWFFFWWEEWWWEEWWW...",
+      ".WWWWWEEWWWEEWWFFFWWEEWWWEEWWWWW.",
+      ".WWWWWWWWWWWWWWFFFWWWWWWWWWWWWWW.",
+      "..WWWWWWWWWWWWWFFFWWWWWWWWWWWWW..",
+      "...............FFF...............",
+      "...............FFF...............",
+      "...............FFF...............",
+      "...............FFF...............",
+      "...............FFF...............",
+      "...............FFF...............",
+      "............TTTTTTTTT............",
+      "..........TTTTTTTTTTTTT..........",
+      "..........TTTTTTTTTTTTT..........",
+      "...............TTT...............",
+      "...............TTT...............",
+      "...............TTT...............",
+      "................T................"
+    ]
   }
 }

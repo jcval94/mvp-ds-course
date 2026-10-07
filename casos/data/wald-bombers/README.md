@@ -18,7 +18,7 @@ de supervivencia. Licencia CC0 1.0.
 3. Cada impacto derriba el avión con la letalidad de su sección. Una sección blindada
    reduce su letalidad según `blindaje.reduccion_letalidad`.
 
-Con la semilla 1943 regresan 706 de 1,000 aviones. En los que regresan, los motores
+Con la semilla 1943 regresan 736 de 1,000 aviones. En los que regresan, los motores
 y la cabina muestran menos impactos por unidad de área que el fuselaje: no porque
 reciban menos, sino porque esos impactos derriban.
 
