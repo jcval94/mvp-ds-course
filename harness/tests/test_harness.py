@@ -59,7 +59,7 @@ def test_mission_schema_rejects_unknown_status(repo: Path) -> None:
 
 def test_approved_case_needs_sources_and_claims(repo: Path) -> None:
     case = json.loads((repo / "casos" / "staging" / "wald-bombers.json").read_text(encoding="utf-8"))
-    case["status"] = "approved"
+    case.update(status="approved", verified_claims=[], sources=[])
     (repo / "casos" / "cases.jsonl").write_text(json.dumps(case) + "\n", encoding="utf-8")
     errors = validate.validate_contracts(repo)
     assert any("cases.jsonl[wald-bombers]" in error and "verified_claims" in error for error in errors)
@@ -165,3 +165,17 @@ def test_level_theme_check_requires_tokens_theme_and_brand(tmp_path: Path) -> No
     assert "falta ../../design/tokens/tokens.css" in errors and "falta ../../design/themes/t.css" in errors and "DataClass Forge" in errors
     _write(dist / "labs" / "level-1" / "index.html", '<link href="../../design/tokens/tokens.css"><link href="../../design/themes/t.css">')
     assert checks.check_level_themes(tmp_path, dist) == []
+
+
+def test_case_dataset_must_match_its_sha256(tmp_path: Path) -> None:
+    from harness.validate import _dataset_errors
+    import hashlib
+
+    data = tmp_path / "casos" / "data" / "c1" / "d.csv"
+    _write(data, "a,b\n1,2\n")
+    good = {"id": "c1", "dataset": {"path": "casos/data/c1/d.csv", "sha256": hashlib.sha256(data.read_bytes()).hexdigest()}}
+    assert _dataset_errors(good, "x", tmp_path) == []
+    bad = {"id": "c1", "dataset": {"path": "casos/data/c1/d.csv", "sha256": "0" * 64}}
+    assert "SHA-256" in _dataset_errors(bad, "x", tmp_path)[0]
+    elsewhere = {"id": "c1", "dataset": {"path": "casos/data/otro/d.csv", "sha256": "0" * 64}}
+    assert "casos/data/c1/" in _dataset_errors(elsewhere, "x", tmp_path)[0]

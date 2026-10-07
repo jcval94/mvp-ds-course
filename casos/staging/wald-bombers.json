@@ -72,7 +72,13 @@
     "https://cna.org/reports/1980/a-method-of-estimating-plane-vulnerability",
     "https://apps.dtic.mil/sti/pdfs/ADA091073.pdf"
   ],
-  "dataset": null,
+  "dataset": {
+    "kind": "synthetic",
+    "path": "casos/data/wald-bombers/regresaron.csv",
+    "provenance": "Simulación determinista casos/data/wald-bombers/generar.py (semilla 1943) con parámetros ilustrativos; no reproduce cifras históricas.",
+    "license": "CC0-1.0",
+    "sha256": "25fbe2cc883a7e044d11612474054fb3c22cd42958f974896e9831527749307f"
+  },
   "story_bridge": "",
   "analogy_limits": "En la misión los datos son simulados para mostrar el mecanismo; no reproducen cifras históricas."
 }

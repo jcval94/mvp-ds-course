@@ -1,0 +1,42 @@
+{
+  "descripcion": "Parámetros del modelo simulado de la misión m01-wald. Son ilustrativos: no reproducen cifras históricas.",
+  "semilla": 1943,
+  "aviones_por_mision": 1000,
+  "impactos_promedio": 2.6,
+  "secciones": [
+    {
+      "id": "motor",
+      "nombre": "Motores",
+      "area": 0.15,
+      "letalidad": 0.5
+    },
+    {
+      "id": "cabina",
+      "nombre": "Cabina",
+      "area": 0.08,
+      "letalidad": 0.45
+    },
+    {
+      "id": "fuselaje",
+      "nombre": "Fuselaje",
+      "area": 0.35,
+      "letalidad": 0.02
+    },
+    {
+      "id": "alas",
+      "nombre": "Alas",
+      "area": 0.3,
+      "letalidad": 0.03
+    },
+    {
+      "id": "cola",
+      "nombre": "Cola",
+      "area": 0.12,
+      "letalidad": 0.05
+    }
+  ],
+  "blindaje": {
+    "placas": 2,
+    "reduccion_letalidad": 0.75
+  }
+}
