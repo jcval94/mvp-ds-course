@@ -1,0 +1,53 @@
+/* ds-course-design · componentes v1.0.0
+   Base, componentes y capa de juego 8 bits. Requiere ../tokens/tokens.css antes.
+   La capa 8 bits vive solo dentro de misiones y ejercicios. */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+
+/* Texto */
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-text); font-weight: 700; }
+.muted { color: var(--muted); }
+
+/* Hero oscuro */
+.hero { padding: 32px; border-radius: var(--r-card); background: radial-gradient(circle at 85% 0%, rgba(253, 170, 62, .16) 0, transparent 45%), var(--hero); color: var(--hero-text); }
+.hero .eyebrow { color: var(--accent); }
+.hero .muted { color: rgba(255, 255, 255, .82); }
+.hero h1 { font-size: clamp(30px, 4.5vw, 52px); line-height: 1.08; margin: .3em 0 .25em; letter-spacing: -.02em; }
+
+/* Tarjetas e indicadores */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 24px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 16px; }
+.kpi span { display: block; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.kpi b { display: block; font-size: 28px; margin-top: 5px; letter-spacing: -.03em; }
+
+/* Pastillas */
+.pill { display: inline-block; border-radius: var(--r-pill); padding: 3px 9px; font-weight: 700; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; background: var(--surface-soft); color: var(--muted); }
+.pill.free { background: var(--accent-soft); color: var(--accent-text); }
+
+/* Pestañas */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; padding: 5px; background: var(--surface-soft); border-radius: var(--r-control); width: max-content; max-width: 100%; }
+.tab { appearance: none; border: 0; background: transparent; color: var(--muted); border-radius: 12px; padding: 9px 13px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(14, 10, 7, .08); }
+
+/* Botones y búsqueda */
+.button { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--on-accent); font-weight: 700; border-radius: var(--r-control); padding: 12px 20px; text-decoration: none; border: 0; cursor: pointer; }
+.button:hover { background: var(--accent-hover); }
+.button.secondary { background: var(--text); color: var(--surface); }
+.search { width: 100%; border: 1px solid var(--line); border-radius: var(--r-control); background: var(--surface); color: var(--text); padding: 10px 12px; outline: none; font: inherit; }
+.search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+/* ---------- Capa de juego (8 bits): solo misiones y ejercicios ---------- */
+.px-font { font-family: var(--font-pixel); letter-spacing: 0; text-transform: uppercase; }
+.px-border { border: 0; border-radius: 0; box-shadow:
+  0 calc(var(--px) * -1) 0 0 var(--text), 0 var(--px) 0 0 var(--text),
+  calc(var(--px) * -1) 0 0 0 var(--text), var(--px) 0 0 0 var(--text); }
+.px-badge { font-family: var(--font-pixel); font-size: 10px; color: var(--on-accent); background: var(--accent); padding: 6px 8px; box-shadow: 0 var(--px) 0 0 var(--accent-text); }
+.xp-bar { height: calc(var(--px) * 3); background: var(--surface-soft); box-shadow: 0 0 0 var(--px) var(--text); }
+.xp-bar > i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--accent) 0 calc(var(--px) * 3), var(--accent-text) calc(var(--px) * 3) calc(var(--px) * 4)); }
+.dialog-box { background: var(--surface); padding: 14px 16px; box-shadow:
+  0 calc(var(--px) * -1) 0 0 var(--text), 0 var(--px) 0 0 var(--text),
+  calc(var(--px) * -1) 0 0 0 var(--text), var(--px) 0 0 0 var(--text); }
+.sprite { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
