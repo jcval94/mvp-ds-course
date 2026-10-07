@@ -1,0 +1,9 @@
+case_id: "58"
+title: "La tabla madre que mezclaba pasado y futuro"
+concept: "construccion de una ABT para aprendizaje automatico"
+scenario: "abt_tabla_madre_ml"
+seed: 158
+observations: 1000
+variables: [entity_id, cutoff_date, feature_window, label_window]
+key_values: {leaky_validation: 96, cutoff_validation: 68, production_match: 70}
+synthetic_data: true

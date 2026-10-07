@@ -1,0 +1,9 @@
+case_id: "66"
+title: "El viernes que duró tres minutos"
+concept: "ventanas temporales y datos incompletos"
+scenario: "viernes_que_duro_tres_minutos"
+seed: 266
+observations: 960
+variables: ["friday", "cutoff_minute", "orders", "is_complete"]
+key_values: {"hoy 09:03": 50, "viernes A 09:03": 52, "viernes B 09:03": 48}
+synthetic_data: true

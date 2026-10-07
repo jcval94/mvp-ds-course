@@ -1,0 +1,10 @@
+title: "La consulta que trajo toda la tienda"
+case_id: "55"
+chart_type: "basic_sql"
+question_answered: "Como se conectan SELECT, WHERE, GROUP BY y ORDER BY en una pregunta simple."
+comfortable_read: "Mejor tener todo por si acaso."
+missing_context: "Entonces faltaba filtrar, agrupar y ordenar."
+correct_read: "Muchas menos cuando la pregunta guia SELECT y WHERE."
+decision_changed: "seleccionar columnas, filtrar filas, agrupar ventas y ordenar resultados"
+annotations: ["todo", "filtrado", "agrupado"]
+synthetic_data: true

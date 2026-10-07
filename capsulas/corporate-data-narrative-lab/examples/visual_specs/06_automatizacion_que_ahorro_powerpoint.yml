@@ -1,0 +1,10 @@
+title: "Las dos mil horas que regresaron como juntas"
+case_id: "06"
+chart_type: "stacked_before_after"
+question_answered: "¿A dónde fue el tiempo liberado?"
+comfortable_read: "Se ahorraron 2,000 horas."
+missing_context: "1,760 horas se reasignaron."
+correct_read: "Solo 240 horas quedaron como capacidad real."
+decision_changed: "Separar liberación de valor capturado."
+annotations: ["reportes nuevos", "juntas", "capacidad real"]
+synthetic_data: true

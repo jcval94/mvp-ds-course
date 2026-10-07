@@ -1,0 +1,10 @@
+title: "La rama que llego por WhatsApp"
+case_id: "42"
+chart_type: "branch_pr_flow"
+question_answered: "Que aporta un pull request que no aporta mandar el archivo por mensaje."
+comfortable_read: "El motivo era obvio."
+missing_context: "La burocracia acaba de salvarnos de pisar produccion."
+correct_read: "Se pierde problema, revision, prueba y aprobacion."
+decision_changed: "abrir issue, trabajar en branch, explicar commit y revisar PR"
+annotations: ["chat", "branch", "PR revisado"]
+synthetic_data: true

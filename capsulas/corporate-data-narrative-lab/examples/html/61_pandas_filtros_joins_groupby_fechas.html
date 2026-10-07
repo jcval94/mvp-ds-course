@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El groupby que perdio los lunes</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="Pandas no odio los lunes; nosotros los dejamos como texto.">
+  <main>
+<h1>El groupby que perdio los lunes</h1>
+<section>
+<h2>La tabla bonita</h2>
+<blockquote><strong>Olga:</strong><span>El groupby ya resume ventas por dia.</span></blockquote>
+<blockquote><strong>Ivan:</strong><span>Pero faltan varios lunes.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>Tal vez esos dias no hubo ventas.</span></blockquote>
+<blockquote><strong>Olga:</strong><span>O la fecha no era fecha.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>Pandas no se quejo.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Pandas no siempre se queja por ti.</span></blockquote>
+<p>Un filtro de fechas mal convertido excluye dias y el resumen cambia. La solución parecía suficiente mientras nadie pidiera repetirla con otro archivo, otra fecha o una cantidad diferente.</p>
+</section>
+<section>
+<h2>La fecha era texto disfrazado</h2>
+<blockquote><strong>Ceci:</strong><span>Rellenamos los lunes con cero.</span></blockquote>
+<blockquote><strong>Ivan:</strong><span>Primero averigüemos si los borramos.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>El cero se ve ordenado.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Ordenado y falso es peor.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>La grafica quedaba suave.</span></blockquote>
+<blockquote><strong>Olga:</strong><span>Demasiado suave para una semana real.</span></blockquote>
+<blockquote><strong>Ivan:</strong><span>Un filtro de fechas mal convertido excluye dias y el resumen cambia.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Enséñame filas antes y despues de filtros de fecha antes de cerrar.</span></blockquote>
+<p>El grupo puso filas antes y despues de filtros de fecha junto al resultado anterior. Al contrastar resultados, el equipo sustituyó memoria y orden accidental por pasos que podían verificarse uno a uno.</p>
+</section>
+<section>
+<h2>Filtrar despues de convertir</h2>
+<blockquote><strong>Olga:</strong><span>Revise tipos, filtros y filas antes del groupby.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Donde se fueron los lunes.</span></blockquote>
+<blockquote><strong>Olga:</strong><span>Se perdieron al filtrar texto como si fuera fecha.</span></blockquote>
+<blockquote><strong>Ivan:</strong><span>Entonces debemos convertir tipos, filtrar explicitamente, unir con llaves y agrupar despues de validar.</span></blockquote>
+<blockquote><strong>Olga:</strong><span>En pandas, valida tipos y filas antes de confiar en filtros, joins o groupby.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="filas antes y despues de filtros de fecha">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">filas antes y despues de filtros de fecha</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="160" width="174" height="100" fill="#286d9b"/>
+  <text x="157" y="150" font-size="18" text-anchor="middle">52</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">sin validar</text>
+  <rect x="272" y="101" width="174" height="159" fill="#d58b2f"/>
+  <text x="359" y="91" font-size="18" text-anchor="middle">83</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">fechas ok</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">91</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">join validado</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">Los tipos correctos protegen el resumen.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Ivan:</strong><span>Que validaciones conviene hacer antes de usar filtros, joins y groupby en pandas.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia muestra que pandas permite transformar rapido, pero exige revisar tipos, nulos, llaves y conteos. Convertir fechas antes de filtrar evita excluir datos validos. El groupby solo resume lo que sobrevivio.</p>
+</section>
+<section>
+<h2>Agrupar con piso firme</h2>
+<blockquote><strong>el mentor:</strong><span>El flujo validara tipos y conteos antes de resumir.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>Habra mas pasos antes de la grafica.</span></blockquote>
+<blockquote><strong>Olga:</strong><span>Y menos dias desaparecidos.</span></blockquote>
+<blockquote><strong>Olga:</strong><span>¿Qué cambiaremos después de revisar filas antes y despues de filtros de fecha?</span></blockquote>
+<blockquote><strong>Ivan:</strong><span>La decisión es convertir tipos, filtrar explicitamente, unir con llaves y agrupar despues de validar.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>Y volvemos a medir pandas esencial con filtros, joins, groupby y fechas antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Ceci:</strong><span>Cada transformación quedará en un paso nombrado y fácil de inspeccionar.</span></blockquote>
+<blockquote><strong>Ivan:</strong><span>Pandas no odio los lunes; nosotros los dejamos como texto.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> en pandas, valida tipos y filas antes de confiar en filtros, joins o groupby.</p>
+</section>
+  </main>
+</body>
+</html>

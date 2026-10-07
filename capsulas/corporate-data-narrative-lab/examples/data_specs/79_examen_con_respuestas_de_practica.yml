@@ -1,0 +1,9 @@
+case_id: "79"
+title: "El examen con respuestas de práctica"
+concept: "separación de entrenamiento, validación y prueba"
+scenario: "examen_con_respuestas_de_practica"
+seed: 279
+observations: 62000
+variables: ["record_id", "split", "prediction", "label", "model_version"]
+key_values: {"validación reutilizada": 91, "prueba intacta": 72, "modelo base": 69}
+synthetic_data: true

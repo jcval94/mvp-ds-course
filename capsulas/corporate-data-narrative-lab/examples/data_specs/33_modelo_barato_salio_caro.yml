@@ -1,0 +1,9 @@
+case_id: "33"
+title: "El modelo barato que salio caro"
+concept: "costo de error y metrica de negocio"
+scenario: "modelo_barato_salio_caro"
+seed: 133
+observations: 1000
+variables: [model_version, runtime_cost, error_count, error_cost]
+key_values: {cheap_model_total_cost: 780000, robust_model_total_cost: 430000, runtime_saving: 120000}
+synthetic_data: true

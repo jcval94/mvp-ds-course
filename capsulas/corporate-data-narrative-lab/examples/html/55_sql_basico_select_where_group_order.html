@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La consulta que trajo toda la tienda</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="La consulta no respondio la pregunta; trajo la tienda completa para que la entrevistaramos.">
+  <main>
+<h1>La consulta que trajo toda la tienda</h1>
+<section>
+<h2>Todo por si acaso</h2>
+<blockquote><strong>Meli:</strong><span>Hice SELECT estrella para revisar ventas.</span></blockquote>
+<blockquote><strong>Sergio:</strong><span>Eso trajo columnas que nadie pidio.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Mejor tener todo por si acaso.</span></blockquote>
+<blockquote><strong>Meli:</strong><span>Por si acaso no es una pregunta de negocio.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Querian saber productos mas vendidos.</span></blockquote>
+<blockquote><strong>el gerente:</strong><span>Entonces faltaba filtrar, agrupar y ordenar.</span></blockquote>
+<p>La consulta devuelve filas innecesarias y una conclusion sin agrupar. El ejercicio dejó de ser demostración cuando tuvo que responder una pregunta nueva y el código no sabía dónde buscar el dato.</p>
+</section>
+<section>
+<h2>La tabla no era la respuesta</h2>
+<blockquote><strong>Paula:</strong><span>Abrimos la tabla y buscamos a ojo.</span></blockquote>
+<blockquote><strong>Sergio:</strong><span>Eso convierte SQL en vitrina.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Podemos ordenar en Excel despues.</span></blockquote>
+<blockquote><strong>el gerente:</strong><span>Despues siempre llega con otro despues.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>La consulta si corrio.</span></blockquote>
+<blockquote><strong>Meli:</strong><span>Correr no es responder.</span></blockquote>
+<blockquote><strong>Sergio:</strong><span>La consulta devuelve filas innecesarias y una conclusion sin agrupar.</span></blockquote>
+<blockquote><strong>el gerente:</strong><span>Enséñame filas consultadas contra respuesta necesaria antes de cerrar.</span></blockquote>
+<p>El grupo puso filas consultadas contra respuesta necesaria junto al resultado anterior. La comparación mostró qué estructura o regla permitía adaptar la solución sin esconder un caso especial dentro del resultado.</p>
+</section>
+<section>
+<h2>Cuatro palabras que ordenan la pregunta</h2>
+<blockquote><strong>Meli:</strong><span>Compare la consulta completa contra una consulta enfocada.</span></blockquote>
+<blockquote><strong>el gerente:</strong><span>Cuantas filas necesitabamos leer.</span></blockquote>
+<blockquote><strong>Meli:</strong><span>Muchas menos cuando la pregunta guia SELECT y WHERE.</span></blockquote>
+<blockquote><strong>Sergio:</strong><span>Entonces debemos seleccionar columnas, filtrar filas, agrupar ventas y ordenar resultados.</span></blockquote>
+<blockquote><strong>Meli:</strong><span>Una consulta basica debe pedir solo las columnas, filas y agrupaciones que responden la pregunta.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="filas consultadas contra respuesta necesaria">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">filas consultadas contra respuesta necesaria</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="226" width="174" height="34" fill="#286d9b"/>
+  <text x="157" y="216" font-size="18" text-anchor="middle">18</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">todo</text>
+  <rect x="272" y="143" width="174" height="117" fill="#d58b2f"/>
+  <text x="359" y="133" font-size="18" text-anchor="middle">61</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">filtrado</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">91</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">agrupado</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">Filtrar y agrupar acerca la consulta a la pregunta.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Sergio:</strong><span>Como se conectan SELECT, WHERE, GROUP BY y ORDER BY en una pregunta simple.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia muestra que SQL basico no es traer todo. SELECT elige columnas, WHERE filtra filas, GROUP BY resume y ORDER BY ordena la respuesta. La consulta debe parecerse a la decision que quieres tomar.</p>
+</section>
+<section>
+<h2>La consulta deja de cargar cajas</h2>
+<blockquote><strong>el gerente:</strong><span>La pregunta se escribira antes de la consulta.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Ya no tendremos todo por si acaso.</span></blockquote>
+<blockquote><strong>Meli:</strong><span>Y tendremos algo que si contesta.</span></blockquote>
+<blockquote><strong>Meli:</strong><span>¿Qué cambiaremos después de revisar filas consultadas contra respuesta necesaria?</span></blockquote>
+<blockquote><strong>Sergio:</strong><span>La decisión es seleccionar columnas, filtrar filas, agrupar ventas y ordenar resultados.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Y volvemos a medir SQL basico con SELECT, WHERE, GROUP BY y ORDER BY antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Sergio:</strong><span>La consulta no respondio la pregunta; trajo la tienda completa para que la entrevistaramos.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> una consulta basica debe pedir solo las columnas, filas y agrupaciones que responden la pregunta.</p>
+</section>
+  </main>
+</body>
+</html>

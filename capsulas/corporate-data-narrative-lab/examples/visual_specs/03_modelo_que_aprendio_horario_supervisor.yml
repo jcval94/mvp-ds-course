@@ -1,0 +1,10 @@
+title: "El modelo de 97% que llegaba cuatro horas tarde"
+case_id: "03"
+chart_type: "availability_timeline"
+question_answered: "¿Qué información existía al decidir?"
+comfortable_read: "El modelo alcanza 97%."
+missing_context: "La variable principal aparece a las 18:00."
+correct_read: "La validación usa información futura."
+decision_changed: "Reconstruir cortes a las 14:00."
+annotations: ["14:00 decisión", "18:00 evaluación"]
+synthetic_data: true

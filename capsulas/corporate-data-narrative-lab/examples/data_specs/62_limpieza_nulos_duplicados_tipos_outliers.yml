@@ -1,0 +1,9 @@
+case_id: "62"
+title: "La categoria Otro que se comio la limpieza"
+concept: "limpieza real con nulos, duplicados, tipos, outliers y categorias rotas"
+scenario: "limpieza_nulos_duplicados_tipos_outliers"
+seed: 162
+observations: 1000
+variables: [row_id, quality_issue, cleaning_rule, metric_impact]
+key_values: {hidden_quality_score: 34, rules_quality_score: 79, validated_quality_score: 94}
+synthetic_data: true

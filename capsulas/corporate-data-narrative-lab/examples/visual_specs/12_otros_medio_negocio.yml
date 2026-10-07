@@ -1,0 +1,10 @@
+title: "La categoría Otros que ya era medio negocio"
+case_id: "12"
+chart_type: "reclassified_bars"
+question_answered: "¿Qué problemas esconde Otros?"
+comfortable_read: "Otros es el principal motivo."
+missing_context: "La categoría mezcla cuatro problemas grandes."
+correct_read: "La taxonomía y captura están rotas."
+decision_changed: "Corregir categorías antes de modelar."
+annotations: ["Otros 47% antes", "Otros 8% después"]
+synthetic_data: true

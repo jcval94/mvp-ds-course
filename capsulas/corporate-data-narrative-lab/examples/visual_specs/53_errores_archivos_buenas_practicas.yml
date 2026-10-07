@@ -1,0 +1,10 @@
+title: "El archivo que desaparecia sin avisar"
+case_id: "53"
+chart_type: "error_handling"
+question_answered: "Que tipo de errores conviene anticipar al leer y escribir archivos."
+comfortable_read: "Entonces tal vez si corrio."
+missing_context: "Hoy la carpeta cambio y el script no aviso."
+correct_read: "Los fallos dejaron de ser adivinanzas."
+decision_changed: "validar rutas, manejar excepciones y registrar mensajes utiles"
+annotations: ["silencioso", "mensaje", "validacion"]
+synthetic_data: true

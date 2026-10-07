@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El promedio de 14 minutos y el folio de seis horas</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="Al folio 0098 no le ayudó el promedio; ni siquiera lo conoció.">
+  <main>
+<h1>El promedio de 14 minutos y el folio de seis horas</h1>
+<section>
+<h2>Todo en verde</h2>
+<blockquote><strong>El jefe:</strong><span>El tiempo promedio de atención quedó en catorce minutos. Buen cierre.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>El folio 0098 lleva seis horas esperando.</span></blockquote>
+<blockquote><strong>Félix:</strong><span>Sí, pero hay muchos de dos minutos.</span></blockquote>
+<blockquote><strong>Rodríguez:</strong><span>¿Eso le sirve al 0098?</span></blockquote>
+<blockquote><strong>Félix:</strong><span>Al cliente no. Al promedio bastante.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>¿Cuántos están así?</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>Ciento doce llevan más de una hora.</span></blockquote>
+<blockquote><strong>Félix:</strong><span>De nueve mil casos.</span></blockquote>
+<blockquote><strong>Rodríguez:</strong><span>Ah, entonces son poquitos. Nada más son ciento doce personas encabronadas.</span></blockquote>
+<p>El reporte cerraba a las seis. Los casos fáciles entraban por un flujo nuevo y se resolvían casi solos. Los complicados necesitaban documentos, llamadas y una persona que ya estaba cubriendo dos turnos.</p>
+</section>
+<section>
+<h2>La solución para el reloj</h2>
+<blockquote><strong>El jefe:</strong><span>Necesito una acción para bajar los casos vencidos.</span></blockquote>
+<blockquote><strong>Félix:</strong><span>Podemos cerrar los que esperan documentos y reabrirlos cuando llegue la respuesta.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>¿Eso resuelve el caso?</span></blockquote>
+<blockquote><strong>Félix:</strong><span>Reinicia el tiempo.</span></blockquote>
+<blockquote><strong>Rodríguez:</strong><span>Te preguntó por el caso.</span></blockquote>
+<blockquote><strong>Félix:</strong><span>El caso sigue. El atraso ya no.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>No hagan eso.</span></blockquote>
+<blockquote><strong>Félix:</strong><span>Perfecto. Lo dejo como idea que nunca se implementó.</span></blockquote>
+<blockquote><strong>Rodríguez:</strong><span>¿Y por qué ya tiene nombre?</span></blockquote>
+<blockquote><strong>Félix:</strong><span>Para que quede claro qué fue lo que no implementamos.</span></blockquote>
+<p>Una semana después, alguien la implementó con otro nombre: “gestión activa de esperas externas”. El promedio bajó a trece minutos y aparecieron doscientos folios con fecha de nacimiento nueva y problemas viejos. El cliente siguió esperando.</p>
+</section>
+<section>
+<h2>La fila completa</h2>
+<blockquote><strong>Nadia:</strong><span>Puse todos los tiempos, no solo el promedio.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>¿Qué tan mal está?</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>La mitad espera menos de ocho minutos. El cinco por ciento espera más de dos horas.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 300" role="img" aria-label="Distribución de tiempos de espera con cola larga y percentiles">
+  <rect width="720" height="300" fill="#fff"/>
+  <text x="36" y="30" font-size="18" font-weight="bold">Tiempo de espera de 9,000 folios</text>
+  <line x1="60" y1="245" x2="680" y2="245" stroke="#777"/>
+  <rect x="80" y="80" width="70" height="165" fill="#397fa8"/>
+  <rect x="165" y="115" width="70" height="130" fill="#4d8fb3"/>
+  <rect x="250" y="160" width="70" height="85" fill="#6ba0bd"/>
+  <rect x="335" y="193" width="70" height="52" fill="#91b5ca"/>
+  <rect x="420" y="215" width="70" height="30" fill="#d58b2f"/>
+  <rect x="505" y="226" width="70" height="19" fill="#c64e36"/>
+  <rect x="590" y="234" width="70" height="11" fill="#9e3525"/>
+  <text x="82" y="265" font-size="12">0-5m</text><text x="165" y="265" font-size="12">5-15m</text>
+  <text x="248" y="265" font-size="12">15-30m</text><text x="335" y="265" font-size="12">30-60m</text>
+  <text x="420" y="265" font-size="12">1-2h</text><text x="510" y="265" font-size="12">2-4h</text>
+  <text x="596" y="265" font-size="12">4h+</text>
+  <line x1="495" y1="55" x2="495" y2="245" stroke="#d58b2f" stroke-dasharray="5 4"/>
+  <line x1="570" y1="55" x2="570" y2="245" stroke="#c64e36" stroke-dasharray="5 4"/>
+  <text x="470" y="50" font-size="13">p90</text><text x="552" y="50" font-size="13">p95</text>
+</svg>
+<blockquote class="learning-pause"><strong>Rodríguez:</strong><span>Si queremos defender a la gente que peor la está pasando, ¿qué número tenemos que poner junto al promedio?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La mediana explica al caso típico, pero los percentiles p90 y p95 muestran la cola donde viven las esperas graves. El promedio de catorce minutos no describe ese daño. Hay que mirar la distribución.</p>
+</section>
+<section>
+<h2>El reporte dejó de caber en una cifra</h2>
+<blockquote><strong>El jefe:</strong><span>Desde hoy reportamos mediana, p90, p95 y cuántos folios llevan más de una hora.</span></blockquote>
+<blockquote><strong>Félix:</strong><span>Se va a ver más feo.</span></blockquote>
+<blockquote><strong>Nadia:</strong><span>La fila ya se veía fea. El reporte era el que no volteaba.</span></blockquote>
+<blockquote><strong>Rodríguez:</strong><span>Al folio 0098 no le ayudó el promedio; ni siquiera lo conoció.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> Cuando el daño vive en la cola, la media no basta.</p>
+</section>
+  </main>
+</body>
+</html>

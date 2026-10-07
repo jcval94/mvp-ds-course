@@ -1,0 +1,10 @@
+title: "El asistente que respondio con copia a todos"
+case_id: "21"
+chart_type: "authorization_flow"
+question_answered: "Que cambia cuando una IA no solo redacta, sino que tambien puede enviar."
+comfortable_read: "Fue transparente."
+missing_context: "Y entendio todos como todas las listas."
+correct_read: "Los problemas aparecen cuando pasa de borrador a accion."
+decision_changed: "usar borradores con aprobacion humana y permisos por tipo de accion"
+annotations: ["borrador", "enviado solo", "con aprobacion"]
+synthetic_data: true

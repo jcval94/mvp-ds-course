@@ -1,0 +1,10 @@
+title: "El modelo que ya sabía la devolución"
+case_id: "78"
+chart_type: "barras de desempeño temporal"
+question_answered: "¿Qué desempeño importa si solo usamos información disponible antes de autorizar el envío?"
+comfortable_read: "Una precisión de 99% parece indicar un modelo extraordinario."
+missing_context: "La variable principal se registra después de que ocurre la devolución."
+correct_read: "Con variables disponibles al decidir, la precisión realista es 74%."
+decision_changed: "usar el modelo realista como apoyo y documentar la hora disponible de cada variable"
+annotations: ["con dato futuro", "antes del envío", "base simple"]
+synthetic_data: true

@@ -1,0 +1,10 @@
+title: "La encuesta del QR detrás del recibo"
+case_id: "73"
+chart_type: "barras por método de muestreo"
+question_answered: "¿Qué población representa cada resultado y quién quedó fuera de la invitación?"
+comfortable_read: "El 92% parece representar a todos los clientes."
+missing_context: "Solo respondió quien encontró y escaneó voluntariamente el QR."
+correct_read: "La muestra aleatoria registra 68% y recupera problemas de espera."
+decision_changed: "mantener la mejora de cajas y usar una muestra aleatoria con seguimiento de no respuesta"
+annotations: ["QR voluntario", "muestra aleatoria"]
+synthetic_data: true

@@ -1,0 +1,10 @@
+title: "La variable que llegó mañana"
+case_id: "83"
+chart_type: "barras de ventanas temporales"
+question_answered: "¿Qué versión del modelo podemos ejecutar el lunes sin usar actividad futura?"
+comfortable_read: "El AUC de 0.88 parece justificar la variable semanal."
+missing_context: "Seis días de la variable ocurren después de la decisión del lunes."
+correct_read: "El modelo ejecutable usa corte dominical y obtiene AUC de 0.76."
+decision_changed: "versionar ventanas, probarlas por fecha y entrenar con el mismo corte de producción"
+annotations: ["semana completa", "corte dominical", "base simple"]
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "39"
+title: "final_final_v7_ahora_si"
+concept: "control de versiones para proyectos de datos"
+scenario: "final_final_v7"
+seed: 139
+observations: 1000
+variables: [file_name, commit_id, author, change_summary]
+key_values: {manual_versions: 17, traceable_versions: 94, unknown_outputs: 5}
+synthetic_data: true

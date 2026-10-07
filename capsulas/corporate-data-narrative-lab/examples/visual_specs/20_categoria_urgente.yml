@@ -1,0 +1,10 @@
+title: "La categoria urgente que significaba todo"
+case_id: "20"
+chart_type: "label_bars"
+question_answered: "Que deberiamos guardar por separado para que prioridad no dependa de una palabra inflada."
+comfortable_read: "Eso demuestra compromiso de las areas."
+missing_context: "Por eso mismo ya no distingue nada."
+correct_read: "No. Unos hablan de fecha, otros de cliente y otros de miedo."
+decision_changed: "separar severidad, fecha limite y excepcion con reglas visibles"
+annotations: ["urgente", "severidad", "fecha limite", "excepcion"]
+synthetic_data: true

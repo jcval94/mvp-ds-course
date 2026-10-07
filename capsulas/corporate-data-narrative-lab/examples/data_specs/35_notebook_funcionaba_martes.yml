@@ -1,0 +1,9 @@
+case_id: "35"
+title: "La libreta que funcionaba el martes"
+concept: "setup reproducible en Google Colab"
+scenario: "notebook_funcionaba_martes"
+seed: 135
+observations: 1000
+variables: [run_id, package_version, data_path, setup_cell]
+key_values: {clean_run_success: 38, verified_run_success: 96, students: 32}
+synthetic_data: true

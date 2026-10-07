@@ -1,0 +1,9 @@
+case_id: "14"
+title: "La IA que encontraba fraude en todas partes"
+concept: "clases desbalanceadas y falsos positivos"
+scenario: "fraud_confusion_matrix"
+seed: 114
+observations: 100000
+variables: [operation_id, fraud_label, model_alert, reviewed, blocked]
+key_values: {true_positive: 245, false_positive: 7760, false_negative: 5, true_negative: 91990}
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "45"
+title: "El prompt con llaves"
+concept: "especificaciones y limites para asistentes de codigo"
+scenario: "prompt_con_llaves"
+seed: 145
+observations: 1000
+variables: [task_id, scope_defined, sensitive_files_touched, tests_required]
+key_values: {risky_open_prompt: 67, risky_bounded_prompt: 19, risky_with_tests: 12}
+synthetic_data: true

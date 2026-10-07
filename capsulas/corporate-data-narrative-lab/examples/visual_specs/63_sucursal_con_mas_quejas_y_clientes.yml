@@ -1,0 +1,10 @@
+title: "La sucursal con más quejas y más clientes"
+case_id: "63"
+chart_type: "barras de tasas"
+question_answered: "¿Qué sucursal tiene realmente más quejas en relación con los pedidos que atiende?"
+comfortable_read: "Norte concentra 240 quejas y parece la peor sucursal."
+missing_context: "Cada sucursal atiende una cantidad distinta de pedidos."
+correct_read: "Centro registra 18 quejas por cada mil pedidos, la tasa más alta."
+decision_changed: "priorizar la sucursal Centro y acompañar el conteo con su denominador"
+annotations: ["Norte", "Centro", "Sur"]
+synthetic_data: true

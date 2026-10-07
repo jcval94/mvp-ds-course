@@ -1,0 +1,9 @@
+case_id: "47"
+title: "Los criterios que si sabian decir no"
+concept: "criterios de aceptacion y revision"
+scenario: "criterios_sabian_decir_no"
+seed: 147
+observations: 1000
+variables: [criterion_id, required, testable, accepted]
+key_values: {rework_without: 69, rework_with: 11, testable_success: 89}
+synthetic_data: true

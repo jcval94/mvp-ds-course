@@ -1,0 +1,18 @@
+[project]
+name = "corporate-data-narrative-lab"
+version = "0.1.0"
+description = "Narrativas corporativas centradas en datos con evidencia visual simple."
+requires-python = ">=3.10"
+dependencies = [
+  "PyYAML>=6.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+

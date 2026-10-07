@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jcval94/mvp-ds-course/schemas/course.schema.json",
+  "title": "Manifiesto global del curso (course.yaml)",
+  "description": "Solo describe el curso, sus componentes, la política de acceso y los presupuestos. El detalle de cada misión vive en missions/<id>/mission.yaml.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "course", "access", "build", "components", "missions"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "course": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "language"],
+      "properties": {
+        "id": { "$ref": "#/$defs/slug" },
+        "title": { "type": "string", "minLength": 3 },
+        "language": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" }
+      }
+    },
+    "access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default", "public_build_includes"],
+      "properties": {
+        "default": { "$ref": "#/$defs/access" },
+        "public_build_includes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/access" },
+          "minItems": 1,
+          "uniqueItems": true,
+          "contains": { "const": "public" }
+        }
+      }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dist", "budgets"],
+      "properties": {
+        "dist": { "const": "dist" },
+        "budgets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["dist_max_total_mb", "dist_max_files", "dist_max_file_mb", "repo_max_file_mb", "repo_max_tracked_mb"],
+          "properties": {
+            "dist_max_total_mb": { "type": "number", "exclusiveMinimum": 0, "maximum": 1000 },
+            "dist_max_files": { "type": "integer", "minimum": 1, "maximum": 20000 },
+            "dist_max_file_mb": { "type": "number", "exclusiveMinimum": 0, "maximum": 25 },
+            "repo_max_file_mb": { "type": "number", "exclusiveMinimum": 0, "maximum": 50 },
+            "repo_max_tracked_mb": { "type": "number", "exclusiveMinimum": 0, "maximum": 1000 }
+          }
+        }
+      }
+    },
+    "components": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["factory", "capsulas", "studio", "design", "portal"],
+      "properties": {
+        "factory": { "$ref": "#/$defs/component" },
+        "capsulas": { "$ref": "#/$defs/component" },
+        "studio": { "$ref": "#/$defs/component" },
+        "design": { "$ref": "#/$defs/component" },
+        "portal": { "$ref": "#/$defs/component" }
+      }
+    },
+    "missions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "manifest"],
+        "properties": {
+          "id": { "$ref": "#/$defs/missionId" },
+          "manifest": { "type": "string", "pattern": "^missions/m[0-9]{2}-[a-z0-9-]+/mission\\.yaml$" }
+        }
+      }
+    },
+    "external_sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "repository", "delivers"],
+        "properties": {
+          "id": { "$ref": "#/$defs/slug" },
+          "repository": { "type": "string", "format": "uri" },
+          "delivers": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "missionId": { "type": "string", "pattern": "^m[0-9]{2}-[a-z0-9]+(-[a-z0-9]+)*$" },
+    "access": { "enum": ["public", "premium"] },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "publish", "access"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "publish": { "type": "boolean" },
+        "mount": { "type": "string" },
+        "access": { "$ref": "#/$defs/access" },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

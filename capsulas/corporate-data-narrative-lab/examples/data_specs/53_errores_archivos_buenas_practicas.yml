@@ -1,0 +1,9 @@
+case_id: "53"
+title: "El archivo que desaparecia sin avisar"
+concept: "manejo de errores, archivos y buenas practicas"
+scenario: "errores_archivos_buenas_practicas"
+seed: 153
+observations: 1000
+variables: [run_id, file_exists, schema_valid, error_message]
+key_values: {silent_success: 28, message_success: 76, validation_success: 95}
+synthetic_data: true

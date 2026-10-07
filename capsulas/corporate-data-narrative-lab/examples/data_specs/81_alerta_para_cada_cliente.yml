@@ -1,0 +1,9 @@
+case_id: "81"
+title: "Una alerta para cada cliente"
+concept: "umbrales, costos de error y capacidad operativa"
+scenario: "alerta_para_cada_cliente"
+seed: 281
+observations: 9800
+variables: ["customer_id", "risk_score", "balance", "threshold", "expected_recovery", "contact_cost"]
+key_values: {"umbral bajo": 9000, "umbral 0.74": 1100, "capacidad diaria": 1200}
+synthetic_data: true

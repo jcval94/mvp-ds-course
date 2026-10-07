@@ -1,0 +1,9 @@
+case_id: "78"
+title: "El modelo que ya sabía la devolución"
+concept: "target leakage en aprendizaje automático"
+scenario: "modelo_que_sabia_la_devolucion"
+seed: 278
+observations: 48000
+variables: ["order_id", "order_time", "features_available_at", "return_received_at", "returned"]
+key_values: {"con dato futuro": 99, "antes del envío": 74, "base simple": 68}
+synthetic_data: true

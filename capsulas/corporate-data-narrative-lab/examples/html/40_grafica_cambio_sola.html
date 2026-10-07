@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La grafica que cambio sola</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="La grafica no cambio sola; solo fue mas discreta que nosotros.">
+  <main>
+<h1>La grafica que cambio sola</h1>
+<section>
+<h2>El mismo notebook</h2>
+<blockquote><strong>Noe:</strong><span>La grafica de hoy no coincide con la de ayer.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>El codigo no cambio.</span></blockquote>
+<blockquote><strong>Miguel:</strong><span>Entonces alguien movio una formula.</span></blockquote>
+<blockquote><strong>Noe:</strong><span>O cambio el dato de entrada.</span></blockquote>
+<blockquote><strong>Miguel:</strong><span>La consulta jala lo mas reciente.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>Eso es comodo y peligrosamente silencioso.</span></blockquote>
+<p>Se discute el analisis sin saber que tabla alimento cada version. La presión por cerrar seguía ahí, pero ahora también había un caso concreto que mostraba por qué la salida era insuficiente.</p>
+</section>
+<section>
+<h2>El dato se movio sin hacer ruido</h2>
+<blockquote><strong>Miguel:</strong><span>Ponemos una nota de actualizado.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>La nota no dice que filas cambiaron.</span></blockquote>
+<blockquote><strong>Miguel:</strong><span>Podemos jurar que corrimos lo mismo.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>Corrimos lo mismo contra otro mundo.</span></blockquote>
+<blockquote><strong>Miguel:</strong><span>El numero nuevo se ve mejor.</span></blockquote>
+<blockquote><strong>Noe:</strong><span>No confundamos mejora con actualizacion.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>Se discute el analisis sin saber que tabla alimento cada version.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>Quiero ver diff de datos y codigo antes de decidir.</span></blockquote>
+<p>Sara compara hash de datos, fecha de extraccion y commit de codigo. Al ordenar la evidencia, el equipo pudo distinguir una coincidencia conveniente de una señal útil para decidir.</p>
+</section>
+<section>
+<h2>Tres huellas para una grafica</h2>
+<blockquote><strong>Noe:</strong><span>Compare codigo, parametros y fuente usada.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>Que huella cambio entre salidas.</span></blockquote>
+<blockquote><strong>Noe:</strong><span>El commit era igual; el corte de datos no.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>Ahora entiendo por qué si el codigo no cambio, el resultado debe ser el mismo.</span></blockquote>
+<blockquote><strong>Noe:</strong><span>Respondía otra pregunta; no servía para registrar versiones de datos y parametros junto con cada salida.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="diff de datos y codigo">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">diff de datos y codigo</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="242" width="174" height="18" fill="#286d9b"/>
+  <text x="157" y="232" font-size="18" text-anchor="middle">0</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">codigo</text>
+  <rect x="272" y="85" width="174" height="175" fill="#d58b2f"/>
+  <text x="359" y="75" font-size="18" text-anchor="middle">63</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">datos</text>
+  <rect x="474" y="227" width="174" height="33" fill="#4c8b63"/>
+  <text x="561" y="217" font-size="18" text-anchor="middle">12</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">parametros</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">El cambio principal venia de los datos fuente.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Sara:</strong><span>Que piezas deben guardarse para reproducir una grafica de negocio.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia separa tres fuentes de cambio: codigo, parametros y datos. Si solo se versiona el notebook, una actualizacion de fuente puede cambiar resultados sin explicacion. Cada salida debe guardar corte o identificador de datos.</p>
+</section>
+<section>
+<h2>La salida lleva acta</h2>
+<blockquote><strong>la gerente:</strong><span>Cada grafica guardara commit, fecha de datos y parametros.</span></blockquote>
+<blockquote><strong>la gerente:</strong><span>Dejen por escrito quién va a registrar versiones de datos y parametros junto con cada salida.</span></blockquote>
+<blockquote><strong>Miguel:</strong><span>La carpeta de salidas tendra mas metadata.</span></blockquote>
+<blockquote><strong>Noe:</strong><span>Y menos misterio.</span></blockquote>
+<blockquote><strong>Noe:</strong><span>¿Qué cambiaremos después de revisar diff de datos y codigo?</span></blockquote>
+<blockquote><strong>Sara:</strong><span>La decisión es registrar versiones de datos y parametros junto con cada salida.</span></blockquote>
+<blockquote><strong>Miguel:</strong><span>Y volvemos a medir diferencias reproducibles en codigo y datos antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>La grafica no cambio sola; solo fue mas discreta que nosotros.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> para reproducir un analisis versiona codigo, datos y parametros.</p>
+</section>
+  </main>
+</body>
+</html>

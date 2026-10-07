@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El archivo que desaparecia sin avisar</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El script no fallo misteriosamente; fallo con mucha discrecion.">
+  <main>
+<h1>El archivo que desaparecia sin avisar</h1>
+<section>
+<h2>Ayer corria</h2>
+<blockquote><strong>Dana:</strong><span>El script dejo de generar el reporte.</span></blockquote>
+<blockquote><strong>Ruben:</strong><span>No dejo mensaje de error.</span></blockquote>
+<blockquote><strong>Silvia:</strong><span>Entonces tal vez si corrio.</span></blockquote>
+<blockquote><strong>Dana:</strong><span>Si corrio, donde esta el archivo.</span></blockquote>
+<blockquote><strong>Silvia:</strong><span>Ayer estaba en la misma carpeta.</span></blockquote>
+<blockquote><strong>la jefa:</strong><span>Hoy la carpeta cambio y el script no aviso.</span></blockquote>
+<p>El proceso falla en silencio cuando cambia la ruta o falta una columna. El grupo avanzó hasta que un cambio mínimo produjo un número distinto y no quedó claro si era error, excepción o regla.</p>
+</section>
+<section>
+<h2>El silencio tambien es error</h2>
+<blockquote><strong>Silvia:</strong><span>Le decimos al equipo que no mueva nada.</span></blockquote>
+<blockquote><strong>Ruben:</strong><span>Esa no es buena practica, es deseo.</span></blockquote>
+<blockquote><strong>Silvia:</strong><span>Podemos poner un letrero de no tocar.</span></blockquote>
+<blockquote><strong>la jefa:</strong><span>El sistema no lee letreros pegados al monitor.</span></blockquote>
+<blockquote><strong>Silvia:</strong><span>Al menos fallo rapido.</span></blockquote>
+<blockquote><strong>Dana:</strong><span>Fallo rapido y sin explicar.</span></blockquote>
+<blockquote><strong>Ruben:</strong><span>El proceso falla en silencio cuando cambia la ruta o falta una columna.</span></blockquote>
+<blockquote><strong>la jefa:</strong><span>Enséñame corridas con errores visibles y silenciosos antes de cerrar.</span></blockquote>
+<p>El grupo puso corridas con errores visibles y silenciosos junto al resultado anterior. La evidencia separó cada etapa del procedimiento y permitió corregir una sola parte sin rehacer todo el ejercicio.</p>
+</section>
+<section>
+<h2>Preguntar antes de caer</h2>
+<blockquote><strong>Dana:</strong><span>Revise corridas con validacion de ruta y columnas.</span></blockquote>
+<blockquote><strong>la jefa:</strong><span>Que cambio cuando capturamos errores.</span></blockquote>
+<blockquote><strong>Dana:</strong><span>Los fallos dejaron de ser adivinanzas.</span></blockquote>
+<blockquote><strong>Ruben:</strong><span>Entonces debemos validar rutas, manejar excepciones y registrar mensajes utiles.</span></blockquote>
+<blockquote><strong>Dana:</strong><span>Un buen script espera fallas comunes y las explica con mensajes utiles.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="corridas con errores visibles y silenciosos">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">corridas con errores visibles y silenciosos</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="209" width="174" height="51" fill="#286d9b"/>
+  <text x="157" y="199" font-size="18" text-anchor="middle">28</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">silencioso</text>
+  <rect x="272" y="120" width="174" height="140" fill="#d58b2f"/>
+  <text x="359" y="110" font-size="18" text-anchor="middle">76</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">mensaje</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">95</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">validacion</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">Los errores utiles reducen tiempo de diagnostico.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Ruben:</strong><span>Que tipo de errores conviene anticipar al leer y escribir archivos.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia compara fallas silenciosas con fallas explicadas. Validar rutas, columnas y permisos permite detener el proceso con un mensaje util. Manejar errores no oculta problemas; los vuelve accionables.</p>
+</section>
+<section>
+<h2>Fallar con instrucciones</h2>
+<blockquote><strong>la jefa:</strong><span>El script validara entrada y escribira mensajes claros.</span></blockquote>
+<blockquote><strong>Silvia:</strong><span>Habra mas lineas que no calculan nada.</span></blockquote>
+<blockquote><strong>Dana:</strong><span>Pero diran que hacer cuando algo falte.</span></blockquote>
+<blockquote><strong>Dana:</strong><span>¿Qué cambiaremos después de revisar corridas con errores visibles y silenciosos?</span></blockquote>
+<blockquote><strong>Ruben:</strong><span>La decisión es validar rutas, manejar excepciones y registrar mensajes utiles.</span></blockquote>
+<blockquote><strong>Silvia:</strong><span>Y volvemos a medir manejo de errores, archivos y buenas practicas antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Silvia:</strong><span>También registraremos el archivo fallido sin esconder la causa del error.</span></blockquote>
+<blockquote><strong>la jefa:</strong><span>Un mensaje claro dirá qué archivo faltó y qué puede hacer la persona.</span></blockquote>
+<blockquote><strong>Ruben:</strong><span>El script no fallo misteriosamente; fallo con mucha discrecion.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> un buen script espera fallas comunes y las explica con mensajes utiles.</p>
+</section>
+  </main>
+</body>
+</html>

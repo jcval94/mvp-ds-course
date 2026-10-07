@@ -1,0 +1,9 @@
+case_id: "46"
+title: "El PRD de hazlo bonito"
+concept: "PRD para agentes y productos de datos"
+scenario: "prd_hazlo_bonito"
+seed: 146
+observations: 1000
+variables: [requirement_id, user_defined, decision_defined, acceptance_test]
+key_values: {vague_success: 28, decision_success: 84, acceptance_success: 91}
+synthetic_data: true

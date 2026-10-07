@@ -1,0 +1,10 @@
+title: "final_final_v7_ahora_si"
+case_id: "39"
+chart_type: "version_history"
+question_answered: "Que informacion guarda Git que un nombre de archivo no puede garantizar."
+comfortable_read: "Ese era antes del ajuste."
+missing_context: "Finanzas pidio tres cosas en esa junta."
+correct_read: "Con nombres manuales no queda claro; con commits si."
+decision_changed: "usar commits pequenos con mensajes y datos versionados por referencia"
+annotations: ["nombres", "fechas", "commits"]
+synthetic_data: true

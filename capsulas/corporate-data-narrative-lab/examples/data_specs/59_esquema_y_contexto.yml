@@ -1,0 +1,9 @@
+case_id: "59"
+title: "El esquema que nadie le conto al analista"
+concept: "esquema y contexto de datos"
+scenario: "esquema_y_contexto"
+seed: 159
+observations: 1000
+variables: [table_name, column_name, business_definition, owner]
+key_values: {name_only_accuracy: 36, key_context_accuracy: 64, definition_accuracy: 93}
+synthetic_data: true

@@ -1,0 +1,10 @@
+title: "Los helados que causaban devoluciones"
+case_id: "76"
+chart_type: "barras por nivel de capacidad"
+question_answered: "¿Qué sucede con la relación entre helados y devoluciones cuando comparamos días con el mismo volumen?"
+comfortable_read: "Una correlación de 0.82 parece culpar a la venta de helados."
+missing_context: "Temperatura y volumen total suben al mismo tiempo durante julio."
+correct_read: "La tasa alcanza 11% cuando se rebasa capacidad, sin depender de helados."
+decision_changed: "mantener helados y ajustar capacidad logística durante días de alta demanda"
+annotations: ["carga normal", "alta con capacidad", "capacidad rebasada"]
+synthetic_data: true

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La lista que no sabia de quien era cada dato</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="La lista no estaba desordenada; estaba pidiendo identificacion oficial.">
+  <main>
+<h1>La lista que no sabia de quien era cada dato</h1>
+<section>
+<h2>Todo en una fila</h2>
+<blockquote><strong>Rita:</strong><span>Guarde nombres, costos y cantidades en una sola lista.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Entonces el orden se volvio tu base de datos.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Mientras no movamos nada, funciona.</span></blockquote>
+<blockquote><strong>Rita:</strong><span>Eso no es estructura, es supersticion.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>El total sale correcto en mi ejemplo.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Hasta que agregas otro producto y se recorre todo.</span></blockquote>
+<p>Los nombres, cantidades y costos se mezclan y nadie puede explicar el resultado. El primer intento funcionaba en un ejemplo pequeño, pero se rompía en cuanto cambiaba una entrada o el orden de los datos.</p>
+</section>
+<section>
+<h2>El dato sin apellido</h2>
+<blockquote><strong>Caro:</strong><span>Ponemos comentarios entre valores.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Los comentarios no viajan con el dato.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Entonces hacemos una lista bonita con separadores.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Bonita no significa consultable.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Al menos se ve compacta.</span></blockquote>
+<blockquote><strong>Rita:</strong><span>Compacta para romperse en silencio.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Los nombres, cantidades y costos se mezclan y nadie puede explicar el resultado.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Enséñame estructura de datos contra errores de lectura antes de cerrar.</span></blockquote>
+<p>El grupo puso estructura de datos contra errores de lectura junto al resultado anterior. Al revisar ambas versiones, el grupo encontró la regla que faltaba y pudo explicar por qué la salida anterior era frágil.</p>
+</section>
+<section>
+<h2>Cada cosa en su contenedor</h2>
+<blockquote><strong>Rita:</strong><span>Probe la misma informacion en variables, listas y diccionarios.</span></blockquote>
+<blockquote><strong>el mentor:</strong><span>Cual estructura reduce errores.</span></blockquote>
+<blockquote><strong>Rita:</strong><span>El diccionario ayuda cuando cada valor necesita nombre.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Entonces debemos usar variables para valores, listas para colecciones y diccionarios para datos con nombre.</span></blockquote>
+<blockquote><strong>Rita:</strong><span>Elige la estructura segun como necesitas guardar y recuperar el dato.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="estructura de datos contra errores de lectura">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">estructura de datos contra errores de lectura</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="178" width="174" height="82" fill="#286d9b"/>
+  <text x="157" y="168" font-size="18" text-anchor="middle">44</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">lista suelta</text>
+  <rect x="272" y="144" width="174" height="116" fill="#d58b2f"/>
+  <text x="359" y="134" font-size="18" text-anchor="middle">62</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">variables</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">93</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">diccionario</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">Nombrar campos reduce errores de lectura.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Samuel:</strong><span>Cuando conviene usar una variable, una lista o un diccionario.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La grafica compara contenedores. Una variable guarda un valor, una lista agrupa elementos similares y un diccionario liga nombres con valores. La estructura correcta baja errores porque el codigo recupera significado, no solo posicion.</p>
+</section>
+<section>
+<h2>El codigo empieza a contestar</h2>
+<blockquote><strong>el mentor:</strong><span>Productos iran como diccionarios dentro de una lista.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Escribirlo toma mas lineas.</span></blockquote>
+<blockquote><strong>Rita:</strong><span>Leerlo toma menos adivinanza.</span></blockquote>
+<blockquote><strong>Rita:</strong><span>¿Qué cambiaremos después de revisar estructura de datos contra errores de lectura?</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>La decisión es usar variables para valores, listas para colecciones y diccionarios para datos con nombre.</span></blockquote>
+<blockquote><strong>Caro:</strong><span>Y volvemos a medir variables, listas, diccionarios y estructuras esenciales antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>La lista no estaba desordenada; estaba pidiendo identificacion oficial.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> elige la estructura segun como necesitas guardar y recuperar el dato.</p>
+</section>
+  </main>
+</body>
+</html>

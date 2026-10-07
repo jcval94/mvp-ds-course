@@ -1,0 +1,9 @@
+case_id: "34"
+title: "La precision que festejaba casos faciles"
+concept: "evaluacion por segmentos y dificultad"
+scenario: "precision_casos_faciles"
+seed: 134
+observations: 1000
+variables: [case_id, difficulty, prediction_correct, case_value]
+key_values: {easy_accuracy: 96, medium_accuracy: 74, hard_accuracy: 41}
+synthetic_data: true

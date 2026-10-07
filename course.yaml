@@ -1,0 +1,69 @@
+# Manifiesto global del curso.
+# Solo describe componentes, política de acceso, presupuestos y la lista de misiones.
+# El detalle de cada misión vive en missions/<id>/mission.yaml.
+# Se valida con schemas/course.schema.json (`python -m harness validate`).
+
+schema_version: 1
+
+course:
+  id: ciencia-de-datos-por-casos
+  title: Curso de ciencia de datos por casos
+  language: es
+
+# Frontera público / premium. Hoy todo es público. El build público solo incluye
+# los niveles de acceso listados aquí; el contenido `premium` nunca entra a dist/
+# salvo que un build futuro y privado lo pida explícitamente.
+access:
+  default: public
+  public_build_includes: [public]
+
+build:
+  dist: dist
+  # Límites por debajo de GitHub Pages (sitio 1 GB) y Cloudflare Pages
+  # (20,000 archivos, 25 MiB por archivo) para poder cambiar de proveedor sin tocar contenido.
+  budgets:
+    dist_max_total_mb: 800
+    dist_max_files: 15000
+    dist_max_file_mb: 20
+    repo_max_file_mb: 5
+    repo_max_tracked_mb: 200
+
+components:
+  factory:
+    path: .
+    publish: true
+    mount: .
+    access: public
+    description: Fábrica de niveles existente (site/ + generated/ vía scripts/build_pages.py).
+  portal:
+    path: portal
+    publish: true
+    mount: .
+    access: public
+    description: Capa nueva del portal (misiones, 404). Agnóstica del hosting.
+  design:
+    path: design
+    publish: true
+    mount: design
+    access: public
+    description: Tokens visuales y capa 8 bits.
+  capsulas:
+    path: capsulas/corporate-data-narrative-lab
+    publish: true
+    mount: capsulas
+    access: public
+    description: Cápsulas de oficina importadas desde el repo narrative.
+  studio:
+    path: studio
+    publish: false
+    access: public
+    description: Proyecto Remotion. Se renderiza en local; los MP4 no entran a Git ni a dist/.
+
+missions:
+  - id: m01-wald
+    manifest: missions/m01-wald/mission.yaml
+
+external_sources:
+  - id: data-collection-mov
+    repository: https://github.com/jcval94/DataCollectionMov
+    delivers: Snapshots de movilidad CDMX publicados como GitHub Releases; el curso solo los referencia.

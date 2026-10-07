@@ -1,0 +1,10 @@
+title: "El pastel de 27 rebanadas"
+case_id: "68"
+chart_type: "barras ordenadas"
+question_answered: "¿Qué gráfica permite comparar muchas categorías y encontrar rápido cuál cayó más?"
+comfortable_read: "El pastel parece mostrar toda la mezcla de ventas en una sola imagen."
+missing_context: "Veintisiete ángulos y colores no permiten ordenar diferencias con precisión."
+correct_read: "Las barras muestran que electrónica concentra 32% y la caída principal."
+decision_changed: "usar barras ordenadas y revisar primero las categorías de mayor contribución"
+annotations: ["electrónica", "hogar", "ropa", "resto"]
+synthetic_data: true

@@ -1,0 +1,45 @@
+# Workflow principal. Orquesta los dominios con reusable workflows y despliega dist/.
+# Cambiar de proveedor de hosting = cambiar solo el job `deploy` (ver docs/architecture/DEPLOYMENT.md).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  factory:
+    name: Fábrica de niveles
+    uses: ./.github/workflows/factory.yml
+
+  capsulas:
+    name: Cápsulas
+    uses: ./.github/workflows/capsulas.yml
+
+  portal:
+    name: Portal portable (dist/)
+    needs: [factory, capsulas]
+    uses: ./.github/workflows/portal.yml
+
+  deploy:
+    name: Deployment
+    needs: portal
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy-github-pages.yml
+    # Para migrar a Cloudflare Pages, reemplaza las tres líneas anteriores por:
+    #   uses: ./.github/workflows/deploy-cloudflare-pages.yml
+    #   with:
+    #     project-name: curso-ciencia-datos
+    #   secrets: inherit

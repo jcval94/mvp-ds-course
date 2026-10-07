@@ -1,0 +1,10 @@
+title: "Las primeras runas y el archivo que hablaba raro"
+case_id: "60"
+chart_type: "file_reading"
+question_answered: "Que debes revisar al leer CSV, Excel, JSON o una API por primera vez."
+comfortable_read: "Pero es archivo de datos."
+missing_context: "Excel adivina cosas que Python necesita explicitas."
+correct_read: "Las que usan el lector y parametros correctos."
+decision_changed: "elegir lector por formato y validar filas, columnas y tipos al entrar"
+annotations: ["adivinar", "lector correcto", "validado"]
+synthetic_data: true

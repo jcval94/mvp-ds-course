@@ -1,0 +1,37 @@
+# Dominio: cápsulas (antes repo narrative). Mismas validaciones que su README original.
+name: Capsulas
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  capsulas:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: capsulas/corporate-data-narrative-lab
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: harness/requirements.txt
+
+      - name: Install pinned dependencies
+        run: python -m pip install --disable-pip-version-check -r ../../harness/requirements.txt
+
+      - name: Unit tests
+        run: python -m pytest -q
+
+      - name: Validate case collection
+        run: |
+          python tools/validate_case_structure.py --collection examples/cases/*.md
+          python tools/audit_story_language.py --collection examples/cases/*.md
+          python tools/validate_html_story.py --collection examples/html/*.html

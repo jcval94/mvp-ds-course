@@ -1,0 +1,9 @@
+case_id: "64"
+title: "El promedio de entrega que nadie recibió"
+concept: "promedio, mediana y percentiles"
+scenario: "promedio_entrega_que_nadie_recibio"
+seed: 264
+observations: 6800
+variables: ["order_id", "delivery_days", "carrier_changes", "delivery_percentile"]
+key_values: {"mediana": 4, "promedio": 5, "percentil 90": 16}
+synthetic_data: true

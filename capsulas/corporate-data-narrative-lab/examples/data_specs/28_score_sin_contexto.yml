@@ -1,0 +1,9 @@
+case_id: "28"
+title: "El score que no sabia que era mudanza"
+concept: "human in the loop para decisiones de alto impacto"
+scenario: "score_sin_contexto"
+seed: 128
+observations: 1000
+variables: [person_id, risk_score, context_reviewed, wrong_block]
+key_values: {automatic_error_rate: 29, review_error_rate: 7, threshold_error_rate: 21}
+synthetic_data: true

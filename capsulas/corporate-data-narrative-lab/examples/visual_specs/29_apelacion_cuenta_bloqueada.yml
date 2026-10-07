@@ -1,0 +1,10 @@
+title: "La apelacion que pedia entrar a la cuenta bloqueada"
+case_id: "29"
+chart_type: "appeal_flow"
+question_answered: "Cuando una decision automatica afecta a alguien, que debe existir fuera del sistema que lo bloqueo."
+comfortable_read: "Eso protege datos del usuario."
+missing_context: "Abrimos un laberinto seguro."
+correct_read: "En el mismo paso que exige acceso negado."
+decision_changed: "abrir canal externo, mostrar motivo y registrar revision"
+annotations: ["notificados", "entienden motivo", "pueden apelar", "canal externo"]
+synthetic_data: true

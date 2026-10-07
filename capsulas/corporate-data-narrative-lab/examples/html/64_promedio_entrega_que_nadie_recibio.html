@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El promedio de entrega que nadie recibió</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El cliente promedio recibió un paquete que no existe.">
+  <main>
+<h1>El promedio de entrega que nadie recibió</h1>
+<section>
+<h2>Cinco días exactos</h2>
+<blockquote><strong>el jefe de logística:</strong><span>Bajamos la entrega promedio a cinco días.</span></blockquote>
+<blockquote><strong>Inés:</strong><span>Entonces, ¿por qué soporte tiene 86 reclamos por demora?</span></blockquote>
+<blockquote><strong>Yahir:</strong><span>Son clientes impacientes.</span></blockquote>
+<blockquote><strong>Rebeca:</strong><span>Algunos llevan diecinueve días esperando.</span></blockquote>
+<blockquote><strong>el jefe de logística:</strong><span>Diecinueve no puede ser promedio.</span></blockquote>
+<blockquote><strong>Rebeca:</strong><span>No lo es. Es lo que el promedio está escondiendo.</span></blockquote>
+<p>La cifra de cinco días cabía perfecta en el encabezado del informe. Los reclamos, en cambio, ocupaban una bandeja completa y llegaban con números de guía, cumpleaños perdidos y muebles sin armar.</p>
+</section>
+<section>
+<h2>La caja del día diecinueve</h2>
+<blockquote><strong>Yahir:</strong><span>Podemos responder que la mayoría llega rápido.</span></blockquote>
+<blockquote><strong>Inés:</strong><span>El cliente con la cuna atorada no compra mayorías.</span></blockquote>
+<blockquote><strong>Yahir:</strong><span>La mitad llega antes de cuatro días.</span></blockquote>
+<blockquote><strong>Rebeca:</strong><span>Y uno de cada diez tarda 16 días o más.</span></blockquote>
+<blockquote><strong>el jefe de logística:</strong><span>¿Qué pasó en esos pedidos?</span></blockquote>
+<blockquote><strong>Inés:</strong><span>Cambian de transportista dos veces y pierden un fin de semana.</span></blockquote>
+<p>Rebeca rastreó los pedidos lentos. No eran errores sueltos: compartían cambios de transportista y cortes de fin de semana, dos pasos invisibles dentro de un promedio amable.</p>
+</section>
+<section>
+<h2>La cola aparece</h2>
+<blockquote><strong>Rebeca:</strong><span>Separé el centro de la distribución y su cola.</span></blockquote>
+<blockquote><strong>Yahir:</strong><span>La barra de 16 días sí se ve fea.</span></blockquote>
+<blockquote><strong>Inés:</strong><span>Se ve como los correos que contestamos.</span></blockquote>
+<blockquote><strong>el jefe de logística:</strong><span>Quiero una promesa que incluya a casi todos.</span></blockquote>
+<blockquote><strong>Rebeca:</strong><span>Entonces usemos el percentil noventa, no solo el promedio.</span></blockquote>
+<p>La gráfica puso tres referencias en la misma escala. La mediana describía el centro; el percentil noventa mostró la experiencia que estaba llenando la cola de soporte.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Días de entrega en distintos puntos de la distribución">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Días de entrega en distintos puntos de la distribución</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="210" width="184" height="40" fill="#286d9b"/>
+  <text x="152" y="200" font-size="17" text-anchor="middle">4 días</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">mediana</text>
+  <rect x="268" y="200" width="184" height="50" fill="#d58b2f"/>
+  <text x="360" y="190" font-size="17" text-anchor="middle">5 días</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">promedio</text>
+  <rect x="476" y="90" width="184" height="160" fill="#4c8b63"/>
+  <text x="568" y="80" font-size="17" text-anchor="middle">16 días</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">percentil 90</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">El promedio no muestra cuánto espera la cola tardía.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Inés:</strong><span>¿Qué número explica mejor por qué siguen llegando reclamos si el promedio es de cinco días?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La mediana indica que la mitad de los pedidos llega en cuatro días o menos, pero el percentil noventa muestra una cola de 16 días. Esa cola concentra la mala experiencia. Ninguna medida resume todo: los percentiles permiten ver cuánto espera la parte más afectada.</p>
+</section>
+<section>
+<h2>Una promesa que sí llega</h2>
+<blockquote><strong>el jefe de logística:</strong><span>Publicaremos rango y fecha límite, no cinco días mágicos.</span></blockquote>
+<blockquote><strong>Inés:</strong><span>También marcaré pedidos que reboten entre transportistas.</span></blockquote>
+<blockquote><strong>Yahir:</strong><span>¿El promedio se queda?</span></blockquote>
+<blockquote><strong>Rebeca:</strong><span>Sí, pero deja de trabajar solo.</span></blockquote>
+<blockquote><strong>el jefe de logística:</strong><span>La meta será bajar la cola sin empeorar la mediana.</span></blockquote>
+<blockquote><strong>Rebeca:</strong><span>Para repetir promedio, mediana y percentiles, ¿qué vamos a comprobar primero?</span></blockquote>
+<blockquote><strong>Yahir:</strong><span>Vamos a publicar una promesa por percentil y atacar la cola de entregas tardías y a revisar si el efecto se mantiene.</span></blockquote>
+<blockquote><strong>Inés:</strong><span>El cliente promedio recibió un paquete que no existe.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> cuando importa la espera extrema, acompaña el promedio con distribución y percentiles.</p>
+</section>
+  </main>
+</body>
+</html>

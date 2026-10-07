@@ -1,0 +1,9 @@
+case_id: "09"
+title: "Los 18 millones que salieron de doce clientes"
+concept: "extrapolación y población elegible"
+scenario: "eligible_population_savings"
+seed: 109
+observations: 1200
+variables: [client_id, eligible, pilot_member, observed_savings, implementation_cost]
+key_values: {total_clients: 1200, eligible_clients: 80, pilot_clients: 12, saving_per_client: 15000}
+synthetic_data: true

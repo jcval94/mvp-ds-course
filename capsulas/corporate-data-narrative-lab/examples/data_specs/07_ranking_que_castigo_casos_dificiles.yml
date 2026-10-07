@@ -1,0 +1,9 @@
+case_id: "07"
+title: "El ranking donde convenía hacerse menso"
+concept: "velocidad sin ajuste por complejidad"
+scenario: "agent_difficulty_ranking"
+seed: 107
+observations: 3200
+variables: [agent, case_difficulty, resolutions_per_day, quality_rate, reopen_rate]
+key_values: {sara_resolutions: 5, sara_quality: 0.94, luis_resolutions: 12}
+synthetic_data: true

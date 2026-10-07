@@ -1,0 +1,10 @@
+title: "La calculadora de diamantes que prometio castillos"
+case_id: "54"
+chart_type: "minecraft_resources"
+question_answered: "Que entradas y salidas necesita una calculadora de recursos para ser util."
+comfortable_read: "Eso fue por simplificar recursos."
+missing_context: "Justo por eso necesitamos reglas claras."
+correct_read: "Cuando cada construccion consume ingredientes reales."
+decision_changed: "crear una funcion que calcule recursos por receta y avise faltantes"
+annotations: ["estimado", "real", "con faltantes"]
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "71"
+title: "Las dos líneas que parecían novios"
+concept: "doble eje y relaciones visuales engañosas"
+scenario: "dos_lineas_que_parecian_novios"
+seed: 271
+observations: 18
+variables: ["week", "visits", "margin", "discount_rate", "relative_change"]
+key_values: {"visitas": 14, "margen": 5, "descuento": 22}
+synthetic_data: true

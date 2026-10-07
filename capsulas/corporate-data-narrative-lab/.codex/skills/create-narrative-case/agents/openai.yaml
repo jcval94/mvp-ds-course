@@ -1,0 +1,4 @@
+interface:
+  display_name: "Crear caso narrativo"
+  short_description: "Crea y audita historias de datos con lenguaje natural"
+  default_prompt: "Crea o mejora un caso narrativo canónico, valida su lenguaje y genera todos sus artefactos."

@@ -1,0 +1,10 @@
+title: "El modelo que no sabia que decision tomar"
+case_id: "30"
+chart_type: "decision_tree"
+question_answered: "Que decision debe existir antes de entrenar o publicar un modelo predictivo."
+comfortable_read: "La va a usar para retener."
+missing_context: "Entonces el producto es una adivinanza compartida."
+correct_read: "Hay clientes para llamada, oferta y no intervencion."
+decision_changed: "crear segmentos accionables y medir respuesta por accion"
+annotations: ["solo score", "accion definida", "resultado medido"]
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "13"
+title: "El experimento que ganó el martes a las once"
+concept: "muestra pequeña y parada anticipada"
+scenario: "early_stopped_experiment"
+seed: 113
+observations: 10000
+variables: [visitor_id, variant, conversion, elapsed_hour, cumulative_effect]
+key_values: {early_sample: 200, early_effect: 0.30, final_effect: 0.02}
+synthetic_data: true

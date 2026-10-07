@@ -1,0 +1,10 @@
+title: "El experimento que ganó el martes a las once"
+case_id: "13"
+chart_type: "effect_with_interval_over_time"
+question_answered: "¿El efecto se mantiene al crecer la muestra?"
+comfortable_read: "La variante gana 30% en dos horas."
+missing_context: "La estimación es inestable y se revisó muchas veces."
+correct_read: "El resultado final es cercano a 2% e incierto."
+decision_changed: "Fijar muestra, duración y regla antes."
+annotations: ["parada temprana", "resultado final"]
+synthetic_data: true

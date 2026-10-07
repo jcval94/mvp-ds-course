@@ -1,0 +1,9 @@
+case_id: "08"
+title: "El piloto que ganó en diciembre"
+concept: "estacionalidad y comparación temporal inválida"
+scenario: "seasonal_pilot"
+seed: 108
+observations: 72
+variables: [month, region, incident_count, pilot_active, season]
+key_values: {treated_drop: 0.25, comparison_drop: 0.18, additional_points: 7}
+synthetic_data: true

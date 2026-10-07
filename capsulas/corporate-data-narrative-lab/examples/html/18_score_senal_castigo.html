@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El score que pasó de alerta a castigo</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El score era una alarma; alguien lo contrató de juez.">
+  <main>
+<h1>El score que pasó de alerta a castigo</h1>
+<section>
+<h2>El paso que sobraba</h2>
+<blockquote><strong>El director:</strong><span>Automatizamos el bloqueo. Ya no necesitamos que una persona revise cada alerta.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>El score se diseñó para priorizar casos.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Y prioriza muy bien.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>No es lo mismo priorizar que bloquear.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Pero si el riesgo es alto, la decisión es obvia.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>¿Qué tan alto?</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Más de ochenta.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>¿Ochenta qué?</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Puntos de riesgo.</span></blockquote>
+<blockquote><strong>El director:</strong><span>La gente pedía velocidad. Quitamos el paso lento.</span></blockquote>
+<p>La revisión humana tardaba entre dos y cuatro horas. El área tenía presión para bajar costos y el proveedor describía el score como “listo para decisiones en tiempo real”. En el contrato, la palabra `apoyo` estaba. Nada más no llegó a la configuración.</p>
+</section>
+<section>
+<h2>La llamada de Paula</h2>
+<blockquote><strong>Paula:</strong><span>Tengo treinta y siete personas bloqueadas por cambiar de teléfono.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Cambiar de dispositivo sube el riesgo.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>También mudarse, viajar y comprar una computadora.</span></blockquote>
+<blockquote><strong>El director:</strong><span>¿Cuántos bloqueos son incorrectos?</span></blockquote>
+<blockquote><strong>Sara:</strong><span>Sin revisión, diecinueve de cada cien.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Pero detenemos más casos malos.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Y para apelar les pedimos entrar a la cuenta bloqueada.</span></blockquote>
+<blockquote><strong>El director:</strong><span>Eso no puede ser.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Está documentado.</span></blockquote>
+<blockquote><strong>El director:</strong><span>Eso lo hace peor, Paula.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>También encontramos personas que llevan tres días esperando respuesta.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>El tiempo de atención sí mejoró.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>Porque el caso se cierra cuando se manda el bloqueo.</span></blockquote>
+<blockquote><strong>El director:</strong><span>Claro. Para nosotros terminó rapidísimo.</span></blockquote>
+<p>La automatización había reducido tiempo y también había eliminado el único momento donde alguien podía notar que una señal razonable tenía una explicación normal.</p>
+</section>
+<section>
+<h2>Señal, revisión y decisión</h2>
+<blockquote><strong>Sara:</strong><span>Comparé el flujo automático con el flujo que revisaba contexto.</span></blockquote>
+<blockquote><strong>El director:</strong><span>¿Qué cambia?</span></blockquote>
+<blockquote><strong>Sara:</strong><span>La revisión baja los bloqueos incorrectos de diecinueve a cinco por ciento.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 310" role="img" aria-label="Bloqueos incorrectos con decisión automática y con revisión humana">
+  <rect width="720" height="310" fill="#fff"/>
+  <text x="35" y="30" font-size="18" font-weight="bold">Bloqueos incorrectos por cada 100 alertas</text>
+  <line x1="90" y1="250" x2="650" y2="250" stroke="#777"/>
+  <rect x="175" y="70" width="155" height="180" fill="#c64e36"/>
+  <rect x="410" y="202" width="155" height="48" fill="#4c8b63"/>
+  <text x="225" y="60" font-size="20">19</text>
+  <text x="475" y="192" font-size="20">5</text>
+  <text x="175" y="278" font-size="14">bloqueo automático</text>
+  <text x="415" y="278" font-size="14">con revisión humana</text>
+  <text x="355" y="105" font-size="14" fill="#9f3625">La señal necesita contexto.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Paula:</strong><span>Si el score solo estima riesgo, ¿qué debe pasar antes de afectar a una persona?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> El score ordena dónde revisar, pero no prueba culpabilidad. La revisión humana reduce falsos positivos y permite explicar casos normales. También hacen falta motivos visibles y una vía de apelación.</p>
+</section>
+<section>
+<h2>Volvió el paso que sobraba</h2>
+<blockquote><strong>El director:</strong><span>Restauramos revisión para decisiones de alto impacto y abrimos apelación por otro canal.</span></blockquote>
+<blockquote><strong>Martín:</strong><span>Va a ser más lento.</span></blockquote>
+<blockquote><strong>Sara:</strong><span>Sí. También va a dejar de castigar gente por comprarse un teléfono.</span></blockquote>
+<blockquote><strong>Paula:</strong><span>El score era una alarma; alguien lo contrató de juez.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> Una señal para investigar no debe convertirse sola en una condena.</p>
+</section>
+  </main>
+</body>
+</html>

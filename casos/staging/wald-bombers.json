@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "wald-bombers",
+  "title": "¿Dónde blindar los aviones?",
+  "decision_question": "Con blindaje limitado, ¿qué partes de los aviones conviene reforzar?",
+  "naive_answer": "Donde regresan con más impactos.",
+  "ingenious_move": "Preguntar por los aviones que no regresaron.",
+  "status": "candidate",
+  "access": "public",
+  "concepts": ["survivorship-bias", "sample-vs-population"],
+  "level_hint": 1,
+  "verified_claims": [],
+  "uncertainties": [],
+  "myths_to_avoid": [],
+  "sources": [],
+  "dataset": null,
+  "story_bridge": "",
+  "analogy_limits": ""
+}

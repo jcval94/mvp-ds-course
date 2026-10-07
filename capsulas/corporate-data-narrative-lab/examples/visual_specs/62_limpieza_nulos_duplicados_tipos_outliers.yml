@@ -1,0 +1,10 @@
+title: "La categoria Otro que se comio la limpieza"
+case_id: "62"
+chart_type: "cleaning_quality"
+question_answered: "Que debe documentarse al limpiar nulos, duplicados, tipos, outliers y categorias."
+comfortable_read: "Eso absorbe rarezas."
+missing_context: "Sin bitacora no sabemos que quitaste."
+correct_read: "La limpieza correcta arregla tipos sin esconder categorias."
+decision_changed: "perfilado, reglas de limpieza, bitacora y validacion de impacto"
+annotations: ["oculto", "reglas", "validado"]
+synthetic_data: true

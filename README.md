@@ -5,6 +5,21 @@ DataClass Forge es una fábrica documental asistida por agentes para crear mater
 No es un LMS. Define currículo, conceptos, experiencias, evaluaciones y prompts,
 y publica los resultados validados como laboratorios estáticos.
 
+## Monorepo del curso
+
+Desde F0 (2026-10-05) este repo también es el monorepo del curso por casos:
+fábrica de niveles, misiones, casos históricos, cápsulas, kits, sistema visual,
+portal y harness. Arquitectura: [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md).
+
+```powershell
+python -m pip install -r harness/requirements.txt
+python -m playwright install chromium
+python -m harness all        # validate → build → check → smoke
+```
+
+El sitio publicable queda en `dist/`: estático, reproducible y portable entre
+GitHub Pages y Cloudflare Pages ([docs/architecture/DEPLOYMENT.md](docs/architecture/DEPLOYMENT.md)).
+
 ## Qué genera
 
 Para un concepto de ciencia de datos produce:

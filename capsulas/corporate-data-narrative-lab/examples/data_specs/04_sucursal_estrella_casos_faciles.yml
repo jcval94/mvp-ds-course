@@ -1,0 +1,9 @@
+case_id: "04"
+title: "La sucursal estrella que recibía lo fácil"
+concept: "sesgo de asignación"
+scenario: "branch_case_mix"
+seed: 104
+observations: 2400
+variables: [branch, case_difficulty, resolution_minutes, reopened, transferred]
+key_values: {north_average_minutes: 9, south_average_minutes: 27, north_hard_cases: 6, south_hard_cases: 184}
+synthetic_data: true

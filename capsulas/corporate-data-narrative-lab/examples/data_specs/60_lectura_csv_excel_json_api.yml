@@ -1,0 +1,9 @@
+case_id: "60"
+title: "Las primeras runas y el archivo que hablaba raro"
+concept: "lectura de CSV, Excel, JSON y APIs"
+scenario: "lectura_csv_excel_json_api"
+seed: 160
+observations: 1000
+variables: [source_id, source_type, reader_used, schema_valid]
+key_values: {guess_success: 33, reader_success: 78, validated_success: 96}
+synthetic_data: true

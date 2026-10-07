@@ -1,0 +1,9 @@
+case_id: "80"
+title: "El detector 99% correcto que encontró cero fraudes"
+concept: "desbalance de clases y métricas de clasificación"
+scenario: "detector_99_correcto_cero_fraudes"
+seed: 280
+observations: 100000
+variables: ["transaction_id", "fraud_label", "score", "threshold", "reviewed"]
+key_values: {"umbral actual": 0, "umbral operativo": 71, "capacidad": 75}
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "29"
+title: "La apelacion que pedia entrar a la cuenta bloqueada"
+concept: "apelacion y gobernanza de decisiones automatizadas"
+scenario: "apelacion_cuenta_bloqueada"
+seed: 129
+observations: 1000
+variables: [block_id, notice_sent, reason_visible, appeal_channel]
+key_values: {blocked_people: 420, appeal_possible_old: 18, appeal_possible_new: 79}
+synthetic_data: true

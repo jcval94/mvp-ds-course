@@ -1,0 +1,10 @@
+title: "El semáforo con catorce verdes"
+case_id: "70"
+chart_type: "barras con color de énfasis"
+question_answered: "¿Qué debería comunicar el color para que una persona sepa dónde actuar primero?"
+comfortable_read: "Todos los tonos verdes parecen indicar una operación saludable."
+missing_context: "Cada verde representa un estado distinto y uno de ellos es crítico."
+correct_read: "Tres sucursales deben detener operación y nueve requieren revisión hoy."
+decision_changed: "usar posición y etiquetas para categorías, y color solo para destacar riesgo"
+annotations: ["normal", "revisar hoy", "detener"]
+synthetic_data: true

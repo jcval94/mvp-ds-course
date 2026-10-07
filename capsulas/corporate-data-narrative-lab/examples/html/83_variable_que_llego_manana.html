@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La variable que llegó mañana</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="La variable llegaba puntual, nomás un día después de que la necesitábamos.">
+  <main>
+<h1>La variable que llegó mañana</h1>
+<section>
+<h2>Actividad de siete días</h2>
+<blockquote><strong>el líder de retención:</strong><span>El modelo usa actividad de lunes a domingo para llamar el lunes.</span></blockquote>
+<blockquote><strong>Dora:</strong><span>Entonces conoce seis días que todavía no ocurrieron.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>La tabla semanal ya los trae completos.</span></blockquote>
+<blockquote><strong>Mila:</strong><span>Porque se construye el domingo siguiente.</span></blockquote>
+<blockquote><strong>el líder de retención:</strong><span>En producción necesitamos la lista al iniciar la semana.</span></blockquote>
+<blockquote><strong>Dora:</strong><span>La variable debe cerrarse antes de esa hora.</span></blockquote>
+<p>La tabla histórica parecía ordenada por semanas completas, pero la decisión ocurría antes de que esas semanas existieran. El diseño del archivo había borrado el reloj de la operación.</p>
+</section>
+<section>
+<h2>Decidir el lunes</h2>
+<blockquote><strong>Toño:</strong><span>Podemos retrasar las llamadas hasta el domingo.</span></blockquote>
+<blockquote><strong>Mila:</strong><span>Para entonces varios clientes ya habrán cancelado.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>O dejamos la variable porque funciona bien.</span></blockquote>
+<blockquote><strong>Dora:</strong><span>Funciona bien en un calendario que producción no puede usar.</span></blockquote>
+<blockquote><strong>el líder de retención:</strong><span>¿Qué información sí existe el lunes a las ocho?</span></blockquote>
+<blockquote><strong>Mila:</strong><span>Las cuatro semanas anteriores y la actividad hasta el domingo.</span></blockquote>
+<p>Retrasar la acción conservaba el número del modelo a costa de perder la oportunidad de retener. La alternativa correcta era menos espectacular: reconstruir información tal como habría estado disponible cada lunes.</p>
+</section>
+<section>
+<h2>Cortar el calendario</h2>
+<blockquote><strong>Dora:</strong><span>Reconstruí las variables con corte dominical.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>El AUC baja de 0.88 a 0.76.</span></blockquote>
+<blockquote><strong>Mila:</strong><span>Pero la lista puede generarse antes de llamar.</span></blockquote>
+<blockquote><strong>el líder de retención:</strong><span>Ese es el desempeño que interesa.</span></blockquote>
+<blockquote><strong>Dora:</strong><span>Y una prueba automática verifica que ninguna fecha cruce el corte.</span></blockquote>
+<p>El desempeño disminuyó cuando desaparecieron los días futuros. A cambio, la nueva variable podía calcularse a tiempo y su ventana quedaba definida de forma reproducible para cada observación.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Desempeño por ventana de información disponible">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Desempeño por ventana de información disponible</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="90" width="184" height="160" fill="#286d9b"/>
+  <text x="152" y="80" font-size="17" text-anchor="middle">88 AUC x100</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">semana completa</text>
+  <rect x="268" y="112" width="184" height="138" fill="#d58b2f"/>
+  <text x="360" y="102" font-size="17" text-anchor="middle">76 AUC x100</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">corte dominical</text>
+  <rect x="476" y="125" width="184" height="125" fill="#4c8b63"/>
+  <text x="568" y="115" font-size="17" text-anchor="middle">69 AUC x100</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">base simple</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">Una métrica menor puede ser la única que existe a tiempo.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Mila:</strong><span>¿Qué versión del modelo podemos ejecutar el lunes sin usar actividad futura?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La variable semanal original incluye seis días posteriores a la predicción. Con un corte al domingo anterior, el AUC baja a 0.76, pero representa información disponible al momento de actuar. Definir inicio y fin de cada ventana evita fuga temporal.</p>
+</section>
+<section>
+<h2>Llegar antes de actuar</h2>
+<blockquote><strong>el líder de retención:</strong><span>La campaña usará la versión de 0.76.</span></blockquote>
+<blockquote><strong>Mila:</strong><span>Mediremos cancelación evitada y molestias por contacto.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>Cada variable guardará inicio y fin de ventana.</span></blockquote>
+<blockquote><strong>Dora:</strong><span>Entrenamiento y producción compartirán la misma función de corte.</span></blockquote>
+<blockquote><strong>el líder de retención:</strong><span>Nada de datos semanales cuando la semana apenas empieza.</span></blockquote>
+<blockquote><strong>Dora:</strong><span>Después de ajustar ingeniería de variables con ventanas temporales, ¿qué podría cambiar la decisión?</span></blockquote>
+<blockquote><strong>Toño:</strong><span>Toca versionar ventanas, probarlas por fecha y entrenar con el mismo corte de producción; si cambia el dato, volvemos a decidir.</span></blockquote>
+<blockquote><strong>Toño:</strong><span>La variable llegaba puntual, nomás un día después de que la necesitábamos.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> la ventana de cada variable debe terminar antes de la predicción y la acción.</p>
+</section>
+  </main>
+</body>
+</html>

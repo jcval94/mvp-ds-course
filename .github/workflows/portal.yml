@@ -1,0 +1,50 @@
+# Dominio: portal. Valida contratos, construye dist/ y lo prueba como lo servirían ambos hostings.
+name: Portal
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  portal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: harness/requirements.txt
+
+      - name: Install pinned dependencies
+        run: |
+          python -m pip install --disable-pip-version-check -r harness/requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Validate contracts, design tokens and repo hygiene
+        run: python -m harness validate
+
+      - name: Harness tests
+        run: python -m pytest harness/tests -q
+
+      - name: Build portable dist/
+        run: python -m harness build
+
+      - name: Check links, portability and size budgets
+        run: python -m harness check
+
+      - name: Smoke tests at "/" and "/mvp-ds-course/"
+        run: python -m harness smoke
+
+      - name: Upload dist/
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+          if-no-files-found: error

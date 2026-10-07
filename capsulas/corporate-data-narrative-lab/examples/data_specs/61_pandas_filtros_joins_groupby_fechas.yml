@@ -1,0 +1,9 @@
+case_id: "61"
+title: "El groupby que perdio los lunes"
+concept: "pandas esencial con filtros, joins, groupby y fechas"
+scenario: "pandas_filtros_joins_groupby_fechas"
+seed: 161
+observations: 1000
+variables: [row_id, date_type, filter_applied, groupby_included]
+key_values: {unvalidated_rows_kept: 52, date_valid_rows_kept: 83, validated_join_rows: 91}
+synthetic_data: true

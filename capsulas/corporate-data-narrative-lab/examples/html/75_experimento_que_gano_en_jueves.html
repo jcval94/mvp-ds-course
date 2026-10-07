@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El experimento que ganó en jueves</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="La variante no ganó el experimento; ganó el jueves.">
+  <main>
+<h1>El experimento que ganó en jueves</h1>
+<section>
+<h2>El botón ganador</h2>
+<blockquote><strong>la líder de crecimiento:</strong><span>El botón naranja subió compras 14% entre usuarios nuevos del jueves.</span></blockquote>
+<blockquote><strong>Mireya:</strong><span>¿Esa era la métrica que definimos?</span></blockquote>
+<blockquote><strong>Lalo:</strong><span>Definimos conversión general, pero revisé varios cortes.</span></blockquote>
+<blockquote><strong>Simón:</strong><span>¿Cuántos cortes?</span></blockquote>
+<blockquote><strong>Lalo:</strong><span>Días, dispositivos, regiones y tipo de usuario.</span></blockquote>
+<blockquote><strong>Mireya:</strong><span>Eso son 36 oportunidades de encontrar una casualidad.</span></blockquote>
+<p>El resultado positivo ocupaba el centro del correo; las otras 35 comparaciones vivían en pestañas distintas. Al ver solo al ganador, la probabilidad de haberlo encontrado por casualidad desaparecía de la conversación.</p>
+</section>
+<section>
+<h2>Treinta y seis maneras</h2>
+<blockquote><strong>la líder de crecimiento:</strong><span>Pero el jueves naranja sí ganó.</span></blockquote>
+<blockquote><strong>Simón:</strong><span>El miércoles perdió y el viernes quedó igual.</span></blockquote>
+<blockquote><strong>Lalo:</strong><span>Podemos lanzar solo los jueves.</span></blockquote>
+<blockquote><strong>Mireya:</strong><span>Esa regla nació después de mirar el resultado.</span></blockquote>
+<blockquote><strong>la líder de crecimiento:</strong><span>¿Cómo distinguimos señal de suerte?</span></blockquote>
+<blockquote><strong>Mireya:</strong><span>Repetimos exactamente esa hipótesis en datos nuevos.</span></blockquote>
+<p>La segmentación posterior parecía razonable porque cada corte tenía nombre de negocio. El problema era el orden: primero aparecieron los datos y después se inventó la hipótesis que mejor les quedaba.</p>
+</section>
+<section>
+<h2>Volver a probar</h2>
+<blockquote><strong>Mireya:</strong><span>La réplica mantuvo botón, jueves y usuarios nuevos.</span></blockquote>
+<blockquote><strong>Lalo:</strong><span>El aumento quedó en 1%, dentro del ruido.</span></blockquote>
+<blockquote><strong>Simón:</strong><span>La conversión general tampoco cambió.</span></blockquote>
+<blockquote><strong>la líder de crecimiento:</strong><span>Entonces la primera subida no resistió.</span></blockquote>
+<blockquote><strong>Mireya:</strong><span>Era un hallazgo exploratorio, no una conclusión confirmada.</span></blockquote>
+<p>En la réplica, la barra de 14% se redujo a una diferencia de 1%. La variante dejó de sobresalir cuando tuvo que responder una pregunta decidida antes de abrir los resultados.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Resultados positivos antes y después de una réplica">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Resultados positivos antes y después de una réplica</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="90" width="184" height="160" fill="#286d9b"/>
+  <text x="152" y="80" font-size="17" text-anchor="middle">14 % cambio</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">hallazgo inicial</text>
+  <rect x="268" y="239" width="184" height="11" fill="#d58b2f"/>
+  <text x="360" y="229" font-size="17" text-anchor="middle">1 % cambio</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">réplica</text>
+  <rect x="476" y="250" width="184" height="0" fill="#4c8b63"/>
+  <text x="568" y="240" font-size="17" text-anchor="middle">0 % cambio</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">conversión general</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">El efecto grande desaparece al repetir una hipótesis predefinida.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Simón:</strong><span>¿Qué nos dice la réplica sobre el aumento de 14% encontrado entre tantos cortes?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> Al revisar 36 combinaciones, aumenta la posibilidad de que alguna parezca positiva por azar. La réplica predefinida obtiene solo 1%, compatible con ausencia de efecto. El primer hallazgo sirve para formular una hipótesis, pero no para justificar por sí solo un despliegue.</p>
+</section>
+<section>
+<h2>Nombrar la apuesta</h2>
+<blockquote><strong>la líder de crecimiento:</strong><span>No habrá despliegue nacional.</span></blockquote>
+<blockquote><strong>Lalo:</strong><span>Antes del siguiente experimento fijaré métrica y segmentos.</span></blockquote>
+<blockquote><strong>Simón:</strong><span>Los cortes adicionales se marcarán como exploratorios.</span></blockquote>
+<blockquote><strong>Mireya:</strong><span>Y cualquier sorpresa importante necesitará réplica.</span></blockquote>
+<blockquote><strong>la líder de crecimiento:</strong><span>Quiero menos ganadores encontrados después del partido.</span></blockquote>
+<blockquote><strong>Mireya:</strong><span>Sobre pruebas múltiples y falsos descubrimientos, ¿qué dato revisamos en el siguiente corte?</span></blockquote>
+<blockquote><strong>Lalo:</strong><span>Primero vamos a declarar hipótesis y métrica antes de probar, y exigir réplica para hallazgos exploratorios; luego comparamos el resultado.</span></blockquote>
+<blockquote><strong>Lalo:</strong><span>La variante no ganó el experimento; ganó el jueves.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> si buscas suficientes cortes, alguno parecerá ganador por azar.</p>
+</section>
+  </main>
+</body>
+</html>

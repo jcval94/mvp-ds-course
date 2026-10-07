@@ -1,0 +1,10 @@
+title: "El asistente que arreglo tambien lo que servia"
+case_id: "43"
+chart_type: "reviewed_diff"
+question_answered: "Que debes revisar antes de aceptar cambios generados por un asistente de codigo."
+comfortable_read: "Seguro lo vio necesario."
+missing_context: "La revision se ve mas imposible."
+correct_read: "La mitad del parche era sorpresa."
+decision_changed: "dar alcance explicito, revisar diff y separar cambios no pedidos"
+annotations: ["pedido", "extra", "aceptado"]
+synthetic_data: true

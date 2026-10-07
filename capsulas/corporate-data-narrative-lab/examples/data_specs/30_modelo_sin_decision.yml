@@ -1,0 +1,9 @@
+case_id: "30"
+title: "El modelo que no sabia que decision tomar"
+concept: "definir la decision antes del modelo"
+scenario: "modelo_sin_decision"
+seed: 130
+observations: 1000
+variables: [customer_id, risk_score, recommended_action, action_cost]
+key_values: {high_risk_customers: 1800, actionable_share: 72, measured_outcome: 81}
+synthetic_data: true

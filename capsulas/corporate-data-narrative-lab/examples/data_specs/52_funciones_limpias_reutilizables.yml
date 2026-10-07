@@ -1,0 +1,9 @@
+case_id: "52"
+title: "La formula que vivia en cinco lugares"
+concept: "funciones limpias y reutilizables"
+scenario: "funciones_limpias_reutilizables"
+seed: 152
+observations: 1000
+variables: [calculation_id, copied_logic, function_used, consistent_result]
+key_values: {copy_consistency: 48, function_consistency: 92, tested_function_consistency: 97}
+synthetic_data: true

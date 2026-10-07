@@ -1,0 +1,9 @@
+case_id: "69"
+title: "El crecimiento gigante de dos puntos"
+concept: "ejes, escalas y magnitud visual"
+scenario: "crecimiento_gigante_de_dos_puntos"
+seed: 269
+observations: 12400
+variables: ["variant", "sessions", "conversions", "conversion_rate"]
+key_values: {"antes": 78, "después": 80}
+synthetic_data: true

@@ -1,0 +1,10 @@
+title: "La compra de 900 refrigeradores"
+case_id: "67"
+chart_type: "barras con valor extremo"
+question_answered: "¿Qué debemos hacer con el valor de 900 antes de calcular de nuevo el gasto?"
+comfortable_read: "Eliminar 900 hace que el promedio mensual vuelva a verse normal."
+missing_context: "La unidad de captura quedó en centenas y afecta más de un sistema."
+correct_read: "El documento fuente confirma nueve unidades y exige una corrección trazable."
+decision_changed: "corregir la unidad, conservar una bitácora y agregar validaciones de rango"
+annotations: ["orden típica", "orden alta válida", "orden capturada"]
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "06"
+title: "Las dos mil horas que regresaron como juntas"
+concept: "métrica proxy y productividad aparente"
+scenario: "automation_capacity_recapture"
+seed: 106
+observations: 3000
+variables: [activity, before_hours, after_hours, value_captured]
+key_values: {released_hours: 2000, reassigned_hours: 1760, captured_hours: 240}
+synthetic_data: true

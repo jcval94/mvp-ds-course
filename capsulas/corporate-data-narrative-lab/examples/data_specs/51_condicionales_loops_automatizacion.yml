@@ -1,0 +1,9 @@
+case_id: "51"
+title: "El loop que mando el mismo aviso a todos"
+concept: "condicionales, loops y logica de automatizacion"
+scenario: "condicionales_loops_automatizacion"
+seed: 151
+observations: 1000
+variables: [record_id, status, condition_met, message_sent]
+key_values: {generic_notice_accuracy: 39, conditional_accuracy: 94, duplicate_scripts_accuracy: 61}
+synthetic_data: true

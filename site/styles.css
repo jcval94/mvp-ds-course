@@ -115,7 +115,7 @@ main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
   padding-bottom: 16px;
   border-bottom: 1px solid var(--line);
 }
-#levelFilters { display: flex; gap: 15px; }
+#levelFilters { display: flex; flex-wrap: wrap; gap: 6px 15px; min-width: 0; }
 #levelFilters button {
   border: 0;
   border-bottom: 1px solid transparent;
@@ -304,7 +304,7 @@ footer a { color: var(--accent); }
   .section-heading { display: block; margin-bottom: 24px; }
   .hero-links { flex-wrap: wrap; gap: 22px; }
   .filters { margin-top: 24px; align-items: stretch; flex-direction: column; }
-  #levelFilters { width: 100%; overflow-x: auto; padding-bottom: 4px; }
+  #levelFilters { width: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
   #levelFilters button { flex: 0 0 auto; }
   #search { width: 100%; }
   .catalog-row { grid-template-columns: 1fr auto; padding: 14px 0; min-height: 70px; }

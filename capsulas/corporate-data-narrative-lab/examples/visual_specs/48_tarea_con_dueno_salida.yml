@@ -1,0 +1,10 @@
+title: "La tarea que tenia dueno, salida y no drama"
+case_id: "48"
+chart_type: "review_flow"
+question_answered: "Que campos hacen que una tarea para agentes sea ejecutable y revisable."
+comfortable_read: "Era para no abrumar al agente."
+missing_context: "Y mas rapido se va por otra calle."
+correct_read: "Las que tienen dueno, archivos, pruebas y aprobador."
+decision_changed: "crear tareas con contexto, archivos, salida esperada, pruebas y aprobador"
+annotations: ["abierta", "con salida", "con dueno", "con revision"]
+synthetic_data: true

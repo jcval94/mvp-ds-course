@@ -1,0 +1,10 @@
+title: "El examen con respuestas de práctica"
+case_id: "79"
+chart_type: "barras de particiones de datos"
+question_answered: "¿Por qué el mes intacto ofrece una estimación más honesta que la prueba consultada muchas veces?"
+comfortable_read: "El F1 de 0.91 parece una evaluación final independiente."
+missing_context: "El equipo consultó ese conjunto después de cada cambio."
+correct_read: "En datos intactos, el F1 es 0.72 y refleja mejor el desempeño esperado."
+decision_changed: "conservar un conjunto final sin tocar y registrar cada decisión de modelado"
+annotations: ["validación reutilizada", "prueba intacta", "modelo base"]
+synthetic_data: true

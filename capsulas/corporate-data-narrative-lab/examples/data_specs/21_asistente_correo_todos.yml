@@ -1,0 +1,9 @@
+case_id: "21"
+title: "El asistente que respondio con copia a todos"
+concept: "agentes con acciones y permisos"
+scenario: "asistente_correo_todos"
+seed: 121
+observations: 1000
+variables: [email_id, draft_created, sent_by_agent, human_approved]
+key_values: {draft_quality: 96, unapproved_safe: 58, approved_safe: 91}
+synthetic_data: true

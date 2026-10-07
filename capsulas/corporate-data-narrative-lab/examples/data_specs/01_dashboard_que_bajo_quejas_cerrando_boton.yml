@@ -1,0 +1,9 @@
+case_id: "01"
+title: "El botón que arregló las quejas"
+concept: "sesgo de medición por cambio de canal"
+scenario: "complaint_channel_shift"
+seed: 101
+observations: 12
+variables: [week, redesign_active, complaint_forms, help_abandons, chat_social_contacts]
+key_values: {form_drop: 0.40, alternate_channel_growth: 0.55}
+synthetic_data: true

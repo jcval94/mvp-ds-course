@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Una alerta para cada cliente</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="La alerta era tan inclusiva que también quiso cobrarle al equipo de cobranza.">
+  <main>
+<h1>Una alerta para cada cliente</h1>
+<section>
+<h2>Nadie se escapa</h2>
+<blockquote><strong>la jefa de cobranza:</strong><span>El modelo ya marca 92% de la cartera.</span></blockquote>
+<blockquote><strong>Ema:</strong><span>¿Cuántos contactos podemos hacer hoy?</span></blockquote>
+<blockquote><strong>Pilar:</strong><span>Mil doscientos; la cola tiene nueve mil.</span></blockquote>
+<blockquote><strong>Roque:</strong><span>Bajé el umbral para no perder morosos.</span></blockquote>
+<blockquote><strong>la jefa de cobranza:</strong><span>¿Y a quién llaman primero?</span></blockquote>
+<blockquote><strong>Pilar:</strong><span>A quien entró primero, aunque su riesgo sea bajo.</span></blockquote>
+<p>La búsqueda de mayor detección había convertido una lista de prioridad en un padrón casi completo. El equipo trabajaba por antigüedad de entrada porque ya no podía distinguir urgencia dentro de la cola.</p>
+</section>
+<section>
+<h2>La cola de ocho días</h2>
+<blockquote><strong>Roque:</strong><span>Podemos contratar otro turno.</span></blockquote>
+<blockquote><strong>Pilar:</strong><span>Aun así tardaríamos seis días en vaciar la cola.</span></blockquote>
+<blockquote><strong>Ema:</strong><span>Para entonces el score y el saldo ya cambiaron.</span></blockquote>
+<blockquote><strong>la jefa de cobranza:</strong><span>¿Qué umbral produce una lista que sí podamos trabajar?</span></blockquote>
+<blockquote><strong>Roque:</strong><span>El de 0.74 genera mil cien contactos diarios.</span></blockquote>
+<blockquote><strong>Pilar:</strong><span>Y concentra 68% de la recuperación esperada.</span></blockquote>
+<p>Cada contacto tenía un costo y una consecuencia. Llamar a alguien que ya había pagado ocupaba minutos, generaba molestia y retrasaba cuentas donde una intervención temprana sí podía recuperar saldo.</p>
+</section>
+<section>
+<h2>Tres puntos de corte</h2>
+<blockquote><strong>Ema:</strong><span>Comparé tres cortes con la misma capacidad y costo de llamada.</span></blockquote>
+<blockquote><strong>Roque:</strong><span>El umbral bajo detecta más, pero manda siete mil ochocientos casos extra.</span></blockquote>
+<blockquote><strong>Pilar:</strong><span>El intermedio cabe en el turno y mantiene los saldos grandes.</span></blockquote>
+<blockquote><strong>la jefa de cobranza:</strong><span>Entonces ese será el punto inicial.</span></blockquote>
+<blockquote><strong>Ema:</strong><span>La franja cercana al corte tendrá revisión y seguimiento semanal.</span></blockquote>
+<p>La comparación dejó de preguntar qué umbral detectaba más casos en abstracto. Puso sobre la mesa cuántas llamadas cabían, cuánto saldo esperaba recuperarse y qué reclamos podía provocar cada corte.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Recuperación esperada y contactos diarios por umbral">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Recuperación esperada y contactos diarios por umbral</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="90" width="184" height="160" fill="#286d9b"/>
+  <text x="152" y="80" font-size="17" text-anchor="middle">9000 contactos</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">umbral bajo</text>
+  <rect x="268" y="230" width="184" height="20" fill="#d58b2f"/>
+  <text x="360" y="220" font-size="17" text-anchor="middle">1100 contactos</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">umbral 0.74</text>
+  <rect x="476" y="229" width="184" height="21" fill="#4c8b63"/>
+  <text x="568" y="219" font-size="17" text-anchor="middle">1200 contactos</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">capacidad diaria</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">El umbral útil produce una cola que la operación puede atender.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Roque:</strong><span>¿Qué punto de corte concentra recuperación sin enviar más casos de los que el equipo puede atender?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> El umbral más bajo eleva cobertura, pero crea una cola imposible. El corte de 0.74 genera cerca de 1,100 contactos diarios, dentro de la capacidad de 1,200, y conserva 68% de la recuperación esperada. El umbral es una decisión operativa, no una propiedad fija del modelo.</p>
+</section>
+<section>
+<h2>Prioridad que cabe</h2>
+<blockquote><strong>la jefa de cobranza:</strong><span>Ordenaremos por valor esperado dentro de la capacidad.</span></blockquote>
+<blockquote><strong>Pilar:</strong><span>Los clientes con pago vigente saldrán de la cola.</span></blockquote>
+<blockquote><strong>Roque:</strong><span>Monitorearé recuperación, reclamos y contactos inútiles.</span></blockquote>
+<blockquote><strong>Ema:</strong><span>El umbral podrá cambiar si cambia la capacidad.</span></blockquote>
+<blockquote><strong>la jefa de cobranza:</strong><span>Un score sirve cuando termina en una acción posible.</span></blockquote>
+<blockquote><strong>Ema:</strong><span>Sobre umbrales, costos de error y capacidad operativa, ¿qué dato revisamos en el siguiente corte?</span></blockquote>
+<blockquote><strong>Roque:</strong><span>Primero vamos a usar un umbral compatible con capacidad y reservar revisión para la zona incierta; luego comparamos el resultado.</span></blockquote>
+<blockquote><strong>Pilar:</strong><span>La alerta era tan inclusiva que también quiso cobrarle al equipo de cobranza.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> elige el umbral con costos, beneficios y capacidad, no con una métrica aislada.</p>
+</section>
+  </main>
+</body>
+</html>

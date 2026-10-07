@@ -1,0 +1,10 @@
+title: "El loop que mando el mismo aviso a todos"
+case_id: "51"
+chart_type: "automation_logic"
+question_answered: "Que papel tiene un if dentro de un loop de automatizacion."
+comfortable_read: "Eso era la automatizacion."
+missing_context: "A mano al menos alguien distinguia pendientes de cerrados."
+correct_read: "La condicion separo quien necesitaba accion y quien no."
+decision_changed: "agregar condiciones antes de repetir acciones"
+annotations: ["sin if", "dos scripts", "loop con if"]
+synthetic_data: true

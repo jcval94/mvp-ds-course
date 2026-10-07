@@ -1,0 +1,9 @@
+case_id: "83"
+title: "La variable que llegó mañana"
+concept: "ingeniería de variables con ventanas temporales"
+scenario: "variable_que_llego_manana"
+seed: 283
+observations: 85000
+variables: ["customer_id", "prediction_time", "window_start", "window_end", "activity_count", "churn"]
+key_values: {"semana completa": 88, "corte dominical": 76, "base simple": 69}
+synthetic_data: true

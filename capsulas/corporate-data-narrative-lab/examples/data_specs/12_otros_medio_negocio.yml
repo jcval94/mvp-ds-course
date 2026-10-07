@@ -1,0 +1,9 @@
+case_id: "12"
+title: "La categoría Otros que ya era medio negocio"
+concept: "calidad de datos y taxonomía"
+scenario: "other_category_reclassification"
+seed: 112
+observations: 8000
+variables: [complaint_id, original_category, free_text, reviewed_category]
+key_values: {other_before: 0.47, other_after: 0.08, reviewed_sample: 500}
+synthetic_data: true

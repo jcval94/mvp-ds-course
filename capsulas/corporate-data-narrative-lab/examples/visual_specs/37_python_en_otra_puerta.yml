@@ -1,0 +1,10 @@
+title: "El Python correcto estaba en otra puerta"
+case_id: "37"
+chart_type: "python_paths"
+question_answered: "Que informacion confirma que VS Code usa el mismo entorno que el proyecto."
+comfortable_read: "Pero abrimos la misma carpeta."
+missing_context: "Cuenta como pista, no como garantia."
+correct_read: "El editor apuntaba al global, no al entorno virtual."
+decision_changed: "seleccionar interprete del proyecto y documentar activacion del entorno"
+annotations: ["global", "venv", "conda viejo"]
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "84"
+title: "El modelo vencido por siempre no"
+concept: "líneas base y valor incremental del modelo"
+scenario: "modelo_vencido_por_siempre_no"
+seed: 284
+observations: 12000
+variables: ["case_id", "baseline_rule", "model_score", "costly_error", "review_cost", "infrastructure_cost"]
+key_values: {"siempre no": 52, "regla simple": 83, "modelo complejo": 85}
+synthetic_data: true

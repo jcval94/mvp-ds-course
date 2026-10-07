@@ -1,0 +1,9 @@
+case_id: "56"
+title: "El JOIN que duplico las ventas con mucha seguridad"
+concept: "JOINs, llaves, granularidad y duplicados"
+scenario: "joins_llaves_granularidad_duplicados"
+seed: 156
+observations: 1000
+variables: [sale_id, product_id, promotion_rows, joined_rows]
+key_values: {sales_before: 74, raw_join_sales: 148, fixed_join_sales: 76}
+synthetic_data: true

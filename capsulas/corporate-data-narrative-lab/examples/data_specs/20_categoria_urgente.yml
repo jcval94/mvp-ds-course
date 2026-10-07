@@ -1,0 +1,9 @@
+case_id: "20"
+title: "La categoria urgente que significaba todo"
+concept: "variables, etiquetas y lenguaje formal"
+scenario: "categoria_urgente"
+seed: 120
+observations: 1000
+variables: [request_id, old_label, severity, deadline, exception]
+key_values: {old_urgent_share: 82, severity_share: 41, deadline_share: 33}
+synthetic_data: true

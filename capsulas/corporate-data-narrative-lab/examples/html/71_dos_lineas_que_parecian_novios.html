@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Las dos líneas que parecían novios</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="Las líneas no estaban enamoradas; alguien les acomodó la cita.">
+  <main>
+<h1>Las dos líneas que parecían novios</h1>
+<section>
+<h2>La pareja perfecta</h2>
+<blockquote><strong>Santi:</strong><span>Cuando suben las visitas, baja el margen. Aquí se ve clarísimo.</span></blockquote>
+<blockquote><strong>Luisa:</strong><span>¿Por qué una línea usa porcentajes y la otra miles de sesiones?</span></blockquote>
+<blockquote><strong>Omar:</strong><span>Para que compartan espacio.</span></blockquote>
+<blockquote><strong>la directora financiera:</strong><span>Parecen un espejo.</span></blockquote>
+<blockquote><strong>Luisa:</strong><span>También parecerían espejo si movemos cualquiera de los dos ejes.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Pero coinciden durante seis semanas.</span></blockquote>
+<p>La presentación mostraba dos curvas casi simétricas, una azul y otra roja. Sus escalas tenían rangos distintos y habían sido ajustadas hasta ocupar la misma altura en la pantalla.</p>
+</section>
+<section>
+<h2>Mover los ejes</h2>
+<blockquote><strong>Omar:</strong><span>Recortemos campaña y protegemos margen.</span></blockquote>
+<blockquote><strong>Luisa:</strong><span>La campaña trae ventas con margen positivo.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>La gráfica dice que el tráfico presiona.</span></blockquote>
+<blockquote><strong>la directora financiera:</strong><span>La gráfica no firmó esa conclusión. ¿Qué cambió en precios?</span></blockquote>
+<blockquote><strong>Omar:</strong><span>Entró un descuento automático en esas mismas semanas.</span></blockquote>
+<blockquote><strong>Luisa:</strong><span>Y ese descuento sí toca el margen de cada pedido.</span></blockquote>
+<p>La propuesta de cortar campañas parecía rápida porque actuaba sobre una serie visible. Sin embargo, nadie había conectado una visita individual con una pérdida de margen; el descuento sí aparecía en cada transacción afectada.</p>
+</section>
+<section>
+<h2>Cada serie en su escala</h2>
+<blockquote><strong>Luisa:</strong><span>Convertí ambas series a cambio contra su propia base.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Ya no se mueven como espejo.</span></blockquote>
+<blockquote><strong>Omar:</strong><span>El margen cae cuando aumenta el descuento, no las visitas.</span></blockquote>
+<blockquote><strong>la directora financiera:</strong><span>Entonces el doble eje juntó una coincidencia y una escala conveniente.</span></blockquote>
+<blockquote><strong>Luisa:</strong><span>Exacto. La relación aparente dependía del acomodo visual.</span></blockquote>
+<p>Al expresar ambas series como cambio relativo, la coreografía se desarmó. La coincidencia semanal perdió fuerza y el descuento quedó como la explicación operativa que podía verificarse pedido por pedido.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Cambio relativo de visitas y margen">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Cambio relativo de visitas y margen</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="148" width="184" height="102" fill="#286d9b"/>
+  <text x="152" y="138" font-size="17" text-anchor="middle">14 % cambio</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">visitas</text>
+  <rect x="268" y="214" width="184" height="36" fill="#d58b2f"/>
+  <text x="360" y="204" font-size="17" text-anchor="middle">5 % cambio</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">margen</text>
+  <rect x="476" y="90" width="184" height="160" fill="#4c8b63"/>
+  <text x="568" y="80" font-size="17" text-anchor="middle">22 % cambio</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">descuento</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">Con una escala común, el descuento sigue al margen más de cerca.</text>
+</svg>
+<blockquote class="learning-pause"><strong>la directora financiera:</strong><span>¿Qué queda de la relación cuando ambas series se comparan con una escala común?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> Los dos ejes pueden ajustarse para hacer que series con unidades distintas parezcan paralelas. Al comparar cambios relativos, visitas y margen dejan de coincidir. La caída del margen sigue el descuento aplicado, una relación que además puede comprobarse a nivel de pedido.</p>
+</section>
+<section>
+<h2>Buscar la causa correcta</h2>
+<blockquote><strong>la directora financiera:</strong><span>No recortamos campaña; revisamos la regla de descuentos.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Voy a separar las series en el reporte.</span></blockquote>
+<blockquote><strong>Luisa:</strong><span>Y si se comparan, usarán una transformación explicada.</span></blockquote>
+<blockquote><strong>Omar:</strong><span>También mediré margen por pedido expuesto al descuento.</span></blockquote>
+<blockquote><strong>la directora financiera:</strong><span>Quiero causa operativa, no líneas simpáticas.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Después de ajustar doble eje y relaciones visuales engañosas, ¿qué podría cambiar la decisión?</span></blockquote>
+<blockquote><strong>Luisa:</strong><span>Toca mantener campañas y analizar descuentos como causa directa del margen; si cambia el dato, volvemos a decidir.</span></blockquote>
+<blockquote><strong>Santi:</strong><span>Las líneas no estaban enamoradas; alguien les acomodó la cita.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> dos series que se mueven juntas en un doble eje no prueban una relación.</p>
+</section>
+  </main>
+</body>
+</html>

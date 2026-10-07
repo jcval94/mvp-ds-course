@@ -1,0 +1,10 @@
+title: "Una alerta para cada cliente"
+case_id: "81"
+chart_type: "barras de volumen por umbral"
+question_answered: "¿Qué punto de corte concentra recuperación sin enviar más casos de los que el equipo puede atender?"
+comfortable_read: "Marcar 92% de la cartera parece reducir omisiones."
+missing_context: "La cola supera por varios días la capacidad y pierde prioridad."
+correct_read: "El corte de 0.74 produce 1,100 contactos y cabe en el turno."
+decision_changed: "usar un umbral compatible con capacidad y reservar revisión para la zona incierta"
+annotations: ["umbral bajo", "umbral 0.74", "capacidad diaria"]
+synthetic_data: true

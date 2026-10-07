@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La metrica que olvidaba el mes anterior</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="La metrica tenia memoria de pez, pero en formato corporativo.">
+  <main>
+<h1>La metrica que olvidaba el mes anterior</h1>
+<section>
+<h2>El mes solito</h2>
+<blockquote><strong>Elena:</strong><span>El reporte ya trae ventas por mes.</span></blockquote>
+<blockquote><strong>Uriel:</strong><span>Pero no dice si subieron contra el mes anterior.</span></blockquote>
+<blockquote><strong>Rosa:</strong><span>Eso se calcula mirando la tabla.</span></blockquote>
+<blockquote><strong>Elena:</strong><span>La consulta deberia mirarla por nosotros.</span></blockquote>
+<blockquote><strong>Rosa:</strong><span>No queria complicarla.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Ahora la decision depende de restar a mano.</span></blockquote>
+<p>El reporte muestra valores mensuales pero no variacion ni acumulados. El primer intento funcionaba en un ejemplo pequeño, pero se rompía en cuanto cambiaba una entrada o el orden de los datos.</p>
+</section>
+<section>
+<h2>La historia quedo fuera</h2>
+<blockquote><strong>Rosa:</strong><span>Hacemos otra consulta para variacion.</span></blockquote>
+<blockquote><strong>Uriel:</strong><span>Mejor una ventana en la misma historia.</span></blockquote>
+<blockquote><strong>Rosa:</strong><span>La consulta se va a sentir muy larga.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Larga con pasos claros gana a corta con misterio.</span></blockquote>
+<blockquote><strong>Rosa:</strong><span>Podemos dejar comentarios.</span></blockquote>
+<blockquote><strong>Elena:</strong><span>Una CTE tambien comenta con estructura.</span></blockquote>
+<blockquote><strong>Uriel:</strong><span>El reporte muestra valores mensuales pero no variacion ni acumulados.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Enséñame metrica mensual con y sin ventana antes de cerrar.</span></blockquote>
+<p>El grupo puso metrica mensual con y sin ventana junto al resultado anterior. Al revisar ambas versiones, el grupo encontró la regla que faltaba y pudo explicar por qué la salida anterior era frágil.</p>
+</section>
+<section>
+<h2>CTE para respirar</h2>
+<blockquote><strong>Elena:</strong><span>Reescribi la consulta en pasos y agregue LAG.</span></blockquote>
+<blockquote><strong>el director:</strong><span>Que aparece al comparar periodos.</span></blockquote>
+<blockquote><strong>Elena:</strong><span>Se ve la variacion sin perder el valor mensual.</span></blockquote>
+<blockquote><strong>Uriel:</strong><span>Entonces debemos usar CTEs para ordenar pasos y ventanas para comparar periodos.</span></blockquote>
+<blockquote><strong>Elena:</strong><span>Las ventanas permiten comparar una fila con su historia sin perder detalle.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="metrica mensual con y sin ventana">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">metrica mensual con y sin ventana</text>
+  <line x1="58" y1="260" x2="662" y2="260" stroke="#777" stroke-width="2"/>
+  <rect x="70" y="155" width="174" height="105" fill="#286d9b"/>
+  <text x="157" y="145" font-size="18" text-anchor="middle">55</text>
+  <text x="157" y="286" font-size="13" text-anchor="middle">mensual</text>
+  <rect x="272" y="95" width="174" height="165" fill="#d58b2f"/>
+  <text x="359" y="85" font-size="18" text-anchor="middle">86</text>
+  <text x="359" y="286" font-size="13" text-anchor="middle">con LAG</text>
+  <rect x="474" y="85" width="174" height="175" fill="#4c8b63"/>
+  <text x="561" y="75" font-size="18" text-anchor="middle">91</text>
+  <text x="561" y="286" font-size="13" text-anchor="middle">acumulado</text>
+  <text x="36" y="306" font-size="13" fill="#9f3625">La ventana agrega contexto temporal.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Uriel:</strong><span>Para que sirven CTEs y funciones de ventana en una metrica por periodo.</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La evidencia compara un resumen mensual aislado con una metrica que recuerda periodos anteriores. Las CTEs hacen legibles los pasos; las ventanas calculan comparaciones como LAG, acumulados o rankings sin colapsar filas.</p>
+</section>
+<section>
+<h2>La ventana mira atras</h2>
+<blockquote><strong>el director:</strong><span>El reporte incluira variacion y acumulado por ventana.</span></blockquote>
+<blockquote><strong>Rosa:</strong><span>La consulta tendra mas estructura.</span></blockquote>
+<blockquote><strong>Elena:</strong><span>Y menos calculadora al lado.</span></blockquote>
+<blockquote><strong>Elena:</strong><span>¿Qué cambiaremos después de revisar metrica mensual con y sin ventana?</span></blockquote>
+<blockquote><strong>Uriel:</strong><span>La decisión es usar CTEs para ordenar pasos y ventanas para comparar periodos.</span></blockquote>
+<blockquote><strong>Rosa:</strong><span>Y volvemos a medir SQL analitico con CTEs, ventanas y metricas por periodo antes del siguiente cierre.</span></blockquote>
+<blockquote><strong>Rosa:</strong><span>La consulta final mostrará periodo actual y anterior sin perder el detalle de cada fila.</span></blockquote>
+<blockquote><strong>Uriel:</strong><span>La metrica tenia memoria de pez, pero en formato corporativo.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> las ventanas permiten comparar una fila con su historia sin perder detalle.</p>
+</section>
+  </main>
+</body>
+</html>

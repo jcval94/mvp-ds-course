@@ -1,0 +1,10 @@
+title: "El piloto que ganó en diciembre"
+case_id: "08"
+chart_type: "seasonal_lines"
+question_answered: "¿Qué habría pasado sin piloto?"
+comfortable_read: "Las incidencias bajaron 25%."
+missing_context: "La región sin piloto bajó 18%."
+correct_read: "El efecto adicional estimado es 7 puntos."
+decision_changed: "Repetir fuera de temporada fácil."
+annotations: ["valles anuales", "tratada -25%", "sin piloto -18%"]
+synthetic_data: true

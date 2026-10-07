@@ -1,0 +1,10 @@
+title: "La encuesta que llegaba después del problema"
+case_id: "02"
+chart_type: "funnel"
+question_answered: "¿Quién tuvo oportunidad de responder?"
+comfortable_read: "La satisfacción subió a 72."
+missing_context: "3,800 abandonos nunca recibieron encuesta."
+correct_read: "El score representa a completadores que respondieron."
+decision_changed: "Reportar cobertura y escuchar abandonos."
+annotations: ["10,000 inicios", "6,200 completos", "1,500 respuestas"]
+synthetic_data: true

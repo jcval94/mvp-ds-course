@@ -1,0 +1,9 @@
+case_id: "03"
+title: "El modelo de 97% que llegaba cuatro horas tarde"
+concept: "fuga de información temporal"
+scenario: "temporal_leakage"
+seed: 103
+observations: 5000
+variables: [case_id, decision_time, feature_available_time, supervisor_score, outcome]
+key_values: {leaked_accuracy: 0.97, valid_accuracy: 0.71, decision_hour: 14, leaked_feature_hour: 18}
+synthetic_data: true

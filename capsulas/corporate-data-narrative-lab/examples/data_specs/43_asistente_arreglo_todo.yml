@@ -1,0 +1,9 @@
+case_id: "43"
+title: "El asistente que arreglo tambien lo que servia"
+concept: "control de cambios al trabajar con asistentes de codigo"
+scenario: "asistente_arreglo_todo"
+seed: 143
+observations: 1000
+variables: [file_path, requested_change, extra_change, accepted]
+key_values: {requested_diff_share: 48, extra_diff_share: 52, accepted_share: 44}
+synthetic_data: true

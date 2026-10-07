@@ -1,0 +1,10 @@
+title: "El modelo prendido y perdido"
+case_id: "86"
+chart_type: "barras de salud del modelo"
+question_answered: "¿Qué señal muestra que el modelo falla aunque el servicio siga disponible?"
+comfortable_read: "Cien por ciento de disponibilidad parece indicar un sistema saludable."
+missing_context: "Cambió el catálogo y la precisión cayó sin interrumpir la API."
+correct_read: "La precisión baja a 49% mientras disponibilidad permanece en 100%."
+decision_changed: "monitorear servicio, datos y resultado; activar revisión ante drift sostenido"
+annotations: ["precisión anterior", "precisión actual", "disponibilidad"]
+synthetic_data: true

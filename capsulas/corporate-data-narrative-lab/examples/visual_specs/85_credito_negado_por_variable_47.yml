@@ -1,0 +1,10 @@
+title: "El crédito negado por la variable 47"
+case_id: "85"
+chart_type: "barras de apelación y corrección"
+question_answered: "¿Qué razón permite a una persona comprobar el rechazo y qué ocurre cuando presenta evidencia nueva?"
+comfortable_read: "V47 parece una explicación suficiente porque identifica una variable influyente."
+missing_context: "El dato de domicilio está desactualizado y la persona puede comprobarlo."
+correct_read: "Treinta y dos rechazos cambian al corregir domicilio y requieren revisión humana."
+decision_changed: "limitar decisiones automáticas, mostrar razones comprobables y habilitar apelación humana"
+annotations: ["apelaciones", "cambios totales", "domicilio corregido"]
+synthetic_data: true

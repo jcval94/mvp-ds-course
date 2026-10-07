@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El modelo que seguía perfecto porque nadie volvió a medirlo</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="El modelo llevaba nueve meses fallando en perfecto estado.">
+  <main>
+<h1>El modelo que seguía perfecto porque nadie volvió a medirlo</h1>
+<section>
+<h2>Todo verde</h2>
+<blockquote><strong>El jefe:</strong><span>¿Cómo va el modelo de riesgo?</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Verde. Ochenta y seis por ciento de precisión.</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>¿De qué mes es ese número?</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Del lanzamiento.</span></blockquote>
+<blockquote><strong>Iván:</strong><span>Eso fue hace nueve meses.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Sí, pero nadie ha levantado incidente.</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>Operación dejó de usar varias alertas.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Entonces no pueden decir que el modelo se equivocó.</span></blockquote>
+<blockquote><strong>Iván:</strong><span>Tampoco que acertó.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>A ver, ¿está funcionando o no?</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>El servicio está arriba.</span></blockquote>
+<p>La página de monitoreo medía memoria, tiempo de respuesta y si el proceso contestaba. Todo estaba verde. El modelo podía recomendar cualquier cosa en menos de doscientos milisegundos y eso, técnicamente, era una forma de puntualidad. La exactitud no tenía semáforo ni dueño. Todavía.</p>
+</section>
+<section>
+<h2>Los clientes nuevos</h2>
+<blockquote><strong>Mónica:</strong><span>Desde marzo entró un producto nuevo y cambió la mezcla de clientes.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>El modelo no sabe de productos. Usa variables.</span></blockquote>
+<blockquote><strong>Iván:</strong><span>Variables que cambiaron con el producto.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Podemos reentrenar.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>¿Cada cuánto?</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Cuando falle.</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>¿Y cómo sabemos si falla?</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Cuando reentrenemos podemos comparar.</span></blockquote>
+<blockquote><strong>Iván:</strong><span>Ese plan necesita viajar en el tiempo y ya tuvimos problemas con eso.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>¿Cuántas alertas está ignorando Operación?</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>Cuatro de cada diez.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Entonces también hay un problema de adopción.</span></blockquote>
+<blockquote><strong>Iván:</strong><span>Sí. Adoptaron la costumbre de no hacerle caso.</span></blockquote>
+<p>Operación había creado reglas manuales para corregir alertas absurdas. Como las correcciones vivían en un archivo local, el sistema central registraba que el modelo seguía “activo” y nadie veía cuánto trabajo costaba traducirlo.</p>
+</section>
+<section>
+<h2>Nueve meses de historia</h2>
+<blockquote><strong>Mónica:</strong><span>Uní resultados reales, alertas usadas y cambio en las variables.</span></blockquote>
+<blockquote><strong>El jefe:</strong><span>¿Qué pasó?</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>La precisión cayó a sesenta y uno por ciento y la población se movió desde marzo.</span></blockquote>
+<svg data-chart="central" viewBox="0 0 720 310" role="img" aria-label="Caída de precisión y aumento de drift durante nueve meses">
+  <rect width="720" height="310" fill="#fff"/>
+  <text x="35" y="30" font-size="18" font-weight="bold">Desempeño del modelo en producción</text>
+  <line x1="65" y1="250" x2="675" y2="250" stroke="#777"/>
+  <line x1="65" y1="55" x2="65" y2="250" stroke="#777"/>
+  <polyline points="80,80 150,85 220,92 290,110 360,135 430,155 500,176 570,190 650,205" fill="none" stroke="#c64e36" stroke-width="5"/>
+  <polyline points="80,220 150,218 220,205 290,180 360,155 430,132 500,112 570,92 650,78" fill="none" stroke="#2f79a2" stroke-width="5"/>
+  <text x="490" y="200" font-size="14" fill="#c64e36">precisión: 86% → 61%</text>
+  <text x="490" y="92" font-size="14" fill="#2f79a2">cambio de población</text>
+  <line x1="265" y1="55" x2="265" y2="250" stroke="#9f3625" stroke-dasharray="6 5"/>
+  <text x="275" y="70" font-size="13">producto nuevo</text>
+</svg>
+<blockquote class="learning-pause"><strong>Iván:</strong><span>Si la gente y el proceso cambiaron, ¿qué tendríamos que vigilar además de que el servicio siga prendido?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> La distribución de datos cambió y el desempeño cayó. Hay que monitorear población, precisión, uso de alertas y resultado operativo. Ese cambio sostenido se conoce como drift.</p>
+</section>
+<section>
+<h2>Verde significa otra cosa</h2>
+<blockquote><strong>El jefe:</strong><span>Definimos umbrales de revisión, medimos cada mes y registramos las correcciones de Operación.</span></blockquote>
+<blockquote><strong>Samuel:</strong><span>Entonces el tablero puede ponerse rojo.</span></blockquote>
+<blockquote><strong>Mónica:</strong><span>Esa es la idea de tener colores.</span></blockquote>
+<blockquote><strong>Iván:</strong><span>El modelo llevaba nueve meses fallando en perfecto estado.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> Lo que funcionó al lanzamiento necesita volver a medirse en producción.</p>
+</section>
+  </main>
+</body>
+</html>

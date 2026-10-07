@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El examen con respuestas de práctica</title>
+  <style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #1d242b;
+  font-family: Arial, Helvetica, sans-serif;
+}
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 30px; }
+h2 { font-size: 1.25rem; margin: 0 0 18px; }
+section { border-top: 2px solid #1d242b; padding: 24px 0 12px; }
+p { line-height: 1.6; }
+blockquote {
+  margin: 10px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border-left: 5px solid #32726c;
+  line-height: 1.45;
+}
+blockquote strong { display: block; margin-bottom: 3px; color: #255b57; }
+.learning-pause { border-left-color: #bd4d32; background: #fff7ef; }
+.explanation { background: #fff; padding: 14px; border: 1px solid #cfc8bb; }
+.rule { font-size: 1.08rem; border-top: 2px solid #bd4d32; padding-top: 16px; }
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 22px 0;
+  background: #fff;
+  border: 1px solid #cfc8bb;
+}
+@media (max-width: 520px) {
+  main { width: min(100% - 20px, 760px); padding-top: 22px; }
+  blockquote { margin: 8px 0; }
+}
+</style>
+</head>
+<body data-story-standard="absurd-office-data" data-punchline="No pasamos el examen; nos aprendimos el simulador.">
+  <main>
+<h1>El examen con respuestas de práctica</h1>
+<section>
+<h2>Otra mejora</h2>
+<blockquote><strong>Julián:</strong><span>Subimos el F1 a 0.91 en prueba.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>¿Cuántas veces miramos esa prueba?</span></blockquote>
+<blockquote><strong>Tere:</strong><span>Después de cada cambio importante.</span></blockquote>
+<blockquote><strong>la directora analítica:</strong><span>Entonces también entrenamos nuestras decisiones con ella.</span></blockquote>
+<blockquote><strong>Julián:</strong><span>El modelo nunca vio esas filas.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>Nosotros sí, y ajustamos el modelo con lo que vimos.</span></blockquote>
+<p>El archivo llamado prueba había sido abierto tantas veces que ya formaba parte de la rutina de desarrollo. Ninguna fila entraba al ajuste matemático, pero cada resultado cambiaba la siguiente decisión humana.</p>
+</section>
+<section>
+<h2>Mirar para ajustar</h2>
+<blockquote><strong>Tere:</strong><span>Probamos ocho umbrales y cuatro grupos de variables.</span></blockquote>
+<blockquote><strong>Julián:</strong><span>Elegimos el que mejor salió.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>Eso convierte la prueba en validación.</span></blockquote>
+<blockquote><strong>la directora analítica:</strong><span>¿Queda algún periodo sin consultar?</span></blockquote>
+<blockquote><strong>Tere:</strong><span>Tenemos el último mes guardado por auditoría.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>Abrámoslo una sola vez después de fijar todo.</span></blockquote>
+<p>La distinción parecía semántica hasta contar los intentos. Ocho umbrales y cuatro conjuntos de variables habían competido sobre el mismo marcador que después se presentó como evaluación independiente.</p>
+</section>
+<section>
+<h2>Abrir datos intactos</h2>
+<blockquote><strong>Iris:</strong><span>El modelo obtiene 0.72 en el mes intacto.</span></blockquote>
+<blockquote><strong>Julián:</strong><span>La diferencia contra 0.91 es enorme.</span></blockquote>
+<blockquote><strong>Tere:</strong><span>El simulador nos dejó adaptarnos a sus preguntas.</span></blockquote>
+<blockquote><strong>la directora analítica:</strong><span>Ese 0.72 es la estimación que puedo defender.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>Y ahora sabemos dónde necesita mejorar de verdad.</span></blockquote>
+<p>El periodo intacto redujo la cifra y aumentó su utilidad. Por primera vez, el equipo observó desempeño sin haber tenido oportunidad de adaptar el modelo a esos casos.</p>
+<svg data-chart="central" viewBox="0 0 720 320" role="img" aria-label="Desempeño en validación repetida y prueba nueva">
+  <rect width="720" height="320" fill="#fff"/>
+  <text x="36" y="32" font-size="18" font-weight="bold">Desempeño en validación repetida y prueba nueva</text>
+  <line x1="48" y1="250" x2="672" y2="250" stroke="#777" stroke-width="2"/>
+  <rect x="60" y="90" width="184" height="160" fill="#286d9b"/>
+  <text x="152" y="80" font-size="17" text-anchor="middle">91 F1 x100</text>
+  <text x="152" y="278" font-size="12" text-anchor="middle">validación reutilizada</text>
+  <rect x="268" y="123" width="184" height="127" fill="#d58b2f"/>
+  <text x="360" y="113" font-size="17" text-anchor="middle">72 F1 x100</text>
+  <text x="360" y="278" font-size="12" text-anchor="middle">prueba intacta</text>
+  <rect x="476" y="129" width="184" height="121" fill="#4c8b63"/>
+  <text x="568" y="119" font-size="17" text-anchor="middle">69 F1 x100</text>
+  <text x="568" y="278" font-size="12" text-anchor="middle">modelo base</text>
+  <text x="36" y="308" font-size="13" fill="#9f3625">Consultar una prueba para ajustar la convierte en parte del desarrollo.</text>
+</svg>
+<blockquote class="learning-pause"><strong>Tere:</strong><span>¿Por qué el mes intacto ofrece una estimación más honesta que la prueba consultada muchas veces?</span></blockquote>
+<p class="explanation"><strong>Lo que muestra:</strong> Cada consulta al conjunto anterior influyó en decisiones de variables y umbrales, así que dejó de ser una prueba independiente. El mes intacto no participó en esos ajustes y obtiene F1 de 0.72. Separar los tres conjuntos protege la evaluación final del aprendizaje indirecto.</p>
+</section>
+<section>
+<h2>Tres usos distintos</h2>
+<blockquote><strong>la directora analítica:</strong><span>Separaremos entrenamiento, validación y prueba desde el inicio.</span></blockquote>
+<blockquote><strong>Tere:</strong><span>La validación guiará umbrales y variables.</span></blockquote>
+<blockquote><strong>Julián:</strong><span>La prueba final quedará bloqueada hasta congelar decisiones.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>También guardaremos la fecha y razón de cada cambio.</span></blockquote>
+<blockquote><strong>la directora analítica:</strong><span>Un buen resultado necesita independencia, no sorpresa administrada.</span></blockquote>
+<blockquote><strong>Iris:</strong><span>Para repetir separación de entrenamiento, validación y prueba, ¿qué vamos a comprobar primero?</span></blockquote>
+<blockquote><strong>Julián:</strong><span>Vamos a conservar un conjunto final sin tocar y registrar cada decisión de modelado y a revisar si el efecto se mantiene.</span></blockquote>
+<blockquote><strong>Julián:</strong><span>No pasamos el examen; nos aprendimos el simulador.</span></blockquote>
+<p class="rule"><strong>Regla:</strong> los datos usados para decidir no pueden certificar de manera independiente el resultado.</p>
+</section>
+  </main>
+</body>
+</html>

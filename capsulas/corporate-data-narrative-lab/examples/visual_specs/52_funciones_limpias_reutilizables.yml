@@ -1,0 +1,10 @@
+title: "La formula que vivia en cinco lugares"
+case_id: "52"
+chart_type: "function_reuse"
+question_answered: "Que hace que una funcion sea limpia y reutilizable."
+comfortable_read: "Pero todas hacen casi lo mismo."
+missing_context: "Corregir cinco copias ya no fue rapido."
+correct_read: "Cuando todos llamaron la misma logica."
+decision_changed: "extraer la logica repetida a una funcion con nombre claro y pruebas simples"
+annotations: ["copias", "funcion", "con prueba"]
+synthetic_data: true

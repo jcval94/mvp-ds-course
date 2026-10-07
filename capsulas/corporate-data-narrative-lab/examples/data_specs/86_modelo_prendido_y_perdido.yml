@@ -1,0 +1,9 @@
+case_id: "86"
+title: "El modelo prendido y perdido"
+concept: "monitoreo de desempeño y drift"
+scenario: "modelo_prendido_y_perdido"
+seed: 286
+observations: 260000
+variables: ["week", "api_available", "category_distribution", "accepted_recommendation", "precision"]
+key_values: {"precisión anterior": 72, "precisión actual": 49, "disponibilidad": 100}
+synthetic_data: true

@@ -1,0 +1,9 @@
+case_id: "27"
+title: "El filtro que contrataba clones del gerente"
+concept: "sesgo en datos historicos y decisiones automatizadas"
+scenario: "filtro_cv_clones_gerente"
+seed: 127
+observations: 1000
+variables: [candidate_id, experience_score, model_rank, human_review]
+key_values: {historical_profile_selection: 76, nonhistorical_selection: 32, review_selection: 61}
+synthetic_data: true
