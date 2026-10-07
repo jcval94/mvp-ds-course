@@ -82,7 +82,7 @@ def public_missions(course: dict[str, Any], root: Path) -> list[dict[str, Any]]:
     for mission in load_missions(course, root):
         data = mission.data
         if data["status"] in PUBLIC_MISSION_STATES and data["access"] in allowed_access:
-            published.append({
+            entry = {
                 "id": data["id"],
                 "title": data["title"],
                 "status": data["status"],
@@ -90,8 +90,35 @@ def public_missions(course: dict[str, Any], root: Path) -> list[dict[str, Any]]:
                 "decision": {"question": data["decision"]["question"]},
                 "concepts": data["concepts"],
                 "level": data.get("level"),
-            })
+            }
+            if (mission.manifest_path.parent / "app" / "index.html").is_file():
+                entry["href"] = f"missions/{data['id']}/"
+            published.append(entry)
     return sorted(published, key=lambda item: item["id"])
+
+
+MISSION_DATA_SUFFIXES = {".csv", ".json"}
+
+
+def publish_mission_apps(missions: list[dict[str, Any]], course: dict[str, Any], root: Path, dist: Path) -> None:
+    """Only public, ready/published missions get their page; their case data goes next to it.
+
+    missions/<id>/app/ → dist/missions/<id>/ and casos/data/<case>/*.{csv,json} → dist/missions/<id>/data/.
+    Drafts and premium missions never reach dist/ (see public_missions).
+    """
+    manifests = {mission.id: mission for mission in load_missions(course, root)}
+    for entry in missions:
+        if "href" not in entry:
+            continue
+        mission = manifests[entry["id"]]
+        target = dist / "missions" / entry["id"]
+        _copy_tree(mission.manifest_path.parent / "app", target, skip_docs=True, forbid_overwrite=True)
+        data_dir = root / "casos" / "data" / mission.data["case"]["id"]
+        if data_dir.is_dir():
+            for path in sorted(data_dir.iterdir()):
+                if path.is_file() and path.suffix in MISSION_DATA_SUFFIXES:
+                    (target / "data").mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(path, target / "data" / path.name)
 
 
 def file_inventory(dist: Path) -> list[dict[str, Any]]:
@@ -126,6 +153,7 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
         build_capsulas(root, dist / components["capsulas"]["mount"])
 
     missions = public_missions(course, root)
+    publish_mission_apps(missions, course, root, dist)
     _write_json(dist / "missions.json", {"schema_version": 1, "course": course["course"]["id"], "missions": missions})
 
     inventory = file_inventory(dist)

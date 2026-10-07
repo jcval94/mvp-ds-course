@@ -134,8 +134,8 @@ def validate_design_tokens(root: Path = ROOT) -> list[str]:
     return errors
 
 
-# Superficies del portal que deben tomar todo color de design/tokens/.
-COLOR_GUARDED_DIRS = ("site", "portal")
+# Superficies del portal y de las misiones que deben tomar todo color de design/tokens/.
+COLOR_GUARDED_DIRS = ("site", "portal", "missions")
 # Excepción documentada: 404.html se sirve desde cualquier ruta y no puede cargar assets relativos.
 COLOR_LITERAL_EXCEPTIONS = {"portal/404.html"}
 CSS_HEX = re.compile(r"(?:^|[\s:(,])(#[0-9a-fA-F]{3,8})\b")

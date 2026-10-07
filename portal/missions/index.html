@@ -51,6 +51,13 @@
           var concepts = document.createElement("p");
           concepts.textContent = "Conceptos: " + mission.concepts.join(", ");
           card.append(title, question, concepts);
+          if (mission.href) {
+            var play = document.createElement("a");
+            play.className = "button";
+            play.href = "../" + mission.href;
+            play.textContent = "Jugar la misión";
+            card.append(play);
+          }
           list.append(card);
         });
       }

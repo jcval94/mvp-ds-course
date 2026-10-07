@@ -39,7 +39,7 @@ def test_current_repository_passes_validation() -> None:
 
 
 def test_ready_mission_requires_approved_case_and_kit(repo: Path) -> None:
-    _edit_yaml(_mission(repo), status="ready")
+    _edit_yaml(_mission(repo), status="ready", kit=None)
     errors = validate.validate_contracts(repo)
     assert any("exige el caso 'wald-bombers' aprobado" in error for error in errors)
     assert any("exige un kit" in error for error in errors)
@@ -179,3 +179,22 @@ def test_case_dataset_must_match_its_sha256(tmp_path: Path) -> None:
     assert "SHA-256" in _dataset_errors(bad, "x", tmp_path)[0]
     elsewhere = {"id": "c1", "dataset": {"path": "casos/data/otro/d.csv", "sha256": "0" * 64}}
     assert "casos/data/c1/" in _dataset_errors(elsewhere, "x", tmp_path)[0]
+
+
+def test_only_public_ready_missions_publish_their_app_and_data(repo: Path, tmp_path: Path) -> None:
+    course = yaml.safe_load((repo / "course.yaml").read_text(encoding="utf-8"))
+    app = repo / "missions" / "m01-wald" / "app"
+    _write(app / "index.html", "<!doctype html><title>m</title>")
+    _write(repo / "casos" / "data" / "wald-bombers" / "x.csv", "a\\n1\\n")
+    _write(repo / "casos" / "data" / "wald-bombers" / "generar.py", "print(1)")
+    dist = tmp_path / "dist"
+    dist.mkdir()
+    build.publish_mission_apps(build.public_missions(course, repo), course, repo, dist)
+    assert not (dist / "missions" / "m01-wald").exists()  # draft
+    _edit_yaml(_mission(repo), status="ready")
+    missions = build.public_missions(course, repo)
+    assert missions[0]["href"] == "missions/m01-wald/"
+    build.publish_mission_apps(missions, course, repo, dist)
+    assert (dist / "missions" / "m01-wald" / "index.html").is_file()
+    assert (dist / "missions" / "m01-wald" / "data" / "x.csv").is_file()
+    assert not (dist / "missions" / "m01-wald" / "data" / "generar.py").exists()
