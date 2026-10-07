@@ -4,16 +4,75 @@
   "title": "¿Dónde blindar los aviones?",
   "decision_question": "Con blindaje limitado, ¿qué partes de los aviones conviene reforzar?",
   "naive_answer": "Donde regresan con más impactos.",
-  "ingenious_move": "Preguntar por los aviones que no regresaron.",
-  "status": "candidate",
+  "ingenious_move": "Preguntar por los aviones que no regresaron: los impactos que faltan en los sobrevivientes son los que derriban.",
+  "status": "verified",
   "access": "public",
-  "concepts": ["survivorship-bias", "sample-vs-population"],
+  "concepts": [
+    "survivorship-bias",
+    "sample-vs-population"
+  ],
   "level_hint": 1,
-  "verified_claims": [],
-  "uncertainties": [],
-  "myths_to_avoid": [],
-  "sources": [],
+  "verified_claims": [
+    {
+      "claim": "Durante la Segunda Guerra Mundial, Abraham Wald trabajó en el Statistical Research Group (SRG) de la Universidad de Columbia.",
+      "sources": [
+        "https://www.ams.org/samplings/feature-column/fc-2016-06",
+        "https://cna.org/reports/1980/a-method-of-estimating-plane-vulnerability"
+      ]
+    },
+    {
+      "claim": "Hacia 1943 (según Casselman) Wald escribió memorandos con métodos para estimar la vulnerabilidad de las partes de un avión a partir de los daños de los aviones que regresaban; Casselman y Phil DePoy, del CNA, cuentan ocho.",
+      "sources": [
+        "https://www.ams.org/samplings/feature-column/fc-2016-06",
+        "https://cna.org/reports/1980/a-method-of-estimating-plane-vulnerability"
+      ]
+    },
+    {
+      "claim": "Los memorandos nunca se publicaron externamente, aunque circularon algunas copias; el Center for Naval Analyses los reimprimió el 7 de julio de 1980 como 'A Reprint of \"A Method of Estimating Plane Vulnerability Based on Damage of Survivors\" by Abraham Wald' (CRC 432). Casselman da 1981, pero cita a DePoy: julio de 1980.",
+      "sources": [
+        "https://cna.org/reports/1980/a-method-of-estimating-plane-vulnerability",
+        "https://apps.dtic.mil/sti/pdfs/ADA091073.pdf",
+        "https://www.ams.org/samplings/feature-column/fc-2016-06"
+      ]
+    },
+    {
+      "claim": "Según el Center for Naval Analyses, la metodología de Wald se usó después para analizar datos de las guerras de Corea y Vietnam.",
+      "sources": [
+        "https://cna.org/reports/1980/a-method-of-estimating-plane-vulnerability"
+      ]
+    },
+    {
+      "claim": "El método usa la proporción de aviones que regresan con 0, 1, 2… impactos para estimar la probabilidad de que un avión sea derribado por un número dado de impactos. Supone, entre otras cosas, que esa probabilidad no depende de impactos previos no destructivos y que no hay error de muestreo.",
+      "sources": [
+        "https://apps.dtic.mil/sti/pdfs/ADA091073.pdf"
+      ]
+    },
+    {
+      "claim": "Según W. Allen Wallis, citado por Casselman, Wald supuso que los impactos se distribuían uniformemente sobre el avión, y los militares tendían a proteger las partes que mostraban más impactos en los aviones que regresaban.",
+      "sources": [
+        "https://www.ams.org/samplings/feature-column/fc-2016-06"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "No hay evidencia documental de que Wald recomendara blindar los motores ni otra zona concreta: los memorandos dan métodos de estimación, no órdenes de blindaje.",
+    "No está documentado qué decisiones de blindaje tomaron los militares a partir de estos memorandos ni cuántas vidas se salvaron.",
+    "Las fuentes no dan tipo de avión ni teatro de operaciones; los memorandos solo hablan de una 'bombing mission'.",
+    "La escena popular es una reconstrucción plausible. La memoria de Wallis (JASA 75, 1980) no nombra a Wald; su réplica en la misma discusión sí, y respalda el núcleo del relato.",
+    "Falta leer Mangel y Samaniego (1984, JASA 79), la guía técnica de los memorandos, antes de aprobar el caso."
+  ],
+  "myths_to_avoid": [
+    "La imagen del avión con puntos rojos muestra los datos de Wald. No hay constancia de que Wald dibujara esquemas; esa imagen no muestra sus datos.",
+    "Wald solo dijo 'blinden donde no hay agujeros'. Su aporte fue un método matemático con supuestos explícitos.",
+    "Wald salvó a cientos o miles de tripulaciones. No hay cifras documentadas.",
+    "Todos los aviones eran bombarderos B-17. Las fuentes revisadas no lo establecen."
+  ],
+  "sources": [
+    "https://www.ams.org/samplings/feature-column/fc-2016-06",
+    "https://cna.org/reports/1980/a-method-of-estimating-plane-vulnerability",
+    "https://apps.dtic.mil/sti/pdfs/ADA091073.pdf"
+  ],
   "dataset": null,
   "story_bridge": "",
-  "analogy_limits": ""
+  "analogy_limits": "En la misión los datos son simulados para mostrar el mecanismo; no reproducen cifras históricas."
 }
