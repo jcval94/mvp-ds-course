@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import re
 import subprocess
 from pathlib import Path
@@ -34,6 +35,23 @@ def _schema_errors(instance: Any, schema_name: str, label: str) -> list[str]:
     return errors
 
 
+def _dataset_errors(case: dict[str, Any], label: str, root: Path) -> list[str]:
+    """A case's dataset must exist, live under casos/data/<case id>/ and match its SHA-256."""
+    dataset = case.get("dataset")
+    if not isinstance(dataset, dict):
+        return []
+    case_id = case.get("id", "?")
+    path = root / str(dataset.get("path", ""))
+    if not str(dataset.get("path", "")).startswith(f"casos/data/{case_id}/"):
+        return [f"{label}[{case_id}]: dataset.path debe vivir en casos/data/{case_id}/"]
+    if not path.is_file():
+        return [f"{label}[{case_id}]: no existe {dataset.get('path')}"]
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    if digest != dataset.get("sha256"):
+        return [f"{label}[{case_id}]: el SHA-256 de {dataset.get('path')} es {digest}, no el declarado"]
+    return []
+
+
 def validate_contracts(root: Path = ROOT) -> list[str]:
     errors: list[str] = []
     course = load_course(root)
@@ -60,6 +78,8 @@ def validate_contracts(root: Path = ROOT) -> list[str]:
         errors += _schema_errors(case, "case.schema.json", f"casos/staging/{case_id}.json")
         if case.get("id") != case_id:
             errors.append(f"casos/staging/{case_id}.json: el id interno ({case.get('id')}) no coincide con el archivo")
+    for label, case in [*(("casos/cases.jsonl", c) for c in ledger.values()), *(("casos/staging", c) for c in staging.values())]:
+        errors += _dataset_errors(case, label, root)
 
     capsula_cases = root / "capsulas" / "corporate-data-narrative-lab" / "examples" / "cases"
     for mission in load_missions(course, root):
@@ -114,8 +134,8 @@ def validate_design_tokens(root: Path = ROOT) -> list[str]:
     return errors
 
 
-# Superficies del portal que deben tomar todo color de design/tokens/.
-COLOR_GUARDED_DIRS = ("site", "portal")
+# Superficies del portal y de las misiones que deben tomar todo color de design/tokens/.
+COLOR_GUARDED_DIRS = ("site", "portal", "missions")
 # Excepción documentada: 404.html se sirve desde cualquier ruta y no puede cargar assets relativos.
 COLOR_LITERAL_EXCEPTIONS = {"portal/404.html"}
 CSS_HEX = re.compile(r"(?:^|[\s:(,])(#[0-9a-fA-F]{3,8})\b")
