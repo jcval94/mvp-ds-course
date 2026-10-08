@@ -1,36 +1,48 @@
 {
-  "id": "producto-operable-nivel-11-v1",
+  "id": "auditoria-responsable-nivel-11",
   "synthetic": true,
-  "generator": "level11-full-v1",
+  "generator": "level11-responsible-v1",
+  "seed": 20270923,
   "period": {
-    "start": "2028-01-18",
-    "end": "2028-01-21"
+    "start": "2027-11-01",
+    "end": "2028-01-17",
+    "weeks": 12
   },
   "dimensions": [
-    21,
-    7
+    48,
+    10
   ],
-  "unit": "un criterio verificable del producto",
-  "artifact": "examples/level11_pipeline_slice",
   "privacy": {
+    "unit": "celda semanal agregada",
+    "minimum_cell": 25,
     "personal_identifiers": false,
-    "real_secrets": false
+    "free_text": false,
+    "retention_days": 30,
+    "consent": "categorías reportadas voluntariamente y agregadas"
+  },
+  "formulas": {
+    "offer_rate": "ofrecidos / elegibles",
+    "completion_rate": "completados / ofrecidos"
   },
   "growth": {
-    "from": "G7-local",
-    "to": "G7-local"
+    "from": "G6-prepedido",
+    "to": "G7-local",
+    "constraint": "un local; 18 asientos; 4 puestos pagados"
   },
   "data_state": [
-    "L10.4",
-    "producto_operable@L11.H1"
+    "L9.4",
+    "auditoria_agregada@L11.1",
+    "informe_responsable@L11.2",
+    "reproducibilidad@L11.3",
+    "mini_proyecto@L11.4"
   ],
-  "label": "Fixture sintética de aceptación; no contiene secretos ni despliegues reales",
+  "label": "Dataset sintético agregado; no representa ni permite identificar personas reales",
   "files": [
     {
-      "path": "datasets/narrative/controles_producto_nivel_11.csv",
-      "rows": 21,
-      "columns": 7,
-      "sha256": "d6b9c97f109183f98a4a2989c7c85d83610c0b9be300c67217876d969603a08a"
+      "path": "datasets/narrative/auditoria_responsable_nivel_11.csv",
+      "rows": 48,
+      "columns": 10,
+      "sha256": "08a738ba511e75d394a86e704899883d9962fedaec2f1caf15bfa8886d28ca0e"
     }
   ]
 }

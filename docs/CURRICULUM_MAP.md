@@ -22,7 +22,7 @@ La progresión canónica es:
 leer datos → describirlos → razonar con incertidumbre → estudiar relaciones
 → construir datasets confiables → modelar → evaluar
 → explorar estructura no supervisada → respetar tiempo y experimentación
-→ analizar responsablemente → convertir análisis y modelos en productos
+→ elegir métricas y estimar efectos sin experimento → analizar responsablemente → convertir análisis y modelos en productos
 → diseñar sistemas de IA trazables → operar y monitorear esos sistemas
 ```
 
@@ -30,7 +30,15 @@ leer datos → describirlos → razonar con incertidumbre → estudiar relacione
 
 | Nivel | Temario | Historia | Nivel educativo | Cobertura cuantificada |
 | --- | --- | --- | --- | --- |
-| 1–13 | canónico | aprobada | publicado | incluida en los totales publicados |
+| 1–9 y 11–14 | canónico | aprobada | publicado | incluida en los totales publicados |
+| 10 | canónico | en diseño | sin paquete | fuera de los totales publicados |
+
+Desde la ampliación por casos (octubre de 2026) la ruta tiene catorce niveles. El
+Nivel 10 · Causalidad y métricas de decisión es nuevo y los antiguos Niveles 10–13
+pasaron a ser 11–14 sin cambiar su contenido. Los bloques marcados **(ampliación ·
+en diseño)** son nuevos dentro de niveles ya publicados: tienen temario canónico,
+pero aún no historia ni contenido, y no cuentan en los totales publicados. El mapa
+de misiones por caso vive en `docs/CASE_MISSION_MAP.md`.
 
 ## Nivel 1: Fundamentos
 
@@ -55,6 +63,7 @@ leer datos → describirlos → razonar con incertidumbre → estudiar relacione
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
 | Probabilidad básica | evento, complemento, independencia, probabilidad condicional | Razonar sobre eventos y dependencias. |
+| Bayes y tasas base **(ampliación · en diseño)** | tasa base, teorema de Bayes, falacia del fiscal, actualización con evidencia | Combinar una tasa base con evidencia nueva sin confundir P(A\|B) con P(B\|A). |
 | Variables aleatorias | Bernoulli, binomial, normal, Poisson | Relacionar mecanismo de datos con distribución plausible. |
 | Muestreo | variabilidad muestral, sesgo de selección, ley de grandes números | Explicar por qué dos muestras difieren. |
 | Incertidumbre | error estándar, intervalo de confianza, bootstrap | Comunicar estimaciones con incertidumbre. |
@@ -68,6 +77,7 @@ leer datos → describirlos → razonar con incertidumbre → estudiar relacione
 | Correlación | dirección, fuerza, Pearson, Spearman, sensibilidad a outliers | Reconocer asociación y evitar inferir causalidad. |
 | Variables de confusión | causalidad, confusores, sesgo de agregación | Proponer explicaciones alternativas a una relación. |
 | Tablas cruzadas | proporciones, riesgo relativo, odds | Comparar variables categóricas con denominadores correctos. |
+| Regresión a la media **(ampliación · en diseño)** | regresión a la media, selección por valores extremos, grupo de comparación | Explicar por qué un extremo tiende a acercarse al promedio sin intervención y exigir comparación antes de atribuir mejora. |
 
 ## Nivel 5: Sistemas de Datos Modernos y SQL
 
@@ -101,6 +111,7 @@ Spark/cloud empresarial, certificación SQL o catálogo exhaustivo de comandos.
 | Clasificación | clase, score, umbral, probabilidad | Distinguir predicción de decisión. |
 | Modelos interpretables | árbol de decisión, reglas, importancia | Seguir una decisión y detectar sobreajuste. |
 | Preparación de variables | encoding, escalado, leakage | Preparar datos sin filtrar información del futuro. |
+| Ensambles y redes **(ampliación · en diseño)** | bagging y bosque aleatorio, boosting, red neuronal, descenso del gradiente | Explicar por qué combinar modelos reduce error y cómo una red ajusta pesos paso a paso, sin tratarla como caja mágica. |
 
 ## Nivel 7: Evaluación de modelos
 
@@ -112,6 +123,7 @@ Spark/cloud empresarial, certificación SQL o catálogo exhaustivo de comandos.
 | Métricas de clasificación | precision, recall, specificity, F1 | Elegir métrica según el error más costoso. |
 | Curvas y calibración | ROC, PR, threshold, calibration | Ajustar umbral y revisar confiabilidad del score. |
 | Generalización | bias, variance, overfitting, regularización | Reconocer cuándo un modelo memoriza. |
+| Decidir con costos **(ampliación · en diseño)** | matriz de costos, umbral por valor esperado, valor de la información | Elegir el umbral y la acción que minimizan el costo esperado, y decidir si vale la pena obtener más información. |
 
 ## Nivel 8: Aprendizaje no supervisado
 
@@ -120,6 +132,7 @@ Spark/cloud empresarial, certificación SQL o catálogo exhaustivo de comandos.
 | Clustering | distancia, k-means, centroides, número de grupos | Tratar clusters como hipótesis exploratorias. |
 | Reducción dimensional | PCA, componentes, varianza explicada | Visualizar estructura sin confundir componentes con variables originales. |
 | Detección de anomalías | rareza, aislamiento, umbral | Priorizar casos para revisión, no declarar fraude automáticamente. |
+| Texto como datos **(ampliación · en diseño)** | tokenización, bolsa de palabras y TF-IDF, embeddings, similitud | Convertir texto en números que conserven lo necesario para comparar documentos, y reconocer qué se pierde. |
 
 ## Nivel 9: Datos temporales y experimentación
 
@@ -130,7 +143,28 @@ Spark/cloud empresarial, certificación SQL o catálogo exhaustivo de comandos.
 | A/B testing | asignación aleatoria, métrica, tamaño de muestra, efecto | Diseñar y leer una comparación controlada. |
 | Experimentación | guardrails, múltiples pruebas, efecto práctico | Separar significancia estadística de relevancia operativa. |
 
-## Nivel 10: Análisis responsable y reproducible
+## Nivel 10: Causalidad y métricas de decisión
+
+- **Estado del temario:** canónico (aprobado en octubre de 2026).
+- **Estado de la historia:** en diseño; aún no pasa la puerta narrativa. Fila propuesta en `docs/COURSE_STORY_BIBLE.md`.
+- **Estado del nivel educativo:** sin paquete; no cuenta en los totales publicados.
+- **Propósito:** decidir qué medir y estimar si un cambio causó un efecto cuando no hubo experimento, antes de auditar y comunicar resultados.
+- **Prerrequisitos:** probabilidad condicional y Bayes de Nivel 3; confusores y tablas cruzadas de Nivel 4; regresión de Nivel 6; A/B testing y experimentación de Nivel 9.
+- **Resultado esperado:** dada una decisión del puesto, definir una métrica con contrato y guardarraíles, declarar el contrafactual y los supuestos, y estimar un efecto con una comparación no experimental defendible, diciendo qué la invalidaría.
+- **Posición:** recibe el estado de Nivel 9 (horario y prepedido probados) y entrega a Nivel 11 un efecto estimado con supuestos declarados. El identificador de handoff se fija en la puerta narrativa.
+
+| Orden | Bloque | Conceptos definitivos | Resultado observable |
+| ---: | --- | --- | --- |
+| 1 | Métricas de decisión | métrica norte y guardarraíles; numerador, denominador y unidad; cohortes y retención | Elegir qué contar como éxito y comparar grupos que empezaron en momentos distintos. |
+| 2 | Incentivos y la ley de Goodhart | métrica como objetivo; juego de la métrica; efectos secundarios | Anticipar cómo una meta cambia la conducta que mide y proponer una métrica de contrapeso. |
+| 3 | Preguntas causales | contrafactual; diagrama causal (DAG); confusor, mediador y colisionador | Dibujar el diagrama de una decisión y decidir qué ajustar y qué no. |
+| 4 | Experimentos naturales | diferencias en diferencias y tendencias paralelas; regresión discontinua | Estimar un efecto comparando contra un grupo que no cambió, y revisar el supuesto que lo sostiene. |
+| 5 | Instrumentos y emparejamiento | variable instrumental; emparejamiento y propensity score; límites de lo observacional | Reconocer cuándo una fuente de azar externa o un emparejamiento permiten estimar, y cuándo no alcanza. |
+
+**No objetivos:** econometría formal, control sintético, machine learning causal,
+demostraciones de identificación o software especializado.
+
+## Nivel 11: Análisis responsable y reproducible
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
@@ -138,16 +172,17 @@ Spark/cloud empresarial, certificación SQL o catálogo exhaustivo de comandos.
 | Comunicación | audiencia, incertidumbre, anotación, narrativa | Explicar hallazgos sin exagerar certeza. |
 | Reproducibilidad | semillas, versiones, diccionario de datos, notebook limpio | Permitir que otra persona repita el análisis. |
 | Mini-proyecto | pregunta, datos, análisis, evaluación, comunicación | Integrar el flujo completo con una decisión verificable. |
+| Regulación y explicabilidad **(ampliación · en diseño)** | protección de datos (LFPDPPP, GDPR), regulación de IA por riesgo, explicación local de un modelo | Revisar qué obligaciones aplican a un análisis y explicar una decisión individual de un modelo. Verificar la versión vigente de cada ley al producir el contenido. |
 
-## Nivel 11: Ingeniería de Productos de Datos
+## Nivel 12: Ingeniería de Productos de Datos
 
 - **Estado del temario:** canónico.
-- **Estado de la historia:** aprobada para implementación en `docs/stories/LEVEL_11.md`.
+- **Estado de la historia:** aprobada para implementación en `docs/stories/LEVEL_12.md`.
 - **Estado del nivel educativo:** publicado; 21 ConceptSpecs, 21 módulos Aprender, 42 ejercicios y 21 paquetes docentes validados.
 - **Propósito:** convertir un análisis o modelo validado en un producto de datos versionado, comprobable y entregable antes de operarlo.
-- **Prerrequisitos:** datasets confiables de Nivel 5; modelado y evaluación de Niveles 6–7; reproducibilidad, privacidad y comunicación de Nivel 10.
+- **Prerrequisitos:** datasets confiables de Nivel 5; modelado y evaluación de Niveles 6–7; reproducibilidad, privacidad y comunicación de Nivel 11.
 - **Resultado esperado:** especificar y construir un incremento de producto de datos con contrato de entrada/salida, criterios de aceptación, código revisable, tests ejecutables y artefactos reproducibles para handoff.
-- **Posición:** recibe `L10.4 / G7-local` y produce el handoff validado `producto_operable@L11.H1` para Nivel 12.
+- **Posición:** recibe `L11.4 / G7-local` y produce el handoff validado `producto_operable@L12.H1` para Nivel 13.
 
 | Orden | Bloque | Conceptos definitivos | Resultado observable |
 | ---: | --- | --- | --- |
@@ -164,15 +199,15 @@ conceptual principal en Cloud Run. Los conceptos sobreviven al cambio de proveed
 **No objetivos:** Kubernetes, Terraform, service mesh, microservicios empresariales,
 Linux profundo, certificación cloud, frontend avanzado o DevOps general.
 
-## Nivel 12: Ingeniería de Sistemas de IA
+## Nivel 13: Ingeniería de Sistemas de IA
 
 - **Estado del temario:** canónico.
-- **Estado de la historia:** aprobada para implementación en `docs/stories/LEVEL_12.md`.
+- **Estado de la historia:** aprobada para implementación en `docs/stories/LEVEL_13.md`.
 - **Estado del nivel educativo:** publicado; 24 ConceptSpecs, 24 módulos Aprender, 48 ejercicios y 24 paquetes docentes validados.
 - **Propósito:** diseñar y auditar un sistema de IA trazable que use contexto, conocimiento, tools, skills, loops y harness explícito sin ejecutar IA real en los laboratorios.
-- **Prerrequisitos:** tipos y schemas de Nivel 1; incertidumbre y abstención de Nivel 3; datasets/procedencia de Nivel 5; evals y fallos de Nivel 7; similitud/ranking de Nivel 8; checkpoints de Nivel 9; privacidad/auditoría de Nivel 10; contratos, tests, API, artifact, logs y handoff de Nivel 11.
-- **Resultado esperado:** dado `producto_operable@L11.H1`, diseñar y auditar `sistema_ia_trazable@L12.H1` distinguiendo modelo, harness, contexto, conocimiento, tools, skills, estado, memoria, loops, permisos, verificación, logs y criterios de parada.
-- **Posición:** recibe `producto_operable@L11.H1` y produce `sistema_ia_trazable@L12.H1` para operación responsable de Nivel 13.
+- **Prerrequisitos:** tipos y schemas de Nivel 1; incertidumbre y abstención de Nivel 3; datasets/procedencia de Nivel 5; evals y fallos de Nivel 7; similitud/ranking de Nivel 8; checkpoints de Nivel 9; privacidad/auditoría de Nivel 11; contratos, tests, API, artifact, logs y handoff de Nivel 12.
+- **Resultado esperado:** dado `producto_operable@L12.H1`, diseñar y auditar `sistema_ia_trazable@L13.H1` distinguiendo modelo, harness, contexto, conocimiento, tools, skills, estado, memoria, loops, permisos, verificación, logs y criterios de parada.
+- **Posición:** recibe `producto_operable@L12.H1` y produce `sistema_ia_trazable@L13.H1` para operación responsable de Nivel 14.
 
 | Orden | Bloque | Conceptos definitivos | Resultado observable |
 | ---: | --- | --- | --- |
@@ -182,10 +217,11 @@ Linux profundo, certificación cloud, frontend avanzado o DevOps general.
 | 4 | Loops, estado y parada | agent loop; familia de loops; contexto, historial, estado y memoria; criterios de parada y budgets | Representar vueltas controladas con estado, memoria, presupuestos y criterios de término. |
 | 5 | Harness y entorno | harness engineering; environment engineering; hooks, checkpoints y resumibilidad; reconstrucción de trayectoria | Diseñar el sistema alrededor del modelo con entorno, hooks, checkpoints y traza reconstruible. |
 | 6 | Interoperabilidad y delegación | MCP e interoperabilidad; delegación y handoffs; límites multiagente; blueprint de sistema de IA trazable | Explicar cliente, servidor, tools, resources, handoffs y límites multiagente para entregar un blueprint trazable. |
+| 7 | Seguridad y evaluación **(ampliación · en diseño)** | prompt injection y red teaming; evaluación con LLM como juez; recall@k y fidelidad | Probar un sistema contra entradas hostiles y medir si recupera y cita la evidencia correcta. |
 
 **No objetivos:** chatbot genérico, backend, API de proveedor, servidor MCP real, multiagente prematuro, monitoreo profundo, incidentes o retiro operativo.
 
-## Nivel 13: Operación y monitoreo responsable
+## Nivel 14: Operación y monitoreo responsable
 
 | Bloque | Conceptos | Resultado esperado |
 | --- | --- | --- |
@@ -210,25 +246,31 @@ bloque de ciencia de datos.
 | 7 | Evals, casos de prueba y costos de error | Define aceptación y prueba fallos conectados con consecuencias del dominio. |
 | 8 | Revisión humana de segmentos y anomalías | Usa la salida como priorización y documenta la revisión humana. |
 | 9 | Versionado temporal y experimentos reproducibles | Fija corte temporal, versión, tratamiento y criterio de decisión. |
-| 10 | Procedencia, privacidad, auditoría y transferencia de skills | Entrega artefactos rastreables que otra persona puede ejecutar y revisar. |
-| 11 | Especificación y revisión de código asistido | Escribe contratos y criterios de aceptación para agentes de código, revisa diffs, ejecuta tests y rechaza implementaciones que incumplen el contrato. |
-| 12 | Diseño y auditoría de sistemas de IA trazables | Distingue modelo, harness, contexto, tools, skills, loop, permisos, estado, memoria, parada y traza. |
-| 13 | Operación, monitoreo, incidentes y retiro | Define gates, alertas, rollback y responsabilidades que otra persona puede ejecutar. |
+| 10 | Supuestos causales y métricas con contrato (en diseño) | Declara contrafactual, supuestos y métrica antes de pedir a un agente que estime un efecto, y rechaza atribuciones sin comparación válida. |
+| 11 | Procedencia, privacidad, auditoría y transferencia de skills | Entrega artefactos rastreables que otra persona puede ejecutar y revisar. |
+| 12 | Especificación y revisión de código asistido | Escribe contratos y criterios de aceptación para agentes de código, revisa diffs, ejecuta tests y rechaza implementaciones que incumplen el contrato. |
+| 13 | Diseño y auditoría de sistemas de IA trazables | Distingue modelo, harness, contexto, tools, skills, loop, permisos, estado, memoria, parada y traza. |
+| 14 | Operación, monitoreo, incidentes y retiro | Define gates, alertas, rollback y responsabilidades que otra persona puede ejecutar. |
 
 ## Prioridades de producción
 
 ### Publicado
 
-Los trece niveles tienen contenido completo y publicado: 236 conceptos, 454
-ejercicios, 708 prompts y 63 bloques. Los totales resultan de sumar el nuevo
-Nivel 12 de 24 conceptos a la ruta publicada y preservar la operación como
-Nivel 13.
+Trece de los catorce niveles tienen contenido completo y publicado: 236 conceptos,
+454 ejercicios, 708 prompts y 63 bloques. Los totales resultan de sumar el nuevo
+Nivel 13 de 24 conceptos a la ruta publicada y preservar la operación como
+Nivel 14.
+
+### En diseño
+
+- Nivel 10 · Causalidad y métricas de decisión: 5 bloques con temario canónico.
+- Siete bloques de ampliación en Niveles 3, 4, 6, 7, 8, 11 y 13.
 
 ### Próxima vertical slice
 
 Documentar y pilotear una slice de `context-assembly → retrieval-evidence →
-tool-contract → agent-loop`, con entrada `producto_operable@L11.H1`, salida
-parcial `sistema_ia_trazable@L12.H1`, prueba manual de reconstrucción de traza
+tool-contract → agent-loop`, con entrada `producto_operable@L12.H1`, salida
+parcial `sistema_ia_trazable@L13.H1`, prueba manual de reconstrucción de traza
 y no objetivos explícitos: sin chatbot genérico, sin API de proveedor, sin
 backend y sin publicar automatización real.
 
@@ -254,9 +296,11 @@ Cada concepto incorporado debe declarar:
 - estado canónico del dataset antes y después del episodio;
 - `continuityDelta` verificable sin adelantar conocimiento.
 
-Cada nivel implementado debe declarar `level-shell-v1`. Para Niveles 7–10 las familias base
+Cada nivel implementado debe declarar `level-shell-v1`. Para Niveles 7, 8, 9 y 11 las familias base
 son, respectivamente: evaluación y curvas de error; clusters y reducción;
-series/experimentos; fairness, procedencia, privacidad y auditoría. La familia
+series/experimentos; fairness, procedencia, privacidad y auditoría. El Nivel 10
+define su familia (métricas, diagramas causales y comparaciones) en la puerta de
+implementación. La familia
 orienta la selección, pero el mecanismo de cada concepto determina el `kind`.
 
 ## Inspiración aplicada
@@ -273,8 +317,8 @@ Los demos de histograma inspiran la profundidad, no la forma exacta. Un concepto
 
 ## Cobertura publicada
 
-- **Niveles estructuralmente aprobados:** 1–13.
-- **Niveles con contenido completo y publicado:** 1–13 (13 niveles).
-- **Niveles pendientes de producción:** ninguno.
+- **Niveles estructuralmente aprobados:** 1–14.
+- **Niveles con contenido completo y publicado:** 1–9 y 11–14 (13 niveles).
+- **Niveles pendientes de producción:** Nivel 10 y siete bloques de ampliación.
 - **Total publicado:** 236 conceptos, 454 ejercicios y 708 prompts en 63 bloques.
-- **Cierre:** Nivel 13 termina con operación, monitoreo, respuesta a incidentes y retiro responsable.
+- **Cierre:** Nivel 14 termina con operación, monitoreo, respuesta a incidentes y retiro responsable.

@@ -1,36 +1,35 @@
 # Matriz visual canónica · Nivel 12
 
-- **Estado:** implementada y validada para los 24 conceptos.
+- **Estado:** implementada y validada para los 21 conceptos.
 - **Registro:** `educational-svg-v1`.
-- **Regla:** cada visual debe hacer visible frontera, contrato, evidencia, loop, permiso, estado, checkpoint o traza; una ventana de chat no cuenta como visual dominante.
+- **Regla:** cada visual debe hacer visible contrato, frontera, artifact, diff o resultado de test; iconos tecnológicos decorativos no cuentan.
 
 | Escena | Concepto | Mecanismo visible | Familia / kind | Estado de implementación |
 | --- | --- | --- | --- | --- |
-| L12-S01 | modelo e inferencia | modelo, contexto, aplicación, entorno y harness se separan | frontera / `model-harness-boundary` | Renderer registrado y probado |
-| L12-S02 | ventana y presupuesto de contexto | tokens disponibles, selección, descarte y compaction | presupuesto / `context-budget-window` | Renderer registrado y probado |
-| L12-S03 | app, workflow, agente y sistema | componentes con responsabilidades distintas | mapa / `system-component-map` | Renderer registrado y probado |
-| L12-S04 | agente frente a workflow | pasos fijos frente a decisión dinámica | comparación / `agent-workflow-map` | Renderer registrado y probado |
-| L12-S05 | context assembly y compaction | contexto disponible se selecciona, ensambla y recupera | flujo / `context-assembly-flow` | Renderer registrado y probado |
-| L12-S06 | output estructurado y schema | salida pasa por schema, validación y reparación | contrato / `structured-output-schema` | Renderer registrado y probado |
-| L12-S07 | corpus, chunks y metadata | documentos se parten en chunks con metadata y procedencia | mapa / `knowledge-corpus-map` | Renderer registrado y probado |
-| L12-S08 | retrieval, reranking y abstención | consulta, ranking, evidencia, cita y abstención | loop / `retrieval-evidence-loop` | Renderer registrado y probado |
-| L12-S09 | contrato de tool | nombre, input schema, output schema y permiso | tarjeta / `tool-contract-card` | Renderer registrado y probado |
-| L12-S10 | ejecución, error y retry de tool | argumentos, ejecución, resultado, error y retry | loop / `tool-execution-loop` | Renderer registrado y probado |
-| L12-S11 | skill como procedimiento reutilizable | instrucciones, scripts, referencias y validaciones | procedimiento / `skill-procedure-map` | Renderer registrado y probado |
-| L12-S12 | progressive disclosure | descubrir, activar, ejecutar y leer recursos | disclosure / `progressive-disclosure-flow` | Renderer registrado y probado |
-| L12-S13 | agent loop | objetivo, observar, decidir, actuar y terminar | loop / `agent-execution-loop` | Renderer registrado y probado |
-| L12-S14 | familia de loops | execution, tool-use, retrieval, verification, approval y recovery | router / `loop-family-router` | Renderer registrado y probado |
-| L12-S15 | contexto, historial, estado y memoria | duración, persistencia y riesgo por tipo de información | mapa / `state-memory-map` | Renderer registrado y probado |
-| L12-S16 | criterios de parada y budgets | max_turns, costo, tiempo, tools y retries | gate / `stop-budget-gate` | Renderer registrado y probado |
-| L12-S17 | harness engineering | instrucciones, contexto, tools, skills, loops y verificación | arquitectura / `harness-architecture-map` | Renderer registrado y probado |
-| L12-S18 | environment engineering | filesystem, terminal, SQL, browser y git bajo permisos | capacidades / `environment-capability-map` | Renderer registrado y probado |
-| L12-S19 | hooks, checkpoints y resumibilidad | pre_hook, post_hook, checkpoint y recuperación | flujo / `hooks-checkpoint-flow` | Renderer registrado y probado |
-| L12-S20 | reconstrucción de trayectoria | evento, tool_call, output, check y decisión | timeline / `trace-reconstruction-timeline` | Renderer registrado y probado |
-| L12-S21 | MCP e interoperabilidad | cliente, servidor, tools, resources y permisos | cliente-servidor / `mcp-client-server-map` | Renderer registrado y probado |
-| L12-S22 | delegación y handoffs | supervisor, especialista, contexto y responsabilidad | handoff / `delegation-handoff-map` | Renderer registrado y probado |
-| L12-S23 | límites multiagente | costo, duplicación, pérdida de contexto y control | matriz de riesgo / `multiagent-risk-map` | Renderer registrado y probado |
-| L12-S24 | blueprint de sistema de IA trazable | usuario, objetivo, harness, loop, verificación y traza | blueprint / `system-blueprint-map` | Renderer registrado y probado |
+| L12-S01 | notebook frente a producción | sesión contaminada pasa a ejecución limpia y revela dependencias ocultas | grafo de ejecución / `notebook-pipeline-contract` | Renderer registrado y probado |
+| L12-S02 | ejecución reproducible | entrada, entorno, comando y salida se repiten desde cero | replay / `clean-run-replay` | Renderer registrado y probado |
+| L12-S03 | estructura y responsabilidades | celdas mezcladas se separan en fronteras | flujo modular / `project-boundary-map` | Renderer registrado y probado |
+| L12-S04 | funciones y módulos | input → función pura → output frente a estado global | flujo de contrato / `function-boundary` | Renderer registrado y probado |
+| L12-S05 | contrato entrada/salida | casos válidos e inválidos atraviesan schema | gate / `code-contract-gate` | Renderer registrado y probado |
+| L12-S06 | configuración y secretos | valores salen del código y se inyectan por entorno | capas / `config-secret-boundary` | Renderer registrado y probado |
+| L12-S07 | unit e integration tests | alcance y fronteras cambian por tipo de test | mapa de tests / `test-scope-map` | Renderer registrado y probado |
+| L12-S08 | regression/golden/failure | comportamiento esperado y fallos quedan fijados | matriz de casos / `regression-case-matrix` | Renderer registrado y probado |
+| L12-S09 | fixtures y schema | fixture mínima cubre campos, nulos y bordes | tabla de cobertura / `fixture-schema-coverage` | Renderer registrado y probado |
+| L12-S10 | request/response | request → validate → process → response | simulador API / `api-contract-flow` | Renderer registrado y probado |
+| L12-S11 | errores y versionado | 2xx/4xx/5xx y versiones siguen rutas distintas | árbol de respuesta / `api-error-version-map` | Renderer registrado y probado |
+| L12-S12 | FastAPI y health | proceso/dependencias mínimas determinan health | gate de servicio / `service-health-check` | Renderer registrado y probado |
+| L12-S13 | dependencias y lockfile | resolución flotante se fija y reconstruye | grafo de dependencias / `dependency-lock-graph` | Renderer registrado y probado |
+| L12-S14 | imagen y contenedor | Dockerfile → image → container | ciclo de artifact / `container-lifecycle` | Renderer registrado y probado |
+| L12-S15 | runtime y artifact | build separa archivos de configuración de ejecución | capas / `runtime-artifact-map` | Renderer registrado y probado |
+| L12-S16 | pipeline CI | commit activa jobs y evidencia | pipeline / `ci-job-flow` | Renderer registrado y probado |
+| L12-S17 | test/build gate | un fallo detiene artifact y el diff muestra alcance | gate/diff / `ci-acceptance-gate` | Renderer registrado y probado |
+| L12-S18 | CI vs CD | artifact verificado espera autorización de entrega | flujo separado / `ci-cd-boundary` | Renderer registrado y probado |
+| L12-S19 | servicio y entorno | mismo artifact recibe configuración distinta | promoción / `artifact-promotion` | Renderer registrado y probado |
+| L12-S20 | logs y startup | ejecución emite eventos o falla visiblemente | timeline / `startup-log-flow` | Renderer registrado y probado |
+| L12-S21 | handoff versionado | contrato, artifact, health, logs y versión segura forman el paquete | contrato de producto / `operable-handoff-map` | Renderer registrado y probado |
 
 ## Prueba bloqueante del nivel
 
-`system-blueprint-map` debe conectar el producto operable de Nivel 11 con contexto, corpus, tools, skills, loop, permisos, stop budgets, checkpoints y traza. El ejercicio permanece bloqueado hasta recorrer todos los estados y citar una marca de evidencia.
+`notebook-pipeline-contract` debe comparar sesión contaminada, ejecución limpia
+fallida y pipeline explícito; debe mostrar qué criterios y tests pasan o fallan.
+El ejercicio permanece bloqueado hasta visitar los tres estados y sus marcas.

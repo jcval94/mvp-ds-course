@@ -55,7 +55,7 @@ Decisiones del autor (2026-10-05):
 1. **Acceso real por plan.** Los niveles 3+ dicen "Plan pagado" pero siguen abiertos por URL. Cerrarlos requiere un build premium separado (la frontera `access` de `course.yaml` ya existe) y, más adelante, login.
 2. **Correo de contacto.** `hola@agenticds.com` viene del proyecto de Lovable; confirmar que el dominio es tuyo.
 3. **Imagen del hero.** Hoy es un degradado con malla de puntos; la foto de la plantilla no se usa.
-4. **Niveles 2–13.** Siguen con su tema anterior y acentos verdes. El Nivel 1 ya usa el sistema (ver abajo).
+4. **Niveles 2–14.** Siguen con su tema anterior y acentos verdes. El Nivel 1 ya usa el sistema (ver abajo).
 5. **Inglés.** Continuum es bilingüe; aquí solo hay español porque los laboratorios están en español.
 6. **Capturas aprobadas.** `reference/design/github-pages-*-approved.png` siguen mostrando el portal anterior.
 
@@ -78,5 +78,5 @@ Cierra el criterio de salida de F1: `design/` aplicado al portal y a un nivel.
 ### Siguiente
 
 - Nivel 2: agregar `2` a `levels.json` (mismo shell heredado) y revisar capturas.
-- Niveles 3–13: un segundo tema para `level-shell-v1` (otras clases y gráficas SVG con colores propios).
+- Niveles 3–14: un segundo tema para `level-shell-v1` (otras clases y gráficas SVG con colores propios).
 - `generated/data-class-foundations-level-1/assets/design/level-1-*-approved.png` documentan el aspecto anterior.

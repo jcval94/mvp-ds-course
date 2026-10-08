@@ -4,7 +4,7 @@
 
 Mantener DataClass Forge como fábrica documental, añadir continuidad narrativa
 verificable y publicar automáticamente trece niveles educativos validados dentro
-de una ruta curricular de trece posiciones, sin
+de una ruta curricular de catorce posiciones (Nivel 10 en diseño), sin
 backend ni ejecución de IA desde el navegador.
 
 ## Gates de calidad
@@ -50,7 +50,7 @@ historia independiente `docs/stories/LEVEL_1.md` y templates narrativos.
 - declarar relación padre-hijo, preparatoria de Paco, voz, autoridad técnica,
   secretos, dinámica incremental y reglas de humor;
 - cuantificar tamaño inicial y crecimiento condicionado del puesto;
-- mapear un arco general de trece niveles y cuatro episodios de Nivel 1;
+- mapear un arco general de catorce niveles y cuatro episodios de Nivel 1;
 - escribir primero la historia completa del nivel desde el temario, con 18
   escenas trazables y dos subtítulos del narrador por escena;
 - versionar `pedidos_crudos`, esquema, reporte de calidad y datos preparados;
@@ -202,7 +202,7 @@ viewport móvil.
 
 ## Fase 8: Cierre responsable de la ruta
 
-Niveles 10–12 completan la ruta con análisis responsable, construcción de
+Niveles 11–13 completan la ruta con análisis responsable, construcción de
 producto, readiness, monitoreo, incidentes, handoff y retiro. No
 se construye backend: la operación se practica con snapshots, tableros estáticos,
 runbooks y simulaciones verificables.
@@ -223,7 +223,7 @@ runbooks y simulaciones verificables.
 
 - Fuente: temarios, historias y datasets canónicos ya aprobados.
 - Contrato: 133 `VisualizationSpec`, registro cerrado `educational-svg-v1` y sin fallback.
-- Experiencia: trece niveles publicados bajo `level-shell-v1`; Niveles 1–2 conservan sus renderers y 5/11/12/13 usan el registro educativo cerrado.
+- Experiencia: trece niveles publicados bajo `level-shell-v1`; Niveles 1–2 conservan sus renderers y 5/12/13/14 usan el registro educativo cerrado.
 - Práctica: 266 ejercicios continuos citan series, ventanas, curvas, áreas, nodos, celdas o intervalos.
 - Publicación: generación → validación → build → navegador → `main` → Pages.
 | Narrativa sin evidencia | Ejercicio debe fallar sin visual |

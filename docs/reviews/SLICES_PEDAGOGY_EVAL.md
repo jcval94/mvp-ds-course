@@ -1,4 +1,4 @@
-# Evaluación pedagógica · Slices Niveles 5 y 11
+# Evaluación pedagógica · Slices Niveles 5 y 12
 
 - **Decisión:** Listo para validación supervisada; no listo como nivel completo.
 - **Promedio de checks del manifest:** 4.86.
@@ -9,7 +9,7 @@
 | Dimensión | Puntaje | Evidencia |
 | --- | ---: | --- |
 | Claridad del MVP | 5 | Usuario, entrada, flujo, salida, DoD y no objetivos por slice |
-| Progresión curricular | 5 | Puentes L4→L5→L6 y L10→L11→L12 explícitos |
+| Progresión curricular | 5 | Puentes L4→L5→L6 y L11→L12→L13 explícitos |
 | Exactitud técnica | 5 | Conteos recalculados y 11 tests ejecutados |
 | Diseño conceptual | 5 | Definición, intuición, errores y dominio alineados |
 | Calidad visual | 4 | Renderers y desbloqueos pasan; falta emulación automática de movimiento reducido |
@@ -27,4 +27,4 @@
 | Publicación | 5 | Manifests `validation`; catálogo publicado intacto |
 
 **Promedio completo:** 4.94. Las slices pueden guiar producción posterior; los
-Niveles 5 y 11 siguen incompletos porque faltan 18 y 20 conceptos respectivamente.
+Niveles 5 y 12 siguen incompletos porque faltan 18 y 20 conceptos respectivamente.

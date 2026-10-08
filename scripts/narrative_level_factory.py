@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared deterministic factory for published continuous levels 3–13."""
+"""Shared deterministic factory for published continuous levels 3–9 and 11–14."""
 
 from __future__ import annotations
 
@@ -79,7 +79,7 @@ VISUALIZATION_MATRIX = {
         "effect": "treatment-effect-interval", "guardrails": "guardrail-dashboard",
         "multiple-tests": "multiple-testing-grid", "practical-effect": "practical-significance-threshold",
     },
-    10: {
+    11: {
         "representation": "representation-coverage", "fairness": "fairness-rate-parity",
         "harm": "harm-pathway", "privacy": "privacy-data-minimization",
         "audience": "audience-layer", "uncertainty-communication": "uncertainty-interval-annotation",
@@ -90,7 +90,7 @@ VISUALIZATION_MATRIX = {
         "project-analysis": "project-analysis-flow", "project-evaluation": "project-evaluation-card",
         "project-communication": "project-communication-brief",
     },
-    11: {
+    12: {
         "notebook-to-verifiable-pipeline": "notebook-pipeline-contract", "reproducible-execution": "clean-run-replay",
         "project-structure": "project-boundary-map", "functions-modules": "function-boundary",
         "io-contract": "code-contract-gate", "config-secrets": "config-secret-boundary",
@@ -103,7 +103,7 @@ VISUALIZATION_MATRIX = {
         "service-environments": "artifact-promotion", "startup-logs": "startup-log-flow",
         "versioned-handoff": "operable-handoff-map",
     },
-    12: {
+    13: {
         "model-boundary": "model-harness-boundary",
         "context-window-budget": "context-budget-window",
         "system-boundaries": "system-component-map",
@@ -129,7 +129,7 @@ VISUALIZATION_MATRIX = {
         "multiagent-limits": "multiagent-risk-map",
         "system-blueprint": "system-blueprint-map",
     },
-    13: {
+    14: {
         "operational-readiness": "acceptance-gate", "baseline": "baseline-comparison",
         "rollback": "rollback-decision", "human-approval": "human-approval-loop",
         "data-drift": "data-drift-distribution", "performance-drift": "performance-drift-line",

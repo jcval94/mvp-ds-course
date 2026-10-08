@@ -31,8 +31,8 @@ Este diagnóstico orienta nivelación para DataClass Forge. No es evaluación ac
 - L5: SQL, granularidad, joins, calidad y linaje.
 - L6-L7: modelado supervisado, leakage, métricas, umbrales y generalización.
 - L8-L9: no supervisado, anomalías, tiempo y experimentación.
-- L10: responsabilidad, privacidad, reproducibilidad y comunicación.
-- L11-L13: producto, sistemas de IA trazables, operación, monitoreo e incidentes.
+- L11: responsabilidad, privacidad, reproducibilidad y comunicación.
+- L12-L14: producto, sistemas de IA trazables, operación, monitoreo e incidentes.
 
 ## Salida recomendada
 
@@ -48,6 +48,6 @@ Para cada estudiante entregar:
 
 - Principiante: falla `A01`, `A03` y bases; repasa L1-L3.
 - Descriptivo: falla modelado pero acierta L1-L2; exento L1-L2 y repasa L3-L7.
-- Modelado: acierta L6-L7 pero falla responsabilidad o temporalidad; exento hasta L7 con repaso L9-L10.
-- Producto/IA: acierta L11-L12 y falla L13; exento hasta L12, repasa operación responsable.
-- Avanzado con huecos: acierta L12/L13 pero falla L5 o L7; fortalezas avanzadas, pero exención contigua se detiene antes del hueco.
+- Modelado: acierta L6-L7 pero falla responsabilidad o temporalidad; exento hasta L7 con repaso L9-L11.
+- Producto/IA: acierta L12-L13 y falla L14; exento hasta L13, repasa operación responsable.
+- Avanzado con huecos: acierta L13/L13 pero falla L5 o L7; fortalezas avanzadas, pero exención contigua se detiene antes del hueco.
