@@ -23,9 +23,9 @@
 - [ ] Ninguna característica oculta de personaje aparece como atributo observado o inferido.
 - [ ] Capacidad, asientos, horario, plantilla y rangos de pedidos son coherentes entre niveles.
 - [ ] En Nivel 5 se declaran granularidad, llaves, cardinalidad y conteos antes/después; una suma posterior al JOIN se reconcilia con unidades únicas.
-- [ ] En Nivel 11 cada test se vincula con un criterio; rutas locales y secretos reales quedan fuera del artifact y logs.
-- [ ] Nivel 12 recibe un artifact existente y diseña un sistema de IA trazable sin duplicar construcción, empaquetado, CI/CD o deploy básico.
-- [ ] Nivel 13 recibe un sistema de IA trazable y no duplica diseño de contexto, tools, skills, loops ni harness.
+- [ ] En Nivel 12 cada test se vincula con un criterio; rutas locales y secretos reales quedan fuera del artifact y logs.
+- [ ] Nivel 13 recibe un artifact existente y diseña un sistema de IA trazable sin duplicar construcción, empaquetado, CI/CD o deploy básico.
+- [ ] Nivel 14 recibe un sistema de IA trazable y no duplica diseño de contexto, tools, skills, loops ni harness.
 
 ## Fallar si
 

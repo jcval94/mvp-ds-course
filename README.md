@@ -91,18 +91,19 @@ Consulta [docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md).
 - **Nivel 7 · Evaluación de modelos:** 24 conceptos y 48 ejercicios.
 - **Nivel 8 · Aprendizaje no supervisado:** 10 conceptos y 20 ejercicios.
 - **Nivel 9 · Datos temporales y experimentación:** 14 conceptos y 28 ejercicios.
-- **Nivel 10 · Análisis responsable y reproducible:** 17 conceptos y 34 ejercicios.
-- **Nivel 11 · Ingeniería de Productos de Datos:** 21 conceptos y 42 ejercicios.
-- **Nivel 12 · Ingeniería de Sistemas de IA:** 24 conceptos y 48 ejercicios.
-- **Nivel 13 · Operación y monitoreo responsable:** 16 conceptos y 32 ejercicios.
+- **Nivel 11 · Análisis responsable y reproducible:** 17 conceptos y 34 ejercicios.
+- **Nivel 12 · Ingeniería de Productos de Datos:** 21 conceptos y 42 ejercicios.
+- **Nivel 13 · Ingeniería de Sistemas de IA:** 24 conceptos y 48 ejercicios.
+- **Nivel 14 · Operación y monitoreo responsable:** 16 conceptos y 32 ejercicios.
 - **Total:** 236 conceptos, 454 ejercicios y 708 prompts para Codex, Gemini y ChatGPT.
 
-La ruta oficial contiene 13 niveles, todos con contenido completo, validado y
-publicado. Los nuevos Niveles 5 y 11 ocupan sus posiciones curriculares
-canónicas; el nuevo Nivel 12 inserta sistemas de IA trazables entre producto
+La ruta oficial contiene 14 niveles: 13 con contenido completo, validado y
+publicado, y el Nivel 10 · Causalidad y métricas de decisión con temario canónico
+en diseño. Los Niveles 5 y 12 ocupan sus posiciones curriculares
+canónicas; el nuevo Nivel 13 inserta sistemas de IA trazables entre producto
 operable y operación responsable.
 
-Los trece niveles conservan la continuidad aprobada de Don Juan y
+Los trece niveles publicados conservan la continuidad aprobada de Don Juan y
 Paco. Aprender y Ejercitar usan pedidos ficticios versionados del puesto; En
 vivo conserva snapshots públicos reales con procedencia, licencia y SHA-256.
 

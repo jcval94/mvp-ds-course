@@ -186,7 +186,7 @@ El harness recomienda uso o desarrollo solo cuando:
 
 Casos obligatorios adicionales:
 
-- Niveles 5 y 11: comprobar temario completo, historia aprobada y exactamente un
+- Niveles 5 y 12: comprobar temario completo, historia aprobada y exactamente un
   paquete publicado por nivel; exigir 19/21 conceptos, 38/42 ejercicios, 57/63 prompts,
   renderer específico, dataset validado y contribución exacta a los totales publicados.
 - Nivel 7: comprobar 48/16/32, cuatro folds restringidos a desarrollo, test
@@ -196,9 +196,9 @@ Casos obligatorios adicionales:
 - Nivel 9: comprobar 100 fechas ordenadas, 40/60 noches por fase, cortes anteriores
   al horizonte y 400 asignaciones A/B balanceadas con métrica, tamaño, efecto,
   guardrails, multiplicidad y mínimo práctico congelados.
-- Nivel 10: comprobar 48 celdas agregadas, mínimo 25 elegibles, cero identificadores
+- Nivel 11: comprobar 48 celdas agregadas, mínimo 25 elegibles, cero identificadores
   o texto libre, denominadores válidos y revelaciones voluntarias ausentes del CSV.
-- Nivel 12: comprobar 24 componentes de arquitectura y 12 trazas, stop reasons, permisos de escritura y ausencia de IA real.
-- Nivel 13: comprobar 48 snapshots de referencia y 48 de monitoreo, siete etiquetas
+- Nivel 13: comprobar 24 componentes de arquitectura y 12 trazas, stop reasons, permisos de escritura y ausencia de IA real.
+- Nivel 14: comprobar 48 snapshots de referencia y 48 de monitoreo, siete etiquetas
   retrasadas sin imputar, persistencia de tres cortes, revisión humana, rollback
   verificado, ocho incidentes sin culpa individual y crecimiento `G7-local → G7-local`.

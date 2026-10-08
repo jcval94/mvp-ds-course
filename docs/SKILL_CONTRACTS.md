@@ -240,14 +240,14 @@ el denominador o el costo de FP/FN. Para Nivel 8, rechaza cualquier representaci
 que etiquete personas, convierta clusters en verdad o anomalías en veredictos.
 Para Nivel 9, rechaza cualquier visual que permita al futuro cruzar el corte o
 que mezcle evidencia observacional y experimental sin distinguir su alcance causal.
-Para Nivel 10, rechaza visuales que oculten denominadores, grupos ausentes, propósito
-de datos o límites de una afirmación. Para Nivel 12, rechaza visuales que conviertan
-chat en evidencia principal o que oculten harness, permisos, loop y parada. Para Nivel 13, rechaza tableros que conviertan
+Para Nivel 11, rechaza visuales que oculten denominadores, grupos ausentes, propósito
+de datos o límites de una afirmación. Para Nivel 13, rechaza visuales que conviertan
+chat en evidencia principal o que oculten harness, permisos, loop y parada. Para Nivel 14, rechaza tableros que conviertan
 drift en veredicto, alertas en decisiones automáticas o rollback en una flecha sin verificación.
 
 Para Nivel 5, los 19 `kind` están registrados y hacen visibles tablas,
 cardinalidad, pares, granularidad, filas, unidades, sumas y procedencia. Para
-Nivel 11, los 21 `kind` tienen renderer y prueba; muestran estado oculto,
+Nivel 12, los 21 `kind` tienen renderer y prueba; muestran estado oculto,
 fronteras, contratos, diffs, tests, artifacts y handoff sin usar fallback.
 
 ## `level-experience-consistency-reviewer`

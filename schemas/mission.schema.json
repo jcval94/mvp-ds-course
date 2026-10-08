@@ -41,7 +41,7 @@
       "additionalProperties": false,
       "required": ["number"],
       "properties": {
-        "number": { "type": "integer", "minimum": 1, "maximum": 13 }
+        "number": { "type": "integer", "minimum": 1, "maximum": 14 }
       }
     },
     "kit": {

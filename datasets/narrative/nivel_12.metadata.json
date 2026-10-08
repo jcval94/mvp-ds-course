@@ -1,71 +1,36 @@
 {
-  "id": "sistema-ia-trazable-nivel-12",
+  "id": "producto-operable-nivel-12-v1",
   "synthetic": true,
-  "generator": "level12-ai-systems-v1",
-  "seed": 20280218,
+  "generator": "level12-full-v1",
   "period": {
-    "start": "2028-01-22",
-    "end": "2028-02-18",
-    "snapshots": 24
+    "start": "2028-01-18",
+    "end": "2028-01-21"
   },
-  "dimensions": {
-    "components": [
-      24,
-      7
-    ],
-    "traces": [
-      12,
-      8
-    ]
-  },
-  "source_policy": {
-    "mcp_reference": "Model Context Protocol documentation and tools specification 2025-06-18",
-    "provider_neutral": true,
-    "real_ai_calls": false
-  },
-  "control_policy": {
-    "human_approval_required_for_write": true,
-    "stop_reasons": [
-      "complete",
-      "max_retries",
-      "approval_needed",
-      "human_review",
-      "insufficient_evidence"
-    ],
-    "automatic_decision": false
-  },
+  "dimensions": [
+    21,
+    7
+  ],
+  "unit": "un criterio verificable del producto",
+  "artifact": "examples/level12_pipeline_slice",
   "privacy": {
     "personal_identifiers": false,
-    "unit": "componente de arquitectura o evento de traza educativo",
-    "persistent_memory_requires_purpose": true
+    "real_secrets": false
   },
   "growth": {
     "from": "G7-local",
-    "to": "G7-local",
-    "constraint": "sin backend, proveedor ni expansión"
+    "to": "G7-local"
   },
   "data_state": [
-    "producto_operable@L11.H1",
-    "arquitectura_sistema_ia@L12.1",
-    "conocimiento_contextual@L12.2",
-    "capacidades_procedimentales@L12.3",
-    "loop_verificable@L12.4",
-    "harness_recuperable@L12.5",
-    "sistema_ia_trazable@L12.H1"
+    "L11.4",
+    "producto_operable@L12.H1"
   ],
-  "label": "Datasets sintéticos de arquitectura y trazas; no representan personas, secretos ni un servicio productivo",
+  "label": "Fixture sintética de aceptación; no contiene secretos ni despliegues reales",
   "files": [
     {
-      "path": "datasets/narrative/componentes_sistema_ia_nivel_12.csv",
-      "rows": 24,
+      "path": "datasets/narrative/controles_producto_nivel_12.csv",
+      "rows": 21,
       "columns": 7,
-      "sha256": "0a6ca6d705141ae34adfa5d5918a6726f63b0729f74287e19a5df5581e92268f"
-    },
-    {
-      "path": "datasets/narrative/trazas_sistema_ia_nivel_12.csv",
-      "rows": 12,
-      "columns": 8,
-      "sha256": "e9a6e6859fd085a0f394526aa7c158f611f4583cec0f72b5d2f0c2b08b8034cd"
+      "sha256": "d1873afadf0afa694b795f82afcb99073583be8564d6f458012fec73b8baac34"
     }
   ]
 }

@@ -10,10 +10,11 @@ temario predeterminado -> historia independiente -> nivel educativo -> validaci�
 La historia no se improvisa dentro del HTML. Se escribe, revisa y aprueba antes
 de convertirla en módulos, ejercicios o interfaces.
 
-La ruta actual tiene trece posiciones curriculares, todas con temario canónico,
-historia aprobada y nivel educativo publicado. Nivel 5 produce el dataset
-confiable antes del modelado; Nivel 11 produce el producto operable antes de
-ingeniería de sistemas de IA, operación y monitoreo. Los trece manifests deben pasar el mismo gate.
+La ruta actual tiene catorce posiciones curriculares, todas con temario canónico.
+Trece tienen historia aprobada y nivel educativo publicado; el Nivel 10
+(Causalidad y métricas de decisión) está en diseño y aún no pasa la puerta narrativa. Nivel 5 produce el dataset
+confiable antes del modelado; Nivel 12 produce el producto operable antes de
+ingeniería de sistemas de IA, operación y monitoreo. Los trece manifests publicados deben pasar el mismo gate, y el del Nivel 10 también cuando exista.
 
 ## Fuentes de verdad
 

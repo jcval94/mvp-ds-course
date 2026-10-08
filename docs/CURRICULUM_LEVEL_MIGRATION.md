@@ -1,5 +1,22 @@
 # Reporte histórico de migración curricular previa
 
+> **Migración de octubre de 2026 (14 niveles).** Se insertó el Nivel 10 ·
+> Causalidad y métricas de decisión (temario canónico, en diseño) y los niveles
+> 10–13 pasaron a 11–14 sin cambiar contenido: rutas `generated/…-level-N`,
+> `labs/level-N`, scripts, datasets narrativos (con sus SHA-256), historias,
+> arcos, identificadores `L<N>`, banco del diagnóstico y capturas. Este reporte
+> conserva la numeración de su momento; el estado vigente está en
+> `docs/CURRICULUM_MAP.md` y el mapa de misiones en `docs/CASE_MISSION_MAP.md`.
+>
+> | Antes | Después |
+> | --- | --- |
+> | 1–9 | 1–9 (sin cambio) |
+> | — | 10 · Causalidad y métricas de decisión (nuevo, en diseño) |
+> | 10 · Análisis responsable y reproducible | 11 |
+> | 11 · Ingeniería de Productos de Datos | 12 |
+> | 12 · Ingeniería de Sistemas de IA | 13 |
+> | 13 · Operación y monitoreo responsable | 14 |
+
 > Nota de continuidad: este reporte queda como antecedente histórico. La ruta
 > vigente publicada tiene 13 niveles después de insertar Nivel 12 · Ingeniería
 > de Sistemas de IA y preservar la operación como Nivel 13.

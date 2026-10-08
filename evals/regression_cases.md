@@ -1,6 +1,6 @@
 # Regression Cases
 
-## Casos bloqueantes de Niveles 3–13
+## Casos bloqueantes de Niveles 3–9 y 11–14
 
 - Debe fallar si Nivel 3 conserva el denominador general después de condicionar, interpreta un intervalo como probabilidad del parámetro o un p-value como probabilidad del nulo.
 - Debe fallar si Nivel 4 llama causa a una correlación, pierde la reversión agregada al regenerar u oculta denominadores en riesgo relativo u odds.
@@ -11,13 +11,13 @@
 - Debe fallar si Nivel 7 usa test para elegir umbral o regularización, mezcla test en cross-validation, intercambia denominadores o desconecta FP/FN de sus costos.
 - Debe fallar si Nivel 8 presenta clusters como tipos reales, llama fraude a una anomalía, borra casos antes de revisión o excede dos servicios semanales.
 - Debe fallar si Nivel 9 desordena fechas, usa futuro en ventanas o backtesting, interpreta antes/después como causal, cambia métrica o tamaño tras mirar resultados, o despliega pese a incumplir guardrails.
-- Debe fallar si Nivel 10 infiere el secreto de Rogelio o Chava, incluye registros personales, usa celdas menores a 25, oculta denominadores o presenta una métrica de fairness como justicia total.
-- Debe fallar si Nivel 11 acepta código sin contrato, criterios de aceptación,
-  revisión de diff y tests; o si adelanta sistemas de IA trazables de Nivel 12.
-- Debe fallar si Nivel 12 ejecuta IA real, llama agente a cualquier chatbot, confunde tool con skill, no define permisos o stop budgets, no reconstruye traza o adelanta monitoreo operativo.
-- Debe fallar si Nivel 13 vuelve a enseñar construcción de API, Docker, CI/CD, deploy o harness; confunde data drift con fallo, inventa etiquetas retrasadas, alerta por una variación aislada, automatiza una sanción, revierte sin comprobar, culpa a una persona o impide retirar el procedimiento.
+- Debe fallar si Nivel 11 infiere el secreto de Rogelio o Chava, incluye registros personales, usa celdas menores a 25, oculta denominadores o presenta una métrica de fairness como justicia total.
+- Debe fallar si Nivel 12 acepta código sin contrato, criterios de aceptación,
+  revisión de diff y tests; o si adelanta sistemas de IA trazables de Nivel 13.
+- Debe fallar si Nivel 13 ejecuta IA real, llama agente a cualquier chatbot, confunde tool con skill, no define permisos o stop budgets, no reconstruye traza o adelanta monitoreo operativo.
+- Debe fallar si Nivel 14 vuelve a enseñar construcción de API, Docker, CI/CD, deploy o harness; confunde data drift con fallo, inventa etiquetas retrasadas, alerta por una variación aislada, automatiza una sanción, revierte sin comprobar, culpa a una persona o impide retirar el procedimiento.
 - Debe fallar si Mari o Chava introducen ciencia de datos, trabajan sin pago o aparecen identificados en CSV.
-- Debe fallar si Paco revela la beca antes de Nivel 6, si la meta de Mari aparece antes de `L8-S04` o se infiere desde datos, o si el secreto de Chava aparece antes de Nivel 10.
+- Debe fallar si Paco revela la beca antes de Nivel 6, si la meta de Mari aparece antes de `L8-S04` o se infiere desde datos, o si el secreto de Chava aparece antes de Nivel 11.
 
 ## Caso 1: Histograma
 
@@ -263,14 +263,14 @@ concepto o se incrementan los totales antes de completar el DoD.
 
 **Solicitud:** pasar del análisis responsable a operación.
 
-**Debe producir:** Nivel 11 antes de Nivel 12 y Nivel 12 antes de Nivel 13, con
+**Debe producir:** Nivel 12 antes de Nivel 13 y Nivel 13 antes de Nivel 14, con
 contrato, criterios de aceptación, diff revisado, tests, blueprint trazable,
-loop, permisos y traza; `producto_operable@L11.H1` y
-`sistema_ia_trazable@L12.H1` quedan materializados solo después de aprobar sus
+loop, permisos y traza; `producto_operable@L12.H1` y
+`sistema_ia_trazable@L13.H1` quedan materializados solo después de aprobar sus
 historias.
 
-**Debe fallar si:** salta directamente de `L10.4` a monitoreo, de
-`producto_operable@L11.H1` a readiness, o trata una salida de código generada
+**Debe fallar si:** salta directamente de `L11.4` a monitoreo, de
+`producto_operable@L12.H1` a readiness, o trata una salida de código generada
 como producto operable o sistema trazable sin verificación.
 
 ## Caso 27: JOIN válido con suma inflada
@@ -289,20 +289,20 @@ caso de fallo y decisión humana de aceptar o rechazar.
 **Debe fallar si:** cuenta tests, confunde verde con contrato completo, introduce
 secreto/ruta local o amplía alcance sin autorización.
 
-## Caso 29: Nivel 12 vuelve a construir el producto o a operar
+## Caso 29: Nivel 13 vuelve a construir el producto o a operar
 
-**Debe producir:** un `producto_operable@L11.H1` como entrada y trabajar solo
+**Debe producir:** un `producto_operable@L12.H1` como entrada y trabajar solo
 arquitectura de sistema de IA, contexto, conocimiento, tools, skills, loops,
 harness, permisos, checkpoints, trazas y blueprint.
 
-**Debe fallar si:** Nivel 12 enseña creación de API, Docker, estructura de repo,
+**Debe fallar si:** Nivel 13 enseña creación de API, Docker, estructura de repo,
 CI/CD inicial, deploy básico, tests de construcción, readiness, drift,
 incidentes, runbook operativo o retiro.
 
-## Caso 30: Nivel 13 reconstruye el sistema de IA
+## Caso 30: Nivel 14 reconstruye el sistema de IA
 
-**Debe producir:** `sistema_ia_trazable@L12.H1` como entrada y trabajar readiness,
+**Debe producir:** `sistema_ia_trazable@L13.H1` como entrada y trabajar readiness,
 baseline, monitoreo, incidentes, rollback, auditoría y retiro.
 
-**Debe fallar si:** Nivel 13 rediseña context assembly, tool contracts, skills,
+**Debe fallar si:** Nivel 14 rediseña context assembly, tool contracts, skills,
 agent loop, MCP, multiagente o harness en lugar de operar el sistema ya trazable.

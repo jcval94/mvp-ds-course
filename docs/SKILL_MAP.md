@@ -77,11 +77,11 @@ Aprender  Ejercitar  Enseñar en vivo
   activa revisión humana de segmentos y anomalías además de continuidad narrativa.
 - Nivel 9 activa auditoría de orden temporal, disponibilidad, asignación aleatoria,
   preregistro de métricas, guardrails y multiplicidad.
-- Nivel 10 activa auditoría de representación, daño, privacidad, comunicación y reproducibilidad.
-- Nivel 11 activa especificaciones para agentes de código, criterios de
+- Nivel 11 activa auditoría de representación, daño, privacidad, comunicación y reproducibilidad.
+- Nivel 12 activa especificaciones para agentes de código, criterios de
   aceptación, revisión de diffs, ejecución de tests y rechazo por incumplimiento.
-- Nivel 12 diseña sistemas de IA trazables con contexto, tools, skills, loops, harness, permisos, checkpoints y traza.
-- Nivel 13 activa gates, monitoreo con etiquetas retrasadas, respuesta a incidentes, handoff y retiro; toda alerta conserva revisión humana.
+- Nivel 13 diseña sistemas de IA trazables con contexto, tools, skills, loops, harness, permisos, checkpoints y traza.
+- Nivel 14 activa gates, monitoreo con etiquetas retrasadas, respuesta a incidentes, handoff y retiro; toda alerta conserva revisión humana.
 
 ## Señales de skill débil
 

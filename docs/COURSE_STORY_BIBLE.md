@@ -50,7 +50,7 @@
   `algoritmo`, `leakage`, `métrica`, `significancia` ni otros términos formales.
 - Puede concluir “con esto no compro todavía más carne”; no puede concluir “la
   muestra no es representativa”. Esa segunda frase corresponde al narrador.
-- Su conocimiento permanece exclusivamente en el negocio durante los trece niveles.
+- Su conocimiento permanece exclusivamente en el negocio durante los catorce niveles.
 
 ### Paco
 
@@ -72,7 +72,7 @@
 
 ## Matriz incremental de dinámica y relaciones
 
-| Relación | Nivel 1 | Niveles 2–3 | Niveles 4–7 | Niveles 8–12 | Invariante |
+| Relación | Nivel 1 | Niveles 2–3 | Niveles 4–7 | Niveles 8–13 | Invariante |
 | --- | --- | --- | --- | --- | --- |
 | Don Juan ↔ Paco | Don Juan asigna tareas concretas; Paco quiere demostrar que la escuela sirve | Don Juan empieza a pedir evidencia antes de cambiar compras; Paco aprende a declarar incertidumbre | Negocian recomendaciones y costos de error; Don Juan conserva la decisión final | Trabajan como socios familiares con roles distintos; Paco documenta y Don Juan protege la identidad del negocio | Son padre e hijo antes que “cliente” y “analista”; pueden discrepar sin ridiculizarse |
 | Don Juan ↔ Lupita | Coordinan horario de Paco y presupuesto sin asumir que ella trabajará en el puesto | Lupita cuestiona qué cambio añade trabajo y quién lo hará | Deciden juntos si la lata de ahorro puede financiar equipo sin comprometer la casa | Protegen límites entre negocio, familia y proyectos propios | Son adultos corresponsables; Lupita no traduce ni suaviza automáticamente a Don Juan |
@@ -197,7 +197,7 @@
 - **ID:** `chava-rios`.
 - **Rol:** ayudante pagado de segundo comal, servicio y checklists desde Nivel 6.
 - **Motivación visible:** reducir omisiones en el servicio y dejar el relevo claro.
-- **Característica oculta:** toma un taller de radio; no se revela antes de Nivel 10.
+- **Característica oculta:** toma un taller de radio; no se revela antes de Nivel 11.
 - **Voz:** ágil, cordial y aficionada a repetir instrucciones como lista de cabina.
 - **Autoridad:** flujo de servicio, segundo comal y comprobaciones operativas.
 - **Límite:** no evalúa modelos, no decide compras y no aparece identificado en los CSV.
@@ -247,12 +247,13 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 | 7 | Capacidad física congelada | Mismo equipo | 55–75 pedidos/noche | No crece: evalúa errores, merma y faltantes antes de otra inversión |
 | 8 | Piloto de servicio para reuniones, máximo 2 por semana | Se asigna un ayudante al servicio; Paco documenta | 60–85 pedidos/noche + pedidos programados | Segmentos y anomalías se revisan como hipótesis humanas |
 | 9 | Abre cinco noches, 16 asientos y canal de prepedido con cupo | Don Juan + 3 ayudantes pagados + Paco asesor parcial | 70–95 pedidos/noche | Horario y canal se prueban con experimento, guardrails y capacidad |
-| 10 | Un solo local de barrio de 5 × 4 m, 18 asientos; no es cadena | Don Juan + 4 personas pagadas; Paco documenta mientras continúa estudios | 90–120 pedidos/noche con tope declarado | Consolida privacidad, manual operativo y transferencia; no abre sucursal en el curso |
-| 11 | Conserva el mismo local; Ingeniería de Productos de Datos | Mismo equipo; Paco sigue como estudiante | Mismo rango y topes | No crece; prepara un producto operable sin adelantar monitoreo |
-| 12 | Conserva el mismo local; Ingeniería de Sistemas de IA | Mismo equipo; Paco diseña un blueprint mientras sigue como estudiante | Mismo rango y topes | No crece: diseña contexto, tools, skills, loops, harness y trazas sin ejecutar IA real |
-| 13 | Conserva el mismo local, 18 asientos y cupos | Mismo equipo; responsabilidades y escalamiento explícitos | Mismo rango con límites monitoreados | No crece: practica gates, rollback, incidentes y retiro responsable |
+| 10 | Sin cambio físico: cinco noches, 16 asientos y prepedido con cupo (en diseño) | Igual que Nivel 9 | 70–95 pedidos/noche | No crece: antes de mudarse al local, mide si los cambios del Nivel 9 causaron la mejora y qué incentivos crean sus métricas |
+| 11 | Un solo local de barrio de 5 × 4 m, 18 asientos; no es cadena | Don Juan + 4 personas pagadas; Paco documenta mientras continúa estudios | 90–120 pedidos/noche con tope declarado | Consolida privacidad, manual operativo y transferencia; no abre sucursal en el curso |
+| 12 | Conserva el mismo local; Ingeniería de Productos de Datos | Mismo equipo; Paco sigue como estudiante | Mismo rango y topes | No crece; prepara un producto operable sin adelantar monitoreo |
+| 13 | Conserva el mismo local; Ingeniería de Sistemas de IA | Mismo equipo; Paco diseña un blueprint mientras sigue como estudiante | Mismo rango y topes | No crece: diseña contexto, tools, skills, loops, harness y trazas sin ejecutar IA real |
+| 14 | Conserva el mismo local, 18 asientos y cupos | Mismo equipo; responsabilidades y escalamiento explícitos | Mismo rango con límites monitoreados | No crece: practica gates, rollback, incidentes y retiro responsable |
 
-## Arco general de trece niveles
+## Arco general de catorce niveles
 
 | Nivel | Cambio narrativo | Resultado de datos | Competencia auxiliar de agentes | Puente |
 | --- | --- | --- | --- | --- |
@@ -265,10 +266,11 @@ evidencia acumulada. Ningún modelo o agente provoca expansión automática.
 | 7 | Los errores significan merma o clientes sin producto | Evaluar modelos según costo | Evals y casos de prueba | “¿Hay patrones que no etiquetamos?” |
 | 8 | Aparecen servicios, segmentos y pedidos inusuales | Explorar grupos y anomalías como hipótesis | Revisión humana de salidas | “¿Cómo cambia esto con el tiempo?” |
 | 9 | El puesto prueba horario y prepedido | Analizar tiempo y experimentos | Versionado temporal y planes reproducibles | “¿Quién podría resultar afectado?” |
-| 10 | Paco entrega un sistema revisable mientras sigue estudiando | Comunicar, auditar y reproducir | Procedencia, privacidad y transferencia de skills | “¿Cómo lo convertimos en un producto entregable?” |
-| 11 | La demo solo funciona en la sesión de Paco | Convertir análisis y modelos en un producto de datos | Especificación, revisión de diffs y ejecución de tests | `producto_operable@L11.H1`; pregunta cómo convertirlo en sistema trazable |
-| 12 | Paco descubre que el modelo no es todo el sistema | Diseñar un sistema de IA con contexto, tools, skills, loops, harness y traza | Sistemas de IA trazables, permisos, estado, memoria y criterios de parada | `sistema_ia_trazable@L12.H1`; pregunta si puede operarse sin depender de Paco |
-| 13 | El equipo practica monitoreo, rollback y retiro | Operar un procedimiento auditable y reversible | Gates, alertas, runbook y retiro | Cierre responsable sin convertir el negocio en cadena |
+| 10 | Don Juan duda si el prepedido trajo clientes o solo coincidió con la temporada (en diseño) | Elegir métricas de decisión y estimar efectos sin experimento | Métricas con contrato, incentivos visibles y supuestos causales declarados | “¿Cómo lo explicamos sin prometer de más?” |
+| 11 | Paco entrega un sistema revisable mientras sigue estudiando | Comunicar, auditar y reproducir | Procedencia, privacidad y transferencia de skills | “¿Cómo lo convertimos en un producto entregable?” |
+| 12 | La demo solo funciona en la sesión de Paco | Convertir análisis y modelos en un producto de datos | Especificación, revisión de diffs y ejecución de tests | `producto_operable@L12.H1`; pregunta cómo convertirlo en sistema trazable |
+| 13 | Paco descubre que el modelo no es todo el sistema | Diseñar un sistema de IA con contexto, tools, skills, loops, harness y traza | Sistemas de IA trazables, permisos, estado, memoria y criterios de parada | `sistema_ia_trazable@L13.H1`; pregunta si puede operarse sin depender de Paco |
+| 14 | El equipo practica monitoreo, rollback y retiro | Operar un procedimiento auditable y reversible | Gates, alertas, runbook y retiro | Cierre responsable sin convertir el negocio en cadena |
 
 ## Reglas de humor y secretos
 

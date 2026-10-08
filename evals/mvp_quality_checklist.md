@@ -11,7 +11,7 @@
 
 - [ ] La funcionalidad principal es transformar un concepto en material educativo.
 - [ ] Aprender, Ejercitar y Enseñar en vivo están definidos y separados por contenido.
-- [ ] La cobertura publicada contiene exactamente trece niveles; Niveles 5, 11, 12 y 13 aparecen una sola vez y sus cifras derivan de manifests aprobados.
+- [ ] La cobertura publicada contiene exactamente trece niveles; Niveles 5, 12, 13 y 14 aparecen y el Nivel 10, en diseño, no una sola vez y sus cifras derivan de manifests aprobados.
 - [ ] LMS, cuentas, seguimiento e integraciones están fuera.
 - [ ] No se construye app antes de validar documentos.
 

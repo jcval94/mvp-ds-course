@@ -55,7 +55,7 @@ Produce un paquete docente oculto por defecto en la UI estudiantil, con guion, s
 ### `CourseStoryBible`
 
 - Premisa, audiencia, tono, mundo y reglas de humor.
-- Arco general de trece niveles, con historias, handoffs y contenido completo aprobados.
+- Arco general de catorce niveles, con historias, handoffs y contenido completo aprobados.
 - Reglas de autoridad narrativa y límites del contexto.
 - Referencias a las `CharacterCard` canónicas.
 - Matriz incremental de relaciones y crecimiento cuantificado del negocio.
@@ -220,7 +220,7 @@ Los diez conceptos del prototipo existente se mantienen dentro de una progresió
 
 **Usuario:** profesor de introducción a ciencia de datos.
 
-**Entrada:** uno de 236 conceptos publicados en Niveles 1–13, contexto aplicado y
+**Entrada:** uno de 236 conceptos publicados en Niveles 1–9 y 11–14, contexto aplicado y
 duración de 30 a 90 minutos.
 
 **Cobertura:**
@@ -234,10 +234,10 @@ duración de 30 a 90 minutos.
 7. Nivel 7 · Evaluación de modelos: 24 conceptos, 48 ejercicios y 72 prompts.
 8. Nivel 8 · Aprendizaje no supervisado: 10 conceptos, 20 ejercicios y 30 prompts.
 9. Nivel 9 · Datos temporales y experimentación: 14 conceptos, 28 ejercicios y 42 prompts.
-10. Nivel 10 · Análisis responsable y reproducible: 17 conceptos, 34 ejercicios y 51 prompts.
-11. Nivel 11 · Ingeniería de Productos de Datos: 21 conceptos, 42 ejercicios y 63 prompts.
-12. Nivel 12 · Ingeniería de Sistemas de IA: 24 conceptos, 48 ejercicios y 72 prompts.
-13. Nivel 13 · Operación y monitoreo responsable: 16 conceptos, 32 ejercicios y 48 prompts.
+10. Nivel 11 · Análisis responsable y reproducible: 17 conceptos, 34 ejercicios y 51 prompts.
+11. Nivel 12 · Ingeniería de Productos de Datos: 21 conceptos, 42 ejercicios y 63 prompts.
+12. Nivel 13 · Ingeniería de Sistemas de IA: 24 conceptos, 48 ejercicios y 72 prompts.
+13. Nivel 14 · Operación y monitoreo responsable: 16 conceptos, 32 ejercicios y 48 prompts.
 
 **Flujo principal:**
 
@@ -279,7 +279,7 @@ ejercicios usando la evidencia, copia prompts y verifica el plan offline.
 
 - LMS, autenticación, persistencia o backend.
 - Integración con APIs de IA desde los HTML.
-- Publicar contenido que no haya pasado historia, renderer, evidencia, tests y manifest completo; Niveles 5 y 11 ya cumplen esos gates.
+- Publicar contenido que no haya pasado historia, renderer, evidencia, tests y manifest completo; Niveles 5 y 12 ya cumplen esos gates; el Nivel 10 todavía no.
 - Evaluación formal o seguimiento del estudiante.
 
 ## Funcionalidades post-MVP

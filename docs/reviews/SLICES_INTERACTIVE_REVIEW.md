@@ -1,9 +1,9 @@
-# Revisión interactiva · Slices Niveles 5 y 11
+# Revisión interactiva · Slices Niveles 5 y 12
 
 - **Entorno:** navegador integrado, escritorio y 390 × 844.
 - **Decisión:** pasa con limitación menor en emulación de movimiento reducido.
 
-| Control | Nivel 5 | Nivel 11 |
+| Control | Nivel 5 | Nivel 12 |
 | --- | --- | --- |
 | `level-shell-v1` | Sí | Sí |
 | Renderer | `join-row-explosion` | `notebook-pipeline-contract` |

@@ -1,59 +1,112 @@
 #!/usr/bin/env python3
-"""Generate the complete published Level 11 curriculum."""
+"""Generate Level 11: responsible analysis, communication and reproducibility."""
 
-from full_level_support import concept_lesson
+from __future__ import annotations
+
+from datetime import date, timedelta
+import random
+
+from advanced_level_support import lesson
 from narrative_level_factory import generate
 
 
-SPECS = [
-    ("notebook-to-verifiable-pipeline","Notebook frente a producción","notebook-pipeline-contract","caso, dependencia, comando, resultado","dependencias ocultas que se vuelven fronteras y criterios verificables"),
-    ("reproducible-execution","Ejecución reproducible","clean-run-replay","entorno, entrada, comando, salida","repetición desde cero con el mismo contrato"),
-    ("project-structure","Estructura y responsabilidades","project-boundary-map","componente, responsabilidad, entrada, salida","celdas mezcladas que se separan en fronteras comprobables"),
-    ("functions-modules","Funciones y módulos","function-boundary","input, funcion, output, efecto","función pura frente a dependencia de estado global"),
-    ("io-contract","Contrato de entrada y salida","code-contract-gate","campo, tipo, invariante, error","entradas válidas e inválidas atravesando un schema"),
-    ("config-secrets","Configuración y secretos","config-secret-boundary","valor, origen, entorno, exposicion","configuración inyectada y secretos fuera del código y logs"),
-    ("unit-integration-tests","Unit e integration tests","test-scope-map","test, componente, frontera, resultado","alcance aislado y fronteras reales por tipo de test"),
-    ("regression-failure-tests","Regression, golden y failure cases","regression-case-matrix","caso, esperado, actual, resultado","matriz de comportamiento esperado, regresiones y fallos"),
-    ("fixtures-schema-tests","Fixtures y tests de schema","fixture-schema-coverage","fixture, campo, borde, cobertura","fixture mínima que cubre schema, nulos y bordes"),
-    ("request-response","Request y response","api-contract-flow","request, validacion, proceso, response","flujo de request validado hasta response"),
-    ("errors-versioning","Errores y versionado","api-error-version-map","version, status, causa, response","rutas separadas 2xx, 4xx, 5xx y versiones"),
-    ("fastapi-health","FastAPI y health check","service-health-check","proceso, dependencia, health, status","gate de salud basado en proceso y dependencias mínimas"),
-    ("dependencies-lockfile","Dependencias y lockfile","dependency-lock-graph","paquete, version, lock, hash","resolución flotante que se fija y reconstruye"),
-    ("image-container","Imagen y contenedor","container-lifecycle","dockerfile, image, container, estado","ciclo Dockerfile, imagen y ejecución de contenedor"),
-    ("runtime-artifact","Runtime y artefacto","runtime-artifact-map","archivo, runtime, config, artifact","capas que separan build, configuración y ejecución"),
-    ("ci-pipeline","Pipeline CI","ci-job-flow","commit, job, check, evidencia","commit que activa jobs reproducibles y deja evidencia"),
-    ("ci-acceptance","Test/build gate y secrets","ci-acceptance-gate","diff, criterio, test, artifact","fallo que detiene el artifact y expone alcance del diff"),
-    ("ci-cd","CI frente a CD","ci-cd-boundary","artifact, gate, autorizacion, deploy","artifact verificado que espera autorización de entrega"),
-    ("service-environments","Servicio y configuración por entorno","artifact-promotion","artifact, entorno, config, version","promoción del mismo artifact entre entornos"),
-    ("startup-logs","Logs y fallos de arranque","startup-log-flow","evento, request_id, version, error","timeline de arranque, eventos estructurados y fallo visible"),
-    ("versioned-handoff","Handoff versionado","operable-handoff-map","contrato, artifact, health, logs","paquete con contrato, artifact, health, logs y versión segura"),
-]
+SEED = 20270923
 
-BLOCKS = [
-    ("notebook-project","Del notebook al proyecto","Estado oculto, reproducibilidad y fronteras.","notebook-proyecto.html",0,3),
-    ("code-contracts","Código modular y contratos","Funciones, contratos, configuración y secretos.","codigo-contratos.html",3,6),
-    ("testing","Testing para datos y ML","Tests, regresiones y fixtures.","testing.html",6,9),
-    ("service-contracts","APIs y contratos de servicio","Request, errores, versiones y salud.","apis-servicio.html",9,12),
-    ("packaging","Empaquetado y entornos","Dependencias, imágenes y runtime.","empaquetado.html",12,15),
-    ("continuous-delivery","Integración y entrega continua","CI, gates y límite con CD.","integracion-entrega.html",15,18),
-    ("minimal-operations","Despliegue y operabilidad mínima","Promoción, logs y handoff.","operabilidad-minima.html",18,21),
-]
+
+def audit_dataset() -> list[dict[str, object]]:
+    """Aggregate, consented audit cells; never individual people or inferred traits."""
+    rng = random.Random(SEED)
+    groups = [
+        ("canal_digital", "digital"),
+        ("mostrador", "presencial"),
+        ("apoyo_accesible_solicitado", "mixto"),
+        ("sin_apoyo_reportado", "mixto"),
+    ]
+    rows: list[dict[str, object]] = []
+    start = date(2027, 11, 1)
+    for week in range(12):
+        for group_index, (group, channel) in enumerate(groups):
+            eligible = 28 + group_index * 4 + rng.randint(0, 8)
+            offer_rate = [0.90, 0.69, 0.61, 0.84][group_index] + week * 0.006
+            offered = min(eligible, round(eligible * offer_rate))
+            completed = max(0, offered - rng.randint(1, 4))
+            wait = round([7.1, 10.8, 12.4, 8.0][group_index] - week * 0.06 + rng.uniform(-0.7, 0.7), 1)
+            complaints = max(0, round((eligible - completed) * 0.18 + rng.uniform(-0.5, 0.8)))
+            rows.append({
+                "periodo_semana": (start + timedelta(days=7 * week)).isoformat(),
+                "grupo_auditoria_agregado": group,
+                "canal": channel,
+                "elegibles": eligible,
+                "ofrecidos": offered,
+                "completados": completed,
+                "espera_mediana_min": wait,
+                "quejas_agregadas": complaints,
+                "retencion_dias": 30,
+                "consentimiento_agregado": 1,
+            })
+    assert len(rows) == 48
+    assert all(row["elegibles"] >= 25 for row in rows)
+    assert all(row["ofrecidos"] <= row["elegibles"] for row in rows)
+    assert all(row["completados"] <= row["ofrecidos"] for row in rows)
+    return rows
 
 
 def config() -> dict[str, object]:
-    lessons = [concept_lesson(level=11, scene_number=i, slug=s[0], title=s[1], mechanism=s[4], variables=s[3], unit="un caso de aceptación, ejecución o fallo del producto", data_state=f"producto_operable@L11.{i}", episode=f"L11-E{next(j for j,b in enumerate(BLOCKS,1) if b[4] < i <= b[5])}") for i,s in enumerate(SPECS,1)]
-    rows = [{"escena":f"L11-S{i:02d}","concepto":s[0],"criterio":f"AC-{i:02d}","test":"pass","artifact":f"product-v1.{i}","secretos_expuestos":0,"handoff":"verified"} for i,s in enumerate(SPECS,1)]
-    blocks = [{"id":b[0],"number":i,"title":b[1],"description":b[2],"href":b[3],"dataset_id":"wine-quality","concepts":lessons[b[4]:b[5]]} for i,b in enumerate(BLOCKS,1)]
-    return {
-        "level":11,"output":"data-class-product-engineering-level-11","title":"Ingeniería de Productos de Datos",
-        "summary":"Convierte análisis y modelos en productos versionados, probados y entregables antes de operarlos.",
-        "blocks":blocks,"previousConcept":"Comunicación del proyecto","nextConcept":"Readiness operativo",
-        "agentCompetency":"Especificar contratos y criterios para agentes de código, revisar diffs, ejecutar tests y rechazar implementaciones que incumplen el contrato.",
-        "continuityDelta":"Paco deja de llamar producto a una demo y entrega un artifact comprobable; Don Juan conserva autoridad de negocio.",
-        "growthDelta":"ninguno; G7-local permanece","updatedAt":"2026-07-04",
-        "narrativeDatasets":[{"path":"datasets/narrative/controles_producto_nivel_11.csv","rows":rows,"schema":list(rows[0])}],
-        "narrativeMetadata":{"metadataPath":"datasets/narrative/nivel_11.metadata.json","id":"producto-operable-nivel-11-v1","synthetic":True,"generator":"level11-full-v1","period":{"start":"2028-01-18","end":"2028-01-21"},"dimensions":[21,7],"unit":"un criterio verificable del producto","artifact":"examples/level11_pipeline_slice","privacy":{"personal_identifiers":False,"real_secrets":False},"growth":{"from":"G7-local","to":"G7-local"},"data_state":["L10.4","producto_operable@L11.H1"],"label":"Fixture sintética de aceptación; no contiene secretos ni despliegues reales"},
-    }
+    rows = audit_dataset()
+    specs = [
+        ("representation", "Representación", "Auditar quién aparece y quién falta antes de generalizar.", "Representación describe qué poblaciones aparecen y cuáles quedan fuera.", "cobertura y ausencias por grupo", "Paco compara el canal digital con el mostrador y solicitudes de apoyo.", "Una mesa llena no significa que escuchamos a todos.", "Conservo denominadores y marco ausencias.", (48, 4), "L11-E1", "auditoria_agregada@L11.1", "grupo_auditoria_agregado, elegibles, ofrecidos"),
+        ("fairness", "Fairness", "Comparar tasas por grupo sin confundir una métrica con justicia total.", "Fairness exige definir grupo, resultado y daño relevante.", "tasas con denominadores comparables", "Las tasas de oferta difieren entre grupos agregados.", "Enséñame a quién le funciona y a quién le cuesta.", "Comparo tasas y daño; no declaro justicia total.", (.61, .90), "L11-E1", "auditoria_agregada@L11.1", "grupo_auditoria_agregado, elegibles, ofrecidos"),
+        ("harm", "Daño", "Trazar consecuencias concentradas que un promedio puede ocultar.", "Un análisis de daño sigue rutas desde una decisión hasta sus consecuencias.", "ruta de decisión a consecuencia", "Una regla de cupo aumenta espera para quien solicita apoyo.", "Si el promedio mejora pero alguien queda afuera, todavía hay problema.", "Registro alcance, severidad y reversibilidad.", (8.0, 12.4), "L11-E1", "mapa_dano@L11.1", "espera_mediana_min, quejas_agregadas"),
+        ("privacy", "Privacidad", "Minimizar campos, acceso y retención según propósito.", "Privacidad limita colección, uso, acceso y retención.", "campos, propósito, acceso y retención", "Rogelio explica por voluntad propia qué ajuste necesita y pide no conservar detalles.", "Eso me lo dijo él; no lo adivinó ninguna tabla.", "Guardo solo la solicitud operativa agregada por treinta días.", (90, 30), "L11-E1", "politica_privacidad@L11.1", "retencion_dias, consentimiento_agregado"),
+        ("audience", "Audiencia", "Adaptar detalle y lenguaje sin alterar la evidencia.", "La audiencia determina contexto, lenguaje y acción necesaria.", "capas de detalle por audiencia", "El mismo hallazgo debe servir a Don Juan, al turno y a una revisión.", "A mí dime qué hacemos; al archivo déjale cómo lo supimos.", "Cambio la capa, no el resultado ni su certeza.", (1, 3), "L11-E2", "informe_responsable@L11.2", "grupo_auditoria_agregado, espera_mediana_min"),
+        ("uncertainty-communication", "Comunicación de incertidumbre", "Presentar estimación, rango y supuestos juntos.", "Comunicar incertidumbre separa estimación, rango y supuestos.", "estimación e intervalo anotado", "Paco prepara una tasa semanal con variación visible.", "No me entregues un decimal como si fuera promesa.", "Muestro rango y periodo junto a la estimación.", (.69, .84), "L11-E2", "informe_responsable@L11.2", "periodo_semana, elegibles, ofrecidos"),
+        ("annotation", "Anotación", "Conectar una marca visual con contexto verificable y un límite.", "Una anotación conecta una marca visual con contexto verificable.", "marca, fuente y límite", "Una semana cambia después de una capacitación documentada.", "Señala lo que pasó; no inventes que eso lo causó.", "Anoto evento y fuente sin atribuir causalidad.", (6, 7), "L11-E2", "informe_responsable@L11.2", "periodo_semana, espera_mediana_min"),
+        ("data-narrative", "Narrativa de datos", "Encadenar evidencia, interpretación, decisión y revisión.", "Una narrativa de datos conserva la cadena de evidencia.", "evidencia, interpretación y decisión", "Paco ordena el informe para que la recomendación no aparezca antes de la evidencia.", "La historia sirve si también deja ver dónde se puede equivocar.", "Cada afirmación conserva fuente, alcance y siguiente revisión.", (3, 4), "L11-E2", "informe_responsable@L11.2", "ofrecidos, completados, espera_mediana_min"),
+        ("seeds", "Semillas", "Repetir aleatoriedad computacional y probar sensibilidad.", "Una semilla fija aleatoriedad computacional reproducible.", "ejecuciones repetidas con semilla", "Paco reproduce el muestreo del reporte.", "Si lo vuelves a correr, quiero saber por qué cambia.", "Registro semilla y repito con otra como sensibilidad.", (2027, 2027), "L11-E3", "reproducibilidad@L11.3", "periodo_semana, grupo_auditoria_agregado"),
+        ("versions", "Versiones", "Enlazar datos, código, reglas y salidas.", "Versionar enlaza cada salida con entradas y transformaciones.", "linaje de datos, código y salida", "Una regla de agregación cambia entre dos informes.", "No sobrescribas el camino aunque el total se parezca.", "Cada salida nombra versiones y hash.", (3, 4), "L11-E3", "reproducibilidad@L11.3", "periodo_semana, retencion_dias"),
+        ("data-dictionary", "Diccionario de datos", "Definir unidad, tipo, origen, disponibilidad y límites.", "Un diccionario define significado, tipo, origen y límites.", "mapa semántico de campos", "El campo ofrecidos se confunde con completados.", "El nombre cortito no me dice qué contó.", "Documento numerador, unidad y momento de disponibilidad.", (10, 10), "L11-E3", "reproducibilidad@L11.3", "elegibles, ofrecidos, completados"),
+        ("clean-notebook", "Notebook limpio", "Ejecutar carga, validación, análisis y salida sin estado oculto.", "Un notebook limpio ejecuta de principio a fin sin estado oculto.", "pipeline ordenado y verificable", "Paco reinicia el análisis y descubre una celda fuera de orden.", "Si depende de un truco de ayer, hoy no está terminado.", "Reinicio, ejecuto todo y valido el hash final.", (7, 4), "L11-E3", "reproducibilidad@L11.3", "periodo_semana, grupo_auditoria_agregado"),
+        ("project-question", "Pregunta del proyecto", "Acotar población, resultado, periodo y decisión.", "Una pregunta analítica nombra unidad, resultado y decisión.", "alcance de la pregunta", "El mini-proyecto pregunta si el local puede abrir sin excluir solicitudes de apoyo.", "Quiero una pregunta que sí podamos responder y revisar.", "Congelo unidad, resultado, periodo y decisión.", (5, 3), "L11-E4", "mini_proyecto@L11.4", "periodo_semana, grupo_auditoria_agregado"),
+        ("project-data", "Datos del proyecto", "Elegir fuente por cobertura, calidad, permiso y procedencia.", "La elección de datos considera cobertura, calidad y permiso.", "procedencia y permiso de datos", "Paco descarta comentarios libres y conserva agregados consentidos.", "Tener el archivo no significa que debamos usarlo.", "La fuente elegida tiene propósito, retención y hash.", (2, 1), "L11-E4", "mini_proyecto@L11.4", "consentimiento_agregado, retencion_dias"),
+        ("project-analysis", "Análisis del proyecto", "Encadenar operaciones compatibles con pregunta y datos.", "El análisis aplica operaciones compatibles con pregunta y datos.", "flujo de análisis trazable", "Paco calcula coberturas, esperas y fallos por grupo agregado.", "Haz solo los pasos que ayuden a decidir.", "Valido denominadores y separo observación de explicación.", (6, 4), "L11-E4", "mini_proyecto@L11.4", "elegibles, ofrecidos, espera_mediana_min"),
+        ("project-evaluation", "Evaluación del proyecto", "Contrastar aceptación, fallos, privacidad y subgrupos.", "Evaluar contrasta aceptación y casos de fallo.", "tarjeta de criterios y fallos", "El promedio cumple pero un grupo conserva espera alta.", "No abras por promedio si el daño sigue escondido.", "El gate incluye privacidad, subgrupos y reversibilidad.", (8.2, 12.1), "L11-E4", "mini_proyecto@L11.4", "grupo_auditoria_agregado, espera_mediana_min"),
+        ("project-communication", "Comunicación del proyecto", "Entregar acción, evidencia, incertidumbre y siguiente revisión.", "Comunicar cierra con acción, incertidumbre y siguiente revisión.", "brief de decisión responsable", "Paco entrega una apertura limitada de un solo local.", "Dime qué sabemos, qué no y cuándo volvemos a mirar.", "La recomendación es reversible y no promete causalidad.", (1, 4), "L11-E4", "mini_proyecto@L11.4", "periodo_semana, ofrecidos, completados"),
+    ]
+    items = []
+    for i, spec in enumerate(specs, 1):
+        slug, title, objective, definition, mechanism, setup, don, paco, pair, episode, data_state, variables = spec
+        guest = None
+        if slug == "privacy": guest = {"name": "Rogelio", "line": "Yo pedí ese ajuste y autorizo que solo cuenten la solicitud agregada; no guarden el detalle."}
+        if slug == "project-communication": guest = {"name": "Chava", "line": "Yo sigo con mi taller de radio; el local no convierte mi historia en una etiqueta de datos."}
+        items.append(lesson(level=11, slug=slug, title=title, objective=objective, definition=definition,
+            mechanism=mechanism, setup=setup, don=don, paco=paco,
+            subtitles=(definition, paco), scene=i, episode=episode, data_state=data_state,
+            values=(pair, (pair[1], pair[0])), variables=variables,
+            unit="una observación es una celda semanal agregada con al menos 25 elegibles; no hay registros individuales",
+            limit="Los grupos son categorías de auditoría consentidas y agregadas; ninguna tabla infiere identidad, intención ni rasgos personales.",
+            context="Paco audita otra decisión del local con datos agregados", pressure="la recomendación debe ser útil sin ocultar exclusión, daño o incertidumbre",
+            decision="documentar evidencia, permiso, límite y revisión antes de recomendar", guest=guest))
+    blocks = [
+        {"id":"ethics","number":1,"title":"Ética y sesgo","description":"Representación, fairness, daño y privacidad.","href":"etica-sesgo.html","dataset_id":"palmer-penguins","concepts":items[:4]},
+        {"id":"communication","number":2,"title":"Comunicación","description":"Audiencia, incertidumbre, anotación y narrativa.","href":"comunicacion.html","dataset_id":"bike-sharing-day","concepts":items[4:8]},
+        {"id":"reproducibility","number":3,"title":"Reproducibilidad","description":"Semillas, versiones, diccionario y notebook limpio.","href":"reproducibilidad.html","dataset_id":"plant-growth","concepts":items[8:12]},
+        {"id":"mini-project","number":4,"title":"Mini-proyecto","description":"Pregunta, datos, análisis, evaluación y comunicación.","href":"mini-proyecto.html","dataset_id":"wine-quality","concepts":items[12:]},
+    ]
+    schema = list(rows[0])
+    return {"level":11,"output":"data-class-responsible-level-11","title":"Análisis responsable y reproducible",
+        "summary":"Paco audita representación, daño y privacidad antes de entregar un mini-proyecto trazable para un solo local.",
+        "blocks":blocks,"previousConcept":"Efecto práctico","nextConcept":"Producto de datos con contrato y tests",
+        "agentCompetency":"Auditar datos, argumentos y entregables sin inferir rasgos personales ni ocultar daño.",
+        "continuityDelta":"Rogelio y Chava revelan voluntariamente sus necesidades y planes; nunca se infieren desde datos.",
+        "growthDelta":"G6-prepedido → G7-local; un local de 5×4 m, 18 asientos y cuatro puestos pagados; no cadena.",
+        "narrativeDatasets":[{"path":"datasets/narrative/auditoria_responsable_nivel_11.csv","rows":rows,"schema":schema}],
+        "narrativeMetadata":{"metadataPath":"datasets/narrative/nivel_11.metadata.json","id":"auditoria-responsable-nivel-11","synthetic":True,
+            "generator":"level11-responsible-v1","seed":SEED,"period":{"start":rows[0]["periodo_semana"],"end":rows[-1]["periodo_semana"],"weeks":12},
+            "dimensions":[48,len(schema)],"privacy":{"unit":"celda semanal agregada","minimum_cell":25,"personal_identifiers":False,"free_text":False,"retention_days":30,"consent":"categorías reportadas voluntariamente y agregadas"},
+            "formulas":{"offer_rate":"ofrecidos / elegibles","completion_rate":"completados / ofrecidos"},
+            "growth":{"from":"G6-prepedido","to":"G7-local","constraint":"un local; 18 asientos; 4 puestos pagados"},
+            "data_state":["L9.4","auditoria_agregada@L11.1","informe_responsable@L11.2","reproducibilidad@L11.3","mini_proyecto@L11.4"],
+            "label":"Dataset sintético agregado; no representa ni permite identificar personas reales"}}
 
 
 if __name__ == "__main__":

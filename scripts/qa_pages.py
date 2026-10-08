@@ -26,11 +26,13 @@ LEVEL_DIRS = {
     7: "data-class-evaluation-level-7",
     8: "data-class-unsupervised-level-8",
     9: "data-class-temporal-experiments-level-9",
-    10: "data-class-responsible-level-10",
-    11: "data-class-product-engineering-level-11",
-    12: "data-class-ai-systems-level-12",
-    13: "data-class-operations-level-13",
+    11: "data-class-responsible-level-11",
+    12: "data-class-product-engineering-level-12",
+    13: "data-class-ai-systems-level-13",
+    14: "data-class-operations-level-14",
 }
+# Nivel 10 (causalidad y métricas) está en diseño: aún no tiene paquete publicado.
+PUBLISHED_CONTINUOUS = [level for level in LEVEL_DIRS if level >= 3]
 
 
 def payload(level: int) -> dict[str, object]:
@@ -63,7 +65,7 @@ def placement_maps() -> tuple[dict[str, str], dict[str, str]]:
 
 def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None:
     exercised = 0
-    for level in range(3, 14):
+    for level in PUBLISHED_CONTINUOUS:
         for module in payloads[level]["modules"].values():
             for lesson in module["lessons"]:
                 url = f"{BASE}/labs/level-{level}/{module['href']}?concept={lesson['id']}"
@@ -95,14 +97,14 @@ def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None
                     assert "Correcto" in page.locator("#feedback").inner_text() or "transferencia" in page.locator("#feedback").inner_text().lower()
                     exercised += 1
                 no_overflow(page, f"Nivel {level} {lesson['id']}")
-    # Niveles publicados 3-13: 197 escenas x 2 ejercicios = 394.
+    # Niveles publicados 3-9 y 11-14: 197 escenas x 2 ejercicios = 394.
     assert exercised == 394
 
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     manifests = {level: manifest(level) for level in LEVEL_DIRS}
-    payloads = {level: payload(level) for level in range(2, 14)}
+    payloads = {level: payload(level) for level in [2, *PUBLISHED_CONTINUOUS]}
     placement_answers, placement_routes = placement_maps()
     console_errors: list[str] = []
     page_errors: list[str] = []
@@ -180,12 +182,12 @@ def main() -> None:
             (9, "validacion-temporal.html?concept=temporal-leakage", "level-9-leakage-desktop.png"),
             (9, "ab-testing.html?concept=random-assignment", "level-9-randomization-desktop.png"),
             (9, "experimentacion.html?concept=practical-effect", "level-9-practical-effect-desktop.png"),
-            (10, "etica-sesgo.html?concept=privacy", "level-10-privacy-desktop.png"),
-            (10, "mini-proyecto.html?concept=project-evaluation", "level-10-project-evaluation-desktop.png"),
-            (12, "contexto-conocimiento.html?concept=retrieval-evidence", "level-12-retrieval-evidence-desktop.png"),
-            (12, "harness-entorno.html?concept=trace-reconstruction", "level-12-trace-reconstruction-desktop.png"),
-            (13, "monitoreo.html?concept=calibration-drift", "level-13-calibration-drift-desktop.png"),
-            (13, "entrega-responsable.html?concept=retirement", "level-13-retirement-desktop.png"),
+            (11, "etica-sesgo.html?concept=privacy", "level-11-privacy-desktop.png"),
+            (11, "mini-proyecto.html?concept=project-evaluation", "level-11-project-evaluation-desktop.png"),
+            (13, "contexto-conocimiento.html?concept=retrieval-evidence", "level-13-retrieval-evidence-desktop.png"),
+            (13, "harness-entorno.html?concept=trace-reconstruction", "level-13-trace-reconstruction-desktop.png"),
+            (14, "monitoreo.html?concept=calibration-drift", "level-14-calibration-drift-desktop.png"),
+            (14, "entrega-responsable.html?concept=retirement", "level-14-retirement-desktop.png"),
         ]
         for level, route, filename in representative:
             page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
@@ -193,7 +195,7 @@ def main() -> None:
                 page.locator("#advance").click()
             page.screenshot(path=OUTPUT / filename, full_page=True)
 
-        for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (6, "preparacion-variables.html?concept=leakage"), (7, "matriz-confusion.html?concept=false-negative"), (8, "deteccion-anomalias.html?concept=anomaly-threshold"), (9, "ab-testing.html?concept=effect"), (10, "reproducibilidad.html?concept=versions"), (12, "tools-skills.html?concept=tool-contract"), (13, "incidentes.html?concept=postmortem")]:
+        for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (6, "preparacion-variables.html?concept=leakage"), (7, "matriz-confusion.html?concept=false-negative"), (8, "deteccion-anomalias.html?concept=anomaly-threshold"), (9, "ab-testing.html?concept=effect"), (11, "reproducibilidad.html?concept=versions"), (13, "tools-skills.html?concept=tool-contract"), (14, "incidentes.html?concept=postmortem")]:
             page.goto(f"{BASE}/labs/level-{level}/{route}&teacher=1", wait_until="networkidle")
             button = page.get_by_role("button", name="En vivo")
             assert button.count() == 1
@@ -229,9 +231,9 @@ def main() -> None:
             (8, "deteccion-anomalias.html?concept=anomaly-threshold", "level-8-anomaly-mobile.png"),
             (9, "validacion-temporal.html?concept=temporal-leakage", "level-9-leakage-mobile.png"),
             (9, "experimentacion.html?concept=guardrails", "level-9-guardrails-mobile.png"),
-            (10, "etica-sesgo.html?concept=representation", "level-10-representation-mobile.png"),
-            (12, "loops-estado.html?concept=stop-budgets", "level-12-stop-budgets-mobile.png"),
-            (13, "monitoreo.html?concept=alert-threshold", "level-13-alert-mobile.png"),
+            (11, "etica-sesgo.html?concept=representation", "level-11-representation-mobile.png"),
+            (13, "loops-estado.html?concept=stop-budgets", "level-13-stop-budgets-mobile.png"),
+            (14, "monitoreo.html?concept=alert-threshold", "level-14-alert-mobile.png"),
         ]:
             mobile_page.goto(f"{BASE}/labs/level-{level}/{route}", wait_until="networkidle")
             no_overflow(mobile_page, f"Nivel {level} mobile")

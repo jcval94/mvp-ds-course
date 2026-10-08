@@ -130,7 +130,7 @@ Este prompt solo puede ejecutarse después de aprobación humana explícita. Lee
 ## 12. Revisión de sobreingeniería
 
 ```text
-Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente prematura o cobertura posterior al Nivel 13. Mantén la fábrica documental, una ruta de trece niveles estáticos publicados y publicación automática de resultados validados.
+Revisa todos los documentos y propuestas. Mueve a post-MVP cualquier LMS, autenticación, base de datos, pagos, seguimiento de alumnos, modelo propio, orquestación multiagente prematura o cobertura posterior al Nivel 14. Mantén la fábrica documental, una ruta de trece niveles estáticos publicados y publicación automática de resultados validados.
 ```
 
 ## 13. Auditar Nivel 7
@@ -150,15 +150,15 @@ Verifica estandarización, iteraciones de k-means, centroides, comparación de k
 ```text
 Verifica orden cronológico, ventanas, folds de backtesting y disponibilidad de cada campo. Rechaza cualquier dato futuro. En el experimento confirma 400 asignaciones 200/200, métrica y tamaño congelados, efecto con intervalo, guardrails, familia de pruebas y mínimo práctico. Solo la asignación aleatoria sustenta causalidad limitada al piloto.
 
-## 16. Auditar Nivel 10
+## 16. Auditar Nivel 11
 
 Verifica cobertura y denominadores por grupo agregado, mínimo 25 elegibles por celda, cero identificadores o texto libre y revelaciones voluntarias ausentes del CSV. Separa fairness de justicia total, anotación de causalidad y narrativa de evidencia. Exige semilla, versiones, diccionario, ejecución limpia y procedencia del mini-proyecto.
 
-## 17. Auditar Nivel 12
+## 17. Auditar Nivel 13
 
-Revisa que Nivel 12 diseñe sistemas de IA trazables con contexto, tools, skills, loops, harness, permisos, checkpoints y traza, sin ejecutar IA real ni adelantar monitoreo operativo.
+Revisa que Nivel 13 diseñe sistemas de IA trazables con contexto, tools, skills, loops, harness, permisos, checkpoints y traza, sin ejecutar IA real ni adelantar monitoreo operativo.
 
-## 18. Auditar Nivel 13
+## 18. Auditar Nivel 14
 
 Verifica gate, baseline, autoridad humana y rollback antes de operar. Distingue data drift, performance drift y calibration drift; conserva siete etiquetas retrasadas sin inventarlas y exige tres señales persistentes antes de escalar. En incidentes revisa impacto, comprobación, postmortem sin culpa, model card, runbook, audit log y retiro. No construyas backend ni automatices decisiones.
 ```
@@ -169,7 +169,7 @@ Verifica gate, baseline, autoridad humana y rollback antes de operar. Distingue 
 Verifica los 19 conceptos y la historia aprobada de Sistemas de Datos Modernos y SQL. Exige renderer registrado por concepto, reconciliación de unidad y granularidad, dos prácticas con evidencia distinta y manifest `published`. Rechaza cualquier total que no derive de los 19 paquetes completos.
 ```
 
-## 20. Auditar Nivel 11 publicado
+## 20. Auditar Nivel 12 publicado
 
 ```text
 Verifica los 21 conceptos y la historia aprobada de Ingeniería de Productos de Datos. Ejecuta el artifact y sus tests, revisa contratos, diffs, secretos, gates y desbloqueo; exige manifest `published`. Rechaza el handoff si cualquiera de los 21 paquetes falta o adelanta monitoreo.

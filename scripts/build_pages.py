@@ -24,10 +24,10 @@ LEVEL_PATHS = [
     ROOT / "generated" / "data-class-evaluation-level-7",
     ROOT / "generated" / "data-class-unsupervised-level-8",
     ROOT / "generated" / "data-class-temporal-experiments-level-9",
-    ROOT / "generated" / "data-class-responsible-level-10",
-    ROOT / "generated" / "data-class-product-engineering-level-11",
-    ROOT / "generated" / "data-class-ai-systems-level-12",
-    ROOT / "generated" / "data-class-operations-level-13",
+    ROOT / "generated" / "data-class-responsible-level-11",
+    ROOT / "generated" / "data-class-product-engineering-level-12",
+    ROOT / "generated" / "data-class-ai-systems-level-13",
+    ROOT / "generated" / "data-class-operations-level-14",
 ]
 
 

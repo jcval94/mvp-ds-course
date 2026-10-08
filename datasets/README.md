@@ -41,7 +41,7 @@ y no pueden usarse como fuente principal de Enseñar en vivo.
 - `noches_modelado_nivel_6.csv`: 64 noches; separa entradas previas de resultados posteriores para prevenir leakage.
 - `cierres_nivel_5_slice.csv`, `turnos_nivel_5_slice.csv` y
   `eventos_nivel_5_slice.csv`: slice de JOIN con 6 noches, 8 turnos y 8 etiquetas.
-- `casos_pipeline_nivel_11_slice.csv`: seis casos sintéticos de contrato, test y fallo; no contiene secretos reales.
+- `casos_pipeline_nivel_12_slice.csv`: seis casos sintéticos de contrato, test y fallo; no contiene secretos reales.
 - Los archivos `*.metadata.json` fijan generador, periodo, dimensiones, estado y SHA-256; las slices se distinguen de datasets de niveles completos.
 
 Sus dimensiones, hashes e invariantes se validan en
