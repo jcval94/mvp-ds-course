@@ -1,20 +1,21 @@
-# Capa de deployment: Cloudflare Pages (lista, no activa).
-# Se activa cambiando el job `deploy` de ci.yml. Requiere los secrets
-# CLOUDFLARE_API_TOKEN y CLOUDFLARE_ACCOUNT_ID y un proyecto de Pages creado.
+# Capa de deployment: Cloudflare Pages (sitio oficial https://learninglabs.pages.dev).
+# Solo publica el artefacto dist/ ya probado; no construye nada.
+# Requiere los secrets CLOUDFLARE_API_TOKEN (Account · Cloudflare Pages · Edit) y
+# CLOUDFLARE_ACCOUNT_ID. Mientras no existan, el job avisa y termina sin fallar.
 name: Deploy · Cloudflare Pages
 
 on:
   workflow_call:
     inputs:
       project-name:
-        description: Nombre del proyecto en Cloudflare Pages
+        description: Nombre del proyecto en Cloudflare Pages (define <nombre>.pages.dev)
         required: true
         type: string
     secrets:
       CLOUDFLARE_API_TOKEN:
-        required: true
+        required: false
       CLOUDFLARE_ACCOUNT_ID:
-        required: true
+        required: false
 
 permissions:
   contents: read
@@ -25,16 +26,55 @@ jobs:
     concurrency:
       group: cloudflare-pages
       cancel-in-progress: false
+    environment:
+      name: cloudflare-pages
+      url: https://${{ inputs.project-name }}.pages.dev
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PROJECT: ${{ inputs.project-name }}
     steps:
+      - name: Check credentials
+        id: creds
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::warning title=Cloudflare Pages sin credenciales::Agrega CLOUDFLARE_API_TOKEN y CLOUDFLARE_ACCOUNT_ID en Settings → Secrets → Actions. No se desplegó a Cloudflare."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Download dist/
+        if: steps.creds.outputs.ready == 'true'
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
 
+      - name: Create the Pages project if it does not exist
+        if: steps.creds.outputs.ready == 'true'
+        run: |
+          if npx --yes wrangler@4 pages project list 2>/dev/null | grep -qw "$PROJECT"; then
+            echo "El proyecto $PROJECT ya existe."
+          else
+            npx --yes wrangler@4 pages project create "$PROJECT" --production-branch=main
+          fi
+
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=${{ inputs.project-name }} --branch=main
+        if: steps.creds.outputs.ready == 'true'
+        run: npx --yes wrangler@4 pages deploy dist --project-name="$PROJECT" --branch=main --commit-hash="$GITHUB_SHA" --commit-dirty=true
+
+      - name: Verify the official URL serves this commit
+        if: steps.creds.outputs.ready == 'true'
+        run: |
+          url="https://$PROJECT.pages.dev/build-info.json"
+          for attempt in 1 2 3 4 5 6; do
+            if curl -fsS "$url" -o build-info.json && grep -q "$GITHUB_SHA" build-info.json; then
+              echo "OK: $url sirve el commit $GITHUB_SHA"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::$url no sirve el commit $GITHUB_SHA. Si Cloudflare asignó otro subdominio (nombre ocupado), revisa el proyecto en el panel."
+          cat build-info.json 2>/dev/null || true
+          exit 1
