@@ -130,7 +130,7 @@
       $("#continueKicker").textContent = `Empieza · Nivel ${mission.level}`;
       $("#continueMeta").textContent = `${mission.levelTitle}. Este es el primer bloque publicado de la ruta.`;
       $("#missionLink").textContent = "Abrir primera misión";
-      $("#continueLink").textContent = "Empezar gratis";
+      $("#continueLink").textContent = "Probar gratis";
     }
     $("#continueTitle").textContent = mission.title;
     $("#missionLink").href = mission.href; $("#continueLink").href = mission.href;
