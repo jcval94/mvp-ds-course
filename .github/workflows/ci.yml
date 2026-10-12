@@ -38,8 +38,14 @@ jobs:
       pages: write
       id-token: write
     uses: ./.github/workflows/deploy-github-pages.yml
-    # Para migrar a Cloudflare Pages, reemplaza las tres líneas anteriores por:
-    #   uses: ./.github/workflows/deploy-cloudflare-pages.yml
-    #   with:
-    #     project-name: curso-ciencia-datos
-    #   secrets: inherit
+    # Transición: GitHub Pages sigue publicando el mismo dist/ hasta confirmar
+    # paridad en Cloudflare. Después se reemplaza por una página de redirección.
+
+  deploy-cloudflare:
+    name: Deployment · Cloudflare Pages (oficial)
+    needs: portal
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    uses: ./.github/workflows/deploy-cloudflare-pages.yml
+    with:
+      project-name: learninglabs
+    secrets: inherit

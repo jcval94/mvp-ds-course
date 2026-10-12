@@ -3,24 +3,41 @@
 El portal se construye una sola vez como `dist/` y la capa de deployment solo lo
 sube. Ningún archivo del portal ni del contenido conoce al proveedor.
 
-## Activo hoy: GitHub Pages
+## Sitio oficial: Cloudflare Pages
 
-- Job `deploy` de `.github/workflows/ci.yml` → `deploy-github-pages.yml`.
-- Publica el artefacto `dist` producido y probado por `portal.yml`.
-- Requisito en GitHub: *Settings → Pages → Source: GitHub Actions* (ya configurado
-  por el workflow anterior).
-- URL: `https://jcval94.github.io/mvp-ds-course/` (subruta; por eso todo es relativo).
+- URL: `https://learninglabs.pages.dev/` (raíz).
+- Job `deploy-cloudflare` de `.github/workflows/ci.yml` → `deploy-cloudflare-pages.yml`
+  con `project-name: learninglabs`.
+- Publica el mismo artefacto `dist` que GitHub Pages. Si el proyecto no existe, lo crea
+  con `--production-branch=main`; después verifica que
+  `https://learninglabs.pages.dev/build-info.json` sirva el commit desplegado. Si
+  Cloudflare asignó otro subdominio (nombre ocupado), el job falla.
+- Secrets de GitHub (*Settings → Secrets and variables → Actions*):
+  - `CLOUDFLARE_API_TOKEN`: token de cuenta con permiso *Account · Cloudflare Pages · Edit*.
+  - `CLOUDFLARE_ACCOUNT_ID`: ID de la cuenta.
+  Sin ellos el job emite un aviso y termina sin fallar, así que `main` no se pone en rojo.
 
-## Migrar a Cloudflare Pages
+## Transición: GitHub Pages
 
-1. En Cloudflare, crea un proyecto de Pages con *Direct Upload* (por ejemplo
-   `curso-ciencia-datos`).
-2. En GitHub, agrega los secrets `CLOUDFLARE_API_TOKEN` (permiso *Cloudflare
-   Pages: Edit*) y `CLOUDFLARE_ACCOUNT_ID`.
-3. En `ci.yml`, cambia el job `deploy` por el bloque comentado que usa
-   `deploy-cloudflare-pages.yml`.
+- Job `deploy` → `deploy-github-pages.yml`, URL `https://jcval94.github.io/mvp-ds-course/`.
+- Sigue publicando el mismo `dist/` mientras se confirma la paridad en Cloudflare.
+- Después se reemplaza por una página que redirija a `learninglabs.pages.dev`
+  (agregada en la capa de deployment, nunca en `dist/`).
 
-No cambia nada más: ni `harness/`, ni `portal/`, ni `site/`, ni el contenido.
+## Login (cuando se conecte Supabase)
+
+- Supabase → *Auth → URL Configuration*: `Site URL = https://learninglabs.pages.dev`
+  y `https://learninglabs.pages.dev/**` en *Redirect URLs*.
+- Google Cloud → pantalla de consentimiento de OAuth: página de inicio y aviso de
+  privacidad bajo `learninglabs.pages.dev`.
+- `dist/` sigue sin URLs absolutas del hosting (`harness check` lo exige); la URL del
+  sitio vive en la configuración de Supabase y Google, no en el contenido.
+
+## Dominio propio (futuro)
+
+Se conecta como *custom domain* del mismo proyecto de Pages. `learninglabs.pages.dev`
+sigue respondiendo y puede redirigir al dominio nuevo. Hay que actualizar Supabase y
+Google, no el contenido.
 
 ## Por qué funciona en ambos
 
