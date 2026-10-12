@@ -288,3 +288,10 @@ footer p { margin: 0; color: var(--muted); font-size: 12px; }
 }
 footer > strong { font-size: 14px; }
 .footer-link { color: var(--accent-text); font-weight: 700; }
+
+/* Páginas legales: misma estructura que Metodología */
+.legal-page .methodology-intro h1 { font-size: clamp(34px, 5vw, 52px); }
+.legal-page article h2 { font-size: 22px; }
+.legal-page article ul { padding-left: 20px; display: grid; gap: 6px; }
+.legal-page article strong { color: var(--text); }
+.legal-page footer p a { color: var(--accent-text); }
