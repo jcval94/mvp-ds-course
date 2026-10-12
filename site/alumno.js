@@ -135,7 +135,7 @@
     if (done && fila.entregado) due.textContent = `Entregado ${fecha(fila.entregado)}`;
     foot.append(due);
     if (CUADERNOS[caso.id]) {
-      const a = el("a", "btn btn-ghost", done ? "Repasar en Colab" : vistas ? "Continuar en Colab" : "Abrir en Colab");
+      const a = el("a", "btn btn-line", done ? "Repasar en Colab" : vistas ? "Continuar en Colab" : "Abrir en Colab");
       a.href = CUADERNOS[caso.id]; a.target = "_blank"; a.rel = "noopener"; foot.append(a);
     } else foot.append(el("span", "muted", "Tu profesor te comparte el cuaderno"));
 
@@ -230,7 +230,7 @@
   function ejemplo() {
     const caso = { id: "4.1", modulo: 4, titulo: "Semmelweis y la fiebre puerperal", secciones: ["preparacion", "hipotesis", "clinicas", "azar", "sospechosos", "explicacion", "pista", "revelacion", "laboratorio", "cierre"], entrega_limite: null };
     const card = tarjetaCaso(caso, null, new Set(caso.secciones.slice(0, 6)));
-    card.querySelector(".case-foot").replaceChildren(el("span", "due", "Entrega: la fija tu profesor"), el("span", "btn btn-ghost", "Continuar en Colab"));
+    card.querySelector(".case-foot").replaceChildren(el("span", "due", "Entrega: la fija tu profesor"), el("span", "btn btn-line", "Continuar en Colab"));
     $("#ejemplo").append(card);
   }
 
