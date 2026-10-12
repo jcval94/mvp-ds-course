@@ -51,18 +51,52 @@ jobs:
           name: dist
           path: dist
 
-      - name: Create the Pages project if it does not exist
+      - name: Verify token and ensure the Pages project exists
         if: steps.creds.outputs.ready == 'true'
         run: |
-          if npx --yes wrangler@4 pages project list 2>/dev/null | grep -qw "$PROJECT"; then
-            echo "El proyecto $PROJECT ya existe."
-          else
-            npx --yes wrangler@4 pages project create "$PROJECT" --production-branch=main
+          api="https://api.cloudflare.com/client/v4"
+          auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
+          fail() { echo "::error title=$1::$2"; exit 1; }
+          errors() { jq -c '[.errors[]? | {code, message}]' "$1" 2>/dev/null || cat "$1"; }
+
+          # 1) El token es válido (token de cuenta o de usuario).
+          code=$(curl -sS -o verify.json -w '%{http_code}' "${auth[@]}" "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/tokens/verify")
+          if [ "$code" != "200" ]; then
+            code=$(curl -sS -o verify.json -w '%{http_code}' "${auth[@]}" "$api/user/tokens/verify")
           fi
+          [ "$code" = "200" ] || fail "Token de Cloudflare inválido" "HTTP $code $(errors verify.json). Revisa que CLOUDFLARE_API_TOKEN esté completo, sin espacios, y que no haya expirado."
+          echo "Token válido: $(jq -r '.result.status' verify.json)"
+
+          # 2) El token alcanza Pages en esta cuenta.
+          code=$(curl -sS -o project.json -w '%{http_code}' "${auth[@]}" "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT")
+          case "$code" in
+            200) echo "El proyecto $PROJECT ya existe." ;;
+            404)
+              echo "Creando el proyecto $PROJECT…"
+              code=$(curl -sS -o project.json -w '%{http_code}' "${auth[@]}" -X POST \
+                "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects" \
+                --data "{\"name\":\"$PROJECT\",\"production_branch\":\"main\"}")
+              [ "$code" = "200" ] || fail "No se pudo crear el proyecto de Pages" "HTTP $code $(errors project.json)"
+              ;;
+            401|403) fail "El token no tiene acceso a Pages en esta cuenta" "HTTP $code $(errors project.json). Revisa que el token tenga Cloudflare Pages · Edit y que CLOUDFLARE_ACCOUNT_ID sea el de la misma cuenta." ;;
+            *) fail "Respuesta inesperada de Cloudflare" "HTTP $code $(errors project.json). Revisa CLOUDFLARE_ACCOUNT_ID (32 caracteres hexadecimales)." ;;
+          esac
+
+          # 3) El subdominio asignado es el oficial.
+          subdomain=$(jq -r '.result.subdomain' project.json)
+          echo "Subdominio asignado: $subdomain"
+          [ "$subdomain" = "$PROJECT.pages.dev" ] || fail "Cloudflare asignó otro subdominio" "Se esperaba $PROJECT.pages.dev y se obtuvo $subdomain (el nombre está ocupado en otra cuenta)."
 
       - name: Deploy to Cloudflare Pages
         if: steps.creds.outputs.ready == 'true'
-        run: npx --yes wrangler@4 pages deploy dist --project-name="$PROJECT" --branch=main --commit-hash="$GITHUB_SHA" --commit-dirty=true
+        run: |
+          set -o pipefail
+          if ! npx --yes wrangler@4 pages deploy dist --project-name="$PROJECT" --branch=main \
+               --commit-hash="$GITHUB_SHA" --commit-dirty=true 2>&1 | tee wrangler.log; then
+            msg=$(grep -iE 'error|✘' wrangler.log | tail -5 | tr '\n' ' ' | cut -c1-900)
+            echo "::error title=Falló wrangler pages deploy::${msg:-revisa el log del paso}"
+            exit 1
+          fi
 
       - name: Verify the official URL serves this commit
         if: steps.creds.outputs.ready == 'true'
