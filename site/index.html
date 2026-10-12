@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="Conviértete en un Agentic Data Scientist. Laboratorios prácticos, misiones y decisiones con datos reales. Empieza gratis con los primeros dos niveles.">
+  <meta name="description" content="Curso en vivo de ciencia de datos e IA desde cero, basado en casos reales. Generación 1: inicia el 8 de enero de 2027, viernes y sábados, 30 lugares. Prueba gratis los primeros dos niveles.">
   <meta property="og:title" content="The Agentic D. Scientist">
-  <meta property="og:description" content="Curso de IA y ciencia de datos con laboratorios, misiones y decisiones reales.">
+  <meta property="og:description" content="Generación 1 · inicia 8 de enero de 2027 · curso en vivo de ciencia de datos e IA basado en casos reales.">
   <title>The Agentic D. Scientist · Curso de IA y ciencia de datos</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="design/tokens/tokens.css">
@@ -156,6 +156,19 @@
     .final-cta .btn { margin-top: 32px; }
 
     .band-tight { padding: 40px 0; }
+
+    /* Generación 1 */
+    .cohort-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .cohort-fact { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; }
+    .cohort-fact dt { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .cohort-fact dd { margin: 6px 0 0; font-size: 16px; font-weight: 600; line-height: 1.4; }
+    .cohort-fact dd span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; font-weight: 500; }
+    .cohort-cta { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; }
+    .cohort-cta p { margin: 0; color: var(--muted); font-size: 14px; }
+    .plan-was { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .plan-was s { margin-right: 4px; }
+    .final-cta .cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+    .final-cta .cta-row .btn { margin-top: 0; }
     .landing footer { max-width: var(--max); }
 
     @media (max-width: 1024px) {
@@ -165,6 +178,7 @@
       .learning-path { grid-template-columns: repeat(5, minmax(150px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
       .plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
       .trust-grid { grid-template-columns: 1fr; }
+      .cohort-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 800px) {
       body.landing { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
@@ -179,6 +193,7 @@
       .learning-path { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; }
       .learning-step { min-width: 72%; scroll-snap-align: start; }
       .plan-grid { grid-template-columns: 1fr; }
+      .cohort-grid { grid-template-columns: 1fr; }
       .trust-drawer { padding: 0 16px; }
       .final-cta { padding: 72px 0; }
     }
@@ -197,6 +212,8 @@
       <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
       <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
       <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+      <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
       <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
     </defs>
   </svg>
@@ -210,22 +227,23 @@
         </a>
         <nav aria-label="Navegación principal">
           <a href="#what">Qué aprenderás</a>
+          <a href="#generacion">Generación 1</a>
           <a href="#catalogo">Currículum</a>
           <a href="#planes">Planes</a>
           <a href="placement.html">Diagnóstico</a>
           <a href="methodology.html">Metodología</a>
         </nav>
-        <a class="header-cta" data-start-free href="#catalogo">Empezar gratis <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        <a class="header-cta" href="#generacion">Inscríbete <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
       </header>
 
       <div class="wrap hero-inner">
         <div class="hero-copy">
-          <p class="hero-kicker"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg>Curso intensivo de IA y ciencia de datos</p>
+          <p class="hero-kicker"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg>Generación 1 · inicia 8 de enero de 2027 · 30 lugares</p>
           <h1 id="heroTitle">Conviértete en un Agentic Data Scientist</h1>
-          <p>Aprende a construir agentes de IA y soluciones de Data Science modernas. Laboratorios prácticos, misiones semanales y comunidad.</p>
+          <p>Aprende ciencia de datos e IA desde cero resolviendo decisiones reales, como los bombarderos de Wald o el lavado de manos de Semmelweis. Clases en vivo los viernes y sábados, con misiones prácticas en Colab.</p>
           <div class="hero-actions">
-            <a class="btn btn-accent student-primary" id="continueLink" href="#catalogo">Empezar gratis</a>
-            <a class="btn btn-ghost" href="#catalogo">Ver currículum</a>
+            <a class="btn btn-accent" href="#generacion">Inscríbete a la Generación 1 · inicia 8 ene</a>
+            <a class="btn btn-ghost student-primary" id="continueLink" href="#catalogo">Probar gratis</a>
           </div>
         </div>
 
@@ -234,7 +252,7 @@
           <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
           <h2 id="continueTitle">Tu primera misión</h2>
           <p id="continueMeta">Abriremos el primer bloque publicado. Cuando vuelvas, este acceso recordará en este dispositivo la última misión que abriste.</p>
-          <a class="btn btn-accent" id="missionLink" href="#catalogo">Abrir misión</a>
+          <a class="btn btn-ghost" id="missionLink" href="#catalogo">Abrir misión</a>
           <a class="card-secondary" href="placement.html"><b>¿Ya sabes algo? Haz el diagnóstico.</b> Hasta 10 preguntas para saltarte lo que ya dominas.</a>
         </aside>
       </div>
@@ -243,6 +261,28 @@
     <div class="stats-band">
       <div class="wrap"><dl class="summary-rail" id="summaryRail" aria-label="Cobertura total de la ruta"></dl></div>
     </div>
+
+    <section id="generacion" class="band band-alt" aria-labelledby="cohortTitle">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="kicker">Generación 1</p>
+          <h2 class="section-title" id="cohortTitle">11 semanas en vivo, de enero a marzo de 2027</h2>
+          <p class="section-lead">No necesitas saber programar: empezamos desde cero y cada semana resuelves un caso real con datos.</p>
+        </div>
+        <dl class="cohort-grid">
+          <div class="cohort-fact"><dt>Fechas</dt><dd>Del viernes 8 de enero al sábado 20 de marzo de 2027<span>11 semanas · 22 clases · 66 horas en vivo</span></dd></div>
+          <div class="cohort-fact"><dt>Horario (hora CDMX)</dt><dd>Viernes de 18:00 a 21:00<br>Sábados de 8:00 a 11:00</dd></div>
+          <div class="cohort-fact"><dt>Modalidad</dt><dd>En vivo, en línea<span>Solo necesitas una computadora y una cuenta de Google para usar Colab.</span></dd></div>
+          <div class="cohort-fact"><dt>Lugares</dt><dd>30 personas<span>Un grupo pequeño para resolver dudas en clase.</span></dd></div>
+          <div class="cohort-fact"><dt>Si faltas a una clase</dt><dd>Recibes la grabación<span>Disponible durante los 12 meses de tu acceso a la plataforma.</span></dd></div>
+          <div class="cohort-fact"><dt>Precio Generación 1</dt><dd>$9,900 MXN, IVA incluido<span>Precio regular $14,900 · o 3 pagos de $3,300</span></dd></div>
+        </dl>
+        <div class="cohort-cta">
+          <a class="btn btn-accent" href="mailto:valc941226@gmail.com?subject=Quiero%20inscribirme%20a%20la%20Generaci%C3%B3n%201">Inscríbete a la Generación 1 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <p>Te respondemos con los datos para apartar tu lugar.</p>
+        </div>
+      </div>
+    </section>
 
     <section id="what" class="band band-white what-band" aria-labelledby="whatTitle">
       <div class="wrap">
@@ -255,8 +295,8 @@
           <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg></span><h3>LLMs y prompting avanzado</h3><p>Aprovecha modelos modernos con técnicas que funcionan en producción.</p></article>
           <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-bot"/></svg></span><h3>Agentes autónomos</h3><p>Diseña, orquesta y evalúa agentes que toman decisiones.</p></article>
           <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-rocket"/></svg></span><h3>MLOps ligero</h3><p>Versiona, monitorea y despliega tus proyectos con confianza.</p></article>
-          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-graduation-cap"/></svg></span><h3>Portafolio real</h3><p>Termina con repositorios y un portafolio listo para reclutadores.</p></article>
-          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span><h3>Comunidad activa</h3><p>Discute, comparte y crece con otras personas que hacen ciencia de datos.</p></article>
+          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-graduation-cap"/></svg></span><h3>Casos reales</h3><p>Cada herramienta aparece cuando hace falta para tomar una decisión histórica con datos.</p></article>
+          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-video"/></svg></span><h3>Clases en vivo</h3><p>Un grupo de 30 personas, con grabación de cada clase por si no puedes asistir.</p></article>
         </div>
 
         <div id="ruta" class="method-head">
@@ -317,31 +357,28 @@
             <p class="plan-price">$89 MXN<small>al mes · o $999 MXN al año</small></p>
             <p class="plan-includes">Incluye:</p>
             <ul>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Acceso a la plataforma y ejercicios</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Comunidad</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>AI Newspaper semanal</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todo lo del plan Free</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Niveles 3 en adelante</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todos los ejercicios de la plataforma</span></li>
             </ul>
-            <a class="btn btn-dark" href="mailto:hola@agenticds.com?subject=Quiero%20el%20plan%20Augmented%20Studio">Quiero este plan</a>
+            <a class="btn btn-dark" href="mailto:valc941226@gmail.com?subject=Quiero%20el%20plan%20Augmented%20Studio">Quiero este plan</a>
           </article>
           <article class="plan-card featured" data-plan="agentic_ds">
-            <span class="plan-popular">Más popular</span>
+            <span class="plan-popular">Cupo limitado · 30 lugares</span>
             <h3>Agentic Data Scientist</h3>
-            <p class="plan-tagline">El programa completo de 12 semanas.</p>
-            <p class="plan-price"><span class="plan-from">Desde</span>$11,900<small>hasta $16,900 MXN</small></p>
+            <p class="plan-tagline">Curso en vivo de 11 semanas. Inicia el 8 de enero de 2027.</p>
+            <p class="plan-price">$9,900 MXN<small>Precio Generación 1 · o 3 pagos de $3,300</small></p>
+            <p class="plan-was"><s>$14,900 MXN</s> precio regular</p>
             <p class="plan-includes">Incluye:</p>
             <ul>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todo lo de Augmented Studio</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>12 semanas de programa</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Clases en vivo</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>22 clases en vivo (66 horas), viernes y sábados</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Grabación de cada clase</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Misiones con casos reales en Colab</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Laboratorios guiados</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Misiones semanales</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Repositorios y plantillas</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Portafolio terminado</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Certificado</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>1 año de acceso a la plataforma</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Acceso permanente a los videos</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Cuadernos y plantillas de cada caso</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>12 meses de Augmented Studio incluidos</span></li>
             </ul>
-            <a class="btn btn-accent" href="mailto:hola@agenticds.com?subject=Quiero%20el%20programa%20Agentic%20Data%20Scientist">Quiero este plan</a>
+            <a class="btn btn-accent" href="mailto:valc941226@gmail.com?subject=Quiero%20inscribirme%20a%20la%20Generaci%C3%B3n%201">Inscríbete</a>
           </article>
           <article class="plan-card" data-plan="business">
             <h3>Agentic Data Transformation</h3>
@@ -355,10 +392,10 @@
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Reportes de avance</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Soporte dedicado</span></li>
             </ul>
-            <a class="btn btn-dark" href="mailto:hola@agenticds.com?subject=Agentic%20Data%20Transformation%20para%20mi%20equipo">Contactar ventas</a>
+            <a class="btn btn-dark" href="mailto:valc941226@gmail.com?subject=Agentic%20Data%20Transformation%20para%20mi%20equipo">Contactar ventas</a>
           </article>
         </div>
-        <p class="plans-note">Los pagos todavía no están en línea: escríbenos a <a href="mailto:hola@agenticds.com">hola@agenticds.com</a> y te contactamos para activar tu acceso.</p>
+        <p class="plans-note">Precios en pesos mexicanos con IVA incluido. Los pagos todavía no están en línea: escríbenos a <a href="mailto:valc941226@gmail.com">valc941226@gmail.com</a> y te respondemos con los datos para apartar tu lugar o activar tu acceso.</p>
       </div>
     </section>
 
@@ -388,9 +425,12 @@
 
     <section class="final-cta" aria-labelledby="finalTitle">
       <div class="wrap">
-        <h2 id="finalTitle">¿Listo para construir con IA?</h2>
-        <p>Empieza gratis con los primeros dos niveles. Sin tarjeta.</p>
-        <a class="btn btn-accent" data-start-free href="#catalogo">Empezar gratis <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        <h2 id="finalTitle">Aparta tu lugar en la Generación 1</h2>
+        <p>Inicia el viernes 8 de enero de 2027. 30 lugares a precio de fundador: $9,900 MXN con IVA incluido.</p>
+        <div class="cta-row">
+          <a class="btn btn-accent" href="mailto:valc941226@gmail.com?subject=Quiero%20inscribirme%20a%20la%20Generaci%C3%B3n%201">Inscríbete a la Generación 1 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn-ghost" data-start-free href="#catalogo">Probar gratis los niveles 1 y 2</a>
+        </div>
       </div>
     </section>
   </main>
@@ -398,12 +438,13 @@
   <footer>
     <a class="brand" href="#top"><svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg><strong>The Agentic D. Scientist</strong></a>
     <nav aria-label="Pie de página">
+      <a href="#generacion">Generación 1</a>
       <a href="#planes">Planes</a>
       <a href="#catalogo">Currículum</a>
       <a href="methodology.html">Metodología</a>
       <a href="https://github.com/jcval94/mvp-ds-course">Repositorio</a>
     </nav>
-    <p>© 2026 The Agentic D. Scientist · Todos los derechos reservados.</p>
+    <p>© 2026 Augmented Learning Labs · The Agentic D. Scientist · Todos los derechos reservados.</p>
   </footer>
 
   <nav class="mobile-nav" aria-label="Navegación móvil">
