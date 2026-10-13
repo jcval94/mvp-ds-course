@@ -114,6 +114,70 @@
     .case-foot .btn { min-height: 42px; padding: 0 18px; }
     .case-foot .muted { color: var(--muted); font-size: 13px; }
 
+    /* Marcador de bits */
+    .board { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); overflow: hidden; }
+    .board.solo { grid-template-columns: 1fr; }
+    .board.solo .board-side { border-left: 0; border-top: 0; }
+    .board.solo .podium { max-width: 560px; }
+    .board-main { padding: 30px 32px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+    .board-side { padding: 30px 28px; background: var(--surface-alt); border-left: 1px solid var(--line); display: grid; gap: 18px; align-content: start; min-width: 0; }
+    .bits-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 16px; }
+    .bits-line h2 { margin: 0; font-size: 18px; font-weight: 600; color: var(--muted); }
+    .bits-line h2 b { color: var(--text); font-size: clamp(44px, 6vw, 64px); font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; line-height: 1; }
+    .band-badge { border-radius: var(--r-pill); padding: 6px 14px; font-size: 13px; font-weight: 800; background: var(--accent); color: var(--on-accent); font-variant-numeric: tabular-nums; }
+    .band-badge.b-top50, .band-badge.b-top20 { background: var(--accent-soft); color: var(--accent-text); }
+    .band-badge.b-en_camino { background: var(--surface-soft); color: var(--muted); }
+    .next { margin: 0; color: var(--muted); font-size: 15px; }
+    .next b { color: var(--text); }
+    .ladder { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+    .ladder li { text-align: center; font-size: 12px; font-weight: 600; color: var(--muted); padding: 10px 4px; background: var(--surface-soft); position: relative; }
+    .ladder li:first-child { border-radius: 10px 0 0 10px; }
+    .ladder li:last-child { border-radius: 0 10px 10px 0; }
+    .ladder li.done { background: var(--accent-soft); color: var(--accent-text); }
+    .ladder li.here { background: var(--accent); color: var(--on-accent); font-weight: 800; }
+    .ladder li.here::after { content: "Estás aquí"; position: absolute; left: 50%; top: calc(100% + 4px); transform: translateX(-50%); white-space: nowrap; font-size: 11px; color: var(--accent-text); font-weight: 700; }
+    .mix { margin-top: 18px; display: flex; height: 10px; border-radius: 6px; overflow: hidden; background: var(--surface-soft); }
+    .mix i { height: 100%; }
+    .mix-legend { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); }
+    .mix-legend li { display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; }
+    .mix-legend li i { width: 10px; height: 10px; border-radius: 3px; }
+    .mix-legend li b { color: var(--text); }
+    .k-secciones { background: color-mix(in srgb, var(--accent) 30%, var(--surface)); }
+    .k-hipotesis { background: color-mix(in srgb, var(--accent) 55%, var(--surface)); }
+    .k-retos { background: var(--accent); }
+    .k-casos { background: var(--accent-text); }
+    .k-puntualidad { background: color-mix(in srgb, var(--primary) 55%, var(--surface)); }
+    .k-respuestas { background: var(--primary); }
+    .compare { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .compare div { border-top: 1px solid var(--line); padding-top: 10px; }
+    .compare dt { font-size: 12px; color: var(--muted); }
+    .compare dd { margin: 4px 0 0; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .compare dd small { color: var(--muted); font-weight: 500; font-size: 12px; }
+    .rules { font-size: 14px; color: var(--muted); }
+    .rules summary { cursor: pointer; color: var(--accent-text); font-weight: 700; }
+    .rules ul { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 4px; line-height: 1.5; }
+    .rules b { color: var(--text); }
+    .rules p { margin: 8px 0 0; }
+    .board-side h3 { margin: 0; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text); }
+    .podium { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+    .podium li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+    .podium li .pos { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; font-size: 13px; background: var(--surface-soft); color: var(--muted); }
+    .podium li:first-child .pos { background: var(--accent); color: var(--on-accent); }
+    .podium li .who { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .podium li .pts { font-weight: 700; font-variant-numeric: tabular-nums; }
+    .podium li .pts small { color: var(--muted); font-weight: 500; }
+    .podium li.me { border-color: var(--accent); background: var(--accent-soft); }
+    .podium li.me .who::after { content: " · tú"; color: var(--accent-text); font-weight: 700; }
+    .podium .empty { display: block; color: var(--muted); font-size: 13px; background: none; border: 1px dashed var(--line); }
+    .alias { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 16px; }
+    .alias label { font-size: 13px; font-weight: 700; }
+    .alias-row { display: flex; gap: 8px; }
+    .alias input { flex: 1 1 auto; min-width: 0; min-height: 42px; border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; font: inherit; background: var(--surface); color: var(--text); }
+    .alias input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .alias .btn { min-height: 42px; padding: 0 16px; }
+    .alias .fine { margin: 0; }
+    .alias .fine.is-error { color: var(--critical); }
+    .alias .fine.is-ok { color: var(--accent-text); font-weight: 600; }
     .help { border: 1px dashed var(--line); border-radius: var(--r-card); padding: 20px 24px; color: var(--muted); line-height: 1.6; font-size: 14px; background: color-mix(in srgb, var(--surface) 60%, transparent); }
     .help h2 { margin: 0 0 8px; color: var(--text); font-size: 16px; }
     .help b { color: var(--text); }
@@ -136,6 +200,8 @@
     @media (max-width: 900px) {
       .gate { grid-template-columns: 1fr; gap: 40px; }
       .cases { grid-template-columns: 1fr; }
+      .board { grid-template-columns: 1fr; }
+      .board-side { border-left: 0; border-top: 1px solid var(--line); }
       .summary { grid-template-columns: 1fr; justify-items: start; }
     }
     @media (max-width: 620px) {
@@ -149,6 +215,9 @@
       .stats { grid-template-columns: 1fr; }
       .gate-actions .btn { width: 100%; min-width: 0; }
       .case { padding: 20px; }
+      .board-main, .board-side { padding: 22px; }
+      .compare { grid-template-columns: 1fr; }
+      .ladder li { font-size: 11px; padding: 9px 2px; }
       .preview { padding: 10px; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -217,6 +286,45 @@
           <dl class="stats" id="stats"></dl>
         </div>
       </div>
+      <section class="board" id="marcador" hidden aria-labelledby="marcadorTitle">
+        <div class="board-main">
+          <p class="kicker-dark">Tu lugar en la generación</p>
+          <div class="bits-line">
+            <h2 id="marcadorTitle"><b id="bitsVal">0</b> <span>bits</span></h2>
+            <span class="band-badge" id="bandaBadge"></span>
+          </div>
+          <p class="next" id="siguiente"></p>
+          <ol class="ladder" id="escalera" aria-label="Bandas de la generación">
+            <li data-b="en_camino">En camino</li><li data-b="top50">Top 50 %</li><li data-b="top20">Top 20 %</li><li data-b="top5">Top 5</li>
+          </ol>
+          <div class="mix" id="mezcla" role="img"></div>
+          <ul class="mix-legend" id="leyenda"></ul>
+          <dl class="compare" id="comparar"></dl>
+          <details class="rules">
+            <summary>¿Cómo se ganan bits?</summary>
+            <ul>
+              <li><b>1 bit</b> por cada sección de un caso que resuelves.</li>
+              <li><b>2 bits</b> por registrar tu hipótesis con una razón.</li>
+              <li><b>8, 16 o 24 bits</b> por reto acertado, según su dificultad. Vale completo al primer intento, la mitad al segundo y una cuarta parte del tercero al quinto. Fallar no resta.</li>
+              <li><b>10 bits</b> por caso completo y <b>5 más</b> si lo entregas a tiempo.</li>
+              <li><b>Hasta 15 bits</b> por cada respuesta abierta, según su evaluación (próximamente).</li>
+            </ul>
+            <p>Los bits no cuentan para tu calificación: sirven para ver tu avance frente a tu grupo.</p>
+          </details>
+        </div>
+        <div class="board-side">
+          <h3>Top 5</h3>
+          <ol class="podium" id="top5"></ol>
+          <form class="alias" id="aliasForm">
+            <label for="aliasInput">Tu alias en el Top 5</label>
+            <div class="alias-row">
+              <input id="aliasInput" maxlength="24" autocomplete="off" placeholder="Participante">
+              <button class="btn btn-line" type="submit" id="aliasGuardar">Guardar</button>
+            </div>
+            <p class="fine" id="aliasNota">Sin alias apareces como «Participante». Elige uno que no te identifique si prefieres que no sepan que eres tú.</p>
+          </form>
+        </div>
+      </section>
       <div class="cases-head">
         <h2>Casos</h2>
         <p id="casosNota">Se actualiza cada vez que avanzas en Colab.</p>

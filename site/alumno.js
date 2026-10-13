@@ -62,7 +62,10 @@
     if (sesion && sesion.expires_at - Date.now() < 60000) sesion = await refrescar(sesion);
     const r = await fetch(`${SUPABASE_URL}${ruta}`, { ...opciones, headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${sesion.access_token}`, "Content-Type": "application/json", ...(opciones.headers || {}) } });
     if (r.status === 401 && reintento) { sesion = await refrescar(sesion); return api(ruta, opciones, false); }
-    if (!r.ok) throw new Error(`HTTP ${r.status} en ${ruta.split("?")[0]}`);
+    if (!r.ok) {
+      let detalle = ""; try { detalle = (await r.json()).message || ""; } catch (_) {}
+      const e = new Error(detalle || `HTTP ${r.status} en ${ruta.split("?")[0]}`); e.status = r.status; throw e;
+    }
     return r.status === 204 ? null : r.json();
   }
 
@@ -186,21 +189,85 @@
     if (!casos.length) cont.append(el("p", "notice", "Todavía no hay casos publicados para tu generación."));
   }
 
-  function pintarDocente(casos, filas) {
+  function pintarDocente(casos, filas, bits = []) {
+    const porId = new Map((bits || []).map((b) => [b.alumno_id, b]));
     const t = $("#tablaDocente"); t.replaceChildren();
-    const head = el("tr"); ["ID", "Nombre", "Grupo", ...casos.map((c) => `Caso ${c.id}`), "Última actividad"].forEach((h) => head.append(el("th", null, h)));
+    const head = el("tr"); ["ID", "Nombre", "Grupo", ...(porId.size ? ["Bits", "Lugar"] : []), ...casos.map((c) => `Caso ${c.id}`), "Última actividad"].forEach((h) => head.append(el("th", null, h)));
     const thead = el("thead"); thead.append(head); t.append(thead);
     const alumnos = new Map();
     filas.forEach((f) => { if (!alumnos.has(f.usuario)) alumnos.set(f.usuario, { ...f, casos: {} }); const a = alumnos.get(f.usuario); a.casos[f.caso] = f; if (f.ultimo_evento > (a.ultimo || "")) a.ultimo = f.ultimo_evento; });
     const tbody = el("tbody");
     [...alumnos.values()].sort((a, b) => String(a.alumno_id).localeCompare(String(b.alumno_id))).forEach((a) => {
       const tr = el("tr"); [a.alumno_id || "—", a.nombre || "Sin perfil", a.grupo || "—"].forEach((v) => tr.append(el("td", null, v)));
+      if (porId.size) { const b = porId.get(a.alumno_id); tr.append(el("td", "ok", b ? String(b.bits) : "0"), el("td", null, b ? `#${b.posicion}` : "—")); }
       casos.forEach((c) => { const f = a.casos[c.id]; const td = el("td", f?.completo ? "ok" : "", f ? `${f.secciones_vistas}/${(c.secciones || []).length}${f.completo ? " · entregado" : ""}` : "—"); tr.append(td); });
       tr.append(el("td", null, a.ultimo ? relativo(a.ultimo) : "—")); tbody.append(tr);
     });
-    if (!alumnos.size) { const tr = el("tr"); const td = el("td", null, "Aún no hay avance registrado."); td.colSpan = casos.length + 4; tr.append(td); tbody.append(tr); }
+    if (!alumnos.size) { const tr = el("tr"); const td = el("td", null, "Aún no hay avance registrado."); td.colSpan = casos.length + 4 + (porId.size ? 2 : 0); tr.append(td); tbody.append(tr); }
     t.append(tbody);
   }
+
+  const BANDAS = { top5: "Top 5", top20: "Top 20 %", top50: "Top 50 %", en_camino: "En camino" };
+  const ORDEN = ["en_camino", "top50", "top20", "top5"];
+  const PARTES = [["secciones", "Secciones"], ["hipotesis", "Hipótesis"], ["retos", "Retos"], ["casos", "Casos completos"], ["puntualidad", "A tiempo"], ["respuestas", "Respuestas"]];
+  const pct = (x) => (x == null ? "—" : `${Math.round(x * 100)} %`);
+
+  function pintarMarcador(m) {
+    const sec = $("#marcador");
+    if (!m || !m.inscrito) { sec.hidden = true; return; }
+    sec.hidden = false;
+    $("#aliasInput").value = m.alias || "";
+    // Top 5
+    const top = $("#top5"); top.replaceChildren();
+    (m.top5 || []).forEach((t) => {
+      const li = el("li", t.soy_yo ? "me" : ""); const pts = el("span", "pts", String(t.bits)); pts.append(el("small", null, " bits"));
+      li.append(el("span", "pos", String(t.posicion)), el("span", "who", t.alias), pts); top.append(li);
+    });
+    if (!(m.top5 || []).length) top.append(el("li", "empty", "Aún nadie suma bits. El primer reto acertado abre la tabla."));
+    const main = $("#marcador .board-main");
+    sec.classList.toggle("solo", !m.participa);
+    $("#marcador .board-side h3").textContent = m.participa ? "Top 5" : "Top 5 · así lo ve tu grupo";
+    if (!m.participa) {  // cuenta docente: solo el Top 5
+      main.hidden = true; $("#aliasForm").hidden = true; return;
+    }
+    main.hidden = false; $("#aliasForm").hidden = false;
+    $("#bitsVal").textContent = String(m.bits);
+    const badge = $("#bandaBadge"); badge.className = `band-badge b-${m.banda}`;
+    badge.textContent = `${BANDAS[m.banda]} · lugar ${m.posicion} de ${m.participantes}`;
+    const sig = $("#siguiente"); sig.replaceChildren();
+    if (!m.siguiente) sig.textContent = "Vas en primer lugar. Cada reto que aciertes amplía tu ventaja.";
+    else if (m.siguiente.meta === "subir") sig.append(document.createTextNode("Te faltan "), el("b", null, `${m.siguiente.bits_faltantes} bits`), document.createTextNode(" para subir un lugar."));
+    else sig.append(document.createTextNode("Te faltan "), el("b", null, `${m.siguiente.bits_faltantes} bits`), document.createTextNode(` para entrar al ${BANDAS[m.siguiente.meta]}.`));
+    const nivel = ORDEN.indexOf(m.banda);
+    document.querySelectorAll("#escalera li").forEach((li) => { const i = ORDEN.indexOf(li.dataset.b); li.className = i === nivel ? "here" : i < nivel ? "done" : ""; });
+    // Mezcla de bits
+    const d = m.desglose || {}; const total = PARTES.reduce((s, [k]) => s + (d[k] || 0), 0);
+    const mix = $("#mezcla"), ley = $("#leyenda"); mix.replaceChildren(); ley.replaceChildren();
+    mix.setAttribute("aria-label", PARTES.map(([k, n]) => `${n}: ${d[k] || 0}`).join(", "));
+    PARTES.forEach(([k, n]) => {
+      const v = d[k] || 0; if (total && v) { const i = el("i", `k-${k}`); i.style.width = `${(v / total) * 100}%`; mix.append(i); }
+      const li = el("li"); li.append(el("i", `k-${k}`), document.createTextNode(`${n} `), el("b", null, String(v))); ley.append(li);
+    });
+    // Comparación con el grupo
+    const g = m.grupo || {}; const cmp = $("#comparar"); cmp.replaceChildren();
+    const tuTasa = d.retos_intentados ? d.primer_intento / d.retos_intentados : null;
+    const fila = (t, v, nota) => { const w = el("div"); const dd = el("dd", null, v); if (nota) dd.append(el("small", null, ` ${nota}`)); w.append(el("dt", null, t), dd); cmp.append(w); };
+    fila("Mediana del grupo", `${Math.round(g.mediana_bits || 0)} bits`, `· tú ${m.bits}`);
+    fila("Aciertos al primer intento", pct(tuTasa), `· grupo ${pct(g.tasa_primer_intento)}`);
+  }
+
+  $("#aliasForm").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const nota = $("#aliasNota"), btn = $("#aliasGuardar"); btn.disabled = true;
+    try {
+      const nuevo = await api("/rest/v1/rpc/poner_alias", { method: "POST", body: JSON.stringify({ nuevo: $("#aliasInput").value }) });
+      nota.className = "fine is-ok"; nota.textContent = nuevo ? `Listo: en el Top 5 apareces como «${nuevo}».` : "Listo: en el Top 5 apareces como «Participante».";
+      const m = await api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null);
+      if (m) pintarMarcador(m);
+    } catch (e) {
+      nota.className = "fine is-error"; nota.textContent = e.message && !/^HTTP/.test(e.message) ? e.message : "No pudimos guardar tu alias. Intenta de nuevo.";
+    } finally { btn.disabled = false; }
+  });
 
   async function cargar() {
     soloVista("#cargando");
@@ -209,12 +276,14 @@
     const foto = usuario.user_metadata?.avatar_url || usuario.user_metadata?.picture;
     if (foto) { $("#avatar").src = foto; $("#avatar").hidden = false; }
     const uid = encodeURIComponent(usuario.id);
-    const [perfiles, casos, filas, eventos, docente] = await Promise.all([
+    const [perfiles, casos, filas, eventos, docente, marcador] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
       api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite&order=modulo.asc,id.asc"),
       api("/rest/v1/vista_avance?select=usuario,alumno_id,nombre,grupo,caso,secciones_vistas,completo,ultimo_evento,entregado"),
       api(`/rest/v1/eventos?select=caso,seccion,tipo&usuario=eq.${uid}&tipo=eq.seccion&limit=5000`),
       api("/rest/v1/rpc/es_docente", { method: "POST", body: "{}" }).catch(() => false),
+      // Si la base aún no tiene el esquema 0.5, el marcador simplemente no aparece.
+      api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null),
     ]);
     const perfil = perfiles[0] || null;
     if (!perfil && !docente) {
@@ -224,7 +293,11 @@
     }
     soloVista("#vistaAvance"); $("#ayuda").hidden = false;
     pintarAvance({ usuario, perfil, casos, filas, eventos });
-    if (docente) { $("#vistaDocente").hidden = false; pintarDocente(casos, filas); }
+    pintarMarcador(marcador);
+    if (docente) {
+      const bits = await api("/rest/v1/rpc/bits_grupo", { method: "POST", body: "{}" }).catch(() => []);
+      $("#vistaDocente").hidden = false; pintarDocente(casos, filas, bits);
+    }
   }
 
   function ejemplo() {
