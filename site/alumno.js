@@ -85,7 +85,7 @@
     if (enlace) { const a = el("a", null, enlace); a.href = `mailto:${enlace}`; n.append(" ", a, "."); }
   }
   function soloVista(id) {
-    ["#vistaEntrar", "#vistaAvance", "#vistaDocente", "#ayuda", "#cargando"].forEach((s) => { $(s).hidden = s !== id; });
+    ["#vistaEntrar", "#vistaAvance", "#vistaDocente", "#ayuda", "#cargando", "#tabs", "#vistaCV"].forEach((s) => { $(s).hidden = s !== id; });
   }
   function mostrarEntrar() {
     soloVista("#vistaEntrar"); $("#session").hidden = true;
@@ -294,6 +294,8 @@
     soloVista("#vistaAvance"); $("#ayuda").hidden = false;
     pintarAvance({ usuario, perfil, casos, filas, eventos });
     pintarMarcador(marcador);
+    // La pestaña «Mi CV» (alumno-cv.js) se arma con los mismos datos.
+    if (perfil) document.dispatchEvent(new CustomEvent("tdd:datos", { detail: { usuario, perfil, casos, filas, marcador } }));
     if (docente) {
       const bits = await api("/rest/v1/rpc/bits_grupo", { method: "POST", body: "{}" }).catch(() => []);
       $("#vistaDocente").hidden = false; pintarDocente(casos, filas, bits);

@@ -178,6 +178,71 @@
     .alias .fine { margin: 0; }
     .alias .fine.is-error { color: var(--critical); }
     .alias .fine.is-ok { color: var(--accent-text); font-weight: 600; }
+    /* Pestañas */
+    .tabs { display: flex; gap: 6px; padding: 5px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--surface); width: max-content; max-width: 100%; box-shadow: var(--shadow-card); }
+    .tabs button { border: 0; background: none; font: inherit; font-size: 14px; font-weight: 700; color: var(--muted); padding: 9px 18px; border-radius: var(--r-pill); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    .tabs button[aria-selected="true"] { background: var(--text); color: var(--surface); }
+    .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tab-new { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); border-radius: var(--r-pill); padding: 2px 7px; }
+    .tab-off { display: none !important; }
+
+    /* Mi CV: editor a la izquierda, hoja carta a la derecha */
+    .cv { display: grid; gap: 22px; }
+    .cv-intro { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px 32px; }
+    .cv-intro h2 { margin: 8px 0 0; font-size: clamp(26px, 3.4vw, 36px); letter-spacing: -.02em; }
+    .cv-intro p:not(.kicker-dark) { margin: 8px 0 0; max-width: 60ch; color: var(--muted); line-height: 1.55; }
+    .cv-actions { display: grid; justify-items: end; gap: 8px; }
+    .cv-actions small { color: var(--muted); font-size: 12px; }
+    .cv-pages { font-size: 13px; font-weight: 700; padding: 5px 12px; border-radius: var(--r-pill); background: var(--accent-soft); color: var(--accent-text); font-variant-numeric: tabular-nums; }
+    .cv-pages.is-over { background: color-mix(in srgb, var(--critical) 12%, var(--surface)); color: var(--critical); }
+    .cv-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 24px; align-items: start; }
+    .cv-editor { display: grid; gap: 12px; }
+    .cv-block { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 0 18px; box-shadow: var(--shadow-card); }
+    .cv-block > summary { cursor: pointer; padding: 16px 0; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; font-weight: 700; }
+    .cv-block > summary small { color: var(--muted); font-weight: 500; font-size: 12px; }
+    .cv-block[open] > summary { border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+    .cv-block > :last-child { margin-bottom: 18px; }
+    .cv-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+    .cv-field { display: grid; gap: 4px; min-width: 0; }
+    .cv-field.wide { grid-column: 1 / -1; }
+    .cv-field span { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .cv-field input, .cv-field textarea { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; font: inherit; font-size: 14px; background: var(--surface-alt); color: var(--text); resize: vertical; }
+    .cv-field input:focus, .cv-field textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; background: var(--surface); }
+    .cv-list { display: grid; gap: 12px; }
+    .cv-item { border: 1px dashed var(--line); border-radius: 14px; padding: 12px; display: grid; gap: 10px; }
+    .cv-item-actions { display: flex; justify-content: flex-end; gap: 8px; }
+    .cv-add { justify-self: start; min-height: 40px; padding: 0 16px; }
+    .cv-check { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; }
+    .cv-preview { position: sticky; top: 84px; min-width: 0; overflow: hidden; border-radius: 6px; }
+    .cv-sheet { position: relative; width: 8.5in; min-height: 11in; padding: 0.6in; background: var(--surface); color: var(--text); box-shadow: 0 1px 3px color-mix(in srgb, var(--text) 12%, transparent), 0 18px 50px color-mix(in srgb, var(--primary) 14%, transparent); }
+    .cv-marks { position: absolute; inset: 0; pointer-events: none; }
+    .cv-break { position: absolute; left: 0; right: 0; border-top: 2px dashed var(--accent); font: 600 11px/1 var(--font); color: var(--accent-text); text-align: right; padding: 4px 8px 0; }
+
+    /* Plantilla Harvard: serif, encabezado centrado, secciones con línea, lugar y fecha a la derecha */
+    .cvh { font-family: Garamond, "EB Garamond", "Times New Roman", Times, serif; font-size: 11pt; line-height: 1.28; color: var(--text); }
+    .cvh-head { text-align: center; margin-bottom: 10pt; }
+    .cvh-head h1 { margin: 0; font-size: 20pt; font-weight: 700; letter-spacing: .01em; }
+    .cvh-head p { margin: 3pt 0 0; font-size: 10.5pt; }
+    .cvh-sec { margin-top: 10pt; }
+    .cvh-sec h2 { break-after: avoid; margin: 0 0 5pt; font-size: 11.5pt; font-weight: 700; text-align: center; text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--text); padding-bottom: 2pt; }
+    .cvh-entry { margin-bottom: 6pt; break-inside: avoid; }
+    .cvh-row { display: flex; justify-content: space-between; gap: 12pt; }
+    .cvh-row span { flex: 0 0 auto; text-align: right; }
+    .cvh-row b, .cvh-row i { min-width: 0; }
+    .cvh ul { margin: 2pt 0 0; padding-left: 16pt; }
+    .cvh li { margin: 1pt 0; }
+    .cvh .cvh-skills { list-style: none; padding-left: 0; }
+
+    @media print {
+      @page { size: letter; margin: 0.6in; }
+      body.imprimiendo-cv { background: none; }
+      body.imprimiendo-cv::before, body.imprimiendo-cv .site-header, body.imprimiendo-cv footer, body.imprimiendo-cv #tabs,
+      body.imprimiendo-cv .cv-intro, body.imprimiendo-cv .cv-editor, body.imprimiendo-cv .cv-marks, body.imprimiendo-cv #notice { display: none !important; }
+      body.imprimiendo-cv main { padding: 0; display: block; }
+      body.imprimiendo-cv .cv-layout { display: block; }
+      body.imprimiendo-cv .cv-preview { position: static; overflow: visible; }
+      body.imprimiendo-cv .cv-sheet { width: auto; min-height: 0; padding: 0; box-shadow: none; }
+    }
     .help { border: 1px dashed var(--line); border-radius: var(--r-card); padding: 20px 24px; color: var(--muted); line-height: 1.6; font-size: 14px; background: color-mix(in srgb, var(--surface) 60%, transparent); }
     .help h2 { margin: 0 0 8px; color: var(--text); font-size: 16px; }
     .help b { color: var(--text); }
@@ -201,6 +266,8 @@
       .gate { grid-template-columns: 1fr; gap: 40px; }
       .cases { grid-template-columns: 1fr; }
       .board { grid-template-columns: 1fr; }
+      .cv-layout { grid-template-columns: 1fr; }
+      .cv-preview { position: static; }
       .board-side { border-left: 0; border-top: 1px solid var(--line); }
       .summary { grid-template-columns: 1fr; justify-items: start; }
     }
@@ -217,6 +284,10 @@
       .case { padding: 20px; }
       .board-main, .board-side { padding: 22px; }
       .compare { grid-template-columns: 1fr; }
+      .cv-grid { grid-template-columns: 1fr; }
+      .cv-actions { justify-items: start; }
+      .tabs { width: 100%; }
+      .tabs button { flex: 1 1 0; justify-content: center; padding: 9px 10px; }
       .ladder li { font-size: 11px; padding: 9px 2px; }
       .preview { padding: 10px; }
     }
@@ -272,6 +343,11 @@
     </section>
 
     <div class="skeleton" id="cargando" hidden aria-label="Cargando tu avance"></div>
+
+    <div class="tabs" id="tabs" role="tablist" aria-label="Secciones del área del alumno" hidden>
+      <button type="button" role="tab" id="tabAvance" aria-selected="true" aria-controls="vistaAvance">Mi avance</button>
+      <button type="button" role="tab" id="tabCV" aria-selected="false" aria-controls="vistaCV">Mi CV <span class="tab-new">Nuevo</span></button>
+    </div>
 
     <section id="vistaAvance" hidden aria-labelledby="holaTitle">
       <div class="summary">
@@ -345,6 +421,30 @@
         <li>Si sigue sin aparecer, escribe a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a> con tu ID de alumno.</li>
       </ul>
     </section>
+
+    <section class="cv" id="vistaCV" hidden aria-labelledby="cvTitle">
+      <div class="cv-intro">
+        <div>
+          <p class="kicker-dark">Mi CV · formato Harvard</p>
+          <h2 id="cvTitle">Tu CV crece con cada caso</h2>
+          <p>Cada caso que completas agrega un proyecto y sus técnicas. Tú completa tu experiencia y tus datos de contacto; se guardan solo en este navegador.</p>
+        </div>
+        <div class="cv-actions">
+          <span class="cv-pages" id="cvPaginas" role="status">1 de 2 páginas</span>
+          <button class="btn btn-accent" type="button" id="cvPdf">Descargar PDF</button>
+          <small id="cvGuardado">Se guarda mientras escribes</small>
+        </div>
+      </div>
+      <div class="cv-layout">
+        <div class="cv-editor" id="cvEditor"></div>
+        <div class="cv-preview" id="cvMarco">
+          <div class="cv-sheet" id="cvHoja">
+            <div class="cv-marks" id="cvMarcas" aria-hidden="true"></div>
+            <article class="cvh" id="cvContenido" aria-label="Vista previa del CV"></article>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -358,5 +458,6 @@
   </footer>
 
   <script src="alumno.js"></script>
+  <script src="alumno-cv.js"></script>
 </body>
 </html>
