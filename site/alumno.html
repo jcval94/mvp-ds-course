@@ -9,78 +9,10 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="design/tokens/tokens.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="area.css">
   <style>
-    /* Área del alumno en tono claro: papel cálido, tarjetas blancas y el ámbar solo donde ya avanzaste.
+    /* Mi avance: papel cálido, tarjetas blancas y el ámbar solo donde ya avanzaste. Lo compartido con el panel docente está en area.css.
        Colores solo desde design/tokens (el guardia del harness rechaza literales). */
-    body.alumno-page {
-      min-height: 100vh;
-      background:
-        radial-gradient(60% 50% at 100% 0%, var(--accent-soft) 0, transparent 70%),
-        var(--bg);
-      color: var(--text);
-      --track: var(--surface-soft);
-      --shadow-soft: 0 1px 2px color-mix(in srgb, var(--text) 5%, transparent), 0 12px 32px color-mix(in srgb, var(--primary) 8%, transparent);
-    }
-    body.alumno-page::before {
-      content: ""; position: absolute; inset: 0 0 auto 0; height: 560px; pointer-events: none; z-index: 0;
-      background-image: radial-gradient(color-mix(in srgb, var(--primary) 16%, transparent) 1px, transparent 1px);
-      background-size: 24px 24px;
-      mask-image: radial-gradient(70% 90% at 85% 0%, var(--text) 0, transparent 75%);
-      -webkit-mask-image: radial-gradient(70% 90% at 85% 0%, var(--text) 0, transparent 75%);
-    }
-    .session { position: relative; display: flex; align-items: center; min-width: 0; }
-    .profile-btn { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
-    .profile-btn:hover, .profile-btn[aria-expanded="true"] { border-color: var(--accent); }
-    .profile-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .profile-btn img, .initials { width: 30px; height: 30px; border-radius: 50%; flex: 0 0 auto; }
-    .initials { display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); font-size: 12px; font-weight: 800; }
-    .initials:empty, img[hidden] + .initials:empty { display: none; }
-    .initials.big, .pm-head img { width: 44px; height: 44px; font-size: 15px; border-radius: 50%; }
-    .chev { width: 14px; height: 14px; transition: transform .15s ease; }
-    .profile-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
-    .profile-menu { position: absolute; right: 0; top: calc(100% + 10px); width: min(320px, calc(100vw - 32px)); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-soft), 0 24px 60px color-mix(in srgb, var(--text) 14%, transparent); padding: 8px; z-index: 50; }
-    .pm-head { display: flex; gap: 12px; align-items: center; padding: 10px 10px 12px; }
-    .pm-head div { display: grid; gap: 2px; min-width: 0; }
-    .pm-head b { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .pm-head span { color: var(--muted); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .pm-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 10px 10px; }
-    .pm-chips:empty { display: none; }
-    .pm-chips span { font-size: 12px; border-radius: var(--r-pill); padding: 3px 10px; background: var(--surface-alt); border: 1px solid var(--line); color: var(--muted); }
-    .pm-chips b { color: var(--text); }
-    .pm-group { display: grid; border-top: 1px solid var(--line); padding: 6px 0; }
-    .pm-group > * { display: block; width: 100%; text-align: left; background: none; border: 0; font: inherit; font-size: 14px; color: var(--text); padding: 9px 10px; border-radius: 10px; cursor: pointer; overflow-wrap: anywhere; }
-    .pm-group > *:hover, .pm-group > *:focus-visible { background: var(--surface-alt); outline: none; }
-    .pm-out { font-weight: 700; color: var(--critical) !important; }
-    .pm-out.soft { font-weight: 500; font-size: 13px !important; color: var(--muted) !important; }
-    .link-btn { background: var(--surface); border: 1px solid var(--line); color: var(--text); border-radius: var(--r-pill); padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
-    .link-btn:hover { border-color: var(--accent); color: var(--accent-text); }
-    .btn-line { background: var(--surface); color: var(--text); border-color: var(--line); }
-    .btn-line:hover { border-color: var(--accent); background: var(--accent-soft); }
-
-    .alumno-page main { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 56px max(16px, 3vw) 96px; display: grid; gap: 28px; }
-    .kicker-dark { margin: 0; color: var(--accent-text); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-    .notice { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-card); padding: 16px 20px; color: var(--muted); line-height: 1.55; box-shadow: var(--shadow-card); }
-    .notice.is-error { border-color: color-mix(in srgb, var(--critical) 45%, var(--line)); background: color-mix(in srgb, var(--critical) 7%, var(--surface)); color: var(--text); }
-    .notice a, .fine a, .help a { color: var(--accent-text); font-weight: 700; }
-    code { font-family: var(--font-mono); font-size: .92em; background: var(--surface-soft); border-radius: 6px; padding: 1px 5px; }
-
-    /* Sin sesión */
-    .gate { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; padding-block: 24px 8px; }
-    .gate h1 { margin: 16px 0 0; font-size: clamp(38px, 5.4vw, 64px); line-height: 1.04; letter-spacing: -.03em; font-weight: 800; text-wrap: balance; }
-    .gate h1 em { font-style: normal; background: linear-gradient(transparent 60%, color-mix(in srgb, var(--accent) 55%, transparent) 60%, color-mix(in srgb, var(--accent) 55%, transparent) 92%, transparent 92%); padding: 0 .06em; }
-    .gate .lead { margin: 22px 0 0; max-width: 52ch; color: var(--muted); font-size: 18px; line-height: 1.6; }
-    .gate-actions { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
-    .gate-actions .btn { min-width: 240px; }
-    .fine { margin: 14px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; max-width: 52ch; }
-    .steps { margin: 36px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; max-width: 52ch; }
-    .steps li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; color: var(--muted); line-height: 1.5; font-size: 15px; }
-    .steps b { color: var(--text); font-weight: 600; }
-    .steps span.n { width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); font-weight: 800; font-size: 13px; }
-    .preview { position: relative; padding: 18px; }
-    .preview::before { content: ""; position: absolute; inset: 0; border-radius: 32px; background: var(--surface-soft); transform: rotate(2.2deg); }
-    .preview .tag { position: absolute; top: 4px; right: 34px; z-index: 2; background: var(--text); color: var(--surface); border-radius: var(--r-pill); padding: 4px 12px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .preview .case { position: relative; z-index: 1; transform: rotate(-1deg); box-shadow: var(--shadow-soft), 0 30px 60px color-mix(in srgb, var(--primary) 10%, transparent); }
-
     /* Con sesión */
     #vistaAvance { display: grid; gap: 18px; }
     .summary { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 40px; align-items: center; padding: 34px; border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); }
@@ -108,7 +40,7 @@
     .cases-head h2 { margin: 0; font-size: 24px; letter-spacing: -.015em; }
     .cases-head p { margin: 0; color: var(--muted); font-size: 14px; }
     .cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .case { display: grid; gap: 18px; padding: 24px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); box-shadow: var(--shadow-card); min-width: 0; transition: border-color .2s ease, box-shadow .2s ease; }
+    .case { display: flex; flex-direction: column; gap: 18px; padding: 24px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); box-shadow: var(--shadow-card); min-width: 0; transition: border-color .2s ease, box-shadow .2s ease; }
     .case:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); box-shadow: var(--shadow-soft); }
     .case.done { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); background: linear-gradient(180deg, var(--accent-soft) 0, var(--surface) 140px); }
     .case-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
@@ -128,7 +60,7 @@
     .sections li { font-size: 12px; padding: 3px 9px; border-radius: 8px; background: var(--surface-alt); border: 1px solid var(--line); color: var(--muted); }
     .sections li.on { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); color: var(--text); }
     .sections li.next { border: 1px dashed var(--accent-text); color: var(--accent-text); background: var(--surface); font-weight: 600; }
-    .case-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
+    .case-foot { margin-top: auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
     .due { font-size: 13px; color: var(--muted); }
     .due b { color: var(--text); }
     .due.late b { color: var(--critical); }
@@ -199,13 +131,6 @@
     .alias .fine { margin: 0; }
     .alias .fine.is-error { color: var(--critical); }
     .alias .fine.is-ok { color: var(--accent-text); font-weight: 600; }
-    /* Pestañas */
-    .tabs { display: flex; gap: 6px; padding: 5px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--surface); width: max-content; max-width: 100%; box-shadow: var(--shadow-card); }
-    .tabs button { border: 0; background: none; font: inherit; font-size: 14px; font-weight: 700; color: var(--muted); padding: 9px 18px; border-radius: var(--r-pill); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-    .tabs button[aria-selected="true"] { background: var(--text); color: var(--surface); }
-    .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .tab-new { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); border-radius: var(--r-pill); padding: 2px 7px; }
-    .tab-off { display: none !important; }
 
     /* Mi CV: editor a la izquierda, hoja carta a la derecha */
     .cv { display: grid; gap: 22px; }
@@ -264,27 +189,24 @@
       body.imprimiendo-cv .cv-preview { position: static; overflow: visible; }
       body.imprimiendo-cv .cv-sheet { width: auto; min-height: 0; padding: 0; box-shadow: none; }
     }
+    .teacher-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; padding: 24px 28px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); box-shadow: var(--shadow-card); }
+    .teacher-cta h2 { margin: 6px 0 0; font-size: 20px; letter-spacing: -.01em; }
+    .teacher-cta p:not(.kicker-dark) { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+    .teacher-cta .btn { min-height: 44px; padding: 0 20px; }
+    /* Comentarios del profesor en cada caso */
+    .feedback { border-top: 1px solid var(--line); padding-top: 14px; font-size: 14px; }
+    .feedback summary { cursor: pointer; font-weight: 700; color: var(--accent-text); }
+    .feedback ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .feedback li { display: grid; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface-alt); border: 1px solid var(--line); }
+    .feedback li div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
+    .feedback .lvl { font-size: 12px; font-weight: 800; color: var(--accent-text); font-variant-numeric: tabular-nums; }
+    .feedback p { margin: 0; color: var(--muted); line-height: 1.5; white-space: pre-line; }
     .help { border: 1px dashed var(--line); border-radius: var(--r-card); padding: 20px 24px; color: var(--muted); line-height: 1.6; font-size: 14px; background: color-mix(in srgb, var(--surface) 60%, transparent); }
     .help h2 { margin: 0 0 8px; color: var(--text); font-size: 16px; }
     .help b { color: var(--text); }
     .help ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
 
-    .teacher { display: grid; gap: 12px; }
-    .teacher h2 { margin: 0; font-size: 20px; }
-    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); box-shadow: var(--shadow-card); }
-    .teacher table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
-    .teacher th, .teacher td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-    .teacher th { color: var(--muted); font-weight: 600; font-size: 12px; background: var(--surface-alt); }
-    .teacher tr:last-child td { border-bottom: 0; }
-    .teacher td.ok { color: var(--accent-text); font-weight: 700; }
-
-    .alumno-page footer { position: relative; z-index: 1; }
-
-    .skeleton { height: 220px; border-radius: 28px; background: linear-gradient(90deg, var(--surface), var(--surface-soft), var(--surface)); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
-    @keyframes shimmer { to { background-position: -200% 0; } }
-
     @media (max-width: 900px) {
-      .gate { grid-template-columns: 1fr; gap: 40px; }
       .cases { grid-template-columns: 1fr; }
       .board { grid-template-columns: 1fr; }
       .cv-layout { grid-template-columns: 1fr; }
@@ -293,33 +215,25 @@
       .summary { grid-template-columns: 1fr; justify-items: start; }
     }
     @media (max-width: 620px) {
-      .alumno-page main { padding-top: 32px; }
-      .alumno-page .site-header nav { display: none; }
-      .profile-btn > span:not(.initials) { display: none; }
-      .profile-btn { padding-right: 8px; }
       .summary { padding: 22px; gap: 24px; }
       .ring { width: 150px; height: 150px; }
       .ring .val b { font-size: 36px; }
       .ring .val span { font-size: 11px; }
       .stats { grid-template-columns: 1fr; }
-      .gate-actions .btn { width: 100%; min-width: 0; }
       .case { padding: 20px; }
       .board-main, .board-side { padding: 22px; }
       .compare { grid-template-columns: 1fr; }
       .cv-grid { grid-template-columns: 1fr; }
       .cv-actions { justify-items: start; }
-      .tabs { width: 100%; }
-      .tabs button { flex: 1 1 0; justify-content: center; padding: 9px 10px; }
       .ladder li { font-size: 11px; padding: 9px 2px; }
-      .preview { padding: 10px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .track i.on, .skeleton { animation: none; }
+      .track i.on { animation: none; }
       .ring .fg { transition: none; }
     }
   </style>
 </head>
-<body class="alumno-page">
+<body class="area alumno-page">
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="The Agentic D. Scientist, inicio">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
@@ -346,6 +260,7 @@
           <button type="button" role="menuitem" data-ir="avance">Mi avance</button>
           <button type="button" role="menuitem" data-ir="cv">Mi CV</button>
           <button type="button" role="menuitem" data-ir="alias" id="pmAlias">Cambiar mi alias del Top 5</button>
+          <a role="menuitem" href="docente.html" id="pmPanel" hidden>Panel docente</a>
         </div>
         <div class="pm-group">
           <a role="menuitem" href="aviso-privacidad.html">Aviso de privacidad</a>
@@ -428,7 +343,7 @@
               <li><b>2 bits</b> por registrar tu hipótesis con una razón.</li>
               <li><b>8, 16 o 24 bits</b> por reto acertado, según su dificultad. Vale completo al primer intento, la mitad al segundo y una cuarta parte del tercero al quinto. Fallar no resta.</li>
               <li><b>10 bits</b> por caso completo y <b>5 más</b> si lo entregas a tiempo.</li>
-              <li><b>Hasta 15 bits</b> por cada respuesta abierta, según su evaluación (próximamente).</li>
+              <li><b>Hasta 15 bits</b> por cada respuesta abierta, según la calificación de tu profesor (5 por nivel, de 0 a 3).</li>
             </ul>
             <p>Los bits no cuentan para tu calificación: sirven para ver tu avance frente a tu grupo.</p>
           </details>
@@ -453,9 +368,13 @@
       <div class="cases" id="casos"></div>
     </section>
 
-    <section class="teacher" id="vistaDocente" hidden aria-labelledby="docenteTitle">
-      <h2 id="docenteTitle">Vista docente · avance del grupo</h2>
-      <div class="table-wrap"><table id="tablaDocente"></table></div>
+    <section class="teacher-cta" id="vistaDocente" hidden aria-labelledby="docenteTitle">
+      <div>
+        <p class="kicker-dark">Cuenta docente</p>
+        <h2 id="docenteTitle">El avance del grupo vive en tu panel</h2>
+        <p>Alumnos, altas y claves, retos, respuestas por calificar, fechas de entrega y exportaciones.</p>
+      </div>
+      <a class="btn btn-dark" href="docente.html">Abrir panel docente</a>
     </section>
 
     <section class="help" id="ayuda" hidden aria-labelledby="ayudaTitle">
@@ -502,6 +421,7 @@
     <p>© 2026 Augmented Learning Labs · The Agentic D. Scientist</p>
   </footer>
 
+  <script src="sesion.js"></script>
   <script src="alumno.js"></script>
   <script src="alumno-cv.js"></script>
 </body>
