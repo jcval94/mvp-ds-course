@@ -28,9 +28,30 @@
       mask-image: radial-gradient(70% 90% at 85% 0%, var(--text) 0, transparent 75%);
       -webkit-mask-image: radial-gradient(70% 90% at 85% 0%, var(--text) 0, transparent 75%);
     }
-    .session { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .session img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line); }
-    .session .who { color: var(--muted); font-size: 13px; max-width: 24ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .session { position: relative; display: flex; align-items: center; min-width: 0; }
+    .profile-btn { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .profile-btn:hover, .profile-btn[aria-expanded="true"] { border-color: var(--accent); }
+    .profile-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .profile-btn img, .initials { width: 30px; height: 30px; border-radius: 50%; flex: 0 0 auto; }
+    .initials { display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); font-size: 12px; font-weight: 800; }
+    .initials:empty, img[hidden] + .initials:empty { display: none; }
+    .initials.big, .pm-head img { width: 44px; height: 44px; font-size: 15px; border-radius: 50%; }
+    .chev { width: 14px; height: 14px; transition: transform .15s ease; }
+    .profile-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+    .profile-menu { position: absolute; right: 0; top: calc(100% + 10px); width: min(320px, calc(100vw - 32px)); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-soft), 0 24px 60px color-mix(in srgb, var(--text) 14%, transparent); padding: 8px; z-index: 50; }
+    .pm-head { display: flex; gap: 12px; align-items: center; padding: 10px 10px 12px; }
+    .pm-head div { display: grid; gap: 2px; min-width: 0; }
+    .pm-head b { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pm-head span { color: var(--muted); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pm-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 10px 10px; }
+    .pm-chips:empty { display: none; }
+    .pm-chips span { font-size: 12px; border-radius: var(--r-pill); padding: 3px 10px; background: var(--surface-alt); border: 1px solid var(--line); color: var(--muted); }
+    .pm-chips b { color: var(--text); }
+    .pm-group { display: grid; border-top: 1px solid var(--line); padding: 6px 0; }
+    .pm-group > * { display: block; width: 100%; text-align: left; background: none; border: 0; font: inherit; font-size: 14px; color: var(--text); padding: 9px 10px; border-radius: 10px; cursor: pointer; overflow-wrap: anywhere; }
+    .pm-group > *:hover, .pm-group > *:focus-visible { background: var(--surface-alt); outline: none; }
+    .pm-out { font-weight: 700; color: var(--critical) !important; }
+    .pm-out.soft { font-weight: 500; font-size: 13px !important; color: var(--muted) !important; }
     .link-btn { background: var(--surface); border: 1px solid var(--line); color: var(--text); border-radius: var(--r-pill); padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
     .link-btn:hover { border-color: var(--accent); color: var(--accent-text); }
     .btn-line { background: var(--surface); color: var(--text); border-color: var(--line); }
@@ -274,7 +295,8 @@
     @media (max-width: 620px) {
       .alumno-page main { padding-top: 32px; }
       .alumno-page .site-header nav { display: none; }
-      .session .who { display: none; }
+      .profile-btn > span:not(.initials) { display: none; }
+      .profile-btn { padding-right: 8px; }
       .summary { padding: 22px; gap: 24px; }
       .ring { width: 150px; height: 150px; }
       .ring .val b { font-size: 36px; }
@@ -309,9 +331,32 @@
       <a href="index.html#catalogo">Currículum</a>
     </nav>
     <div class="session" id="session" hidden>
-      <img id="avatar" alt="" referrerpolicy="no-referrer" hidden>
-      <span class="who" id="who"></span>
-      <button class="link-btn" type="button" id="salir">Salir</button>
+      <button class="profile-btn" type="button" id="perfilBtn" aria-haspopup="true" aria-expanded="false" aria-controls="perfilMenu">
+        <img id="avatar" alt="" referrerpolicy="no-referrer" hidden><span class="initials" id="iniciales" aria-hidden="true"></span>
+        <span>Profile</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="profile-menu" id="perfilMenu" role="menu" aria-labelledby="perfilBtn" hidden>
+        <div class="pm-head">
+          <img id="avatarMenu" alt="" referrerpolicy="no-referrer" hidden><span class="initials big" id="inicialesMenu" aria-hidden="true"></span>
+          <div><b id="pmNombre"></b><span id="who"></span></div>
+        </div>
+        <div class="pm-chips" id="pmChips"></div>
+        <div class="pm-group">
+          <button type="button" role="menuitem" data-ir="avance">Mi avance</button>
+          <button type="button" role="menuitem" data-ir="cv">Mi CV</button>
+          <button type="button" role="menuitem" data-ir="alias" id="pmAlias">Cambiar mi alias del Top 5</button>
+        </div>
+        <div class="pm-group">
+          <a role="menuitem" href="aviso-privacidad.html">Aviso de privacidad</a>
+          <a role="menuitem" href="terminos.html">Términos y reembolsos</a>
+          <a role="menuitem" href="mailto:augmentedlearninglabs@gmail.com?subject=Ayuda%20con%20Mi%20avance">Ayuda por correo</a>
+        </div>
+        <div class="pm-group">
+          <button type="button" role="menuitem" class="pm-out" id="salir">Cerrar sesión</button>
+          <button type="button" role="menuitem" class="pm-out soft" id="salirTodo">Cerrar sesión en todos mis dispositivos</button>
+        </div>
+      </div>
     </div>
   </header>
 
