@@ -3,7 +3,7 @@
 (function () {
   // Proyecto Supabase "Continuum". La clave publicable es pública por diseño (equivale a la clave anon).
   const SUPABASE_URL = "https://tvxhocccdetkukonhhnh.supabase.co";
-  const SUPABASE_KEY = "";
+  const SUPABASE_KEY = "sb_publishable_onOiYrRQNSdZ7xdenhsLSw_HPavGYC8";
   const CONTACTO = "augmentedlearninglabs@gmail.com";
   // Cuadernos de cada caso en Drive (el acceso lo controla Drive).
   const CUADERNOS = {
