@@ -73,10 +73,45 @@
     const vuelta = location.origin + location.pathname;
     location.href = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(vuelta)}`;
   }
-  async function salir() {
-    try { if (sesion) await fetch(`${SUPABASE_URL}/auth/v1/logout`, { method: "POST", headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${sesion.access_token}` } }); } catch (_) {}
+  // scope "local": solo este navegador; "global": todas las sesiones de la cuenta.
+  async function salir(scope = "local") {
+    cerrarMenu();
+    try { if (sesion) await fetch(`${SUPABASE_URL}/auth/v1/logout?scope=${scope}`, { method: "POST", headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${sesion.access_token}` } }); } catch (_) {}
     sesion = null; guardar(null); mostrarEntrar();
+    aviso(scope === "global" ? "Cerraste sesión en todos tus dispositivos." : "Cerraste sesión.", false);
   }
+
+  // ---------- Menú Profile ----------
+  const iniciales = (n) => String(n || "").trim().split(/\s+/).slice(0, 2).map((p) => p[0] || "").join("").toUpperCase();
+  function abrirMenu(abrir) {
+    $("#perfilMenu").hidden = !abrir; $("#perfilBtn").setAttribute("aria-expanded", String(abrir));
+    if (abrir) { const f = $("#perfilMenu [role=menuitem]"); if (f) f.focus(); }
+  }
+  function cerrarMenu() { if (!$("#perfilMenu").hidden) abrirMenu(false); }
+  function pintarPerfil(usuario, perfil, docente) {
+    const nombre = (perfil && perfil.nombre) || usuario.user_metadata?.full_name || usuario.email;
+    $("#pmNombre").textContent = nombre; $("#who").textContent = usuario.email;
+    const ini = iniciales(nombre);
+    const foto = usuario.user_metadata?.avatar_url || usuario.user_metadata?.picture;
+    [["#avatar", "#iniciales"], ["#avatarMenu", "#inicialesMenu"]].forEach(([img, txt]) => {
+      if (foto) { $(img).src = foto; $(img).hidden = false; $(txt).textContent = ""; $(img).onerror = () => { $(img).hidden = true; $(txt).textContent = ini; }; }
+      else { $(img).hidden = true; $(txt).textContent = ini; }
+    });
+    const chips = $("#pmChips"); chips.replaceChildren();
+    const chip = (a, b) => { const c = el("span"); c.append(document.createTextNode(a), el("b", null, b)); chips.append(c); };
+    if (perfil) { chip("ID ", perfil.alumno_id); if (perfil.grupo) chip("Grupo ", perfil.grupo); }
+    if (docente) chip("", "Docente");
+    $("#pmAlias").hidden = !perfil;
+  }
+  $("#perfilBtn").addEventListener("click", (e) => { e.stopPropagation(); abrirMenu($("#perfilMenu").hidden); });
+  document.addEventListener("click", (e) => { if (!e.target.closest("#session")) cerrarMenu(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#perfilMenu").hidden) { abrirMenu(false); $("#perfilBtn").focus(); } });
+  document.querySelectorAll("#perfilMenu [data-ir]").forEach((b) => b.addEventListener("click", () => {
+    cerrarMenu(); const ir = b.dataset.ir;
+    const tab = ir === "cv" ? $("#tabCV") : $("#tabAvance"); if (tab && !$("#tabs").hidden) tab.click();
+    if (ir === "alias") { const a = $("#aliasInput"); if (a && !$("#marcador").hidden) { a.scrollIntoView({ behavior: "smooth", block: "center" }); a.focus({ preventScroll: true }); } }
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  }));
 
   // ---------- Vistas ----------
   function aviso(texto, error, enlace) {
@@ -272,9 +307,7 @@
   async function cargar() {
     soloVista("#cargando");
     const usuario = await api("/auth/v1/user");
-    $("#session").hidden = false; $("#who").textContent = usuario.email;
-    const foto = usuario.user_metadata?.avatar_url || usuario.user_metadata?.picture;
-    if (foto) { $("#avatar").src = foto; $("#avatar").hidden = false; }
+    $("#session").hidden = false; pintarPerfil(usuario, null, false);
     const uid = encodeURIComponent(usuario.id);
     const [perfiles, casos, filas, eventos, docente, marcador] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
@@ -286,6 +319,7 @@
       api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null),
     ]);
     const perfil = perfiles[0] || null;
+    pintarPerfil(usuario, perfil, docente);
     if (!perfil && !docente) {
       soloVista(null);
       aviso(`Entraste como ${usuario.email}, pero ese correo no está inscrito en una generación. Si ya te inscribiste con otro Gmail, sal y entra con ese. Si crees que es un error, escríbenos a`, true, CONTACTO);
@@ -311,7 +345,8 @@
 
   // ---------- Arranque ----------
   $("#entrar").addEventListener("click", entrar);
-  $("#salir").addEventListener("click", salir);
+  $("#salir").addEventListener("click", () => salir("local"));
+  $("#salirTodo").addEventListener("click", () => salir("global"));
   ejemplo();
   const retorno = tomarRetorno();
   mostrarEntrar();
