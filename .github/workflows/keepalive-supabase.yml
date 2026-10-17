@@ -1,0 +1,40 @@
+name: Mantener activo Supabase
+
+# El plan gratuito de Supabase pausa el proyecto tras 7 días sin actividad, y entonces
+# el login, Mi avance y los paneles dejan de funcionar. Este flujo hace dos consultas
+# inofensivas a la semana con la clave publicable (la misma que ya está en el sitio):
+# no escribe nada y no necesita secretos. Si falla, GitHub te avisa por correo:
+# suele significar que el proyecto ya se pausó (reactívalo en el panel de Supabase).
+
+on:
+  schedule:
+    - cron: "17 15 * * 1,4"   # lunes y jueves, 9:17 en CDMX
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          sparse-checkout: site/sesion.js
+          sparse-checkout-cone-mode: false
+
+      - name: Consultar la API y la base
+        run: |
+          set -euo pipefail
+          url=$(sed -n 's/.*let URL_BASE = "\(https:[^"]*\)".*/\1/p' site/sesion.js | head -1)
+          key=$(sed -n 's/.*let KEY = "\(sb_publishable_[^"]*\)".*/\1/p' site/sesion.js | head -1)
+          [ -n "$url" ] && [ -n "$key" ] || { echo "::error::No encontré URL_BASE o KEY en site/sesion.js"; exit 1; }
+          enc=(-H "apikey: $key" -H "Authorization: Bearer $key" -H "Content-Type: application/json")
+          st=$(curl -sS -o /tmp/auth.json -w '%{http_code}' --max-time 30 "${enc[@]}" "$url/auth/v1/settings")
+          echo "Auth: HTTP $st"
+          [ "$st" = "200" ] || { echo "::error title=Supabase no responde::Auth respondió $st. Revisa si el proyecto está pausado."; exit 1; }
+          # Lista vacía: la función responde 0 sin escribir nada, pero la consulta llega a Postgres.
+          st=$(curl -sS -o /tmp/rpc.txt -w '%{http_code}' --max-time 30 "${enc[@]}" -X POST -d '{"eventos": []}' "$url/rest/v1/rpc/registrar_invitado")
+          echo "Base: HTTP $st · $(cat /tmp/rpc.txt)"
+          [ "$st" = "200" ] || { echo "::error title=La base no responde::registrar_invitado respondió $st."; exit 1; }
