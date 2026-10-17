@@ -74,6 +74,12 @@
     .hero-copy p { margin: 24px 0 0; max-width: 580px; color: var(--hero-soft); font-size: 18px; line-height: 1.6; text-wrap: pretty; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
 
+    /* Foto del hero: la tarjeta "Qué hacer ahora" se superpone a su borde inferior */
+    .hero-side { min-width: 0; }
+    .hero-photo { margin: 0; border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--glass-line); aspect-ratio: 16 / 10; box-shadow: 0 24px 60px color-mix(in srgb, var(--hero) 55%, transparent); }
+    .hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 72% 40%; }
+    .hero-side .progress-card { position: relative; margin: -64px 16px 0; background: color-mix(in srgb, var(--hero) 78%, transparent); backdrop-filter: blur(14px); }
+
     /* Tarjeta "Qué hacer ahora" sobre el hero */
     .progress-card {
       border-radius: var(--r-card);
@@ -173,7 +179,7 @@
 
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; padding-block: 48px 72px; }
-      .progress-card { max-width: 560px; }
+      .hero-side { max-width: 560px; }
       .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .learning-path { grid-template-columns: repeat(5, minmax(150px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
       .plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
@@ -189,6 +195,8 @@
       .hero-actions { display: grid; grid-template-columns: 1fr; }
       .hero-actions .btn { width: 100%; }
       .progress-card { padding: 20px; }
+      .hero-photo { aspect-ratio: 4 / 3; }
+      .hero-side .progress-card { margin: -40px 10px 0; }
       .feature-grid { grid-template-columns: 1fr; }
       .learning-path { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; }
       .learning-step { min-width: 72%; scroll-snap-align: start; }
@@ -248,14 +256,20 @@
           </div>
         </div>
 
-        <aside class="progress-card" aria-labelledby="missionHeading">
-          <p class="card-kicker" id="missionHeading">Qué hacer ahora</p>
-          <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
-          <h2 id="continueTitle">Tu primera misión</h2>
-          <p id="continueMeta">Abriremos el primer bloque publicado. Cuando vuelvas, este acceso recordará en este dispositivo la última misión que abriste.</p>
-          <a class="btn btn-ghost" id="missionLink" href="#catalogo">Abrir misión</a>
-          <a class="card-secondary" href="placement.html"><b>¿Ya sabes algo? Haz el diagnóstico.</b> Hasta 10 preguntas para saltarte lo que ya dominas.</a>
-        </aside>
+        <div class="hero-side">
+          <figure class="hero-photo">
+            <img src="assets/hero-lectura.jpg" width="1600" height="900" fetchpriority="high" decoding="async"
+                 alt="Una mujer lee «Pensar rápido, pensar despacio» de Daniel Kahneman en su sala, con una taza en la mano">
+          </figure>
+          <aside class="progress-card" aria-labelledby="missionHeading">
+            <p class="card-kicker" id="missionHeading">Qué hacer ahora</p>
+            <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
+            <h2 id="continueTitle">Tu primera misión</h2>
+            <p id="continueMeta">Abriremos el primer bloque publicado. Cuando vuelvas, este acceso recordará en este dispositivo la última misión que abriste.</p>
+            <a class="btn btn-ghost" id="missionLink" href="#catalogo">Abrir misión</a>
+            <a class="card-secondary" href="placement.html"><b>¿Ya sabes algo? Haz el diagnóstico.</b> Hasta 10 preguntas para saltarte lo que ya dominas.</a>
+          </aside>
+        </div>
       </div>
     </section>
 
