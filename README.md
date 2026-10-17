@@ -18,7 +18,8 @@ python -m harness all        # validate → build → check → smoke
 ```
 
 El sitio publicable queda en `dist/`: estático, reproducible y portable entre
-GitHub Pages y Cloudflare Pages ([docs/architecture/DEPLOYMENT.md](docs/architecture/DEPLOYMENT.md)).
+hostings. Se publica en Cloudflare Pages (`learninglabs.pages.dev`); la URL anterior de
+GitHub Pages solo redirige ahí ([docs/architecture/DEPLOYMENT.md](docs/architecture/DEPLOYMENT.md)).
 
 ## Qué genera
 

@@ -4,7 +4,7 @@ Alternativa experimental para el bloque **Alfabetización de datos** de `labs/le
 
 ## Ver publicada
 
-- GitHub Pages: https://jcval94.github.io/mvp-ds-course/labs/level-1-v2/
+- Sitio: https://learninglabs.pages.dev/labs/level-1-v2/ (la URL anterior de GitHub Pages redirige aquí)
 - Cloudflare Pages: https://learninglabs.pages.dev/labs/level-1-v2/
 
 ## Qué cambia

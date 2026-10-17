@@ -237,6 +237,10 @@
     .feedback li div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
     .feedback .lvl { font-size: 12px; font-weight: 800; color: var(--accent-text); font-variant-numeric: tabular-nums; }
     .feedback p { margin: 0; color: var(--muted); line-height: 1.5; white-space: pre-line; }
+    .feedback .lvl.pending { color: var(--muted); font-weight: 700; }
+    .feedback .mine { margin: 2px 0 0; padding: 8px 12px; border-left: 3px solid var(--line); background: var(--surface); border-radius: 0 10px 10px 0; line-height: 1.5; white-space: pre-line; overflow-wrap: anywhere; max-height: 9.5em; overflow: auto; }
+    .feedback .mine-label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 2px; white-space: normal; }
+    .feedback .retro { color: var(--text); }
     .help { border: 1px dashed var(--line); border-radius: var(--r-card); padding: 20px 24px; color: var(--muted); line-height: 1.6; font-size: 14px; background: color-mix(in srgb, var(--surface) 60%, transparent); }
     .help h2 { margin: 0 0 8px; color: var(--text); font-size: 16px; }
     .help b { color: var(--text); }
