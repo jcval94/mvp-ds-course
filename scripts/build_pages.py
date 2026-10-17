@@ -146,6 +146,17 @@ def main() -> None:
         levels.append(level)
         validations.append(validation)
 
+    # Piloto UX: experiencia narrativa alternativa, sin reemplazar el Nivel 1 clásico.
+    # Se publica como una ruta independiente tanto en Cloudflare como en GitHub Pages.
+    experience = ROOT / "experiences" / "level-1-v2"
+    if not (experience / "index.html").is_file():
+        raise SystemExit("Falta el punto de entrada de experiences/level-1-v2")
+    shutil.copytree(
+        experience,
+        BUILD / "labs" / "level-1-v2",
+        ignore=shutil.ignore_patterns("README.md"),
+    )
+
     shutil.copytree(ROOT / "datasets", BUILD / "datasets", ignore=shutil.ignore_patterns("_downloads"))
     methodology = BUILD / "methodology"
     methodology.mkdir()

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Una historia interactiva en la taquería de Don Juan: cinco decisiones para aprender observación, variable, tabla, población y muestra.">
+  <meta name="theme-color" content="#171d25">
+  <title>La libreta de Don Juan · Nivel 1 V2 · The Agentic D. Scientist</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#experiencia">Ir a la experiencia</a>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="../../index.html" aria-label="The Agentic D. Scientist, volver al curso">
+        <span class="brand-symbol" aria-hidden="true">✳</span>
+        <span><strong>THE AGENTIC D. SCIENTIST</strong><small>Un laboratorio de Augmented Learning Labs</small></span>
+      </a>
+      <div class="top-right"><span class="version">PROTOTIPO V2</span><a class="exit-link" href="../level-1/">Versión clásica <span aria-hidden="true">↗</span></a></div>
+    </header>
+    <div class="progress-bar-area">
+      <div class="progress-heading">
+        <span>01 / FUNDAMENTOS <span class="slash" aria-hidden="true">·</span> ALFABETIZACIÓN DE DATOS</span>
+        <span id="progress-label" aria-live="polite">Escena 1 de 5</span>
+      </div>
+      <nav class="step-nav" id="step-nav" aria-label="Escenas de la historia"></nav>
+      <div class="progress-track" aria-hidden="true"><div id="progress-fill" class="progress-fill"></div></div>
+    </div>
+    <main id="experiencia">
+      <section class="experience" id="story">
+        <div class="story-copy">
+          <p class="chapter-tag" id="chapter">EPISODIO 01 · UN TURNO EN LA TAQUERÍA</p>
+          <div class="headline">
+            <span class="eyebrow" id="scene-label">ESCENA 01 — OBSERVACIÓN</span>
+            <h1 id="story-title">Todo empieza con un pedido.</h1>
+            <p class="story-intro" id="story-intro"></p>
+          </div>
+          <div class="dialogue-card" aria-label="Conversación de los personajes">
+            <div class="dialogue-line"><div class="avatar avatar-juan" aria-hidden="true">DJ</div><div><span class="speaker">DON JUAN</span><p id="juan-line"></p></div></div>
+            <div class="dialogue-line"><div class="avatar avatar-paco" aria-hidden="true">P</div><div><span class="speaker">PACO</span><p id="paco-line"></p></div></div>
+          </div>
+          <div class="takeaway" id="takeaway" hidden>
+            <span class="takeaway-icon" aria-hidden="true">✦</span>
+            <div><span class="takeaway-label">LO QUE ACABAS DE DESCUBRIR</span><p id="takeaway-text"></p></div>
+          </div>
+          <div class="micro-note"><span class="sound-indicator" aria-hidden="true"></span> Una historia. Una decisión. Una idea que recordar.</div>
+        </div>
+        <div class="scene-panel">
+          <div class="scene-topline">
+            <div class="shop-sign"><svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M5 12c0-3 3-5 11-5s11 2 11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 15h24M6 20h20M9 25h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 9c1-4 4-5 6-5s5 1 6 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>LA TAQUERÍA <b>DON JUAN</b></span></div>
+            <span class="live-label"><span class="live-dot" aria-hidden="true"></span> TURNO DE NOCHE</span>
+          </div>
+          <div class="visual-space" id="visual-space" aria-label="Evidencia del caso"></div>
+          <div class="decision-card" id="decision-card">
+            <div class="decision-header"><span class="decision-kicker"><span aria-hidden="true">◆</span> TU DECISIÓN</span><span id="question-index">01/05</span></div>
+            <h2 id="question-title"></h2>
+            <div class="choices" id="choices" role="group" aria-label="Opciones de respuesta"></div>
+            <div id="feedback" class="feedback" aria-live="polite" role="status" hidden></div>
+            <button id="hint-btn" class="hint-btn" type="button" aria-expanded="false">¿Una pista? <span aria-hidden="true">↘</span></button>
+            <p id="hint-text" class="hint-text" hidden></p>
+          </div>
+        </div>
+      </section>
+      <section class="end-screen" id="end-screen" hidden aria-labelledby="end-title">
+        <div class="end-illustration" aria-hidden="true"><span class="end-star">✳</span><span>¡Turno completado!</span></div>
+        <p class="chapter-tag">FINAL DEL EPISODIO 01</p>
+        <h1 id="end-title">Ya puedes leer una tabla sin engañarte.</h1>
+        <p class="end-lead">Paco salvó lo que pudo de su libreta. Tú aprendiste a preguntar qué significa cada dato antes de sacar conclusiones.</p>
+        <div class="recap" id="recap"></div>
+        <div class="end-actions"><button type="button" id="restart" class="primary-btn">Volver a jugar <span aria-hidden="true">↺</span></button><a href="../level-1/" class="secondary-link">Explorar el resto del Nivel 1 ↗</a></div>
+      </section>
+    </main>
+    <footer class="bottom-bar">
+      <div class="footer-summary"><span class="footer-icon" aria-hidden="true">◉</span><span id="footer-note">Explora la evidencia y elige una respuesta.</span></div>
+      <div class="footer-actions"><button type="button" id="back-btn" class="back-btn">← Anterior</button><button type="button" id="next-btn" class="primary-btn" disabled>Siguiente escena <span aria-hidden="true">→</span></button></div>
+    </footer>
+  </div>
+</body>
+</html>
