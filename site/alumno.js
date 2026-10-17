@@ -121,6 +121,8 @@
 
     const top = el("div", "case-top");
     const t = el("div"); t.append(el("span", "case-id", `Caso ${caso.id}${caso.modulo != null ? ` · Módulo ${caso.modulo}` : ""}`), el("h3", null, caso.titulo));
+    const suClase = claseDeCaso(caso.id);
+    if (suClase) t.append(el("span", "case-class", `Clase ${suClase.numero} · ${diaCorto(suClase.inicio)}`));
     top.append(t, el("span", `status ${clase}`, estado));
 
     const track = el("div", "track"); track.setAttribute("role", "img"); track.setAttribute("aria-label", `${vistas} de ${secciones.length} secciones resueltas`);
@@ -201,6 +203,83 @@
     llenarFiltros(); pintarCasos();
   }
 
+  // ---------- Clases en vivo (Google Meet) y grabaciones (esquema 0.10) ----------
+  const MIN = 60000, AVISO_MIN = 15; // la liga de Meet se resalta 15 minutos antes de empezar
+  const C = { lista: [], timer: null };
+  const diaCorto = (iso) => new Date(iso).toLocaleDateString("es-MX", { timeZone: TZ, weekday: "short", day: "numeric", month: "short" });
+  const diaLargo = (iso, tz = TZ) => new Date(iso).toLocaleString("es-MX", { timeZone: tz, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", hour12: false });
+  const soloFecha = (iso) => new Date(iso).toLocaleDateString("es-MX", { timeZone: TZ, day: "numeric", month: "short", year: "numeric" });
+  const claseDeCaso = (id) => C.lista.find((k) => k.caso === id) || null;
+  const inicioClase = (c) => { const k = claseDeCaso(c.id); return k ? new Date(k.inicio).getTime() : Infinity; };
+
+  function pintarClases(lista) {
+    C.lista = Array.isArray(lista) ? lista : [];
+    clearInterval(C.timer);
+    $("#clases").hidden = !C.lista.length;
+    if (!C.lista.length) return;
+    pintarProxima();
+    C.timer = setInterval(pintarProxima, 30 * 1000);
+    const ul = $("#grabaciones"); ul.replaceChildren();
+    const pasadas = C.lista.filter((k) => new Date(k.fin) < new Date()).reverse();
+    pasadas.forEach((k) => {
+      const li = el("li"), info = el("div");
+      info.append(el("b", null, `Clase ${k.numero} · ${k.tema}`), el("small", null, `${diaCorto(k.inicio)}${k.caso ? ` · Caso ${k.caso}` : ""}`));
+      li.append(info);
+      if (k.grabacion_url) {
+        const a = el("a", null, "Ver grabación"); a.href = k.grabacion_url; a.target = "_blank"; a.rel = "noopener";
+        a.title = `Disponible hasta el ${soloFecha(k.grabacion_hasta)}`; li.append(a);
+      } else li.append(el("span", "pend", new Date(k.grabacion_hasta) < new Date() ? "Ya no disponible" : "Grabación en proceso"));
+      ul.append(li);
+    });
+    if (!pasadas.length) ul.append(el("li", "vacio", "Después de cada clase, aquí aparece su grabación."));
+  }
+
+  function pintarProxima() {
+    const ahora = Date.now(), box = $("#claseProxima");
+    const actual = C.lista.find((k) => new Date(k.inicio) - AVISO_MIN * MIN <= ahora && ahora < new Date(k.fin));
+    const prox = actual || C.lista.find((k) => new Date(k.inicio) > ahora);
+    const cuenta = $("#cuentaRegresiva"), meet = $("#claseMeet"); cuenta.replaceChildren();
+    box.classList.toggle("live", !!actual);
+    $("#claseIcs").hidden = !C.lista.some((k) => new Date(k.inicio) > ahora);
+    if (!prox) {
+      $("#claseKicker").textContent = "Clases en vivo";
+      $("#claseTitulo").textContent = "Terminaron las clases de tu generación";
+      $("#claseCuando").textContent = `Fueron ${C.lista.length} clases. Sus grabaciones siguen disponibles 12 meses.`;
+      meet.hidden = true; $("#claseNota").textContent = ""; return;
+    }
+    const empezo = new Date(prox.inicio) <= ahora, horas = (new Date(prox.fin) - new Date(prox.inicio)) / 3600000;
+    $("#claseKicker").textContent = actual ? (empezo ? "En vivo ahora" : "Empieza en unos minutos") : "Próxima clase en vivo";
+    $("#claseTitulo").textContent = `Clase ${prox.numero} · ${prox.tema}`;
+    const cuando = $("#claseCuando"); cuando.replaceChildren(el("b", null, diaLargo(prox.inicio)),
+      document.createTextNode(` (hora del centro de México) · ${horas % 1 ? horas.toFixed(1) : horas} h${prox.caso ? ` · Caso ${prox.caso}` : ""}`));
+    const miZona = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (miZona && miZona !== TZ && new Date(prox.inicio).toLocaleString("en-US", { timeZone: miZona }) !== new Date(prox.inicio).toLocaleString("en-US", { timeZone: TZ }))
+      cuando.append(document.createTextNode(`. En tu zona: ${diaLargo(prox.inicio, miZona)}.`));
+    if (!actual) {
+      const falta = Math.max(0, new Date(prox.inicio) - ahora), d = Math.floor(falta / 86400000), h = Math.floor(falta / 3600000) % 24, m = Math.floor(falta / MIN) % 60;
+      [[d, d === 1 ? "día" : "días"], [h, h === 1 ? "hora" : "horas"], [m, "min"]].forEach(([v, t]) => { const c = el("div"); c.append(el("b", null, String(v)), el("span", null, t)); cuenta.append(c); });
+    }
+    meet.hidden = !prox.meet_url;
+    if (prox.meet_url) { meet.href = prox.meet_url; meet.className = actual ? "btn btn-accent" : "btn btn-line"; meet.textContent = actual ? "Entrar a Google Meet" : "Liga de Google Meet"; }
+    $("#claseNota").textContent = prox.meet_url ? "Entra con tu cuenta de Google unos minutos antes. La clase se graba y la grabación aparece aquí." : "Tu profesor publicará aquí la liga de Google Meet.";
+  }
+
+  // Archivo .ics con las clases que faltan: se abre en Google Calendar, Outlook o el calendario del teléfono.
+  function calendario() {
+    const z = (iso) => new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+    const esc = (t) => String(t || "").replace(/([,;\\])/g, "\\$1").replace(/\n/g, "\\n");
+    const ev = C.lista.filter((k) => new Date(k.fin) > new Date()).map((k) => [
+      "BEGIN:VEVENT", `UID:clase-${k.id}@${location.hostname || "agentic-data-scientist"}`, `DTSTAMP:${z(new Date().toISOString())}`, `DTSTART:${z(k.inicio)}`, `DTEND:${z(k.fin)}`,
+      `SUMMARY:${esc(`Clase ${k.numero} · ${k.tema} · The Agentic Data Scientist`)}`,
+      k.meet_url ? `LOCATION:${esc(k.meet_url)}` : "", `DESCRIPTION:${esc(`${k.caso ? `Caso ${k.caso}. ` : ""}${k.meet_url ? `Google Meet: ${k.meet_url}` : "La liga está en Mi avance."}`)}`,
+      "END:VEVENT"].filter(Boolean).join("\r\n"));
+    const texto = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Augmented Learning Labs//Clases//ES", "CALSCALE:GREGORIAN", ...ev, "END:VCALENDAR"].join("\r\n") + "\r\n";
+    const url = URL.createObjectURL(new Blob([texto], { type: "text/calendar" }));
+    const a = el("a"); a.href = url; a.download = "clases-agentic-data-scientist.ics"; document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }
+  $("#claseIcs").addEventListener("click", calendario);
+
   // ---------- Filtros y orden de los casos ----------
   const V = { casos: [], porCaso: new Map(), vistas: new Map(), retros: [] };
   const LLAVE_FILTROS = "tdd-alumno-filtros";
@@ -241,6 +320,7 @@
       fecha: (a, b) => fecha_(a) - fecha_(b) || porId(a.c, b.c),
       modulo: (a, b) => porId(a.c, b.c),
       avance: (a, b) => b.i.avance - a.i.avance || porId(a.c, b.c),
+      clase: (a, b) => inicioClase(a.c) - inicioClase(b.c) || porId(a.c, b.c),
     }[fo] || ((a, b) => porId(a.c, b.c));
     lista.sort(orden);
     const cont = $("#casos"); cont.replaceChildren();
@@ -368,12 +448,15 @@
     fila("Aciertos al primer intento", pct(tuTasa), `· grupo ${pct(g.tasa_primer_intento)}`);
   }
 
+  // Vacío = otra ciudad al azar (la base la elige sin repetir).
+  $("#aliasOtra").addEventListener("click", () => { $("#aliasInput").value = ""; $("#aliasForm").requestSubmit(); });
   $("#aliasForm").addEventListener("submit", async (ev) => {
     ev.preventDefault();
     const nota = $("#aliasNota"), btn = $("#aliasGuardar"); btn.disabled = true;
     try {
       const nuevo = await api("/rest/v1/rpc/poner_alias", { method: "POST", body: JSON.stringify({ nuevo: $("#aliasInput").value }) });
-      nota.className = "fine is-ok"; nota.textContent = nuevo ? `Listo: en el Top 5 apareces como «${nuevo}».` : "Listo: en el Top 5 apareces como «Participante».";
+      nota.className = "fine is-ok"; nota.textContent = `Listo: en el Top 5 apareces como «${nuevo || "Participante"}».`;
+      if (nuevo) $("#aliasInput").value = nuevo;
       const m = await api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null);
       if (m) pintarMarcador(m);
     } catch (e) {
@@ -386,7 +469,7 @@
     const usuario = await api("/auth/v1/user");
     $("#session").hidden = false; pintarPerfil(usuario, null, false);
     const uid = encodeURIComponent(usuario.id);
-    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas] = await Promise.all([
+    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas, clases] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
       // cuaderno_url existe desde el esquema 0.8; en bases anteriores se piden sin él.
       api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite,cuaderno_url&order=modulo.asc,id.asc")
@@ -401,6 +484,8 @@
       api(`/rest/v1/respuestas?select=caso,pregunta,nivel,retro,creado&usuario=eq.${uid}&modelo=not.is.null&order=creado.desc&limit=500`).catch(() => []),
       // Fechas límite por grupo (0.7); si su grupo no tiene, cuenta la general del caso.
       api("/rest/v1/entregas_grupo?select=grupo,caso,limite").catch(() => []),
+      // Clases en vivo y grabaciones de su grupo (0.10); en bases anteriores la sección no aparece.
+      api("/rest/v1/rpc/mis_clases", { method: "POST", body: "{}" }).catch(() => []),
     ]);
     const docente = rolBase && typeof rolBase === "object" ? (rolBase.admin || rolBase.docente ? rolBase : false) : rolBase === true;
     const perfil = perfiles[0] || null;
@@ -417,6 +502,7 @@
     soloVista("#vistaAvance"); $("#ayuda").hidden = false;
     // Mensajes: solo para alumnos inscritos (las cuentas del equipo responden desde su panel).
     if (perfil && !docente) await cargarMensajes(); else M.on = false;
+    pintarClases(clases);
     pintarAvance({ usuario, perfil, casos, filas, eventos, retros });
     pintarBuzon();
     pintarMarcador(marcador);
