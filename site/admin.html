@@ -102,6 +102,7 @@
         <button type="button" role="tab" id="tab-alumnos" aria-controls="v-alumnos" aria-selected="false">Alumnos <span class="tab-count" id="cntAlumnos"></span></button>
         <button type="button" role="tab" id="tab-grupos" aria-controls="v-grupos" aria-selected="false">Grupos <span class="tab-count" id="cntGrupos"></span></button>
         <button type="button" role="tab" id="tab-docentes" aria-controls="v-docentes" aria-selected="false">Docentes <span class="tab-count" id="cntDocentes"></span></button>
+        <button type="button" role="tab" id="tab-clases" aria-controls="v-clases" aria-selected="false">Clases <span class="tab-count" id="cntClases"></span></button>
         <button type="button" role="tab" id="tab-casos" aria-controls="v-casos" aria-selected="false">Casos y retos</button>
         <button type="button" role="tab" id="tab-respuestas" aria-controls="v-respuestas" aria-selected="false">Por calificar <span class="tab-count" id="cntRespuestas"></span></button>
         <button type="button" role="tab" id="tab-mensajes" aria-controls="v-mensajes" aria-selected="false">Mensajes <span class="tab-count hot" id="cntMensajes"></span></button>
@@ -181,6 +182,16 @@
           <span class="muted" id="cConteo"></span>
         </div>
         <div id="casosLista" class="vista"></div>
+      </section>
+
+      <!-- Clases en vivo -->
+      <section class="vista" id="v-clases" role="tabpanel" aria-labelledby="tab-clases" hidden>
+        <div class="toolbar">
+          <p class="legend-note grow" style="margin:0">Las clases son por Google Meet. Los alumnos ven la próxima clase con cuenta regresiva y la liga en Mi avance; después de cada clase pega aquí el enlace de la grabación de Drive (se muestra 12 meses).</p>
+          <button class="btn btn-line btn-sm" type="button" id="nuevaClase">+ Clase</button>
+          <button class="btn btn-accent btn-sm" type="button" id="generarClases">Generar calendario</button>
+        </div>
+        <div class="table-wrap"><table class="tbl" id="tablaClases"></table></div>
       </section>
 
       <!-- Respuestas -->
@@ -315,6 +326,59 @@
       <div class="dlg-foot">
         <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
         <button class="btn btn-accent btn-sm" type="submit" id="grupoGuardar">Guardar grupo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Clase -->
+  <dialog class="dlg" id="dlgClase" aria-labelledby="claseTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Clases</p><h2 id="claseTitle">Nueva clase</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formClase">
+      <div class="form-grid">
+        <label class="field wide"><span>Grupo</span><select name="grupo" required></select></label>
+        <label class="field"><span>Fecha</span><input name="fecha" type="date" required></label>
+        <label class="field"><span>Hora (CDMX)</span><input name="hora" type="time" required value="18:00"></label>
+        <label class="field"><span>Duración (min)</span><input name="duracion" type="number" min="15" max="600" step="15" value="180" required></label>
+        <label class="field"><span>Caso</span><select name="caso"></select></label>
+        <label class="field wide"><span>Tema</span><input name="tema" maxlength="120" autocomplete="off" placeholder="Semmelweis: comparar con justicia"></label>
+        <label class="field wide"><span>Liga de Google Meet</span><input name="meet" type="url" maxlength="300" placeholder="https://meet.google.com/abc-defg-hij"></label>
+        <label class="field wide"><span>Grabación (Drive)</span><input name="grabacion" type="url" maxlength="300" placeholder="https://drive.google.com/file/d/…/view"><small>Meet la guarda en tu Drive, carpeta «Meet Recordings». Compártela con tus alumnos y pega aquí su enlace.</small></label>
+      </div>
+      <p class="form-msg" id="claseMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="claseGuardar">Guardar clase</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Calendario de clases -->
+  <dialog class="dlg" id="dlgCalendario" aria-labelledby="calTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Clases</p><h2 id="calTitle">Generar calendario</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formCalendario">
+      <div class="form-grid">
+        <label class="field wide"><span>Grupo</span><select name="grupo" required></select></label>
+        <label class="field"><span>Desde</span><input name="desde" type="date" required></label>
+        <label class="field"><span>Hasta</span><input name="hasta" type="date" required></label>
+        <fieldset class="field wide horarios" style="border:0;padding:0;margin:0">
+          <span>Horarios de cada semana (hora CDMX)</span>
+          <div class="horario-fila"><select name="dia1" aria-label="Día 1"></select><input name="hora1" type="time" value="18:00" aria-label="Hora 1"><input name="dur1" type="number" min="15" max="600" step="15" value="180" aria-label="Minutos 1"></div>
+          <div class="horario-fila"><select name="dia2" aria-label="Día 2"></select><input name="hora2" type="time" value="08:00" aria-label="Hora 2"><input name="dur2" type="number" min="15" max="600" step="15" value="180" aria-label="Minutos 2"></div>
+          <div class="horario-fila"><select name="dia3" aria-label="Día 3"></select><input name="hora3" type="time" aria-label="Hora 3"><input name="dur3" type="number" min="15" max="600" step="15" value="180" aria-label="Minutos 3"></div>
+          <small>Cada fila es una clase semanal: día, hora de inicio y minutos. Deja el día vacío para no usar una fila.</small>
+        </fieldset>
+        <label class="field wide"><span>Liga de Google Meet (la misma para todas)</span><input name="meet" type="url" maxlength="300" placeholder="https://meet.google.com/abc-defg-hij"><small>Crea una reunión recurrente en Google Calendar y copia su liga. Si ya existe una clase a esa hora, no se toca.</small></label>
+      </div>
+      <p class="form-msg" id="calMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="calGuardar">Crear clases</button>
       </div>
     </form>
   </dialog>

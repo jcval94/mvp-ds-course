@@ -97,6 +97,7 @@
       <div class="tabs" id="tabs" role="tablist" aria-label="Secciones del panel">
         <button type="button" role="tab" id="tab-resumen" aria-controls="v-resumen" aria-selected="true">Resumen</button>
         <button type="button" role="tab" id="tab-alumnos" aria-controls="v-alumnos" aria-selected="false">Alumnos <span class="tab-count" id="cntAlumnos"></span></button>
+        <button type="button" role="tab" id="tab-clases" aria-controls="v-clases" aria-selected="false">Clases <span class="tab-count" id="cntClases"></span></button>
         <button type="button" role="tab" id="tab-casos" aria-controls="v-casos" aria-selected="false">Casos</button>
         <button type="button" role="tab" id="tab-respuestas" aria-controls="v-respuestas" aria-selected="false">Por calificar <span class="tab-count" id="cntRespuestas"></span></button>
         <button type="button" role="tab" id="tab-mensajes" aria-controls="v-mensajes" aria-selected="false">Mensajes <span class="tab-count hot" id="cntMensajes"></span></button>
@@ -153,6 +154,12 @@
           <span class="muted" id="cConteo"></span>
         </div>
         <div id="casosLista" class="vista"></div>
+      </section>
+
+      <!-- Clases en vivo -->
+      <section class="vista" id="v-clases" role="tabpanel" aria-labelledby="tab-clases" hidden>
+        <p class="legend-note">Las clases de tus grupos por Google Meet, con sus grabaciones. Las crea y edita administración.</p>
+        <div class="table-wrap"><table class="tbl" id="tablaClases"></table></div>
       </section>
 
       <!-- Respuestas -->

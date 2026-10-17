@@ -67,6 +67,42 @@
     .case-foot .btn { min-height: 42px; padding: 0 18px; }
     .case-foot .muted { color: var(--muted); font-size: 13px; }
 
+    /* Clases en vivo (Google Meet) y grabaciones */
+    .classes { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); overflow: hidden; }
+    .class-next { padding: 28px 32px; display: grid; gap: 12px; align-content: start; min-width: 0; background: linear-gradient(135deg, var(--accent-soft) 0, var(--surface) 70%); }
+    .class-next h2 { margin: 0; font-size: clamp(22px, 2.6vw, 28px); line-height: 1.2; letter-spacing: -.02em; overflow-wrap: anywhere; }
+    .class-next.live .kicker-dark { color: var(--critical); }
+    .class-next.live .kicker-dark::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--critical); animation: latido 1.4s ease-in-out infinite; vertical-align: 1px; }
+    @keyframes latido { 50% { opacity: .25; } }
+    .class-when { margin: 0; color: var(--muted); font-size: 15px; }
+    .class-when b { color: var(--text); }
+    .countdown { display: flex; flex-wrap: wrap; gap: 8px; }
+    .countdown:empty { display: none; }
+    .countdown div { min-width: 70px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); text-align: center; }
+    .countdown b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+    .countdown span { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+    .class-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    .class-actions .btn { min-height: 44px; padding: 0 18px; }
+    .class-recs { padding: 28px; background: var(--surface-alt); border-left: 1px solid var(--line); display: grid; gap: 12px; align-content: start; min-width: 0; }
+    .class-recs h3 { margin: 0; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text); }
+    .recs { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+    .recs li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); font-size: 14px; }
+    .recs li > div { min-width: 0; }
+    .recs li b { display: block; overflow-wrap: anywhere; }
+    .recs li small { color: var(--muted); font-size: 12px; }
+    .recs a { flex: 0 0 auto; font-weight: 700; color: var(--accent-text); white-space: nowrap; }
+    .recs .pend { flex: 0 0 auto; color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .recs .vacio { color: var(--muted); font-size: 14px; border-style: dashed; }
+    .case-class { color: var(--accent-text); font-weight: 600; }
+    .link-btn { justify-self: start; padding: 0; border: 0; background: none; color: var(--accent-text); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 860px) {
+      .classes { grid-template-columns: 1fr; }
+      .class-recs { border-left: 0; border-top: 1px solid var(--line); }
+      .class-next, .class-recs { padding: 22px 18px; }
+      .class-actions .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) { .class-next.live .kicker-dark::before { animation: none; } }
+
     /* Marcador de bits */
     .board { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); overflow: hidden; }
     .board.solo { grid-template-columns: 1fr; }
@@ -381,6 +417,24 @@
         </div>
       </div>
       <button class="inbox-strip" type="button" id="avisoMensajes" hidden></button>
+      <section class="classes" id="clases" hidden aria-labelledby="claseTitulo">
+        <div class="class-next" id="claseProxima">
+          <p class="kicker-dark" id="claseKicker">Próxima clase en vivo</p>
+          <h2 id="claseTitulo">Clase</h2>
+          <p class="class-when" id="claseCuando"></p>
+          <div class="countdown" id="cuentaRegresiva" role="timer" aria-live="off"></div>
+          <div class="class-actions">
+            <a class="btn btn-accent" id="claseMeet" target="_blank" rel="noopener" hidden>Entrar a Google Meet</a>
+            <button class="btn btn-line" type="button" id="claseIcs">Agregar todas a mi calendario</button>
+          </div>
+          <p class="fine" id="claseNota"></p>
+        </div>
+        <div class="class-recs">
+          <h3>Grabaciones</h3>
+          <ul class="recs" id="grabaciones"></ul>
+          <p class="fine">Cada grabación queda disponible 12 meses desde la fecha de su clase.</p>
+        </div>
+      </section>
       <section class="board" id="marcador" hidden aria-labelledby="marcadorTitle">
         <div class="board-main">
           <p class="kicker-dark">Tu lugar en la generación</p>
@@ -413,10 +467,11 @@
           <form class="alias" id="aliasForm">
             <label for="aliasInput">Tu alias en el Top 5</label>
             <div class="alias-row">
-              <input id="aliasInput" maxlength="24" autocomplete="off" placeholder="Participante">
+              <input id="aliasInput" maxlength="24" autocomplete="off" placeholder="Por ejemplo, Oaxaca 42">
               <button class="btn btn-line" type="submit" id="aliasGuardar">Guardar</button>
             </div>
-            <p class="fine" id="aliasNota">Sin alias apareces como «Participante». Elige uno que no te identifique si prefieres que no sepan que eres tú.</p>
+            <button class="link-btn" type="button" id="aliasOtra">Darme otra ciudad al azar</button>
+            <p class="fine" id="aliasNota">Te asignamos un alias de ciudad para que nadie sepa que eres tú. Puedes cambiarlo por el que quieras.</p>
           </form>
         </div>
       </section>
@@ -438,6 +493,7 @@
           <option value="fecha">Fecha de entrega</option>
           <option value="modulo">Módulo y número</option>
           <option value="avance">Avance</option>
+          <option value="clase">Fecha de su clase</option>
         </select></label>
         <label class="grow"><span>Buscar</span><input id="fBuscar" type="search" placeholder="Número o título del caso"></label>
         <p class="case-count" id="casosConteo" role="status"></p>
