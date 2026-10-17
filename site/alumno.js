@@ -7,8 +7,8 @@
   // Cuadernos de cada caso en Drive. Desde el esquema 0.8 el enlace viene de la base (casos.cuaderno_url);
   // estos quedan como respaldo para bases anteriores.
   const CUADERNOS = {
-    "4.1": "https://colab.research.google.com/drive/1E4PWnQdLVix_dXfUtap-kpdaKhzKnXIA",
-    "4.2": "https://colab.research.google.com/drive/1SV7ufg8pfS0EfuzRZM3fF0sORgZRDtIS",
+    "4.1": "https://colab.research.google.com/drive/1iRAmuvmj08aLXNr3IOjPPeESn4s1MjWI",
+    "4.2": "https://colab.research.google.com/drive/1_21Ve2MyBAKgoRu_5ipeng5gLk3yAzkZ",
   };
   const ETIQUETAS = {
     preparacion: "Preparación", hipotesis: "Hipótesis", clinicas: "Clínicas", azar: "Azar", sospechosos: "Sospechosos",
