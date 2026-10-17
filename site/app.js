@@ -36,10 +36,15 @@
     catch (_) {}
   };
 
+  // Tiempos estimados: "2 h 20 min" / "45 min". Vienen de site/tiempos.json vía catalog.json.
+  const dur = (m) => { m = Math.round(m / 5) * 5; return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ""}`; };
+  const caseStatus = { construido: "Disponible en Colab", en_preparacion: "En preparación", planeado: "Próximamente", por_verificar: "Por definir" };
+
   const summary = [
     ["Conceptos verificados", catalog.totals.concepts],
     ["Ejercicios", catalog.totals.exercises],
     ["Niveles", catalog.levels.length],
+    ["Tiempo estimado", catalog.timing ? `≈ ${Math.round(catalog.timing.total / 60)} h` : "—"],
     ["Actualizado", catalog.updated_at],
   ];
   summary.forEach(([label, value]) => {
@@ -77,12 +82,22 @@
     if (!free) badge.append(icon("lock"));
     badge.append(document.createTextNode(free ? "Gratis" : "Plan pagado"));
     heading.append(badge);
-    title.append(heading, create("span", {}, `${level.concept_count} conceptos · ${level.exercise_count} ejercicios`));
+    const tiempo = level.minutes ? ` · ≈ ${dur(level.minutes.total)}` : "";
+    title.append(heading, create("span", {}, `${level.concept_count} conceptos · ${level.exercise_count} ejercicios${tiempo}`));
     head.append(create("span", { class: "level-number", "aria-hidden": "true" }, String(level.level)), title, create("span", { class: "level-toggle", "aria-hidden": "true" }));
     group.append(head);
+    if (level.case) {
+      const c = level.case, note = create("div", { class: "catalog-case" });
+      const named = c.status !== "por_verificar" && c.title;
+      note.append(create("b", {}, named ? `Caso real del módulo: ${c.title}` : "Caso real del módulo: por definir"),
+        create("span", { class: "case-state" }, caseStatus[c.status] || ""),
+        create("span", {}, `Misión ≈ ${dur(c.minutes)}${level.minutes ? ` · ${level.concept_count} conceptos ≈ ${dur(level.minutes.concepts)} (${level.minutes.per_concept} min cada uno)` : ""}`));
+      if (c.bank && c.bank.length) note.append(create("span", { class: "case-bank" }, `También en clase: ${c.bank.join(" · ")}`));
+      group.append(note);
+    }
     level.blocks.forEach((block) => {
       const row = create("div", { class: "catalog-row", "data-search": `${block.title} ${level.title}`.toLowerCase() });
-      row.append(create("strong", {}, block.title), create("span", {}, `${block.concept_count} conceptos`));
+      row.append(create("strong", {}, block.title), create("span", {}, `${block.concept_count} conceptos${block.minutes ? ` · ≈ ${dur(block.minutes)}` : ""}`));
       const link = create("a", { href: block.href }, "Abrir");
       link.addEventListener("click", () => saveLastMission({ href: block.href, title: block.title, level: level.level, levelTitle: level.title }));
       row.append(link); group.append(row);
