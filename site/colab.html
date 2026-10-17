@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Cómo poner tus secretos TDD_ID y TDD_CLAVE en Google Colab para que tu avance en The Agentic D. Scientist se guarde a tu nombre.">
+  <title>Conecta Colab · The Agentic D. Scientist</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="design/tokens/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Tutorial de TDD_ID y TDD_CLAVE. Colores solo desde design/tokens (el guardia del harness rechaza literales).
+       Las ilustraciones imitan el panel de Secretos de Colab con HTML: sin capturas que caduquen. */
+    .tut { display: grid; gap: 28px; max-width: 980px; margin: 0 auto; }
+    .tut-intro h1 { margin: 10px 0 0; font-size: clamp(32px, 4.6vw, 52px); line-height: 1.05; letter-spacing: -.03em; text-wrap: balance; }
+    .tut-intro p.lead { margin: 14px 0 0; max-width: 62ch; color: var(--muted); font-size: 18px; line-height: 1.55; }
+    .need { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .need div { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 18px 20px; box-shadow: var(--shadow-card); }
+    .need code { font-size: 15px; font-weight: 700; }
+    .need p { margin: 6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .need .ej { display: inline-block; margin-top: 8px; padding: 4px 10px; border-radius: 8px; background: var(--surface-alt); border: 1px solid var(--line); font-family: var(--font-mono); font-size: 13px; }
+    .pasos { margin: 0; padding: 0; list-style: none; display: grid; gap: 18px; counter-reset: paso; }
+    .paso { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 24px; align-items: center; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); padding: 26px; box-shadow: var(--shadow-card); }
+    .paso h2 { margin: 0; font-size: 21px; letter-spacing: -.01em; display: flex; align-items: center; gap: 12px; }
+    .paso h2::before { counter-increment: paso; content: counter(paso); flex: 0 0 auto; width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); font-size: 15px; font-weight: 800; }
+    .paso p, .paso li { color: var(--muted); font-size: 15px; line-height: 1.6; }
+    .paso p { margin: 10px 0 0; }
+    .paso ul { margin: 10px 0 0; padding-left: 20px; }
+    .paso b, .paso strong { color: var(--text); }
+    .tip { margin-top: 12px; padding: 10px 14px; border-radius: 12px; background: var(--accent-soft); color: var(--text); font-size: 14px; line-height: 1.5; }
+
+    /* Ilustraciones */
+    .shot { border: 1px solid var(--line); border-radius: 16px; background: var(--surface-alt); padding: 14px; font-size: 13px; min-width: 0; overflow: hidden; }
+    .shot-bar { display: flex; gap: 6px; margin-bottom: 10px; }
+    .shot-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+    .menu-mock { display: grid; gap: 2px; width: min(260px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 6px; box-shadow: var(--shadow-card); }
+    .menu-mock span { padding: 7px 10px; border-radius: 8px; color: var(--muted); }
+    .menu-mock span.hi { background: var(--accent-soft); color: var(--text); font-weight: 700; outline: 2px solid var(--accent); }
+    .menu-top { display: flex; gap: 14px; margin-bottom: 6px; font-weight: 700; }
+    .menu-top span:first-child { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--accent); }
+    .colab { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; }
+    .rail { display: grid; gap: 8px; align-content: start; justify-items: center; padding: 8px 0; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); }
+    .rail span { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; color: var(--muted); }
+    .rail span.hi { background: var(--accent); color: var(--on-accent); }
+    .rail svg { width: 16px; height: 16px; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 8px; min-width: 0; }
+    .panel h3 { margin: 0 0 2px; font-size: 14px; }
+    .panel .cols, .secret { display: grid; grid-template-columns: 54px minmax(0, .9fr) minmax(0, 1.1fr); gap: 8px; align-items: center; }
+    .panel .cols { color: var(--muted); font-size: 11px; font-weight: 700; }
+    .secret { padding: 6px 0; border-top: 1px solid var(--line); }
+    .secret code, .secret .val { display: block; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-alt); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-mono); font-size: 12px; }
+    .secret.hi code, .secret.hi .val { border-color: var(--accent); background: var(--surface); }
+    .toggle { width: 38px; height: 22px; border-radius: 99px; background: var(--line); position: relative; }
+    .toggle::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); transition: left .2s ease; }
+    .toggle.on { background: var(--accent); }
+    .toggle.on::after { left: 19px; }
+    .add { color: var(--accent-text); font-weight: 700; padding-top: 6px; }
+    .card-mock { background: var(--surface); border: 3px solid var(--text); border-radius: 4px; box-shadow: 5px 5px 0 var(--text); padding: 12px 14px; }
+    .card-mock b.t { display: block; font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; margin-bottom: 6px; }
+    .card-mock.bad { border-color: var(--critical); box-shadow: 5px 5px 0 var(--critical); }
+    .card-mock.bad b.t { color: var(--critical); }
+    .card-mock p { margin: 4px 0 0; font-size: 13px; color: var(--text); line-height: 1.45; }
+    .bar { height: 10px; border: 2px solid var(--text); margin-top: 8px; }
+    .bar i { display: block; height: 100%; width: 30%; background: var(--accent); }
+    .duo { display: grid; gap: 12px; }
+
+    .fix { border: 1px solid var(--line); border-radius: 24px; background: var(--surface); padding: 26px; box-shadow: var(--shadow-card); }
+    .fix h2 { margin: 0 0 12px; font-size: 22px; }
+    .fix dl { margin: 0; display: grid; gap: 0; }
+    .fix div { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+    .fix dt { font-weight: 700; line-height: 1.45; }
+    .fix dd { margin: 0; color: var(--muted); line-height: 1.55; font-size: 15px; }
+    .fix dd b { color: var(--text); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .safe { color: var(--muted); font-size: 14px; line-height: 1.6; max-width: 72ch; }
+    @media (max-width: 820px) {
+      .paso { grid-template-columns: 1fr; padding: 20px; }
+      .need { grid-template-columns: 1fr; }
+      .fix div { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body class="methodology-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="The Agentic D. Scientist, inicio">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
+      <strong>The Agentic D. Scientist</strong>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="alumno.html">Mi avance</a>
+      <a href="colab.html" aria-current="page">Conectar Colab</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="tut">
+      <section class="tut-intro">
+        <p class="kicker-dark">Tutorial · 2 minutos, una sola vez</p>
+        <h1>Conecta tu cuaderno para que tu avance cuente</h1>
+        <p class="lead">Los cuadernos de Colab funcionan sin conectarse, pero entonces tu avance no se guarda a tu nombre. Dos <b>secretos</b> de Colab, <code>TDD_ID</code> y <code>TDD_CLAVE</code>, le dicen al cuaderno quién eres. Se guardan en tu cuenta de Google, no en el cuaderno.</p>
+      </section>
+
+      <section class="need" aria-label="Lo que necesitas">
+        <div>
+          <code>TDD_ID</code>
+          <p>El Gmail con el que te inscribiste (o tu ID de alumno, si tu profesor te dio uno). Viene en el mensaje de bienvenida.</p>
+          <span class="ej">ana.lopez@gmail.com</span>
+        </div>
+        <div>
+          <code>TDD_CLAVE</code>
+          <p>Tu clave de 8 caracteres con su guion. Te la manda tu profesor; si la perdiste, pídele una nueva desde <a href="alumno.html">Mi avance → Mensajes</a>.</p>
+          <span class="ej">KQ7M-3XPA</span>
+        </div>
+      </section>
+
+      <ol class="pasos">
+        <li class="paso">
+          <div>
+            <h2>Abre el caso y guarda tu copia</h2>
+            <p>Entra a <a href="alumno.html">Mi avance</a> y presiona <b>Abrir en Colab</b> en el caso. El original es de solo lectura, así que haz tu copia:</p>
+            <p><b>Archivo → Guardar una copia en Drive.</b> Trabaja siempre en esa copia; tu Drive la guarda como «Copia de Caso…».</p>
+          </div>
+          <div class="shot" aria-hidden="true">
+            <div class="shot-bar"><i></i><i></i><i></i></div>
+            <div class="menu-top"><span>Archivo</span><span>Editar</span><span>Ver</span></div>
+            <div class="menu-mock"><span>Abrir cuaderno</span><span class="hi">Guardar una copia en Drive</span><span>Descargar</span><span>Imprimir</span></div>
+          </div>
+        </li>
+
+        <li class="paso">
+          <div>
+            <h2>Abre el panel Secretos</h2>
+            <p>En la barra de la izquierda, presiona el icono de <b>llave</b>. Se abre el panel <b>Secretos</b>.</p>
+            <p class="tip">Los secretos son de tu cuenta de Google: los creas una vez y aparecen en todos tus cuadernos.</p>
+          </div>
+          <div class="shot" aria-hidden="true">
+            <div class="colab">
+              <div class="rail">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span>
+                <span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg></span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h6l2 2h10v10H3z"/></svg></span>
+              </div>
+              <div class="panel"><h3>Secretos</h3><p style="margin:0;color:var(--muted)">Guarda claves y valores privados…</p><span class="add">+ Agregar nuevo secreto</span></div>
+            </div>
+          </div>
+        </li>
+
+        <li class="paso">
+          <div>
+            <h2>Crea los dos secretos y activa el acceso</h2>
+            <p>Presiona <b>+ Agregar nuevo secreto</b> dos veces y llena:</p>
+            <ul>
+              <li><b>Nombre</b> <code>TDD_ID</code> · <b>Valor</b> tu Gmail.</li>
+              <li><b>Nombre</b> <code>TDD_CLAVE</code> · <b>Valor</b> tu clave, con el guion.</li>
+            </ul>
+            <p>Escribe los nombres exactamente así: en mayúsculas, con guion bajo y sin espacios. Luego <b>enciende el interruptor de acceso del cuaderno</b> en los dos.</p>
+          </div>
+          <div class="shot" aria-hidden="true">
+            <div class="panel">
+              <h3>Secretos</h3>
+              <div class="cols"><span>Acceso</span><span>Nombre</span><span>Valor</span></div>
+              <div class="secret hi"><span class="toggle on"></span><code>TDD_ID</code><span class="val">ana.lopez@gmail.com</span></div>
+              <div class="secret hi"><span class="toggle on"></span><code>TDD_CLAVE</code><span class="val">•••••••••</span></div>
+              <div class="secret"><span class="toggle"></span><code>OTRO_SECRETO</code><span class="val">•••••••</span></div>
+              <span class="add">+ Agregar nuevo secreto</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="paso">
+          <div>
+            <h2>Ejecuta la primera celda</h2>
+            <p>Presiona ▶ en la celda <b>Preparación</b>. Si Colab pregunta si el cuaderno puede leer tus secretos, elige <b>Otorgar acceso</b>.</p>
+            <p>Listo si ves <b>«Hola, Ana. Llevas … secciones de este caso»</b>. Si dice <b>Modo invitado</b>, el cuaderno te explica por qué: revisa la tabla de abajo.</p>
+          </div>
+          <div class="shot duo" aria-hidden="true">
+            <div class="card-mock"><b class="t">TU AVANCE</b><p><b>Hola, Ana.</b> Llevas 3 de 10 secciones de este caso.</p><div class="bar"><i></i></div></div>
+            <div class="card-mock bad"><b class="t">MODO INVITADO</b><p>El cuaderno funciona, pero tu avance no cuenta para tu calificación.</p></div>
+          </div>
+        </li>
+
+        <li class="paso">
+          <div>
+            <h2>Comprueba en Mi avance</h2>
+            <p>Entra a <a href="alumno.html">Mi avance</a> con tu Gmail. Cada sección que resuelves en Colab aparece en tu tarjeta del caso en segundos.</p>
+            <p>Si te atoras, presiona <b>Preguntar a mi profesor</b> en la tarjeta del caso: tu profesor te responde ahí mismo.</p>
+          </div>
+          <div class="shot" aria-hidden="true">
+            <div class="card-mock" style="box-shadow:none;border-width:1px;border-radius:14px"><b class="t">CASO 4.1 · MÓDULO 4</b><p><b>¿Por qué morían las madres en la Primera Clínica?</b></p><div class="bar" style="border-width:1px;border-radius:6px"><i style="width:60%"></i></div><p style="color:var(--muted)">6 de 10 secciones · Sigue: Pista</p></div>
+          </div>
+        </li>
+      </ol>
+
+      <section class="fix" aria-labelledby="fixTitle">
+        <h2 id="fixTitle">Si el cuaderno dice «Modo invitado»</h2>
+        <dl>
+          <div><dt>«No encontré tus secretos TDD_ID y TDD_CLAVE»</dt><dd>Revisa que los nombres sean exactamente <b>TDD_ID</b> y <b>TDD_CLAVE</b> (mayúsculas, guion bajo, sin espacios) y vuelve a ejecutar la primera celda.</dd></div>
+          <div><dt>«Tus secretos existen, pero este cuaderno no tiene permiso»</dt><dd>El acceso se da <b>por cuaderno</b>: en el panel Secretos enciende el interruptor de los dos en este cuaderno. Pasa cada vez que abres un caso nuevo.</dd></div>
+          <div><dt>«Tu ID o tu clave no coinciden»</dt><dd>Copia la clave con su guion y sin comillas ni espacios. Si la perdiste, pide una nueva a tu profesor en <b>Mensajes</b>: la anterior deja de servir.</dd></div>
+          <div><dt>«Uno de tus secretos está vacío»</dt><dd>Abre el secreto y pega el valor otra vez; a veces el pegado no se guarda.</dd></div>
+          <div><dt>Entré a Colab con otro Gmail</dt><dd>No pasa nada: lo que te identifica son tus secretos. Pero crea los secretos en esa misma cuenta de Colab, y entra a Mi avance con el Gmail con el que te inscribiste.</dd></div>
+        </dl>
+      </section>
+
+      <p class="safe"><b>Cuida tu clave.</b> No la pegues en una celda de código ni la mandes por chats públicos: los secretos no se guardan dentro del cuaderno, así que puedes compartir tu copia sin compartirlos.</p>
+      <div class="cta-row"><a class="btn btn-accent" href="alumno.html">Ir a Mi avance</a></div>
+    </div>
+  </main>
+
+  <footer>
+    <strong>Augmented Learning Labs · The Agentic D. Scientist</strong>
+    <p><a class="footer-link" href="aviso-privacidad.html">Aviso de privacidad</a> · <a class="footer-link" href="terminos.html">Términos y condiciones</a></p>
+  </footer>
+</body>
+</html>

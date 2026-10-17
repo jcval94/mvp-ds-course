@@ -206,6 +206,56 @@
     .help b { color: var(--text); }
     .help ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
 
+    /* Filtros de casos */
+    .case-tools { display: flex; flex-wrap: wrap; align-items: end; gap: 10px 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); box-shadow: var(--shadow-card); }
+    .case-tools label { display: grid; gap: 4px; min-width: 0; flex: 0 1 auto; }
+    .case-tools label.grow { flex: 1 1 200px; }
+    .case-tools label span { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .case-tools select, .case-tools input { min-height: 40px; max-width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 0 10px; font: inherit; font-size: 14px; background: var(--surface-alt); color: var(--text); }
+    .case-tools input { width: 100%; }
+    .case-tools select:focus, .case-tools input:focus { outline: 2px solid var(--accent); outline-offset: 0; background: var(--surface); }
+    .case-count { margin: 0 0 10px auto; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .case-tools[hidden] { display: none; }
+    .case-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px 16px; margin-left: auto; }
+    .case-ask { border: 0; background: none; padding: 0; font: inherit; font-size: 13px; font-weight: 700; color: var(--accent-text); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .module-head { grid-column: 1 / -1; margin: 6px 0 -4px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text); }
+
+    /* Campana y mensajes */
+    .bell-btn { position: relative; display: inline-flex; align-items: center; gap: 8px; margin-right: 8px; padding: 0 14px; min-height: 40px; border: 1px solid var(--line); border-radius: var(--r-pill); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .bell-btn:hover, .bell-btn:focus-visible { border-color: var(--accent); outline: none; }
+    .bell-btn .icon { width: 18px; height: 18px; }
+    .bell-count { min-width: 20px; padding: 1px 7px; border-radius: var(--r-pill); background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 800; text-align: center; font-variant-numeric: tabular-nums; }
+    .bell-btn.has-new { border-color: var(--accent); background: var(--accent-soft); }
+    .inbox-strip { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 14px 18px; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); border-radius: var(--r-card); background: var(--accent-soft); color: var(--text); font: inherit; font-size: 15px; text-align: left; cursor: pointer; }
+    .inbox-strip b { color: var(--accent-text); }
+    .inbox-strip span:last-child { font-weight: 700; color: var(--accent-text); white-space: nowrap; }
+    .msg-dlg { width: min(640px, calc(100vw - 32px)); max-height: min(86vh, 860px); padding: 0; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); color: var(--text); box-shadow: var(--shadow-soft); }
+    .msg-dlg[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+    .msg-dlg::backdrop { background: color-mix(in srgb, var(--text) 40%, transparent); }
+    .msg-dlg-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; padding: 20px 22px 12px; border-bottom: 1px solid var(--line); }
+    .msg-dlg-head h2 { margin: 4px 0 0; font-size: 22px; }
+    .msg-close { border: 0; background: none; font-size: 28px; line-height: 1; color: var(--muted); cursor: pointer; padding: 4px 8px; border-radius: 10px; }
+    .msg-close:hover { background: var(--surface-alt); color: var(--text); }
+    .msgs { margin: 0; padding: 16px 22px; list-style: none; display: grid; align-content: start; gap: 10px; overflow: auto; min-height: 120px; }
+    .msgs .empty { color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .msg { max-width: 86%; display: grid; gap: 4px; padding: 10px 12px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface-alt); }
+    .msg.mine { justify-self: end; background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); border-bottom-right-radius: 4px; }
+    .msg.theirs { justify-self: start; border-bottom-left-radius: 4px; }
+    .msg.fb { border-style: dashed; }
+    .msg.nuevo { box-shadow: 0 0 0 2px var(--accent); }
+    .msg p { margin: 0; white-space: pre-line; line-height: 1.5; font-size: 14px; overflow-wrap: anywhere; }
+    .msg .meta { font-size: 12px; color: var(--muted); }
+    .msg .meta b { color: var(--text); }
+    .msg-form { display: grid; gap: 10px; padding: 14px 22px 20px; border-top: 1px solid var(--line); }
+    .msg-field { display: grid; gap: 4px; }
+    .msg-field span { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .msg-field select, .msg-field textarea { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 9px 11px; font: inherit; font-size: 14px; background: var(--surface-alt); color: var(--text); resize: vertical; }
+    .msg-field select { min-height: 40px; }
+    .msg-field select:focus, .msg-field textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; background: var(--surface); }
+    .msg-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+    .msg-actions .fine { margin: 0; flex: 1 1 200px; }
+    .msg-actions .fine.is-error { color: var(--critical); }
+
     @media (max-width: 900px) {
       .cases { grid-template-columns: 1fr; }
       .board { grid-template-columns: 1fr; }
@@ -225,6 +275,11 @@
       .compare { grid-template-columns: 1fr; }
       .cv-grid { grid-template-columns: 1fr; }
       .cv-actions { justify-items: start; }
+      .bell-label { display: none; }
+      .bell-btn { padding: 0 10px; }
+      .case-tools label { flex: 1 1 140px; }
+      .case-tools select { width: 100%; }
+      .case-count { margin: 0; }
       .ladder li { font-size: 11px; padding: 9px 2px; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -245,6 +300,10 @@
       <a href="index.html#catalogo">Currículum</a>
     </nav>
     <div class="session" id="session" hidden>
+      <button class="bell-btn" type="button" id="buzonBtn" aria-label="Mensajes con tu profesor" hidden>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></svg>
+        <span class="bell-label">Mensajes</span><span class="bell-count" id="buzonCount" hidden></span>
+      </button>
       <button class="profile-btn" type="button" id="perfilBtn" aria-haspopup="true" aria-expanded="false" aria-controls="perfilMenu">
         <img id="avatar" alt="" referrerpolicy="no-referrer" hidden><span class="initials" id="iniciales" aria-hidden="true"></span>
         <span>Profile</span>
@@ -257,9 +316,8 @@
         </div>
         <div class="pm-chips" id="pmChips"></div>
         <div class="pm-group">
-          <button type="button" role="menuitem" data-ir="avance">Mi avance</button>
-          <button type="button" role="menuitem" data-ir="cv">Mi CV</button>
-          <button type="button" role="menuitem" data-ir="alias" id="pmAlias">Cambiar mi alias del Top 5</button>
+          <button type="button" role="menuitem" id="pmMensajes" hidden>Mensajes con tu profesor</button>
+          <a role="menuitem" href="colab.html">Cómo conectar Colab (TDD_ID y TDD_CLAVE)</a>
           <a role="menuitem" href="docente.html" id="pmPanel" hidden>Panel docente</a>
         </div>
         <div class="pm-group">
@@ -292,7 +350,7 @@
         <p class="fine" id="entrarNota">Usamos tu cuenta de Google solo para identificarte. Consulta el <a href="aviso-privacidad.html">aviso de privacidad</a>.</p>
         <ol class="steps">
           <li><span class="n">1</span><span><b>Usa el mismo Gmail</b> que diste al inscribirte; es el que liga esta página con tus cuadernos.</span></li>
-          <li><span class="n">2</span><span><b>Resuelve los casos en Colab</b> con tus secretos <code>TDD_ID</code> y <code>TDD_CLAVE</code>; cada sección se guarda sola.</span></li>
+          <li><span class="n">2</span><span><b>Resuelve los casos en Colab</b> con tus secretos <code>TDD_ID</code> y <code>TDD_CLAVE</code> (<a href="colab.html">cómo ponerlos</a>); cada sección se guarda sola.</span></li>
           <li><span class="n">3</span><span><b>Vuelve aquí</b> para ver tu avance y tus fechas de entrega. Solo tú y tu profesor lo ven.</span></li>
         </ol>
       </div>
@@ -322,6 +380,7 @@
           <dl class="stats" id="stats"></dl>
         </div>
       </div>
+      <button class="inbox-strip" type="button" id="avisoMensajes" hidden></button>
       <section class="board" id="marcador" hidden aria-labelledby="marcadorTitle">
         <div class="board-main">
           <p class="kicker-dark">Tu lugar en la generación</p>
@@ -365,6 +424,24 @@
         <h2>Casos</h2>
         <p id="casosNota">Se actualiza cada vez que avanzas en Colab.</p>
       </div>
+      <div class="case-tools" id="casosFiltros" role="group" aria-label="Filtrar y ordenar casos">
+        <label><span>Módulo</span><select id="fModulo"></select></label>
+        <label><span>Estado</span><select id="fEstado">
+          <option value="">Todos</option>
+          <option value="pendientes">Por entregar</option>
+          <option value="curso">En curso</option>
+          <option value="nuevos">Sin empezar</option>
+          <option value="entregados">Entregados</option>
+        </select></label>
+        <label><span>Orden</span><select id="fOrden">
+          <option value="sugerido">Sugerido: lo que sigue primero</option>
+          <option value="fecha">Fecha de entrega</option>
+          <option value="modulo">Módulo y número</option>
+          <option value="avance">Avance</option>
+        </select></label>
+        <label class="grow"><span>Buscar</span><input id="fBuscar" type="search" placeholder="Número o título del caso"></label>
+        <p class="case-count" id="casosConteo" role="status"></p>
+      </div>
       <div class="cases" id="casos"></div>
     </section>
 
@@ -380,9 +457,9 @@
     <section class="help" id="ayuda" hidden aria-labelledby="ayudaTitle">
       <h2 id="ayudaTitle">¿No ves tu avance?</h2>
       <ul>
-        <li>En Colab, abre <b>Secretos</b> (el icono de llave) y revisa que <code>TDD_ID</code> sea tu Gmail y <code>TDD_CLAVE</code> la clave que te dimos, con acceso activado para el cuaderno.</li>
+        <li>En Colab, abre <b>Secretos</b> (el icono de llave) y revisa que <code>TDD_ID</code> sea tu Gmail y <code>TDD_CLAVE</code> la clave que te dimos, con acceso activado para el cuaderno. <a href="colab.html">Ver el paso a paso con imágenes</a>.</li>
         <li>Si el cuaderno dice <b>Modo invitado</b>, tu avance no se está guardando a tu nombre.</li>
-        <li>Si sigue sin aparecer, escribe a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a> con tu ID de alumno.</li>
+        <li>Si sigue sin aparecer, escríbele a tu profesor desde <b>Mensajes</b> (arriba a la derecha) o a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a> con tu ID de alumno.</li>
       </ul>
     </section>
 
@@ -409,6 +486,18 @@
         </div>
       </div>
     </section>
+    <dialog class="msg-dlg" id="dlgMensajes" aria-labelledby="mensajesTitle">
+      <div class="msg-dlg-head">
+        <div><p class="kicker-dark">Tu profesor</p><h2 id="mensajesTitle">Mensajes</h2></div>
+        <button class="msg-close" type="button" id="mensajesCerrar" aria-label="Cerrar">×</button>
+      </div>
+      <ol class="msgs" id="mensajesLista"></ol>
+      <form class="msg-form" id="mensajeForm">
+        <label class="msg-field"><span>¿Sobre qué es tu duda?</span><select id="mensajeTema"></select></label>
+        <label class="msg-field"><span>Tu mensaje</span><textarea id="mensajeTexto" rows="3" maxlength="2000" required placeholder="Cuéntale a tu profesor en qué parte vas y qué no te queda claro."></textarea></label>
+        <div class="msg-actions"><button class="btn btn-accent" type="submit" id="mensajeEnviar">Enviar</button><p class="fine" id="mensajeNota" role="status">Lo leen tus profesores del curso. Te responden aquí mismo.</p></div>
+      </form>
+    </dialog>
   </main>
 
   <footer>

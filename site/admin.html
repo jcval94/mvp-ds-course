@@ -104,6 +104,7 @@
         <button type="button" role="tab" id="tab-docentes" aria-controls="v-docentes" aria-selected="false">Docentes <span class="tab-count" id="cntDocentes"></span></button>
         <button type="button" role="tab" id="tab-casos" aria-controls="v-casos" aria-selected="false">Casos y retos</button>
         <button type="button" role="tab" id="tab-respuestas" aria-controls="v-respuestas" aria-selected="false">Por calificar <span class="tab-count" id="cntRespuestas"></span></button>
+        <button type="button" role="tab" id="tab-mensajes" aria-controls="v-mensajes" aria-selected="false">Mensajes <span class="tab-count hot" id="cntMensajes"></span></button>
         <button type="button" role="tab" id="tab-datos" aria-controls="v-datos" aria-selected="false">Datos</button>
       </div>
 
@@ -174,6 +175,11 @@
 
       <!-- Casos y retos -->
       <section class="vista" id="v-casos" role="tabpanel" aria-labelledby="tab-casos" hidden>
+        <div class="toolbar" id="casosFiltros">
+          <select id="cModulo" aria-label="Módulo"></select>
+          <input class="grow" id="cBuscar" type="search" placeholder="Buscar caso por número o título" aria-label="Buscar caso">
+          <span class="muted" id="cConteo"></span>
+        </div>
         <div id="casosLista" class="vista"></div>
       </section>
 
@@ -188,9 +194,24 @@
           <select id="rCaso" aria-label="Caso"></select>
           <select id="rPregunta" aria-label="Pregunta"></select>
           <input class="grow" id="rBuscar" type="search" placeholder="Buscar alumno" aria-label="Buscar alumno">
+          <button class="btn btn-line btn-sm" type="button" id="rIA" title="La IA sugiere nivel y comentario con la rúbrica; tú revisas y guardas">Sugerir con IA (hasta 10)</button>
         </div>
-        <p class="scale"><b>Escala:</b> 0 sin evidencia · 1 en camino · 2 sólida · 3 excelente. Cada nivel vale 5 bits (cuenta la mejor por pregunta). El alumno ve tu comentario en Mi avance.</p>
+        <p class="scale"><b>Escala:</b> 0 sin evidencia · 1 en camino · 2 sólida · 3 excelente. Cada nivel vale 5 bits (cuenta la mejor por pregunta). Al guardar, el alumno recibe tu comentario como aviso en Mi avance. «Sugerir con IA» propone nivel y comentario con la rúbrica: siempre los revisas tú antes de guardar.</p>
         <div class="resp-list" id="listaRespuestas"></div>
+      </section>
+
+      <!-- Mensajes -->
+      <section class="vista" id="v-mensajes" role="tabpanel" aria-labelledby="tab-mensajes" hidden>
+        <div class="msg-layout">
+          <aside class="msg-side" aria-label="Conversaciones">
+            <div class="toolbar">
+              <input class="grow" id="mBuscar" type="search" placeholder="Buscar alumno" aria-label="Buscar alumno">
+              <label class="check-inline"><input type="checkbox" id="mTodos"> Todos</label>
+            </div>
+            <ul class="msg-convs" id="mConvs"></ul>
+          </aside>
+          <div class="msg-main" id="mHilo"></div>
+        </div>
       </section>
 
       <!-- Datos -->
