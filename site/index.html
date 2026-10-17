@@ -15,24 +15,31 @@
     body.landing { background: var(--surface); }
     .landing main { max-width: none; padding: 0; }
 
-    /* Hero oscuro con encabezado encima */
+    /* Hero con foto de fondo: la lectora a la derecha y el texto sobre un degradado a la izquierda */
     .hero-section {
       position: relative;
       overflow: hidden;
-      background:
-        radial-gradient(60% 70% at 88% 18%, color-mix(in srgb, var(--accent) 22%, transparent) 0, transparent 60%),
-        radial-gradient(45% 55% at 8% 100%, color-mix(in srgb, var(--primary) 45%, transparent) 0, transparent 70%),
-        var(--hero);
+      isolation: isolate;
+      min-height: clamp(560px, 86vh, 780px);
+      display: flex;
+      flex-direction: column;
+      background: var(--hero);
       color: var(--hero-text);
     }
+    .hero-photo { position: absolute; inset: 0; z-index: -2; margin: 0; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 66% 35%; }
     .hero-section::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(color-mix(in srgb, var(--hero-text) 9%, transparent) 1px, transparent 1px);
-      background-size: 26px 26px;
-      mask-image: linear-gradient(to left, var(--hero) 0, transparent 70%);
-      -webkit-mask-image: linear-gradient(to left, var(--hero) 0, transparent 70%);
+      z-index: -1;
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--hero) 55%, transparent) 0, transparent 22%),
+        linear-gradient(90deg,
+          color-mix(in srgb, var(--hero) 94%, transparent) 0,
+          color-mix(in srgb, var(--hero) 80%, transparent) 34%,
+          color-mix(in srgb, var(--hero) 30%, transparent) 60%,
+          transparent 82%);
       pointer-events: none;
     }
     .landing .site-header {
@@ -50,11 +57,14 @@
     .hero-inner {
       position: relative;
       z-index: 1;
+      flex: 1;
+      width: 100%;
       display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
-      gap: 40px;
-      align-items: center;
-      padding-block: 72px 104px;
+      grid-template-columns: minmax(0, 640px);
+      justify-content: start;
+      align-content: center;
+      gap: 36px;
+      padding-block: 56px 72px;
     }
     .hero-kicker {
       display: inline-flex;
@@ -74,20 +84,30 @@
     .hero-copy p { margin: 24px 0 0; max-width: 580px; color: var(--hero-soft); font-size: 18px; line-height: 1.6; text-wrap: pretty; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
 
-    /* Tarjeta "Qué hacer ahora" sobre el hero */
+    /* Tarjeta "Qué hacer ahora": franja compacta bajo los botones, sobre la parte oscura de la foto */
     .progress-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas: "kicker kicker" "texto boton" "extra extra";
+      column-gap: 20px;
+      align-items: center;
+      max-width: 580px;
       border-radius: var(--r-card);
-      background: var(--glass);
+      background: color-mix(in srgb, var(--hero) 55%, transparent);
       border: 1px solid var(--glass-line);
-      padding: 26px;
+      padding: 18px 20px;
       backdrop-filter: blur(10px);
     }
+    .progress-card .card-kicker { grid-area: kicker; }
+    .progress-card .card-texto { grid-area: texto; min-width: 0; }
+    .progress-card #missionLink { grid-area: boton; }
+    .progress-card .card-secondary { grid-area: extra; }
     .progress-card .card-kicker { margin: 0; color: var(--hero-soft); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-    .progress-card .mission-kicker { display: block; margin-top: 16px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-    .progress-card h2 { margin: 8px 0 8px; font-size: 24px; line-height: 1.25; letter-spacing: -.015em; }
+    .progress-card .mission-kicker { display: block; margin-top: 10px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .progress-card h2 { margin: 4px 0 4px; font-size: 19px; line-height: 1.25; letter-spacing: -.015em; }
     .progress-card p { margin: 0; color: var(--hero-soft); font-size: 14px; line-height: 1.55; }
-    .progress-card .btn { width: 100%; margin-top: 20px; }
-    .progress-card .card-secondary { display: block; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--glass-line); color: var(--hero-soft); font-size: 13px; line-height: 1.5; }
+    .progress-card .btn { margin-top: 10px; white-space: nowrap; }
+    .progress-card .card-secondary { display: block; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--glass-line); color: var(--hero-soft); font-size: 13px; line-height: 1.5; }
     .progress-card .card-secondary b { color: var(--hero-text); font-weight: 600; }
     .progress-card .card-secondary:hover b { color: var(--accent); }
 
@@ -172,8 +192,13 @@
     .landing footer { max-width: var(--max); }
 
     @media (max-width: 1024px) {
-      .hero-inner { grid-template-columns: 1fr; padding-block: 48px 72px; }
-      .progress-card { max-width: 560px; }
+      .hero-inner { padding-block: 40px 56px; }
+      .hero-photo img { object-position: 72% 35%; }
+      .hero-section::before {
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--hero) 60%, transparent) 0, transparent 25%),
+          linear-gradient(90deg, color-mix(in srgb, var(--hero) 92%, transparent) 0, color-mix(in srgb, var(--hero) 70%, transparent) 55%, color-mix(in srgb, var(--hero) 35%, transparent) 100%);
+      }
       .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .learning-path { grid-template-columns: repeat(5, minmax(150px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
       .plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
@@ -188,7 +213,11 @@
       .hero-copy p { font-size: 16px; }
       .hero-actions { display: grid; grid-template-columns: 1fr; }
       .hero-actions .btn { width: 100%; }
-      .progress-card { padding: 20px; }
+      .hero-section { min-height: 0; }
+      .hero-section::before { background: color-mix(in srgb, var(--hero) 80%, transparent); }
+      .hero-photo img { object-position: 74% 30%; }
+      .progress-card { grid-template-columns: 1fr; grid-template-areas: "kicker" "texto" "boton" "extra"; padding: 18px; }
+      .progress-card .btn { width: 100%; }
       .feature-grid { grid-template-columns: 1fr; }
       .learning-path { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; }
       .learning-step { min-width: 72%; scroll-snap-align: start; }
@@ -220,6 +249,11 @@
 
   <main id="top">
     <section class="hero-section" aria-labelledby="heroTitle">
+      <picture class="hero-photo">
+        <source type="image/webp" srcset="assets/hero-lectora-960.webp 960w, assets/hero-lectora-1672.webp 1672w" sizes="100vw">
+        <img src="assets/hero-lectora-1672.jpg" srcset="assets/hero-lectora-960.jpg 960w, assets/hero-lectora-1672.jpg 1672w" sizes="100vw"
+             width="1672" height="941" alt="" fetchpriority="high" decoding="async">
+      </picture>
       <header class="site-header">
         <a class="brand" href="#top" aria-label="The Agentic D. Scientist, inicio">
           <svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg>
@@ -250,9 +284,11 @@
 
         <aside class="progress-card" aria-labelledby="missionHeading">
           <p class="card-kicker" id="missionHeading">Qué hacer ahora</p>
-          <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
-          <h2 id="continueTitle">Tu primera misión</h2>
-          <p id="continueMeta">Abriremos el primer bloque publicado. Cuando vuelvas, este acceso recordará en este dispositivo la última misión que abriste.</p>
+          <div class="card-texto">
+            <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
+            <h2 id="continueTitle">Tu primera misión</h2>
+            <p id="continueMeta">Abriremos el primer bloque publicado. Cuando vuelvas, este acceso recordará en este dispositivo la última misión que abriste.</p>
+          </div>
           <a class="btn btn-ghost" id="missionLink" href="#catalogo">Abrir misión</a>
           <a class="card-secondary" href="placement.html"><b>¿Ya sabes algo? Haz el diagnóstico.</b> Hasta 10 preguntas para saltarte lo que ya dominas.</a>
         </aside>

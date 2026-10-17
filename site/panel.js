@@ -35,7 +35,7 @@
   const ACCIONES = {
     instalacion: "Instalación", borrado: "Borrado", vaciado: "Vaciado", respaldo: "Respaldo", docente_alta: "Alta de alumno",
     docente_edita: "Edición", docente_clave: "Clave nueva", docente_fecha: "Fecha límite", docente_reto: "Reto", docente_califica: "Calificación",
-    admin_grupo: "Grupo", admin_docente: "Docente", admin_asigna: "Asignación", docente_ia: "Sugerencia de IA", admin_caso: "Cuaderno",
+    admin_grupo: "Grupo", admin_clase: "Clase", admin_docente: "Docente", admin_asigna: "Asignación", docente_ia: "Sugerencia de IA", admin_caso: "Cuaderno",
   };
   const TIPOS = { abrio: "Abrió el cuaderno", seccion: "Resolvió", hipotesis: "Hipótesis", respuesta: "Respondió", pista: "Pidió pista", control: "Control", completo: "Entregó el caso" };
   const PARTES = [["secciones", "Secciones"], ["hipotesis", "Hipótesis"], ["retos", "Retos"], ["casos", "Casos completos"], ["puntualidad", "A tiempo"], ["respuestas", "Respuestas"]];
@@ -109,7 +109,7 @@
 
   // ---------- Estado ----------
   const S = { usuario: null, rol: null, alumnos: [], porUid: new Map(), casos: [], avance: [], eventos: [], respuestas: [], retos: [], material: [],
-    invitados: [], bitacora: [], grupos: [], docentes: [], admins: [], entregas: new Map(), esquema: true, fn: null, cargado: null, mensajes: [], v08: false,
+    invitados: [], bitacora: [], grupos: [], docentes: [], admins: [], entregas: new Map(), esquema: true, fn: null, cargado: null, mensajes: [], v08: false, clases: [], v10: false,
     grupoSel: leerLocal(LLAVE_GRUPO) || "", mostrarClaves: new Set(), ordenAlumnos: { k: "id", dir: "asc" } };
   const total = (c) => (Array.isArray(c.secciones) ? c.secciones.length : 0);
   const nombreGrupo = (id) => { const g = S.grupos.find((x) => x.id === id); return g ? g.nombre : id; };
@@ -162,6 +162,8 @@
     // Mensajes (0.8): si la base aún no los tiene, la pestaña lo explica.
     S.v08 = R.mensajes.status === "fulfilled";
     S.mensajes = val("mensajes", []).filter((m) => S.porUid.has(m.alumno));
+    S.v10 = R.clases.status === "fulfilled";
+    S.clases = val("clases", []);
     const opciones = gruposDelFiltro().map((g) => g.id);
     if (S.grupoSel && !opciones.includes(S.grupoSel)) S.grupoSel = "";
     S.cargado = new Date();
@@ -222,6 +224,8 @@
       respuestas: todo("/rest/v1/respuestas?select=id,usuario,caso,pregunta,texto,etapa,nivel,retro,modelo,creado&order=id.asc"),
       material: api("/rest/v1/material_docente?select=caso,clave,orden,titulo,contenido&order=caso.asc,orden.asc"),
       entregas: S.esquema ? api("/rest/v1/entregas_grupo?select=grupo,caso,limite") : Promise.resolve([]),
+      // Clases en vivo (0.10): en bases anteriores la pestaña lo explica.
+      clases: api("/rest/v1/clases?select=id,grupo,inicio,duracion_min,tema,caso,meet_url,grabacion_url&order=inicio.asc"),
       gruposTabla: S.esquema ? api("/rest/v1/grupos?select=id,nombre,horario,inicio,fin,cupo,activo&order=id.asc") : Promise.resolve([]),
     };
     if (ADMIN) Object.assign(pedidos, {
@@ -255,7 +259,7 @@
     actualizarContadorMensajes();
     if ($("#cntGrupos")) $("#cntGrupos").textContent = S.grupos.length || "";
     if ($("#cntDocentes")) $("#cntDocentes").textContent = S.docentes.length || "";
-    llenarFiltros(); pintarBanners(); pintarResumen(); pintarAlumnos(); pintarCasos(); pintarRespuestas(); pintarMensajes(); pintarDatos();
+    llenarFiltros(); pintarBanners(); pintarResumen(); pintarAlumnos(); pintarCasos(); pintarClases(); pintarRespuestas(); pintarMensajes(); pintarDatos();
     if (ADMIN) { pintarGrupos(); pintarDocentes(); }
   }
 
@@ -273,6 +277,7 @@
     if (!ADMIN) return;
     if (!S.esquema) banner("Falta el esquema 0.7 en la base: el panel puede leer, pero no crear grupos, docentes ni alumnos. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
     if (S.fn && !S.fn.ok) banner(`Altas y claves no disponibles: ${S.fn.error}`, true, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
+    if (S.esquema && S.v08 && !S.v10) banner("Falta el esquema 0.10: las clases en vivo, sus grabaciones y los alias de ciudad se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
     if (S.esquema && !S.v08) banner("Falta el esquema 0.8: mensajes, avisos al alumno y enlaces de cuadernos se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
   }
 
@@ -825,6 +830,124 @@
     d.addEventListener("cancel", (e) => { if (d.id !== "dlgConfirmar") { e.preventDefault(); cerrarDialogo(d); } });
   });
 
+  // ---------- Clases en vivo (0.10) ----------
+  const DIAS = [["", "—"], ["1", "Lunes"], ["2", "Martes"], ["3", "Miércoles"], ["4", "Jueves"], ["5", "Viernes"], ["6", "Sábado"], ["7", "Domingo"]];
+  const DOCE_MESES = 365 * DIA;
+  const clasesVisibles = () => {
+    const mios = ADMIN ? null : new Set(gruposDelFiltro().map((g) => g.id));
+    return S.clases.filter((k) => (!S.grupoSel || S.grupoSel === "__sin__" ? true : k.grupo === S.grupoSel) && (!mios || mios.has(k.grupo)));
+  };
+  const finClase = (k) => new Date(new Date(k.inicio).getTime() + (k.duracion_min || 180) * MIN);
+  const ligaCorta = (u) => { try { const x = new URL(u); return x.hostname.replace(/^www\./, "") + (x.pathname.length > 1 ? x.pathname.slice(0, 18) + (x.pathname.length > 18 ? "…" : "") : ""); } catch (_) { return u; } };
+  function enlace(u, texto) { const a = el("a", null, texto || ligaCorta(u)); a.href = u; a.target = "_blank"; a.rel = "noopener"; return a; }
+
+  function pintarClases() {
+    const tb = $("#tablaClases"); if (!tb) return; tb.replaceChildren();
+    const lista = clasesVisibles(), ahora = new Date();
+    const futuras = lista.filter((k) => finClase(k) > ahora);
+    $("#cntClases").textContent = futuras.length || "";
+    ["#nuevaClase", "#generarClases"].forEach((b) => { if ($(b)) $(b).disabled = !S.v10 || !S.grupos.length; });
+    if (!S.v10) { const tr = el("tr"), td = el("td", null, "Las clases llegan con el esquema 0.10: corre los pasos 1 a 3 del instalador."); tr.append(td); tb.append(tr); return; }
+    if (!lista.length) {
+      const tr = el("tr"), td = el("td", null, ADMIN ? "Aún no hay clases. Con «Generar calendario» creas todas las de la generación en un paso (por ejemplo, viernes 18:00 y sábados 8:00)." : "Administración todavía no publica el calendario de clases.");
+      tr.append(td); tb.append(tr); return;
+    }
+    const head = el("tr"); ["#", "Fecha (CDMX)", "Tema", "Caso", "Google Meet", "Grabación", ...(ADMIN ? [""] : [])].forEach((h) => head.append(el("th", null, h)));
+    const thead = el("thead"); thead.append(head); const body = el("tbody");
+    const numero = new Map(); const porGrupo = new Map();
+    S.clases.forEach((k) => { const n = (porGrupo.get(k.grupo) || 0) + 1; porGrupo.set(k.grupo, n); numero.set(k.id, n); });
+    const proxima = futuras[0];
+    lista.forEach((k) => {
+      const tr = el("tr"), pasada = finClase(k) < ahora, vence = new Date(new Date(k.inicio).getTime() + DOCE_MESES);
+      if (pasada) tr.className = "muted-row";
+      const tdN = el("td", null, String(numero.get(k.id)));
+      const tdF = el("td"); tdF.append(document.createTextNode(fecha(k.inicio)));
+      if (k === proxima) tdF.append(" ", pill(new Date(k.inicio) <= ahora ? "En vivo" : "Próxima", "ok"));
+      if (gruposDelFiltro().length > 1) tdF.append(el("small", "muted", ` · ${k.grupo}`));
+      const tdT = el("td", null, k.tema), tdC = el("td", null, k.caso ? `Caso ${k.caso}` : "—");
+      const tdM = el("td"); tdM.append(k.meet_url ? enlace(k.meet_url) : document.createTextNode("—"));
+      const tdG = el("td");
+      if (k.grabacion_url) { tdG.append(enlace(k.grabacion_url, "Ver"), el("small", "muted", ` · ${vence < ahora ? "ya no la ven los alumnos" : `hasta ${vence.toLocaleDateString("es-MX", { timeZone: TZ, day: "numeric", month: "short", year: "numeric" })}`}`)); }
+      else if (ADMIN && pasada) {
+        const f = el("form", "inline-form"), i = el("input", "inp"); i.type = "url"; i.required = true; i.placeholder = "Pega el enlace de Drive"; i.setAttribute("aria-label", `Grabación de la clase ${numero.get(k.id)}`);
+        const b = el("button", "btn btn-line btn-sm", "Guardar"); b.type = "submit"; f.append(i, b);
+        f.addEventListener("submit", async (ev) => {
+          ev.preventDefault(); b.disabled = true;
+          try { await guardarClase(k, { p_grabacion: i.value.trim() }); toast("Grabación publicada en Mi avance"); cargar(true); }
+          catch (e) { toast(e.message); b.disabled = false; }
+        });
+        tdG.append(f);
+      } else tdG.append(document.createTextNode(pasada ? "Pendiente" : "—"));
+      tr.append(tdN, tdF, tdT, tdC, tdM, tdG);
+      if (ADMIN) {
+        const acc = el("td", "row-actions");
+        acc.append(boton("Editar", "btn btn-line btn-sm", () => abrirClase(k)), boton("Borrar", "btn btn-danger btn-sm", async () => {
+          if (!(await confirmar(`¿Borrar la clase ${numero.get(k.id)}?`, `${fecha(k.inicio)} · ${k.tema}. Desaparece del calendario de los alumnos.`, "Borrar clase"))) return;
+          try { await rpc("admin_borrar_clase", { p_id: k.id }); toast("Clase borrada"); cargar(true); } catch (e) { toast(e.message); }
+        }));
+        tr.append(acc);
+      }
+      body.append(tr);
+    });
+    tb.append(thead, body);
+  }
+
+  // Guarda una clase con sus datos actuales y los cambios indicados (la función siempre recibe la clase completa).
+  function guardarClase(k, cambios) {
+    return rpc("admin_guardar_clase", Object.assign({ p_id: k.id, p_grupo: k.grupo, p_inicio: k.inicio, p_duracion: k.duracion_min, p_tema: k.tema,
+      p_caso: k.caso, p_meet: k.meet_url, p_grabacion: k.grabacion_url }, cambios));
+  }
+  const gruposEnSelect = (sel, valor) => { sel.replaceChildren(...S.grupos.map((g) => new Option(`${g.nombre} (${g.id})`, g.id))); sel.value = valor || S.grupoSel && S.grupoSel !== "__sin__" && S.grupoSel || (S.grupos.find((g) => g.activo) || S.grupos[0] || {}).id || ""; };
+  let claseActual = null;
+  function abrirClase(k) {
+    claseActual = k || null;
+    const f = $("#formClase"); f.reset();
+    $("#claseTitle").textContent = k ? "Editar clase" : "Nueva clase";
+    gruposEnSelect(f.grupo, k && k.grupo);
+    f.caso.replaceChildren(new Option("Sin caso", ""), ...S.casos.map((c) => new Option(`Caso ${c.id} · ${c.titulo}`, c.id)));
+    if (k) {
+      const local = new Date(k.inicio).toLocaleString("sv-SE", { timeZone: TZ });
+      f.fecha.value = local.slice(0, 10); f.hora.value = local.slice(11, 16); f.duracion.value = k.duracion_min; f.tema.value = k.tema;
+      f.caso.value = k.caso || ""; f.meet.value = k.meet_url || ""; f.grabacion.value = k.grabacion_url || "";
+    } else {
+      const ultima = S.clases.filter((x) => x.meet_url).pop(); if (ultima) f.meet.value = ultima.meet_url;
+    }
+    $("#claseMsg").textContent = ""; $("#dlgClase").showModal(); f.fecha.focus();
+  }
+  on("#nuevaClase", "click", () => abrirClase());
+  on("#formClase", "submit", async (ev) => {
+    ev.preventDefault(); const f = ev.target, msg = $("#claseMsg"), b = $("#claseGuardar"); b.disabled = true; msg.className = "form-msg"; msg.textContent = "Guardando…";
+    try {
+      await rpc("admin_guardar_clase", { p_id: claseActual ? claseActual.id : null, p_grupo: f.grupo.value, p_inicio: `${f.fecha.value}T${f.hora.value}:00-06:00`,
+        p_duracion: Number(f.duracion.value), p_tema: f.tema.value.trim() || null, p_caso: f.caso.value || null, p_meet: f.meet.value.trim() || null, p_grabacion: f.grabacion.value.trim() || null });
+      $("#dlgClase").close(); toast(claseActual ? "Clase actualizada" : "Clase creada"); cargar(true);
+    } catch (e) { msg.className = "form-msg err"; msg.textContent = e.message; }
+    finally { b.disabled = false; }
+  });
+  function abrirCalendario() {
+    const f = $("#formCalendario"); f.reset();
+    gruposEnSelect(f.grupo);
+    [1, 2, 3].forEach((i) => { f[`dia${i}`].replaceChildren(...DIAS.map(([v, t]) => new Option(t, v))); });
+    f.dia1.value = "5"; f.dia2.value = "6"; f.dia3.value = "";
+    const llenar = () => { const g = S.grupos.find((x) => x.id === f.grupo.value) || {}; f.desde.value = g.inicio || ""; f.hasta.value = g.fin || ""; };
+    llenar(); f.grupo.onchange = llenar;
+    const ultima = S.clases.filter((x) => x.meet_url).pop(); if (ultima) f.meet.value = ultima.meet_url;
+    $("#calMsg").textContent = ""; $("#dlgCalendario").showModal(); f.desde.focus();
+  }
+  on("#generarClases", "click", abrirCalendario);
+  on("#formCalendario", "submit", async (ev) => {
+    ev.preventDefault(); const f = ev.target, msg = $("#calMsg"), b = $("#calGuardar");
+    const horarios = [1, 2, 3].filter((i) => f[`dia${i}`].value && f[`hora${i}`].value)
+      .map((i) => ({ dia: Number(f[`dia${i}`].value), hora: f[`hora${i}`].value, duracion: Number(f[`dur${i}`].value) || 180 }));
+    if (!horarios.length) { msg.className = "form-msg err"; msg.textContent = "Elige al menos un día y una hora."; return; }
+    b.disabled = true; msg.className = "form-msg"; msg.textContent = "Creando clases…";
+    try {
+      const n = await rpc("admin_generar_clases", { p_grupo: f.grupo.value, p_desde: f.desde.value, p_hasta: f.hasta.value, p_horarios: horarios, p_meet: f.meet.value.trim() || null });
+      $("#dlgCalendario").close(); toast(n ? `${plural(n, "clase creada", "clases creadas")}` : "No había clases nuevas que crear"); cargar(true);
+    } catch (e) { msg.className = "form-msg err"; msg.textContent = e.message; }
+    finally { b.disabled = false; }
+  });
+
   // ---------- Grupos (administración) ----------
   function pintarGrupos() {
     const cont = $("#listaGrupos"); if (!cont) return; cont.replaceChildren();
@@ -1339,7 +1462,9 @@
       const check = (ok, texto, nota) => { const li = el("li", ok ? "" : "bad"); const d = el("div"); d.append(document.createTextNode(texto)); if (nota) d.append(el("small", null, nota)); li.append(el("b", null, ok ? "✓" : "!"), d); ul.append(li); };
       check(true, `Sesión de administración: ${S.usuario.email}`);
       const inst = S.bitacora.find((b) => b.accion === "instalacion");
-      check(S.esquema && S.v08, S.v08 ? "Esquema 0.8: grupos, docentes, mensajes y avisos activos" : S.esquema ? "Esquema 0.7: falta 0.8 para mensajes y avisos" : "Esquema anterior a 0.7", inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 3");
+      check(S.esquema && S.v08 && S.v10, S.v10 ? "Esquema 0.10: mensajes, retos, clases en vivo y alias de ciudad activos" : S.v08 ? "Falta el esquema 0.10 para clases en vivo y alias de ciudad" : S.esquema ? "Esquema 0.7: falta 0.8 para mensajes y avisos" : "Esquema anterior a 0.7", inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 3");
+      if (S.v10) { const fut = S.clases.filter((k) => finClase(k) > new Date()), sinGrab = S.clases.filter((k) => finClase(k) < new Date() && !k.grabacion_url);
+        check(S.clases.length > 0 && !sinGrab.length, S.clases.length ? `${plural(S.clases.length, "clase", "clases")} · ${fut.length} por venir` : "Sin calendario de clases", S.clases.length ? (sinGrab.length ? `${plural(sinGrab.length, "clase pasada sin grabación", "clases pasadas sin grabación")}: pégala en la pestaña Clases` : "Todas las clases pasadas tienen grabación") : "Pestaña Clases → Generar calendario"); }
       const fnNueva = S.fn && S.fn.ok && S.fn.version === "0.8.0";
       check(fnNueva, S.fn && S.fn.ok ? `Función tdd-docente desplegada (${S.fn.version || "?"})` : "Función tdd-docente no disponible", S.fn && S.fn.ok ? (fnNueva ? "Altas, claves nuevas y sugerencias de IA activas" : "Vuelve a desplegarla con el código 0.8 para las sugerencias de IA") : S.fn && S.fn.error);
       if (fnNueva) check(!!S.fn.ia, S.fn.ia ? `IA para sugerir calificaciones: ${S.fn.ia === "openai" ? "OpenAI" : "Anthropic"}` : "IA para sugerir calificaciones sin configurar", S.fn.ia ? "Solo recibe la pregunta, la rúbrica y el texto de la respuesta" : "Agrega OPENAI_API_KEY en Edge Functions → Secrets");

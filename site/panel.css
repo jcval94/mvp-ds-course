@@ -391,3 +391,12 @@ dialog.dlg::backdrop { background: color-mix(in srgb, var(--text) 40%, transpare
 .grade-actions { flex-wrap: wrap; }
 .grade textarea { min-height: 64px; height: 64px; }
 @media (max-width: 760px) { .grade { grid-template-columns: 1fr; } }
+
+/* Clases en vivo (0.10) */
+.tbl tr.muted-row td { color: var(--muted); }
+.tbl td small.muted { color: var(--muted); }
+.inline-form { display: flex; gap: 6px; min-width: 220px; }
+.inline-form .inp { min-height: 34px; padding: 4px 10px; font-size: 13px; }
+.row-actions { display: flex; gap: 6px; justify-content: flex-end; white-space: nowrap; }
+.horarios { display: grid; gap: 8px; }
+.horario-fila { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, .8fr); gap: 8px; }
