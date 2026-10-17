@@ -4,7 +4,8 @@
 (function () {
   const api = TDD.api;
   const CONTACTO = "augmentedlearninglabs@gmail.com";
-  // Cuadernos de cada caso en Drive (el acceso lo controla Drive).
+  // Cuadernos de cada caso en Drive. Desde el esquema 0.8 el enlace viene de la base (casos.cuaderno_url);
+  // estos quedan como respaldo para bases anteriores.
   const CUADERNOS = {
     "4.1": "https://colab.research.google.com/drive/1E4PWnQdLVix_dXfUtap-kpdaKhzKnXIA",
     "4.2": "https://colab.research.google.com/drive/1SV7ufg8pfS0EfuzRZM3fF0sORgZRDtIS",
@@ -58,7 +59,6 @@
     // docente: el objeto de mi_rol (0.7) o true en bases anteriores (la cuenta docente histórica = administración).
     const esAdmin = docente === true || !!(docente && docente.admin), esDocente = !!(docente && docente.docente);
     if (esAdmin) chip("", "Administración"); else if (esDocente) chip("", "Docente");
-    $("#pmAlias").hidden = !perfil;
     // Acceso a los paneles: administración → admin.html; docente → docente.html.
     const destino = esAdmin ? ["admin.html", "Panel de administración"] : esDocente ? ["docente.html", "Panel docente"] : null;
     $("#pmPanel").hidden = !destino;
@@ -67,12 +67,7 @@
   $("#perfilBtn").addEventListener("click", (e) => { e.stopPropagation(); abrirMenu($("#perfilMenu").hidden); });
   document.addEventListener("click", (e) => { if (!e.target.closest("#session")) cerrarMenu(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#perfilMenu").hidden) { abrirMenu(false); $("#perfilBtn").focus(); } });
-  document.querySelectorAll("#perfilMenu [data-ir]").forEach((b) => b.addEventListener("click", () => {
-    cerrarMenu(); const ir = b.dataset.ir;
-    const tab = ir === "cv" ? $("#tabCV") : $("#tabAvance"); if (tab && !$("#tabs").hidden) tab.click();
-    if (ir === "alias") { const a = $("#aliasInput"); if (a && !$("#marcador").hidden) { a.scrollIntoView({ behavior: "smooth", block: "center" }); a.focus({ preventScroll: true }); } }
-    else window.scrollTo({ top: 0, behavior: "smooth" });
-  }));
+  $("#pmMensajes").addEventListener("click", () => { cerrarMenu(); abrirMensajes(); });
 
   // ---------- Vistas ----------
   function aviso(texto, error, enlace) {
@@ -149,10 +144,14 @@
     } else due.textContent = "Sin fecha de entrega";
     if (done && fila.entregado) due.textContent = `Entregado ${fecha(fila.entregado)}`;
     foot.append(due);
-    if (CUADERNOS[caso.id]) {
+    const acciones = el("div", "case-actions");
+    if (M.on) { const q = el("button", "case-ask", "Preguntar a mi profesor"); q.type = "button"; q.addEventListener("click", () => abrirMensajes(caso.id)); acciones.append(q); }
+    const enlace = caso.cuaderno_url || CUADERNOS[caso.id];
+    if (enlace) {
       const a = el("a", "btn btn-line", done ? "Repasar en Colab" : vistas ? "Continuar en Colab" : "Abrir en Colab");
-      a.href = CUADERNOS[caso.id]; a.target = "_blank"; a.rel = "noopener"; foot.append(a);
-    } else foot.append(el("span", "muted", "Tu profesor te comparte el cuaderno"));
+      a.href = enlace; a.target = "_blank"; a.rel = "noopener"; acciones.append(a);
+    } else acciones.append(el("span", "muted", "Tu profesor te comparte el cuaderno"));
+    foot.append(acciones);
 
     card.append(top, track, meta, lista);
     const c = comentarios(retros); if (c) card.append(c);
@@ -198,10 +197,127 @@
     const ultimo = propias.map((f) => f.ultimo_evento).filter(Boolean).sort().pop();
     stat(dl, "Última actividad", ultimo ? relativo(ultimo) : "Aún no hay registros", ultimo ? fecha(ultimo) : "Abre un caso en Colab para empezar");
 
-    const cont = $("#casos"); cont.replaceChildren();
-    casos.forEach((c) => cont.append(tarjetaCaso(c, porCaso.get(c.id), vistas.get(c.id) || new Set(), (retros || []).filter((r) => r.caso === c.id))));
-    if (!casos.length) cont.append(el("p", "notice", "Todavía no hay casos publicados para tu generación."));
+    Object.assign(V, { casos, porCaso, vistas, retros: retros || [] });
+    llenarFiltros(); pintarCasos();
   }
+
+  // ---------- Filtros y orden de los casos ----------
+  const V = { casos: [], porCaso: new Map(), vistas: new Map(), retros: [] };
+  const LLAVE_FILTROS = "tdd-alumno-filtros";
+  const numCaso = (id) => String(id).split(".").map((n) => Number(n) || 0);
+  const porId = (a, b) => { const x = numCaso(a.id), y = numCaso(b.id); return (x[0] - y[0]) || ((x[1] || 0) - (y[1] || 0)); };
+  function infoCaso(c) {
+    const s = Array.isArray(c.secciones) ? c.secciones : [], vis = V.vistas.get(c.id) || new Set();
+    const vistas = s.filter((x) => vis.has(x)).length, done = !!(V.porCaso.get(c.id) || {}).completo;
+    const lim = c.entrega_limite ? new Date(c.entrega_limite).getTime() : null;
+    return { vistas, total: s.length, done, lim, avance: s.length ? vistas / s.length : 0 };
+  }
+  function llenarFiltros() {
+    const cont = $("#casosFiltros"); cont.hidden = V.casos.length < 2;
+    let guardado = {}; try { guardado = JSON.parse(localStorage.getItem(LLAVE_FILTROS) || "{}"); } catch (_) {}
+    const mods = [...new Set(V.casos.map((c) => c.modulo))].sort((a, b) => (a ?? 999) - (b ?? 999));
+    const fm = $("#fModulo"); fm.replaceChildren(new Option("Todos", ""), ...mods.map((m) => new Option(m != null ? `Módulo ${m}` : "Sin módulo", String(m))));
+    fm.value = mods.map(String).includes(guardado.modulo) ? guardado.modulo : "";
+    if (guardado.estado != null) $("#fEstado").value = guardado.estado;
+    if (guardado.orden) $("#fOrden").value = guardado.orden;
+    if (!$("#fEstado").value && guardado.estado == null) $("#fEstado").value = "";
+  }
+  function pintarCasos() {
+    const fm = $("#fModulo").value, fe = $("#fEstado").value, fo = $("#fOrden").value || "sugerido", q = $("#fBuscar").value.trim().toLowerCase();
+    try { localStorage.setItem(LLAVE_FILTROS, JSON.stringify({ modulo: fm, estado: fe, orden: fo })); } catch (_) {}
+    let lista = V.casos.map((c) => ({ c, i: infoCaso(c) })).filter(({ c, i }) => {
+      if (fm && String(c.modulo) !== fm) return false;
+      if (fe === "pendientes" && i.done) return false;
+      if (fe === "curso" && (i.done || !i.vistas)) return false;
+      if (fe === "nuevos" && (i.done || i.vistas)) return false;
+      if (fe === "entregados" && !i.done) return false;
+      if (q && !`caso ${c.id} ${c.titulo}`.toLowerCase().includes(q)) return false;
+      return true;
+    });
+    const fecha_ = (x) => (x.i.lim == null ? Infinity : x.i.lim);
+    const grupo = (x) => (x.i.done ? 3 : x.i.vistas ? 0 : x.i.lim != null ? 1 : 2); // en curso, con fecha, sin fecha, entregados
+    const orden = {
+      sugerido: (a, b) => grupo(a) - grupo(b) || fecha_(a) - fecha_(b) || porId(a.c, b.c),
+      fecha: (a, b) => fecha_(a) - fecha_(b) || porId(a.c, b.c),
+      modulo: (a, b) => porId(a.c, b.c),
+      avance: (a, b) => b.i.avance - a.i.avance || porId(a.c, b.c),
+    }[fo] || ((a, b) => porId(a.c, b.c));
+    lista.sort(orden);
+    const cont = $("#casos"); cont.replaceChildren();
+    let modulo = Symbol("ninguno");
+    lista.forEach(({ c }) => {
+      if (fo === "modulo" && !fm && c.modulo !== modulo) { modulo = c.modulo; cont.append(el("h3", "module-head", c.modulo != null ? `Módulo ${c.modulo}` : "Sin módulo")); }
+      cont.append(tarjetaCaso(c, V.porCaso.get(c.id), V.vistas.get(c.id) || new Set(), V.retros.filter((r) => r.caso === c.id)));
+    });
+    $("#casosConteo").textContent = lista.length === V.casos.length ? `${V.casos.length} casos` : `${lista.length} de ${V.casos.length} casos`;
+    if (!V.casos.length) cont.append(el("p", "notice", "Todavía no hay casos publicados para tu generación."));
+    else if (!lista.length) cont.append(el("p", "notice", "Ningún caso coincide con el filtro."));
+  }
+  ["#fModulo", "#fEstado", "#fOrden", "#fBuscar"].forEach((s) => $(s).addEventListener("input", pintarCasos));
+
+  // ---------- Mensajes con el profesor (esquema 0.8) ----------
+  const M = { on: false, lista: [] };
+  async function cargarMensajes() {
+    try { M.lista = await api("/rest/v1/mensajes_curso?select=id,autor_nombre,de_alumno,tipo,caso,texto,creado,leido&order=id.asc&limit=1000"); M.on = true; }
+    catch (_) { M.on = false; M.lista = []; }
+  }
+  const sinLeer = () => M.lista.filter((m) => !m.de_alumno && !m.leido);
+  function pintarBuzon() {
+    $("#buzonBtn").hidden = !M.on; $("#pmMensajes").hidden = !M.on;
+    const n = sinLeer().length, c = $("#buzonCount");
+    c.hidden = !n; c.textContent = String(n); $("#buzonBtn").classList.toggle("has-new", !!n);
+    $("#buzonBtn").setAttribute("aria-label", n ? `Mensajes: ${n} sin leer` : "Mensajes con tu profesor");
+    const tira = $("#avisoMensajes"); tira.hidden = !n || $("#vistaAvance").hidden; tira.replaceChildren();
+    if (n) {
+      const fb = sinLeer().filter((m) => m.tipo === "feedback").length;
+      const t = el("span"); t.append(el("b", null, n === 1 ? "Tienes 1 mensaje nuevo" : `Tienes ${n} mensajes nuevos`),
+        document.createTextNode(fb ? ` de tu profesor${fb === n ? " con comentarios sobre tus respuestas" : ", algunos sobre tus respuestas"}.` : " de tu profesor."));
+      tira.append(t, el("span", null, "Leer →"));
+    }
+  }
+  const temaDe = (caso) => { const c = V.casos.find((x) => x.id === caso); return c ? `Caso ${c.id}` : "General"; };
+  function abrirMensajes(caso) {
+    const sel = $("#mensajeTema"); sel.replaceChildren(new Option("Duda general del curso", ""));
+    [...new Set(V.casos.map((c) => c.modulo))].sort((a, b) => (a ?? 999) - (b ?? 999)).forEach((m) => {
+      const g = document.createElement("optgroup"); g.label = m != null ? `Módulo ${m}` : "Sin módulo";
+      V.casos.filter((c) => c.modulo === m).sort(porId).forEach((c) => g.append(new Option(`Caso ${c.id} · ${c.titulo}`, c.id))); sel.append(g);
+    });
+    sel.value = caso || "";
+    const nuevos = new Set(sinLeer().map((m) => m.id));
+    pintarHilo(nuevos);
+    const nota = $("#mensajeNota"); nota.className = "fine"; nota.textContent = "Lo leen tus profesores del curso. Te responden aquí mismo.";
+    const d = $("#dlgMensajes"); if (!d.open) d.showModal();
+    const lista = $("#mensajesLista"); lista.scrollTop = lista.scrollHeight;
+    if (caso) $("#mensajeTexto").focus();
+    if (nuevos.size) api("/rest/v1/rpc/marcar_mensajes_leidos", { method: "POST", body: "{}" })
+      .then(() => { const t = new Date().toISOString(); M.lista.forEach((m) => { if (nuevos.has(m.id)) m.leido = t; }); pintarBuzon(); }).catch(() => {});
+  }
+  function pintarHilo(nuevos = new Set()) {
+    const ol = $("#mensajesLista"); ol.replaceChildren();
+    M.lista.forEach((m) => {
+      const li = el("li", `msg ${m.de_alumno ? "mine" : "theirs"}${m.tipo === "feedback" ? " fb" : ""}${nuevos.has(m.id) ? " nuevo" : ""}`), meta = el("div", "meta");
+      meta.append(el("b", null, m.de_alumno ? "Tú" : m.autor_nombre), document.createTextNode(` · ${temaDe(m.caso)}${m.tipo === "feedback" ? " · comentario a tu respuesta" : ""} · ${fecha(m.creado)}`));
+      li.append(meta, el("p", null, m.texto)); ol.append(li);
+    });
+    if (!M.lista.length) ol.append(el("li", "empty", "Aquí aparecen los comentarios de tu profesor sobre tus respuestas y sus respuestas a tus dudas. ¿Te atoraste en un caso? Escríbele abajo."));
+  }
+  $("#buzonBtn").addEventListener("click", () => abrirMensajes());
+  $("#avisoMensajes").addEventListener("click", () => abrirMensajes());
+  $("#mensajesCerrar").addEventListener("click", () => $("#dlgMensajes").close());
+  $("#dlgMensajes").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+  $("#mensajeForm").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const b = $("#mensajeEnviar"), nota = $("#mensajeNota"), texto = $("#mensajeTexto").value.trim(); if (!texto) return;
+    b.disabled = true; nota.className = "fine"; nota.textContent = "Enviando…";
+    try {
+      await api("/rest/v1/rpc/alumno_enviar_mensaje", { method: "POST", body: JSON.stringify({ p_texto: texto, p_caso: $("#mensajeTema").value || null }) });
+      $("#mensajeTexto").value = ""; await cargarMensajes(); pintarHilo(); pintarBuzon();
+      const lista = $("#mensajesLista"); lista.scrollTop = lista.scrollHeight;
+      nota.className = "fine"; nota.textContent = "Enviado. Te avisamos aquí cuando te respondan.";
+    } catch (e) {
+      nota.className = "fine is-error"; nota.textContent = e.message && !/^HTTP/.test(e.message) ? e.message : "No se pudo enviar. Intenta de nuevo.";
+    } finally { b.disabled = false; }
+  });
 
   const BANDAS = { top5: "Top 5", top20: "Top 20 %", top50: "Top 50 %", en_camino: "En camino" };
   const ORDEN = ["en_camino", "top50", "top20", "top5"];
@@ -272,7 +388,9 @@
     const uid = encodeURIComponent(usuario.id);
     const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
-      api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite&order=modulo.asc,id.asc"),
+      // cuaderno_url existe desde el esquema 0.8; en bases anteriores se piden sin él.
+      api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite,cuaderno_url&order=modulo.asc,id.asc")
+        .catch(() => api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite&order=modulo.asc,id.asc")),
       api("/rest/v1/vista_avance?select=usuario,alumno_id,nombre,grupo,caso,secciones_vistas,completo,ultimo_evento,entregado"),
       api(`/rest/v1/eventos?select=caso,seccion,tipo&usuario=eq.${uid}&tipo=eq.seccion&limit=5000`),
       // Rol: mi_rol (0.7) o, en bases anteriores, es_docente.
@@ -297,7 +415,10 @@
       return;
     }
     soloVista("#vistaAvance"); $("#ayuda").hidden = false;
+    // Mensajes: solo para alumnos inscritos (las cuentas del equipo responden desde su panel).
+    if (perfil && !docente) await cargarMensajes(); else M.on = false;
     pintarAvance({ usuario, perfil, casos, filas, eventos, retros });
+    pintarBuzon();
     pintarMarcador(marcador);
     // La pestaña «Mi CV» (alumno-cv.js) se arma con los mismos datos.
     if (perfil) document.dispatchEvent(new CustomEvent("tdd:datos", { detail: { usuario, perfil, casos, filas, marcador } }));

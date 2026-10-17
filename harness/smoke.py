@@ -51,7 +51,7 @@ def _serve(dist: Path, prefix: str) -> tuple[ThreadingHTTPServer, str]:
 
 def _targets(dist: Path) -> list[str]:
     catalog = json.loads((dist / "catalog.json").read_text(encoding="utf-8"))
-    targets = ["", "methodology.html", "placement.html", "aviso-privacidad.html", "terminos.html", "alumno.html", "docente.html", "admin.html", "missions/", "capsulas/"]
+    targets = ["", "methodology.html", "placement.html", "aviso-privacidad.html", "terminos.html", "colab.html", "alumno.html", "docente.html", "admin.html", "missions/", "capsulas/"]
     first_case = sorted((dist / "capsulas" / "cases").glob("*.html"))
     if first_case:
         targets.append(first_case[0].relative_to(dist).as_posix())

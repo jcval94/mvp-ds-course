@@ -12,7 +12,9 @@
   const CONTACTO = "augmentedlearninglabs@gmail.com";
   const URL_ALUMNO = new URL("alumno.html", location.href).href; // sin dominio fijo: el sitio funciona en cualquier hosting
   const URL_DOCENTE = new URL("docente.html", location.href).href;
+  const URL_TUTORIAL = new URL("colab.html", location.href).href;
   const INSTALADOR = "https://colab.research.google.com/github/jcval94/agentic-ds-backen/blob/main/instalador.ipynb";
+  const MSG_URL = "/rest/v1/mensajes_curso?select=id,alumno,autor_nombre,de_alumno,tipo,caso,respuesta,texto,creado,leido&order=id.asc";
   const MIN = 60000, DIA = 86400000;
   const SECCIONES = {
     preparacion: "Preparación", hipotesis: "Hipótesis", clinicas: "Clínicas", azar: "Azar", sospechosos: "Sospechosos",
@@ -33,7 +35,7 @@
   const ACCIONES = {
     instalacion: "Instalación", borrado: "Borrado", vaciado: "Vaciado", respaldo: "Respaldo", docente_alta: "Alta de alumno",
     docente_edita: "Edición", docente_clave: "Clave nueva", docente_fecha: "Fecha límite", docente_reto: "Reto", docente_califica: "Calificación",
-    admin_grupo: "Grupo", admin_docente: "Docente", admin_asigna: "Asignación",
+    admin_grupo: "Grupo", admin_docente: "Docente", admin_asigna: "Asignación", docente_ia: "Sugerencia de IA", admin_caso: "Cuaderno",
   };
   const TIPOS = { abrio: "Abrió el cuaderno", seccion: "Resolvió", hipotesis: "Hipótesis", respuesta: "Respondió", pista: "Pidió pista", control: "Control", completo: "Entregó el caso" };
   const PARTES = [["secciones", "Secciones"], ["hipotesis", "Hipótesis"], ["retos", "Retos"], ["casos", "Casos completos"], ["puntualidad", "A tiempo"], ["respuestas", "Respuestas"]];
@@ -107,7 +109,7 @@
 
   // ---------- Estado ----------
   const S = { usuario: null, rol: null, alumnos: [], porUid: new Map(), casos: [], avance: [], eventos: [], respuestas: [], retos: [], material: [],
-    invitados: [], bitacora: [], grupos: [], docentes: [], admins: [], entregas: new Map(), esquema: true, fn: null, cargado: null,
+    invitados: [], bitacora: [], grupos: [], docentes: [], admins: [], entregas: new Map(), esquema: true, fn: null, cargado: null, mensajes: [], v08: false,
     grupoSel: leerLocal(LLAVE_GRUPO) || "", mostrarClaves: new Set(), ordenAlumnos: { k: "id", dir: "asc" } };
   const total = (c) => (Array.isArray(c.secciones) ? c.secciones.length : 0);
   const nombreGrupo = (id) => { const g = S.grupos.find((x) => x.id === id); return g ? g.nombre : id; };
@@ -128,7 +130,7 @@
     S.grupos = ADMIN ? val("adminGrupos", null) || val("gruposTabla", []).map((g) => ({ ...g, alumnos: 0, docentes: [] })) : val("gruposTabla", []);
     S.docentes = val("docentes", []);
     S.admins = val("admins", []);
-    if (ADMIN) S.fn = R.fn.status === "fulfilled" ? { ok: true, version: R.fn.value && R.fn.value.version } : { ok: false, error: errorFuncion(R.fn.reason || {}) };
+    if (ADMIN) S.fn = R.fn.status === "fulfilled" ? { ok: true, version: R.fn.value && R.fn.value.version, ia: R.fn.value && R.fn.value.ia } : { ok: false, error: errorFuncion(R.fn.reason || {}) };
     const conAlumnos = R.alumnos.status === "fulfilled";
     let base = conAlumnos ? val("alumnos", []) : val("perfiles", []).map((p) => ({ ...p, correo: null, ultimo_acceso: null, con_google: null }));
     if (!ADMIN) { const mios = new Set((S.rol.grupos || []).map((g) => g.id)); base = base.filter((a) => mios.has(a.grupo)); }
@@ -157,6 +159,9 @@
     const ultimas = new Map();
     S.respuestas.forEach((x) => { ultimas.set(`${x.usuario}|${x.caso}|${x.pregunta}`, x.id); });
     S.respuestas.forEach((x) => { x.ultima = ultimas.get(`${x.usuario}|${x.caso}|${x.pregunta}`) === x.id; S.porUid.get(x.usuario).respuestas.push(x); });
+    // Mensajes (0.8): si la base aún no los tiene, la pestaña lo explica.
+    S.v08 = R.mensajes.status === "fulfilled";
+    S.mensajes = val("mensajes", []).filter((m) => S.porUid.has(m.alumno));
     const opciones = gruposDelFiltro().map((g) => g.id);
     if (S.grupoSel && !opciones.includes(S.grupoSel)) S.grupoSel = "";
     S.cargado = new Date();
@@ -208,7 +213,10 @@
       alumnos: rpc("docente_alumnos"),
       bits: rpc("bits_grupo"),
       retos: rpc("docente_retos", S.esquema && S.grupoSel ? { p_grupo: S.grupoSel } : {}),
-      casos: api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite&order=modulo.asc,id.asc"),
+      // cuaderno_url existe desde 0.8; en bases anteriores se piden los casos sin él.
+      casos: api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite,cuaderno_url&order=modulo.asc,id.asc")
+        .catch(() => api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite&order=modulo.asc,id.asc")),
+      mensajes: todo(MSG_URL),
       avance: todo("/rest/v1/vista_avance?select=usuario,caso,secciones_vistas,completo,primer_evento,ultimo_evento,entregado&order=usuario.asc,caso.asc"),
       eventos: todo("/rest/v1/eventos?select=id,usuario,caso,seccion,tipo,valor,creado&order=id.asc"),
       respuestas: todo("/rest/v1/respuestas?select=id,usuario,caso,pregunta,texto,etapa,nivel,retro,modelo,creado&order=id.asc"),
@@ -244,9 +252,10 @@
     }
     $("#cntAlumnos").textContent = n || "";
     $("#cntRespuestas").textContent = pendientes().length || "";
+    actualizarContadorMensajes();
     if ($("#cntGrupos")) $("#cntGrupos").textContent = S.grupos.length || "";
     if ($("#cntDocentes")) $("#cntDocentes").textContent = S.docentes.length || "";
-    llenarFiltros(); pintarBanners(); pintarResumen(); pintarAlumnos(); pintarCasos(); pintarRespuestas(); pintarDatos();
+    llenarFiltros(); pintarBanners(); pintarResumen(); pintarAlumnos(); pintarCasos(); pintarRespuestas(); pintarMensajes(); pintarDatos();
     if (ADMIN) { pintarGrupos(); pintarDocentes(); }
   }
 
@@ -264,6 +273,7 @@
     if (!ADMIN) return;
     if (!S.esquema) banner("Falta el esquema 0.7 en la base: el panel puede leer, pero no crear grupos, docentes ni alumnos. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
     if (S.fn && !S.fn.ok) banner(`Altas y claves no disponibles: ${S.fn.error}`, true, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
+    if (S.esquema && !S.v08) banner("Falta el esquema 0.8: mensajes, avisos al alumno y enlaces de cuadernos se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
   }
 
   // ---------- Perfil ----------
@@ -308,6 +318,10 @@
     const rc = $("#rCaso"), pc = rc.value; rc.replaceChildren(new Option("Todos los casos", ""), ...S.casos.map((c) => new Option(`Caso ${c.id}`, c.id))); rc.value = pc;
     const preguntas = [...new Set(S.respuestas.map((x) => x.pregunta))].sort();
     const rp = $("#rPregunta"), pp = rp.value; rp.replaceChildren(new Option("Todas las preguntas", ""), ...preguntas.map((p) => new Option(pregunta("*", p), p))); rp.value = pp;
+    const cm = $("#cModulo");
+    if (cm) { const pm = cm.value, mods = [...new Set(S.casos.map((c) => c.modulo))].sort((x, y) => (x ?? 999) - (y ?? 999));
+      cm.replaceChildren(new Option("Todos los módulos", ""), ...mods.map((m) => new Option(m != null ? `Módulo ${m}` : "Sin módulo", String(m))));
+      cm.value = mods.map(String).includes(pm) ? pm : ""; }
     const cc = $("#csvCaso"), pv = cc.value; cc.replaceChildren(...S.casos.map((c) => new Option(`Caso ${c.id} · ${c.titulo}`, c.id))); if (pv) cc.value = pv;
   }
   on("#fGrupo", "change", async (ev) => {
@@ -540,6 +554,12 @@
     st("Casos entregados", `${entregados} de ${S.casos.length}`);
     st("Última actividad", a.ultima ? relativo(a.ultima) : "Nunca", S.esquema ? `Último acceso: ${a.ultimo_acceso ? relativo(a.ultimo_acceso) : "nunca"}` : "");
     cuerpo.append(dl);
+    if (S.v08) {
+      const n = S.mensajes.filter((m) => m.alumno === a.id && m.de_alumno && !m.leido).length;
+      const fila = el("div", "row"); fila.append(boton(n ? `Mensajes · ${n} sin leer` : "Escribirle un mensaje", n ? "btn btn-accent btn-sm" : "btn btn-line btn-sm", async () => {
+        await cerrarDialogo(d); if (d.open) return; escribirA(a.id);
+      })); cuerpo.append(fila);
+    }
     if (ADMIN) cuerpo.append(cajaColab(a));
 
     // Bits
@@ -666,7 +686,8 @@
     return `Hola ${String(x.nombre).split(" ")[0]}: ya tienes acceso a The Agentic Data Scientist.\n` +
       `1) En Colab abre Secretos (el icono de llave) y agrega estos dos, con acceso para el cuaderno activado:\n` +
       `   TDD_ID = ${x.TDD_ID}\n   TDD_CLAVE = ${x.TDD_CLAVE || "(la que ya tienes)"}\n` +
-      `2) Mira tu avance en ${URL_ALUMNO} entrando con ${String(x.TDD_ID).includes("@") ? "ese mismo Gmail" : "tu Gmail inscrito"}.`;
+      `2) Mira tu avance en ${URL_ALUMNO} entrando con ${String(x.TDD_ID).includes("@") ? "ese mismo Gmail" : "tu Gmail inscrito"}.\n` +
+      `Paso a paso con imágenes: ${URL_TUTORIAL}`;
   }
   function mensajeDocente(x) {
     return `Hola ${String(x.nombre).split(" ")[0]}: ya tienes acceso como docente de The Agentic Data Scientist${x.grupos && x.grupos.length ? ` (grupos ${x.grupos.join(", ")})` : ""}.\n` +
@@ -1003,11 +1024,15 @@
   function pintarCasos() {
     const cont = $("#casosLista"); cont.replaceChildren();
     const A = visibles(), n = A.length;
-    S.casos.forEach((c) => {
+    const fm = $("#cModulo") ? $("#cModulo").value : "", fq = $("#cBuscar") ? $("#cBuscar").value.trim().toLowerCase() : "";
+    const casos = S.casos.filter((c) => (!fm || String(c.modulo) === fm) && (!fq || `${c.id} ${c.titulo}`.toLowerCase().includes(fq)));
+    if ($("#cConteo")) $("#cConteo").textContent = casos.length === S.casos.length ? plural(S.casos.length, "caso", "casos") : `${casos.length} de ${S.casos.length} casos`;
+    casos.forEach((c) => {
       const card = el("article", "card caso-card");
       const top = el("div", "caso-top"), t = el("div");
       t.append(el("span", "case-id", `Caso ${c.id}${c.modulo != null ? ` · Módulo ${c.modulo}` : ""}`), el("h2", null, c.titulo));
       top.append(t, bloqueFechas(c)); card.append(top);
+      card.append(lineaCuaderno(c));
 
       const empezaron = A.filter((a) => (a.vistas.get(c.id) || new Set()).size || a.avance.has(c.id)).length;
       let aTiempo = 0, tarde = 0; A.forEach((a) => { const e = estadoEntrega(a, c)[2]; if (e === "a tiempo") aTiempo++; if (e === "tarde") tarde++; });
@@ -1071,6 +1096,28 @@
       cont.append(card);
     });
     if (!S.casos.length) cont.append(el("p", "notice", "No hay casos en la base. Se dan de alta con el instalador (pasos 1 a 3)."));
+    else if (!casos.length) cont.append(el("p", "notice", "Ningún caso coincide con el filtro."));
+  }
+  ["#cModulo", "#cBuscar"].forEach((sel) => on(sel, "input", pintarCasos));
+
+  // Enlace del cuaderno de Colab del caso (lo que abre el alumno desde Mi avance).
+  function lineaCuaderno(c) {
+    const fila = el("div", "nb-line");
+    fila.append(el("span", "muted", "Cuaderno: "));
+    if (c.cuaderno_url) { const a = el("a", null, "Abrir en Colab"); a.href = c.cuaderno_url; a.target = "_blank"; a.rel = "noopener"; fila.append(a); }
+    else fila.append(el("span", null, "sin enlace"));
+    if (ADMIN && S.v08) {
+      const f = el("form", "nb-form"); f.hidden = true;
+      const i = el("input"); i.type = "url"; i.placeholder = "https://colab.research.google.com/drive/…"; i.value = c.cuaderno_url || ""; i.setAttribute("aria-label", `Enlace del cuaderno del caso ${c.id}`);
+      const g = el("button", "btn btn-accent btn-sm", "Guardar"); g.type = "submit"; const msg = el("span", "saved"); f.append(i, g, msg);
+      f.addEventListener("submit", async (ev) => {
+        ev.preventDefault(); g.disabled = true;
+        try { await rpc("admin_caso_cuaderno", { p_caso: c.id, p_url: i.value.trim() || null }); toast("Enlace guardado: los alumnos lo ven en Mi avance"); cargar(true); }
+        catch (e) { msg.className = "saved err"; msg.textContent = e.message; g.disabled = false; }
+      });
+      fila.append(" ", boton(c.cuaderno_url ? "Cambiar" : "Agregar enlace", "icon-btn", () => { f.hidden = !f.hidden; if (!f.hidden) i.focus(); }), f);
+    }
+    return fila;
   }
 
   // Reto: alta y edición (administración)
@@ -1114,12 +1161,28 @@
       if (q && ![a.nombre, a.alumno_id, a.grupo].some((v) => String(v || "").toLowerCase().includes(q))) return false;
       return true;
     }).sort((x, y) => (est === "pendientes" ? (x.creado < y.creado ? -1 : 1) : (x.creado < y.creado ? 1 : -1))); // pendientes: la más antigua primero
-    const cont = $("#listaRespuestas"); cont.replaceChildren();
+    const cont = $("#listaRespuestas"); cont.replaceChildren(); UI_RESP.clear();
     lista.slice(0, 80).forEach((x) => cont.append(tarjetaRespuesta(x)));
     if (lista.length > 80) cont.append(el("p", "legend-note", `Mostrando 80 de ${lista.length}. Usa los filtros para ver el resto.`));
     if (!lista.length) cont.append(el("p", "notice", est === "pendientes" ? (S.respuestas.length ? "No hay respuestas por calificar. ¡Al día!" : "Aún no hay respuestas abiertas de tus alumnos.") : "Ninguna respuesta coincide con el filtro."));
   }
   ["#rEstado", "#rCaso", "#rPregunta", "#rBuscar"].forEach((s) => on(s, "input", pintarRespuestas));
+
+  // IA: sugiere nivel y comentario con la rúbrica (Edge Function tdd-docente, acción evaluar_ia). Nunca guarda: tú revisas.
+  const UI_RESP = new Map();
+  async function sugerirIA(ids, boton_) {
+    ids = ids.filter((id) => UI_RESP.has(id)).slice(0, 10); if (!ids.length) { toast("No hay respuestas por calificar a la vista"); return; }
+    if (boton_) boton_.disabled = true;
+    ids.forEach((id) => UI_RESP.get(id).esperando());
+    try {
+      const r = await funcion("tdd-docente", { accion: "evaluar_ia", ids });
+      (r.resultados || []).forEach((x) => { const ui = UI_RESP.get(x.id); if (ui) x.ok ? ui.aplicar(x) : ui.error(x.error); });
+      const ok = (r.resultados || []).filter((x) => x.ok).length;
+      toast(ok ? `${plural(ok, "sugerencia lista", "sugerencias listas")}: revísalas y guarda` : "La IA no pudo sugerir; revisa los mensajes");
+    } catch (e) { ids.forEach((id) => UI_RESP.get(id) && UI_RESP.get(id).error(errorFuncion(e))); }
+    finally { if (boton_) boton_.disabled = false; }
+  }
+  on("#rIA", "click", (ev) => sugerirIA([...UI_RESP.keys()].filter((id) => { const x = S.respuestas.find((r) => r.id === id); return x && !x.modelo; }), ev.currentTarget));
 
   function tarjetaRespuesta(x) {
     const a = S.porUid.get(x.usuario), card = el("article", `card resp${x.modelo ? " graded" : ""}${x.ultima ? "" : " old"}`);
@@ -1128,7 +1191,7 @@
     w.style.cursor = "pointer"; w.addEventListener("click", () => abrirFicha(a.id));
     const meta = el("div", "resp-meta"); meta.append(pill(`Caso ${x.caso}`), pill(relativo(x.creado)));
     if (!x.ultima) meta.append(pill("Versión anterior"));
-    if (x.modelo) meta.append(pill(x.modelo === "docente" ? "Calificada" : `Evaluada · ${x.modelo}`, "ok"));
+    if (x.modelo) meta.append(pill(x.modelo === "docente" ? "Calificada" : x.modelo === "docente+ia" ? "Calificada · con IA" : `Evaluada · ${x.modelo}`, "ok"));
     head.append(w, meta);
     card.append(head, el("p", "resp-q", pregunta(x.caso, x.pregunta)));
     if (x.pregunta === "hipotesis_razon" && a.hipotesis.has(x.caso)) card.append(el("p", "resp-ctx", `Su hipótesis: «${a.hipotesis.get(x.caso)}»`));
@@ -1139,14 +1202,36 @@
     [0, 1, 2, 3].forEach((v) => { const l = el("label"), r = el("input"); r.type = "radio"; r.name = `nivel-${x.id}`; r.value = v; r.checked = x.nivel === v; l.title = ["Sin evidencia", "En camino", "Sólida", "Excelente"][v]; l.append(r, el("span", null, String(v))); seg.append(l); });
     const fl = el("label", "field"), ta = el("textarea"); ta.placeholder = "Comentario para el alumno (opcional; lo ve en Mi avance)"; ta.maxLength = 2000; ta.value = x.retro || ""; fl.append(ta);
     const acc = el("div", "grade-actions"), g = el("button", "btn btn-accent btn-sm", "Guardar"); g.type = "submit"; const st = el("span", "saved"); st.setAttribute("role", "status");
-    acc.append(g); if (x.modelo) acc.append(boton("Quitar", "btn btn-line btn-sm", () => guardar(null, ""))); acc.append(st);
+    let origen = "docente";
+    const iaBtn = boton("Sugerir con IA", "btn btn-line btn-sm", () => sugerirIA([x.id], iaBtn));
+    const avisar = el("input"); avisar.type = "checkbox"; avisar.checked = true;
+    const avisarL = el("label", "check-inline"); avisarL.append(avisar, document.createTextNode(" Avisar al alumno")); avisarL.title = "Le llega como aviso en Mi avance, con tu comentario";
+    acc.append(g); if (x.modelo) acc.append(boton("Quitar", "btn btn-line btn-sm", () => guardar(null, "")));
+    if (x.ultima) acc.append(iaBtn);
+    if (S.v08) acc.append(avisarL);
+    acc.append(st);
+    const nota = el("p", "ia-note"); nota.hidden = true;
     g.disabled = !S.esquema && !ADMIN;
-    f.append(seg, fl, acc); card.append(f);
+    f.append(seg, fl, nota, acc); card.append(f);
+    UI_RESP.set(x.id, {
+      esperando() { nota.hidden = false; nota.className = "ia-note"; nota.textContent = "La IA está leyendo la respuesta y la rúbrica…"; },
+      aplicar(r) {
+        const radio = $(`input[name="nivel-${x.id}"][value="${r.nivel}"]`, f); if (radio) radio.checked = true;
+        ta.value = r.retro; origen = "ia";
+        nota.hidden = false; nota.className = "ia-note ok";
+        nota.textContent = `Sugerencia de la IA: nivel ${r.nivel}${r.con_rubrica ? " según la rúbrica" : " (sin rúbrica específica)"}. Revísala, ajústala si hace falta y guarda.`;
+      },
+      error(m) { nota.hidden = false; nota.className = "ia-note err"; nota.textContent = m || "La IA no respondió"; },
+    });
     async function guardar(nivel, retro) {
       g.disabled = true; st.className = "saved"; st.textContent = "Guardando…";
       try {
-        await rpc("docente_calificar_respuesta", { p_id: x.id, p_nivel: nivel, p_retro: retro });
-        x.nivel = nivel; x.retro = retro.trim() || null; x.modelo = nivel == null && !x.retro ? null : "docente";
+        const args = { p_id: x.id, p_nivel: nivel, p_retro: retro };
+        if (S.v08) Object.assign(args, { p_origen: origen, p_avisar: avisar.checked });
+        await rpc("docente_calificar_respuesta", args);
+        x.nivel = nivel; x.retro = retro.trim() || null; x.modelo = nivel == null && !x.retro ? null : origen === "ia" ? "docente+ia" : "docente";
+        nota.hidden = true;
+        if (S.v08 && avisar.checked && x.modelo) recargarMensajes();
         st.textContent = nivel == null && !x.retro ? "Calificación quitada" : `Guardada ✓${nivel != null ? ` · ${5 * nivel} bits` : ""}`;
         card.classList.toggle("graded", !!x.modelo);
         $("#cntRespuestas").textContent = pendientes().length || "";
@@ -1162,6 +1247,90 @@
     return card;
   }
 
+  // ---------- Mensajes (0.8) ----------
+  // Cada alumno escribe a sus profesores desde Mi avance; aquí se leen y se responden. Las calificaciones con
+  // «Avisar al alumno» también aparecen en su conversación.
+  let convSel = null;
+  const sinLeer = () => { const v = new Set(visibles().map((a) => a.id)); return S.mensajes.filter((m) => m.de_alumno && !m.leido && v.has(m.alumno)); };
+  const temaDe = (caso) => { const c = S.casos.find((x) => x.id === caso); return c ? `Caso ${c.id}${c.modulo != null ? ` · Módulo ${c.modulo}` : ""}` : "General"; };
+  function actualizarContadorMensajes() { const c = $("#cntMensajes"); if (c) c.textContent = S.v08 ? (sinLeer().length || "") : ""; }
+  function opcionesTema(select) {
+    select.replaceChildren(new Option("Tema: general", ""));
+    [...new Set(S.casos.map((c) => c.modulo))].forEach((m) => {
+      const g = document.createElement("optgroup"); g.label = m != null ? `Módulo ${m}` : "Sin módulo";
+      S.casos.filter((c) => c.modulo === m).forEach((c) => g.append(new Option(`Caso ${c.id} · ${c.titulo}`, c.id))); select.append(g);
+    });
+  }
+  function pintarMensajes() {
+    const lista = $("#mConvs"), hilo = $("#mHilo"); if (!lista) return;
+    if (!S.v08) {
+      lista.replaceChildren();
+      hilo.replaceChildren(el("p", "notice", ADMIN ? "Los mensajes necesitan el esquema 0.8: corre los pasos 1 a 3 del instalador." : "Los mensajes se activan cuando administración actualice la base."));
+      return;
+    }
+    const q = $("#mBuscar").value.trim().toLowerCase(), todos = $("#mTodos").checked;
+    const porAlumno = new Map(); S.mensajes.forEach((m) => { if (!porAlumno.has(m.alumno)) porAlumno.set(m.alumno, []); porAlumno.get(m.alumno).push(m); });
+    const convs = visibles().filter((a) => todos || porAlumno.has(a.id) || a.id === convSel).map((a) => {
+      const ms = porAlumno.get(a.id) || [];
+      return { a, ms, ultimo: ms.length ? ms[ms.length - 1] : null, nuevos: ms.filter((m) => m.de_alumno && !m.leido).length };
+    }).filter((c) => !q || [c.a.nombre, c.a.alumno_id, c.a.grupo].some((v) => String(v || "").toLowerCase().includes(q)))
+      .sort((x, y) => (y.nuevos > 0) - (x.nuevos > 0) || String(y.ultimo ? y.ultimo.creado : "").localeCompare(String(x.ultimo ? x.ultimo.creado : "")) || x.a.nombre.localeCompare(y.a.nombre));
+    lista.replaceChildren();
+    convs.forEach((c) => {
+      const li = el("li"), b = boton("", `conv${c.a.id === convSel ? " on" : ""}${c.nuevos ? " new" : ""}`, () => abrirConversacion(c.a.id));
+      const d = el("div"); d.append(el("b", null, c.a.nombre), el("small", null, c.ultimo ? `${c.ultimo.de_alumno ? "" : `${c.ultimo.autor_nombre}: `}${c.ultimo.texto.slice(0, 80)}` : "Sin mensajes · escríbele"));
+      b.append(avatar(c.a.nombre), d); if (c.nuevos) b.append(el("span", "badge", String(c.nuevos)));
+      li.append(b); lista.append(li);
+    });
+    if (!convs.length) lista.append(el("li", "empty", q ? "Nadie coincide." : "Aún no hay mensajes. Marca «Todos» para escribirle a un alumno."));
+    pintarHilo();
+  }
+  function burbuja(m) {
+    const li = el("li", `msg ${m.de_alumno ? "in" : "out"}${m.tipo === "feedback" ? " fb" : ""}`), cab = el("div", "msg-meta");
+    cab.append(el("b", null, m.de_alumno ? (S.porUid.get(m.alumno) || {}).nombre || "Alumno" : m.autor_nombre),
+      el("span", null, ` · ${temaDe(m.caso)}${m.tipo === "feedback" ? " · calificación" : ""} · ${hora(m.creado)}`));
+    li.append(cab, el("p", null, m.texto));
+    if (!m.de_alumno) li.append(el("small", "muted", m.leido ? "Leído" : "Sin leer"));
+    return li;
+  }
+  function pintarHilo() {
+    const hilo = $("#mHilo"); hilo.replaceChildren();
+    const a = convSel && S.porUid.get(convSel);
+    if (!a) { hilo.append(el("p", "empty", "Elige una conversación. Los mensajes nuevos de tus alumnos aparecen primero.")); return; }
+    const head = el("div", "msg-head"), w = el("div", "who-cell"), d = el("div");
+    d.append(el("b", null, a.nombre), el("small", null, `${a.alumno_id}${a.grupo ? ` · ${nombreGrupo(a.grupo)}` : ""}`)); w.append(avatar(a.nombre), d);
+    head.append(w, boton("Ver ficha", "btn btn-line btn-sm", () => abrirFicha(a.id))); hilo.append(head);
+    const ol = el("ol", "msgs"); S.mensajes.filter((m) => m.alumno === a.id).forEach((m) => ol.append(burbuja(m)));
+    if (!ol.children.length) ol.append(el("li", "empty", "Sin mensajes todavía."));
+    hilo.append(ol);
+    const f = el("form", "msg-form"), ta = el("textarea"), sel = el("select");
+    ta.maxLength = 2000; ta.rows = 3; ta.required = true; ta.placeholder = `Escribe a ${a.nombre.split(" ")[0]}…`; ta.setAttribute("aria-label", "Mensaje");
+    sel.setAttribute("aria-label", "Tema del mensaje"); opcionesTema(sel);
+    const conCaso = S.mensajes.filter((m) => m.alumno === a.id && m.caso).pop(); if (conCaso) sel.value = conCaso.caso;
+    const env = el("button", "btn btn-accent btn-sm", "Enviar"); env.type = "submit"; const st = el("span", "saved"); st.setAttribute("role", "status");
+    const pie = el("div", "msg-actions"); pie.append(sel, env, st); f.append(ta, pie);
+    f.addEventListener("submit", async (ev) => {
+      ev.preventDefault(); env.disabled = true; st.className = "saved"; st.textContent = "Enviando…";
+      try { await rpc("docente_enviar_mensaje", { p_alumno: a.id, p_texto: ta.value, p_caso: sel.value || null }); toast("Enviado: lo verá como aviso en Mi avance"); await recargarMensajes(); }
+      catch (e) { st.className = "saved err"; st.textContent = e.message; env.disabled = false; }
+    });
+    hilo.append(f);
+    ol.scrollTop = ol.scrollHeight;
+  }
+  async function abrirConversacion(uid) {
+    convSel = uid; pintarMensajes();
+    const nuevos = S.mensajes.filter((m) => m.alumno === uid && m.de_alumno && !m.leido);
+    if (!nuevos.length) return;
+    try { await rpc("marcar_mensajes_leidos", { p_alumno: uid }); const t = new Date().toISOString(); nuevos.forEach((m) => { m.leido = t; }); actualizarContadorMensajes(); pintarMensajes(); }
+    catch (_) { /* se reintenta al volver a abrir */ }
+  }
+  async function recargarMensajes() {
+    try { S.mensajes = (await todo(MSG_URL)).filter((m) => S.porUid.has(m.alumno)); } catch (_) { return; }
+    actualizarContadorMensajes(); pintarMensajes();
+  }
+  function escribirA(uid) { convSel = uid; $("#mTodos").checked = false; irA("mensajes"); pintarMensajes(); const t = $("#mHilo textarea"); if (t) t.focus(); }
+  ["#mBuscar", "#mTodos"].forEach((sel) => on(sel, "input", pintarMensajes));
+
   // ---------- Datos ----------
   function pintarDatos() {
     const ul = $("#estadoSistema");
@@ -1170,8 +1339,10 @@
       const check = (ok, texto, nota) => { const li = el("li", ok ? "" : "bad"); const d = el("div"); d.append(document.createTextNode(texto)); if (nota) d.append(el("small", null, nota)); li.append(el("b", null, ok ? "✓" : "!"), d); ul.append(li); };
       check(true, `Sesión de administración: ${S.usuario.email}`);
       const inst = S.bitacora.find((b) => b.accion === "instalacion");
-      check(S.esquema, S.esquema ? "Esquema 0.7: grupos, docentes y fechas por grupo activos" : "Esquema anterior a 0.7", inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 3");
-      check(S.fn && S.fn.ok, S.fn && S.fn.ok ? `Función tdd-docente desplegada (${S.fn.version || "?"})` : "Función tdd-docente no disponible", S.fn && S.fn.ok ? (S.fn.version === "0.7.0" ? "Altas de alumnos y docentes y claves nuevas activas" : "Vuelve a desplegarla con el código 0.7 para dar de alta docentes") : S.fn && S.fn.error);
+      check(S.esquema && S.v08, S.v08 ? "Esquema 0.8: grupos, docentes, mensajes y avisos activos" : S.esquema ? "Esquema 0.7: falta 0.8 para mensajes y avisos" : "Esquema anterior a 0.7", inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 3");
+      const fnNueva = S.fn && S.fn.ok && S.fn.version === "0.8.0";
+      check(fnNueva, S.fn && S.fn.ok ? `Función tdd-docente desplegada (${S.fn.version || "?"})` : "Función tdd-docente no disponible", S.fn && S.fn.ok ? (fnNueva ? "Altas, claves nuevas y sugerencias de IA activas" : "Vuelve a desplegarla con el código 0.8 para las sugerencias de IA") : S.fn && S.fn.error);
+      if (fnNueva) check(!!S.fn.ia, S.fn.ia ? `IA para sugerir calificaciones: ${S.fn.ia === "openai" ? "OpenAI" : "Anthropic"}` : "IA para sugerir calificaciones sin configurar", S.fn.ia ? "Solo recibe la pregunta, la rúbrica y el texto de la respuesta" : "Agrega OPENAI_API_KEY en Edge Functions → Secrets");
       const respaldo = S.bitacora.find((b) => b.accion === "respaldo");
       check(respaldo && Date.now() - new Date(respaldo.creado) < 7 * DIA, respaldo ? `Último respaldo ${relativo(respaldo.creado)}` : "Sin respaldo registrado", "Paso 10 del instalador, cada semana");
       $("#ultimoRespaldo").textContent = respaldo ? `Último respaldo completo: ${fecha(respaldo.creado)}` : "";
@@ -1244,7 +1415,9 @@
   if (TDD.iniciar()) cargar().catch(fallo);
   // Refresco suave del resumen cada 2 minutos mientras está a la vista (sin tocar formularios abiertos).
   setInterval(() => {
-    if (document.visibilityState !== "visible" || $("#panel").hidden || pestana() !== "resumen" || $$("dialog[open]").length) return;
+    if (document.visibilityState !== "visible" || $("#panel").hidden || $$("dialog[open]").length) return;
+    if (pestana() === "mensajes" && S.v08 && !($("#mHilo textarea") || {}).value) { recargarMensajes(); return; }
+    if (pestana() !== "resumen") return;
     cargar(true).catch(() => {});
   }, 120000);
 })();
