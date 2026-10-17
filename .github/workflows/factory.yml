@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   factory:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -44,7 +44,7 @@ jobs:
 
       - name: Upload QA screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: factory-qa-screenshots
           path: output/playwright
