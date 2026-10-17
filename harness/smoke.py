@@ -56,6 +56,9 @@ def _targets(dist: Path) -> list[str]:
     if first_case:
         targets.append(first_case[0].relative_to(dist).as_posix())
     targets += [level["entrypoint"] for level in catalog["levels"]]
+    # El piloto narrativo vive fuera del catálogo de niveles clásicos.
+    if (dist / "labs" / "level-1-v2" / "index.html").is_file():
+        targets.append("labs/level-1-v2/")
     return targets
 
 
@@ -115,6 +118,23 @@ def run(base_paths: list[str] | None = None, root: Path = ROOT, dist: Path | Non
                 for target in targets:
                     failures += [f"[{prefix}] {item}" for item in _check_page(page, base, target, origin)]
 
+                if (dist / "labs" / "level-1-v2" / "index.html").is_file():
+                    page.goto(base + "labs/level-1-v2/", wait_until="networkidle")
+                    if page.locator("#story-title").inner_text() != "Todo empieza con un pedido.":
+                        failures.append(f"[{prefix}] V2: no aparece la escena inicial")
+                    for scene_number, correct in enumerate([1, 2, 1, 1, 1], start=1):
+                        if page.locator("#next-btn").is_enabled():
+                            failures.append(f"[{prefix}] V2: escena {scene_number} avanza sin responder")
+                        page.locator(".choice").nth(correct).click()
+                        if not page.locator("#next-btn").is_enabled():
+                            failures.append(f"[{prefix}] V2: escena {scene_number} no habilita siguiente")
+                        page.locator("#next-btn").click()
+                    if not page.locator("#end-title").is_visible():
+                        failures.append(f"[{prefix}] V2: falta el cierre tras cinco decisiones")
+                    page.reload(wait_until="networkidle")
+                    if not page.locator("#end-title").is_visible():
+                        failures.append(f"[{prefix}] V2: no conserva el progreso al recargar")
+
                 page.goto(base + "missions/", wait_until="networkidle")
                 cards = page.locator("[data-mission-id]").count()
                 if cards != len(missions):
@@ -129,7 +149,7 @@ def run(base_paths: list[str] | None = None, root: Path = ROOT, dist: Path | Non
                 mobile = browser.new_context(viewport={"width": 390, "height": 844})
                 mobile.route("**/*", lambda route: route.continue_() if route.request.url.startswith(origin) else route.abort())
                 mobile_page = mobile.new_page()
-                for target in ["", "missions/", "capsulas/"]:
+                for target in ["", "missions/", "capsulas/"] + (["labs/level-1-v2/"] if (dist / "labs" / "level-1-v2" / "index.html").is_file() else []):
                     mobile_page.goto(base + target, wait_until="networkidle")
                     if mobile_page.evaluate("() => document.documentElement.scrollWidth > document.documentElement.clientWidth"):
                         failures.append(f"[{prefix}] {target or '(inicio)'}: desbordamiento horizontal en móvil")
