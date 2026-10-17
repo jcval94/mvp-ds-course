@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Panel de administración de The Agentic D. Scientist: grupos, docentes, alumnos, fechas, retos y calificaciones.">
+  <meta name="robots" content="noindex">
+  <title>Administración · The Agentic D. Scientist</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="design/tokens/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="area.css">
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body class="area panel-page" data-panel="admin">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="The Agentic D. Scientist, inicio">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
+      <strong>The Agentic D. Scientist</strong>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="alumno.html">Mi avance</a>
+      <a href="admin.html" aria-current="page">Administración</a>
+    </nav>
+    <div class="session" id="session" hidden>
+      <button class="profile-btn" type="button" id="perfilBtn" aria-haspopup="true" aria-expanded="false" aria-controls="perfilMenu">
+        <img id="avatar" alt="" referrerpolicy="no-referrer" hidden><span class="initials" id="iniciales" aria-hidden="true"></span>
+        <span>Profile</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="profile-menu" id="perfilMenu" role="menu" aria-labelledby="perfilBtn" hidden>
+        <div class="pm-head">
+          <img id="avatarMenu" alt="" referrerpolicy="no-referrer" hidden><span class="initials big" id="inicialesMenu" aria-hidden="true"></span>
+          <div><b id="pmNombre"></b><span id="who"></span></div>
+        </div>
+        <div class="pm-chips" id="pmChips"></div>
+        <div class="pm-group">
+          <a role="menuitem" href="docente.html" id="pmOtroPanel" hidden>Mi panel docente</a>
+          <a role="menuitem" href="alumno.html">Mi avance (vista del alumno)</a>
+          <a role="menuitem" href="https://colab.research.google.com/github/jcval94/agentic-ds-backen/blob/main/instalador.ipynb" target="_blank" rel="noopener">Instalador en Colab</a>
+          <a role="menuitem" href="https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh" target="_blank" rel="noopener">Proyecto en Supabase</a>
+        </div>
+        <div class="pm-group">
+          <button type="button" role="menuitem" class="pm-out" id="salir">Cerrar sesión</button>
+          <button type="button" role="menuitem" class="pm-out soft" id="salirTodo">Cerrar sesión en todos mis dispositivos</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <p class="notice" id="notice" role="status" hidden></p>
+
+    <section class="gate" id="vistaEntrar" aria-labelledby="entrarTitle">
+      <div>
+        <p class="kicker-dark">Administración · The Agentic Data Scientist</p>
+        <h1 id="entrarTitle">Todo el curso, <em>en un lugar.</em></h1>
+        <p class="lead">Grupos y docentes, alumnos y claves de Colab, fechas de entrega por grupo, retos y calificaciones. Solo para las cuentas de administración.</p>
+        <div class="gate-actions">
+          <button class="btn btn-accent" type="button" id="entrar">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
+            Entrar con Google
+          </button>
+        </div>
+        <p class="fine">La base decide quién administra: otra cuenta no recibe datos aunque abra esta página. Cada cambio queda en la bitácora con tu correo. Los docentes usan su propio <a href="docente.html">panel docente</a>.</p>
+        <ol class="feature-list">
+          <li><span class="n">1</span><span><b>Arma tus grupos</b> con horario, fechas y cupo, y asigna a sus docentes.</span></li>
+          <li><span class="n">2</span><span><b>Da de alta alumnos y docentes</b> con su Gmail; las claves de Colab salen listas para enviar.</span></li>
+          <li><span class="n">3</span><span><b>Sigue y califica</b>: avance por grupo y sección, retos, fechas por grupo y respuestas abiertas.</span></li>
+        </ol>
+      </div>
+      <div class="preview" aria-hidden="true">
+        <span class="tag">Ejemplo</span>
+        <div class="mock">
+          <div><small>Grupos activos</small><b>3</b></div>
+          <div><small>Alumnos</small><b>74</b></div>
+          <div class="wide"><small>Actividad · últimos 14 días</small><div class="bars"><i style="height:30%"></i><i style="height:45%"></i><i style="height:20%"></i><i style="height:80%"></i><i style="height:95%"></i><i style="height:35%"></i><i style="height:15%"></i><i style="height:40%"></i><i style="height:55%"></i><i style="height:25%"></i><i style="height:85%"></i><i style="height:100%"></i><i style="height:50%"></i><i style="height:60%"></i></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="skeleton" id="cargando" hidden aria-label="Cargando el panel"></div>
+
+    <section id="panel" class="vista" hidden aria-labelledby="panelTitle">
+      <div class="panel-head">
+        <div>
+          <p class="kicker-dark">Administración</p>
+          <h1 id="panelTitle">The Agentic Data Scientist</h1>
+          <p class="sub" id="actualizado">Cargando…</p>
+        </div>
+        <div class="panel-actions">
+          <label class="panel-filter" id="filtroGrupoCaja"><span>Grupo</span><select id="fGrupo" aria-label="Filtrar por grupo"></select></label>
+          <button class="btn btn-line btn-sm" type="button" id="recargar">Actualizar</button>
+          <button class="btn btn-accent btn-sm" type="button" data-alta>+ Alumnos</button>
+        </div>
+      </div>
+      <div class="banners" id="banners"></div>
+
+      <div class="tabs" id="tabs" role="tablist" aria-label="Secciones del panel">
+        <button type="button" role="tab" id="tab-resumen" aria-controls="v-resumen" aria-selected="true">Resumen</button>
+        <button type="button" role="tab" id="tab-alumnos" aria-controls="v-alumnos" aria-selected="false">Alumnos <span class="tab-count" id="cntAlumnos"></span></button>
+        <button type="button" role="tab" id="tab-grupos" aria-controls="v-grupos" aria-selected="false">Grupos <span class="tab-count" id="cntGrupos"></span></button>
+        <button type="button" role="tab" id="tab-docentes" aria-controls="v-docentes" aria-selected="false">Docentes <span class="tab-count" id="cntDocentes"></span></button>
+        <button type="button" role="tab" id="tab-casos" aria-controls="v-casos" aria-selected="false">Casos y retos</button>
+        <button type="button" role="tab" id="tab-respuestas" aria-controls="v-respuestas" aria-selected="false">Por calificar <span class="tab-count" id="cntRespuestas"></span></button>
+        <button type="button" role="tab" id="tab-datos" aria-controls="v-datos" aria-selected="false">Datos</button>
+      </div>
+
+      <!-- Resumen -->
+      <section class="vista" id="v-resumen" role="tabpanel" aria-labelledby="tab-resumen">
+        <div class="kpis" id="kpis"></div>
+        <div class="grid2">
+          <div class="stack">
+            <div class="card">
+              <div class="card-head"><h2>Actividad · últimos 14 días</h2><p>Alumnos distintos que avanzaron en Colab cada día</p></div>
+              <div class="chart" id="actividad" role="img"></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h2><span class="live" id="liveDot"></span> Activos ahora</h2><p>Con actividad en los últimos 15 minutos</p></div>
+              <div class="people" id="activos"></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h2>Top 5 en bits</h2><p>Con nombre real; los alumnos ven solo alias</p></div>
+              <ol class="podium" id="top5"></ol>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Atención</h2><p id="alertasNota"></p></div>
+            <ul class="alerts" id="alertas"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alumnos -->
+      <section class="vista" id="v-alumnos" role="tabpanel" aria-labelledby="tab-alumnos" hidden>
+        <div class="toolbar">
+          <input class="grow" id="buscar" type="search" placeholder="Buscar por nombre, ID, grupo o correo" aria-label="Buscar alumno">
+          <select id="filtroEstado" aria-label="Filtrar por estado">
+            <option value="">Cualquier estado</option>
+            <option value="activos">Activos hoy</option>
+            <option value="inactivos">Sin actividad en 7 días</option>
+            <option value="sin_entrar">Nunca han entrado</option>
+            <option value="sin_google">Sin Google ligado</option>
+          </select>
+          <button class="btn btn-line btn-sm" type="button" id="exportAlumnos">Exportar CSV</button>
+          <button class="btn btn-accent btn-sm" type="button" data-alta>+ Dar de alta</button>
+        </div>
+        <div class="table-wrap"><table class="tbl" id="tablaAlumnos"></table></div>
+        <p class="legend-note">Haz clic en un alumno para ver su ficha: avance por caso, bits, respuestas, línea de tiempo, cambio de nombre o de grupo y clave nueva. Para dar de baja usa la sección de borrado del instalador (queda en la bitácora).</p>
+      </section>
+
+      <!-- Grupos -->
+      <section class="vista" id="v-grupos" role="tabpanel" aria-labelledby="tab-grupos" hidden>
+        <div class="toolbar">
+          <p class="legend-note grow" style="margin:0">Cada alumno pertenece a un grupo; los bits se comparan dentro del grupo y cada docente ve solo a los grupos que tiene asignados.</p>
+          <button class="btn btn-accent btn-sm" type="button" id="nuevoGrupo">+ Nuevo grupo</button>
+        </div>
+        <div class="grupos" id="listaGrupos"></div>
+      </section>
+
+      <!-- Docentes -->
+      <section class="vista" id="v-docentes" role="tabpanel" aria-labelledby="tab-docentes" hidden>
+        <div class="card">
+          <div class="card-head"><h2>Administración</h2><p>Solo se cambia con el instalador (paso 1)</p></div>
+          <ul class="admins" id="admins"></ul>
+        </div>
+        <div class="toolbar">
+          <p class="legend-note grow" style="margin:0">Un docente entra a <b>docente.html</b> con su Gmail y ve y califica solo a los alumnos de sus grupos. Desactivarlo le quita el acceso sin borrar su historial.</p>
+          <button class="btn btn-accent btn-sm" type="button" id="nuevoDocente">+ Dar de alta docente</button>
+        </div>
+        <div class="table-wrap"><table class="tbl" id="tablaDocentes"></table></div>
+      </section>
+
+      <!-- Casos y retos -->
+      <section class="vista" id="v-casos" role="tabpanel" aria-labelledby="tab-casos" hidden>
+        <div id="casosLista" class="vista"></div>
+      </section>
+
+      <!-- Respuestas -->
+      <section class="vista" id="v-respuestas" role="tabpanel" aria-labelledby="tab-respuestas" hidden>
+        <div class="toolbar">
+          <select id="rEstado" aria-label="Estado">
+            <option value="pendientes">Por calificar</option>
+            <option value="calificadas">Calificadas</option>
+            <option value="todas">Todas</option>
+          </select>
+          <select id="rCaso" aria-label="Caso"></select>
+          <select id="rPregunta" aria-label="Pregunta"></select>
+          <input class="grow" id="rBuscar" type="search" placeholder="Buscar alumno" aria-label="Buscar alumno">
+        </div>
+        <p class="scale"><b>Escala:</b> 0 sin evidencia · 1 en camino · 2 sólida · 3 excelente. Cada nivel vale 5 bits (cuenta la mejor por pregunta). El alumno ve tu comentario en Mi avance.</p>
+        <div class="resp-list" id="listaRespuestas"></div>
+      </section>
+
+      <!-- Datos -->
+      <section class="vista" id="v-datos" role="tabpanel" aria-labelledby="tab-datos" hidden>
+        <div class="data-grid">
+          <div class="card">
+            <div class="card-head"><h2>Exportar para calificar</h2></div>
+            <p class="legend-note">Mismo formato que el paso 8 del instalador: avance, entrega (a tiempo o tarde según la fecha de su grupo) y número de respuestas por alumno. Respeta el grupo elegido arriba.</p>
+            <div class="row" style="margin-top:12px">
+              <label class="field"><span>Caso</span><select id="csvCaso"></select></label>
+              <button class="btn btn-accent btn-sm" type="button" id="csvDescargar">Descargar CSV</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Copia rápida</h2></div>
+            <p class="legend-note">Un JSON con grupos, docentes, perfiles, casos, retos, eventos, respuestas, material docente y bitácora, tal como los ve tu cuenta. El respaldo completo (con cuentas) sigue siendo el paso 10 del instalador.</p>
+            <div class="row" style="margin-top:12px">
+              <button class="btn btn-line btn-sm" type="button" id="jsonDescargar">Descargar JSON</button>
+              <span class="muted" id="ultimoRespaldo" style="font-size:13px"></span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Estado del sistema</h2></div>
+            <ul class="checks" id="estadoSistema"></ul>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Modo invitado</h2><p>Ejecuciones sin sesión, por motivo</p></div>
+            <div id="invitados"></div>
+          </div>
+          <div class="card wide">
+            <div class="card-head"><h2>Bitácora</h2><p>Últimos cambios: instalador, borrados y paneles</p></div>
+            <div class="table-wrap"><table class="tbl" id="bitacora"></table></div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Alta de alumnos -->
+  <dialog class="dlg wide" id="dlgAlta" aria-labelledby="altaTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Alumnos</p><h2 id="altaTitle">Dar de alta</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <div class="dlg-body">
+      <div class="seg-tabs" role="tablist" aria-label="Forma de alta">
+        <button type="button" role="tab" aria-selected="true" data-modo="uno">Un alumno</button>
+        <button type="button" role="tab" aria-selected="false" data-modo="lista">Varios (pegar lista)</button>
+      </div>
+      <p class="banner" id="altaSinGrupos" hidden>Aún no hay grupos. Puedes dar de alta sin grupo, pero ningún docente verá a esos alumnos: mejor crea primero un grupo en la pestaña Grupos.</p>
+      <form id="formUno" class="form-grid">
+        <label class="field"><span>ID de alumno</span><input name="aid" required pattern="[A-Za-z0-9_\-]{2,30}" autocomplete="off"><small>Letras, números y guion. Se guarda en mayúsculas.</small></label>
+        <label class="field"><span>Grupo</span><select name="grupo"></select><small>Los bits se comparan dentro del grupo; su docente lo ve en su panel.</small></label>
+        <label class="field wide"><span>Nombre completo</span><input name="nombre" required maxlength="80" autocomplete="off"></label>
+        <label class="field wide"><span>Gmail del alumno</span><input name="correo" type="email" autocomplete="off" placeholder="nombre.apellido@gmail.com"><small>Recomendado: con su Gmail entra a Mi avance con Google. Sin correo, entra a Colab con su ID.</small></label>
+      </form>
+      <div id="formLista" hidden class="form-grid">
+        <label class="field"><span>Grupo para quienes no lo traigan</span><select id="listaGrupo"></select></label>
+        <label class="field wide"><span>Lista (una fila por alumno)</span><textarea id="lista" spellcheck="false" placeholder="id,nombre,grupo,correo&#10;TDD-010,Nombre Apellido,G1-A,nombre.apellido@gmail.com&#10;TDD-011,Otra Persona,,"></textarea><small>Columnas: id, nombre, grupo, correo. Puedes pegar directo desde Google Sheets (con o sin encabezado). Si la columna grupo va vacía, se usa el de arriba. Máximo 60 por envío.</small></label>
+        <ul class="preview-list wide" id="listaPrevia"></ul>
+      </div>
+      <p class="form-msg" id="altaMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="button" id="altaEnviar">Dar de alta</button>
+      </div>
+      <div id="altaResultado" hidden></div>
+    </div>
+  </dialog>
+
+  <!-- Ficha del alumno -->
+  <dialog class="dlg wide" id="dlgFicha" aria-labelledby="fichaNombre">
+    <div class="dlg-head">
+      <div class="profile-top" id="fichaTop"></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <div class="dlg-body" id="fichaCuerpo"></div>
+  </dialog>
+
+  <!-- Grupo -->
+  <dialog class="dlg" id="dlgGrupo" aria-labelledby="grupoTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Grupos</p><h2 id="grupoTitle">Nuevo grupo</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formGrupo">
+      <div class="form-grid">
+        <label class="field"><span>ID del grupo</span><input name="gid" required pattern="[A-Za-z0-9][A-Za-z0-9_\-]{0,29}" maxlength="30" autocomplete="off" placeholder="G1-A"><small>Corto y sin espacios; no se puede cambiar después.</small></label>
+        <label class="field"><span>Cupo</span><input name="cupo" type="number" min="1" max="500" placeholder="30"></label>
+        <label class="field wide"><span>Nombre</span><input name="nombre" required maxlength="80" autocomplete="off" placeholder="Generación 1 · Viernes y sábados"></label>
+        <label class="field wide"><span>Horario</span><input name="horario" maxlength="120" autocomplete="off" placeholder="Vie 18–21 y sáb 8–11 (CDMX)"></label>
+        <label class="field"><span>Inicio</span><input name="inicio" type="date"></label>
+        <label class="field"><span>Fin</span><input name="fin" type="date"></label>
+        <label class="check-inline wide"><input type="checkbox" name="activo" checked> Grupo activo (aparece al dar de alta y en las alertas)</label>
+        <fieldset class="field wide" style="border:0;padding:0;margin:0">
+          <span>Docentes del grupo</span>
+          <ul class="check-list" id="grupoDocentes"></ul>
+        </fieldset>
+      </div>
+      <p class="form-msg" id="grupoMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="grupoGuardar">Guardar grupo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Docente -->
+  <dialog class="dlg" id="dlgDocente" aria-labelledby="docenteTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Docentes</p><h2 id="docenteTitle">Dar de alta docente</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formDocente">
+      <div class="form-grid">
+        <label class="field wide"><span>Gmail del docente</span><input name="correo" type="email" autocomplete="off" placeholder="nombre@gmail.com"><small>Con este Gmail entra a su panel con Google. Si ya tiene cuenta en el curso, se reutiliza.</small></label>
+        <label class="field wide"><span>Nombre</span><input name="nombre" required maxlength="80" autocomplete="off"></label>
+        <label class="check-inline wide" id="docenteActivoCaja" hidden><input type="checkbox" name="activo" checked> Activo (si lo desactivas pierde el acceso; su historial se conserva)</label>
+        <fieldset class="field wide" style="border:0;padding:0;margin:0">
+          <span>Grupos que lleva</span>
+          <ul class="check-list" id="docenteGrupos"></ul>
+        </fieldset>
+      </div>
+      <p class="form-msg" id="docenteMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-danger btn-sm" type="button" id="docenteClave" hidden>Clave nueva de Colab</button>
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cerrar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="docenteGuardar">Dar de alta</button>
+      </div>
+      <div id="docenteResultado"></div>
+    </form>
+  </dialog>
+
+  <!-- Reto -->
+  <dialog class="dlg" id="dlgReto" aria-labelledby="retoTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark" id="retoCaso">Reto</p><h2 id="retoTitle">Nuevo reto</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formReto">
+      <div class="form-grid">
+        <label class="field"><span>ID del reto</span><input name="reto" required pattern="[a-z0-9_]{1,60}" autocomplete="off" placeholder="reto_tasa"><small>Minúsculas, números y guion bajo. Debe coincidir con el cuaderno.</small></label>
+        <label class="field"><span>Tipo</span><select name="tipo"><option value="numero">Número</option><option value="opcion">Opción (texto exacto)</option></select></label>
+        <label class="field"><span>Respuesta correcta</span><input name="respuesta" required maxlength="200" autocomplete="off"></label>
+        <label class="field" id="campoTol"><span>Tolerancia (±)</span><input name="tolerancia" type="number" min="0" step="any" value="0"><small>Margen aceptado para números.</small></label>
+        <fieldset class="field wide" style="border:0;padding:0;margin:0">
+          <span>Dificultad</span>
+          <div class="seg" role="radiogroup" aria-label="Dificultad">
+            <label><input type="radio" name="dificultad" value="1" checked><span>1 · 8 bits</span></label>
+            <label><input type="radio" name="dificultad" value="2"><span>2 · 16 bits</span></label>
+            <label><input type="radio" name="dificultad" value="3"><span>3 · 24 bits</span></label>
+          </div>
+        </fieldset>
+      </div>
+      <p class="legend-note">En el cuaderno, el reto se registra con <code id="retoCodigo">tdd.registrar("reto_tasa", "control", {"respuesta": valor})</code>. La clave nunca sale de la base; cambiarla recalcula los bits de todos.</p>
+      <p class="form-msg" id="retoMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="retoGuardar">Guardar reto</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Confirmación -->
+  <dialog class="dlg" id="dlgConfirmar" aria-labelledby="confTitle">
+    <form method="dialog" class="dlg-body">
+      <h2 id="confTitle" style="margin:0;font-size:20px"></h2>
+      <p id="confTexto" class="muted" style="margin:0;line-height:1.55"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" value="no">Cancelar</button>
+        <button class="btn btn-dark btn-sm" value="si" id="confSi">Confirmar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer>
+    <a class="brand" href="index.html"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg><strong>The Agentic D. Scientist</strong></a>
+    <nav aria-label="Pie de página">
+      <a href="alumno.html">Mi avance</a>
+      <a href="aviso-privacidad.html">Aviso de privacidad</a>
+      <a href="terminos.html">Términos</a>
+    </nav>
+    <p>© 2026 Augmented Learning Labs · The Agentic D. Scientist</p>
+  </footer>
+
+  <script src="sesion.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

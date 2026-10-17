@@ -134,6 +134,7 @@ def test_smoke_detects_root_absolute_assets_under_a_subpath(tmp_path: Path) -> N
     _write(tmp_path / "terminos.html", "<!doctype html><meta charset=utf-8><title>T</title>")
     _write(tmp_path / "alumno.html", "<!doctype html><meta charset=utf-8><title>Al</title>")
     _write(tmp_path / "docente.html", "<!doctype html><meta charset=utf-8><title>Doc</title>")
+    _write(tmp_path / "admin.html", "<!doctype html><meta charset=utf-8><title>Adm</title>")
     _write(tmp_path / "missions" / "index.html", '<!doctype html><meta charset=utf-8><title>Misiones</title><section id="missionList">Todavía no hay misiones</section>')
     _write(tmp_path / "capsulas" / "index.html", "<!doctype html><meta charset=utf-8><title>Cápsulas</title>")
     smoke.run(base_paths=["/"], dist=tmp_path)
