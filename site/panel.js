@@ -540,6 +540,7 @@
     st("Casos entregados", `${entregados} de ${S.casos.length}`);
     st("Última actividad", a.ultima ? relativo(a.ultima) : "Nunca", S.esquema ? `Último acceso: ${a.ultimo_acceso ? relativo(a.ultimo_acceso) : "nunca"}` : "");
     cuerpo.append(dl);
+    if (ADMIN) cuerpo.append(cajaColab(a));
 
     // Bits
     const bx = caja("De dónde vienen sus bits"), dsg = a.desglose || {}, suma = PARTES.reduce((s, [k]) => s + (dsg[k] || 0), 0);
@@ -609,13 +610,6 @@
         } catch (e) { msg.className = "form-msg wide err"; msg.textContent = e.message; g.disabled = false; }
       });
       be.append(f); cuerpo.append(be);
-      // Acceso a Colab
-      const bk = caja("Acceso a Colab");
-      const p = el("p", "legend-note"); p.append(document.createTextNode("TDD_ID: "), el("b", "mono", tddId(a)), document.createTextNode(". Supabase solo guarda una huella de la clave: si la perdió, genera una nueva; la anterior deja de servir."));
-      const res = el("div");
-      const kb = boton("Generar clave nueva", "btn btn-danger btn-sm", () => claveNuevaDe(a.id, a.nombre, a.alumno_id, res, kb, mensaje));
-      kb.disabled = !(S.fn && S.fn.ok); if (kb.disabled) kb.title = "La función tdd-docente no está disponible";
-      bk.append(p, kb, res); cuerpo.append(bk);
       cuerpo.append(el("p", "legend-note", "Para dar de baja a un alumno usa la sección de borrado del instalador: borra su cuenta y su registro y lo deja en la bitácora."));
     } else {
       cuerpo.append(el("p", "legend-note", `¿Hay que corregir sus datos, moverlo de grupo o darle una clave nueva? Escribe a administración: ${CONTACTO}.`));
@@ -624,16 +618,46 @@
     d.scrollTop = 0;
   }
 
-  async function claveNuevaDe(uid, nombre, etiqueta, destino, btn, plantilla) {
+  async function claveNuevaDe(uid, nombre, etiqueta, destino, btn, plantilla, alTerminar) {
     if (!(await confirmar(`¿Clave nueva para ${nombre}?`, "La clave actual deja de servir en Colab en cuanto confirmes. Tendrás que enviarle la nueva.", "Generar clave"))) return;
     btn.disabled = true;
     try {
       const r = await funcion("tdd-docente", { accion: "regenerar_clave", ids: [uid] }); const x = (r.resultados || [])[0] || {};
       if (!x.ok) throw new Error(x.error || "No se pudo generar la clave");
-      destino.replaceChildren(bloqueClaves([{ ...x, nombre, id: etiqueta, cuenta: "clave nueva" }], plantilla));
+      if (x.TDD_CLAVE) clavesRecientes.set(etiqueta, x.TDD_CLAVE);
+      if (alTerminar) { clavesSinGuardar = !!x.TDD_CLAVE; alTerminar(x); }
+      else destino.replaceChildren(bloqueClaves([{ ...x, nombre, id: etiqueta, cuenta: "clave nueva" }], plantilla));
       cargar(true);
     } catch (e) { destino.replaceChildren(el("p", "form-msg err", errorFuncion(e))); }
     finally { btn.disabled = false; }
+  }
+
+  // Claves generadas en esta pestaña (solo en memoria: se pierden al recargar). Supabase guarda solo una huella,
+  // así que es la única forma de volver a copiarlas mientras se envían al alumno.
+  const clavesRecientes = new Map();
+  function campoCopiable(nombre, valor, sinValor, alCopiar) {
+    const fila = el("div", "cred");
+    fila.append(el("span", "cred-k", nombre), el("code", `cred-v${sinValor ? " is-empty" : ""}`, valor));
+    if (!sinValor) fila.append(boton("Copiar", "btn btn-line btn-sm", () => { copiar(valor); if (alCopiar) alCopiar(); }));
+    return fila;
+  }
+  function cajaColab(a) {
+    const bk = caja("Acceso a Colab (Secretos del alumno)");
+    const id = tddId(a), clave = clavesRecientes.get(a.alumno_id);
+    const creds = el("div", "creds");
+    const listo = () => { clavesSinGuardar = false; };
+    creds.append(campoCopiable("TDD_ID", id), clave ? campoCopiable("TDD_CLAVE", clave, false, listo) : campoCopiable("TDD_CLAVE", "Oculta: no se puede volver a ver", true));
+    const res = el("div"), acc = el("div", "row");
+    if (clave) acc.append(boton("Copiar mensaje para el alumno", "btn btn-accent btn-sm", () => { copiar(mensaje({ nombre: a.nombre, TDD_ID: id, TDD_CLAVE: clave })); listo(); }));
+    const kb = boton(clave ? "Generar otra clave" : "Generar clave nueva", clave ? "btn btn-line btn-sm" : "btn btn-danger btn-sm",
+      () => claveNuevaDe(a.id, a.nombre, a.alumno_id, res, kb, mensaje, () => abrirFicha(a.id)));
+    kb.disabled = !(S.fn && S.fn.ok); if (kb.disabled) kb.title = "La función tdd-docente no está disponible";
+    acc.append(kb);
+    const nota = clave
+      ? "Esta clave se ve solo en esta pestaña hasta que recargues la página: envíasela ahora. Si después la pierde, genera otra (la anterior deja de servir)."
+      : "Supabase guarda solo una huella de la clave, así que nadie puede volver a verla. Si el alumno no la tiene, genera una nueva: la anterior deja de servir y aquí aparece la nueva para copiarla.";
+    bk.append(creds, acc, el("p", "legend-note", nota), res);
+    return bk;
   }
 
   // ---------- Claves (alta y clave nueva) ----------
@@ -657,7 +681,9 @@
     ["ID", "Nombre", "Cuenta", "TDD_ID", "TDD_CLAVE", ""].forEach((h) => hr.append(el("th", null, h)));
     const th = el("thead"); th.append(hr); t.append(th); const tb = el("tbody");
     lista.forEach((x) => {
-      const tr = el("tr"); tr.append(el("td", "mono", x.id), el("td", null, x.nombre || ""), el("td", null, x.cuenta || ""), el("td", "mono", x.TDD_ID), el("td", "mono secret", x.TDD_CLAVE || "(sin cambio)"));
+      if (x.TDD_CLAVE && x.id) clavesRecientes.set(x.id, x.TDD_CLAVE);
+      const celda = (cls, v) => { const td = el("td", cls); td.append(el("span", null, v)); if (v && !v.startsWith("(")) { const b = boton("Copiar", "btn-copy", () => copiar(v)); b.setAttribute("aria-label", `Copiar ${v}`); td.append(b); } return td; };
+      const tr = el("tr"); tr.append(el("td", "mono", x.id), el("td", null, x.nombre || ""), el("td", null, x.cuenta || ""), celda("mono", x.TDD_ID), celda("mono secret", x.TDD_CLAVE || "(sin cambio)"));
       const td = el("td"); td.append(boton("Copiar mensaje", "btn btn-line btn-sm", () => { copiar(plantilla(x)); clavesSinGuardar = false; })); tr.append(td); tb.append(tr);
     });
     t.append(tb); wrap.append(t); box.append(wrap);
