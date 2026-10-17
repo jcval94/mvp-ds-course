@@ -149,6 +149,9 @@
     const siguiente = secciones.find((s) => !vistasSet.has(s));
     const meta = el("div", "track-meta");
     const izq = el("span"); izq.append(el("b", null, `${vistas} de ${secciones.length}`), document.createTextNode(" secciones"));
+    const minCaso = T.data && T.data.casos && T.data.casos[caso.id] && T.data.casos[caso.id].min;
+    if (minCaso && secciones.length && !done) izq.append(document.createTextNode(` · ≈ ${dur(minCaso * (1 - vistas / secciones.length))} por hacer`));
+    else if (minCaso && done) izq.append(document.createTextNode(` · tiempo estimado ${dur(minCaso)}`));
     meta.append(izq, el("span", null, done ? "Caso completo" : siguiente ? `Sigue: ${etiqueta(siguiente)}` : "Falta marcar el cierre"));
 
     const lista = el("ul", "sections");
@@ -221,6 +224,10 @@
   }
 
   // ---------- Clases en vivo (Google Meet) y grabaciones (esquema 0.10) ----------
+  // Tiempos estimados (site/tiempos.json): si no cargan, simplemente no se muestran.
+  const T = { data: null };
+  const tiemposListos = fetch("tiempos.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  const dur = (m) => { m = Math.round(m); return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ""}`; };
   const MIN = 60000, AVISO_MIN = 15; // la liga de Meet se resalta 15 minutos antes de empezar
   const C = { lista: [], timer: null };
   const diaCorto = (iso) => new Date(iso).toLocaleDateString("es-MX", { timeZone: TZ, weekday: "short", day: "numeric", month: "short" });
@@ -278,7 +285,19 @@
     }
     meet.hidden = !prox.meet_url;
     if (prox.meet_url) { meet.href = prox.meet_url; meet.className = actual ? "btn btn-accent" : "btn btn-line"; meet.textContent = actual ? "Entrar a Google Meet" : "Liga de Google Meet"; }
+    pintarAgenda();
     $("#claseNota").textContent = prox.meet_url ? "Entra con tu cuenta de Google unos minutos antes. La clase se graba y la grabación aparece aquí." : "Tu profesor publicará aquí la liga de Google Meet.";
+  }
+
+  // Cómo se reparte una clase de 3 horas, con minutos por parte (se pinta una sola vez).
+  function pintarAgenda() {
+    const cont = $("#claseAgenda");
+    if (!cont || cont.dataset.listo || !T.data || !T.data.clase_en_vivo) return;
+    const k = T.data.clase_en_vivo; cont.dataset.listo = "1";
+    cont.querySelector("summary").textContent = `Cómo se reparte la clase (${dur(k.duracion_min)})`;
+    const ul = cont.querySelector("ul"); ul.replaceChildren();
+    k.partes.forEach((p) => { const li = el("li"); li.append(el("span", null, p.titulo), el("b", null, `${p.min} min`)); ul.append(li); });
+    cont.hidden = false;
   }
 
   // Archivo .ics con las clases que faltan: se abre en Google Calendar, Outlook o el calendario del teléfono.
@@ -484,6 +503,7 @@
   async function cargar() {
     soloVista("#cargando");
     const usuario = await api("/auth/v1/user");
+    T.data = await tiemposListos;
     $("#session").hidden = false; pintarPerfil(usuario, null, false);
     const uid = encodeURIComponent(usuario.id);
     const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas, clases] = await Promise.all([
