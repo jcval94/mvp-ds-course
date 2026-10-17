@@ -328,3 +328,13 @@ dialog.dlg::backdrop { background: color-mix(in srgb, var(--text) 40%, transpare
   .panel-filter { width: 100%; }
   .panel-filter select { flex: 1; max-width: none; }
 }
+
+/* Acceso a Colab en la ficha: TDD_ID y TDD_CLAVE listos para copiar */
+.creds { display: grid; gap: 8px; }
+.cred { display: grid; grid-template-columns: 7.5em minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.cred-k { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--accent-text); }
+.cred-v { font-family: var(--font-mono); font-size: 15px; overflow-wrap: anywhere; user-select: all; }
+.cred-v.is-empty { user-select: none; color: var(--muted); font-family: inherit; font-size: 14px; }
+.btn-copy { margin-left: 8px; padding: 2px 8px; font: inherit; font-size: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); cursor: pointer; }
+.btn-copy:hover, .btn-copy:focus-visible { border-color: var(--accent); }
+@media (max-width: 520px) { .cred { grid-template-columns: 1fr auto; } .cred-k { grid-column: 1 / -1; } }
