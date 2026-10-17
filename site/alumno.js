@@ -55,9 +55,14 @@
     const chips = $("#pmChips"); chips.replaceChildren();
     const chip = (a, b) => { const c = el("span"); c.append(document.createTextNode(a), el("b", null, b)); chips.append(c); };
     if (perfil) { chip("ID ", perfil.alumno_id); if (perfil.grupo) chip("Grupo ", perfil.grupo); }
-    if (docente) chip("", "Docente");
+    // docente: el objeto de mi_rol (0.7) o true en bases anteriores (la cuenta docente histórica = administración).
+    const esAdmin = docente === true || !!(docente && docente.admin), esDocente = !!(docente && docente.docente);
+    if (esAdmin) chip("", "Administración"); else if (esDocente) chip("", "Docente");
     $("#pmAlias").hidden = !perfil;
-    $("#pmPanel").hidden = !docente;
+    // Acceso a los paneles: administración → admin.html; docente → docente.html.
+    const destino = esAdmin ? ["admin.html", "Panel de administración"] : esDocente ? ["docente.html", "Panel docente"] : null;
+    $("#pmPanel").hidden = !destino;
+    if (destino) { $("#pmPanel").href = destino[0]; $("#pmPanel").textContent = destino[1]; $("#panelLink").href = destino[0]; $("#panelLink").textContent = `Abrir ${destino[1].charAt(0).toLowerCase()}${destino[1].slice(1)}`; }
   }
   $("#perfilBtn").addEventListener("click", (e) => { e.stopPropagation(); abrirMenu($("#perfilMenu").hidden); });
   document.addEventListener("click", (e) => { if (!e.target.closest("#session")) cerrarMenu(); });
@@ -265,18 +270,26 @@
     const usuario = await api("/auth/v1/user");
     $("#session").hidden = false; pintarPerfil(usuario, null, false);
     const uid = encodeURIComponent(usuario.id);
-    const [perfiles, casos, filas, eventos, docente, marcador, retros] = await Promise.all([
+    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
       api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite&order=modulo.asc,id.asc"),
       api("/rest/v1/vista_avance?select=usuario,alumno_id,nombre,grupo,caso,secciones_vistas,completo,ultimo_evento,entregado"),
       api(`/rest/v1/eventos?select=caso,seccion,tipo&usuario=eq.${uid}&tipo=eq.seccion&limit=5000`),
-      api("/rest/v1/rpc/es_docente", { method: "POST", body: "{}" }).catch(() => false),
+      // Rol: mi_rol (0.7) o, en bases anteriores, es_docente.
+      api("/rest/v1/rpc/mi_rol", { method: "POST", body: "{}" }).catch(() => api("/rest/v1/rpc/es_docente", { method: "POST", body: "{}" }).catch(() => false)),
       // Si la base aún no tiene el esquema 0.5, el marcador simplemente no aparece.
       api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null),
       // Solo respuestas ya calificadas (nivel o comentario), la más reciente primero.
       api(`/rest/v1/respuestas?select=caso,pregunta,nivel,retro,creado&usuario=eq.${uid}&modelo=not.is.null&order=creado.desc&limit=500`).catch(() => []),
+      // Fechas límite por grupo (0.7); si su grupo no tiene, cuenta la general del caso.
+      api("/rest/v1/entregas_grupo?select=grupo,caso,limite").catch(() => []),
     ]);
+    const docente = rolBase && typeof rolBase === "object" ? (rolBase.admin || rolBase.docente ? rolBase : false) : rolBase === true;
     const perfil = perfiles[0] || null;
+    if (perfil && perfil.grupo) {
+      const propias = new Map(entregas.filter((e) => e.grupo === perfil.grupo).map((e) => [e.caso, e.limite]));
+      casos.forEach((c) => { if (propias.has(c.id)) c.entrega_limite = propias.get(c.id); });
+    }
     pintarPerfil(usuario, perfil, docente);
     if (!perfil && !docente) {
       soloVista(null);
