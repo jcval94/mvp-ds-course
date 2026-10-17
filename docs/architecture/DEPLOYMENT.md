@@ -17,12 +17,15 @@ sube. Ningún archivo del portal ni del contenido conoce al proveedor.
   - `CLOUDFLARE_ACCOUNT_ID`: ID de la cuenta.
   Sin ellos el job emite un aviso y termina sin fallar, así que `main` no se pone en rojo.
 
-## Transición: GitHub Pages
+## GitHub Pages: solo redirección (desde el 17 oct 2026)
 
 - Job `deploy` → `deploy-github-pages.yml`, URL `https://jcval94.github.io/mvp-ds-course/`.
-- Sigue publicando el mismo `dist/` mientras se confirma la paridad en Cloudflare.
-- Después se reemplaza por una página que redirija a `learninglabs.pages.dev`
-  (agregada en la capa de deployment, nunca en `dist/`).
+- Ya no publica el portal. `scripts/redireccion_pages.py` toma la lista de páginas de
+  `dist/` y genera, fuera de `dist/`, una página por ruta que lleva a la misma ruta en
+  `learninglabs.pages.dev` conservando `?consulta` y `#ancla` (con `noindex` y `canonical`).
+  Cualquier otra ruta cae en `404.html`, que redirige quitando el prefijo `/mvp-ds-course`.
+- Para volver a publicar el portal en GitHub Pages: en el workflow, sube `dist` en lugar
+  de `redirect`.
 
 ## Login (cuando se conecte Supabase)
 

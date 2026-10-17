@@ -78,9 +78,9 @@ fusionar el PR en `main`; la CI del PR corre fábrica, cápsulas y portal sin de
 | 3 | `qa_pages.py` reescribe capturas versionadas | Mover la evidencia a artefactos de CI y dejar solo las aprobadas en `reference/` |
 | 4 | Dos fuentes de portal (`site/` y `portal/`) | Unificar con la landing de The Agentic D. Scientist (`design/REFERENCE.md`) |
 | 5 | `codex/add-home-navigation` sin fusionar (y checkout local); `codex/corporate-data-narrative-lab` en `narrative` sin fusionar | Decidir antes de seguir; pueden chocar con `README.md`/`AGENTS.md` |
-| 6 | `studio/pnpm-workspace.yaml` trae `allowBuilds: esbuild: set this to true or false` | Fijar `true` o `false` antes del primer `pnpm install` |
+| 6 | ~~`studio/pnpm-workspace.yaml` trae `allowBuilds: esbuild: set this to true or false`~~ | Resuelto el 17 oct 2026: `esbuild: true` (`pnpm install --frozen-lockfile` y `tsc` limpios) |
 | 7 | Estudio fuera de CI y sin tokens conectados | F1 |
-| 8 | Cloudflare Pages sin prueba real (sin cuenta) | Probar con un proyecto de vista previa antes de monetizar |
+| 8 | ~~Cloudflare Pages sin prueba real (sin cuenta)~~ | Resuelto: `learninglabs.pages.dev` es el sitio oficial; desde el 17 oct 2026 GitHub Pages solo redirige ahí |
 | 9 | `narrative` y `tacos-don-juan-remotion` siguen activos | Archivar tras 1–2 semanas de paridad en producción |
 | 10 | Carpetas locales `ds-course-hub`, `ds-course-design`, `ds-case-vault`, `ds-colab-kits` ya integradas | Borrarlas después de fusionar |
 | 11 | `harness smoke` bloquea recursos externos | Si se agregan fuentes externas, añadir verificación propia |

@@ -1,4 +1,5 @@
-# Capa de deployment: GitHub Pages (activa). Solo publica el artefacto dist/ ya probado; no construye nada.
+# Capa de deployment: GitHub Pages ya no publica el portal: solo redirige al sitio oficial
+# (learninglabs.pages.dev) conservando la ruta, la consulta y el ancla. Ver docs/architecture/DEPLOYMENT.md.
 name: Deploy · GitHub Pages
 
 on:
@@ -25,10 +26,20 @@ jobs:
           name: dist
           path: dist
 
+      - name: Checkout (solo el generador de redirecciones)
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: scripts/redireccion_pages.py
+          sparse-checkout-cone-mode: false
+          path: repo
+
+      - name: Build redirect site
+        run: python3 repo/scripts/redireccion_pages.py dist redirect https://learninglabs.pages.dev/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: dist
+          path: redirect
 
       - name: Deploy to GitHub Pages
         id: deployment

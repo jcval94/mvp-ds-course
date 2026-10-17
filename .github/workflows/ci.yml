@@ -30,7 +30,7 @@ jobs:
     uses: ./.github/workflows/portal.yml
 
   deploy:
-    name: Deployment
+    name: Deployment · GitHub Pages (redirección)
     needs: portal
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     permissions:
@@ -38,8 +38,7 @@ jobs:
       pages: write
       id-token: write
     uses: ./.github/workflows/deploy-github-pages.yml
-    # Transición: GitHub Pages sigue publicando el mismo dist/ hasta confirmar
-    # paridad en Cloudflare. Después se reemplaza por una página de redirección.
+    # GitHub Pages ya solo redirige a learninglabs.pages.dev (misma ruta); el sitio oficial es Cloudflare.
 
   deploy-cloudflare:
     name: Deployment · Cloudflare Pages (oficial)
