@@ -1,5 +1,5 @@
 # Capa de deployment: Cloudflare Pages (sitio oficial https://learninglabs.pages.dev).
-# Solo publica el artefacto dist/ ya probado; no construye nada.
+# Publica el artefacto dist/ ya probado (no construye nada) y las Pages Functions de deploy/cloudflare/functions.
 # Requiere los secrets CLOUDFLARE_API_TOKEN (Account · Cloudflare Pages · Edit) y
 # CLOUDFLARE_ACCOUNT_ID. Mientras no existan, el job avisa y termina sin fallar.
 name: Deploy · Cloudflare Pages
@@ -50,6 +50,20 @@ jobs:
         with:
           name: dist
           path: dist
+
+      # Pages Functions (puerta de los niveles de pago): viven fuera de dist/ y se publican con él.
+      - name: Checkout Pages Functions
+        if: steps.creds.outputs.ready == 'true'
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: deploy/cloudflare/functions
+          path: repo
+
+      - name: Place Pages Functions
+        if: steps.creds.outputs.ready == 'true'
+        run: |
+          cp -r repo/deploy/cloudflare/functions functions
+          find functions -type f
 
       - name: Verify token and ensure the Pages project exists
         if: steps.creds.outputs.ready == 'true'
@@ -112,3 +126,16 @@ jobs:
           echo "::error::$url no sirve el commit $GITHUB_SHA. Si Cloudflare asignó otro subdominio (nombre ocupado), revisa el proyecto en el panel."
           cat build-info.json 2>/dev/null || true
           exit 1
+
+      - name: Verify paid levels are gated
+        if: steps.creds.outputs.ready == 'true'
+        run: |
+          base="https://$PROJECT.pages.dev"
+          gratis=$(curl -s -o /dev/null -w '%{http_code}' "$base/labs/level-1/")
+          pago=$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' "$base/labs/level-3/")
+          echo "nivel 1: $gratis · nivel 3 sin sesión: $pago"
+          [ "$gratis" = "200" ] || { echo "::error::El nivel 1 (gratis) no responde 200"; exit 1; }
+          case "$pago" in
+            "302 "*"/acceso?"*) echo "OK: el nivel 3 sin sesión manda a /acceso" ;;
+            *) echo "::error title=Niveles de pago abiertos::/labs/level-3/ sin sesión respondió $pago (se esperaba 302 a /acceso)"; exit 1 ;;
+          esac
