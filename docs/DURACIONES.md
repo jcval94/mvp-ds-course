@@ -59,10 +59,10 @@ Los casos nuevos sin verificar del mapa no se muestran a estudiantes.
 | Concepto | Horas |
 | --- | ---: |
 | Contenido autoguiado (13 niveles publicados) | ≈ 208 |
-| Clases en vivo (≈ 21 sesiones de 3 h en ~2.5 meses) | ≈ 63 |
+| Clases en vivo (22 sesiones de 3 h en 11 semanas, del 8 de enero al 20 de marzo de 2027) | 66 |
 
-Aunque las clases en vivo cubrieran todo el tiempo, quedarían unas 145 h de trabajo
-fuera de clase, **unas 13 h por semana** durante ~10.7 semanas. No cabe en un curso
+Aunque las clases en vivo cubrieran todo el tiempo, quedarían unas 142 h de trabajo
+fuera de clase, **unas 13 h por semana** durante las 11 semanas. No cabe en un curso
 de ~2.5 meses para principiantes. Decisión pendiente del docente: elegir qué
 bloques son obligatorios (por ejemplo, el caso ancla y un bloque núcleo por nivel) y
 marcar el resto como opcional, o alargar la generación.
