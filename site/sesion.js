@@ -13,7 +13,14 @@
   const PAGINA = 1000; // Supabase devuelve como máximo 1000 filas por consulta: se pide por páginas.
 
   const leer = () => { try { return JSON.parse(localStorage.getItem(STORE) || "null"); } catch (_) { return null; } };
-  const guardar = (s) => { try { s ? localStorage.setItem(STORE, JSON.stringify(s)) : localStorage.removeItem(STORE); } catch (_) {} };
+  // Copia del token en una cookie solo para /labs: Cloudflare la lee para entregar (o no) los niveles de pago.
+  // Vence junto con el token; la base valida la firma en cada consulta, así que copiarla no da acceso a nadie más.
+  function galleta(s) {
+    const seg = s ? Math.floor((s.expires_at - Date.now()) / 1000) : 0;
+    const extra = `; Path=/labs; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`;
+    try { document.cookie = seg > 30 ? `tdd_acceso=${encodeURIComponent(s.access_token)}; Max-Age=${seg}${extra}` : `tdd_acceso=; Max-Age=0${extra}`; } catch (_) {}
+  }
+  const guardar = (s) => { try { s ? localStorage.setItem(STORE, JSON.stringify(s)) : localStorage.removeItem(STORE); } catch (_) {} galleta(s); };
   let sesion = null, renovando = null;
 
   function tomarRetorno() {
@@ -91,7 +98,7 @@
   window.TDD = {
     activo: !!KEY,
     tomarRetorno, entrar, cerrar, api, rpc, todo, funcion,
-    iniciar() { sesion = KEY ? leer() : null; return !!sesion; },
+    iniciar() { sesion = KEY ? leer() : null; galleta(sesion); return !!sesion; },
     olvidar() { sesion = null; guardar(null); },
   };
 })();

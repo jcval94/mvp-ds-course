@@ -17,6 +17,25 @@ sube. Ningún archivo del portal ni del contenido conoce al proveedor.
   - `CLOUDFLARE_ACCOUNT_ID`: ID de la cuenta.
   Sin ellos el job emite un aviso y termina sin fallar, así que `main` no se pone en rojo.
 
+## Niveles de pago: Pages Function (desde el 17 oct 2026)
+
+- `deploy/cloudflare/functions/labs/_middleware.js` corre antes de entregar cualquier archivo
+  bajo `/labs/`. Los niveles 1 y 2 pasan directo (igual que `FREE_LEVELS` en `site/app.js`).
+- Para los niveles 3+ lee la cookie `tdd_acceso` (el token de Supabase que `site/sesion.js`
+  copia con `Path=/labs` y vence con el token) y llama a `tengo_acceso_pago()` con ese token.
+  La base valida la firma y decide: administración, docentes activos, alumnos inscritos (hasta
+  12 meses después del fin de su grupo) y suscriptores vigentes de Augmented Studio
+  (`accesos_studio`, se dan de alta en admin.html → Studio). El resultado se guarda 5 minutos.
+- Sin cookie, con token vencido, sin plan o si la base no responde: 302 a `/acceso?volver=…`.
+  `site/acceso.html` renueva la sesión, pone la cookie y regresa al nivel (solo rutas
+  `/labs/level-N…`), o explica cómo inscribirse.
+- El workflow copia `deploy/cloudflare/functions` a `functions/` junto a `dist/` antes de
+  `wrangler pages deploy` y al final comprueba que `/labs/level-3/` sin sesión responda 302.
+- Prueba local de punta a punta: `python pruebas/prueba_puerta.py` en el backend
+  (`wrangler pages dev` + Supabase falso + Chromium).
+- Límite conocido: el repositorio es público, así que el código fuente de los niveles sigue
+  visible en GitHub. La puerta protege el sitio, no el repositorio.
+
 ## GitHub Pages: solo redirección (desde el 17 oct 2026)
 
 - Job `deploy` → `deploy-github-pages.yml`, URL `https://jcval94.github.io/mvp-ds-course/`.

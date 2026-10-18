@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Los niveles 3 en adelante de The Agentic D. Scientist son parte del curso y de Augmented Studio.">
+  <title>Acceso a los niveles · The Agentic D. Scientist</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="design/tokens/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Puerta de los niveles de pago. Cloudflare manda aquí a quien no tiene acceso (o cuya sesión venció);
+       si la sesión de esta página da acceso, regresa sola al nivel. Colores solo desde design/tokens. */
+    .gate { max-width: 640px; margin: 0 auto; display: grid; gap: 18px; }
+    .gate-card { border: 1px solid var(--line); border-radius: 24px; background: var(--surface); padding: 28px; box-shadow: var(--shadow-card); display: grid; gap: 14px; }
+    .gate-card h1 { margin: 0; font-size: clamp(26px, 4vw, 38px); line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
+    .gate-card p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.6; }
+    .gate-card p b { color: var(--text); }
+    #vista { display: grid; gap: 14px; justify-items: start; }
+    #vista > p { justify-self: stretch; }
+    .gate-lock { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); }
+    .gate-lock svg { width: 24px; height: 24px; }
+    .gate-acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+    .gate-opciones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .gate-opciones a { display: grid; gap: 4px; border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; background: var(--surface-alt); color: var(--text); text-decoration: none; }
+    .gate-opciones a:hover, .gate-opciones a:focus-visible { border-color: var(--accent); }
+    .gate-opciones b { font-size: 15px; }
+    .gate-opciones span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .gate-cuenta { font-size: 14px; color: var(--muted); }
+    .gate-cuenta button { background: none; border: 0; padding: 0; color: var(--accent-text); font: inherit; font-weight: 700; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .gate-cargando { display: flex; gap: 12px; align-items: center; color: var(--muted); }
+    .gate-cargando i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); animation: girar 0.8s linear infinite; }
+    @keyframes girar { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .gate-cargando i { animation: none; } }
+    @media (max-width: 620px) { .gate-card { padding: 22px; } .gate-opciones { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="methodology-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="The Agentic D. Scientist, inicio">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
+      <strong>The Agentic D. Scientist</strong>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#catalogo">Currículum</a>
+      <a href="alumno.html">Mi avance</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="gate">
+      <section class="gate-card" aria-live="polite">
+        <div class="gate-cargando" id="cargando"><i aria-hidden="true"></i><span>Comprobando tu acceso…</span></div>
+
+        <div id="vista" hidden>
+          <div class="gate-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+          <h1 id="titulo">Este nivel es parte del plan de pago</h1>
+          <p id="texto"></p>
+          <div class="gate-acciones" id="acciones"></div>
+        </div>
+      </section>
+
+      <div class="gate-opciones" id="opciones" hidden>
+        <a href="index.html#planes"><b>Generación 1 · curso en vivo</b><span>Inicia el 8 de enero de 2027. Incluye 12 meses de todos los niveles.</span></a>
+        <a href="index.html#planes"><b>Augmented Studio</b><span>Niveles 3 en adelante y todos los ejercicios, por mes o por año.</span></a>
+        <a href="index.html#catalogo"><b>Niveles 1 y 2 gratis</b><span>Fundamentos, descripción y visualización, sin cuenta.</span></a>
+        <a href="mailto:valc941226@gmail.com?subject=Acceso%20a%20The%20Agentic%20D.%20Scientist"><b>¿Ya pagaste?</b><span>Escríbenos con el Gmail que usarás y activamos tu acceso.</span></a>
+      </div>
+      <p class="gate-cuenta" id="cuenta" hidden></p>
+    </div>
+  </main>
+
+  <footer>
+    <strong>Augmented Learning Labs · The Agentic D. Scientist</strong>
+    <p><a class="footer-link" href="aviso-privacidad.html">Aviso de privacidad</a> · <a class="footer-link" href="terminos.html">Términos y condiciones</a></p>
+  </footer>
+
+  <script src="sesion.js"></script>
+  <script>
+    (() => {
+      const $ = (s) => document.querySelector(s);
+      const GUARDA = "tdd-volver";
+      // Solo se regresa a un nivel del sitio (nunca a otra página ni a otro dominio).
+      const seguro = (v) => (typeof v === "string" && /^\/labs\/level-\d+[\w\-./?=&%#]*$/.test(v) && !v.includes("//") ? v : null);
+      const params = new URLSearchParams(location.search);
+      let volver = seguro(params.get("volver"));
+      if (volver) { try { sessionStorage.setItem(GUARDA, volver); } catch (_) {} }
+      else { try { volver = seguro(sessionStorage.getItem(GUARDA)); } catch (_) {} }
+      const fecha = (d) => new Date(`${d}T12:00:00`).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" });
+
+      function boton(texto, clase, fn) { const b = document.createElement("button"); b.type = "button"; b.className = `btn ${clase}`; b.textContent = texto; b.addEventListener("click", fn); return b; }
+      function enlace(texto, clase, href) { const a = document.createElement("a"); a.className = `btn ${clase}`; a.textContent = texto; a.href = href; return a; }
+      function mostrar(titulo, texto, acciones, opciones) {
+        $("#cargando").hidden = true; $("#vista").hidden = false;
+        $("#titulo").textContent = titulo; $("#texto").replaceChildren(...texto);
+        $("#acciones").replaceChildren(...acciones); $("#opciones").hidden = !opciones;
+      }
+      const t = (s) => document.createTextNode(s);
+      const b = (s) => { const x = document.createElement("b"); x.textContent = s; return x; };
+      function otraCuenta(correo) {
+        const p = $("#cuenta"); p.hidden = false;
+        p.replaceChildren(t(`Entraste como ${correo || "otra cuenta"}. `), boton("Usar otra cuenta de Google", "", async () => { await TDD.cerrar("local"); TDD.entrar(); }));
+        p.querySelector("button").className = "";
+      }
+
+      async function comprobar() {
+        const r = TDD.tomarRetorno();
+        if (r.error) return mostrar("No pudimos iniciar tu sesión", [t(`Google respondió: ${r.error}. Intenta de nuevo con el Gmail con el que te inscribiste.`)], [boton("Entrar con Google", "btn-accent", TDD.entrar)], true);
+        if (!TDD.iniciar()) {
+          return mostrar("Este nivel es parte del plan de pago",
+            [t("Los niveles 1 y 2 son gratis. Del nivel 3 en adelante están incluidos en la "), b("Generación 1"), t(" y en "), b("Augmented Studio"), t(". Si ya tienes acceso, entra con tu Gmail.")],
+            [boton("Entrar con Google", "btn-accent", TDD.entrar)], true);
+        }
+        let d, correo = "";
+        try {
+          [d, correo] = await Promise.all([TDD.rpc("tengo_acceso_pago"), TDD.api("/auth/v1/user").then((u) => (u && u.email) || "").catch(() => "")]);
+        } catch (e) {
+          if (e.status === 401 || e.message === "sesion") { TDD.olvidar(); return comprobar(); }
+          return mostrar("No pudimos comprobar tu acceso", [t("Revisa tu conexión e intenta de nuevo en unos segundos.")], [boton("Intentar de nuevo", "btn-accent", () => location.reload())], false);
+        }
+        if (d && d.acceso) {
+          try { sessionStorage.removeItem(GUARDA); } catch (_) {}
+          if (volver) { location.replace(volver); return; }
+          return mostrar("Tienes acceso a todos los niveles", [t(d.hasta ? `Tu acceso está activo hasta el ${fecha(d.hasta)}.` : "Tu acceso está activo.")],
+            [enlace("Ver el currículum", "btn-accent", "index.html#catalogo"), enlace("Ir a Mi avance", "btn-line", "alumno.html")], false);
+        }
+        otraCuenta(correo);
+        if (d && d.motivo === "vencido") {
+          return mostrar("Tu acceso venció", [t("Tu acceso a los niveles 3 en adelante terminó el "), b(fecha(d.hasta)), t(". Renueva Augmented Studio para seguir.")], [enlace("Ver planes", "btn-accent", "index.html#planes")], true);
+        }
+        return mostrar("Tu cuenta todavía no tiene un plan", [t("Esta cuenta no está inscrita en la Generación 1 ni tiene Augmented Studio. Si ya pagaste con otro Gmail, entra con ese.")],
+          [enlace("Ver planes", "btn-accent", "index.html#planes")], true);
+      }
+      if (!window.TDD || !TDD.activo) return mostrar("No pudimos comprobar tu acceso", [t("Recarga la página.")], [], true);
+      comprobar();
+    })();
+  </script>
+</body>
+</html>

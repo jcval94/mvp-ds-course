@@ -103,6 +103,7 @@
         <button type="button" role="tab" id="tab-grupos" aria-controls="v-grupos" aria-selected="false">Grupos <span class="tab-count" id="cntGrupos"></span></button>
         <button type="button" role="tab" id="tab-docentes" aria-controls="v-docentes" aria-selected="false">Docentes <span class="tab-count" id="cntDocentes"></span></button>
         <button type="button" role="tab" id="tab-clases" aria-controls="v-clases" aria-selected="false">Clases <span class="tab-count" id="cntClases"></span></button>
+        <button type="button" role="tab" id="tab-studio" aria-controls="v-studio" aria-selected="false">Studio <span class="tab-count" id="cntStudio"></span></button>
         <button type="button" role="tab" id="tab-casos" aria-controls="v-casos" aria-selected="false">Casos y retos</button>
         <button type="button" role="tab" id="tab-respuestas" aria-controls="v-respuestas" aria-selected="false">Por calificar <span class="tab-count" id="cntRespuestas"></span></button>
         <button type="button" role="tab" id="tab-mensajes" aria-controls="v-mensajes" aria-selected="false">Mensajes <span class="tab-count hot" id="cntMensajes"></span></button>
@@ -192,6 +193,15 @@
           <button class="btn btn-accent btn-sm" type="button" id="generarClases">Generar calendario</button>
         </div>
         <div class="table-wrap"><table class="tbl" id="tablaClases"></table></div>
+      </section>
+
+      <!-- Augmented Studio: acceso a los niveles de pago -->
+      <section class="vista" id="v-studio" role="tabpanel" aria-labelledby="tab-studio" hidden>
+        <div class="toolbar">
+          <p class="legend-note grow" style="margin:0">Los niveles 3 en adelante solo abren para administración, docentes, alumnos inscritos (hasta 12 meses después del fin de su grupo) y las personas de esta lista mientras su acceso esté vigente. Entran con su Gmail.</p>
+          <button class="btn btn-accent btn-sm" type="button" id="nuevoAcceso">+ Acceso</button>
+        </div>
+        <div class="table-wrap"><table class="tbl" id="tablaStudio"></table></div>
       </section>
 
       <!-- Respuestas -->
@@ -351,6 +361,27 @@
       <div class="dlg-foot">
         <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
         <button class="btn btn-accent btn-sm" type="submit" id="claseGuardar">Guardar clase</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Acceso de Augmented Studio -->
+  <dialog class="dlg" id="dlgAcceso" aria-labelledby="accesoTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Augmented Studio</p><h2 id="accesoTitle">Nuevo acceso</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formAcceso">
+      <div class="form-grid">
+        <label class="field wide"><span>Gmail</span><input name="correo" type="email" required maxlength="160" autocomplete="off" placeholder="nombre@gmail.com"><small>Con este correo entra con Google. Si no tiene cuenta, se crea al guardar.</small></label>
+        <label class="field"><span>Acceso hasta</span><input name="hasta" type="date" required></label>
+        <div class="field"><span>Atajos</span><div class="row-actions"><button class="btn btn-line btn-sm" type="button" data-meses="1">1 mes</button><button class="btn btn-line btn-sm" type="button" data-meses="12">1 año</button></div></div>
+        <label class="field wide"><span>Nota</span><input name="nota" maxlength="200" autocomplete="off" placeholder="Mensual, pagó por transferencia el 17 oct"></label>
+      </div>
+      <p class="form-msg" id="accesoMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="accesoGuardar">Guardar acceso</button>
       </div>
     </form>
   </dialog>

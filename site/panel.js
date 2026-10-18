@@ -35,7 +35,7 @@
   const ACCIONES = {
     instalacion: "Instalación", borrado: "Borrado", vaciado: "Vaciado", respaldo: "Respaldo", docente_alta: "Alta de alumno",
     docente_edita: "Edición", docente_clave: "Clave nueva", docente_fecha: "Fecha límite", docente_reto: "Reto", docente_califica: "Calificación",
-    admin_grupo: "Grupo", admin_clase: "Clase", admin_docente: "Docente", admin_asigna: "Asignación", docente_ia: "Sugerencia de IA", admin_caso: "Cuaderno",
+    admin_grupo: "Grupo", admin_clase: "Clase", admin_acceso: "Acceso Studio", admin_docente: "Docente", admin_asigna: "Asignación", docente_ia: "Sugerencia de IA", admin_caso: "Cuaderno",
   };
   const TIPOS = { abrio: "Abrió el cuaderno", seccion: "Resolvió", hipotesis: "Hipótesis", respuesta: "Respondió", pista: "Pidió pista", control: "Control", completo: "Entregó el caso" };
   const PARTES = [["secciones", "Secciones"], ["hipotesis", "Hipótesis"], ["retos", "Retos"], ["casos", "Casos completos"], ["puntualidad", "A tiempo"], ["respuestas", "Respuestas"]];
@@ -164,6 +164,8 @@
     S.mensajes = val("mensajes", []).filter((m) => S.porUid.has(m.alumno));
     S.v10 = R.clases.status === "fulfilled";
     S.clases = val("clases", []);
+    S.v11 = ADMIN && R.studio && R.studio.status === "fulfilled";
+    S.studio = val("studio", []) || [];
     const opciones = gruposDelFiltro().map((g) => g.id);
     if (S.grupoSel && !opciones.includes(S.grupoSel)) S.grupoSel = "";
     S.cargado = new Date();
@@ -236,6 +238,8 @@
       adminGrupos: S.esquema ? rpc("admin_grupos") : Promise.resolve(null),
       docentes: S.esquema ? rpc("admin_docentes") : Promise.resolve([]),
       admins: S.esquema ? rpc("admin_administradores") : Promise.resolve([]),
+      // Suscripciones de Augmented Studio (0.11): en bases anteriores la pestaña lo explica.
+      studio: rpc("admin_accesos"),
     });
     const claves = Object.keys(pedidos), r = await Promise.allSettled(Object.values(pedidos)), R = {};
     claves.forEach((k, i) => { R[k] = r[i]; });
@@ -260,7 +264,7 @@
     if ($("#cntGrupos")) $("#cntGrupos").textContent = S.grupos.length || "";
     if ($("#cntDocentes")) $("#cntDocentes").textContent = S.docentes.length || "";
     llenarFiltros(); pintarBanners(); pintarResumen(); pintarAlumnos(); pintarCasos(); pintarClases(); pintarRespuestas(); pintarMensajes(); pintarDatos();
-    if (ADMIN) { pintarGrupos(); pintarDocentes(); }
+    if (ADMIN) { pintarGrupos(); pintarDocentes(); pintarStudio(); }
   }
 
   // ---------- Vistas generales ----------
@@ -277,6 +281,8 @@
     if (!ADMIN) return;
     if (!S.esquema) banner("Falta el esquema 0.7 en la base: el panel puede leer, pero no crear grupos, docentes ni alumnos. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
     if (S.fn && !S.fn.ok) banner(`Altas y claves no disponibles: ${S.fn.error}`, true, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
+    if (S.v10 && !S.v11) banner("Falta el esquema 0.11: sin él, nadie (ni administración) puede abrir los niveles 3 en adelante del sitio. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
+    if (S.v11 && S.fn && S.fn.ok && S.fn.version === "0.8.0") banner("Despliega la función tdd-docente 0.9.0 para dar acceso a suscriptores de Augmented Studio.", false, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
     if (S.esquema && S.v08 && !S.v10) banner("Falta el esquema 0.10: las clases en vivo, sus grabaciones y los alias de ciudad se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
     if (S.esquema && !S.v08) banner("Falta el esquema 0.8: mensajes, avisos al alumno y enlaces de cuadernos se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
   }
@@ -948,6 +954,58 @@
     finally { b.disabled = false; }
   });
 
+  // ---------- Augmented Studio: acceso a los niveles de pago (0.11) ----------
+  const hoyCdmx = () => new Date().toLocaleDateString("sv-SE", { timeZone: TZ });
+  const sumarMeses = (iso, m) => { const d = new Date(`${iso}T12:00:00`); d.setMonth(d.getMonth() + m); return d.toISOString().slice(0, 10); };
+  const fechaLarga = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString("es-MX", { day: "numeric", month: "short", year: "numeric" });
+  function pintarStudio() {
+    const tb = $("#tablaStudio"); if (!tb) return; tb.replaceChildren();
+    const vigentes = S.studio.filter((x) => x.vigente);
+    $("#cntStudio").textContent = vigentes.length || "";
+    if ($("#nuevoAcceso")) $("#nuevoAcceso").disabled = !S.v11;
+    if (!S.v11) { const tr = el("tr"), td = el("td", null, "Los accesos de Studio llegan con el esquema 0.11: corre los pasos 1 a 3 del instalador."); tr.append(td); tb.append(tr); return; }
+    if (!S.studio.length) { const tr = el("tr"), td = el("td", null, "Aún no hay suscriptores. Con «+ Acceso» activas a quien te pagó Augmented Studio: entra con su Gmail y ve los niveles 3 en adelante hasta la fecha que pongas."); tr.append(td); tb.append(tr); return; }
+    const head = el("tr"); ["Gmail", "Vence", "Estado", "Cuenta", "Nota", ""].forEach((h) => head.append(el("th", null, h)));
+    const thead = el("thead"); thead.append(head); const body = el("tbody");
+    S.studio.forEach((x) => {
+      const tr = el("tr"); if (!x.vigente) tr.className = "muted-row";
+      const tdC = el("td"); tdC.append(el("b", null, x.correo)); if (x.alumno_id) tdC.append(el("small", "muted", ` · alumno ${x.alumno_id}`));
+      const tdE = el("td"); tdE.append(x.vigente ? pill("Vigente", "ok") : pill("Vencido", "crit"));
+      const tdK = el("td", null, x.ultimo_acceso ? `Entró ${relativo(x.ultimo_acceso)}${x.con_google ? " con Google" : ""}` : x.cuenta ? "Aún no entra" : "Sin cuenta");
+      const acc = el("td", "row-actions");
+      acc.append(boton("Renovar", "btn btn-line btn-sm", () => abrirAcceso(x)), boton("Quitar", "btn btn-danger btn-sm", async () => {
+        if (!(await confirmar(`¿Quitar el acceso de ${x.correo}?`, "Deja de ver los niveles 3 en adelante en su siguiente visita (a más tardar en 5 minutos). Su cuenta y su avance no se borran.", "Quitar acceso"))) return;
+        try { await rpc("admin_quitar_acceso", { p_correo: x.correo }); toast("Acceso quitado"); cargar(true); } catch (e) { toast(e.message); }
+      }));
+      tr.append(tdC, el("td", null, fechaLarga(x.hasta)), tdE, tdK, el("td", null, x.nota || "—"), acc);
+      body.append(tr);
+    });
+    tb.append(thead, body);
+  }
+  function abrirAcceso(x) {
+    const f = $("#formAcceso"); f.reset();
+    $("#accesoTitle").textContent = x ? "Renovar acceso" : "Nuevo acceso";
+    f.correo.value = x ? x.correo : ""; f.correo.readOnly = !!x; f.nota.value = x && x.nota || "";
+    const base = x && x.vigente ? x.hasta : hoyCdmx();
+    f.hasta.value = sumarMeses(base, 1); f.hasta.min = hoyCdmx();
+    f.querySelectorAll("[data-meses]").forEach((b) => { b.onclick = () => { f.hasta.value = sumarMeses(base, Number(b.dataset.meses)); }; });
+    $("#accesoMsg").textContent = ""; $("#dlgAcceso").showModal(); (x ? f.hasta : f.correo).focus();
+  }
+  on("#nuevoAcceso", "click", () => abrirAcceso());
+  on("#formAcceso", "submit", async (ev) => {
+    ev.preventDefault(); const f = ev.target, msg = $("#accesoMsg"), b = $("#accesoGuardar"); b.disabled = true; msg.className = "form-msg"; msg.textContent = "Guardando…";
+    try {
+      const r = await funcion("tdd-docente", { accion: "acceso_studio", correo: f.correo.value.trim(), hasta: f.hasta.value, nota: f.nota.value.trim() });
+      if (!r || !r.ok) throw new Error((r && r.error) || "No se pudo guardar");
+      $("#dlgAcceso").close();
+      toast(r.cuenta === "nueva" ? `Acceso activo hasta el ${fechaLarga(r.hasta)}. Su cuenta se creó: que entre con Google con ${r.correo}.` : `Acceso activo hasta el ${fechaLarga(r.hasta)}`);
+      cargar(true);
+    } catch (e) {
+      msg.className = "form-msg err";
+      msg.textContent = /desconocida/i.test(e.message) ? "La función tdd-docente es anterior a 0.9: despliégala de nuevo y vuelve a intentar." : e.message;
+    } finally { b.disabled = false; }
+  });
+
   // ---------- Grupos (administración) ----------
   function pintarGrupos() {
     const cont = $("#listaGrupos"); if (!cont) return; cont.replaceChildren();
@@ -1462,12 +1520,13 @@
       const check = (ok, texto, nota) => { const li = el("li", ok ? "" : "bad"); const d = el("div"); d.append(document.createTextNode(texto)); if (nota) d.append(el("small", null, nota)); li.append(el("b", null, ok ? "✓" : "!"), d); ul.append(li); };
       check(true, `Sesión de administración: ${S.usuario.email}`);
       const inst = S.bitacora.find((b) => b.accion === "instalacion");
-      check(S.esquema && S.v08 && S.v10, S.v10 ? "Esquema 0.10: mensajes, retos, clases en vivo y alias de ciudad activos" : S.v08 ? "Falta el esquema 0.10 para clases en vivo y alias de ciudad" : S.esquema ? "Esquema 0.7: falta 0.8 para mensajes y avisos" : "Esquema anterior a 0.7", inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 3");
+      check(S.esquema && S.v08 && S.v10 && S.v11, S.v11 ? "Esquema 0.11: niveles de pago protegidos, clases en vivo, mensajes y retos activos" : S.v10 ? "Falta el esquema 0.11: los niveles 3+ no abren para nadie" : S.v08 ? "Falta el esquema 0.10 para clases en vivo y alias de ciudad" : S.esquema ? "Esquema 0.7: falta 0.8 para mensajes y avisos" : "Esquema anterior a 0.7", inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 3");
       if (S.v10) { const fut = S.clases.filter((k) => finClase(k) > new Date()), sinGrab = S.clases.filter((k) => finClase(k) < new Date() && !k.grabacion_url);
         check(S.clases.length > 0 && !sinGrab.length, S.clases.length ? `${plural(S.clases.length, "clase", "clases")} · ${fut.length} por venir` : "Sin calendario de clases", S.clases.length ? (sinGrab.length ? `${plural(sinGrab.length, "clase pasada sin grabación", "clases pasadas sin grabación")}: pégala en la pestaña Clases` : "Todas las clases pasadas tienen grabación") : "Pestaña Clases → Generar calendario"); }
-      const fnNueva = S.fn && S.fn.ok && S.fn.version === "0.8.0";
-      check(fnNueva, S.fn && S.fn.ok ? `Función tdd-docente desplegada (${S.fn.version || "?"})` : "Función tdd-docente no disponible", S.fn && S.fn.ok ? (fnNueva ? "Altas, claves nuevas y sugerencias de IA activas" : "Vuelve a desplegarla con el código 0.8 para las sugerencias de IA") : S.fn && S.fn.error);
-      if (fnNueva) check(!!S.fn.ia, S.fn.ia ? `IA para sugerir calificaciones: ${S.fn.ia === "openai" ? "OpenAI" : "Anthropic"}` : "IA para sugerir calificaciones sin configurar", S.fn.ia ? "Solo recibe la pregunta, la rúbrica y el texto de la respuesta" : "Agrega OPENAI_API_KEY en Edge Functions → Secrets");
+      const fnNueva = S.fn && S.fn.ok && S.fn.version === "0.9.0", fnIA = S.fn && S.fn.ok && ["0.8.0", "0.9.0"].includes(S.fn.version);
+      check(fnNueva, S.fn && S.fn.ok ? `Función tdd-docente desplegada (${S.fn.version || "?"})` : "Función tdd-docente no disponible", S.fn && S.fn.ok ? (fnNueva ? "Altas, claves nuevas, sugerencias de IA y accesos de Studio activos" : "Vuelve a desplegarla con el código 0.9 para los accesos de Augmented Studio") : S.fn && S.fn.error);
+      if (S.v11) { const vig = S.studio.filter((x) => x.vigente).length; check(true, `Niveles 3+ protegidos · ${plural(vig, "suscripción de Studio vigente", "suscripciones de Studio vigentes")}`, "Alumnos inscritos: hasta 12 meses después del fin de su grupo"); }
+      if (fnIA) check(!!S.fn.ia, S.fn.ia ? `IA para sugerir calificaciones: ${S.fn.ia === "openai" ? "OpenAI" : "Anthropic"}` : "IA para sugerir calificaciones sin configurar", S.fn.ia ? "Solo recibe la pregunta, la rúbrica y el texto de la respuesta" : "Agrega OPENAI_API_KEY en Edge Functions → Secrets");
       const respaldo = S.bitacora.find((b) => b.accion === "respaldo");
       check(respaldo && Date.now() - new Date(respaldo.creado) < 7 * DIA, respaldo ? `Último respaldo ${relativo(respaldo.creado)}` : "Sin respaldo registrado", "Paso 10 del instalador, cada semana");
       $("#ultimoRespaldo").textContent = respaldo ? `Último respaldo completo: ${fecha(respaldo.creado)}` : "";
