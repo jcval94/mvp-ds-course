@@ -182,7 +182,7 @@
     .cohort-fact { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; }
     .cohort-fact dt { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
     .cohort-fact dd { margin: 6px 0 0; font-size: 16px; font-weight: 600; line-height: 1.4; }
-    .cohort-fact dd span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; font-weight: 500; }
+    .cohort-fact dd > span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; font-weight: 500; }
     .cohort-cta { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; }
     .cohort-cta p { margin: 0; color: var(--muted); font-size: 14px; }
     .plan-was { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
@@ -312,7 +312,7 @@
           <div class="cohort-fact"><dt>Modalidad</dt><dd>En vivo, en línea por Google Meet<span>Solo necesitas una computadora y una cuenta de Google para usar Colab.</span></dd></div>
           <div class="cohort-fact"><dt>Lugares</dt><dd>30 personas<span>Un grupo pequeño para resolver dudas en clase.</span></dd></div>
           <div class="cohort-fact"><dt>Si faltas a una clase</dt><dd>Recibes la grabación<span>Disponible durante 12 meses a partir de cada clase.</span></dd></div>
-          <div class="cohort-fact"><dt>Precio Generación 1</dt><dd>$9,900 MXN, IVA incluido<span>Precio regular $14,900 · o 3 pagos de $3,300 · lo que hayas pagado de Augmented Studio se descuenta</span></dd></div>
+          <div class="cohort-fact"><dt>Precio <span data-curso="nombre">Generación 1</span></dt><dd><b data-curso="pago_unico">$8,910</b> MXN en un solo pago<span>10% de descuento, IVA incluido · o 3 pagos de <span data-curso="cuota">$3,300</span>: <span data-curso="fechas_cortas">8 ene, 8 feb y 8 mar de 2027</span> · precio regular <span data-curso="regular">$14,900</span> · lo pagado de Augmented Studio en los últimos 12 meses se descuenta</span></dd></div>
         </dl>
         <div class="cohort-cta">
           <a class="btn btn-accent" href="mailto:valc941226@gmail.com?subject=Quiero%20inscribirme%20a%20la%20Generaci%C3%B3n%201">Inscríbete a la Generación 1 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
@@ -397,7 +397,7 @@
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todo lo del plan Free</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Niveles 3 en adelante</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todos los ejercicios de la plataforma</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Lo que pagues se descuenta si te inscribes al curso en vivo</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Lo que pagues en los 12 meses previos se descuenta si te inscribes al curso en vivo</span></li>
             </ul>
             <a class="btn btn-dark" href="mailto:valc941226@gmail.com?subject=Quiero%20el%20plan%20Augmented%20Studio">Quiero este plan</a>
           </article>
@@ -405,8 +405,8 @@
             <span class="plan-popular">Cupo limitado · 30 lugares</span>
             <h3>Agentic Data Scientist</h3>
             <p class="plan-tagline">Curso en vivo de 11 semanas. Inicia el 8 de enero de 2027.</p>
-            <p class="plan-price">$9,900 MXN<small>Precio Generación 1 · o 3 pagos de $3,300</small></p>
-            <p class="plan-was"><s>$14,900 MXN</s> precio regular</p>
+            <p class="plan-price"><span data-curso="pago_unico">$8,910</span> MXN<small>Pago único con 10% de descuento · o 3 pagos de <span data-curso="cuota">$3,300</span> (<span data-curso="fechas_cortas">8 ene, 8 feb y 8 mar de 2027</span>)</small></p>
+            <p class="plan-was"><s><span data-curso="regular">$14,900</span> MXN</s> precio regular</p>
             <p class="plan-includes">Incluye:</p>
             <ul>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>22 clases en vivo de 3 horas (66 horas): 2 por semana, 6 horas semanales, viernes y sábados</span></li>
@@ -464,7 +464,7 @@
     <section class="final-cta" aria-labelledby="finalTitle">
       <div class="wrap">
         <h2 id="finalTitle">Aparta tu lugar en la Generación 1</h2>
-        <p>Inicia el viernes 8 de enero de 2027. 30 lugares a precio de fundador: $9,900 MXN con IVA incluido.</p>
+        <p>Inicia el viernes 8 de enero de 2027. 30 lugares a precio de fundador: $8,910 MXN en un solo pago o 3 pagos de $3,300, IVA incluido.</p>
         <div class="cta-row">
           <a class="btn btn-accent" href="mailto:valc941226@gmail.com?subject=Quiero%20inscribirme%20a%20la%20Generaci%C3%B3n%201">Inscríbete a la Generación 1 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           <a class="btn btn-ghost" data-start-free href="#catalogo">Probar gratis los niveles 1 y 2</a>
@@ -495,6 +495,7 @@
     <a href="#planes"><svg class="icon" aria-hidden="true"><use href="#i-rocket"/></svg><span>Planes</span></a>
   </nav>
 
+  <script src="cursos.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
