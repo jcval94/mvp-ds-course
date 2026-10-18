@@ -10,6 +10,8 @@
     "4.1": "https://colab.research.google.com/drive/1iRAmuvmj08aLXNr3IOjPPeESn4s1MjWI",
     "4.2": "https://colab.research.google.com/drive/1_21Ve2MyBAKgoRu_5ipeng5gLk3yAzkZ",
   };
+  // Intro animada de cada caso (gancho de 1 minuto, pública): site/casos/<id>/. El caso se resuelve en Colab.
+  const INTROS = { "4.1": "casos/4-1/", "4.2": "casos/4-2/" };
   const ETIQUETAS = {
     preparacion: "Preparación", hipotesis: "Hipótesis", clinicas: "Clínicas", azar: "Azar", sospechosos: "Sospechosos",
     explicacion: "Explicación", pista: "Pista", revelacion: "Revelación", laboratorio: "Laboratorio", cierre: "Cierre",
@@ -170,6 +172,10 @@
       const a = el("a", "btn btn-line", done ? "Repasar en Colab" : vistas ? "Continuar en Colab" : "Abrir en Colab");
       a.href = enlace; a.target = "_blank"; a.rel = "noopener"; acciones.append(a);
     } else acciones.append(el("span", "muted", "Tu profesor te comparte el cuaderno"));
+    if (INTROS[caso.id] && !done) {
+      const intro = el("a", "btn btn-line", "Ver la intro (1 min)");
+      intro.href = INTROS[caso.id]; acciones.append(intro);
+    }
     foot.append(acciones);
 
     card.append(top, track, meta, lista);

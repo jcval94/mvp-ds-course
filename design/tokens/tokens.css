@@ -41,6 +41,56 @@
   --r-pill: 999px;
   --max: 1152px;
 
+  /* Arcade de la Taquería (intros de caso en site/casos/: capa 8 bits de entrada a la misión). Sin verde. */
+  --tq-sombra: #07061a;
+  --tq-noche: #0e0d22;
+  --tq-panel: #121829;
+  --tq-tinta: #1b2236;
+  --tq-cielo: #161533;
+  --tq-cielo-bajo: #1e1c40;
+  --tq-vacio: #2c2a48;
+  --tq-pared: #3a3558;
+  --tq-suelo: #2a2640;
+  --tq-ventana-noche: #1e2a55;
+  --tq-morado: #2f2058;
+  --tq-morado-claro: #5a2c62;
+  --tq-rosa-oscuro: #a1485c;
+  --tq-rosa: #d9708a;
+  --tq-naranja: #e08a4a;
+  --tq-ladrillo: #8a4b3c;
+  --tq-ladrillo-oscuro: #79402f;
+  --tq-cafe-oscuro: #3b2a1a;
+  --tq-cafe: #5a3920;
+  --tq-madera: #7a4e2d;
+  --tq-madera-clara: #9a6a40;
+  --tq-piedra: #cdbf9a;
+  --tq-piedra-oscura: #a89c78;
+  --tq-arena: #d9cba5;
+  --tq-manila: #d9b76a;
+  --tq-oro: #c9a45a;
+  --tq-papel: #f4ecd8;
+  --tq-papel-sombra: #b9ae92;
+  --tq-crema: #fff4d6;
+  --tq-crema-suave: #c9c2ae;
+  --tq-piel: #e8b98a;
+  --tq-ventana: #f6d36b;
+  --tq-luz: #ffd98a;
+  --tq-comal: #f4a63b;
+  --tq-comal-claro: #ffc15c;
+  --tq-comal-texto: #2a1c05;
+  --tq-anil: #6f7ee8;
+  --tq-anil-gris: #5b6fa8;
+  --tq-vidrio: #7fb0e8;
+  --tq-salsa: #e04b3a;
+  --tq-salsa-clara: #f08a70;
+  --tq-blanco: #ffffff;
+  --tq-traje: #2b2b3a;
+  --tq-gris: #4a4570;
+  --tq-negro: #111111;
+
+  --tq-papel-pliegue: #e4dcc4;
+  --tq-suadero: #9c5a35;
+  --tq-manila-clara: #e8cd8a;
   /* Juego */
   --px: 4px;
 }
