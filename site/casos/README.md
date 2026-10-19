@@ -10,11 +10,17 @@ La resolución (hipótesis calificada, datos, giro, rúbrica) vive en el cuadern
 | --- | --- |
 | Termina con el expediente «SIN RESOLVER» y el botón «Abrir el caso en Colab» | Abre con `cine.portada(…, "EXPEDIENTE ABIERTO", …)` y termina con `cine.cierre(…, "CASO X.Y RESUELTO", …)` |
 | Una o dos cifras del enigma, redondeadas con honestidad | Las mismas cifras, completas, con su fuente |
-| Micro-interacciones sin nota; no guarda nada | La hipótesis y las respuestas se registran con `tdd` |
+| Micro-interacciones sin nota; no guarda nada; sin opciones de respuesta | La apuesta (hipótesis) y las respuestas se piden y registran solo aquí, con `tdd` |
+| Una pregunta abierta de cierre, distinta de la explicación calificada | Empieza donde termina la intro y no repite ninguna de sus frases (`PAGINA` del caso) |
 | Paleta `--tq-*` de `design/tokens/tokens.css` (sin verde) | Paleta de la Taquería del paquete del alumno (`taqueria/__init__.py`) |
 
 El botón de cada intro apunta al cuaderno vigente (`CUADERNO_URL` del caso en el backend). Si el cuaderno cambia de
-archivo en Drive, cambia `colab` en `escenas.js` y el enlace del `noscript` de su `index.html`.
+archivo en Drive, cambia `colab` en `escenas.js`, el enlace del `noscript` de su `index.html` y `CUADERNOS` en
+`site/alumno.js`. Vigentes: 4.1 v1.3 (`1FNfm7Lf5e69Lw3ER5BM8L4jQMrdbyAgQ`) y 4.2 v2.6 (`1dTrByn08HxKMfNRSDoy44FqGrCGS97qG`).
+
+**No repetir.** El cuaderno copia las líneas de narración de cada intro en `PAGINA["frases"]` y el generador rechaza
+el cuaderno si repite alguna. Si cambias las líneas de una intro, avisa en el PR para actualizar `PAGINA` en el
+backend. Las piezas que la página ya mostró (rejillas de 100, balanza 44/35) no se repiten en el cuaderno.
 
 ## Estructura
 - `motor.css`, `motor.js`, `pixel.js`, `comun.js`: motor compartido (no se toca por caso).
@@ -44,12 +50,14 @@ cada línea dispara un cambio visual. Entre escenas, una persiana de 16 tiras.
 1. Copia `4-1/` a `X-Y/`; en `index.html` cambia título, descripción, `noscript` y enlace de Colab.
 2. En `escenas.js` cambia `CASO` (id, título, `colab`, duraciones, herramientas, fuentes) y reescribe las escenas.
    Colores solo con `var(--tq-…)`; si hace falta un tono nuevo, agrégalo en `tokens.css` y `tokens.json` (sin verde).
-3. Prueba de spoiler: quien solo vea la página no debe poder adivinar el giro. Si la pregunta detonadora o las
+3. Sin apuesta en la página: no ofrezcas opciones de hipótesis ni preguntes lo mismo que la explicación calificada del
+   cuaderno; la página siembra la duda y el cuaderno pide la apuesta.
+4. Prueba de spoiler: quien solo vea la página no debe poder adivinar el giro. Si la pregunta detonadora o las
    herramientas lo delatan, usa una pregunta más suave y `herramientasOcultas: N`.
-4. Cifras: solo con fuente consultada; que coincidan con el cuaderno y que ningún contador termine en un número
+5. Cifras: solo con fuente consultada; que coincidan con el cuaderno y que ningún contador termine en un número
    que contradiga el dato (2.8 % se muestra como «menos de 3», nunca «3»).
-5. Agrega el caso a `INTROS` en `site/alumno.js` para que su tarjeta muestre «Ver la intro (1 min)».
-6. Pruebas (ver abajo) y `python -m harness all`. Publicar a nombre del docente requiere su permiso.
+6. Agrega el caso a `INTROS` en `site/alumno.js` para que su tarjeta muestre «Ver la intro (1 min)».
+7. Pruebas (ver abajo) y `python -m harness all`. Publicar a nombre del docente requiere su permiso.
 
 ## Pruebas
 El motor expone `window.__intro` (`ir(n)`, `estado()`, `g`) para pruebas automáticas. Con Playwright sobre `dist/`:

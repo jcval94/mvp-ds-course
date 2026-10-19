@@ -104,7 +104,7 @@
     id: '4.1',
     titulo: 'LAS DOS SALAS',
     volver: '../../index.html',
-    colab: 'https://colab.research.google.com/drive/1iRAmuvmj08aLXNr3IOjPPeESn4s1MjWI',
+    colab: 'https://colab.research.google.com/drive/1FNfm7Lf5e69Lw3ER5BM8L4jQMrdbyAgQ',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
     herramientas: ['Comparación de proporciones', 'Prueba chi cuadrada', 'Descarte sistemático de hipótesis', 'Comparación antes y después'],
@@ -253,7 +253,6 @@
       /* 4 · el enigma: dos cifras que chocan y un signo de interrogación */
       {
         alt: 'El hospital, oscurecido. A la izquierda, 11 de cada 100; a la derecha, menos de 3 de cada 100; y debajo, un signo de interrogación.',
-        interactiva: true,
         arte: enigma,
         lineas: [
           { t: 'Un hospital. Dos resultados.', al: function (g) {
@@ -266,12 +265,8 @@
           { t: 'Por cada madre que moría en la clínica 2, morían unas cuatro en la clínica 1.', al: function (g) {
             g.espera(900, function () { g.pop(g.q('int'), 450); g.sfx('pregunta'); });
           } },
-          { t: '¿Qué crees que está pasando?', al: function (g) {
-            g.opciones(['Es pura casualidad', 'Algo del edificio o del aire', 'Algo que hace quien atiende', 'Algo de las propias madres'],
-              function (i, t) {
-                g.eco('Elegiste: «' + t + '». Es tu hipótesis y solo es tuya: aquí nadie la califica. En el caso la pondrás a prueba con datos.');
-                g.listo(true);
-              });
+          { t: 'En 1847, nadie en Viena sabía por qué.', al: function (g) {
+            g.sfx('golpe');
           } }
         ]
       },
@@ -279,7 +274,7 @@
       /* 5 · el expediente sin resolver */
       C.final({
         codigo: '4.1',
-        lineas: ['Este caso sigue sin resolverse.', 'Tu turno, detective.', '¿Qué hacían los médicos que no hacían las parteras?']
+        lineas: ['Este caso sigue sin resolverse.', 'Tu turno, detective.', '¿Puedes encontrar la causa con los mismos datos que tuvieron en 1847?']
       })
     ]
   };
