@@ -11,7 +11,7 @@
 
   /* ---------- gente ---------- */
   var HOMBRE = { h: 'var(--tq-cafe-oscuro)', s: 'var(--tq-piel)', t: 'var(--tq-anil)', j: 'var(--tq-traje)', b: 'var(--tq-negro)' };
-  var MUJER = { h: 'var(--tq-cafe)', s: 'var(--tq-piel)', t: 'var(--tq-anil)', j: 'var(--tq-traje)', b: 'var(--tq-negro)' };
+  var MUJER = { h: 'var(--tq-cafe)', s: 'var(--tq-piel)', t: 'var(--tq-comal)', j: 'var(--tq-traje)', b: 'var(--tq-negro)' };
   var CUERPO_H = ['..hhhh..', '.hhhhhh.', '.hssssh.', '..ssss..', '.tttttt.', 'tttttttt', 'tttttttt', 'tttttttt',
     '.tttttt.', '.jjjjjj.', '.jj..jj.', '.jj..jj.'];
   var CUERPO_M = ['..hhhh..', '.hhhhhh.', 'hhsssshh', 'hh.ss.hh', 'hhtttthh', 'tttttttt', 'tttttttt', 'tttttttt',
@@ -135,7 +135,8 @@
   function platillo(id, lado, n) {
     var s = R(-8, 0, 1, 14, 'var(--tq-papel-sombra)') + R(8, 0, 1, 14, 'var(--tq-papel-sombra)') + R(-12, 14, 25, 2, 'var(--tq-oro)') + R(-10, 16, 21, 2, 'var(--tq-madera-clara)');
     for (var j = 0; j < n; j++) s += moneda('c' + lado + j, -10 + (j % 5) * 4, -40);
-    return P.g(id, lado === 'L' ? 42 : 118, 30, s);
+    var nombre = lado === 'L' ? 'Poner las cifras de los hombres en la balanza' : 'Poner las cifras de las mujeres en la balanza';
+    return P.g(id, lado === 'L' ? 42 : 118, 30, P.hot(lado, nombre, -15, -12, 31, 34, s + P.flecha(0, -10)));
   }
   function balanza() {
     var s = R(0, 0, 160, 90, 'var(--tq-panel)') + R(0, 78, 160, 12, 'var(--suelo)');
@@ -144,8 +145,8 @@
     s += P.disco(80, 28, 4, 'var(--comal)');
     s += platillo('pl', 'L', 9) + platillo('pr', 'R', 7);
     s += T(42, 64, 'HOMBRES', 4.5, 'var(--tinta-suave)') + T(118, 64, 'MUJERES', 4.5, 'var(--tinta-suave)');
-    s += P.g('n44', 42, 14, T(0, 0, '44', 9, 'var(--comal)'), 'opacity="0"');
-    s += P.g('n35', 118, 14, T(0, 0, '35', 9, 'var(--comal)'), 'opacity="0"');
+    s += P.g('n44', 42, 14, T(0, 0, '44', 9, 'var(--comal)'), 'opacity="0" pointer-events="none"');
+    s += P.g('n35', 118, 14, T(0, 0, '35', 9, 'var(--comal)'), 'opacity="0" pointer-events="none"');
     return s;
   }
   function colocarBalanza(g) {
@@ -156,12 +157,39 @@
   }
   function coinFinal(j) { return { x: -10 + (j % 5) * 4, y: 11 - 3 * Math.floor(j / 5) }; }
 
+  /* Cada platillo recibe sus monedas (una por cada ~5 puntos: 9 para 44, 7 para 35); la viga reacciona a cada una. */
+  function soltarMonedas(g, lado, fin) {
+    var n = lado === 'L' ? 9 : 7, pan = lado === 'L' ? B.pl : B.pr;
+    function inclinar() { B.meta = Math.max(-14, Math.min(14, -4.5 * (B.nL - B.nR))); }
+    if (g.reducir) {
+      for (var j = 0; j < n; j++) { var c0 = g.q('c' + lado + j), f0 = coinFinal(j); g.pos(c0, f0.x, f0.y); g.op(c0, 1); }
+      if (lado === 'L') B.nL = n; else B.nR = n;
+      inclinar(); B.ang = B.meta; colocarBalanza(g);
+      fin();
+      return;
+    }
+    for (var i = 0; i < n; i++) (function (j) {
+      g.espera(j * 200, function () {
+        var c = g.q('c' + lado + j), f = coinFinal(j);
+        g.op(c, 1);
+        g.mover(c, f.x, f.y, 330, g.E.ent, function () {
+          if (lado === 'L') B.nL += 1; else B.nR += 1;
+          inclinar();
+          B.vel += lado === 'L' ? -10 : 10;
+          g.tono(900 + j * 30, 0.04);
+          g.chispas(pan._x + f.x + 2, pan._y + f.y, { n: 3, color: ['var(--tq-luz)', 'var(--tq-comal)'], v: 14, vida: 400, g: 40 });
+          if (j === n - 1) g.espera(250, fin);
+        });
+      });
+    })(i);
+  }
+
   /* ---------- guion ---------- */
   window.CASO = {
     id: '4.2',
     titulo: '44 CONTRA 35',
     volver: '../../index.html',
-    colab: 'https://colab.research.google.com/drive/1_21Ve2MyBAKgoRu_5ipeng5gLk3yAzkZ',
+    colab: 'https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
     herramientasOcultas: 4,
@@ -307,12 +335,29 @@
 
       /* 4 · la balanza: caen las monedas, la viga oscila y se inclina */
       {
-        alt: 'Una balanza que se inclina: el platillo de los hombres, con 44, pesa más que el de las mujeres, con 35.',
+        alt: 'Una balanza con dos platillos, hombres y mujeres. Al tocarlos caen monedas: 44 de un lado y 35 del otro, y la balanza se inclina hacia los hombres.',
         interactiva: true,
         arte: balanza,
         montar: function (g) {
-          B = { ang: 0, vel: 0, meta: 0, nL: 0, nR: 0, viga: g.q('viga'), pl: g.q('pl'), pr: g.q('pr') };
+          B = { ang: 0, vel: 0, meta: 0, nL: 0, nR: 0, viga: g.q('viga'), pl: g.q('pl'), pr: g.q('pr'), listos: {} };
           colocarBalanza(g);
+          g.qa('.pista').forEach(function (p) { p.style.visibility = 'hidden'; });
+          g.enTocar(function (lado, nodo) {
+            if (B.listos[lado] !== undefined) return;
+            B.listos[lado] = false;
+            nodo.classList.add('abierta');
+            nodo.setAttribute('aria-label', lado === 'L' ? 'Hombres: 44 de cada 100 admitidos' : 'Mujeres: 35 de cada 100 admitidas');
+            soltarMonedas(g, lado, function () {
+              B.listos[lado] = true;
+              g.pop(g.q(lado === 'L' ? 'n44' : 'n35'), 380); g.sfx('moneda');
+              if (B.listos.L === true && B.listos.R === true) {
+                g.decir('44 contra 35: nueve puntos de diferencia.');
+                g.listo();
+              } else {
+                g.decir(lado === 'L' ? 'Hombres: 44 de cada 100. Falta el otro platillo.' : 'Mujeres: 35 de cada 100. Falta el otro platillo.');
+              }
+            });
+          });
           g.cada(33, function () {
             B.vel += (60 * (B.meta - B.ang) - 7 * B.vel) * 0.033;
             B.ang += B.vel * 0.033;
@@ -320,43 +365,8 @@
           });
         },
         lineas: [
-          { t: 'Ponle números a la balanza: 44 de un lado, 35 del otro.', al: function (g) {
-            var orden = [];
-            for (var j = 0; j < 9; j++) { orden.push(['L', j]); if (j < 7) orden.push(['R', j]); }
-            if (g.reducir) {
-              orden.forEach(function (o) { var c = g.q('c' + o[0] + o[1]), f = coinFinal(o[1]); g.pos(c, f.x, f.y); g.op(c, 1); });
-              B.ang = B.meta = -9; colocarBalanza(g);
-              return;
-            }
-            orden.forEach(function (o, i) {
-              g.espera(300 + i * 230, function () {
-                var lado = o[0], c = g.q('c' + lado + o[1]), f = coinFinal(o[1]), pan = lado === 'L' ? B.pl : B.pr;
-                g.op(c, 1);
-                g.mover(c, f.x, f.y, 330, g.E.ent, function () {
-                  if (lado === 'L') B.nL += 1; else B.nR += 1;
-                  B.meta = -4.5 * (B.nL - B.nR);
-                  B.vel += lado === 'L' ? -14 : 14;
-                  g.tono(900 + o[1] * 30, 0.04);
-                  g.chispas(pan._x + f.x + 2, pan._y + f.y, { n: 3, color: ['var(--tq-luz)', 'var(--tq-comal)'], v: 14, vida: 400, g: 40 });
-                });
-              });
-            });
-          } },
-          { t: 'Nueve puntos de diferencia.', al: function (g) {
-            g.pop(g.q('n44'), 380); g.sfx('moneda');
-            g.espera(380, function () { g.pop(g.q('n35'), 380); g.sfx('moneda'); });
-          } },
-          { t: 'Si fueras el analista de la universidad, ¿qué harías?', al: function (g) {
-            var ecos = [
-              'Es una conclusión fuerte. Prepárate para defenderla con algo más que un número.',
-              'Pedir más datos es buen reflejo. En el caso tendrás que decir cuáles.',
-              'Quizá. Pero un número solo rara vez cierra un caso.'
-            ];
-            g.opciones(['Acusar a la universidad de discriminar', 'Pedir más datos antes de decidir', 'Dar el caso por cerrado'],
-              function (i) {
-                g.eco(ecos[i] + ' Es tu hipótesis y solo es tuya: aquí nadie la califica.');
-                g.listo(true);
-              });
+          { t: 'Ponle números a la balanza: toca cada platillo.', al: function (g) {
+            g.qa('.pista').forEach(function (p) { p.style.visibility = 'visible'; });
           } }
         ]
       },
