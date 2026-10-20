@@ -23,6 +23,10 @@ acompañan. La numeración de casos (1.1, 4.2…) es la del temario de casos rea
 - Una misión se registra en `course.yaml` cuando su caso entra a
   `casos/staging/`, como `m01-wald`. Antes de eso solo vive en este mapa.
 - Todo caso, nuevo o del banco, se verifica con fuentes antes de construirse.
+- Cada caso declara su hábito de criterio y su familia (`docs/CRITERIO_PRIMERO.md`).
+  El banco de cada nivel incluye al menos un caso de «el costo del error» y uno de
+  «la solución simple»; los niveles de modelado (6 a 9), al menos uno de «cuándo no
+  usar ML»; y cada nivel, al menos una actividad de «trabajar con IA».
 
 ## Anclas y banco por nivel
 

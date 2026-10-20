@@ -9,6 +9,9 @@ Ayudar a operar DataClass Forge: una fábrica documental para crear material edu
 - Lee `AGENTS.md` e `IDEA.md`, y el `AGENTS.md` de la carpeta que vayas a editar.
 - Antes de cerrar, ejecuta `python -m harness all`.
 - Consulta `docs/CURRICULUM_MAP.md` antes de diseñar contenido.
+- Lee `docs/CRITERIO_PRIMERO.md` antes de diseñar un caso, misión, cuaderno o
+  clase: criterio antes que herramienta, la herramienta llega cuando el caso la
+  pide y todo trabajo con IA sigue Delegar · Verificar · Firmar.
 - Usa `.agents/skills` según el artefacto solicitado.
 - No programes producto antes de validar la vertical slice documental.
 - Mantén outputs en español.
@@ -38,6 +41,8 @@ Ayudar a operar DataClass Forge: una fábrica documental para crear material edu
 - Objetivo observable.
 - Prerrequisitos explícitos.
 - Intuición antes de formalismo para principiantes.
+- Hábito de criterio declarado y apuesta del estudiante antes de la herramienta.
+- Línea base simple antes de cualquier modelo.
 - Interacción significativa.
 - Distractores plausibles.
 - Feedback específico.
@@ -51,6 +56,9 @@ Ayudar a operar DataClass Forge: una fábrica documental para crear material edu
 - Visualización engañosa.
 - Causalidad injustificada.
 - Ejercicio de memoria desconectado del visual.
+- Caso que nombra su herramienta antes de la apuesta del estudiante.
+- Modelo predictivo sin línea base simple.
+- Decisión atribuida a una IA sin firma de una persona.
 - Datos inconsistentes.
 - Placeholder fuera de templates.
 - Solicitud de app antes de aprobación documental.
