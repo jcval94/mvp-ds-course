@@ -32,7 +32,7 @@ acompañan. La numeración de casos (1.1, 4.2…) es la del temario de casos rea
 
 | Nivel | Misión ancla | Caso ancla | Banco |
 | ---: | --- | --- | --- |
-| 1 | `m01-wald` | 1.1 Wald y los bombarderos | 1.2 Literary Digest; 13.7 Genes convertidos en fechas |
+| 1 | `m01-wald` | 1.1 Wald y los bombarderos | 1.2 Literary Digest; 13.7 Genes convertidos en fechas; casos de costo 1.4 Puerto Rico, 13.9 Ariane 5, 13.10 Horizon y 8.9 Robodebt (diseño en `docs/MODULO_1_DISENO.md`) |
 | 2 | `m02-snow` | 2.1 John Snow y el cólera | 2.2 Nightingale en Crimea |
 | 3 | `m03-semmelweis` | 4.1 Semmelweis (construido) | 3.1 Sally Clark y 3.3 Air France 447 (bloque Bayes); 3.2 Tanques alemanes; 3.4 Ulam y Monte Carlo; 4.3 Escuelas pequeñas; 4.5 Wansink (movido desde Nivel 9) |
 | 4 | `m04-berkeley` | 4.2 Berkeley (construido) | 4.4 Instructores de Israel (bloque regresión a la media); 2.3 Challenger; 6.1 Doll y Hill; 6.2 Terapia hormonal |
