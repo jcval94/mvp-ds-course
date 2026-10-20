@@ -21,6 +21,13 @@ Evalúa cada dimensión de 1 a 5 y cita evidencia.
 | Trazabilidad | Decisiones aisladas | Conexiones parciales | IDEA -> currículo -> artefactos -> evals -> plan |
 | Procedencia de datos | Fuente o licencia ausente | Fuente presente, trazabilidad parcial | Snapshot, licencia, cita, fecha y hash verificables |
 | Publicación | Publica borradores | Gate manual incompleto | Build automático publica solo manifests aprobados |
+| Criterio antes que herramienta | Abre con la herramienta | Hay apuesta, pero la herramienta se anuncia antes de la fricción | La herramienta llega cuando la fricción la pide y se compara con una alternativa simple |
+| Escalera de complejidad | Modelo sin línea base | Línea base mencionada sin comparar | Cada peldaño justificado y comparado fuera de muestra |
+| Delegar · Verificar · Firmar | El estudiante solo ejecuta | Verifica, pero no registra encargo o firma | Encargo, dos verificaciones y firma registrados |
+
+Las tres últimas dimensiones aplican a casos, misiones, cuadernos y clases en vivo
+(`docs/CRITERIO_PRIMERO.md`). Los laboratorios por concepto ya publicados se
+califican con ellas cuando se migran o se enlazan desde un caso.
 
 ## Interpretación
 

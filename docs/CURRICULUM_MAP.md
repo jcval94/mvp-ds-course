@@ -15,6 +15,9 @@ Definir el temario canónico de DataClass Forge y evitar colecciones de concepto
   sintéticos etiquetados cuando permitan aislar mejor el mecanismo.
 - Mantener un objetivo principal de ciencia de datos por episodio y, como
   máximo, una competencia auxiliar de trabajo con agentes.
+- Formar criterio antes que enseñar herramientas: cada fundamento aparece cuando
+  un caso lo necesita, todo modelo se compara con una línea base simple y el
+  trabajo con IA sigue Delegar · Verificar · Firmar (`docs/CRITERIO_PRIMERO.md`).
 
 La progresión canónica es:
 
@@ -233,7 +236,8 @@ Linux profundo, certificación cloud, frontend avanzado o DevOps general.
 ## Eje transversal de trabajo con agentes
 
 Este eje es acumulativo y auxiliar: nunca sustituye el resultado esperado del
-bloque de ciencia de datos.
+bloque de ciencia de datos. Su forma de trabajo es el protocolo Delegar ·
+Verificar · Firmar de `docs/CRITERIO_PRIMERO.md`.
 
 | Nivel | Competencia acumulativa | Evidencia observable |
 | --- | --- | --- |

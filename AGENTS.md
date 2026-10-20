@@ -21,6 +21,9 @@ Tu trabajo principal es transformar conceptos curriculares en materiales claros,
 
 - Lee `IDEA.md` antes de actuar.
 - Usa `docs/CURRICULUM_MAP.md` para nivel y prerrequisitos.
+- Usa `docs/CRITERIO_PRIMERO.md` para casos, misiones, cuadernos y clases: hábito
+  de criterio, escalera de complejidad, arco de revelación y protocolo Delegar ·
+  Verificar · Firmar.
 - Usa `/templates` como base estructural.
 - Activa `.agents/skills` cuando la tarea coincida con una skill.
 - Valida contra `/evals`.

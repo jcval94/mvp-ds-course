@@ -7,10 +7,13 @@ description: Prepara paquetes reproducibles para enseñar conceptos de ciencia d
 
 1. Leer `ConceptSpec`, `LearningModule`, `PracticeExercise` y contexto narrativo cuando exista.
 2. Definir objetivo, audiencia, duración y guion minuto a minuto.
+   Abrir con un caso y la apuesta del grupo; el concepto aparece dentro del caso
+   cuando la fricción lo pide (arco de revelación de `docs/CRITERIO_PRIMERO.md`).
 3. Usar un snapshot público real local con esquema, fuente, licencia, fecha y SHA-256.
 4. Explicar si el snapshot docente difiere del dataset narrativo sintético y qué relación conceptual conserva.
 5. Diseñar demo, predicción, experimento, preguntas socráticas, errores anticipados y evaluación rápida.
 6. Preparar blueprint, prompt técnico para Codex y prompts de facilitación para Gemini y ChatGPT.
+   Todo trabajo con IA en clase sigue Delegar · Verificar · Firmar.
 7. Incluir verificación humana, privacidad, plan offline y checklists.
 8. Mantener el contenido oculto por defecto en la experiencia estudiantil y aclarar que no es seguridad real.
 

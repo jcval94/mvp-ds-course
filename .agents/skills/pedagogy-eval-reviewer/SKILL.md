@@ -11,6 +11,9 @@ description: Evalúa paquetes educativos de ciencia de datos contra rúbricas de
 4. Leer los reportes técnico, narrativo e interactivo que correspondan.
 5. Revisar voz, continuidad, separación de episodios, feedback y transferencia.
 6. Comprobar operabilidad docente, coherencia entre modos y no objetivos.
+   En casos, misiones, cuadernos y clases en vivo, evaluar además criterio antes que
+   herramienta, escalera de complejidad y Delegar · Verificar · Firmar
+   (`docs/CRITERIO_PRIMERO.md`).
 7. Puntuar cada dimensión de 1 a 5 con evidencia.
 8. Corregir bloqueos desde la decisión raíz y repetir.
 

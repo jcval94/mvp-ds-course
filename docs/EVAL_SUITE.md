@@ -42,6 +42,9 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 | Viabilidad | ¿El MVP evita infraestructura y alcance innecesarios? |
 | Procedencia | ¿Los datos públicos tienen fuente, licencia, fecha y hash? |
 | Publicación | ¿Solo se publican paquetes aprobados y enlaces válidos? |
+| Criterio antes que herramienta | ¿La herramienta llega después de la apuesta, cuando la fricción del caso la pide? (casos, misiones y clases; `docs/CRITERIO_PRIMERO.md`) |
+| Escalera de complejidad | ¿Todo modelo se compara fuera de muestra con una línea base simple? |
+| Delegar · Verificar · Firmar | ¿El trabajo con IA registra encargo, dos verificaciones y una firma humana? |
 
 ## Rubrica
 
@@ -84,6 +87,9 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 - Paquete docente sin plan offline.
 - Prompts sin restricciones o criterios de aceptación.
 - Codex y Gemini/ChatGPT con roles indistinguibles o sin verificación humana.
+- Caso o misión que nombra su herramienta antes de la apuesta del estudiante.
+- Modelo predictivo presentado sin línea base simple.
+- Decisión atribuida a una IA sin firma de una persona.
 - Alguna dimensión en 1.
 - Promedio menor a 4.
 - Placeholder fuera de `/templates`.
@@ -106,6 +112,9 @@ Validar que DataClass Forge produzca material educativo de ciencia de datos prec
 ## Casos de fallo
 
 - Definición larga seguida de quiz de memoria.
+- Clase que abre con la definición de la herramienta y deja el caso para el final.
+- Modelo complejo que nadie comparó con una regla simple.
+- Resultado de una IA aceptado sin conteos, caso a mano ni otra comprobación.
 - Historia atractiva cuya pregunta no depende de la gráfica.
 - Historia que revela la respuesta sin ejecutar la animación.
 - Don Juan define terminología estadística que no aprendió o Paco anticipa el nivel siguiente.
