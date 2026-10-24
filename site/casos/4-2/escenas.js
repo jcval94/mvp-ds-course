@@ -192,6 +192,7 @@
     colab: 'https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
+    medios: 'medios.json',
     herramientasOcultas: 4,
     fuentes: [
       { t: 'Bickel, Hammel y O\'Connell (1975), «Sex Bias in Graduate Admissions: Data from Berkeley»',
@@ -232,7 +233,7 @@
         },
         lineas: [
           { t: 'Berkeley, California. Otoño de 1973.', al: function (g) {
-            g.portada('BERKELEY', '1973');
+            g.portada('BERKELEY', '1973', function () { g.archivo('campanario', { lado: 'izq', ms: 4200 }); });
             var sol = g.q('sol'), noche = g.q('noche'), nubes = g.q('nubes'), mano = g.q('mano');
             g.anim(11000, function (t) { g.pos(sol, 0, 22 * t); g.op(noche, 0.6 * t); }, g.E.lin);
             g.anim(60000, function (t) { g.pos(nubes, -70 * t, 0); }, g.E.lin);

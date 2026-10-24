@@ -156,6 +156,44 @@ svg text.px{font-family:"Press Start 2P","Courier New",monospace}
 .enlace{font:inherit;font-size:.95rem;color:var(--comal);background:none;border:0;padding:4px 0;cursor:pointer;text-decoration:underline;justify-self:start}
 .pie{margin:6px 0 0;text-align:center;font-size:.85rem;color:var(--tinta-suave)}
 
+/* ---- material real del caso: fotos, recortes, documentos y video (g.archivo, g.video) ----
+   Una pieza de archivo «clavada» sobre la escena: papel, cinta y pie con crédito y licencia. Debajo de la persiana. */
+.archivo{position:absolute;z-index:3;top:7%;width:var(--ancho,44%);max-width:420px;margin:0;display:grid;gap:5px;
+  background:var(--tq-papel);color:var(--tq-comal-texto);padding:7px 7px 8px;border:3px solid var(--tq-sombra);
+  box-shadow:0 5px 0 0 var(--tq-sombra);animation:aparece .3s steps(3) both}
+.archivo.der{right:4%;transform:rotate(-1.5deg)}
+.archivo.izq{left:4%;transform:rotate(1.5deg)}
+.archivo.centro{left:50%;width:var(--ancho,60%);transform:translateX(-50%) rotate(-.8deg)}
+.archivo.sale{animation:sale .4s steps(4) forwards}
+.archivo-tag{position:absolute;top:-11px;left:10px;font-family:"Press Start 2P","Courier New",monospace;font-size:7px;line-height:1;
+  background:var(--comal);color:var(--comal-texto);padding:4px 6px;border:2px solid var(--tq-sombra)}
+.archivo-x{position:absolute;top:-11px;right:-11px;width:24px;height:24px;padding:0;font-family:"Press Start 2P","Courier New",monospace;
+  font-size:8px;line-height:1;background:var(--tq-papel);color:var(--tq-comal-texto);border:2px solid var(--tq-sombra);cursor:pointer}
+.archivo-x:hover,.archivo-x:focus-visible{background:var(--comal);outline:none}
+.archivo-marco{overflow:hidden;aspect-ratio:4/3;background:var(--tq-sombra)}
+.archivo.t-recorte .archivo-marco,.archivo.t-documento .archivo-marco{background:var(--tq-papel-pliegue)}
+.archivo img{width:100%;height:100%;object-fit:cover;display:block;animation:kenburns 11s linear both}
+.archivo.t-recorte img,.archivo.t-documento img{object-fit:contain;animation-duration:16s}
+.archivo figcaption{display:grid;gap:2px;font-size:11px;line-height:1.3}
+.archivo figcaption b{font-size:12px}
+.archivo figcaption small{font-size:9px;opacity:.85}
+.archivo-play{position:relative;display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.archivo-play span{position:absolute;inset:0;display:grid;place-items:center;font-size:30px;color:var(--tq-crema);
+  text-shadow:0 2px 0 var(--tq-sombra),2px 0 0 var(--tq-sombra),-2px 0 0 var(--tq-sombra),0 -2px 0 var(--tq-sombra)}
+.archivo-play:hover span,.archivo-play:focus-visible span{color:var(--comal)}
+.archivo-play:focus-visible{outline:4px solid var(--comal);outline-offset:-4px}
+.archivo iframe{width:100%;height:100%;border:0;display:block}
+.archivo.quieto,.archivo.quieto img{animation:none}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.08) translate(-1%,-1%)}}
+@media (max-width:620px){
+  .archivo{width:var(--ancho-movil,52%);top:5%;padding:5px 5px 6px;gap:3px}
+  .archivo-marco{aspect-ratio:16/9}
+  .archivo.centro{width:var(--ancho-movil,74%)}
+  .archivo figcaption{font-size:10px}
+  .archivo figcaption b{font-size:10px}
+  .archivo figcaption small{font-size:8px}
+}
+
 @media (min-width:700px){
   .juego{padding-top:24px}
   .opciones{grid-template-columns:1fr 1fr}

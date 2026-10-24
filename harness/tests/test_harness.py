@@ -204,3 +204,49 @@ def test_only_public_ready_missions_publish_their_app_and_data(repo: Path, tmp_p
     assert (dist / "missions" / "m01-wald" / "index.html").is_file()
     assert (dist / "missions" / "m01-wald" / "data" / "x.csv").is_file()
     assert not (dist / "missions" / "m01-wald" / "data" / "generar.py").exists()
+
+
+def _caso_con_medios(root: Path, medios: dict | None) -> Path:
+    case_dir = root / "site" / "casos" / "9-9"
+    _write(case_dir / "escenas.js", "window.CASO = {};")
+    if medios is not None:
+        _write(case_dir / "medios.json", json.dumps(medios, ensure_ascii=False))
+    return case_dir
+
+
+def test_every_case_intro_declares_its_real_media(tmp_path: Path) -> None:
+    _caso_con_medios(tmp_path, None)
+    assert "falta medios.json" in "\n".join(validate.validate_case_media(tmp_path))
+
+
+def test_case_media_needs_credit_license_and_local_file(tmp_path: Path) -> None:
+    medio = {"id": "foto", "tipo": "foto", "estado": "listo", "archivo": "medios/foto.webp", "alt": "Una foto",
+             "credito": "Autor", "licencia": "CC BY-SA 3.0", "fuente": "https://ejemplo.org/foto", "spoiler": "No revela nada."}
+    case_dir = _caso_con_medios(tmp_path, {"caso": "9.9", "items": [medio]})
+    assert "falta el archivo medios/foto.webp" in "\n".join(validate.validate_case_media(tmp_path))
+    _write(case_dir / "medios" / "foto.webp", "x")
+    assert validate.validate_case_media(tmp_path) == []
+    malos = {
+        "licencia": dict(medio, licencia="Copyright"),
+        "credito": dict(medio, credito=""),
+        "spoiler": dict(medio, spoiler=""),
+        "enlace": dict(medio, archivo="https://otro.sitio/foto.jpg"),
+        "video": dict(medio, tipo="video", video="https://www.youtube.com/watch?v=x", poster="medios/foto.webp"),
+        "cita": dict(medio, licencia="Cita breve"),
+    }
+    for nombre, item in malos.items():
+        _caso_con_medios(tmp_path, {"caso": "9.9", "items": [item]})
+        assert validate.validate_case_media(tmp_path), nombre
+
+
+def test_case_media_without_ready_items_must_say_what_is_pending(tmp_path: Path) -> None:
+    candidato = {"id": "foto", "tipo": "foto", "estado": "candidato", "alt": "Una foto", "credito": "Autor",
+                 "licencia": "CC0", "fuente": "https://ejemplo.org/foto", "spoiler": "No revela nada."}
+    _caso_con_medios(tmp_path, {"caso": "9.9", "items": [candidato]})
+    assert "pendiente" in "\n".join(validate.validate_case_media(tmp_path))
+    _caso_con_medios(tmp_path, {"caso": "9.9", "items": [candidato], "pendiente": "Descargar la foto."})
+    assert validate.validate_case_media(tmp_path) == []
+
+
+def test_current_case_intros_declare_their_media() -> None:
+    assert validate.validate_case_media() == []

@@ -1,0 +1,20 @@
+{
+  "caso": "4.1",
+  "pendiente": "Descargar el grabado del Hospital General de Viena (Wien Museum, CC0) desde «descarga», guardarlo como medios/hospital.webp de 1200 px de ancho y hasta 350 KB, y cambiar su estado a «listo». Buscar un segundo medio que no muestre a Semmelweis ni la causa.",
+  "items": [
+    {
+      "id": "hospital",
+      "tipo": "grabado",
+      "estado": "candidato",
+      "archivo": "medios/hospital.webp",
+      "alt": "Grabado coloreado de la fachada del Hospital General de Viena, con su patio y gente en la calle.",
+      "pie": "El Hospital General de Viena, hacia 1812",
+      "credito": "Joseph y Peter Schaffer, Artaria & Co. · Wien Museum (inv. 15738)",
+      "licencia": "CC0",
+      "fuente": "https://sammlung.wienmuseum.at/en/object/91690-aussicht-des-allgemeinen-krankenhauses-vue-de-lhopital-general-a-vienne-3-etat/",
+      "descarga": "https://sammlung.wienmuseum.at/images/objects/91690/498634_full.jpg",
+      "escena": 1,
+      "spoiler": "Muestra solo el edificio: no aparece Semmelweis, la causa ni la solución."
+    }
+  ]
+}
