@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -11,6 +12,8 @@ from threading import Thread
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
+# Relative overrides are resolved from the repository, like the default.
+OUTPUT = ROOT / os.environ.get("QA_SCREENSHOT_DIR", "output/qa")
 BASE = "http://127.0.0.1:4175"
 BUILD = ROOT / "_site"
 
@@ -132,6 +135,7 @@ def main() -> None:
     if not BUILD.exists():
         raise SystemExit("Ejecuta scripts/build_pages.py antes de qa_student_experience.py")
 
+    OUTPUT.mkdir(parents=True, exist_ok=True)
     handler = partial(SimpleHTTPRequestHandler, directory=str(BUILD))
     server = ThreadingHTTPServer(("127.0.0.1", 4175), handler)
     Thread(target=server.serve_forever, daemon=True).start()
@@ -149,6 +153,7 @@ def main() -> None:
         assert_level_three_vertical_slice(page)
         assert_level_three_code_coverage(page)
         assert_placement_to_home(page)
+        page.screenshot(path=OUTPUT / "student-desktop.png", full_page=True)
         desktop.close()
 
         tablet = browser.new_context(viewport={"width": 820, "height": 1180}, reduced_motion="reduce")
@@ -157,6 +162,7 @@ def main() -> None:
         assert_placement(tablet_page)
         assert_level_three_vertical_slice(tablet_page)
         no_overflow(tablet_page, "tablet final")
+        tablet_page.screenshot(path=OUTPUT / "student-tablet.png", full_page=True)
         tablet.close()
 
         phone = browser.new_context(viewport={"width": 390, "height": 844}, reduced_motion="reduce")
@@ -171,6 +177,7 @@ def main() -> None:
         phone_page.goto(f"{BASE}/labs/level-3/probabilidad-basica.html?concept=event", wait_until="networkidle")
         minimum_touch_target(phone_page, "#advance")
         no_overflow(phone_page, "phone final")
+        phone_page.screenshot(path=OUTPUT / "student-phone.png", full_page=True)
         phone.close()
 
         browser.close()

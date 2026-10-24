@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import csv
+import os
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -14,7 +15,8 @@ from playwright.sync_api import sync_playwright
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "output" / "playwright"
+# Relative overrides are resolved from the repository, like the default.
+OUTPUT = ROOT / os.environ.get("QA_SCREENSHOT_DIR", "output/qa")
 BASE = "http://127.0.0.1:4174"
 LEVEL_DIRS = {
     1: "data-class-foundations-level-1",
