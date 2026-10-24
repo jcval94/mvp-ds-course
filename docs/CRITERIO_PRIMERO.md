@@ -210,7 +210,7 @@ cifras en fuentes primarias (`docs/CASE_MISSION_MAP.md`).
 | Artefacto | Qué cambia |
 | --- | --- |
 | Temario de casos | Giro y Herramientas son guía docente. El estudiante ve decisión, datos y pregunta detonadora. |
-| Intro de la página | Gancho y nada más. La apuesta vive en Colab. |
+| Intro de la página | Gancho y nada más. La apuesta vive en Colab. **Todo caso tiene intro**, también los de «el costo del error» (formato corto de 3 escenas), y toda intro muestra material real del caso (fotos, recortes, documentos o video) con crédito y licencia, sin adelantar la revelación (`site/casos/README.md`). |
 | Cuaderno de Colab | Sigue el arco. Registra apuesta, encargo, verificación y firma. |
 | Laboratorio por concepto | Es práctica y consulta enlazada desde el momento Herramienta del caso, no la puerta de entrada. |
 | Clase en vivo | Abre con un caso y su apuesta. El concepto aparece dentro del caso y el laboratorio va después. |
@@ -219,7 +219,10 @@ cifras en fuentes primarias (`docs/CASE_MISSION_MAP.md`).
 El generador de casos (`agentic-ds-backen`, `docs/CRITERIO.md`) exige este contrato a
 todo caso nuevo: hábito, herramienta que no se nombra antes de su sección, apuesta,
 verificación, firma antes de la revelación, error plantado (niveles 1 y 2) o encargo
-(desde el nivel 3), frase del criterio y enlace al laboratorio.
+(desde el nivel 3), frase del criterio, enlace al laboratorio e intro de la página.
+
+La estructura de la Generación 1 (qué caso va en cada clase, con su hábito y sus
+opciones secundarias) está en `docs/ESTRUCTURA_GENERACION_1.md`.
 
 ## Cómo se evalúa
 
