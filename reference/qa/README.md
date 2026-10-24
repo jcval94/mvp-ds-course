@@ -4,9 +4,9 @@ Estas 34 imágenes se trasladaron desde `output/playwright/` sin cambiar sus byt
 El patrón de niveles de `docs/CURRICULUM_LEVEL_MIGRATION.md` las cita como evidencia
 histórica. No son resultados de la última ejecución ni una baseline automática.
 
-`output/playwright` es un enlace de compatibilidad a esta carpeta: mantiene
-resolubles las dos citas congeladas del checklist de Nivel 1 en `generated/`,
-que no se edita en esta migración. Las referencias editables usan `reference/qa/`.
+Las dos citas congeladas a `output/playwright/` del checklist de Nivel 1 en
+`generated/` se conservan como texto histórico; no necesitan resolver y no existe
+un enlace de compatibilidad. Las referencias editables usan `reference/qa/`.
 
 ## Capturas de una ejecución
 
