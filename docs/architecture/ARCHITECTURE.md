@@ -51,12 +51,14 @@ python -m harness validate   schemas + referencias + tokens + higiene del repo
 python -m harness build      scripts/build_pages.py (sin cambios) → _site/
                              _site/ + portal/ + design/tokens + capsulas → dist/
                              + missions.json + build-info.json
-python -m harness check      enlaces internos, rutas absolutas, archivos de hosting, presupuestos
+python -m harness check      enlaces internos, SEO técnico, portabilidad, presupuestos
 python -m harness smoke      Playwright en "/" y en "/mvp-ds-course/"
 ```
 
 `dist/` es estático, reproducible (mismo commit → mismo `content_sha256`) y
-agnóstico del hosting: solo rutas relativas, sin `.nojekyll`, `CNAME`,
+agnóstico del hosting: enlaces y recursos con rutas relativas; la única URL base
+(`course.yaml → build.base_url`) aparece exclusivamente en canonical y sitemap
+(ver [SEO.md](SEO.md)). Sin `.nojekyll`, `CNAME`,
 `_headers` ni `_redirects`, con `404.html` propio en la raíz.
 
 ## CI

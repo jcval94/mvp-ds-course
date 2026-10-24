@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from .config import DIST, HOST_CONFIG_FILES, LEGACY_BUILD, ROOT, HarnessError, load_course, load_missions
+from .seo import base_url, inject_metadata, write_seo
 
 PUBLIC_MISSION_STATES = {"ready", "published"}
 NON_PUBLISHED_NAMES = {"README.md", "AGENTS.md", "CLAUDE.md", "REFERENCE.md"}
@@ -136,7 +137,11 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     course = load_course(root)
     components = course["components"]
 
+    seo_base = base_url(course)
     build_factory(root)
+    # Enrich the disposable factory output before copying it, preserving the
+    # existing byte-parity contract between _site/ and its published dist/ copy.
+    inject_metadata(root / LEGACY_BUILD.name, seo_base)
     _remove_tree(dist, root, "dist")
     dist.mkdir()
 
@@ -156,9 +161,11 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     publish_mission_apps(missions, course, root, dist)
     _write_json(dist / "missions.json", {"schema_version": 1, "course": course["course"]["id"], "missions": missions})
 
+    seo_todos = write_seo(course, root, dist)
     inventory = file_inventory(dist)
     info = {
         "schema_version": 1,
+        "seo_description_todos": seo_todos,
         "course": course["course"]["id"],
         "commit": _git("rev-parse", "HEAD", root=root),
         "commit_time": _git("log", "-1", "--format=%cI", root=root),

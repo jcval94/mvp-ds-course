@@ -36,9 +36,10 @@
     "build": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["dist", "budgets"],
+      "required": ["dist", "base_url", "budgets"],
       "properties": {
         "dist": { "const": "dist" },
+        "base_url": { "type": "string", "format": "uri", "pattern": "^https?://[^/?#\\s]+(?:/[^?#\\s]*)?$" },
         "budgets": {
           "type": "object",
           "additionalProperties": false,
