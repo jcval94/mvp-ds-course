@@ -257,6 +257,65 @@ Por qué cada caso:
 - **Clase 21.** 14.1 COMPAS y el riesgo de reincidencia: COMPAS: no se pueden cumplir todas las métricas de equidad a la vez. Ancla del Nivel 11. E66 Sweeney y el expediente del gobernador: Tres datos bastaron para reidentificar el expediente médico de un gobernador.
 - **Clase 22.** S01 El bombardero que nadie podía volar de memoria: Cerrar donde empezamos: un bombardero que nadie podía volar de memoria y la primera lista de verificación. E61 Boeing 737 MAX: un solo sensor: Boeing 737 MAX: un solo sensor sin redundancia; quién firma el riesgo.
 
+## Banco por módulo
+
+Casos del catálogo que no quedaron en una clase. Se quedan en el módulo donde encajan, como reemplazo o lectura.
+
+| Módulo | Caso | Hábito | Por qué en este módulo |
+| --- | --- | --- | --- |
+| 5. ¿Funcionó? | D01 Estudios antes de operar cataratas | `decision` | Un ensayo mostró que los estudios previos no cambiaban nada: valor de la información. |
+| 5. ¿Funcionó? | S08 Ahorro para el retiro: inscribir a todos por defecto | `decision` | Inscripción automática: un efecto enorme medido con cohortes, y otro no buscado. |
+| 5. ¿Funcionó? | S02 El puntaje Apgar | `mide` | Construir una medición simple y confiable: cinco observaciones de 0 a 2. |
+| 5. ¿Funcionó? | E14 El experimento de las emociones de Facebook | `quien` | Significativo pero minúsculo, y sin consentimiento: tamaño de efecto y ética del experimento. |
+| 5. ¿Funcionó? | S10 Opower y la comparación con los vecinos | `comparar` | Experimento a gran escala con efecto pequeño que cambia entre empresas: heterogeneidad. |
+| 5. ¿Funcionó? | E22 Las vistas de video de Facebook | `mide` | El denominador escondido en una métrica de video: auditar la métrica antes de usarla. |
+| 5. ¿Funcionó? | S07 Donar órganos: la casilla marcada de antemano | `decision` | La opción predeterminada explica la diferencia entre países: arquitectura de decisiones. |
+| 5. ¿Funcionó? | E12 La nueva Coca-Cola | `mide` | Un experimento impecable que medía otra cosa (un sorbo): validez antes que significancia. |
+| 5. ¿Funcionó? | E13 Amazon y los precios distintos para el mismo DVD | `quien` | Una prueba de precios que los clientes descubrieron: ética y contaminación entre grupos. |
+| 5. ¿Funcionó? | D06 Google y la pregunta de si los jefes importan | `decision` | Un análisis que podía refutar lo que el equipo quería oír: formular la hipótesis. |
+| 5. ¿Funcionó? | 7.2 Facebook y los 7 amigos en 10 días | `mide` | Cohortes y retención: una señal temprana como métrica norte de producto. |
+| 6. Dónde viven los datos | E46 El Patriot y la décima de segundo | `verificar` | Un error de redondeo que se acumula con las horas: representación de decimales. |
+| 6. Dónde viven los datos | E53 Boeing 787: reiniciar cada 248 días | `verificar` | Un entero de 32 bits que se desborda a los 248 días: calcular los límites del tipo. |
+| 6. Dónde viven los datos | E11 Duke y las firmas genómicas | `verificar` | Firmas genómicas que nadie pudo reproducir: revisión independiente de un pipeline. |
+| 6. Dónde viven los datos | E45 Therac-25: el contador que llegó a 256 | `verificar` | Un contador de un byte que se desbordó: tipos de datos con consecuencias. |
+| 6. Dónde viven los datos | E47 El índice de Vancouver que se hundía solo | `verificar` | Truncar en vez de redondear hundió un índice: tipo y precisión. |
+| 6. Dónde viven los datos | E51 El año 2000 | `verificar` | Fechas con dos dígitos: formatos con fecha de caducidad (y 2038). |
+| 6. Dónde viven los datos | E58 Surgisphere: la base de datos que nadie pudo ver | `verificar` | Una base que nadie pudo auditar: procedencia y chequeos de plausibilidad. |
+| 6. Dónde viven los datos | 13.5 La IA para retinopatía en Tailandia | `fuera` | Exacta en el laboratorio, frágil en la clínica: validar donde se usa. |
+| 6. Dónde viven los datos | E55 Fidelity y el signo menos | `verificar` | Un signo menos perdido: controles de suma en cada transformación. |
+| 6. Dónde viven los datos | E54 El error de división del Pentium | `verificar` | Un error raro de división: frecuencia frente a impacto en casos borde. |
+| 6. Dónde viven los datos | E59 Equifax y los puntajes mal calculados | `verificar` | Una migración que calculó mal durante semanas: pruebas de regresión y monitoreo. |
+| 7. Predecir sin engañarte | S17 Repartir en partes iguales: la cartera 1/N | `simple` | Dividir en partes iguales le ganó a 14 modelos: la línea base ingenua. |
+| 7. Predecir sin engañarte | S14 El reto de las Familias Frágiles | `simple` | 160 equipos con ML apenas superaron una regresión de cuatro variables: línea base y techo. |
+| 7. Predecir sin engañarte | D03 Van Dantzig y la altura de los diques | `decision` | La altura de los diques como costo seguro contra pérdida probable: valor esperado. |
+| 7. Predecir sin engañarte | 8.7 El sesgo húmedo de los pronósticos | `incertidumbre` | Probabilidades calibradas frente a infladas: diagrama de confiabilidad y puntaje de Brier. |
+| 7. Predecir sin engañarte | 11.2 UPS y las vueltas a la izquierda | `mide` | Una función objetivo bien elegida: la ruta más larga puede costar menos. |
+| 7. Predecir sin engañarte | S16 El perro y el frisbee | `simple` | Reglas simples frente a indicadores de capital complejos: sobreajuste con pocos datos. |
+| 7. Predecir sin engañarte | 11.1 American Airlines y la gestión de ingresos | `decision` | Pronóstico de demanda y optimización de precios: decidir con lo que predices. |
+| 7. Predecir sin engañarte | E36 La Ballena de Londres | `verificar` | Un error de fórmula redujo a la mitad el riesgo estimado: verificar el cálculo del modelo. |
+| 7. Predecir sin engañarte | 8.5 Obama y los persuadibles | `decision` | Predecir a quién le cambia la decisión el contacto, no quién vota por ti: uplift. |
+| 7. Predecir sin engañarte | E27 Watson para oncología | `fuera` | Recomendaba tratamientos sin validación clínica: ¿funciona fuera de sus datos? |
+| 7. Predecir sin engañarte | E37 La Navidad de Southwest | `incertidumbre` | Un sistema de programación que colapsó bajo estrés: incertidumbre y resiliencia. |
+| 7. Predecir sin engañarte | 8.3 Target y la predicción de embarazos | `mide` | Clasificación con etiquetas indirectas: predecir bien también puede ser el problema. |
+| 7. Predecir sin engañarte | D05 Puertas de un sentido y de dos sentidos | `decision` | Decisiones reversibles e irreversibles: cuánta precisión pide cada una. |
+| 7. Predecir sin engañarte | E38 La fórmula de la crisis de 2008 | `incertidumbre` | Una correlación que se suponía estable: riesgo de modelo y colas pesadas. |
+| 8. Patrones y futuro | E32 Grand Forks y los 9 pies que nadie dijo | `incertidumbre` | Un pronóstico sin su margen de error: comunicar el intervalo, no solo el punto. |
+| 8. Patrones y futuro | E33 Nike y el sistema de pronóstico | `verificar` | Un sistema de pronóstico lanzado sin backtesting: validar antes de desplegar. |
+| 9. Tu equipo de agentes | 12.1 Los ensayos disputados de El Federalista | `mide` | Estilometría con palabras funcionales: texto como datos antes de los LLM. |
+| 9. Tu equipo de agentes | 12.4 El sesgo en los vectores de palabras | `quien` | Sesgo en embeddings: lo que un modelo de lenguaje hereda de sus datos. |
+| 9. Tu equipo de agentes | E42 Robert Williams y el arresto por una coincidencia | `firmar` | Una coincidencia de reconocimiento facial tratada como prueba: nadie firmó. |
+| 9. Tu equipo de agentes | 12.2 J. K. Rowling y Robert Galbraith | `verificar` | Autoría con n-gramas y distancias: cuatro señales débiles que coinciden. |
+| 9. Tu equipo de agentes | E39 Tay, el bot que aprendió de Twitter | `verificar` | Un bot que aprendió de usuarios hostiles: envenenamiento y pruebas adversariales. |
+| 9. Tu equipo de agentes | 15.5 Klarna y la atención con IA | `mide` | Métricas de velocidad y costo sin calidad: qué medir en un agente. |
+| 9. Tu equipo de agentes | E72 CNET y los artículos escritos con IA | `verificar` | Artículos escritos con IA y cálculos equivocados: revisar antes de publicar. |
+| 9. Tu equipo de agentes | E40 Las etiquetas de Google Photos | `quien` | Un error de clasificación con costo humano: evaluar por subgrupo. |
+| 9. Tu equipo de agentes | E73 Las imágenes históricas de Gemini | `verificar` | Un ajuste que se aplicó donde no debía: evaluar por casos antes de lanzar. |
+| 9. Tu equipo de agentes | E71 Cursor y la política que el bot inventó | `verificar` | Un bot de soporte inventó una política: respuestas basadas en documentos. |
+| 9. Tu equipo de agentes | E74 Samsung: el código pegado en ChatGPT | `firmar` | Código confidencial pegado en un chatbot: gobernanza de datos al usar IA. |
+| 10. Firmar la decisión | E67 Los taxis de Nueva York y el hash reversible | `quien` | Un hash que se podía revertir: anonimizar no es esconder el identificador. |
+| 10. Firmar la decisión | E43 Rekognition y los 28 congresistas | `quien` | Umbral por defecto y falsos positivos por grupo: quién paga el error. |
+| 10. Firmar la decisión | 14.6 Italia suspende ChatGPT | `firmar` | Un regulador detuvo un servicio por cómo trataba los datos: quién responde. |
+
 ## Casos nuevos (verificados el 24 de octubre de 2026)
 
 | Id | Caso | Dónde | Cifra verificada | Fuente |
