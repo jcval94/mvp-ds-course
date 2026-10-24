@@ -21,9 +21,14 @@
     "access": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["default", "public_build_includes"],
+      "required": ["default", "public_build_includes", "free_lab_levels"],
       "properties": {
         "default": { "$ref": "#/$defs/access" },
+        "free_lab_levels": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1 },
+          "uniqueItems": true
+        },
         "public_build_includes": {
           "type": "array",
           "items": { "$ref": "#/$defs/access" },

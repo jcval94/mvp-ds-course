@@ -180,6 +180,40 @@ def test_schema_requires_single_base_configuration():
     assert any("base_url" in error for error in validate._schema_errors(course, "course.schema.json", "course.yaml"))
 
 
+@pytest.mark.parametrize("levels", [None, [0], ["1"], [1, 1]])
+def test_schema_rejects_missing_or_invalid_free_lab_levels(levels):
+    course = load_course()
+    if levels is None:
+        del course["access"]["free_lab_levels"]
+    else:
+        course["access"]["free_lab_levels"] = levels
+    assert any("free_lab_levels" in error for error in validate._schema_errors(course, "course.schema.json", "course.yaml"))
+
+
+@pytest.mark.parametrize("free_levels", [[1, 2], [1, 3], []])
+def test_sitemap_uses_configured_free_levels_and_preserves_all_metadata(site, free_levels):
+    course, root, dist = site
+    course["access"]["free_lab_levels"] = free_levels
+    for level in [1, 2, 3, 14]:
+        for suffix in ["/index.html", "/details.html", "/nested/index.html", "-v2/index.html"]:
+            write(dist / f"labs/level-{level}{suffix}", html())
+    seo.write_seo(course, root, dist)
+    sitemap = (dist / "sitemap.xml").read_text()
+    for page in dist.glob("labs/**/*.html"):
+        relative = page.relative_to(dist).as_posix()
+        level = int(relative.split("level-")[1].split("/")[0].split("-")[0])
+        assert (seo.page_url(seo.base_url(course), relative) in sitemap) is (level in free_levels)
+        metadata = seo.PageMetadata(page.read_text())
+        assert len(metadata.canonicals) == len(metadata.descriptions) == 1
+    assert seo.check_seo(course, root, dist) == []
+    # A paid URL injected into an otherwise valid sitemap must fail harness check.
+    write(root / "course.yaml", yaml.safe_dump(course))
+    paid = seo.page_url(seo.base_url(course), "labs/level-14/index.html")
+    write(dist / "sitemap.xml", sitemap.replace("</urlset>", f"<url><loc>{paid}</loc></url></urlset>"))
+    with pytest.raises(HarnessError, match="sitemap.xml"):
+        checks.run(root, dist)
+
+
 def test_build_wires_metadata_sitemap_and_todo_inventory(site, monkeypatch):
     course, root, dist = site
     course["components"]["portal"]["publish"] = False

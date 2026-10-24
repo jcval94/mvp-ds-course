@@ -10,12 +10,14 @@ course:
   title: Curso de ciencia de datos por casos
   language: es
 
-# Frontera público / premium. Hoy todo es público. El build público solo incluye
+# Frontera público / premium. El build público solo incluye
 # los niveles de acceso listados aquí; el contenido `premium` nunca entra a dist/
 # salvo que un build futuro y privado lo pida explícitamente.
 access:
   default: public
   public_build_includes: [public]
+  # Niveles de /labs/ indexables sin pago. Una prueba exige paridad con el middleware.
+  free_lab_levels: [1, 2]
 
 build:
   dist: dist

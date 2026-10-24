@@ -24,6 +24,14 @@ cambia enlaces ni recursos: el build solo emite esa URL en los canonical del
   `missions/<id>/`, exige además un manifiesto registrado, `access: public` y
   `status: ready | published`, incluidos todos sus HTML descendientes. No confía
   en `missions.json` para decidir acceso. No agrega fechas inventadas.
+- En `labs/level-N/` (incluidas variantes `level-N-v2` y todos sus HTML
+  descendientes), solo enumera los niveles de `course.yaml →
+  access.free_lab_levels`, hoy `[1, 2]`. Los niveles de pago conservan canonical
+  y description. Esta política es independiente de `public_build_includes`.
+  Pages Functions no lee el YAML del repositorio en runtime: el literal
+  `GRATIS` de `deploy/cloudflare/functions/labs/_middleware.js` queda ligado a
+  esa lista por `harness/tests/test_lab_access.py`, con casos negativos de
+  discrepancia. Al cambiar la política se actualizan ambos en el mismo PR.
 - `robots.txt` permite el rastreo. Omite la directiva `Sitemap` para cumplir la
   restricción de no emitir la URL base fuera de canonical/sitemap; el sitemap
   se encuentra en la ubicación convencional `sitemap.xml`.

@@ -8,6 +8,9 @@
 const SUPABASE = "https://tvxhocccdetkukonhhnh.supabase.co";
 // Clave publicable: pública por diseño (la misma que usa el sitio).
 const PUBLICA = "sb_publishable_onOiYrRQNSdZ7xdenhsLSw_HPavGYC8";
+// Política canónica: course.yaml → access.free_lab_levels.
+// Pages Functions no lee YAML del repo en runtime; harness/tests/test_lab_access.py
+// exige que este literal coincida. Actualizar ambos al cambiar acceso.
 // Igual que FREE_LEVELS en site/app.js.
 const GRATIS = new Set([1, 2]);
 const VIGENCIA_MS = 5 * 60 * 1000;

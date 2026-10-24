@@ -141,9 +141,15 @@ def inject_metadata(tree: Path, base: str) -> list[str]:
 def public_pages(course: dict[str, Any], root: Path, dist: Path) -> list[str]:
     # This uses source manifests, never a potentially stale missions.json.
     missions = {mission.id: mission.data for mission in load_missions(course, root)}
+    free_levels = set(course["access"]["free_lab_levels"])
     pages = []
     for page in sorted(dist.rglob("*.html")):
         relative = page.relative_to(dist).as_posix()
+        # Match the deployment gate, including variants such as level-3-v2
+        # and every HTML descendant, without removing their SEO metadata.
+        level = re.match(r"^labs/level-(\d+)(?:[-/]|$)", relative)
+        if level and int(level[1]) not in free_levels:
+            continue
         parts = Path(relative).parts
         if parts[0] == "missions" and len(parts) > 2:
             mission = missions.get(parts[1], {})
@@ -193,7 +199,7 @@ def check_seo(course: dict[str, Any], root: Path, dist: Path) -> list[str]:
         actual = [url[0].text for url in tree] if valid_shape else []
         expected = [page_url(base, page) for page in public_pages(course, root, dist)]
         if not valid_shape or actual != expected:
-            errors.append("sitemap.xml: debe listar exactamente las páginas públicas indexables, sin duplicados ni misiones premium/draft")
+            errors.append("sitemap.xml: debe listar exactamente las páginas públicas indexables, sin duplicados, niveles de pago ni misiones premium/draft")
     except (OSError, ET.ParseError):
         errors.append("sitemap.xml: falta o XML inválido")
     return errors
