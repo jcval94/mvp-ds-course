@@ -67,6 +67,28 @@
     .case-foot .btn { min-height: 42px; padding: 0 18px; }
     .case-foot .muted { color: var(--muted); font-size: 13px; }
 
+    /* Inscripción y pagos (0.12): estado de las cuotas y aviso si un cobro no pasó */
+    .pay { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 20px; border-radius: var(--r-card); border: 1px solid var(--line); background: var(--surface); }
+    .pay.warn { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); background: var(--accent-soft); }
+    .pay.crit { border-color: color-mix(in srgb, var(--critical) 55%, var(--line)); background: color-mix(in srgb, var(--critical) 8%, var(--surface)); }
+    .pay div { display: grid; gap: 4px; min-width: 0; flex: 1 1 320px; }
+    .pay b { font-size: 15px; }
+    .pay span { color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .pay.crit b { color: var(--critical); }
+    /* Acceso a Colab: el alumno genera su propia TDD_CLAVE */
+    .colab-key { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px 28px; align-items: center; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 22px 26px; scroll-margin-top: 24px; }
+    .colab-key h2 { margin: 6px 0 6px; font-size: 20px; }
+    .colab-key p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .colab-key p a { color: var(--accent-text); font-weight: 700; }
+    .key-pair { margin: 0; display: grid; gap: 10px; }
+    .key-pair div { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; background: var(--surface-alt); }
+    .key-pair dt { font-size: 12px; font-weight: 800; letter-spacing: .06em; color: var(--muted); min-width: 86px; }
+    .key-pair dd { margin: 0; font-family: var(--font-mono); font-size: 15px; overflow-wrap: anywhere; flex: 1; }
+    .key-pair button { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 6px 10px; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .colab-key .acciones { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .colab-key .acciones small { color: var(--muted); font-size: 13px; }
+    @media (max-width: 760px) { .colab-key { grid-template-columns: 1fr; padding: 20px; } }
+
     /* Clases en vivo (Google Meet) y grabaciones */
     .classes { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); overflow: hidden; }
     .class-next { padding: 28px 32px; display: grid; gap: 12px; align-content: start; min-width: 0; background: linear-gradient(135deg, var(--accent-soft) 0, var(--surface) 70%); }
@@ -421,6 +443,7 @@
         </div>
       </div>
       <button class="inbox-strip" type="button" id="avisoMensajes" hidden></button>
+      <section class="pay" id="pago" hidden aria-live="polite"></section>
       <section class="classes" id="clases" hidden aria-labelledby="claseTitulo">
         <div class="class-next" id="claseProxima">
           <p class="kicker-dark" id="claseKicker">Próxima clase en vivo</p>
@@ -514,10 +537,26 @@
       <a class="btn btn-dark" href="docente.html" id="panelLink">Abrir panel docente</a>
     </section>
 
+    <section class="colab-key" id="acceso-colab" hidden aria-labelledby="colabTitle">
+      <div>
+        <p class="kicker-dark">Acceso a Colab</p>
+        <h2 id="colabTitle">Tu TDD_ID y tu TDD_CLAVE</h2>
+        <p>Tus cuadernos guardan tu avance a tu nombre con estos dos datos en los Secretos de Colab. <a href="colab.html">Ver el paso a paso con imágenes</a>.</p>
+      </div>
+      <dl class="key-pair">
+        <div><dt>TDD_ID</dt><dd id="miTddId"></dd><button type="button" id="copiarId">Copiar</button></div>
+        <div><dt>TDD_CLAVE</dt><dd id="miClave">Genera la tuya abajo</dd><button type="button" id="copiarClave" hidden>Copiar</button></div>
+      </dl>
+      <div class="acciones">
+        <button class="btn btn-accent" type="button" id="generarClave">Generar mi TDD_CLAVE</button>
+        <small id="claveNota">Solo se muestra una vez. Si ya tenías una clave en Colab, la nueva la reemplaza: actualízala en Secretos.</small>
+      </div>
+    </section>
+
     <section class="help" id="ayuda" hidden aria-labelledby="ayudaTitle">
       <h2 id="ayudaTitle">¿No ves tu avance?</h2>
       <ul>
-        <li>En Colab, abre <b>Secretos</b> (el icono de llave) y revisa que <code>TDD_ID</code> sea tu Gmail y <code>TDD_CLAVE</code> la clave que te dimos, con acceso activado para el cuaderno. <a href="colab.html">Ver el paso a paso con imágenes</a>.</li>
+        <li>En Colab, abre <b>Secretos</b> (el icono de llave) y revisa que <code>TDD_ID</code> sea tu Gmail y <code>TDD_CLAVE</code> la clave que generaste en <a href="#acceso-colab">Acceso a Colab</a> (o la que te dimos), con acceso activado para el cuaderno. <a href="colab.html">Ver el paso a paso con imágenes</a>.</li>
         <li>Si el cuaderno dice <b>Modo invitado</b>, tu avance no se está guardando a tu nombre.</li>
         <li>Si sigue sin aparecer, escríbele a tu profesor desde <b>Mensajes</b> (arriba a la derecha) o a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a> con tu ID de alumno.</li>
       </ul>

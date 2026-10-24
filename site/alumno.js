@@ -492,7 +492,7 @@
     const usuario = await api("/auth/v1/user");
     $("#session").hidden = false; pintarPerfil(usuario, null, false);
     const uid = encodeURIComponent(usuario.id);
-    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas, clases] = await Promise.all([
+    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas, clases, inscripcion] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
       // cuaderno_url existe desde el esquema 0.8; en bases anteriores se piden sin él.
       api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite,cuaderno_url&order=modulo.asc,id.asc")
@@ -509,6 +509,8 @@
       api("/rest/v1/entregas_grupo?select=grupo,caso,limite").catch(() => []),
       // Clases en vivo y grabaciones de su grupo (0.10); en bases anteriores la sección no aparece.
       api("/rest/v1/rpc/mis_clases", { method: "POST", body: "{}" }).catch(() => []),
+      // Inscripción y pagos (0.12): estado de sus cuotas; en bases anteriores no aparece nada.
+      api("/rest/v1/rpc/mi_inscripcion", { method: "POST", body: "{}" }).catch(() => null),
     ]);
     const docente = rolBase && typeof rolBase === "object" ? (rolBase.admin || rolBase.docente ? rolBase : false) : rolBase === true;
     const perfil = perfiles[0] || null;
@@ -526,6 +528,8 @@
     // Mensajes: solo para alumnos inscritos (las cuentas del equipo responden desde su panel).
     if (perfil && !docente) await cargarMensajes(); else M.on = false;
     pintarClases(clases);
+    pintarPago(inscripcion);
+    pintarAccesoColab(usuario, perfil, docente);
     pintarAvance({ usuario, perfil, casos, filas, eventos, retros });
     pintarBuzon();
     pintarMarcador(marcador);
@@ -533,6 +537,62 @@
     if (perfil) document.dispatchEvent(new CustomEvent("tdd:datos", { detail: { usuario, perfil, casos, filas, marcador } }));
     // La cuenta docente tiene su propio panel (docente.html); aquí solo el acceso.
     $("#vistaDocente").hidden = !docente;
+  }
+
+  // ---------- Inscripción y pagos (0.12) ----------
+  const pesos = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
+  const plazo = (iso) => new Date(iso).toLocaleString("es-MX", { timeZone: TZ, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", hour12: false });
+  const diaCuota = (d) => new Date(`${d}T12:00:00`).toLocaleDateString("es-MX", { day: "numeric", month: "long" });
+  function pintarPago(i) {
+    const box = $("#pago"); box.hidden = true; box.className = "pay"; box.replaceChildren();
+    if (!i || !i.estado || i.plan === "manual") return;
+    const texto = el("div"), acciones = [];
+    const pagar = () => { if (!i.url_pago) return; const a = el("a", "btn btn-accent", "Pagar ahora"); a.href = i.url_pago; a.target = "_blank"; a.rel = "noopener"; acciones.push(a); };
+    if (i.bloqueo === "pago_pendiente") {
+      box.classList.add("crit");
+      texto.append(el("b", null, `Tu acceso está en pausa: falta ${i.por_pagar ? i.por_pagar.toLowerCase() : "un pago"}`),
+        el("span", null, "Venció el plazo para pagar. Mientras tanto no ves la liga de las clases, las grabaciones ni los niveles de pago; tu avance en Colab sigue guardándose. Al pagar, todo vuelve en unos minutos."));
+      pagar();
+    } else if (i.bloqueo) {
+      box.classList.add("crit");
+      texto.append(el("b", null, "Tu inscripción ya no está activa"), el("span", null, `${i.bloqueo === "reembolsado" ? "Tu pago se reembolsó." : "Tus pagos se cancelaron."} Si es un error, escríbenos a ${CONTACTO}.`));
+    } else if (i.estado === "atrasado") {
+      box.classList.add("warn");
+      texto.append(el("b", null, `No pudimos cobrar ${i.por_pagar ? i.por_pagar.toLowerCase() : "tu pago"}`),
+        el("span", null, `Tienes hasta el ${plazo(i.vence_gracia)} (Ciudad de México) para pagar. Stripe también reintenta el cobro solo; si se resuelve, este aviso desaparece.`));
+      pagar();
+    } else if (i.plan === "cuotas" && i.estado === "al_corriente") {
+      const fechas = (i.fechas_cuotas || []).slice(i.cuotas_pagadas || 0);
+      texto.append(el("b", null, `Pagos: ${i.cuotas_pagadas || 0} de ${i.cuotas_total} · al corriente`),
+        el("span", null, fechas.length ? `Próximo cobro a tu tarjeta: ${diaCuota(fechas[0])} (${pesos(i.monto_total / i.cuotas_total)} MXN).` : "Sin cobros pendientes."));
+    } else return; // pagado de contado o liquidado: nada que avisar
+    box.append(texto, ...acciones); box.hidden = false;
+  }
+
+  // ---------- Acceso a Colab: el alumno genera su TDD_CLAVE (Edge Function tdd-inscripcion) ----------
+  function pintarAccesoColab(usuario, perfil, docente) {
+    const sec = $("#acceso-colab");
+    sec.hidden = !(perfil && !docente);
+    if (sec.hidden) return;
+    const correo = (usuario.email || "").toLowerCase();
+    const tddId = correo.endsWith("@alumnos.taqueriadedatos.mx") ? perfil.alumno_id : correo;
+    $("#miTddId").textContent = tddId;
+    const copiar = async (v, b) => { try { await navigator.clipboard.writeText(v); b.textContent = "Copiado"; setTimeout(() => { b.textContent = "Copiar"; }, 1500); } catch (_) { b.textContent = "Cópialo a mano"; } };
+    $("#copiarId").onclick = (e) => copiar(tddId, e.currentTarget);
+    $("#generarClave").onclick = async (e) => {
+      const b = e.currentTarget, nota = $("#claveNota");
+      if ($("#copiarClave").hidden === false && !confirm("¿Generar otra clave? La anterior deja de funcionar en Colab.")) return;
+      b.disabled = true; nota.textContent = "Generando…";
+      try {
+        const r = await TDD.funcion("tdd-inscripcion", { accion: "mi_clave" });
+        $("#miTddId").textContent = r.TDD_ID; $("#miClave").textContent = r.TDD_CLAVE;
+        const c = $("#copiarClave"); c.hidden = false; c.onclick = (ev) => copiar(r.TDD_CLAVE, ev.currentTarget);
+        nota.textContent = "Cópiala ahora y guárdala en los Secretos de Colab como TDD_CLAVE: no se vuelve a mostrar. Si la pierdes, genera otra.";
+        b.textContent = "Generar otra";
+      } catch (err) {
+        nota.textContent = `No pudimos generar tu clave: ${err.message}. Intenta de nuevo o escríbenos a ${CONTACTO}.`;
+      } finally { b.disabled = false; }
+    };
   }
 
   function ejemplo() {

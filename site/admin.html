@@ -100,6 +100,7 @@
       <div class="tabs" id="tabs" role="tablist" aria-label="Secciones del panel">
         <button type="button" role="tab" id="tab-resumen" aria-controls="v-resumen" aria-selected="true">Resumen</button>
         <button type="button" role="tab" id="tab-alumnos" aria-controls="v-alumnos" aria-selected="false">Alumnos <span class="tab-count" id="cntAlumnos"></span></button>
+        <button type="button" role="tab" id="tab-inscripciones" aria-controls="v-inscripciones" aria-selected="false">Inscripciones <span class="tab-count hot" id="cntInscripciones"></span></button>
         <button type="button" role="tab" id="tab-grupos" aria-controls="v-grupos" aria-selected="false">Grupos <span class="tab-count" id="cntGrupos"></span></button>
         <button type="button" role="tab" id="tab-docentes" aria-controls="v-docentes" aria-selected="false">Docentes <span class="tab-count" id="cntDocentes"></span></button>
         <button type="button" role="tab" id="tab-clases" aria-controls="v-clases" aria-selected="false">Clases <span class="tab-count" id="cntClases"></span></button>
@@ -151,6 +152,31 @@
         </div>
         <div class="table-wrap"><table class="tbl" id="tablaAlumnos"></table></div>
         <p class="legend-note">Haz clic en un alumno para ver su ficha: avance por caso, bits, respuestas, línea de tiempo, cambio de nombre o de grupo y clave nueva. Para dar de baja usa la sección de borrado del instalador (queda en la bitácora).</p>
+      </section>
+
+      <!-- Inscripciones y pagos con Stripe (0.12) -->
+      <section class="vista" id="v-inscripciones" role="tabpanel" aria-labelledby="tab-inscripciones" hidden>
+        <div class="toolbar">
+          <select id="iGrupo" aria-label="Grupo en venta"></select>
+          <label class="check-inline"><input type="checkbox" id="iIntentos"> Mostrar intentos sin pagar</label>
+          <span class="grow"></span>
+          <button class="btn btn-line btn-sm" type="button" id="iVenta">Venta del grupo</button>
+          <button class="btn btn-line btn-sm" type="button" id="iManual">Registrar pago a mano</button>
+          <button class="btn btn-line btn-sm" type="button" id="iExportar">Exportar CSV</button>
+          <a class="btn btn-line btn-sm" id="iStripe" href="https://dashboard.stripe.com/payments" target="_blank" rel="noopener">Abrir Stripe</a>
+        </div>
+        <div class="kpis" id="iKpis"></div>
+        <ul class="checks" id="iEstado"></ul>
+        <div class="table-wrap"><table class="tbl" id="tablaInscripciones"></table></div>
+        <p class="legend-note">Las altas por Stripe son automáticas: al pagar (o al guardar la tarjeta de los 3 pagos) la persona queda como alumno de su grupo con un ID TDD-###, recibe su bienvenida y genera su TDD_CLAVE en Mi avance. Puedes seguir dando de alta a mano en Alumnos. Si una cuota no pasa, el alumno conserva el acceso hasta el viernes a las 17:00 que cierra su plazo de gracia; después ve las clases sin Meet ni grabaciones hasta que pague. Los reembolsos y cancelaciones se hacen en Stripe y aquí se reflejan solos.</p>
+        <div class="card">
+          <div class="card-head"><h2>Lista de espera</h2><p id="iEsperaNota">Personas que pidieron lugar cuando el grupo estaba lleno o cerrado</p></div>
+          <div class="table-wrap"><table class="tbl" id="tablaEspera"></table></div>
+        </div>
+        <details class="card">
+          <summary><b>Lo que avisó Stripe</b> <span class="muted">· últimos 50 eventos</span></summary>
+          <div class="table-wrap"><table class="tbl" id="tablaEventosPago"></table></div>
+        </details>
       </section>
 
       <!-- Grupos -->
@@ -387,6 +413,46 @@
   </dialog>
 
   <!-- Calendario de clases -->
+  <dialog class="dlg" id="dlgVenta" aria-labelledby="ventaTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Inscripción en línea</p><h2 id="ventaTitle">Venta del grupo</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formVenta">
+      <div class="form-grid">
+        <label class="field"><span>Precio con IVA</span><input name="precio" type="number" min="1" max="1000000" step="1" required><small>El pago único lleva 10 % de descuento; cada uno de los 3 pagos es el precio entre 3.</small></label>
+        <label class="field"><span>Grupo mínimo</span><input name="minimo" type="number" min="1" max="500" step="1"><small>Por debajo de este número el grupo no abre (reembolso del 100 %). El máximo es el cupo del grupo: <b id="ventaCupo">—</b>.</small></label>
+        <label class="field wide"><span>Cierre de inscripciones</span><input name="cierre" type="datetime-local"><small>Hora de la Ciudad de México. Vacío: al empezar la primera clase (fecha de inicio a las 18:00).</small></label>
+        <label class="check-inline wide"><input type="checkbox" name="abierta"> Venta abierta (la página de inscripción acepta pagos)</label>
+      </div>
+      <p class="form-msg" id="ventaMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="ventaGuardar">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dlg" id="dlgPagoManual" aria-labelledby="manualTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Inscripciones</p><h2 id="manualTitle">Registrar pago a mano</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formManual">
+      <p class="legend-note">Para pagos fuera de Stripe (efectivo, transferencia directa o beca). Primero da de alta al alumno en su grupo desde Alumnos; aquí solo queda la constancia del pago.</p>
+      <div class="form-grid">
+        <label class="field wide"><span>Alumno</span><select name="alumno" required></select></label>
+        <label class="field"><span>Monto (MXN)</span><input name="monto" type="number" min="0" max="1000000" step="1" required></label>
+        <label class="field wide"><span>Nota</span><input name="nota" maxlength="300" autocomplete="off" placeholder="Transferencia del 20 nov, folio 1234"></label>
+      </div>
+      <p class="form-msg" id="manualMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="manualGuardar">Registrar</button>
+      </div>
+    </form>
+  </dialog>
+
   <dialog class="dlg" id="dlgCalendario" aria-labelledby="calTitle">
     <div class="dlg-head">
       <div><p class="kicker-dark">Clases</p><h2 id="calTitle">Generar calendario</h2></div>

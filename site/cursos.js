@@ -6,6 +6,14 @@
 //   · Lo pagado de Augmented Studio en los 12 meses anteriores a la inscripción se descuenta.
 // Cada elemento con data-curso="clave" recibe el texto calculado; sin JavaScript queda el texto escrito en la página.
 (function () {
+  // De qué campaña llega cada visita (ligas con utm_* o ref en Facebook Ads, LinkedIn, WhatsApp o YouTube): se guarda en
+  // esta pestaña y la página de inscripción lo manda con la inscripción, para saber qué canal trae alumnos.
+  try {
+    const q = new URLSearchParams(location.search), origen = {};
+    q.forEach((v, k) => { if (/^(utm_(source|medium|campaign|content|term)|ref)$/.test(k) && v) origen[k] = v.slice(0, 100); });
+    if (Object.keys(origen).length) sessionStorage.setItem("tdd-origen", JSON.stringify(origen));
+  } catch (_) { /* sin almacenamiento: la inscripción va sin origen */ }
+
   const CURSOS = [
     { id: "G1", nombre: "Generación 1", inicio: "2027-01-08", fin: "2027-03-20", precio: 9900, regular: 14900 },
   ];

@@ -127,6 +127,14 @@
             [enlace("Ver el currículum", "btn-accent", "index.html#catalogo"), enlace("Ir a Mi avance", "btn-line", "alumno.html")], false);
         }
         otraCuenta(correo);
+        if (d && d.motivo === "pago_pendiente") {
+          return mostrar("Tu acceso está en pausa por un pago pendiente", [t("Venció el plazo para pagar una de tus cuotas. En cuanto pagues, vuelves a ver los niveles, las clases y las grabaciones. En "), b("Mi avance"), t(" está la liga para pagar.")],
+            [enlace("Ir a Mi avance", "btn-accent", "alumno.html")], false);
+        }
+        if (d && (d.motivo === "reembolsado" || d.motivo === "cancelado")) {
+          return mostrar("Tu inscripción ya no está activa", [t(d.motivo === "reembolsado" ? "Tu pago se reembolsó, así que tu acceso de alumno terminó." : "Tus pagos se cancelaron antes de completarse, así que tu acceso de alumno terminó."), t(" Si es un error, escríbenos a augmentedlearninglabs@gmail.com.")],
+            [enlace("Ver planes", "btn-accent", "index.html#planes")], true);
+        }
         if (d && d.motivo === "vencido") {
           return mostrar("Tu acceso venció", [t("Tu acceso a los niveles 3 en adelante terminó el "), b(fecha(d.hasta)), t(". Renueva Augmented Studio para seguir.")], [enlace("Ver planes", "btn-accent", "index.html#planes")], true);
         }
