@@ -132,7 +132,7 @@ Para que el criterio se retenga:
 - **El criterio en una frase.** Cada caso termina con una tarjeta de una línea: la
   pregunta del hábito y cuándo hacérsela.
 
-El cuaderno 4.1 (Semmelweis) ya sigue casi todo el arco: apuesta (`hipotesis`), mirar
+`docs/MODULO_1_DISENO.md` aplica el arco a los siete casos del Módulo 1. El cuaderno 4.1 (Semmelweis) ya sigue casi todo el arco: apuesta (`hipotesis`), mirar
 (`clinicas`), fricción y herramienta (`azar`, con la simulación de 1,000 mundos antes
 de nombrar la prueba), explicación calificada antes de la revelación y laboratorio de
 transferencia. Le faltan la verificación de un resultado producido por IA y la firma
@@ -210,15 +210,19 @@ cifras en fuentes primarias (`docs/CASE_MISSION_MAP.md`).
 | Artefacto | Qué cambia |
 | --- | --- |
 | Temario de casos | Giro y Herramientas son guía docente. El estudiante ve decisión, datos y pregunta detonadora. |
-| Intro de la página | Gancho y nada más. La apuesta vive en Colab. |
+| Intro de la página | Gancho y nada más. La apuesta vive en Colab. **Todo caso tiene intro**, también los de «el costo del error» (formato corto de 3 escenas), y toda intro muestra material real del caso (fotos, recortes, documentos o video) con crédito y licencia, sin adelantar la revelación (`site/casos/README.md`). |
 | Cuaderno de Colab | Sigue el arco. Registra apuesta, encargo, verificación y firma. |
 | Laboratorio por concepto | Es práctica y consulta enlazada desde el momento Herramienta del caso, no la puerta de entrada. |
 | Clase en vivo | Abre con un caso y su apuesta. El concepto aparece dentro del caso y el laboratorio va después. |
 | Evaluación | Califica el encargo, la verificación y la firma, además del resultado. |
 
-El registro en el cuaderno de encargo, verificación y firma es un cambio propuesto al
-generador de casos (`agentic-ds-backen`). Hasta que exista, se registran como
-respuestas abiertas con `tdd`.
+El generador de casos (`agentic-ds-backen`, `docs/CRITERIO.md`) exige este contrato a
+todo caso nuevo: hábito, herramienta que no se nombra antes de su sección, apuesta,
+verificación, firma antes de la revelación, error plantado (niveles 1 y 2) o encargo
+(desde el nivel 3), frase del criterio, enlace al laboratorio e intro de la página.
+
+La estructura de la Generación 1 (qué caso va en cada clase, con su hábito y sus
+opciones secundarias) está en `docs/ESTRUCTURA_GENERACION_1.md`.
 
 ## Cómo se evalúa
 

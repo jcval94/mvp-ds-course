@@ -32,7 +32,7 @@ acompañan. La numeración de casos (1.1, 4.2…) es la del temario de casos rea
 
 | Nivel | Misión ancla | Caso ancla | Banco |
 | ---: | --- | --- | --- |
-| 1 | `m01-wald` | 1.1 Wald y los bombarderos | 1.2 Literary Digest; 13.7 Genes convertidos en fechas |
+| 1 | `m01-wald` | 1.1 Wald y los bombarderos | 1.2 Literary Digest; 13.7 Genes convertidos en fechas; casos de costo 1.4 Puerto Rico y 13.11 Gimli; 13.9 Ariane 5 (tarea opcional). 13.10 Horizon pasa a la clase 13 y 8.9 Robodebt a la 14 (diseño en `docs/MODULO_1_DISENO.md`) |
 | 2 | `m02-snow` | 2.1 John Snow y el cólera | 2.2 Nightingale en Crimea |
 | 3 | `m03-semmelweis` | 4.1 Semmelweis (construido) | 3.1 Sally Clark y 3.3 Air France 447 (bloque Bayes); 3.2 Tanques alemanes; 3.4 Ulam y Monte Carlo; 4.3 Escuelas pequeñas; 4.5 Wansink (movido desde Nivel 9) |
 | 4 | `m04-berkeley` | 4.2 Berkeley (construido) | 4.4 Instructores de Israel (bloque regresión a la media); 2.3 Challenger; 6.1 Doll y Hill; 6.2 Terapia hormonal |
@@ -48,6 +48,10 @@ acompañan. La numeración de casos (1.1, 4.2…) es la del temario de casos rea
 | 14 | `m14-replit` | 15.4 Agente de Replit (por verificar; si no se sostiene, 13.6 Zillow) | 13.5 Retinopatía en Tailandia; 13.6 Zillow Offers; 15.5 Klarna (por verificar) |
 
 Reparto: 14 anclas, 54 casos de banco y 10 optativas (78 en total).
+
+Este mapa ordena el banco por nivel. Qué caso va en cada clase de la Generación 1, con su
+hábito, su caso de «el costo del error» y sus opciones secundarias, está en
+`docs/ESTRUCTURA_GENERACION_1.md`.
 
 ## Regresos
 
@@ -72,7 +76,7 @@ Reparto: 14 anclas, 54 casos de banco y 10 optativas (78 en total).
 | 5 | SQL para hacer preguntas | Misión de la taquería |
 | 5 | Relaciones y JOINs | Caso nuevo: listas de purga de votantes de Florida (2000); tratarlo con neutralidad política |
 | 5 | SQL analítico y tiempo | Misión de la taquería |
-| 5 | Construcción de la tabla analítica | Caso nuevo: Gimli Glider (Air Canada 143, 1983) |
+| 5 | Construcción de la tabla analítica | Gimli Glider (Air Canada 143, 1983), verificado; en la Generación 1 se usa antes, en el Módulo 1 (13.11, unidades) |
 | 12 | Código modular y contratos | Caso nuevo: credenciales de Uber en un repositorio (2016) |
 | 12 | APIs y contratos de servicio | Misión de la taquería |
 | 12 | Empaquetado y entornos | Caso nuevo: left-pad (npm, 2016) |
