@@ -84,6 +84,16 @@
   }
   // Edge Functions de Supabase (por ejemplo tdd-docente).
   const funcion = (nombre, cuerpo) => llamar(`${URL_BASE}/functions/v1/${nombre}`, { method: "POST", body: JSON.stringify(cuerpo || {}) }, `función ${nombre}`, true);
+  // Sin sesión (página de inscripción): solo funciones públicas, como oferta_inscripcion o la Edge Function tdd-inscripcion.
+  async function publica(url, cuerpo, ruta) {
+    const r = await fetch(url, { method: "POST", headers: { apikey: KEY, "Content-Type": "application/json" }, body: JSON.stringify(cuerpo || {}) });
+    const texto = r.status === 204 ? "" : await r.text();
+    let d = null; try { d = texto ? JSON.parse(texto) : null; } catch (_) { d = null; }
+    if (!r.ok) throw errorDe(r, d, ruta);
+    return d;
+  }
+  const rpcPublico = (nombre, args) => publica(`${URL_BASE}/rest/v1/rpc/${nombre}`, args, nombre);
+  const funcionPublica = (nombre, cuerpo) => publica(`${URL_BASE}/functions/v1/${nombre}`, cuerpo, `función ${nombre}`);
 
   function entrar() {
     const vuelta = location.origin + location.pathname;
@@ -97,7 +107,7 @@
 
   window.TDD = {
     activo: !!KEY,
-    tomarRetorno, entrar, cerrar, api, rpc, todo, funcion,
+    tomarRetorno, entrar, cerrar, api, rpc, todo, funcion, rpcPublico, funcionPublica,
     iniciar() { sesion = KEY ? leer() : null; galleta(sesion); return !!sesion; },
     olvidar() { sesion = null; guardar(null); },
   };

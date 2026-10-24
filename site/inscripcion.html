@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Inscríbete al curso en vivo The Agentic Data Scientist: pago único con 10 % de descuento o 3 pagos con tarjeta. Pago seguro con Stripe.">
+  <title>Inscripción · The Agentic D. Scientist</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="design/tokens/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Inscripción en línea: aparta el lugar y manda a Stripe Checkout (Edge Function tdd-inscripcion).
+       El precio, las fechas y el cupo vienen de la base (oferta_inscripcion); sin JavaScript queda el texto de respaldo.
+       Colores solo desde design/tokens. */
+    .insc-page main { max-width: 1080px; padding-block: 56px 96px; }
+    .insc-head { display: grid; gap: 10px; margin-bottom: 28px; }
+    .insc-head h1 { margin: 0; font-size: clamp(32px, 5vw, 48px); line-height: 1.05; letter-spacing: -.03em; text-wrap: balance; }
+    .insc-head p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.55; max-width: 62ch; }
+    .kicker { margin: 0; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text); }
+    .insc { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr); gap: 22px; align-items: start; }
+    .card { border: 1px solid var(--line); border-radius: 24px; background: var(--surface); padding: 26px; box-shadow: var(--shadow-card); display: grid; gap: 18px; }
+    .card h2 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
+    .planes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; border: 0; padding: 0; margin: 0; }
+    .planes legend { font-weight: 700; margin-bottom: 10px; padding: 0; }
+    .plan { position: relative; display: grid; gap: 6px; border: 1.5px solid var(--line); border-radius: 18px; padding: 16px 16px 16px 46px; cursor: pointer; background: var(--surface-alt); }
+    .plan:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); }
+    .plan input { position: absolute; left: 16px; top: 19px; width: 18px; height: 18px; accent-color: var(--accent-text); margin: 0; }
+    .plan:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+    .plan:has(input:focus-visible) { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+    .plan b { font-size: 15px; }
+    .plan .monto, .plan .monto span { font-size: 26px; font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+    .plan .monto small { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: 0; }
+    .plan span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .plan .tag { position: absolute; right: 12px; top: -10px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 800; border-radius: var(--r-pill); padding: 3px 10px; }
+    #form { display: grid; gap: 22px; }
+    .campos { display: grid; gap: 14px; }
+    .campo { display: grid; gap: 6px; font-size: 14px; }
+    .campo > span { font-weight: 700; }
+    .campo input { font: inherit; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text); min-width: 0; }
+    .campo input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+    .campo small { color: var(--muted); line-height: 1.45; }
+    .acepto { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); line-height: 1.5; }
+    .acepto input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent-text); flex: none; }
+    .acepto a, .nota a { color: var(--accent-text); font-weight: 700; }
+    .btn-line { background: var(--surface); color: var(--text); border-color: var(--line); }
+    .btn-line:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .enviar { width: 100%; }
+    .enviar[disabled] { opacity: .6; cursor: progress; }
+    .msg { margin: 0; font-size: 14px; line-height: 1.5; }
+    .msg.err { color: var(--critical); font-weight: 600; }
+    .msg.ok { color: var(--accent-text); font-weight: 600; }
+    .seguro { display: flex; gap: 8px; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; margin: -10px 0 0; }
+    .seguro svg { width: 14px; height: 14px; }
+    .resumen dl { margin: 0; display: grid; gap: 12px; }
+    .resumen dl div { display: grid; gap: 2px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+    .resumen dl div:last-child { border-bottom: 0; padding-bottom: 0; }
+    .resumen dt { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .resumen dd { margin: 0; font-size: 15px; line-height: 1.45; }
+    .lugares { display: grid; gap: 8px; }
+    .barra { height: 10px; border-radius: var(--r-pill); background: var(--surface-soft); overflow: hidden; }
+    .barra i { display: block; height: 100%; background: var(--accent); border-radius: inherit; width: 0; transition: width .6s ease; }
+    .nota { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .aviso { border-radius: 16px; padding: 14px 16px; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); font-size: 14px; line-height: 1.5; }
+    .espera { display: grid; gap: 14px; }
+    .cargando { display: flex; gap: 12px; align-items: center; color: var(--muted); }
+    .cargando i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); animation: girar .8s linear infinite; }
+    @keyframes girar { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .cargando i { animation: none; } .barra i { transition: none; } }
+    @media (max-width: 860px) { .insc { grid-template-columns: 1fr; } .resumen { order: -1; } }
+    @media (max-width: 560px) { .planes { grid-template-columns: 1fr; } .card { padding: 20px; } .insc-page main { padding-block: 32px 72px; } }
+  </style>
+</head>
+<body class="insc-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="The Agentic D. Scientist, inicio">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
+      <strong>The Agentic D. Scientist</strong>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#planes">Planes</a>
+      <a href="alumno.html">Mi avance</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="insc-head">
+      <p class="kicker" id="kicker">Generación 1 · precio de fundador</p>
+      <h1 id="titulo">Aparta tu lugar en el curso en vivo</h1>
+      <p id="bajada">22 clases en vivo por Google Meet, viernes y sábados, con casos reales y grabación de cada clase. El pago es seguro con Stripe.</p>
+    </div>
+
+    <div class="insc">
+      <section class="card" aria-labelledby="formTitulo">
+        <div class="cargando" id="cargando"><i aria-hidden="true"></i><span>Revisando lugares disponibles…</span></div>
+        <p class="aviso" id="cancelado" hidden>No se hizo ningún cobro. Si algo no salió bien, puedes intentarlo de nuevo o escribirnos.</p>
+
+        <form id="form" hidden novalidate>
+          <h2 id="formTitulo" class="sr-only">Datos de inscripción</h2>
+          <fieldset class="planes">
+            <legend>¿Cómo quieres pagar?</legend>
+            <label class="plan"><span class="tag">10 % de descuento</span><input type="radio" name="plan" value="contado" checked>
+              <b>Pago único</b><span class="monto"><span data-o="contado">$8,910</span> <small>MXN</small></span>
+              <span>Tarjeta de crédito o débito, OXXO o transferencia SPEI. El descuento aplica solo si pagas todo de contado.</span></label>
+            <label class="plan"><input type="radio" name="plan" value="cuotas">
+              <b>3 pagos</b><span class="monto"><span data-o="cuota">$3,300</span> <small>MXN c/u</small></span>
+              <span>Con tarjeta, se cobran solos: <span data-o="fechas">8 ene, 8 feb y 8 mar de 2027</span>. Hoy no se cobra nada.</span></label>
+          </fieldset>
+          <div class="campos">
+            <label class="campo"><span>Nombre completo</span><input name="nombre" autocomplete="name" required maxlength="80" placeholder="Como quieres que aparezca en tu constancia"></label>
+            <label class="campo"><span>Tu Gmail</span><input name="correo" type="email" autocomplete="email" required maxlength="160" placeholder="nombre@gmail.com">
+              <small>Con este correo entras a Mi avance y a tus cuadernos de Colab. Usa una cuenta de Google.</small></label>
+            <label class="acepto"><input type="checkbox" name="acepto" required><span>Tengo 18 años o más y acepto los <a href="terminos.html" target="_blank" rel="noopener">términos y la política de reembolso</a> y el <a href="aviso-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</span></label>
+          </div>
+          <p class="msg" id="msg" role="status"></p>
+          <button class="btn btn-accent enviar" type="submit" id="enviar">Continuar al pago</button>
+          <p class="seguro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Pago procesado por Stripe. No guardamos los datos de tu tarjeta.</p>
+        </form>
+
+        <div class="espera" id="espera" hidden>
+          <h2 id="esperaTitulo">Este grupo ya no tiene lugares</h2>
+          <p class="nota" id="esperaTexto">Déjanos tus datos y te avisamos si se libera un lugar o cuando abramos la siguiente generación.</p>
+          <form id="formEspera" class="campos" novalidate>
+            <label class="campo"><span>Nombre</span><input name="nombre" autocomplete="name" required maxlength="80"></label>
+            <label class="campo"><span>Correo</span><input name="correo" type="email" autocomplete="email" required maxlength="160" placeholder="nombre@gmail.com"></label>
+            <p class="msg" id="msgEspera" role="status"></p>
+            <button class="btn btn-accent enviar" type="submit" id="enviarEspera">Avísame</button>
+          </form>
+        </div>
+
+        <noscript><p class="aviso">Para inscribirte necesitas activar JavaScript, o escríbenos a <a href="mailto:augmentedlearninglabs@gmail.com?subject=Quiero%20inscribirme%20a%20la%20Generaci%C3%B3n%201">augmentedlearninglabs@gmail.com</a>.</p></noscript>
+      </section>
+
+      <aside class="card resumen" aria-labelledby="resTitulo">
+        <h2 id="resTitulo" data-o="nombre">Generación 1</h2>
+        <div class="lugares" id="lugares" hidden>
+          <b id="lugaresTexto">Quedan 30 de 30 lugares</b>
+          <div class="barra" aria-hidden="true"><i id="lugaresBarra"></i></div>
+        </div>
+        <dl>
+          <div><dt>Inicio</dt><dd data-o="inicio">Viernes 8 de enero de 2027</dd></div>
+          <div><dt>Horario</dt><dd>Viernes 18:00–21:00 y sábados 8:00–11:00 (Ciudad de México)</dd></div>
+          <div><dt>Duración</dt><dd>11 semanas · 22 clases de 3 horas · 66 horas en vivo</dd></div>
+          <div><dt>Inscripciones hasta</dt><dd data-o="cierre">El día de inicio</dd></div>
+          <div><dt>Precio</dt><dd><span data-o="precio">$9,900</span> MXN con IVA · precio regular <s data-o="regular">$14,900</s></dd></div>
+        </dl>
+        <p class="nota">El precio de fundador es solo para la Generación 1. El grupo abre con un mínimo de <span data-o="minimo">6</span> personas; si no se llega, te devolvemos el 100 % de lo pagado. Reembolso total si lo pides antes de que termine la segunda clase.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <strong>Augmented Learning Labs · The Agentic D. Scientist</strong>
+    <p><a class="footer-link" href="aviso-privacidad.html">Aviso de privacidad</a> · <a class="footer-link" href="terminos.html">Términos y condiciones</a> · <a class="footer-link" href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a></p>
+  </footer>
+
+  <script src="sesion.js"></script>
+  <script src="cursos.js"></script>
+  <script>
+    (() => {
+      const $ = (s) => document.querySelector(s);
+      const TZ = "America/Mexico_City";
+      const pesos = (n) => "$" + Math.round(n).toLocaleString("en-US");
+      const dia = (iso, opts) => new Date(`${iso}T12:00:00`).toLocaleDateString("es-MX", opts);
+      const fechasCortas = (lista) => {
+        const f = lista.map((d) => dia(d, { day: "numeric", month: "short" }).replace(".", ""));
+        return `${f.slice(0, -1).join(", ")} y ${f[f.length - 1]} de ${lista[lista.length - 1].slice(0, 4)}`;
+      };
+      const poner = (k, v) => document.querySelectorAll(`[data-o="${k}"]`).forEach((e) => { e.textContent = v; });
+      let oferta = null;
+
+      // De qué campaña llega la persona (utm_* o ref): lo guarda cursos.js al entrar al sitio y se suma aquí.
+      function origen() {
+        let o = {}; try { o = JSON.parse(sessionStorage.getItem("tdd-origen") || "{}") || {}; } catch (_) { o = {}; }
+        new URLSearchParams(location.search).forEach((v, k) => { if (/^(utm_(source|medium|campaign|content|term)|ref)$/.test(k) && v) o[k] = v.slice(0, 100); });
+        return o;
+      }
+      const params = new URLSearchParams(location.search);
+      if (params.get("cancelado")) $("#cancelado").hidden = false;
+
+      function pintarOferta(o) {
+        oferta = o;
+        poner("nombre", o.nombre); poner("contado", pesos(o.contado)); poner("cuota", pesos(o.cuota)); poner("precio", pesos(o.precio));
+        if (o.minimo) poner("minimo", String(o.minimo));
+        if (Array.isArray(o.fechas_cuotas) && o.fechas_cuotas.length) poner("fechas", fechasCortas(o.fechas_cuotas));
+        const ini = dia(o.inicio, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+        poner("inicio", ini.charAt(0).toUpperCase() + ini.slice(1));
+        poner("cierre", new Date(o.cierre).toLocaleString("es-MX", { timeZone: TZ, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", hour12: false }) + " (Ciudad de México)");
+        if (window.TDD_CURSO && TDD_CURSO.regular) poner("regular", TDD_CURSO.regular);
+        if (o.cupo) {
+          const quedan = Math.max(o.disponibles ?? 0, 0);
+          $("#lugares").hidden = false;
+          $("#lugaresTexto").textContent = quedan === 0 ? `Sin lugares disponibles · cupo de ${o.cupo}` : `${quedan === 1 ? "Queda 1 lugar" : `Quedan ${quedan} lugares`} de ${o.cupo}`;
+          $("#lugaresBarra").style.width = `${Math.round(((o.cupo - quedan) / o.cupo) * 100)}%`;
+        }
+        $("#kicker").textContent = `${o.nombre} · precio de fundador`;
+      }
+
+      function mostrarEspera(motivo, texto) {
+        $("#cargando").hidden = true; $("#form").hidden = true; $("#espera").hidden = false;
+        $("#esperaTitulo").textContent = motivo === "llena" ? "Este grupo ya no tiene lugares" : motivo === "cerrada" ? "Las inscripciones de este grupo ya cerraron" : "Las inscripciones en línea abren muy pronto";
+        $("#esperaTexto").textContent = texto || "Déjanos tus datos y te avisamos si se libera un lugar o cuando abramos la siguiente generación.";
+        $("#titulo").textContent = motivo === "sin_venta" ? "Inscripciones en línea muy pronto" : "Lista de espera";
+      }
+      function mostrarForm() { $("#cargando").hidden = true; $("#espera").hidden = true; $("#form").hidden = false; }
+
+      async function iniciar() {
+        if (!window.TDD || !TDD.activo) return mostrarEspera("sin_venta");
+        try {
+          // ?grupo=ID abre la venta de un grupo concreto (por ejemplo, uno de prueba); sin él, el siguiente grupo en venta.
+          const pedido = (params.get("grupo") || "").slice(0, 30);
+          const o = await TDD.rpcPublico("oferta_inscripcion", pedido ? { p_grupo: pedido } : {});
+          if (!o || o.estado === "sin_venta") return mostrarEspera("sin_venta", "Déjanos tus datos y te escribimos en cuanto abra la inscripción en línea. También puedes escribirnos a augmentedlearninglabs@gmail.com.");
+          pintarOferta(o);
+          if (o.estado === "abierta") mostrarForm(); else mostrarEspera(o.estado);
+        } catch (_) {
+          $("#cargando").hidden = true;
+          const m = $("#cancelado"); m.hidden = false;
+          m.textContent = "No pudimos revisar los lugares disponibles. Recarga la página en unos segundos o escríbenos a augmentedlearninglabs@gmail.com.";
+        }
+      }
+
+      $("#form").addEventListener("submit", async (ev) => {
+        ev.preventDefault();
+        const f = ev.target, msg = $("#msg"), b = $("#enviar");
+        const nombre = f.nombre.value.trim().replace(/\s+/g, " "), correo = f.correo.value.trim().toLowerCase();
+        msg.className = "msg err";
+        if (nombre.length < 2) { msg.textContent = "Escribe tu nombre completo."; f.nombre.focus(); return; }
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo)) { msg.textContent = "Escribe un correo válido."; f.correo.focus(); return; }
+        if (!f.acepto.checked) { msg.textContent = "Para continuar, confirma que tienes 18 años o más y aceptas los términos."; f.acepto.focus(); return; }
+        if (!/@gmail\.com$/.test(correo) && !confirm(`${correo} no es un Gmail. Para entrar a Mi avance y a Colab necesitas una cuenta de Google con ese correo. ¿Continuar?`)) return;
+        b.disabled = true; msg.className = "msg"; msg.textContent = "Apartando tu lugar…";
+        try {
+          const r = await TDD.funcionPublica("tdd-inscripcion", { accion: "inscribir", plan: f.plan.value, nombre, correo, acepto: true,
+                                                                   grupo: oferta && oferta.grupo, origen: origen() });
+          if (r && r.url) { msg.textContent = "Te llevamos al pago seguro de Stripe…"; location.href = r.url; return; }
+          if (r && r.ya_inscrito) { msg.className = "msg ok"; msg.textContent = r.mensaje; b.disabled = false; return; }
+          if (r && r.lista_espera) { mostrarEspera(r.motivo); $("#formEspera").nombre.value = nombre; $("#formEspera").correo.value = correo; return; }
+          throw new Error("Respuesta inesperada");
+        } catch (e) {
+          msg.className = "msg err";
+          msg.textContent = `No pudimos abrir el pago: ${e.message}. Intenta de nuevo o escríbenos a augmentedlearninglabs@gmail.com.`;
+          b.disabled = false;
+        }
+      });
+
+      $("#formEspera").addEventListener("submit", async (ev) => {
+        ev.preventDefault();
+        const f = ev.target, msg = $("#msgEspera"), b = $("#enviarEspera");
+        const nombre = f.nombre.value.trim(), correo = f.correo.value.trim().toLowerCase();
+        msg.className = "msg err";
+        if (nombre.length < 2) { msg.textContent = "Escribe tu nombre."; f.nombre.focus(); return; }
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo)) { msg.textContent = "Escribe un correo válido."; f.correo.focus(); return; }
+        b.disabled = true; msg.className = "msg"; msg.textContent = "Guardando…";
+        try {
+          const r = await TDD.rpcPublico("unirse_lista_espera", { p_nombre: nombre, p_correo: correo, p_grupo: oferta && oferta.grupo, p_origen: origen() });
+          msg.className = "msg ok";
+          msg.textContent = r === "ya_estaba" ? "Ya estabas en la lista. Te escribimos en cuanto haya un lugar." : "Listo, estás en la lista. Te escribimos en cuanto haya un lugar.";
+          f.querySelectorAll("input").forEach((i) => { i.disabled = true; }); b.hidden = true;
+        } catch (e) {
+          msg.className = "msg err"; msg.textContent = `No pudimos guardarte: ${e.message}.`; b.disabled = false;
+        }
+      });
+
+      iniciar();
+    })();
+  </script>
+</body>
+</html>
