@@ -1,0 +1,33 @@
+{
+  "caso": "4.2",
+  "pendiente": "Descargar la foto del campanario desde su página de Wikimedia Commons (confirmar ahí autor y licencia), guardarla como medios/campanario.webp de 1200 px de ancho y hasta 350 KB, y cambiar su estado a «listo». El encabezado del artículo de Science queda como candidato de cita breve: recortar solo título y autores.",
+  "items": [
+    {
+      "id": "campanario",
+      "tipo": "foto",
+      "estado": "candidato",
+      "archivo": "medios/campanario.webp",
+      "alt": "La torre Sather, el campanario de la Universidad de California en Berkeley, contra el cielo.",
+      "pie": "El campanario de Berkeley",
+      "credito": "Minesweeper (Wikipedia en inglés), 2003",
+      "licencia": "CC BY-SA 3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Sather-Tower.jpg",
+      "escena": 1,
+      "spoiler": "Solo muestra el campus: nada de departamentos ni del resultado."
+    },
+    {
+      "id": "articulo",
+      "tipo": "documento",
+      "estado": "candidato",
+      "archivo": "medios/articulo.webp",
+      "alt": "Encabezado del artículo «Sex Bias in Graduate Admissions: Data from Berkeley», revista Science, 1975.",
+      "pie": "Science, febrero de 1975",
+      "credito": "P. J. Bickel, E. A. Hammel y J. W. O'Connell · Science 187 (4175)",
+      "licencia": "Cita breve",
+      "nota": "Solo el encabezado (título y autores) con su referencia completa, como cita. El resumen del artículo revela el giro y no se muestra.",
+      "fuente": "https://doi.org/10.1126/science.187.4175.398",
+      "escena": 5,
+      "spoiler": "El título plantea la misma pregunta de la intro; el resumen, que la responde, queda fuera del recorte."
+    }
+  ]
+}

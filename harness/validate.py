@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -173,6 +174,92 @@ def validate_color_literals(root: Path = ROOT) -> list[str]:
     return errors
 
 
+# Material real de las intros de caso (site/casos/<id>/medios.json). Ver site/casos/README.md.
+MEDIA_TYPES = {"foto", "grabado", "recorte", "documento", "video"}
+MEDIA_STATES = {"listo", "candidato"}
+MEDIA_LICENSES = ("Dominio público", "CC0", "CC BY ", "CC BY-SA ", "Permiso escrito", "Cita breve")
+MEDIA_IMAGE_SUFFIXES = {".webp", ".jpg", ".jpeg", ".png", ".avif"}
+MEDIA_MAX_KB = 400
+MEDIA_VIDEO_PREFIX = "https://www.youtube-nocookie.com/embed/"
+MEDIA_ID = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+
+
+def _media_file_errors(case_dir: Path, value: Any, label: str) -> list[str]:
+    if not isinstance(value, str) or not value or value.startswith(("/", "http:", "https:")) or ".." in value:
+        return [f"{label}: debe ser una ruta local dentro de la carpeta del caso (sin enlaces a otros sitios)"]
+    path = case_dir / value
+    if path.suffix.lower() not in MEDIA_IMAGE_SUFFIXES:
+        return [f"{label}: {value} debe ser {', '.join(sorted(MEDIA_IMAGE_SUFFIXES))}"]
+    if not path.is_file():
+        return [f"{label}: falta el archivo {value}"]
+    size_kb = path.stat().st_size / 1024
+    if size_kb > MEDIA_MAX_KB:
+        return [f"{label}: {value} pesa {size_kb:.0f} KB (límite {MEDIA_MAX_KB} KB)"]
+    return []
+
+
+def validate_case_media(root: Path = ROOT) -> list[str]:
+    """Toda intro de caso declara su material real (fotos, recortes, documentos, video) con crédito y licencia."""
+    errors: list[str] = []
+    for case_dir in sorted(p.parent for p in (root / "site" / "casos").glob("*/escenas.js")):
+        relative = case_dir.relative_to(root).as_posix()
+        manifest = case_dir / "medios.json"
+        if not manifest.is_file():
+            errors.append(f"{relative}: falta medios.json; toda intro lleva material real del caso (site/casos/README.md)")
+            continue
+        try:
+            data = json.loads(manifest.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            errors.append(f"{relative}/medios.json: JSON inválido ({error.msg})")
+            continue
+        expected_id = case_dir.name.replace("-", ".")
+        if data.get("caso") != expected_id:
+            errors.append(f"{relative}/medios.json: 'caso' debe ser {expected_id!r}")
+        items = data.get("items")
+        if not isinstance(items, list):
+            errors.append(f"{relative}/medios.json: 'items' debe ser una lista")
+            continue
+        seen: set[str] = set()
+        ready = 0
+        for index, item in enumerate(items):
+            item_id = item.get("id") if isinstance(item, dict) else None
+            label = f"{relative}/medios.json[{item_id or index}]"
+            if not isinstance(item, dict):
+                errors.append(f"{label}: cada medio es un objeto")
+                continue
+            if not isinstance(item_id, str) or not MEDIA_ID.match(item_id):
+                errors.append(f"{label}: 'id' en minúsculas con guiones")
+            elif item_id in seen:
+                errors.append(f"{label}: 'id' repetido")
+            seen.add(str(item_id))
+            if item.get("tipo") not in MEDIA_TYPES:
+                errors.append(f"{label}: 'tipo' debe ser uno de {sorted(MEDIA_TYPES)}")
+            if item.get("estado") not in MEDIA_STATES:
+                errors.append(f"{label}: 'estado' debe ser 'listo' o 'candidato'")
+            for field in ("alt", "credito", "spoiler"):
+                if not str(item.get(field) or "").strip():
+                    errors.append(f"{label}: falta '{field}'")
+            license_text = str(item.get("licencia") or "")
+            if not license_text.startswith(MEDIA_LICENSES) and license_text not in {x.strip() for x in MEDIA_LICENSES}:
+                errors.append(f"{label}: 'licencia' debe ser Dominio público, CC0, CC BY x.x, CC BY-SA x.x, Permiso escrito o Cita breve")
+            if license_text == "Cita breve" and not str(item.get("nota") or "").strip():
+                errors.append(f"{label}: una cita breve explica en 'nota' qué parte se muestra y por qué")
+            if not str(item.get("fuente") or "").startswith("https://"):
+                errors.append(f"{label}: 'fuente' debe ser el enlace https de donde sale el medio")
+            if item.get("estado") != "listo":
+                continue
+            ready += 1
+            if item.get("tipo") == "video":
+                if not str(item.get("video") or "").startswith(MEDIA_VIDEO_PREFIX):
+                    errors.append(f"{label}: 'video' debe empezar con {MEDIA_VIDEO_PREFIX} (se carga solo si la persona lo pide)")
+                errors += _media_file_errors(case_dir, item.get("poster"), f"{label} 'poster'")
+            else:
+                errors += _media_file_errors(case_dir, item.get("archivo"), f"{label} 'archivo'")
+        if not ready and not str(data.get("pendiente") or "").strip():
+            errors.append(f"{relative}/medios.json: sin medios listos; anota en 'pendiente' qué falta para tenerlos")
+    return errors
+
+
 def tracked_files(root: Path = ROOT) -> list[str]:
     try:
         output = subprocess.run(["git", "ls-files", "-z"], cwd=root, check=True, capture_output=True).stdout
@@ -213,6 +300,7 @@ def run(root: Path = ROOT) -> dict[str, Any]:
     errors = validate_contracts(root)
     errors += validate_design_tokens(root)
     errors += validate_color_literals(root)
+    errors += validate_case_media(root)
     hygiene_errors, report = validate_repo_hygiene(load_course(root), root)
     errors += hygiene_errors
     if errors:

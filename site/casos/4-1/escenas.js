@@ -107,6 +107,7 @@
     colab: 'https://colab.research.google.com/drive/1FNfm7Lf5e69Lw3ER5BM8L4jQMrdbyAgQ',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
+    medios: 'medios.json',
     herramientas: ['Comparación de proporciones', 'Prueba chi cuadrada', 'Descarte sistemático de hipótesis', 'Comparación antes y después'],
     fuentes: [
       { t: 'Ignaz Semmelweis (Wikipedia)', u: 'https://en.wikipedia.org/wiki/Ignaz_Semmelweis',
@@ -145,7 +146,10 @@
         },
         lineas: [
           { t: 'Viena, 1847. Un hospital enorme, de noche.', al: function (g) {
-            g.portada('VIENA', '1847', function () { g.sfx('whoosh'); g.camara(0, 0, 160, 2600, g.E.sua); });
+            g.portada('VIENA', '1847', function () {
+              g.sfx('whoosh'); g.camara(0, 0, 160, 2600, g.E.sua);
+              g.archivo('hospital', { lado: 'der', ms: 4200 });
+            });
           } },
           { t: 'Dentro hay dos salas de maternidad.', al: function (g) {
             for (var i = 0; i < 6; i++) (function (k) {

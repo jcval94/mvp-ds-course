@@ -4,7 +4,9 @@
    partículas, sacudidas, contadores, sonido 8 bits (apagado por defecto) e interacciones.
    Sin dependencias, sin cuentas, sin guardar nada: lo que el alumno elige aquí no sale de su navegador.
    La hipótesis que cuenta para calificar se registra en el cuaderno de Colab, no aquí.
-   Movimiento reducido (prefers-reduced-motion): sin animación, sin avance automático, estados finales al instante. */
+   Movimiento reducido (prefers-reduced-motion): sin animación, sin avance automático, estados finales al instante.
+   Material real del caso: si CASO.medios apunta a un medios.json, las escenas muestran fotos, recortes, documentos
+   y video con g.archivo(id) y g.video(id); la ficha final lista sus créditos (ver casos/README.md). */
 (function () {
   'use strict';
 
@@ -16,6 +18,9 @@
   var reducir = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var auto = !reducir, sonidoOn = false, audio = null;
   var idx = 0, S = null, token = 0, tweens = [], parts = [], ultimo = 0;
+  var MED = {}, MED_LISTA = [];
+  var ETIQUETA = { foto: 'FOTO REAL', grabado: 'IMAGEN DE EPOCA', recorte: 'NOTICIA REAL', documento: 'DOCUMENTO REAL', video: 'VIDEO REAL' };
+  var CERRAR = '<button type="button" class="archivo-x" aria-label="Cerrar el material de archivo">X</button>';
 
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
@@ -336,6 +341,64 @@
       if (!p) { p = document.createElement('p'); p.className = 'eco'; p.setAttribute('role', 'status'); extra.appendChild(p); }
       p.textContent = txt;
     },
+    /* ---------- material real del caso (medios.json) ----------
+       Sin el medio (no existe, no está "listo" o no cargó), la escena sigue igual: devuelve null. */
+    medio: function (id) { return MED[id] || null; },
+    archivo: function (id, o) {
+      o = o || {};
+      var m = MED[id];
+      if (!m || m.tipo === 'video') return null;
+      g.quitarArchivo(true);
+      var f = document.createElement('figure');
+      f.className = 'archivo ' + (o.lado || 'der') + ' t-' + m.tipo + (reducir ? ' quieto' : '');
+      f.innerHTML = '<span class="archivo-tag">' + ETIQUETA[m.tipo] + '</span>' + CERRAR +
+        '<div class="archivo-marco"><img src="' + esc(m.archivo) + '" alt="' + esc(m.alt) + '" decoding="async"></div>' +
+        '<figcaption>' + (m.pie ? '<b>' + esc(m.pie) + '</b>' : '') + '<small>' + esc(m.credito) + ' &middot; ' + esc(m.licencia) + '</small></figcaption>';
+      if (o.ancho) f.style.setProperty('--ancho', o.ancho);
+      f.querySelector('.archivo-x').addEventListener('click', function () { g.quitarArchivo(); });
+      esce.appendChild(f);
+      sfx('pop');
+      /* con movimiento reducido se queda hasta que la persona la cierra o cambia la escena */
+      if (o.ms && !reducir) g.espera(o.ms, function () { g.quitarArchivo(); });
+      return f;
+    },
+    /* video: fachada con póster local; YouTube (modo de privacidad mejorada) solo se carga si la persona lo pide */
+    video: function (id, o) {
+      o = o || {};
+      var m = MED[id];
+      if (!m || m.tipo !== 'video') return null;
+      g.quitarArchivo(true);
+      var f = document.createElement('figure');
+      f.className = 'archivo video ' + (o.lado || 'centro') + (reducir ? ' quieto' : '');
+      f.innerHTML = '<span class="archivo-tag">' + ETIQUETA.video + '</span>' + CERRAR +
+        '<div class="archivo-marco"><button type="button" class="archivo-play" aria-label="Reproducir el video: ' + esc(m.alt) + '">' +
+          '<img src="' + esc(m.poster) + '" alt="" decoding="async"><span aria-hidden="true">&#9654;</span></button></div>' +
+        '<figcaption>' + (m.pie ? '<b>' + esc(m.pie) + '</b>' : '') + '<small>' + esc(m.credito) + ' &middot; ' + esc(m.licencia) +
+          ' &middot; al reproducir se carga YouTube</small></figcaption>';
+      if (o.ancho) f.style.setProperty('--ancho', o.ancho);
+      f.querySelector('.archivo-x').addEventListener('click', function () { g.quitarArchivo(); });
+      f.querySelector('.archivo-play').addEventListener('click', function () {
+        /* quien pone el video decide cuándo seguir: la escena deja de avanzar sola */
+        if (S) { S.tocado = true; if (S.timerLinea) { clearTimeout(S.timerLinea); S.timerLinea = 0; } pararCuenta(); }
+        var fr = document.createElement('iframe');
+        fr.src = m.video + (m.video.indexOf('?') < 0 ? '?' : '&') + 'autoplay=1';
+        fr.title = m.alt; fr.allow = 'autoplay; encrypted-media; picture-in-picture'; fr.allowFullscreen = true;
+        fr.referrerPolicy = 'strict-origin-when-cross-origin';
+        this.parentNode.replaceChild(fr, this);
+        sig.classList.add('late');
+      });
+      esce.appendChild(f);
+      sfx('pop');
+      return f;
+    },
+    quitarArchivo: function (ya) {
+      [].forEach.call(esce.querySelectorAll('.archivo'), function (a) {
+        if (ya || reducir) { a.parentNode.removeChild(a); return; }
+        a.classList.add('sale');
+        setTimeout(function () { if (a.parentNode) a.parentNode.removeChild(a); }, 420);
+      });
+    },
+
     /* la escena interactiva terminó: ya se puede seguir (el alumno decide cuándo) */
     listo: function (sinAuto) {
       S.listo = true;
@@ -408,6 +471,10 @@
     var fuentes = (C.fuentes || []).map(function (f) {
       return '<li><a href="' + esc(f.u) + '" target="_blank" rel="noopener noreferrer">' + esc(f.t) + '</a>' + (f.n ? ' &mdash; ' + esc(f.n) : '') + '</li>';
     }).join('');
+    var creditos = MED_LISTA.map(function (m) {
+      return '<li><a href="' + esc(m.fuente) + '" target="_blank" rel="noopener noreferrer">' + esc(m.pie || m.alt) + '</a> &mdash; ' +
+        esc(m.credito) + ' (' + esc(m.licencia) + ')</li>';
+    }).join('');
     var d = document.createElement('div');
     d.className = 'ficha entra';
     d.innerHTML =
@@ -417,6 +484,7 @@
         'ABRIR EL CASO EN COLAB &gt;<span class="sr"> (se abre en una pestaña nueva)</span></a>' +
       '<p class="nota">El caso completo se resuelve en Google Colab, y ahí se registra tu avance. Esta página no guarda nada.</p>' +
       (fuentes ? '<details class="fuentes"><summary>Fuentes de las cifras</summary><ul>' + fuentes + '</ul></details>' : '') +
+      (creditos ? '<details class="fuentes"><summary>Material de archivo y créditos</summary><ul>' + creditos + '</ul></details>' : '') +
       '<button class="enlace" id="repetir" type="button">Ver la intro otra vez</button>';
     extra.appendChild(d);
     $('repetir').addEventListener('click', function () { ir(0); });
@@ -433,7 +501,7 @@
       if (S.timerLinea) clearTimeout(S.timerLinea);
       if (S.timerCuenta) clearTimeout(S.timerCuenta);
     }
-    [].forEach.call(esce.querySelectorAll('.flash,.portada'), function (n) { n.parentNode.removeChild(n); });
+    [].forEach.call(esce.querySelectorAll('.flash,.portada,.archivo'), function (n) { n.parentNode.removeChild(n); });
     esce.classList.remove('tiembla');
   }
 
@@ -547,7 +615,19 @@
   document.addEventListener('visibilitychange', function () { if (!document.hidden) ultimo = 0; });
 
   /* para pruebas automáticas: window.__intro.ir(n) */
-  window.__intro = { ir: ir, g: g, estado: function () { return S; } };
+  window.__intro = { ir: ir, g: g, estado: function () { return S; }, medios: function () { return MED_LISTA.slice(); } };
 
-  ir(0);
+  /* arranque: si el caso declara su material real, se carga antes de la primera escena (máximo 1.5 s de espera) */
+  var arrancado = false;
+  function arrancar() { if (arrancado) return; arrancado = true; ir(0); }
+  if (C.medios && window.fetch) {
+    var espera = setTimeout(arrancar, 1500);
+    fetch(C.medios).then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
+      ((m && m.items) || []).forEach(function (it) {
+        if (it && it.estado === 'listo' && it.id) { MED[it.id] = it; MED_LISTA.push(it); }
+      });
+    }).catch(function () { /* sin material: la intro sigue igual */ }).then(function () { clearTimeout(espera); arrancar(); });
+  } else {
+    arrancar();
+  }
 })();
