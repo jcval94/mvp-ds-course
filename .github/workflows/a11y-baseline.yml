@@ -4,6 +4,9 @@ name: A11Y baseline initialization
 on:
   push:
     branches: [audit/a11y-axe-keyboard-20261024]
+concurrency:
+  group: a11y-baseline-first-snapshot
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -47,6 +50,12 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add harness/a11y/contrast-baseline.jsonl
           git commit -m "test(a11y): pin the initially measured unresolved contrast baseline"
+          git fetch origin audit/a11y-axe-keyboard-20261024
+          if git cat-file -e FETCH_HEAD:harness/a11y/contrast-baseline.jsonl 2>/dev/null; then
+            echo "Otro job ya fijó el baseline; no reemplazarlo."
+            exit 0
+          fi
+          git rebase FETCH_HEAD
           git push origin HEAD:refs/heads/audit/a11y-axe-keyboard-20261024
       - name: Save detailed report
         if: always() && steps.once.outputs.needed == 'true'
