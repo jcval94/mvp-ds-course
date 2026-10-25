@@ -88,8 +88,9 @@ def check_intro(browser, base, case, viewport, motion, label):
     for href in links:
         if urlsplit(href).netloc == urlsplit(base).netloc:
             assert context.request.get(href).status == 200, href
+    # Every intro ends in its own Colab notebook on Drive (never the generic guide or GitHub).
+    assert (page.locator("#cta").get_attribute("href") or "").startswith("https://colab.research.google.com/drive/"), case
     if case == "1-1":
-        assert page.locator("#cta").get_attribute("href") == "../../colab.html"
         page.screenshot(path=OUTPUT / f"intro-{case}-{label}-{motion}-final.png", full_page=True)
     page.locator("#repetir").press("Enter")
     page.wait_for_function("() => __intro.estado().n === 0")
