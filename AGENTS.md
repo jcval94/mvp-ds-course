@@ -2,22 +2,51 @@
 
 > Agentes colaboradores: lean primero `docs/agents/COLABORADOR.md`.
 
-Este repositorio es una fábrica documental para crear material educativo de ciencia de datos con agentes. No es un LMS ni una aplicación final.
+Monorepo público de **The Agentic Data Scientist**, el curso de ciencia de datos e
+IA de Augmented Learning Labs (sitio: learninglabs.pages.dev). El producto es el
+curso: portal, área del alumno, intros de casos, misiones, cuadernos y una
+biblioteca de laboratorios por nivel. La **fábrica de niveles** (más abajo) es la
+herramienta interna que produce esos laboratorios; no es el producto.
 
-## Monorepo (desde F0)
+## Reglas para todo el repositorio
 
-Además de la fábrica, este repo contiene el curso por casos. Antes de editar una
-carpeta, lee su `AGENTS.md`: `missions/`, `casos/`, `kits/`, `design/`,
-`portal/`, `studio/` y `capsulas/corporate-data-narrative-lab/`.
+- Antes de editar una carpeta, lee su `AGENTS.md`: `missions/`, `casos/`, `kits/`,
+  `design/`, `portal/`, `studio/` y `capsulas/corporate-data-narrative-lab/`.
+- Todo cambio debe pasar `python -m harness all`. No relajes un validador para que
+  pase un artefacto.
+- **Repositorio público.** Nunca escribas aquí (archivos, commits, PRs ni
+  comentarios) respuestas o tolerancias de retos, rúbricas, código o detalles del
+  backend privado, datos de alumnos ni credenciales. La única clave permitida es
+  la publicable de Supabase que ya usa el sitio.
+- Engine (`harness/`, `schemas/`, `design/`, `portal/`, `scripts/` y el motor de
+  `site/`) y contenido (`missions/`, `casos/`, `kits/`, `capsulas/`,
+  `generated/` y las carpetas de caso de `site/casos/`) se mantienen separados.
+- `generated/` es contenido aprobado: no se edita a mano. Si una página publicada
+  necesita algo, se inyecta en el build.
+- El build del alumno (`dist/`) no lleva material docente; ese material solo
+  existe en `python -m harness build --docente` (local, nunca se publica).
+- `dist/` es reproducible y agnóstico del hosting: rutas relativas; la URL base
+  (`course.yaml → build.base_url`) solo aparece en canonical y sitemap.
+- Nada de MP4, datos pesados ni artefactos regenerables en Git.
+- Fusionar en `main` publica el sitio. Trabaja en ramas y PRs.
+- Textos visibles, precios, fechas, qué es gratis o de pago, estilo visual y
+  esquema de la base son decisiones del autor.
 
-- `course.yaml` es solo el manifiesto global; cada misión vive en `missions/<id>/mission.yaml`.
-- Engine público (`harness/`, `schemas/`, `design/`, `portal/`, `site/`, `scripts/`) y
-  contenido (`missions/`, `casos/`, `kits/`, `capsulas/`, `generated/`) no se mezclan.
-- Todo cambio debe pasar `python -m harness all`. No relajes un validador para que pase un artefacto.
-- Nada de MP4, datos pesados ni artefactos regenerables en Git. `dist/` y `_site/` se regeneran.
-- Nada de rutas absolutas ni URLs de un proveedor de hosting en el portal.
+## Qué flujo aplica según la tarea
 
-Tu trabajo principal es transformar conceptos curriculares en materiales claros, visuales, técnicamente correctos y accionables antes de generar código de producto.
+| Tarea | Lee primero | Flujo |
+| --- | --- | --- |
+| Portal, área del alumno, harness, CI, deployment | `docs/architecture/` | Cambio mínimo con pruebas; **no** regeneres documentos de la fábrica |
+| Caso, intro, misión, cuaderno o clase | `docs/CRITERIO_PRIMERO.md`, `docs/ESTRUCTURA_GENERACION_1.md`, `site/casos/README.md` | Criterio primero: apuesta del alumno antes de la herramienta; Delegar · Verificar · Firmar |
+| Nivel de la biblioteca (crear o modificar) | `IDEA.md`, `docs/CURRICULUM_MAP.md`, `docs/pipeline/README.md` | Fábrica de niveles (abajo) |
+| Oferta de la Generación 1 | `docs/DECISIONES_GENERACION_1.md` | Solo con confirmación del autor; se actualiza el documento y el sitio a la vez |
+
+# Fábrica de niveles
+
+Todo lo que sigue aplica **solo** a producir o modificar niveles de la biblioteca
+(`generated/`, `docs/stories/`, `.agents/skills/`, `evals/`, `templates/`). Su
+trabajo es transformar conceptos curriculares en materiales claros, visuales,
+técnicamente correctos y accionables.
 
 ## Principios
 
@@ -29,7 +58,6 @@ Tu trabajo principal es transformar conceptos curriculares en materiales claros,
 - Usa `/templates` como base estructural.
 - Activa `.agents/skills` cuando la tarea coincida con una skill.
 - Valida contra `/evals`.
-- Evita código de producto salvo solicitud explícita después de validar documentos.
 - Documenta supuestos en cada artefacto relevante.
 - Prefiere una lección profunda y verificable sobre muchos temas superficiales.
 - Mantén consistencia entre objetivo, visualización, ejercicio, feedback y guía docente.
@@ -94,13 +122,13 @@ Modo Ejercitar: historia aplicada distinta de Aprender, protagonista profesional
 
 ### `LiveTeachingPack`
 
-Modo Enseñar en vivo: contenido docente oculto en la experiencia estática, guion, snapshot público real con procedencia/licencia/fecha/SHA-256, demo, preguntas, evaluación, blueprint, prompts, checklists y plan offline.
+Modo Enseñar en vivo: contenido docente (solo en el build docente, nunca en `dist/`), guion, snapshot público real con procedencia/licencia/fecha/SHA-256, demo, preguntas, evaluación, blueprint, prompts, checklists y plan offline.
 
 ## Cómo inferir
 
 Si falta información no crítica:
 
-- Asume profesor o creador de cursos como usuario principal.
+- Asume como usuario final a un adulto principiante del curso; el docente usa el build docente.
 - Asume nivel principiante.
 - Usa una duración de 30 a 45 minutos.
 - Prefiere un snapshot público pequeño con fuente, licencia, fecha y SHA-256;
@@ -158,15 +186,14 @@ Pregunta solo si:
 
 ## Prohibiciones
 
-- No crear una app completa durante la fase documental.
-- No agregar LMS, cuentas, pagos o seguimiento de estudiantes.
+- No agregar dentro de un nivel cuentas, pagos ni seguimiento propios: el portal ya los resuelve.
 - No agregar dependencias innecesarias.
-- No ejecutar IA desde una futura app local en el MVP.
+- No ejecutar modelos de IA desde los laboratorios.
 - No publicar paquetes cuyo manifest o validación no estén aprobados.
 - No aceptar visualizaciones decorativas.
 - No producir ejercicios respondibles sin mirar la evidencia.
 - No reutilizar Aprender como Ejercitar; la práctica debe contar un caso distinto que se resuelve con lo aprendido.
-- No publicar `En vivo` como pestaña estudiantil visible; en estático solo puede mostrarse con modo docente y aclaración de que no es seguridad real.
+- No publicar `En vivo` ni ningún material docente en el build del alumno.
 - No usar datasets sintéticos como fuente principal de `En vivo`.
 - No usar feedback limitado a correcto o incorrecto.
 - No afirmar causalidad sin diseño o evidencia suficiente.
