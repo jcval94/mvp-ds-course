@@ -137,6 +137,8 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     components = course["components"]
 
     build_factory(root)
+    from .a11y.inject import inject
+    inject(root / LEGACY_BUILD.name, root / "harness" / "a11y" / "semantic.js")
     _remove_tree(dist, root, "dist")
     dist.mkdir()
 
@@ -154,6 +156,7 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
 
     missions = public_missions(course, root)
     publish_mission_apps(missions, course, root, dist)
+    inject(dist, root / "harness" / "a11y" / "semantic.js")
     _write_json(dist / "missions.json", {"schema_version": 1, "course": course["course"]["id"], "missions": missions})
 
     inventory = file_inventory(dist)
