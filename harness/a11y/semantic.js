@@ -55,6 +55,18 @@
     document.querySelectorAll('nav:not([aria-label]):not([aria-labelledby])').forEach(nav => {
       nav.setAttribute("aria-label", "Navegación");
     });
+    // Fix only the announced heading level. Keeping the original HTML tag
+    // preserves CSS selectors, font sizes, spacing, and visible copy.
+    let previousLevel = 0;
+    document.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach(heading => {
+      const visualLevel = Number(heading.tagName.slice(1));
+      const announced = previousLevel ? Math.min(visualLevel, previousLevel + 1) : 1;
+      if (announced !== visualLevel) {
+        heading.setAttribute("role", "heading");
+        heading.setAttribute("aria-level", String(announced));
+      }
+      previousLevel = announced;
+    });
     document.querySelectorAll('[aria-haspopup="true"],[aria-haspopup="menu"]').forEach(trigger => {
       const menuId = trigger.getAttribute("aria-controls") ||
         (trigger.id === "perfilBtn" ? "perfilMenu" : "");
