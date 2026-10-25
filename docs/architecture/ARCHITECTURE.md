@@ -53,6 +53,7 @@ python -m harness build      scripts/build_pages.py (sin cambios) → _site/
                              + missions.json + build-info.json
 python -m harness check      enlaces internos, rutas absolutas, archivos de hosting, presupuestos
 python -m harness smoke      Playwright en "/" y en "/mvp-ds-course/"
+python -m harness links      auditoría externa HEAD/GET (independiente de all y CI)
 ```
 
 `dist/` es estático, reproducible (mismo commit → mismo `content_sha256`) y
@@ -63,6 +64,9 @@ agnóstico del hosting: solo rutas relativas, sin `.nojekyll`, `CNAME`,
 
 `ci.yml` llama a `factory.yml`, `capsulas.yml` y `portal.yml`; si todo pasa y la
 rama es `main`, llama a la capa de deployment. Ver [DEPLOYMENT.md](DEPLOYMENT.md).
+
+`external-links.yml` revisa semanalmente los enlaces externos y mantiene un
+issue único; no participa en CI ni deployment. Ver [EXTERNAL_LINKS.md](EXTERNAL_LINKS.md).
 
 ## Reglas que no cambian
 

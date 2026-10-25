@@ -7,4 +7,5 @@ Run from the repository root:
     python -m harness check      # links, portability and size budgets on dist/
     python -m harness smoke      # browser smoke tests at "/" and under a subpath
     python -m harness all
+    python -m harness links      # independent external HEAD/GET audit
 """
