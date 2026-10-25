@@ -154,7 +154,9 @@ def main(*, docente: bool = False) -> None:
             level.pop("validation", None)
             def strip_hashes(value: object) -> None:
                 if isinstance(value, dict):
-                    value.pop("sha256", None)
+                    for key in tuple(value):
+                        if key.lower().endswith("sha256"):
+                            del value[key]
                     for child in value.values():
                         strip_hashes(child)
                 elif isinstance(value, list):
