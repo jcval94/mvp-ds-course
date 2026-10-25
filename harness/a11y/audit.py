@@ -293,7 +293,7 @@ def gate(findings: list[dict], baseline: dict[str, dict], root: Path = ROOT) -> 
         raise HarnessError("A11Y: violaciones serious/critical nuevas (" + str(len(unknown)) +
                            "):\n- " + "\n- ".join(details))
     return {"audited": len(set(x["page"] for x in findings)), "serious_critical_pending": len(observed),
-            "contrast_pending": sum(x["id"] == "color-contrast" for x in observed),
+            "contrast_pending": sum(x["id"] == "color-contrast" for x in observed.values()),
             "baseline_remaining": len(baseline) - len(set(baseline) & set(observed))}
 
 
