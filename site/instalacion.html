@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Qué necesitas y cómo preparar tu computadora para The Agentic D. Scientist: laptop, cuentas gratuitas y dos programas, en cinco pasos.">
+  <title>Prepara tu computadora · The Agentic D. Scientist</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="design/tokens/tokens.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Requisitos e instalación. Colores solo desde design/tokens (el guardia del harness rechaza literales). */
+    .prep { display: grid; gap: 28px; max-width: 760px; margin: 0 auto; }
+    .prep-intro h1 { margin: 10px 0 0; font-size: clamp(32px, 4.6vw, 48px); line-height: 1.05; letter-spacing: -.03em; text-wrap: balance; }
+    .prep-intro p.lead { margin: 14px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; }
+    .caja { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 22px 24px; box-shadow: var(--shadow-card); }
+    .caja h2 { margin: 0 0 12px; font-size: 22px; letter-spacing: -.01em; }
+    .reqs { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .reqs li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; line-height: 1.5; }
+    .reqs li::before { content: "✓"; width: 24px; height: 24px; border-radius: 8px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); font-weight: 800; }
+    .reqs small { display: block; color: var(--muted); font-size: 14px; }
+    .no { margin: 14px 0 0; padding: 10px 14px; border-radius: 12px; background: var(--surface-alt); color: var(--text); font-size: 15px; line-height: 1.5; }
+    .pasos { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+    .paso { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 16px 18px; box-shadow: var(--shadow-card); }
+    .paso input { width: 24px; height: 24px; accent-color: var(--accent); cursor: pointer; }
+    .paso b { display: block; font-size: 17px; }
+    .paso span { display: block; color: var(--muted); font-size: 14px; line-height: 1.5; margin-top: 2px; }
+    .paso .btn { white-space: nowrap; }
+    .paso.hecho { background: var(--surface-alt); }
+    .paso.hecho b { text-decoration: line-through; text-decoration-color: var(--accent); }
+    .avance { font-weight: 700; color: var(--text); }
+    .fix dl { margin: 0; }
+    .fix div { padding: 12px 0; border-top: 1px solid var(--line); }
+    .fix dt { font-weight: 700; line-height: 1.45; }
+    .fix dd { margin: 4px 0 0; color: var(--muted); line-height: 1.55; font-size: 15px; }
+    .ayuda { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .ayuda p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; flex: 1 1 260px; }
+    @media (max-width: 640px) {
+      .paso { grid-template-columns: auto minmax(0, 1fr); }
+      .paso .btn { grid-column: 2; justify-self: start; }
+    }
+  </style>
+</head>
+<body class="methodology-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="The Agentic D. Scientist, inicio">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
+      <strong>The Agentic D. Scientist</strong>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="alumno.html">Mi avance</a>
+      <a href="instalacion.html" aria-current="page">Prepara tu computadora</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="prep">
+      <section class="prep-intro">
+        <p class="kicker-dark">Antes de la primera clase · unos 30 minutos, una sola vez</p>
+        <h1>Prepara tu computadora</h1>
+        <p class="lead">No necesitas saber programar. Solo hace falta una laptop, tres cuentas gratuitas y dos programas. Sigue los pasos en orden y marca cada uno cuando lo termines.</p>
+      </section>
+
+      <section class="caja" aria-labelledby="reqTitulo">
+        <h2 id="reqTitulo">Lo que necesitas</h2>
+        <ul class="reqs">
+          <li><span>Una <b>laptop o computadora con Windows o macOS</b><small>En Mac, con chip Apple (M1 o más nuevo). Si tu Mac tiene chip Intel, escríbenos antes de inscribirte.</small></span></li>
+          <li><span>Internet estable<small>Para la clase en Google Meet y para trabajar en Colab al mismo tiempo.</small></span></li>
+          <li><span>Permiso para instalar programas<small>Las computadoras del trabajo a veces lo bloquean: revísalo antes.</small></span></li>
+          <li><span>Tres cuentas gratuitas: Google (Gmail personal), GitHub y ChatGPT<small>Usa un Gmail personal: las cuentas de empresa o escuela pueden tener apagadas las herramientas de IA.</small></span></li>
+        </ul>
+        <p class="no"><b>No funciona</b> con tableta, celular ni Chromebook: en clase usamos programas que se instalan en la computadora.</p>
+      </section>
+
+      <section aria-labelledby="pasosTitulo">
+        <h2 id="pasosTitulo" class="sr-only">Pasos</h2>
+        <p class="avance" id="avance" aria-live="polite">0 de 5 pasos listos</p>
+        <ol class="pasos" id="pasos">
+          <li class="paso"><input type="checkbox" id="p1" aria-label="Paso 1 listo"><label for="p1"><b>1. Ten tu Gmail personal</b><span>Es con el que te inscribes y entras a Colab y a Mi avance.</span></label><a class="btn btn-dark" href="https://accounts.google.com/signup" target="_blank" rel="noopener">Crear Gmail</a></li>
+          <li class="paso"><input type="checkbox" id="p2" aria-label="Paso 2 listo"><label for="p2"><b>2. Crea tu cuenta de GitHub</b><span>Ahí vivirá tu proyecto final. Usa el mismo Gmail.</span></label><a class="btn btn-dark" href="https://github.com/signup" target="_blank" rel="noopener">Crear cuenta</a></li>
+          <li class="paso"><input type="checkbox" id="p3" aria-label="Paso 3 listo"><label for="p3"><b>3. Crea tu cuenta de ChatGPT</b><span>La usarás con Codex, el asistente que trabaja en tus archivos. El plan gratuito basta mientras OpenAI lo incluya.</span></label><a class="btn btn-dark" href="https://chatgpt.com" target="_blank" rel="noopener">Crear cuenta</a></li>
+          <li class="paso"><input type="checkbox" id="p4" aria-label="Paso 4 listo"><label for="p4"><b>4. Instala GitHub Desktop</b><span>Descárgalo, ábrelo y entra con tu cuenta de GitHub. Acepta todo lo que propone.</span></label><a class="btn btn-dark" href="https://desktop.github.com/" target="_blank" rel="noopener">Descargar</a></li>
+          <li class="paso"><input type="checkbox" id="p5" aria-label="Paso 5 listo"><label for="p5"><b>5. Instala la app de Codex</b><span>Descárgala desde la página oficial y entra con tu cuenta de ChatGPT. No hace falta configurar nada más.</span></label><a class="btn btn-dark" href="https://learn.chatgpt.com/docs/app" target="_blank" rel="noopener">Descargar</a></li>
+        </ol>
+      </section>
+
+      <section class="caja" aria-labelledby="listoTitulo">
+        <h2 id="listoTitulo">¿Terminaste los cinco?</h2>
+        <p style="margin:0;color:var(--muted);line-height:1.55">Escribe «Ya lo tengo» en <a href="alumno.html">Mi avance → Mensajes</a>. En la <b>Sesión 0</b> (grabada, antes del 8 de enero) creamos juntos tu repositorio y pruebas tu primer encargo.</p>
+      </section>
+
+      <section class="caja fix" aria-labelledby="fixTitulo">
+        <h2 id="fixTitulo">Si algo falla</h2>
+        <dl>
+          <div><dt>No me deja instalar programas</dt><dd>Es una restricción de tu computadora (pasa en las del trabajo). Usa una personal o pide permiso a tu área de sistemas.</dd></div>
+          <div><dt>El correo de confirmación no llega</dt><dd>Busca en Spam y en Promociones. Si no está, pide que lo reenvíen desde la misma página.</dd></div>
+          <div><dt>No encuentro el programa después de instalarlo</dt><dd>En Windows búscalo con la tecla de Windows y su nombre. En Mac está en la carpeta Aplicaciones.</dd></div>
+          <div><dt>Codex dice que no tengo acceso</dt><dd>Revisa que entraste con tu cuenta de ChatGPT. Si aun así no deja, avísanos: lo resolvemos en la Sesión 0.</dd></div>
+          <div><dt>Tengo Mac con chip Intel o una Chromebook</dt><dd>Escríbenos antes de pagar para revisar tu caso.</dd></div>
+        </dl>
+      </section>
+
+      <section class="caja ayuda" aria-label="Pedir ayuda">
+        <p><b>¿Sigues atorado?</b> Mándanos qué paso, qué ves en pantalla (una captura ayuda) y si usas Windows o Mac.</p>
+        <a class="btn btn-accent" href="alumno.html">Escribir en Mi avance</a>
+        <a class="btn btn-dark" href="mailto:augmentedlearninglabs@gmail.com?subject=Ayuda%20con%20la%20instalaci%C3%B3n">Escribir por correo</a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <strong>Augmented Learning Labs · The Agentic D. Scientist</strong>
+    <p><a class="footer-link" href="aviso-privacidad.html">Aviso de privacidad</a> · <a class="footer-link" href="terminos.html">Términos y condiciones</a></p>
+  </footer>
+
+  <script>
+    // Recuerda en este navegador qué pasos ya marcó la persona. Si el almacenamiento falla, la página sigue funcionando.
+    (function () {
+      var CLAVE = "tads-instalacion-v1";
+      var cajas = Array.prototype.slice.call(document.querySelectorAll("#pasos input[type=checkbox]"));
+      var avance = document.getElementById("avance");
+      var guardado = {};
+      try { guardado = JSON.parse(localStorage.getItem(CLAVE) || "{}") || {}; } catch (e) { guardado = {}; }
+      function pintar() {
+        var listos = 0;
+        cajas.forEach(function (c) { c.closest(".paso").classList.toggle("hecho", c.checked); if (c.checked) listos++; });
+        avance.textContent = listos === cajas.length ? "¡Listo! Tienes los 5 pasos." : listos + " de " + cajas.length + " pasos listos";
+      }
+      cajas.forEach(function (c) {
+        c.checked = !!guardado[c.id];
+        c.addEventListener("change", function () {
+          guardado[c.id] = c.checked;
+          try { localStorage.setItem(CLAVE, JSON.stringify(guardado)); } catch (e) {}
+          pintar();
+        });
+      });
+      pintar();
+    })();
+  </script>
+</body>
+</html>
