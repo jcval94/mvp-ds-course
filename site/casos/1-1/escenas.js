@@ -168,7 +168,7 @@
     titulo: 'EL MAPA DE AGUJEROS',
     volver: '../../index.html',
     /* Pendiente: CUADERNO_URL del caso 1.1 cuando el cuaderno se suba a Drive. Mientras, la guía de Colab. */
-    colab: 'https://colab.research.google.com/drive/1tYM1tqtzOwyx_3a8nRrLgBEPduVlqAsi',
+    colab: 'https://colab.research.google.com/drive/1IORmNL2F4zaOf_bV_EQvi2MN6QxuXfWR',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
     medios: 'medios.json',
