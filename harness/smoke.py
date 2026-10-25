@@ -154,6 +154,12 @@ def run(base_paths: list[str] | None = None, root: Path = ROOT, dist: Path | Non
                     if mobile_page.evaluate("() => document.documentElement.scrollWidth > document.documentElement.clientWidth"):
                         failures.append(f"[{prefix}] {target or '(inicio)'}: desbordamiento horizontal en móvil")
                 mobile.close()
+                # Una sola auditoría del DOM publicado: en subruta las páginas
+                # tienen el mismo contenido, pero mantenemos el smoke original
+                # de portabilidad para ambos prefijos sin ninguna relajación.
+                if prefix == ("/" + base_paths[0].strip("/") + "/" if base_paths[0].strip("/") else "/") and (dist / "a11y" / "semantic.js").is_file():
+                    from .a11y.audit import run as run_accessibility
+                    results["a11y"] = run_accessibility(page, base, dist, root)
                 context.close()
                 results[prefix] = len(targets) + 2
             finally:
