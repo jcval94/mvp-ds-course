@@ -51,7 +51,7 @@ La tabla `clases` ya guarda el caso de cada sesión (`clases.caso`).
 Cada nivel (módulo) tiene **un caso ancla** que cierra el nivel y un **banco** de
 casos para usar en clase en vivo (`docs/CASE_MISSION_MAP.md`). El catálogo muestra el
 ancla y el banco. Estados visibles: *Disponible en Colab* (4.1 y 4.2), *En preparación*
-(1.1 Wald), *Próximamente* y *Por definir* (15.4 Replit, hasta verificar fuentes).
+(1.1 Wald), *Próximamente* y *En revisión* (15.4 Replit, hasta verificar fuentes).
 Los casos nuevos sin verificar del mapa no se muestran a estudiantes.
 
 ## Lo que sale de los números
