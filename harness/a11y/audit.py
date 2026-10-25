@@ -239,6 +239,38 @@ def report(findings: list[dict], keyboard: dict, root: Path = ROOT) -> Path:
     important = [x for x in findings if x["id"] != "color-contrast" and x["impact"] in ("serious", "critical")]
     for row in important:
         print("A11Y-NONCONTRAST|" + "|".join([row["page"], row["viewport"], row["impact"], row["id"], row["target"][:150]]))
+    contrast_rows = []
+    for row in findings:
+        if row["id"] != "color-contrast":
+            continue
+        info = row.get("contrast", {})
+        contrast_rows.append({
+            "page": row["page"], "viewport": row["viewport"],
+            "target": row["target"], "actual": info.get("actual"),
+            "required": info.get("required"),
+            "foreground": info.get("foreground"), "background": info.get("background"),
+            "tokens": info.get("tokens") or [], "summary": info.get("summary") or ""
+        })
+    contrast_doc = ["# Contraste pendiente de decisión visual",
+                    "",
+                    "WCAG AA: texto normal 4.5:1; texto grande 3:1. "
+                    "No se modificaron design/, colores, tipografía ni estilos de foco.",
+                    "",
+                    "| Página | Pantalla | Selector | Actual | AA requerido | Texto | Fondo | Tokens design/ |",
+                    "| --- | --- | --- | ---: | ---: | --- | --- | --- |"]
+    for row in contrast_rows:
+        safe = lambda v: str(v if v is not None else "sin dato").replace("|", "\\|").replace("\\n", " ")
+        contrast_doc.append("| " + " | ".join(safe(x) for x in (
+            row["page"], row["viewport"], row["target"], row["actual"], row["required"],
+            row["foreground"], row["background"], ", ".join(row["tokens"]) or "sin correspondencia"
+        )) + " |")
+    contrast_path = folder / "contrast-review.md"
+    contrast_path.write_text("\n".join(contrast_doc) + "\n", encoding="utf-8")
+    for row in contrast_rows[:12]:
+        print("A11Y-CONTRAST|" + "|".join(str(x) for x in (
+            row["page"], row["viewport"], row["actual"], row["required"],
+            row["foreground"], row["background"], ",".join(row["tokens"]))))
+    print("A11Y contrast detail:", contrast_path)
     print("A11Y report:", path)
     return path
 
