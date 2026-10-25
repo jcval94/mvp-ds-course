@@ -137,7 +137,10 @@ def build(root: Path = ROOT, dist: Path | None = None, *, docente: bool = False)
     course = load_course(root)
     components = course["components"]
 
-    build_factory(root, docente=docente)
+    if docente:
+        build_factory(root, docente=True)
+    else:
+        build_factory(root)
     if not docente:
         seo_base = base_url(course)
         # Preserve factory/dist metadata parity only for the published student build.

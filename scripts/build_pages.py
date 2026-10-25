@@ -118,6 +118,19 @@ def apply_course_theme(destination: Path, level_number: int, themes: dict[str, o
     return True
 
 
+def strip_catalog_hashes(value: object) -> None:
+    """Omit hashes from the public catalog; level dataset provenance stays intact."""
+    if isinstance(value, dict):
+        for key in tuple(value):
+            if key.lower().endswith("sha256"):
+                del value[key]
+        for child in value.values():
+            strip_catalog_hashes(child)
+    elif isinstance(value, list):
+        for child in value:
+            strip_catalog_hashes(child)
+
+
 def main(*, docente: bool = False) -> None:
     global BUILD
     BUILD = (ROOT / ("_site_docente" if docente else "_site")).resolve()
@@ -152,17 +165,6 @@ def main(*, docente: bool = False) -> None:
         if not docente:
             # Validation stays a build gate, but its file and internal hashes do not ship.
             level.pop("validation", None)
-            def strip_hashes(value: object) -> None:
-                if isinstance(value, dict):
-                    for key in tuple(value):
-                        if key.lower().endswith("sha256"):
-                            del value[key]
-                    for child in value.values():
-                        strip_hashes(child)
-                elif isinstance(value, list):
-                    for child in value:
-                        strip_hashes(child)
-            strip_hashes(level)
         levels.append(level)
         validations.append(validation)
 
@@ -202,6 +204,8 @@ def main(*, docente: bool = False) -> None:
             "minimum_dimension": min(item["minimum_dimension"] for item in validations),
         },
     }
+    if not docente:
+        strip_catalog_hashes(catalog)
     (BUILD / "catalog.json").write_text(
         json.dumps(catalog, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

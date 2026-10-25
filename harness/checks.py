@@ -149,6 +149,16 @@ def check_level_themes(root: Path = ROOT, dist: Path = DIST) -> list[str]:
 def check_student_levels(dist: Path = DIST) -> list[str]:
     """Fail closed if any instructor-only level artifact enters the public output."""
     errors: list[str] = []
+    catalog = dist / "catalog.json"
+    if catalog.is_file():
+        def has_hash(value: Any) -> bool:
+            if isinstance(value, dict):
+                return any(key.lower().endswith("sha256") or has_hash(child) for key, child in value.items())
+            if isinstance(value, list):
+                return any(has_hash(child) for child in value)
+            return False
+        if has_hash(json.loads(catalog.read_text(encoding="utf-8"))):
+            errors.append("catalog.json: contiene claves sha256 en build de alumnos")
     labs = dist / "labs"
     if not labs.is_dir():
         return ["dist/labs/: faltan los niveles del alumno"]

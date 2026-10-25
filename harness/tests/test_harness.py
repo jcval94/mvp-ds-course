@@ -267,6 +267,8 @@ def test_current_case_intros_declare_their_media() -> None:
 def test_each_current_intro_declares_its_media(tmp_path: Path, case: str) -> None:
     shutil.copytree(ROOT / "site" / "casos" / case, tmp_path / "site" / "casos" / case)
     assert validate.validate_case_media(tmp_path) == []
+
+
 @pytest.mark.parametrize("exposure", [
     "README.md",
     "validation.json",
@@ -292,3 +294,52 @@ def test_student_gate_rejects_docente_html_and_missing_student_profile(tmp_path:
     errors = checks.check_student_levels(tmp_path)
     assert any("sello de build" in error for error in errors)
     assert any("interfaz o contenido docente" in error for error in errors)
+
+
+
+def test_docente_build_preserves_sources_without_public_seo(repo: Path, monkeypatch) -> None:
+    course = yaml.safe_load((repo / "course.yaml").read_text())
+    for component in course["components"].values():
+        if isinstance(component, dict):
+            component["publish"] = False
+    (repo / "course.yaml").write_text(yaml.safe_dump(course))
+    _write(repo / "dist" / "index.html", "Alumno intacto")
+    _write(repo / "_site" / "index.html", "Fábrica alumno intacta")
+    source = repo / "_site_docente"
+    _write(source / "index.html", "Docente")
+    _write(source / "labs/level-1/docs/guion.md", "Guion docente intacto")
+    calls = []
+    monkeypatch.setattr(build, "build_factory", lambda root, *, docente: calls.append(docente))
+    def no_public_seo(*args):
+        pytest.fail("El build docente no debe generar SEO público")
+    monkeypatch.setattr(build, "inject_metadata", no_public_seo)
+    monkeypatch.setattr(build, "write_seo", no_public_seo)
+    build.build(repo, docente=True)
+    output = repo / "dist-docente"
+    assert calls == [True]
+    assert (output / "labs/level-1/docs/guion.md").read_text() == "Guion docente intacto"
+    assert not (output / "robots.txt").exists()
+    assert not (output / "sitemap.xml").exists()
+    assert (repo / "dist/index.html").read_text() == "Alumno intacto"
+    assert (repo / "_site/index.html").read_text() == "Fábrica alumno intacta"
+
+
+def test_check_only_visits_student_output_by_default(repo: Path, monkeypatch) -> None:
+    _write(repo / "dist/index.html", "Alumno")
+    _write(repo / "dist-docente/index.html", "Docente")
+    visited = []
+    monkeypatch.setattr(checks, "check_links", lambda dist: [])
+    monkeypatch.setattr(checks, "check_portability", lambda dist, course: [])
+    monkeypatch.setattr(checks, "check_level_themes", lambda root, dist: [])
+    monkeypatch.setattr(checks, "check_student_levels", lambda dist: [])
+    monkeypatch.setattr(checks, "check_seo", lambda course, root, dist: visited.append(dist) or [])
+    monkeypatch.setattr(checks, "check_budgets", lambda course, dist: ([], {}))
+    checks.run(repo)
+    assert visited == [repo / "dist"]
+
+
+@pytest.mark.parametrize("key", ["sha256", "contentSha256"])
+def test_student_gate_rejects_hashes_anywhere_in_catalog(tmp_path: Path, key: str) -> None:
+    _write(tmp_path / "labs/level-1/index.html", '<style data-student-layout></style>')
+    _write(tmp_path / "catalog.json", json.dumps({"datasets": [{"nested": {key: "abc"}}]}))
+    assert any("catalog.json" in error for error in checks.check_student_levels(tmp_path))

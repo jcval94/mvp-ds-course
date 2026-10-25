@@ -133,12 +133,12 @@ def assert_placement_to_home(page) -> None:
 
 def assert_public_levels_exclude_instructor(page) -> None:
     # Even forcing teacher=1 must not restore the UI, links or teacher payload.
-    for route in (
-        "level-1/alfabetizacion.html?teacher=1",
-        "level-2/resumen-numerico.html?concept=mean&teacher=1",
-        "level-3/probabilidad-basica.html?concept=event&teacher=1",
-    ):
-        page.goto(f"{BASE}/labs/{route}", wait_until="networkidle")
+    levels = sorted((BUILD / "labs").glob("level-*"))
+    levels = [level for level in levels if level.name.removeprefix("level-").isdigit()]
+    assert len(levels) == 13
+    for html in (html for level in levels for html in sorted(level.glob("*.html"))):
+        route = html.relative_to(BUILD).as_posix()
+        page.goto(f"{BASE}/{route}?teacher=1", wait_until="networkidle")
         assert page.locator("[data-level-teacher], .teacher, .teacher-panel, [data-mode='live']").count() == 0
         assert page.locator("#teacherContent, .teacher-content").count() == 0
         assert page.get_by_role("link", name="Guía docente").count() == 0
