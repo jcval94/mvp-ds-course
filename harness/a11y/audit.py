@@ -184,7 +184,7 @@ def _escape(page) -> dict:
     return result
 
 
-def collect(page, base: str, dist: Path, root: Path = ROOT) -> tuple[list[dict], dict]:
+def collect(page, base: str, dist: Path, root: Path = ROOT, *, keyboard_audit: bool = True) -> tuple[list[dict], dict]:
     from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 
     script = _axe_source()
@@ -218,7 +218,8 @@ def collect(page, base: str, dist: Path, root: Path = ROOT) -> tuple[list[dict],
                     if violation["id"] == "color-contrast":
                         row["contrast"] = _contrast(node, tokens)
                     findings.append(row)
-            keyboard[url + "|" + viewport] = {"tab": _keyboard(page), "escape": _escape(page)}
+            if keyboard_audit:
+                keyboard[url + "|" + viewport] = {"tab": _keyboard(page), "escape": _escape(page)}
     return findings, keyboard
 
 
@@ -264,6 +265,33 @@ def gate(findings: list[dict], baseline: dict[str, dict], root: Path = ROOT) -> 
 def run(page, base: str, dist: Path, root: Path = ROOT) -> dict:
     findings, keyboard = collect(page, base, dist, root)
     report(findings, keyboard, root)
+    if os.environ.get("A11Y_COMPARE") == "1":
+        before_page = page.context.new_page()
+        # Disable ONLY the injected behavior before any page script executes.
+        before_page.add_init_script("window.__allA11yInstalled = true;")
+        try:
+            before, _ = collect(before_page, base, dist, root, keyboard_audit=False)
+        finally:
+            before_page.close()
+        before_counts = {}
+        after_counts = {}
+        for row, mapping in ((x, before_counts) for x in before):
+            mapping.setdefault(row["page"], Counter())[row["impact"]] += 1
+        for row in findings:
+            after_counts.setdefault(row["page"], Counter())[row["impact"]] += 1
+        table = []
+        for path in routes(dist):
+            item = {"page": path,
+                    "before": {impact: before_counts.get(path, Counter())[impact] for impact in IMPACTS},
+                    "after": {impact: after_counts.get(path, Counter())[impact] for impact in IMPACTS}}
+            table.append(item)
+            print("A11Y-COMPARE|" + path + "|" +
+                  ",".join(str(item["before"][i]) for i in IMPACTS) + "|" +
+                  ",".join(str(item["after"][i]) for i in IMPACTS))
+        destination = Path(os.environ.get("A11Y_REPORT_DIR", root / "output" / "a11y"))
+        (destination / "before-after.json").write_text(
+            json.dumps({"pages": table, "before_findings": before, "after_findings": findings},
+                       ensure_ascii=False, indent=2), encoding="utf-8")
     if os.environ.get("A11Y_SNAPSHOT") == "1":
         rows = candidate_baseline(findings)
         path = root / "output" / "a11y" / "candidate-baseline.jsonl"
