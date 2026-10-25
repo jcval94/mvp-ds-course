@@ -1,0 +1,19 @@
+{
+  "caso": "1.1",
+  "pendiente": "Descargar la foto del Memphis Belle (Museo Nacional de la Fuerza Aérea de EE. UU., dominio público) desde su página, guardarla como medios/belle.webp de 1200 px de ancho y hasta 350 KB, y cambiar su estado a «listo».",
+  "items": [
+    {
+      "id": "belle",
+      "tipo": "foto",
+      "estado": "candidato",
+      "archivo": "medios/belle.webp",
+      "alt": "Mecánicos revisan los daños en la cola del bombardero Memphis Belle después de una misión.",
+      "pie": "Revisión de daños tras una misión, 23 de enero de 1943",
+      "credito": "Ken LaRock · Fuerza Aérea de EE. UU. (Museo Nacional de la USAF)",
+      "licencia": "Dominio público",
+      "fuente": "https://www.nationalmuseum.af.mil/Upcoming/Photos/igphoto/2001878385/",
+      "escena": 1,
+      "spoiler": "Muestra la revisión de daños de un avión que volvió; no dice nada de los que no volvieron, del método ni del matemático."
+    }
+  ]
+}

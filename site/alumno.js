@@ -11,7 +11,7 @@
     "4.2": "https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG",
   };
   // Intro animada de cada caso (gancho de 1 minuto, pública): site/casos/<id>/. El caso se resuelve en Colab.
-  const INTROS = { "4.1": "casos/4-1/", "4.2": "casos/4-2/" };
+  const INTROS = { "1.1": "casos/1-1/", "4.1": "casos/4-1/", "4.2": "casos/4-2/" };
   const ETIQUETAS = {
     preparacion: "Preparación", hipotesis: "Hipótesis", clinicas: "Clínicas", azar: "Azar", sospechosos: "Sospechosos",
     explicacion: "Explicación", pista: "Pista", revelacion: "Revelación", laboratorio: "Laboratorio", cierre: "Cierre",

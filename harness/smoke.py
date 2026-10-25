@@ -59,6 +59,8 @@ def _targets(dist: Path) -> list[str]:
     # El piloto narrativo vive fuera del catálogo de niveles clásicos.
     if (dist / "labs" / "level-1-v2" / "index.html").is_file():
         targets.append("labs/level-1-v2/")
+    targets += [path.parent.relative_to(dist).as_posix() + "/"
+                for path in sorted((dist / "casos").glob("*/escenas.js"))]
     return targets
 
 
