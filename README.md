@@ -52,6 +52,7 @@ publica.
 | `site/casos/` | Intros animadas de los casos (motor 8 bits y una carpeta por caso) |
 | `generated/` | Paquetes aprobados de los niveles; los produce la fábrica y no se editan a mano |
 | `missions/`, `kits/` | Misiones web y cuadernos de Colab por caso |
+| `clases/` | Mapa de conceptos por clase y etapa de la Generación 1 |
 | `casos/` | Catálogo de casos y datos de cada caso, con procedencia y hash |
 | `capsulas/` | Cápsulas narrativas cortas |
 | `design/` | Sistema visual: tokens, componentes y temas |

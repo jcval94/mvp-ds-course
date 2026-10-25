@@ -10,7 +10,7 @@ pregunta.
 ## 1. Qué es esto
 
 **The Agentic Data Scientist**, curso de ciencia de datos de Augmented Learning
-Labs para adultos que **no saben programar** y apenas entran al mundo de los
+Labs para adultos que **empiezan sin saber programar** y apenas entran al mundo de los
 datos. Se enseña con casos históricos reales donde hay que tomar una decisión
 (Wald y los bombarderos, Semmelweis, Berkeley 1973).
 

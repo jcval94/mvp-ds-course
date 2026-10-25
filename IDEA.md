@@ -24,7 +24,8 @@ el código, lo escaso es ese criterio.
 
 - **Alumno (principal):** adulto hispanohablante sin experiencia en programación
   ni en datos; estudiantes, profesionistas que cambian de carrera y gente
-  interesada en IA. Nunca escribe código: trabaja con formularios en Colab.
+  interesada en IA. No necesita saber programar al entrar: en los cuadernos de Colab trabaja con
+  formularios, y a lo largo del curso escribe código con ayuda de un agente (Codex) que revisa y firma.
 - **Docente:** imparte las clases en vivo y revisa el avance (hoy, un solo docente).
 - **Autor:** produce casos, cuadernos y niveles con ayuda de agentes.
 
@@ -38,6 +39,8 @@ el código, lo escaso es ese criterio.
   de cada módulo; niveles 1 y 2 gratis, el resto con inscripción o plan.
 - **Plataforma:** portal estático en Cloudflare Pages, inicio de sesión, Mi
   avance, inscripción con Stripe y backend en Supabase (repositorio privado).
+- Requisitos del alumno: laptop con Windows o macOS, cuentas de Google, GitHub y ChatGPT, y GitHub
+  Desktop y Codex instalados (`site/instalacion.html`).
 - Oferta y condiciones de la Generación 1: `docs/DECISIONES_GENERACION_1.md`.
 
 ## Principios
@@ -46,7 +49,8 @@ el código, lo escaso es ese criterio.
   alumno antes de la herramienta, arco de revelación y Delegar · Verificar · Firmar.
 - Casos reales con fuentes; los mitos populares se corrigen, no se repiten.
 - Los datos simulados se etiquetan siempre.
-- El alumno no escribe código.
+- Nadie necesita saber programar al entrar. Los cuadernos de Colab usan formularios; el código que el
+  alumno escribe lo hace con un agente (Codex) y lo revisa y firma él (Delegar · Verificar · Firmar).
 - Nada que permita resolver un reto sin pensarlo llega a una página o un
   repositorio público.
 
