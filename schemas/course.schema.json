@@ -21,9 +21,14 @@
     "access": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["default", "public_build_includes"],
+      "required": ["default", "public_build_includes", "free_lab_levels"],
       "properties": {
         "default": { "$ref": "#/$defs/access" },
+        "free_lab_levels": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 1 },
+          "uniqueItems": true
+        },
         "public_build_includes": {
           "type": "array",
           "items": { "$ref": "#/$defs/access" },
@@ -36,9 +41,10 @@
     "build": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["dist", "budgets"],
+      "required": ["dist", "base_url", "budgets"],
       "properties": {
         "dist": { "const": "dist" },
+        "base_url": { "type": "string", "format": "uri", "pattern": "^https?://[^/?#\\s]+(?:/[^?#\\s]*)?$" },
         "budgets": {
           "type": "object",
           "additionalProperties": false,
