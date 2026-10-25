@@ -1,0 +1,403 @@
+# Mapa de conceptos · Generación 1 · The Agentic Data Scientist
+# Fuente: generated/*/assets/curriculum.js (236 conceptos, niveles 1-14). Id = L<nivel>.<id de la lección>.
+version: 0.1.0
+fecha: 2026-10-25
+etapas:
+  antes: "Laboratorio de calentamiento; solo prerrequisitos, nunca lo que el caso revela"
+  caso: "Se revela dentro del caso principal en Colab, después de la fricción; el cuaderno lo nombra"
+  error: "Se nombra en el caso del costo del error, resuelto a mano"
+  taller: "Vocabulario del encargo y punto de verificación en el taller con IA"
+  decision: "Se aplica a Mi decisión en el repo"
+  despues: "Solo laboratorio, como práctica posterior; no se nombra en clase"
+  recuperacion: "Automático: la clase N repasa lo de caso y error de la clase N-1"
+clases:
+  1:
+    caso_principal: "1.1 Wald"
+    caso_error: "E64 Puerto Rico"
+    antes:
+      - L1.table  # Tabla
+    caso:
+      - L1.missing  # Faltantes
+      - L1.observation  # Observación
+      - L1.population  # Población
+      - L1.sample  # Muestra
+      - L3.selection-bias  # Sesgo de selección
+    error:
+      - L1.variable  # Variable
+    taller:
+      - L13.model-boundary  # Modelo e inferencia
+    decision:
+      - L11.project-question  # Pregunta del proyecto
+  2:
+    caso_principal: "1.2 Literary Digest"
+    caso_error: "E48 Gimli"
+    antes:
+      - L1.categorical  # Categórica
+      - L1.date  # Fecha
+      - L1.numeric  # Numérica
+      - L1.ordinal  # Ordinal
+      - L1.text  # Texto
+    caso:
+      - L2.bins  # Bins
+      - L2.histogram  # Histograma
+      - L2.shape  # Forma
+      - L3.law-large-numbers  # Ley de los grandes números
+      - L3.sampling-variability  # Variabilidad muestral
+    error:
+      - L2.capture-error  # Error de captura
+    taller:
+      - L1.duplicates  # Duplicados
+      - L1.invalid  # Rangos inválidos
+      - L13.delegation-handoff  # Delegación y handoffs
+    decision:
+      - L11.data-dictionary  # Diccionario de datos
+      - L11.project-data  # Datos del proyecto
+  3:
+    caso_principal: "2.1 John Snow"
+    caso_error: "2.3 Challenger"
+    antes:
+      - L1.filter  # Filtrar
+      - L1.group  # Agrupar
+      - L1.sort  # Ordenar
+      - L1.transform  # Transformar
+    caso:
+      - L2.bar-chart  # Gráfico de barras
+      - L4.groups  # Grupos
+      - L4.proportions  # Proporciones
+      - L4.relative-risk  # Riesgo relativo
+    error:
+      - L4.scatterplot  # Scatterplot
+      - L4.trend  # Tendencia
+    taller:
+      - L12.project-structure  # Estructura y responsabilidades
+      - L13.context-assembly  # Context assembly y compaction
+    decision:
+      - L11.audience  # Audiencia
+  4:
+    caso_principal: "2.2 Nightingale"
+    caso_error: "E29 Shipman"
+    antes:
+      - L2.boxplot  # Boxplot
+      - L2.mean  # Media
+      - L2.median  # Mediana
+      - L2.mode  # Moda
+      - L2.percentiles  # Percentiles
+      - L2.range  # Rango
+      - L2.skew  # Sesgo
+    caso:
+      - L11.annotation  # Anotación
+      - L11.data-narrative  # Narrativa de datos
+    error:
+      - L2.outliers  # Outliers
+      - L2.rare-valid  # Caso raro válido
+      - L2.standard-deviation  # Desviación estándar
+      - L2.variance  # Varianza
+    taller:
+      - L13.structured-output-contract  # Output estructurado y schema
+    despues:
+      - L2.density  # Densidad
+      - L2.ecdf  # ECDF
+      - L2.multimodality  # Multimodalidad
+      - L2.violin-plot  # Violin plot
+  5:
+    caso_principal: "4.1 Semmelweis"
+    caso_error: "3.1 Sally Clark"
+    antes:
+      - L3.complement  # Complemento
+      - L3.event  # Evento
+    caso:
+      - L3.hypothesis  # Hipótesis
+      - L3.p-value  # p-value
+    error:
+      - L3.conditional-probability  # Probabilidad condicional
+      - L3.independence  # Independencia
+    taller:
+      - L11.seeds  # Semillas
+      - L12.reproducible-execution  # Ejecución reproducible
+      - L12.unit-integration-tests  # Unit e integration tests
+  6:
+    caso_principal: "3.3 Vuelo 447"
+    caso_error: "E09 Fukushima"
+    caso:
+      - L3.bootstrap  # Bootstrap
+      - L3.confidence-interval  # Intervalo de confianza
+      - L3.standard-error  # Error estándar
+    error:
+      - L3.normal  # Normal
+      - L3.poisson  # Poisson
+    taller:
+      - L12.regression-failure-tests  # Regression, golden y failure cases
+      - L13.trace-reconstruction  # Reconstrucción de trayectoria
+    decision:
+      - L11.uncertainty-communication  # Comunicación de incertidumbre
+  7:
+    caso_principal: "4.2 Berkeley"
+    caso_error: "6.2 Terapia hormonal"
+    caso:
+      - L4.aggregation-bias  # Sesgo de agregación
+      - L4.causality  # Causalidad
+      - L4.confounders  # Confusores
+    taller:
+      - L13.knowledge-corpus  # Corpus, chunks y metadata
+      - L13.retrieval-evidence  # Retrieval, reranking y abstención
+    despues:
+      - L4.odds  # Odds
+  8:
+    caso_principal: "6.3 Salario mínimo NJ"
+    caso_error: "E16 Hoy No Circula"
+    caso:
+      - L9.effect  # Efecto
+      - L12.notebook-to-verifiable-pipeline  # Notebook frente a producción
+    error:
+      - L9.trend  # Tendencia
+    taller:
+      - L11.clean-notebook  # Notebook limpio
+      - L11.versions  # Versiones
+      - L12.dependencies-lockfile  # Dependencias y lockfile
+  9:
+    caso_principal: "S06 Progresa"
+    caso_error: "E15 Scared Straight"
+    caso:
+      - L3.power  # Potencia
+      - L3.type-ii-error  # Error tipo II
+      - L9.practical-effect  # Efecto práctico
+      - L9.random-assignment  # Asignación aleatoria
+      - L9.sample-size  # Tamaño de muestra
+    taller:
+      - L12.errors-versioning  # Errores y versionado
+    despues:
+      - L3.bernoulli  # Bernoulli
+      - L3.binomial  # Binomial
+  10:
+    caso_principal: "S09 Cartas del fisco"
+    caso_error: "5.6 Optimizely"
+    caso:
+      - L3.type-i-error  # Error tipo I
+      - L9.multiple-tests  # Múltiples pruebas
+    taller:
+      - L12.ci-acceptance  # Test/build gate y secrets
+      - L12.ci-pipeline  # Pipeline CI
+  11:
+    caso_principal: "7.1 Moneyball"
+    caso_error: "E19 Volkswagen"
+    antes:
+      - L4.direction  # Dirección
+      - L4.pearson  # Pearson
+      - L4.strength  # Fuerza
+    caso:
+      - L6.explanatory-variables  # Variables explicativas
+      - L6.fit  # Ajuste
+      - L6.intercept  # Intercepto
+      - L6.residuals  # Residuales
+      - L6.slope  # Pendiente
+      - L9.guardrails  # Guardrails
+      - L9.primary-metric  # Métrica primaria
+    error:
+      - L1.measurement-bias  # Sesgo de medición
+    taller:
+      - L12.versioned-handoff  # Handoff versionado
+    decision:
+      - L11.project-analysis  # Análisis del proyecto
+    despues:
+      - L2.leverage  # Leverage
+      - L4.correlation-outliers  # Correlación y extremos
+      - L4.relationship-shape  # Forma de relación
+      - L4.spearman  # Spearman
+      - L6.assumptions  # Supuestos
+  12:
+    caso_principal: "S18 Regla del hiato"
+    caso_error: "13.3 COVID en Excel"
+    antes:
+      - L5.grain  # Unidad y granularidad
+      - L5.schema-keys  # Esquema y claves
+    caso:
+      - L5.aggregation-groups  # Agregación y grupos
+      - L5.lag-cutoff  # Rezagos y fecha de corte
+      - L5.population-windows  # Población y ventanas
+      - L5.question-query  # Consulta orientada a pregunta
+      - L5.window-functions  # Funciones de ventana
+    error:
+      - L5.csv-parquet  # CSV frente a Parquet
+      - L5.data-integrity  # Integridad de datos
+    taller:
+      - L5.traceable-cte  # CTE trazable
+      - L12.fixtures-schema-tests  # Fixtures y tests de schema
+      - L13.tool-contract  # Contrato de tool
+  13:
+    caso_principal: "13.8 MapReduce"
+    caso_error: "E56 Horizon"
+    caso:
+      - L5.duckdb-polars  # DuckDB y Polars
+      - L5.entity-deduplication  # Deduplicación por entidad
+      - L5.join-cardinality  # Cardinalidad de JOIN
+      - L5.join-row-explosion  # Explosión de filas en un JOIN
+      - L5.join-semantics  # Semántica de JOIN y anti-join
+    error:
+      - L5.dataset-lineage  # Linaje y snapshot
+    taller:
+      - L5.data-contract  # Contrato y esquema
+      - L12.io-contract  # Contrato de entrada y salida
+      - L13.tool-execution-errors  # Ejecución, error y retry de tool
+  14:
+    caso_principal: "8.1 Dolor de pecho"
+    caso_error: "E23 Gasto contra necesidad"
+    antes:
+      - L5.temporal-abt  # ABT temporal
+      - L7.test  # Test
+      - L7.train  # Train
+    caso:
+      - L6.class  # Clase
+      - L6.decision-tree  # Árbol de decisión
+      - L6.probability  # Probabilidad
+      - L6.rules  # Reglas
+      - L6.score  # Score
+      - L14.baseline  # Baseline
+    error:
+      - L11.representation  # Representación
+    taller:
+      - L6.encoding  # Encoding
+      - L6.scaling  # Scaling
+      - L12.functions-modules  # Funciones y módulos
+      - L13.agent-loop  # Agent loop
+  15:
+    caso_principal: "8.4 Netflix Prize"
+    caso_error: "8.6 Mantequilla de Bangladesh"
+    antes:
+      - L7.validation  # Validation
+      - L9.lag  # Rezago
+    caso:
+      - L6.leakage  # Leakage
+      - L7.cross-validation  # Cross-validation
+      - L9.temporal-leakage  # Leakage temporal
+    error:
+      - L7.bias  # Bias
+      - L7.overfitting  # Overfitting
+      - L7.variance  # Variance
+    taller:
+      - L7.regularization  # Regularización
+      - L13.stop-budgets  # Criterios de parada y budgets
+    decision:
+      - L11.project-evaluation  # Evaluación del proyecto
+  16:
+    caso_principal: "D04 Cuarta oportunidad"
+    caso_error: "8.8 Subsidios en Países Bajos"
+    caso:
+      - L6.threshold  # Umbral
+      - L7.calibration  # Calibración
+      - L7.threshold-cost  # Umbral y costo
+    error:
+      - L7.f1  # F1
+      - L7.false-negative  # FN
+      - L7.false-positive  # FP
+      - L7.precision  # Precision
+      - L7.recall  # Recall
+      - L7.specificity  # Specificity
+      - L7.true-negative  # TN
+      - L7.true-positive  # TP
+    taller:
+      - L13.system-boundaries  # App, workflow, agente y sistema
+    despues:
+      - L7.pr  # PR
+      - L7.roc  # ROC
+  17:
+    caso_principal: "9.1 Tesco"
+    caso_error: "9.2 Madoff"
+    antes:
+      - L8.distance  # Distancia
+    caso:
+      - L8.centroids  # Centroides
+      - L8.cluster-count  # Número de grupos
+      - L8.k-means  # K-means
+    error:
+      - L8.anomaly-threshold  # Umbral de anomalía
+      - L8.rarity  # Rareza
+    taller:
+      - L8.isolation  # Aislamiento
+      - L14.triage  # Triage
+    despues:
+      - L8.components  # Componentes
+      - L8.explained-variance  # Varianza explicada
+      - L8.pca  # PCA
+  18:
+    caso_principal: "D08 Influenza 2009"
+    caso_error: "10.3 Google Flu Trends"
+    antes:
+      - L9.windows  # Ventanas temporales
+    caso:
+      - L7.mae  # MAE
+      - L7.rmse  # RMSE
+      - L9.backtesting  # Backtesting
+      - L9.seasonality  # Estacionalidad
+      - L9.temporal-anomaly  # Anomalía temporal
+    error:
+      - L14.data-drift  # Data drift
+      - L14.performance-drift  # Performance drift
+    taller:
+      - L12.ci-cd  # CI frente a CD
+      - L14.alert-threshold  # Umbral de alerta
+    despues:
+      - L7.mse  # MSE
+      - L7.r2  # R²
+      - L14.calibration-drift  # Calibration drift
+  19:
+    caso_principal: "S20 Frontera irregular"
+    caso_error: "12.7 Avianca"
+    caso:
+      - L13.context-window-budget  # Ventana y presupuesto de contexto
+    taller:
+      - L13.progressive-disclosure  # Progressive disclosure
+      - L13.skill-procedure  # Skill como procedimiento reutilizable
+      - L13.state-history-memory  # Contexto, historial, estado y memoria
+  20:
+    caso_principal: "S21 Más lentos con IA"
+    caso_error: "15.4 Replit"
+    caso:
+      - L13.agent-vs-workflow  # Agente frente a workflow
+      - L13.harness-engineering  # Harness engineering
+    error:
+      - L12.config-secrets  # Configuración y secretos
+      - L14.human-approval  # Aprobación humana
+      - L14.rollback  # Rollback
+    taller:
+      - L13.hooks-checkpoints  # Hooks, checkpoints y resumibilidad
+      - L13.mcp-interoperability  # MCP e interoperabilidad
+  21:
+    caso_principal: "14.1 COMPAS"
+    caso_error: "E66 Sweeney"
+    caso:
+      - L11.fairness  # Fairness
+      - L11.harm  # Daño
+    error:
+      - L11.privacy  # Privacidad
+    taller:
+      - L6.importance  # Importancia
+      - L14.audit-log  # Audit log
+      - L14.model-card  # Model card
+  22:
+    caso_principal: "S01 Lista de verificación"
+    caso_error: "E61 Boeing 737 MAX"
+    caso:
+      - L14.operational-readiness  # Readiness operativo
+      - L14.runbook  # Runbook
+    error:
+      - L14.impact  # Impacto
+      - L14.postmortem  # Postmortem
+    taller:
+      - L13.system-blueprint  # Blueprint de sistema de IA trazable
+    decision:
+      - L11.project-communication  # Comunicación del proyecto
+autoestudio:  # Augmented Studio, fuera de las clases
+  - L5.paginated-api  # API paginada
+  - L6.collinearity  # Colinealidad
+  - L6.interaction  # Interacción
+  - L12.fastapi-health  # FastAPI y health check
+  - L12.image-container  # Imagen y contenedor
+  - L12.request-response  # Request y response
+  - L12.runtime-artifact  # Runtime y artefacto
+  - L12.service-environments  # Servicio y configuración por entorno
+  - L12.startup-logs  # Logs y fallos de arranque
+  - L13.environment-engineering  # Environment engineering
+  - L13.loop-families  # Familia de loops
+  - L13.multiagent-limits  # Límites multiagente
+  - L14.operational-rollback  # Rollback operativo
+  - L14.retirement  # Retiro
