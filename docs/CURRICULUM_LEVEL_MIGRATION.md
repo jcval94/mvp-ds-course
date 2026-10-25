@@ -84,7 +84,7 @@ nivel en contenido o nombre: 35 documentos, 25 artefactos narrativos de datos,
 
 ### Artefactos históricos
 
-- Las capturas `output/playwright/level-<N>-*.png` conservan sus píxeles; solo
+- Las capturas `reference/qa/level-<N>-*.png` conservan sus píxeles; solo
   cambió el nombre para mantener la trazabilidad al nivel migrado.
 - Los snapshots públicos de `datasets/snapshots/` no cambiaron: su contenido y
   sus hashes no dependen de la numeración curricular.

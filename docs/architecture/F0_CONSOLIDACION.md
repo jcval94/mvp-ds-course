@@ -11,7 +11,7 @@ Fecha: 2026-10-05 · Rama: `f0-consolidar` (base: `main` @ `be1617d`) · Arquite
 | Pages | Deploy por artefacto (sin Jekyll). Sin rutas absolutas ni dominios propios en el sitio | `dist/` puede ser agnóstico sin tocar la fábrica |
 | `generated/` | 452 archivos, 8.4 MB. Al correr `generate_level2..13.py` cambian 42 archivos | No es regenerable byte a byte: es contenido aprobado y sigue en Git |
 | `datasets/` | 832 KB, con registro, licencias y hashes | Sin cambios |
-| `output/playwright/` | 38 capturas versionadas que `qa_pages.py` reescribe en cada corrida | Se conservan (la documentación las cita); deuda abajo |
+| `reference/qa/` | 34 capturas históricas citadas, conservadas sin cambiar sus bytes | QA escribe en `output/qa/` (ignorado); cuatro capturas sin cita se retiraron |
 | Skills / evals | 12 skills en `.agents/skills`, 11 checklists en `evals/` | Intactos |
 | Dependencias | Fábrica: biblioteca estándar + Playwright (sin versión fijada) | Versiones fijadas en `harness/requirements.txt` |
 | Línea base | `validate_content` ✔ · `test_vertical_slices` 7/7 ✔ · `qa_pages` ✔ (3 min 22 s) · `qa_student_experience` ✘ (falla en `main` y **sí está en CI**: por eso Pages no despliega desde `0acb694`, 2026-09-06) | Paridad medida contra esta base |
@@ -75,7 +75,7 @@ fusionar el PR en `main`; la CI del PR corre fábrica, cápsulas y portal sin de
 | --- | --- | --- |
 | 1 | ~~`qa_student_experience.py` falla en `main`~~ | Resuelto en esta rama (§6.1) |
 | 2 | Generadores desalineados con `generated/` (42 archivos) | Decidir si se regeneran y se reaprueban, o se congelan |
-| 3 | `qa_pages.py` reescribe capturas versionadas | Mover la evidencia a artefactos de CI y dejar solo las aprobadas en `reference/` |
+| 3 | Resuelto: capturas regenerables fuera de Git | `QA_SCREENSHOT_DIR` (por omisión `output/qa/`), artefacto de CI durante 14 días y referencias en `reference/qa/` |
 | 4 | Dos fuentes de portal (`site/` y `portal/`) | Unificar con la landing de The Agentic D. Scientist (`design/REFERENCE.md`) |
 | 5 | `codex/add-home-navigation` sin fusionar (y checkout local); `codex/corporate-data-narrative-lab` en `narrative` sin fusionar | Decidir antes de seguir; pueden chocar con `README.md`/`AGENTS.md` |
 | 6 | ~~`studio/pnpm-workspace.yaml` trae `allowBuilds: esbuild: set this to true or false`~~ | Resuelto el 17 oct 2026: `esbuild: true` (`pnpm install --frozen-lockfile` y `tsc` limpios) |

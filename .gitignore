@@ -23,3 +23,6 @@ studio/dist/
 *.webm
 *.mkv
 *.zip
+
+# Capturas regenerables de QA (QA_SCREENSHOT_DIR por omisión)
+/output/qa/
