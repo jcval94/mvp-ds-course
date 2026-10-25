@@ -1,0 +1,57 @@
+# One-off baseline capture for the first version of the WCAG AA gate.
+# Never overwrites an existing baseline; later PRs may only remove entries.
+name: A11Y baseline initialization
+on:
+  push:
+    branches: [audit/a11y-axe-keyboard-20261024]
+permissions:
+  contents: write
+jobs:
+  baseline:
+    if: github.ref == 'refs/heads/audit/a11y-axe-keyboard-20261024'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+      - name: Initialize once only
+        id: once
+        run: |
+          if test -f harness/a11y/contrast-baseline.jsonl; then
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-python@v6
+        if: steps.once.outputs.needed == 'true'
+        with:
+          python-version: '3.12'
+      - name: Install exact versions
+        if: steps.once.outputs.needed == 'true'
+        run: |
+          python -m pip install -r harness/requirements.txt
+          python -m playwright install --with-deps chromium
+          npm install --prefix harness/a11y --no-save --no-package-lock --ignore-scripts axe-core@4.10.3
+      - name: Build and collect snapshot
+        if: steps.once.outputs.needed == 'true'
+        env:
+          A11Y_SNAPSHOT: '1'
+        run: |
+          python -m harness build
+          python -m harness smoke --base-path /
+      - name: Persist first justified contrast baseline
+        if: steps.once.outputs.needed == 'true'
+        run: |
+          cp output/a11y/candidate-baseline.jsonl harness/a11y/contrast-baseline.jsonl
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add harness/a11y/contrast-baseline.jsonl
+          git commit -m "test(a11y): pin the initially measured unresolved contrast baseline"
+          git push origin HEAD:refs/heads/audit/a11y-axe-keyboard-20261024
+      - name: Save detailed report
+        if: always() && steps.once.outputs.needed == 'true'
+        uses: actions/upload-artifact@v6
+        with:
+          name: accessibility-baseline-snapshot
+          path: output/a11y/
+          retention-days: 14
