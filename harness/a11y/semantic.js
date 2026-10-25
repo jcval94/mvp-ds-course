@@ -51,6 +51,29 @@
         el.querySelector("svg title")?.textContent?.trim();
       if (title) el.setAttribute("aria-label", title);
     });
+    // Mobile layouts hide the visible caption for these icon controls.
+    // The explicit accessible name survives responsive display:none.
+    document.querySelectorAll("#helpButton").forEach(el => {
+      el.setAttribute("aria-label", "Ayuda");
+    });
+    document.querySelectorAll('a[href$="README.md"]').forEach(el => {
+      if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", "Guía docente");
+    });
+    // An overflow container with no keyboard access is a serious axe failure.
+    // Make only the documented learning surfaces reachable by Tab; no CSS edits.
+    for (const [selector, label] of [
+      [".learning-path", "Ruta de aprendizaje"],
+      [".tool-section .prompt-box", "Instrucciones de práctica"],
+      ["#visualArea", "Representación interactiva"],
+      ["#visual", "Representación interactiva"]
+    ]) {
+      document.querySelectorAll(selector).forEach(el => {
+        if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
+        if (!el.hasAttribute("role")) el.setAttribute("role", "region");
+        if (!el.hasAttribute("aria-label") && !el.hasAttribute("aria-labelledby"))
+          el.setAttribute("aria-label", label);
+      });
+    }
     // A named region does not need to alter the site's markup or its geometry.
     document.querySelectorAll('nav:not([aria-label]):not([aria-labelledby])').forEach(nav => {
       nav.setAttribute("aria-label", "Navegación");
