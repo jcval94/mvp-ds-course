@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+> Agentes colaboradores: lean primero `docs/agents/COLABORADOR.md`.
+
 ## Misión
 
 Ayudar a operar DataClass Forge: una fábrica documental para crear material educativo visual y evaluable de ciencia de datos.

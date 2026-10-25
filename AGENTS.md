@@ -1,5 +1,7 @@
 # AGENTS.md
 
+> Agentes colaboradores: lean primero `docs/agents/COLABORADOR.md`.
+
 Este repositorio es una fábrica documental para crear material educativo de ciencia de datos con agentes. No es un LMS ni una aplicación final.
 
 ## Monorepo (desde F0)
