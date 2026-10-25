@@ -131,6 +131,20 @@ def assert_placement_to_home(page) -> None:
     assert href and "level-4" in href
 
 
+def assert_public_levels_exclude_instructor(page) -> None:
+    # Even forcing teacher=1 must not restore the UI, links or teacher payload.
+    for route in (
+        "level-1/alfabetizacion.html?teacher=1",
+        "level-2/resumen-numerico.html?concept=mean&teacher=1",
+        "level-3/probabilidad-basica.html?concept=event&teacher=1",
+    ):
+        page.goto(f"{BASE}/labs/{route}", wait_until="networkidle")
+        assert page.locator("[data-level-teacher], .teacher, .teacher-panel, [data-mode='live']").count() == 0
+        assert page.locator("#teacherContent, .teacher-content").count() == 0
+        assert page.get_by_role("link", name="Guía docente").count() == 0
+        no_overflow(page, f"sin docente {route}")
+
+
 def main() -> None:
     if not BUILD.exists():
         raise SystemExit("Ejecuta scripts/build_pages.py antes de qa_student_experience.py")
@@ -154,6 +168,7 @@ def main() -> None:
         assert_level_three_code_coverage(page)
         assert_placement_to_home(page)
         page.screenshot(path=OUTPUT / "student-desktop.png", full_page=True)
+        assert_public_levels_exclude_instructor(page)
         desktop.close()
 
         tablet = browser.new_context(viewport={"width": 820, "height": 1180}, reduced_motion="reduce")
