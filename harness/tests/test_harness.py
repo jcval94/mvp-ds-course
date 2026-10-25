@@ -118,6 +118,17 @@ def test_build_is_reproducible_and_matches_legacy_site() -> None:
         if path.is_file() and path.name != ".nojekyll":
             assert (dist / path.relative_to(legacy)).read_bytes() == path.read_bytes(), path
 
+    # Publication boundary: all 13 levels preserve student lessons, but not
+    # teacher packs, evaluation files or teacher-driven JavaScript interfaces.
+    for level in (1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14):
+        folder = dist / "labs" / f"level-{level}"
+        assert folder.is_dir()
+        for name in ("README.md", "validation.json", "manifest.json", "docs", "evals"):
+            assert not (folder / name).exists(), (level, name)
+        assert "liveTeachingPack" not in (folder / "assets" / "curriculum.js").read_text(encoding="utf-8")
+        assert "teacherContent" not in (folder / "assets" / "app.js").read_text(encoding="utf-8")
+    assert checks.check_student_levels(dist) == []
+
 
 def test_smoke_detects_root_absolute_assets_under_a_subpath(tmp_path: Path) -> None:
     pytest.importorskip("playwright")
@@ -256,3 +267,28 @@ def test_current_case_intros_declare_their_media() -> None:
 def test_each_current_intro_declares_its_media(tmp_path: Path, case: str) -> None:
     shutil.copytree(ROOT / "site" / "casos" / case, tmp_path / "site" / "casos" / case)
     assert validate.validate_case_media(tmp_path) == []
+@pytest.mark.parametrize("exposure", [
+    "README.md",
+    "validation.json",
+    "manifest.json",
+    "docs/packages/guion.md",
+    "evals/quality.md",
+    "assets/app.js",
+    "assets/curriculum.js",
+])
+def test_student_gate_rejects_instructor_leaks(tmp_path: Path, exposure: str) -> None:
+    folder = tmp_path / "labs" / "level-1"
+    _write(folder / "index.html", "<head><style data-student-layout></style></head><main>Alumno</main>")
+    if exposure.endswith(".js"):
+        _write(folder / exposure, "const liveTeachingPack = {teacherScript: ['Guion']};")
+    else:
+        _write(folder / exposure, "Solo docente")
+    errors = checks.check_student_levels(tmp_path)
+    assert errors, exposure
+
+
+def test_student_gate_rejects_docente_html_and_missing_student_profile(tmp_path: Path) -> None:
+    _write(tmp_path / "labs" / "level-1" / "index.html", '<aside class="teacher">En vivo</aside>')
+    errors = checks.check_student_levels(tmp_path)
+    assert any("sello de build" in error for error in errors)
+    assert any("interfaz o contenido docente" in error for error in errors)
