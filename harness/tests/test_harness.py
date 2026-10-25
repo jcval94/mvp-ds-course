@@ -250,3 +250,9 @@ def test_case_media_without_ready_items_must_say_what_is_pending(tmp_path: Path)
 
 def test_current_case_intros_declare_their_media() -> None:
     assert validate.validate_case_media() == []
+
+
+@pytest.mark.parametrize("case", ["1-1", "4-1", "4-2"])
+def test_each_current_intro_declares_its_media(tmp_path: Path, case: str) -> None:
+    shutil.copytree(ROOT / "site" / "casos" / case, tmp_path / "site" / "casos" / case)
+    assert validate.validate_case_media(tmp_path) == []
