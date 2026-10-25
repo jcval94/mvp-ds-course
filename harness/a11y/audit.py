@@ -236,6 +236,9 @@ def report(findings: list[dict], keyboard: dict, root: Path = ROOT) -> Path:
     for (page, viewport), counts in sorted(by_page.items()):
         print("A11Y|" + page + "|" + viewport + "|" +
               "|".join(str(counts[k]) for k in IMPACTS))
+    important = [x for x in findings if x["id"] != "color-contrast" and x["impact"] in ("serious", "critical")]
+    for row in important:
+        print("A11Y-NONCONTRAST|" + "|".join([row["page"], row["viewport"], row["impact"], row["id"], row["target"][:150]]))
     print("A11Y report:", path)
     return path
 
