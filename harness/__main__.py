@@ -13,7 +13,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="python -m harness", description="Harness del curso: contratos, build portable y pruebas.")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("validate", help="Schemas, referencias cruzadas, tokens de diseño e higiene del repo.")
-    sub.add_parser("build", help="Construye dist/ (fábrica + portal + diseño + cápsulas).")
+    build_parser = sub.add_parser("build", help="Construye dist/ (alumno) o dist-docente/ (local).")
+    build_parser.add_argument("--docente", action="store_true", help="Salida local dist-docente/, nunca publicada.")
     sub.add_parser("check", help="Enlaces internos, portabilidad entre hostings y presupuestos de tamaño en dist/.")
     smoke = sub.add_parser("smoke", help="Pruebas de humo en navegador sirviendo dist/ en '/' y bajo una subruta.")
     smoke.add_argument("--base-path", action="append", dest="base_paths", help="Subruta a probar (repetible). Por defecto: '/' y '/mvp-ds-course/'.")
@@ -41,7 +42,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"OK validate · versionado {report['tracked_mb']} MB · mayores: {report['largest'][:3]}")
         if args.command in ("build", "all"):
             from . import build
-            info = build.build()
+            info = build.build(docente=getattr(args, "docente", False))
             print(f"OK build · dist/ con {info['files']} archivos, {info['bytes'] / 1048576:.2f} MB · misiones públicas: {info['public_missions'] or 'ninguna'}")
         if args.command in ("check", "all"):
             from . import checks
