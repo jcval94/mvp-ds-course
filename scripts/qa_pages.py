@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import csv
 import os
 from functools import partial
@@ -18,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Relative overrides are resolved from the repository, like the default.
 OUTPUT = ROOT / os.environ.get("QA_SCREENSHOT_DIR", "output/qa")
 BASE = "http://127.0.0.1:4174"
+DOCENTE_BASE = "http://127.0.0.1:4176"
 LEVEL_DIRS = {
     1: "data-class-foundations-level-1",
     2: "data-class-description-level-2",
@@ -105,6 +108,8 @@ def test_continuous_levels(page, payloads: dict[int, dict[str, object]]) -> None
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
+    # Full instructor factory built offline in an isolated directory, never deployed.
+    subprocess.run([sys.executable, "scripts/build_pages.py", "--docente"], cwd=ROOT, check=True)
     manifests = {level: manifest(level) for level in LEVEL_DIRS}
     payloads = {level: payload(level) for level in [2, *PUBLISHED_CONTINUOUS]}
     placement_answers, placement_routes = placement_maps()
@@ -113,6 +118,9 @@ def main() -> None:
     handler = partial(SimpleHTTPRequestHandler, directory=str(ROOT / "_site"))
     server = ThreadingHTTPServer(("127.0.0.1", 4174), handler)
     Thread(target=server.serve_forever, daemon=True).start()
+    instructor_handler = partial(SimpleHTTPRequestHandler, directory=str(ROOT / "_site_docente"))
+    instructor_server = ThreadingHTTPServer(("127.0.0.1", 4176), instructor_handler)
+    Thread(target=instructor_server.serve_forever, daemon=True).start()
 
     with sync_playwright() as playwright:
         try:
@@ -166,7 +174,8 @@ def main() -> None:
             assert page.locator("body").get_attribute("data-experience-contract") == "level-shell-v1"
             assert page.locator("[data-level-blocks]").count() == 1
             assert page.locator("[data-level-concepts]").count() == 1
-            assert page.locator('[data-mode="live"]:visible').count() == 0
+            assert page.locator('[data-mode="live"]').count() == 0
+            assert page.locator("[data-level-teacher], .teacher, .teacher-panel").count() == 0
             no_overflow(page, f"Nivel {level} representative")
 
         test_continuous_levels(page, payloads)
@@ -197,13 +206,38 @@ def main() -> None:
                 page.locator("#advance").click()
             page.screenshot(path=OUTPUT / filename, full_page=True)
 
+        # Existing nine live-teaching assertions remain, but run ONLY against
+        # the local instructor build. The public build must reject ?teacher=1.
         for level, route in [(3, "probabilidad-basica.html?concept=event"), (4, "confusion.html?concept=aggregation-bias"), (6, "preparacion-variables.html?concept=leakage"), (7, "matriz-confusion.html?concept=false-negative"), (8, "deteccion-anomalias.html?concept=anomaly-threshold"), (9, "ab-testing.html?concept=effect"), (11, "reproducibilidad.html?concept=versions"), (13, "tools-skills.html?concept=tool-contract"), (14, "incidentes.html?concept=postmortem")]:
-            page.goto(f"{BASE}/labs/level-{level}/{route}&teacher=1", wait_until="networkidle")
+            page.goto(f"{DOCENTE_BASE}/labs/level-{level}/{route}&teacher=1", wait_until="networkidle")
             button = page.get_by_role("button", name="En vivo")
             assert button.count() == 1
             button.click()
             page.get_by_text("Modo docente oculto", exact=True).wait_for()
             assert "filas" in page.locator("#teacherContent").inner_text()
+            page.goto(f"{BASE}/labs/level-{level}/{route}&teacher=1", wait_until="networkidle")
+            assert page.get_by_role("button", name="En vivo").count() == 0
+            assert page.locator("[data-level-teacher], #teacherContent").count() == 0
+
+        # Level 1 side-by-side evidence. Teacher source is unchanged from main.
+        for tag, viewport in (("desktop", {"width": 1440, "height": 900}), ("mobile", {"width": 390, "height": 844})):
+            shots = browser.new_context(viewport=viewport, reduced_motion="reduce")
+            shot = shots.new_page()
+            shot.goto(f"{DOCENTE_BASE}/labs/level-1/alfabetizacion.html?teacher=1", wait_until="networkidle")
+            assert shot.locator('.teacher-panel [data-mode="live"]').count() == 1
+            shot.screenshot(path=OUTPUT / f"level-1-before-{tag}.png", full_page=True)
+            shot.goto(f"{BASE}/labs/level-1/alfabetizacion.html?teacher=1", wait_until="networkidle")
+            assert shot.locator(".teacher-panel, [data-level-teacher]").count() == 0
+            assert shot.get_by_role("link", name="Guía").count() == 0
+            shot.screenshot(path=OUTPUT / f"level-1-after-{tag}.png", full_page=True)
+            shots.close()
+
+        # Level 2 still offers the same instructor contract only in the local build.
+        page.goto(f"{DOCENTE_BASE}/labs/level-2/resumen-numerico.html?concept=mean&teacher=1", wait_until="networkidle")
+        page.get_by_role("button", name="En vivo").click()
+        assert "Guion" in page.locator("#teacherContent").inner_text()
+        page.goto(f"{BASE}/labs/level-2/resumen-numerico.html?concept=mean&teacher=1", wait_until="networkidle")
+        assert page.locator(".teacher, #teacherContent, [data-mode='live']").count() == 0
 
         # Motion enabled uses a real transition; reduced motion disables it.
         motion = browser.new_context(viewport={"width": 1280, "height": 800}, reduced_motion="no-preference")
@@ -251,9 +285,10 @@ def main() -> None:
         mobile.close(); context.close(); browser.close()
 
     server.shutdown(); server.server_close()
+    instructor_server.shutdown(); instructor_server.server_close()
     if console_errors or page_errors:
         raise AssertionError("Errores de navegador:\n" + "\n".join([*console_errors, *page_errors]))
-    print("QA de navegador aprobada: portal, 13 niveles publicados, 197 escenas continuas, 394 ejercicios, modo docente, movimiento, móvil y consola.")
+    print("QA de navegador aprobada: portal, 13 niveles publicados, 197 escenas continuas, 394 ejercicios, modo docente exclusivamente local, separación pública, movimiento, móvil y consola.")
 
 
 if __name__ == "__main__":

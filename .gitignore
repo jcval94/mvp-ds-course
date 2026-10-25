@@ -4,10 +4,13 @@ __pycache__/
 venv/
 .env
 _site/
+_site_docente/
 datasets/_downloads/
 
 # Build portable del portal (se regenera con `python -m harness build`)
 dist/
+
+dist-docente/
 
 # Artefactos regenerables de dominios importados
 capsulas/docs/

@@ -146,6 +146,42 @@ def check_level_themes(root: Path = ROOT, dist: Path = DIST) -> list[str]:
     return errors
 
 
+def check_student_levels(dist: Path = DIST) -> list[str]:
+    """Fail closed if any instructor-only level artifact enters the public output."""
+    errors: list[str] = []
+    catalog = dist / "catalog.json"
+    if catalog.is_file():
+        def has_hash(value: Any) -> bool:
+            if isinstance(value, dict):
+                return any(key.lower().endswith("sha256") or has_hash(child) for key, child in value.items())
+            if isinstance(value, list):
+                return any(has_hash(child) for child in value)
+            return False
+        if has_hash(json.loads(catalog.read_text(encoding="utf-8"))):
+            errors.append("catalog.json: contiene claves sha256 en build de alumnos")
+    labs = dist / "labs"
+    if not labs.is_dir():
+        return ["dist/labs/: faltan los niveles del alumno"]
+    levels = sorted(path for path in labs.glob("level-*") if path.is_dir() and path.name.split("-")[-1].isdigit())
+    if not levels:
+        errors.append("dist/labs/: no hay niveles numerados")
+    private_names = {"README.md", "validation.json", "manifest.json"}
+    private_dirs = {"docs", "evals"}
+    source_markers = ("liveTeachingPack", "teacherScript", "teacherContent", 'data-mode="live"', 'class="teacher"', 'class="teacher-panel"', "Modo docente oculto")
+    for level in levels:
+        for file in level.rglob("*"):
+            rel = file.relative_to(dist).as_posix()
+            if (file.is_dir() and file.name in private_dirs) or (file.is_file() and file.name in private_names):
+                errors.append(f"{rel}: material docente/interno en build de alumnos")
+            if file.suffix in {".html", ".js"} and file.is_file():
+                data = file.read_text(encoding="utf-8", errors="replace")
+                if file.suffix == ".html" and "data-student-layout" not in data:
+                    errors.append(f"{rel}: no tiene sello de build de alumno")
+                if any(marker in data for marker in source_markers):
+                    errors.append(f"{rel}: conserva interfaz o contenido docente")
+    return errors
+
+
 def run(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     dist = dist or (root / "dist")
     if not (dist / "index.html").exists():
@@ -153,6 +189,7 @@ def run(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     course = load_course(root)
     errors = check_links(dist) + check_portability(dist, course) + check_level_themes(root, dist)
     errors += check_seo(course, root, dist)
+    errors += check_student_levels(dist)
     budget_errors, report = check_budgets(course, dist)
     errors += budget_errors
     if errors:
