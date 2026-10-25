@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from datetime import date
 import os
@@ -10,6 +11,7 @@ from pathlib import Path
 import shutil
 import stat
 
+from student_publication import studentize_level
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = (ROOT / "_site").resolve()
@@ -47,7 +49,7 @@ def load_approved(path: Path) -> tuple[dict[str, object], dict[str, object]]:
 
 def reset_build() -> None:
     expected_parent = ROOT.resolve()
-    if BUILD.parent != expected_parent or BUILD.name != "_site":
+    if BUILD.parent != expected_parent or BUILD.name not in {"_site", "_site_docente"}:
         raise SystemExit(f"Ruta de build insegura: {BUILD}")
     if BUILD.exists():
         def remove_readonly(function, path, error_info):
@@ -116,7 +118,9 @@ def apply_course_theme(destination: Path, level_number: int, themes: dict[str, o
     return True
 
 
-def main() -> None:
+def main(*, docente: bool = False) -> None:
+    global BUILD
+    BUILD = (ROOT / ("_site_docente" if docente else "_site")).resolve()
     reset_build()
     shutil.copytree(SITE_SOURCE, BUILD, dirs_exist_ok=True)
     # El portal usa los tokens del sistema visual; se publican junto a él.
@@ -132,6 +136,8 @@ def main() -> None:
         shutil.copytree(path, destination)
         normalize_lab_home_links(destination)
         apply_course_theme(destination, int(manifest["level"]), themes)
+        if not docente:
+            studentize_level(destination, int(manifest["level"]))
         level = {
             **manifest,
             "entrypoint": f"labs/level-{manifest['level']}/{manifest['entrypoint']}",
@@ -143,6 +149,18 @@ def main() -> None:
                 for block in manifest["blocks"]
             ],
         }
+        if not docente:
+            # Validation stays a build gate, but its file and internal hashes do not ship.
+            level.pop("validation", None)
+            def strip_hashes(value: object) -> None:
+                if isinstance(value, dict):
+                    value.pop("sha256", None)
+                    for child in value.values():
+                        strip_hashes(child)
+                elif isinstance(value, list):
+                    for child in value:
+                        strip_hashes(child)
+            strip_hashes(level)
         levels.append(level)
         validations.append(validation)
 
@@ -194,4 +212,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Build de alumno o docente sin editar generated/")
+    parser.add_argument("--docente", action="store_true", help="Build local con material docente en _site_docente/")
+    main(docente=parser.parse_args().docente)
