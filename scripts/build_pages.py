@@ -131,6 +131,7 @@ def apply_timing(levels: list[dict[str, object]], timing: dict[str, object]) -> 
         "per_concept": per,
         "transfer_from_level": transfer_from,
         "live_class": timing["clase_en_vivo"],
+        "live_total": int(timing["clase_en_vivo"]["sesiones"]) * int(timing["clase_en_vivo"]["duracion_min"]),
         "note": timing["nota"],
     }
 

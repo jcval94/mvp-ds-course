@@ -13,6 +13,7 @@
   },
   "clase_en_vivo": {
     "duracion_min": 180,
+    "sesiones": 22,
     "partes": [
       { "id": "apertura", "titulo": "Apertura y repaso de la tarea", "min": 10 },
       { "id": "caso", "titulo": "Caso real: la decisión y las primeras hipótesis", "min": 25 },

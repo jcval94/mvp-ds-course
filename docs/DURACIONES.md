@@ -13,7 +13,7 @@ archivo y se vuelve a construir.
 
 | Dónde | Qué muestra |
 | --- | --- |
-| Portada · barra de cifras | Tiempo total estimado del curso |
+| Portada · barra de cifras | Horas del curso en vivo (`clase_en_vivo.sesiones` × `duracion_min`) y horas estimadas del material total (los 13 niveles) |
 | Portada · catálogo | Por nivel: tiempo total, caso real del módulo (con su estado), misión, tiempo por concepto y casos de banco que se usan en clase. Por bloque: conceptos y tiempo |
 | Cada página de bloque | Aviso al inicio del contenido (no flota, para no tapar controles): tiempo del bloque y minutos por lección, ejercicio guiado y transferencia (`site/tiempos-lab.js`) |
 | Mi avance · próxima clase | «Cómo se reparte la clase» con minutos por parte |

@@ -67,3 +67,12 @@ def test_missing_block_minutes_would_fail() -> None:
     del broken["modelo"]["min_por_concepto"]["aprender"]
     with pytest.raises(KeyError):
         apply_timing(levels(), broken)
+
+
+def test_live_course_total_matches_generation_decisions() -> None:
+    timing = apply_timing(levels(), copy.deepcopy(TIMING))
+    clase = TIMING["clase_en_vivo"]
+    assert timing["live_total"] == clase["sesiones"] * clase["duracion_min"]
+    decisiones = (ROOT / "docs" / "DECISIONES_GENERACION_1.md").read_text(encoding="utf-8")
+    assert f"{clase['sesiones']} clases de {clase['duracion_min'] // 60} horas" in decisiones
+    assert f"**{timing['live_total'] // 60} horas**" in decisiones

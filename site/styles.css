@@ -98,7 +98,7 @@ main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
 .section-head.center .section-lead { margin-inline: auto; }
 
 /* Indicadores */
-.summary-rail { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
+.summary-rail { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); }
 .summary-rail div { padding: 0 24px; border-left: 1px solid var(--line); min-width: 0; }
 .summary-rail div:first-child { padding-left: 0; border-left: 0; }
 .summary-rail dt { color: var(--muted); font-size: 12px; margin-bottom: 8px; }

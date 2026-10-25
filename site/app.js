@@ -44,7 +44,8 @@
     ["Conceptos verificados", catalog.totals.concepts],
     ["Ejercicios", catalog.totals.exercises],
     ["Niveles", catalog.levels.length],
-    ["Tiempo estimado", catalog.timing ? `≈ ${Math.round(catalog.timing.total / 60)} h` : "—"],
+    ["Curso en vivo", catalog.timing && catalog.timing.live_total ? `${Math.round(catalog.timing.live_total / 60)} h` : "—"],
+    ["Material total", catalog.timing ? `≈ ${Math.round(catalog.timing.total / 60)} h` : "—"],
     ["Actualizado", catalog.updated_at],
   ];
   summary.forEach(([label, value]) => {
