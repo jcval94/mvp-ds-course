@@ -56,9 +56,9 @@ def _git(*args: str, root: Path) -> str:
         return "unknown"
 
 
-def build_factory(root: Path) -> None:
+def build_factory(root: Path, *, docente: bool = False) -> None:
     """Run the existing factory build unchanged; it writes _site/."""
-    result = subprocess.run([sys.executable, "scripts/build_pages.py"], cwd=root, capture_output=True, text=True)
+    result = subprocess.run([sys.executable, "scripts/build_pages.py", *(["--docente"] if docente else [])], cwd=root, capture_output=True, text=True)
     if result.returncode != 0:
         raise HarnessError("La fábrica no construyó _site/:\n" + result.stdout + result.stderr)
 
@@ -132,21 +132,21 @@ def file_inventory(dist: Path) -> list[dict[str, Any]]:
     return inventory
 
 
-def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
-    dist = dist or (root / "dist")
+def build(root: Path = ROOT, dist: Path | None = None, *, docente: bool = False) -> dict[str, Any]:
+    dist = dist or (root / ("dist-docente" if docente else "dist"))
     course = load_course(root)
     components = course["components"]
 
-    seo_base = base_url(course)
-    build_factory(root)
-    # Enrich the disposable factory output before copying it, preserving the
-    # existing byte-parity contract between _site/ and its published dist/ copy.
-    inject_metadata(root / LEGACY_BUILD.name, seo_base)
-    _remove_tree(dist, root, "dist")
+    build_factory(root, docente=docente)
+    if not docente:
+        seo_base = base_url(course)
+        # Preserve factory/dist metadata parity only for the published student build.
+        inject_metadata(root / LEGACY_BUILD.name, seo_base)
+    _remove_tree(dist, root, "dist-docente" if docente else "dist")
     dist.mkdir()
 
     # 1. Fábrica existente: mismas rutas que hoy publica GitHub Pages.
-    _copy_tree(root / LEGACY_BUILD.name, dist, skip_docs=False, forbid_overwrite=False)
+    _copy_tree(root / ("_site_docente" if docente else LEGACY_BUILD.name), dist, skip_docs=False, forbid_overwrite=False)
     # 2. Capa nueva del portal (misiones, 404).
     if components["portal"]["publish"]:
         _copy_tree(root / components["portal"]["path"], dist / components["portal"]["mount"], skip_docs=True, forbid_overwrite=True)
@@ -161,7 +161,8 @@ def build(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     publish_mission_apps(missions, course, root, dist)
     _write_json(dist / "missions.json", {"schema_version": 1, "course": course["course"]["id"], "missions": missions})
 
-    seo_todos = write_seo(course, root, dist)
+    # The offline instructor output is never indexed or checked as a public site.
+    seo_todos = [] if docente else write_seo(course, root, dist)
     inventory = file_inventory(dist)
     info = {
         "schema_version": 1,
