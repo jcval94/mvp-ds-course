@@ -15,7 +15,7 @@ archivo y se vuelve a construir.
 | --- | --- |
 | Portada · barra de cifras | Tiempo total estimado del curso |
 | Portada · catálogo | Por nivel: tiempo total, caso real del módulo (con su estado), misión, tiempo por concepto y casos de banco que se usan en clase. Por bloque: conceptos y tiempo |
-| Cada página de bloque | Aviso flotante: tiempo del bloque y minutos por lección, ejercicio guiado y transferencia (`site/tiempos-lab.js`) |
+| Cada página de bloque | Aviso al inicio del contenido (no flota, para no tapar controles): tiempo del bloque y minutos por lección, ejercicio guiado y transferencia (`site/tiempos-lab.js`) |
 | Mi avance · próxima clase | «Cómo se reparte la clase» con minutos por parte |
 | Mi avance · tarjeta de cada caso | Minutos que faltan para terminar el caso |
 
