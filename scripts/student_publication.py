@@ -18,8 +18,9 @@ STUDENT_LAYOUT = {
 @media (min-width:921px) and (max-width:1180px){.app-layout{grid-template-columns:210px minmax(0,1fr)}}
 """,
     2: "@media (min-width:1101px){.layout{grid-template-columns:220px minmax(0,1fr)}}",
+    3: "@media (min-width:1181px){.level-shell{grid-template-columns:220px minmax(0,1fr)}}",
 }
-CONTINUOUS_LAYOUT = "@media (min-width:1181px){.level-shell{grid-template-columns:220px minmax(0,1fr)}}"
+CONTINUOUS_LAYOUT = "@media (min-width:1051px){.level-shell{grid-template-columns:230px minmax(0,1fr)}}"
 TEACHER_ASIDE = re.compile(r'<aside class="teacher(?:-panel)?"[^>]*>.*?</aside>', re.S)
 GUIDE_LINK = re.compile(r'<a\b[^>]*href="README\.md"[^>]*>.*?</a>', re.S)
 
