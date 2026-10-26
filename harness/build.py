@@ -145,6 +145,10 @@ def build(root: Path = ROOT, dist: Path | None = None, *, docente: bool = False)
         seo_base = base_url(course)
         # Preserve factory/dist metadata parity only for the published student build.
         inject_metadata(root / LEGACY_BUILD.name, seo_base)
+    if not docente:
+        # Accesibilidad no visual solo para páginas generadas y cápsulas (site/ se corrige en su marcado).
+        from .a11y.inject import inject
+        inject(root / LEGACY_BUILD.name)
     _remove_tree(dist, root, "dist-docente" if docente else "dist")
     dist.mkdir()
 
@@ -162,6 +166,8 @@ def build(root: Path = ROOT, dist: Path | None = None, *, docente: bool = False)
 
     missions = public_missions(course, root)
     publish_mission_apps(missions, course, root, dist)
+    if not docente:
+        inject(dist)
     _write_json(dist / "missions.json", {"schema_version": 1, "course": course["course"]["id"], "missions": missions})
 
     # The offline instructor output is never indexed or checked as a public site.

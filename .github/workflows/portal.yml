@@ -26,6 +26,9 @@ jobs:
           python -m pip install --disable-pip-version-check -r harness/requirements.txt
           python -m playwright install --with-deps chromium
 
+      - name: Install pinned axe-core
+        run: npm install --prefix harness/a11y --no-save --no-package-lock --ignore-scripts axe-core@4.10.3
+
       - name: Validate contracts, design tokens and repo hygiene
         run: python -m harness validate
 
@@ -38,8 +41,28 @@ jobs:
       - name: Check links, portability and size budgets
         run: python -m harness check
 
+      - name: Load main baseline for non-increasing contrast guard
+        run: git fetch --depth=1 origin main:refs/remotes/origin/main
+
       - name: Smoke tests at "/" and "/mvp-ds-course/"
+        env:
+          A11Y_COMPARE: ${{ github.event_name == 'pull_request' }}
         run: python -m harness smoke
+
+      - name: Existing page QA (no relaxed thresholds)
+        run: python scripts/qa_pages.py
+
+      - name: Existing student experience QA
+        run: python scripts/qa_student_experience.py
+
+      - name: Upload accessibility evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: accessibility-report
+          path: output/a11y/
+          retention-days: 14
+          if-no-files-found: warn
 
       - name: Upload dist/
         uses: actions/upload-artifact@v6
