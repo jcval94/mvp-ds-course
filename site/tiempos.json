@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "nota": "Estimaciones de trabajo para un alumno principiante. Se recalibran con los tiempos reales que registra la base (eventos de los cuadernos). Fuente única: este archivo; scripts/build_pages.py calcula bloques, niveles y totales a partir de él.",
+  "modelo": {
+    "min_por_concepto": {
+      "aprender": 20,
+      "ejercicio_guiado": 10,
+      "transferencia": 15,
+      "repaso": 5
+    },
+    "transferencia_desde_nivel": 2,
+    "mision_ancla_min": 75
+  },
+  "clase_en_vivo": {
+    "duracion_min": 180,
+    "sesiones": 22,
+    "partes": [
+      { "id": "apertura", "titulo": "Apertura y repaso de la tarea", "min": 10 },
+      { "id": "caso", "titulo": "Caso real: la decisión y las primeras hipótesis", "min": 25 },
+      { "id": "herramienta", "titulo": "Herramienta guiada en vivo", "min": 50 },
+      { "id": "mision", "titulo": "Misión en Colab, en parejas", "min": 35 },
+      { "id": "transferencia", "titulo": "Transferencia y discusión", "min": 25 },
+      { "id": "cierre", "titulo": "Revelación del caso, qué enseña y bits", "min": 20 },
+      { "id": "descanso", "titulo": "Descanso", "min": 15 }
+    ]
+  },
+  "casos": {
+    "1.1": { "titulo": "Wald y los bombarderos", "estado": "en_preparacion" },
+    "2.1": { "titulo": "John Snow y el cólera", "estado": "planeado" },
+    "4.1": { "titulo": "Semmelweis", "estado": "construido", "min": 80 },
+    "4.2": { "titulo": "Berkeley", "estado": "construido", "min": 70 },
+    "13.3": { "titulo": "COVID perdidos en Excel", "estado": "planeado" },
+    "8.1": { "titulo": "Árbol del dolor de pecho", "estado": "planeado" },
+    "8.8": { "titulo": "Subsidios en Países Bajos", "estado": "planeado" },
+    "9.1": { "titulo": "Tesco Clubcard", "estado": "planeado" },
+    "5.2": { "titulo": "Google y los tonos de azul", "estado": "planeado" },
+    "14.1": { "titulo": "COMPAS", "estado": "planeado" },
+    "13.4": { "titulo": "Knight Capital", "estado": "planeado" },
+    "12.6": { "titulo": "Chatbot de Air Canada", "estado": "planeado" },
+    "15.4": { "titulo": "Agente de Replit", "estado": "por_verificar" }
+  },
+  "niveles": {
+    "1": { "ancla": "1.1", "banco": ["1.2 Literary Digest", "13.7 Genes convertidos en fechas"] },
+    "2": { "ancla": "2.1", "banco": ["2.2 Nightingale en Crimea"] },
+    "3": { "ancla": "4.1", "banco": ["3.1 Sally Clark", "3.3 Air France 447", "3.2 Tanques alemanes", "3.4 Ulam y Monte Carlo", "4.3 Escuelas pequeñas"] },
+    "4": { "ancla": "4.2", "banco": ["4.4 Instructores de Israel", "2.3 Challenger", "6.1 Doll y Hill", "6.2 Terapia hormonal"] },
+    "5": { "ancla": "13.3", "banco": ["13.1 Mars Climate Orbiter"] },
+    "6": { "ancla": "8.1", "banco": ["8.4 Netflix Prize", "12.8 AlexNet", "7.1 Moneyball", "8.2 Framingham", "8.3 Target"] },
+    "7": { "ancla": "8.8", "banco": ["10.2 Pronóstico del Día D", "12.3 Plan contra el spam", "8.6 Mantequilla de Bangladesh", "8.7 El sesgo húmedo"] },
+    "8": { "ancla": "9.1", "banco": ["12.1 El Federalista", "12.2 Rowling y Galbraith", "9.2 Madoff", "9.3 Benford y Grecia", "9.4 Los \"me gusta\""] },
+    "9": { "ancla": "5.2", "banco": ["5.1 Lind y el escorbuto", "5.4 Anuncios de Bing", "5.6 Optimizely", "10.1 Walmart y los huracanes", "10.3 Google Flu Trends"] },
+    "11": { "ancla": "14.1", "banco": ["14.5 Apple Card", "14.6 Italia suspende ChatGPT", "14.2 Amazon", "14.3 Calificaciones de Inglaterra 2020", "13.2 Reinhart y Rogoff"] },
+    "12": { "ancla": "13.4", "banco": [] },
+    "13": { "ancla": "12.6", "banco": ["15.3 Chevy Tahoe de un dólar", "12.7 Avianca", "15.1 Morgan Stanley", "15.2 BloombergGPT"] },
+    "14": { "ancla": "15.4", "banco": ["13.5 Retinopatía en Tailandia", "13.6 Zillow Offers"] }
+  }
+}

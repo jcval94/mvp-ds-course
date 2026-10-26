@@ -79,6 +79,63 @@ def format_spanish_date(value: str) -> str:
     return f"{parsed.day} de {months[parsed.month - 1]} de {parsed.year}"
 
 
+def add_timing_script(path: Path) -> None:
+    """Agrega a cada página de bloque el aviso de tiempo estimado (site/tiempos-lab.js)."""
+    tag = '<script src="../../tiempos-lab.js" defer></script>'
+    for html in path.glob("*.html"):
+        text = html.read_text(encoding="utf-8")
+        if "data-module=" not in text or tag in text:
+            continue
+        html.write_text(text.replace("</body>", tag + "</body>", 1), encoding="utf-8")
+
+
+def apply_timing(levels: list[dict[str, object]], timing: dict[str, object]) -> dict[str, object]:
+    """Calcula minutos por bloque, nivel y curso a partir de site/tiempos.json (estimaciones)."""
+    per = timing["modelo"]["min_por_concepto"]
+    transfer_from = int(timing["modelo"]["transferencia_desde_nivel"])
+    mission_default = int(timing["modelo"]["mision_ancla_min"])
+    cases = timing["casos"]
+    total = {"conceptos": 0, "misiones": 0}
+    for level in levels:
+        number = int(level["level"])
+        has_transfer = number >= transfer_from
+        per_concept = per["aprender"] + per["ejercicio_guiado"] + per["repaso"] + (per["transferencia"] if has_transfer else 0)
+        concept_minutes = 0
+        for block in level["blocks"]:
+            block["exercise_count"] = block.get("exercise_count") or block["concept_count"] * (2 if has_transfer else 1)
+            block["minutes"] = block["concept_count"] * per_concept
+            concept_minutes += block["minutes"]
+        plan = timing["niveles"].get(str(number))
+        mission_minutes = 0
+        if plan:
+            anchor_id = plan["ancla"]
+            anchor = cases.get(anchor_id, {})
+            mission_minutes = int(anchor.get("min", mission_default))
+            level["case"] = {
+                "id": anchor_id,
+                "title": anchor.get("titulo"),
+                "status": anchor.get("estado", "planeado"),
+                "minutes": mission_minutes,
+                "bank": plan["banco"],
+            }
+        level["minutes"] = {
+            "per_concept": per_concept,
+            "concepts": concept_minutes,
+            "mission": mission_minutes,
+            "total": concept_minutes + mission_minutes,
+        }
+        total["conceptos"] += concept_minutes
+        total["misiones"] += mission_minutes
+    return {
+        "total": total["conceptos"] + total["misiones"],
+        "per_concept": per,
+        "transfer_from_level": transfer_from,
+        "live_class": timing["clase_en_vivo"],
+        "live_total": int(timing["clase_en_vivo"]["sesiones"]) * int(timing["clase_en_vivo"]["duracion_min"]),
+        "note": timing["nota"],
+    }
+
+
 def normalize_lab_home_links(path: Path) -> None:
     """Point source-friendly HOME links back to the published portal."""
     for html in path.rglob("*.html"):
@@ -148,6 +205,7 @@ def main(*, docente: bool = False) -> None:
         destination = BUILD / "labs" / f"level-{manifest['level']}"
         shutil.copytree(path, destination)
         normalize_lab_home_links(destination)
+        add_timing_script(destination)
         apply_course_theme(destination, int(manifest["level"]), themes)
         if not docente:
             studentize_level(destination, int(manifest["level"]))
@@ -186,6 +244,7 @@ def main(*, docente: bool = False) -> None:
     shutil.copytree(ROOT / "evals", methodology / "evals")
     shutil.copytree(ROOT / "docs" / "placement", BUILD / "placement")
 
+    timing = apply_timing(levels, json.loads((SITE_SOURCE / "tiempos.json").read_text(encoding="utf-8")))
     totals = {
         "concepts": sum(level["concept_count"] for level in levels),
         "exercises": sum(level["exercise_count"] for level in levels),
@@ -197,6 +256,7 @@ def main(*, docente: bool = False) -> None:
             max(level["updated_at"] for level in levels)
         ),
         "totals": totals,
+        "timing": timing,
         "levels": levels,
         "datasets": registry["datasets"],
         "validation": {
