@@ -1,15 +1,32 @@
-# DataClass Forge
+# The Agentic Data Scientist
 
-DataClass Forge es una fábrica documental asistida por agentes para crear material educativo de ciencia de datos.
+Curso de ciencia de datos e IA de **Augmented Learning Labs** para adultos que
+empiezan desde cero. Se aprende resolviendo decisiones de casos reales (Wald y
+los bombarderos, Semmelweis, Berkeley 1973…): primero el criterio, después la
+herramienta. Sitio oficial: <https://learninglabs.pages.dev>.
 
-No es un LMS. Define currículo, conceptos, experiencias, evaluaciones y prompts,
-y publica los resultados validados como laboratorios estáticos.
+Este repositorio es el **monorepo público del curso**. Contiene el portal, los
+laboratorios por nivel, las intros de los casos, las misiones y el harness que
+construye y valida el sitio. También contiene la **fábrica de niveles**, la
+herramienta interna con la que se producen los laboratorios.
 
-## Monorepo del curso
+## El producto
 
-Desde F0 (2026-10-05) este repo también es el monorepo del curso por casos:
-fábrica de niveles, misiones, casos históricos, cápsulas, kits, sistema visual,
-portal y harness. Arquitectura: [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md).
+- **Curso en vivo (producto principal).** Generación 1 del 8 de enero al 20 de
+  marzo de 2027: 22 clases de 3 horas por Google Meet, 10 módulos, un caso real
+  por clase y misiones en Colab que se califican. Fechas, precios y condiciones:
+  [docs/DECISIONES_GENERACION_1.md](docs/DECISIONES_GENERACION_1.md). Qué caso va
+  en cada clase: [docs/ESTRUCTURA_GENERACION_1.md](docs/ESTRUCTURA_GENERACION_1.md).
+- **Biblioteca de laboratorios.** 13 niveles publicados (236 conceptos, 454
+  ejercicios). Los niveles 1 y 2 son gratis; del 3 en adelante requieren
+  inscripción o plan de pago. Son práctica opcional de cada módulo y no se
+  califican.
+- **Área del alumno y administración.** Inicio de sesión, Mi avance, inscripción
+  con Stripe y paneles de docente y administración. El backend (Supabase, retos,
+  rúbricas y calificación) vive en un repositorio privado; aquí solo está el
+  cliente.
+
+## Cómo se construye
 
 ```powershell
 python -m pip install -r harness/requirements.txt
@@ -17,160 +34,57 @@ python -m playwright install chromium
 python -m harness all        # validate → build → check → smoke
 ```
 
-El sitio publicable queda en `dist/`: estático, reproducible y portable entre
-hostings. Se publica en Cloudflare Pages (`learninglabs.pages.dev`); la URL anterior de
-GitHub Pages solo redirige ahí ([docs/architecture/DEPLOYMENT.md](docs/architecture/DEPLOYMENT.md)).
+`dist/` es el sitio publicable: estático, reproducible y sin datos de alumnos.
+Al fusionar en `main`, la CI lo publica en Cloudflare Pages; la URL anterior de
+GitHub Pages solo redirige. Los niveles de pago los protege una Pages Function.
+Detalles: [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md)
+y [docs/architecture/DEPLOYMENT.md](docs/architecture/DEPLOYMENT.md).
 
-## Qué genera
+`python -m harness build --docente` genera en local `dist-docente/` con el
+material para el docente (guiones, checklists, modo En vivo). Ese build nunca se
+publica.
 
-Para un concepto de ciencia de datos produce:
+## Dónde está cada cosa
 
-1. **ConceptSpec:** objetivo, prerrequisitos, intuición, errores, visual y dataset.
-2. **Aprender:** módulo explicativo visual y progresivo.
-3. **Ejercitar:** caso con evidencia, interacción y feedback.
-4. **Enseñar en vivo:** guion, datos, demo, preguntas, evaluación y plan offline.
+| Carpeta | Qué contiene |
+| --- | --- |
+| `site/` | Portal: portada, inscripción, Mi avance, paneles, términos y aviso de privacidad |
+| `site/casos/` | Intros animadas de los casos (motor 8 bits y una carpeta por caso) |
+| `generated/` | Paquetes aprobados de los niveles; los produce la fábrica y no se editan a mano |
+| `missions/`, `kits/` | Misiones web y cuadernos de Colab por caso |
+| `clases/` | Mapa de conceptos por clase y etapa de la Generación 1 |
+| `casos/` | Catálogo de casos y datos de cada caso, con procedencia y hash |
+| `capsulas/` | Cápsulas narrativas cortas |
+| `design/` | Sistema visual: tokens, componentes y temas |
+| `harness/`, `schemas/` | Build, validaciones y pruebas |
+| `deploy/` | Capa de deployment (Cloudflare) |
+| `docs/` | Decisiones, arquitectura, currículo, historias, revisiones |
+| `.agents/skills/`, `evals/`, `templates/` | Herramientas de la fábrica de niveles |
+| `studio/` | Videos con Remotion |
 
-## Usuario inicial
+## La fábrica de niveles
 
-Profesor o creador de cursos introductorios e intermedios de ciencia de datos en español.
+Cada nivel de la biblioteca se produce en tres capas, en este orden: temario
+([docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md)), historia aprobada
+(`docs/stories/LEVEL_<N>.md`, con Don Juan y Paco) y paquete educativo
+(ConceptSpec → Aprender / Ejercitar / Enseñar en vivo → `generated/` → evals).
+El orden completo y sus puertas de calidad están en
+[docs/pipeline/README.md](docs/pipeline/README.md) y en la sección «Fábrica de
+niveles» de [AGENTS.md](AGENTS.md).
 
-## Pipeline obligatorio
+Ese flujo aplica solo a crear o modificar niveles. Los casos, misiones y
+cuadernos siguen [docs/CRITERIO_PRIMERO.md](docs/CRITERIO_PRIMERO.md), y los
+cambios de portal, harness o CI siguen [AGENTS.md](AGENTS.md).
 
-Cada nivel se produce en tres capas separadas y en este orden:
+## Agentes
 
-```text
-1. TEMARIO PREDETERMINADO
-   docs/CURRICULUM_MAP.md
-   -> conceptos, orden, prerrequisitos y resultado
-
-2. HISTORIA INDEPENDIENTE
-   docs/stories/LEVEL_<N>.md
-   -> escenas, voces, subtítulos, evidencia y continuidad
-
-3. NIVEL EDUCATIVO
-   ConceptSpec -> Aprender / Ejercitar / En vivo
-   -> generated/<paquete>/ -> evals -> publicación
-```
-
-No se escribe la historia dentro del HTML y no se implementa un nivel cuya
-historia siga en borrador. Las fallas se corrigen en la fuente más temprana y se
-propagan hacia adelante.
-
-Consulta el orden completo, las puertas de calidad y los comandos de validación
-en [docs/pipeline/README.md](docs/pipeline/README.md).
-
-## Temario
-
-El mapa curricular incluye:
-
-- fundamentos y calidad de datos;
-- estadística descriptiva y visualización;
-- probabilidad, muestreo e inferencia;
-- relaciones y correlación;
-- sistemas de datos modernos y SQL;
-- regresión y clasificación;
-- evaluación de modelos;
-- clustering y anomalías;
-- series de tiempo;
-- A/B testing;
-- ética, comunicación y reproducibilidad;
-- mini-proyectos.
-- ingeniería de productos de datos;
-- ingeniería de sistemas de IA;
-- operación y monitoreo responsable.
-
-Consulta [docs/CURRICULUM_MAP.md](docs/CURRICULUM_MAP.md).
-
-## Cobertura publicada
-
-- **Nivel 1 · Fundamentos:** 18 conceptos y 18 ejercicios.
-- **Nivel 2 · Descripción y visualización:** 21 conceptos y 42 ejercicios.
-- **Nivel 3 · Probabilidad e inferencia:** 19 conceptos y 38 ejercicios.
-- **Nivel 4 · Relaciones y contexto:** 15 conceptos y 30 ejercicios.
-- **Nivel 5 · Sistemas de Datos Modernos y SQL:** 19 conceptos y 38 ejercicios.
-- **Nivel 6 · Modelado supervisado:** 18 conceptos y 36 ejercicios.
-- **Nivel 7 · Evaluación de modelos:** 24 conceptos y 48 ejercicios.
-- **Nivel 8 · Aprendizaje no supervisado:** 10 conceptos y 20 ejercicios.
-- **Nivel 9 · Datos temporales y experimentación:** 14 conceptos y 28 ejercicios.
-- **Nivel 11 · Análisis responsable y reproducible:** 17 conceptos y 34 ejercicios.
-- **Nivel 12 · Ingeniería de Productos de Datos:** 21 conceptos y 42 ejercicios.
-- **Nivel 13 · Ingeniería de Sistemas de IA:** 24 conceptos y 48 ejercicios.
-- **Nivel 14 · Operación y monitoreo responsable:** 16 conceptos y 32 ejercicios.
-- **Total:** 236 conceptos, 454 ejercicios y 708 prompts para Codex, Gemini y ChatGPT.
-
-La ruta oficial contiene 14 niveles: 13 con contenido completo, validado y
-publicado, y el Nivel 10 · Causalidad y métricas de decisión con temario canónico
-en diseño. Los Niveles 5 y 12 ocupan sus posiciones curriculares
-canónicas; el nuevo Nivel 13 inserta sistemas de IA trazables entre producto
-operable y operación responsable.
-
-Los trece niveles publicados conservan la continuidad aprobada de Don Juan y
-Paco. Aprender y Ejercitar usan pedidos ficticios versionados del puesto; En
-vivo conserva snapshots públicos reales con procedencia, licencia y SHA-256.
-
-Cada concepto conserva Aprender, Ejercitar y Enseñar en vivo, además de revisión
-técnica y pedagógica.
-
-## Inspiraciones
-
-`concepro_histograma.html` y `ejercicios_histograma.html` muestran el nivel de profundidad esperado: construcción visual, comparación, narrativa, interacción y feedback. Son referencias de inspiración, no plantillas ni dependencias.
-
-## Estructura
-
-- `IDEA.md`: misión y decisiones iniciales.
-- `docs/`: brief, PRD, currículo, specs, plan, prompts, Story Bible, arcos y ledger.
-- `docs/stories/`: una historia canónica y aprobable por nivel.
-- `docs/pipeline/`: orden de producción, puertas y Definition of Done.
-- `.agents/skills/`: skills ejecutables.
-- `scripts/assets/`: shell común y registro SVG cerrado para niveles publicados.
-- `evals/`: rubricas, checklists y regresiones.
-- `templates/`: estructuras reutilizables.
-- `examples/`: casos de entrada y salidas esperadas.
-- `generated/`: prototipos y proyectos derivados históricos.
-- `datasets/`: snapshots públicos, metadatos, licencias y hashes.
-- `site/`: portal minimalista de resultados.
-- `.github/workflows/pages.yml`: validación, build y publicación automática.
-- `reference/`: referencias no bloqueantes.
-- `scripts/`: utilidades de la fábrica.
-
-## Uso con Codex
-
-```text
-Lee AGENTS.md, IDEA.md y docs/CURRICULUM_MAP.md. Congela primero el temario del
-nivel; crea y aprueba después `docs/stories/LEVEL_<N>.md`; solo entonces usa
-.agents/skills para producir ConceptSpecs, Aprender, Ejercitar y En vivo.
-Prefiere un snapshot público con licencia, genera ejercicios dependientes de
-evidencia y valida con `evals/`.
-```
-
-## Definition of Ready
-
-Un paquete está listo cuando:
-
-- tiene objetivo, nivel y prerrequisitos;
-- los tres modos comparten una `ConceptSpec`;
-- el visual representa el mecanismo;
-- el manifest declara `level-shell-v1` y el renderer coincide con el `VisualizationSpec`;
-- el ejercicio depende de evidencia;
-- cada distractor tiene feedback;
-- el paquete docente tiene plan offline;
-- la revisión técnica no detecta errores;
-- el promedio es 4 o más sin dimensiones en 1;
-- no hay placeholders fuera de templates.
+Antes de trabajar aquí, lee [AGENTS.md](AGENTS.md). Si eres un agente
+colaborador, lee primero [docs/agents/COLABORADOR.md](docs/agents/COLABORADOR.md).
 
 ## No objetivos
 
-- LMS.
-- Cuentas o calificaciones.
-- Backend o base de datos.
-- Ejecución de LLMs desde los laboratorios.
-- Publicación de material que no haya pasado los evals.
-- Curso completo en una sola ejecución.
-
-## Crear un proyecto derivado
-
-```powershell
-python scripts/scaffold_mvp.py mi-material-ds
-```
-
-El script crea una base documental. La carpeta `app/` queda reservada hasta aprobar la vertical slice.
+- Ejecutar modelos de IA desde los laboratorios o el portal.
+- Guardar en este repositorio público respuestas de retos, rúbricas, datos de
+  alumnos o credenciales.
+- Publicar material que no pasó las validaciones del harness o los evals.
+- Mezclar el material docente con el build del alumno.

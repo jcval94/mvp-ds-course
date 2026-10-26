@@ -10,7 +10,7 @@ pregunta.
 ## 1. Qué es esto
 
 **The Agentic Data Scientist**, curso de ciencia de datos de Augmented Learning
-Labs para adultos que **no saben programar** y apenas entran al mundo de los
+Labs para adultos que **empiezan sin saber programar** y apenas entran al mundo de los
 datos. Se enseña con casos históricos reales donde hay que tomar una decisión
 (Wald y los bombarderos, Semmelweis, Berkeley 1973).
 
@@ -58,12 +58,9 @@ Los reportes que lo necesiten van como PR en `agentic-ds-backen`.
 | `casos/`, `missions/`, `kits/`, `capsulas/` | No, salvo que la tarea lo diga |
 | `docs/` | Solo los documentos de tu tarea |
 
-**Ojo con `AGENTS.md` y `CLAUDE.md` raíz:** el «Orden obligatorio de trabajo»
-(Product Brief → PRD → … → 18 pasos) y la regla «no programes producto antes de
-validar la vertical slice documental» aplican a crear material curricular nuevo.
-Para tareas de ingeniería sobre el harness, la CI o el sitio, no regeneres esos
-documentos ni bloquees el trabajo por ellos. La marca vigente es The Agentic Data
-Scientist; «DataClass Forge» es el nombre anterior de la fábrica.
+`AGENTS.md` raíz indica qué flujo aplica según la tarea. El flujo largo de la fábrica
+(Product Brief → PRD → … → evals) solo aplica a crear o modificar niveles de la
+biblioteca, no a tareas de portal, harness o CI.
 
 ## 5. Cómo verificar
 

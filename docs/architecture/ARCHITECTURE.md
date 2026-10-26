@@ -30,7 +30,8 @@ docs/ scripts/ generated/ datasets/ evals/ templates/ .agents/   Fábrica existe
 
 ## Engine público y contenido
 
-Desde F0 la frontera es explícita, aunque todavía no hay autenticación ni backend:
+Desde F0 la frontera es explícita. El inicio de sesión y la puerta de los niveles de pago
+(ver [DEPLOYMENT.md](DEPLOYMENT.md)) no cambian esta separación:
 
 | Engine (público siempre) | Contenido (puede volverse premium) |
 | --- | --- |
