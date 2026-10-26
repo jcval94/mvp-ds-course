@@ -8,7 +8,7 @@
   // estos quedan como respaldo para bases anteriores.
   const CUADERNOS = {
     "1.1": "https://colab.research.google.com/drive/1IORmNL2F4zaOf_bV_EQvi2MN6QxuXfWR",
-    "4.1": "https://colab.research.google.com/drive/1FNfm7Lf5e69Lw3ER5BM8L4jQMrdbyAgQ",
+    "4.1": "https://colab.research.google.com/drive/1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD",
     "4.2": "https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG",
   };
   // Intro animada de cada caso (gancho de 1 minuto, pública): site/casos/<id>/. El caso se resuelve en Colab.
