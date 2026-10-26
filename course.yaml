@@ -10,15 +10,19 @@ course:
   title: Curso de ciencia de datos por casos
   language: es
 
-# Frontera público / premium. Hoy todo es público. El build público solo incluye
+# Frontera público / premium. El build público solo incluye
 # los niveles de acceso listados aquí; el contenido `premium` nunca entra a dist/
 # salvo que un build futuro y privado lo pida explícitamente.
 access:
   default: public
   public_build_includes: [public]
+  # Niveles de /labs/ indexables sin pago. Una prueba exige paridad con el middleware.
+  free_lab_levels: [1, 2]
 
 build:
   dist: dist
+  # Única URL absoluta del build; solo se emite en canonical y sitemap.
+  base_url: https://learninglabs.pages.dev
   # Límites por debajo de GitHub Pages (sitio 1 GB) y Cloudflare Pages
   # (20,000 archivos, 25 MiB por archivo) para poder cambiar de proveedor sin tocar contenido.
   budgets:

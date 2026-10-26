@@ -21,7 +21,7 @@ HOST_COUPLING_MARKERS = ("jcval94.github.io", ".pages.dev")
 # Media that must live outside Git.
 FORBIDDEN_TRACKED_SUFFIXES = {".mp4", ".mov", ".webm", ".mkv", ".zip"}
 # Regenerable outputs that must not be tracked.
-FORBIDDEN_TRACKED_PREFIXES = ("_site/", "dist/", "capsulas/docs/", "studio/node_modules/", "studio/out/", "node_modules/")
+FORBIDDEN_TRACKED_PREFIXES = ("_site/", "_site_docente/", "dist/", "dist-docente/", "capsulas/docs/", "studio/node_modules/", "studio/out/", "node_modules/")
 
 
 class HarnessError(Exception):

@@ -1,0 +1,63 @@
+name: Enlaces externos (semanal)
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: external-links-watch
+  cancel-in-progress: false
+
+jobs:
+  links:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install pinned harness dependencies
+        run: python -m pip install --disable-pip-version-check -r harness/requirements.txt
+      - name: Build dist
+        run: python -m harness build
+      - name: Audit external links
+        id: audit
+        continue-on-error: true
+        run: >-
+          python -m harness links
+          --report "$RUNNER_TEMP/external-links/report.json"
+          --markdown "$RUNNER_TEMP/external-links/report.md"
+      - name: Create, update or resolve the single tracking issue
+        if: ${{ !cancelled() && steps.audit.outcome != 'skipped' }}
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const fs = require('node:fs');
+            const path = require('node:path');
+            const reportDir = path.join(process.env.RUNNER_TEMP, 'external-links');
+            const report = JSON.parse(fs.readFileSync(path.join(reportDir, 'report.json'), 'utf8'));
+            const body = fs.readFileSync(path.join(reportDir, 'report.md'), 'utf8');
+            const track = require(path.join(process.env.GITHUB_WORKSPACE, 'harness/links_issue.cjs'));
+            await track({github, context, report, body});
+      - name: Upload full link report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: external-links-report
+          path: ${{ runner.temp }}/external-links/
+          retention-days: 14
+          if-no-files-found: ignore
+      - name: Preserve audit failure in this independent workflow
+        if: ${{ !cancelled() && steps.audit.outcome == 'failure' }}
+        run: exit 1

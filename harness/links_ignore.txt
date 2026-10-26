@@ -1,0 +1,3 @@
+# Un dominio exacto por línea; sin comodines ni coincidencias por sufijo.
+# Formato obligatorio: dominio # motivo verificable. No ocultar 404/410 aquí.
+www.science.org # 2026-10-24: DOI devuelve HTTP 403 y pantalla Cloudflare «Just a moment...»; revisión manual, también tras redirecciones.

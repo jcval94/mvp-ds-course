@@ -19,13 +19,16 @@ MAIN_PAGES = {
 
 
 def applicable(relative: str) -> bool:
-    return (relative in MAIN_PAGES
-            or bool(re.fullmatch(r"labs/level-[12]/[^/]+\.html", relative))
+    # site/ (MAIN_PAGES) se corrige en su propio marcado; el script solo cubre lo que no se puede editar.
+    return (bool(re.fullmatch(r"labs/level-[12]/[^/]+\.html", relative))
             or (relative == "capsulas/index.html")
             or bool(re.fullmatch(r"capsulas/(?:cases/[^/]+\.html|[^/]+\.html)", relative)))
 
 
-def inject(published: Path, source: Path) -> list[str]:
+SCRIPT = Path(__file__).resolve().parent / "semantic.js"
+
+
+def inject(published: Path, source: Path = SCRIPT) -> list[str]:
     target = published / "a11y" / "semantic.js"
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(source, target)

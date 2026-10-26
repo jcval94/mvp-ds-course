@@ -10,6 +10,8 @@ permissions:
 jobs:
   factory:
     runs-on: ubuntu-24.04
+    env:
+      QA_SCREENSHOT_DIR: output/qa
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -47,6 +49,6 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: factory-qa-screenshots
-          path: output/playwright
-          retention-days: 7
+          path: ${{ env.QA_SCREENSHOT_DIR }}
+          retention-days: 14
           if-no-files-found: ignore

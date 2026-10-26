@@ -1,67 +1,89 @@
 # IDEA.md
 
-## Nombre provisional
+## Nombre
 
-DataClass Forge.
+**The Agentic Data Scientist**, de Augmented Learning Labs. La fábrica interna que
+produce la biblioteca de laboratorios se llamó al inicio «DataClass Forge»; ese
+nombre sobrevive en paquetes históricos de `generated/` y no se usa en páginas
+nuevas.
 
 ## Idea en una frase
 
-Una fábrica documental asistida por agentes que transforma un concepto de ciencia de datos en material educativo visual, narrativamente coherente, con ejercicios con feedback y un paquete listo para enseñar.
+Un curso de ciencia de datos e IA para adultos que empiezan desde cero, en el que
+cada clase gira alrededor de una decisión real y la herramienta llega solo cuando
+el caso la pide.
 
 ## Problema que resuelve
 
-Crear una lección de ciencia de datos de buena calidad exige coordinar objetivos, prerrequisitos, explicación conceptual, datos, visualizaciones, interacción, ejercicios, retroalimentación y guía docente. Hoy ese trabajo suele quedar fragmentado, depender demasiado de la improvisación o producir materiales correctos técnicamente pero débiles pedagógicamente.
+Los cursos introductorios suelen enseñar herramientas antes que criterio: el
+alumno aprende a calcular y graficar, pero no a desconfiar de los datos, elegir
+la comparación correcta ni firmar una decisión. Con agentes de IA que ya escriben
+el código, lo escaso es ese criterio.
 
-## Usuario objetivo
+## Usuarios
 
-Profesor o creador de cursos que prepara material introductorio e intermedio de ciencia de datos en español.
+- **Alumno (principal):** adulto hispanohablante sin experiencia en programación
+  ni en datos; estudiantes, profesionistas que cambian de carrera y gente
+  interesada en IA. No necesita saber programar al entrar: en los cuadernos de Colab trabaja con
+  formularios, y a lo largo del curso escribe código con ayuda de un agente (Codex) que revisa y firma.
+- **Docente:** imparte las clases en vivo y revisa el avance (hoy, un solo docente).
+- **Autor:** produce casos, cuadernos y niveles con ayuda de agentes.
 
-Usuarios secundarios:
+## Producto
 
-- Instructor que imparte talleres en vivo.
-- Mentor que diseña prácticas guiadas.
-- Estudiante autónomo que usa los materiales ya generados.
+- **Curso en vivo:** 22 clases de 3 horas por Google Meet, organizadas en 10
+  módulos (`docs/ESTRUCTURA_GENERACION_1.md`). Cada clase tiene un caso principal
+  y un caso de «el costo del error», con intro animada en la página y misión en
+  Colab. Se califica lo que pasa en Colab.
+- **Biblioteca de laboratorios:** 13 niveles publicados que son práctica opcional
+  de cada módulo; niveles 1 y 2 gratis, el resto con inscripción o plan.
+- **Plataforma:** portal estático en Cloudflare Pages, inicio de sesión, Mi
+  avance, inscripción con Stripe y backend en Supabase (repositorio privado).
+- Requisitos del alumno: laptop con Windows o macOS, cuentas de Google, GitHub y ChatGPT, y GitHub
+  Desktop y Codex instalados (`site/instalacion.html`).
+- Oferta y condiciones de la Generación 1: `docs/DECISIONES_GENERACION_1.md`.
 
-## Resultado esperado
+## Principios
 
-El usuario selecciona un concepto, nivel, contexto y tipo de experiencia, y obtiene un paquete coherente con:
+- Criterio primero (`docs/CRITERIO_PRIMERO.md`): hábito de criterio, apuesta del
+  alumno antes de la herramienta, arco de revelación y Delegar · Verificar · Firmar.
+- Casos reales con fuentes; los mitos populares se corrigen, no se repiten.
+- Los datos simulados se etiquetan siempre.
+- Nadie necesita saber programar al entrar. Los cuadernos de Colab usan formularios; el código que el
+  alumno escribe lo hace con un agente (Codex) y lo revisa y firma él (Delegar · Verificar · Firmar).
+- Nada que permita resolver un reto sin pensarlo llega a una página o un
+  repositorio público.
 
-- módulo explicativo visual;
-- ejercicio interactivo con feedback;
-- guía docente o paquete de enseñanza en vivo;
-- snapshot público con fuente y licencia, o dataset sintético etiquetado cuando no exista una alternativa adecuada;
-- prompts y blueprint de notebook o demo.
-- una continuidad narrativa opcional y verificable entre conceptos y niveles;
-- una competencia transversal de trabajo con agentes que no desplaza el objetivo de ciencia de datos.
+## Señales de éxito
 
-## Señal de éxito inicial
+- La Generación 1 abre con al menos 6 alumnos y termina sus 22 clases.
+- Cada alumno puede explicar por qué una decisión de un caso era correcta o no,
+  con evidencia, y firmarla.
+- Cada caso publicado tiene intro, cuaderno, fuentes verificadas y revisión
+  humana.
 
-- Un docente puede generar y revisar una lección utilizable en menos de 20 minutos.
-- Treinta y nueve conceptos y sesenta ejercicios publicados pasan las evaluaciones pedagógicas con promedio de 4 o más.
-- Los resultados validados se reconstruyen y publican automáticamente en GitHub Pages al actualizar `main`.
-- Un revisor puede rastrear cada actividad hasta un objetivo de aprendizaje y un error común.
+## Restricciones
 
-## Contexto
+- No se ejecutan modelos de IA desde el portal ni los laboratorios; la
+  retroalimentación con LLM queda para una fase posterior.
+- Precisión técnica e histórica y claridad pedagógica son bloqueantes.
+- Material docente, respuestas y rúbricas no se publican en el build del alumno
+  ni en repositorios públicos.
+- El curso se monta de la forma más económica posible: hosting estático y
+  servicios con plan gratuito mientras alcance.
 
-El repositorio nació como una fábrica genérica de documentación para MVPs. Se reenfoca como una fábrica especializada en material educativo de ciencia de datos.
+## Fábrica de niveles
 
-Los archivos `concepro_histograma.html` y `ejercicios_histograma.html` son referencias de inspiración para el nivel de profundidad esperado. Sus patrones valiosos son:
+La biblioteca se produce con una fábrica documental asistida por agentes: a
+partir de un concepto genera `ConceptSpec`, Aprender, Ejercitar y Enseñar en vivo,
+con snapshots públicos con licencia y hash, evaluación pedagógica y técnica, y
+una historia continua. El flujo completo está en `AGENTS.md` (sección «Fábrica de
+niveles») y en `docs/pipeline/README.md`.
 
-- construcción visual paso a paso;
-- manipulación de parámetros como bins;
-- comparación entre distribuciones;
-- narrativa aplicada a un problema;
-- preguntas que requieren observar la visualización;
-- distractores plausibles y feedback específico;
-- progresión desde lectura básica hasta decisión basada en evidencia.
-
-No deben copiarse como plantilla universal ni limitar el producto a histogramas.
-
-## Plataforma deseada
-
-El repositorio mantiene Markdown como fuente documental para operar con agentes y
-publica una vista estática de resultados mediante GitHub Pages. Los laboratorios
-son HTML autocontenido sin backend ni ejecución de modelos.
+`concepro_histograma.html` y `ejercicios_histograma.html` muestran el nivel de
+profundidad esperado: construcción visual paso a paso, comparación, narrativa al
+servicio de una decisión, preguntas que requieren observar la visualización y
+feedback por error plausible. Son inspiración, no plantillas.
 
 ## Sistema narrativo
 
@@ -83,75 +105,8 @@ arcos de nivel y un `ContinuityLedger`; no se acepta como simple decoración.
 - Cada episodio mantiene un objetivo principal de ciencia de datos y, como
   máximo, una competencia auxiliar de trabajo con agentes.
 
-## Entrada y salida esperadas
-
-Entrada:
-
-- concepto o bloque curricular;
-- nivel: principiante, intermedio o avanzado;
-- contexto de aplicación;
-- duración objetivo;
-- modo: Aprender, Ejercitar o Enseñar en vivo;
-- restricciones técnicas o docentes.
-
-Salida:
-
-- `ConceptSpec` validada;
-- `LearningModule`;
-- `PracticeExercise`;
-- `LiveTeachingPack`;
-- evidencias de evaluación pedagógica y técnica.
-
-## Restricciones
-
-- Todo contenido debe estar enfocado en ciencia de datos.
-- El material debe preferir snapshots públicos no sensibles con fuente, licencia,
-  fecha y hash; puede usar datos sintéticos etiquetados cuando aporten claridad o
-  no exista una fuente pública adecuada.
-- Cada concepto debe tener una representación visual o justificar por qué no aplica.
-- No se requieren backend, login, pagos ni LMS para validar el MVP.
-- No se ejecutan modelos de IA dentro de una futura app local en la primera versión.
-- Los agentes deben documentar supuestos y separar contenido validado de sugerencias.
-- La precisión técnica y la claridad pedagógica son bloqueantes.
-
-## Inspiraciones
-
-- `concepro_histograma.html`: progresión visual e interacción con la representación.
-- `ejercicios_histograma.html`: casos narrativos, evidencia, decisiones y feedback.
-- Notebooks educativos: reproducibilidad y experimentación.
-- Guías docentes: objetivos, tiempos, preguntas y errores anticipados.
-
-## Lo que NO debe incluir el MVP
-
-- Un LMS.
-- Gestión de usuarios, cursos o calificaciones.
-- Generación ilimitada de un curso completo en una sola ejecución.
-- Ejecución de OpenAI, Gemini, Claude u otros servicios desde los HTML.
-- Entrenamiento de modelos propios.
-- Evaluación automatizada de estudiantes con consecuencias académicas.
-- Cobertura profunda de todo el temario completo.
-
 ## Preguntas abiertas
 
-- Qué formato secundario conviene priorizar después de HTML: notebook o paquete imprimible.
-- Qué bloque de Nivel 3 debe convertirse en la siguiente referencia.
-- Qué revisión humana debe exigirse antes de publicar material generado.
-
-## Decisiones bloqueantes conocidas
-
-Ninguna. Nivel 1 y Nivel 2 pueden publicarse con español como idioma principal,
-revisión humana y snapshots públicos fijos.
-
-## Supuestos permitidos
-
-- Priorizar al profesor o creador de cursos cuando haya conflicto entre usuarios.
-- Asumir estudiantes principiantes si el nivel no se especifica.
-- Elegir snapshots públicos pequeños y explicables; usar sintéticos solo como
-  apoyo explícitamente etiquetado.
-- Reducir cada entrega a un objetivo de aprendizaje principal.
-- Usar visualizaciones interactivas cuando la interacción ayude a revelar el concepto.
-- Mover integraciones, persistencia y personalización adaptativa a post-MVP.
-
-## Nivel de incertidumbre aceptado
-
-Medio: el agente puede inferir contextos, datasets, métricas no críticas y ejemplos, pero no puede inventar precisión técnica ni omitir revisión humana.
+- Cuándo pasan las intros de 4.1 y 4.2 a usar material real («listo»).
+- Cómo recalibrar las duraciones estimadas con los tiempos reales de los alumnos.
+- Qué revisión humana se exige antes de publicar un caso nuevo.

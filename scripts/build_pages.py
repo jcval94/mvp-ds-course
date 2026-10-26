@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from datetime import date
 import os
@@ -10,6 +11,7 @@ from pathlib import Path
 import shutil
 import stat
 
+from student_publication import studentize_level
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = (ROOT / "_site").resolve()
@@ -47,7 +49,7 @@ def load_approved(path: Path) -> tuple[dict[str, object], dict[str, object]]:
 
 def reset_build() -> None:
     expected_parent = ROOT.resolve()
-    if BUILD.parent != expected_parent or BUILD.name != "_site":
+    if BUILD.parent != expected_parent or BUILD.name not in {"_site", "_site_docente"}:
         raise SystemExit(f"Ruta de build insegura: {BUILD}")
     if BUILD.exists():
         def remove_readonly(function, path, error_info):
@@ -75,6 +77,63 @@ def format_spanish_date(value: str) -> str:
         "diciembre",
     ]
     return f"{parsed.day} de {months[parsed.month - 1]} de {parsed.year}"
+
+
+def add_timing_script(path: Path) -> None:
+    """Agrega a cada página de bloque el aviso de tiempo estimado (site/tiempos-lab.js)."""
+    tag = '<script src="../../tiempos-lab.js" defer></script>'
+    for html in path.glob("*.html"):
+        text = html.read_text(encoding="utf-8")
+        if "data-module=" not in text or tag in text:
+            continue
+        html.write_text(text.replace("</body>", tag + "</body>", 1), encoding="utf-8")
+
+
+def apply_timing(levels: list[dict[str, object]], timing: dict[str, object]) -> dict[str, object]:
+    """Calcula minutos por bloque, nivel y curso a partir de site/tiempos.json (estimaciones)."""
+    per = timing["modelo"]["min_por_concepto"]
+    transfer_from = int(timing["modelo"]["transferencia_desde_nivel"])
+    mission_default = int(timing["modelo"]["mision_ancla_min"])
+    cases = timing["casos"]
+    total = {"conceptos": 0, "misiones": 0}
+    for level in levels:
+        number = int(level["level"])
+        has_transfer = number >= transfer_from
+        per_concept = per["aprender"] + per["ejercicio_guiado"] + per["repaso"] + (per["transferencia"] if has_transfer else 0)
+        concept_minutes = 0
+        for block in level["blocks"]:
+            block["exercise_count"] = block.get("exercise_count") or block["concept_count"] * (2 if has_transfer else 1)
+            block["minutes"] = block["concept_count"] * per_concept
+            concept_minutes += block["minutes"]
+        plan = timing["niveles"].get(str(number))
+        mission_minutes = 0
+        if plan:
+            anchor_id = plan["ancla"]
+            anchor = cases.get(anchor_id, {})
+            mission_minutes = int(anchor.get("min", mission_default))
+            level["case"] = {
+                "id": anchor_id,
+                "title": anchor.get("titulo"),
+                "status": anchor.get("estado", "planeado"),
+                "minutes": mission_minutes,
+                "bank": plan["banco"],
+            }
+        level["minutes"] = {
+            "per_concept": per_concept,
+            "concepts": concept_minutes,
+            "mission": mission_minutes,
+            "total": concept_minutes + mission_minutes,
+        }
+        total["conceptos"] += concept_minutes
+        total["misiones"] += mission_minutes
+    return {
+        "total": total["conceptos"] + total["misiones"],
+        "per_concept": per,
+        "transfer_from_level": transfer_from,
+        "live_class": timing["clase_en_vivo"],
+        "live_total": int(timing["clase_en_vivo"]["sesiones"]) * int(timing["clase_en_vivo"]["duracion_min"]),
+        "note": timing["nota"],
+    }
 
 
 def normalize_lab_home_links(path: Path) -> None:
@@ -116,7 +175,22 @@ def apply_course_theme(destination: Path, level_number: int, themes: dict[str, o
     return True
 
 
-def main() -> None:
+def strip_catalog_hashes(value: object) -> None:
+    """Omit hashes from the public catalog; level dataset provenance stays intact."""
+    if isinstance(value, dict):
+        for key in tuple(value):
+            if key.lower().endswith("sha256"):
+                del value[key]
+        for child in value.values():
+            strip_catalog_hashes(child)
+    elif isinstance(value, list):
+        for child in value:
+            strip_catalog_hashes(child)
+
+
+def main(*, docente: bool = False) -> None:
+    global BUILD
+    BUILD = (ROOT / ("_site_docente" if docente else "_site")).resolve()
     reset_build()
     shutil.copytree(SITE_SOURCE, BUILD, dirs_exist_ok=True)
     # El portal usa los tokens del sistema visual; se publican junto a él.
@@ -131,7 +205,10 @@ def main() -> None:
         destination = BUILD / "labs" / f"level-{manifest['level']}"
         shutil.copytree(path, destination)
         normalize_lab_home_links(destination)
+        add_timing_script(destination)
         apply_course_theme(destination, int(manifest["level"]), themes)
+        if not docente:
+            studentize_level(destination, int(manifest["level"]))
         level = {
             **manifest,
             "entrypoint": f"labs/level-{manifest['level']}/{manifest['entrypoint']}",
@@ -143,6 +220,9 @@ def main() -> None:
                 for block in manifest["blocks"]
             ],
         }
+        if not docente:
+            # Validation stays a build gate, but its file and internal hashes do not ship.
+            level.pop("validation", None)
         levels.append(level)
         validations.append(validation)
 
@@ -164,6 +244,7 @@ def main() -> None:
     shutil.copytree(ROOT / "evals", methodology / "evals")
     shutil.copytree(ROOT / "docs" / "placement", BUILD / "placement")
 
+    timing = apply_timing(levels, json.loads((SITE_SOURCE / "tiempos.json").read_text(encoding="utf-8")))
     totals = {
         "concepts": sum(level["concept_count"] for level in levels),
         "exercises": sum(level["exercise_count"] for level in levels),
@@ -175,6 +256,7 @@ def main() -> None:
             max(level["updated_at"] for level in levels)
         ),
         "totals": totals,
+        "timing": timing,
         "levels": levels,
         "datasets": registry["datasets"],
         "validation": {
@@ -182,6 +264,8 @@ def main() -> None:
             "minimum_dimension": min(item["minimum_dimension"] for item in validations),
         },
     }
+    if not docente:
+        strip_catalog_hashes(catalog)
     (BUILD / "catalog.json").write_text(
         json.dumps(catalog, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -194,4 +278,6 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Build de alumno o docente sin editar generated/")
+    parser.add_argument("--docente", action="store_true", help="Build local con material docente en _site_docente/")
+    main(docente=parser.parse_args().docente)

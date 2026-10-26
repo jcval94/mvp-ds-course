@@ -98,6 +98,11 @@
     @keyframes latido { 50% { opacity: .25; } }
     .class-when { margin: 0; color: var(--muted); font-size: 15px; }
     .class-when b { color: var(--text); }
+    .agenda { margin-top: 4px; font-size: 14px; }
+    .agenda summary { cursor: pointer; font-weight: 600; color: var(--accent-text); }
+    .agenda ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+    .agenda li { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+    .agenda li b { white-space: nowrap; font-variant-numeric: tabular-nums; }
     .countdown { display: flex; flex-wrap: wrap; gap: 8px; }
     .countdown:empty { display: none; }
     .countdown div { min-width: 70px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); text-align: center; }
@@ -455,6 +460,7 @@
             <button class="btn btn-line" type="button" id="claseIcs">Agregar todas a mi calendario</button>
           </div>
           <p class="fine" id="claseNota"></p>
+          <details class="agenda" id="claseAgenda" hidden><summary>Cómo se reparte la clase</summary><ul></ul><p class="fine">Tiempos estimados: el profesor puede ajustarlos según el ritmo del grupo.</p></details>
         </div>
         <div class="class-recs">
           <h3>Grabaciones</h3>

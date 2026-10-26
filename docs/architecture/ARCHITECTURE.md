@@ -30,7 +30,8 @@ docs/ scripts/ generated/ datasets/ evals/ templates/ .agents/   Fábrica existe
 
 ## Engine público y contenido
 
-Desde F0 la frontera es explícita, aunque todavía no hay autenticación ni backend:
+Desde F0 la frontera es explícita. El inicio de sesión y la puerta de los niveles de pago
+(ver [DEPLOYMENT.md](DEPLOYMENT.md)) no cambian esta separación:
 
 | Engine (público siempre) | Contenido (puede volverse premium) |
 | --- | --- |
@@ -51,18 +52,24 @@ python -m harness validate   schemas + referencias + tokens + higiene del repo
 python -m harness build      scripts/build_pages.py (sin cambios) → _site/
                              _site/ + portal/ + design/tokens + capsulas → dist/
                              + missions.json + build-info.json
-python -m harness check      enlaces internos, rutas absolutas, archivos de hosting, presupuestos
+python -m harness check      enlaces internos, SEO técnico, portabilidad, presupuestos
 python -m harness smoke      Playwright en "/" y en "/mvp-ds-course/"
+python -m harness links      auditoría externa HEAD/GET (independiente de all y CI)
 ```
 
 `dist/` es estático, reproducible (mismo commit → mismo `content_sha256`) y
-agnóstico del hosting: solo rutas relativas, sin `.nojekyll`, `CNAME`,
+agnóstico del hosting: enlaces y recursos con rutas relativas; la única URL base
+(`course.yaml → build.base_url`) aparece exclusivamente en canonical y sitemap
+(ver [SEO.md](SEO.md)). Sin `.nojekyll`, `CNAME`,
 `_headers` ni `_redirects`, con `404.html` propio en la raíz.
 
 ## CI
 
 `ci.yml` llama a `factory.yml`, `capsulas.yml` y `portal.yml`; si todo pasa y la
 rama es `main`, llama a la capa de deployment. Ver [DEPLOYMENT.md](DEPLOYMENT.md).
+
+`external-links.yml` revisa semanalmente los enlaces externos y mantiene un
+issue único; no participa en CI ni deployment. Ver [EXTERNAL_LINKS.md](EXTERNAL_LINKS.md).
 
 ## Reglas que no cambian
 

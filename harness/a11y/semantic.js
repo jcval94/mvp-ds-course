@@ -15,16 +15,6 @@
   const activeDialog = () => [...document.querySelectorAll('dialog[open],[role="dialog"]')]
     .reverse().find(visible);
 
-  function nameFrom(el) {
-    const id = el.id;
-    const label = id ? document.querySelector('label[for="' + CSS.escape(id) + '"]') : null;
-    const sibling = el.closest("label");
-    if (label || sibling) return "";
-    const text = (el.getAttribute("placeholder") || el.getAttribute("title") ||
-      el.getAttribute("data-label") || el.getAttribute("name") || id || "").trim();
-    return text.replace(/[_-]+/g, " ");
-  }
-
   function repair() {
     if (!document.documentElement.lang) document.documentElement.lang = "es";
     // SVG pictograms adjacent to a real textual label should not repeat the label.
@@ -32,18 +22,14 @@
       if (!svg.hasAttribute("aria-label") && !svg.querySelector("title"))
         svg.setAttribute("aria-hidden", "true");
     });
+    // Una imagen sin texto alternativo solo se nombra con su pie de figura visible; si no lo
+    // tiene, se deja sin alt para que la auditoría la reporte (nunca alt="" por omisión).
     document.querySelectorAll("img:not([alt])").forEach(img => {
       const caption = img.closest("figure")?.querySelector("figcaption")?.textContent?.trim();
-      const label = img.getAttribute("aria-label") || caption ||
-        img.getAttribute("title") || "";
-      img.setAttribute("alt", label);
+      if (caption) img.setAttribute("alt", caption);
     });
-    document.querySelectorAll("input,select,textarea").forEach(el => {
-      if (el.type === "hidden" || el.getAttribute("aria-label") ||
-          el.getAttribute("aria-labelledby") || el.labels?.length) return;
-      const name = nameFrom(el);
-      if (name) el.setAttribute("aria-label", name);
-    });
+    // Campos sin etiqueta: solo se nombran con un texto visible que los describa
+    // (aria-describedby existente); nunca con name, id ni placeholder.
     document.querySelectorAll("button, a[href], [role='button']").forEach(el => {
       if (el.getAttribute("aria-label") || el.getAttribute("aria-labelledby") ||
           el.textContent.trim() || el.querySelector("img[alt]:not([alt=''])")) return;
@@ -55,9 +41,6 @@
     // The explicit accessible name survives responsive display:none.
     document.querySelectorAll("#helpButton").forEach(el => {
       el.setAttribute("aria-label", "Ayuda");
-    });
-    document.querySelectorAll('a[href$="README.md"]').forEach(el => {
-      if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", "Guía docente");
     });
     // An overflow container with no keyboard access is a serious axe failure.
     // Make only the documented learning surfaces reachable by Tab; no CSS edits.

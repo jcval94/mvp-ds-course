@@ -51,7 +51,7 @@ def _serve(dist: Path, prefix: str) -> tuple[ThreadingHTTPServer, str]:
 
 def _targets(dist: Path) -> list[str]:
     catalog = json.loads((dist / "catalog.json").read_text(encoding="utf-8"))
-    targets = ["", "methodology.html", "placement.html", "aviso-privacidad.html", "terminos.html", "colab.html", "alumno.html", "docente.html", "admin.html", "missions/", "capsulas/"]
+    targets = ["", "methodology.html", "placement.html", "aviso-privacidad.html", "terminos.html", "colab.html", "instalacion.html", "alumno.html", "docente.html", "admin.html", "missions/", "capsulas/"]
     first_case = sorted((dist / "capsulas" / "cases").glob("*.html"))
     if first_case:
         targets.append(first_case[0].relative_to(dist).as_posix())
@@ -59,6 +59,8 @@ def _targets(dist: Path) -> list[str]:
     # El piloto narrativo vive fuera del catálogo de niveles clásicos.
     if (dist / "labs" / "level-1-v2" / "index.html").is_file():
         targets.append("labs/level-1-v2/")
+    targets += [path.parent.relative_to(dist).as_posix() + "/"
+                for path in sorted((dist / "casos").glob("*/escenas.js"))]
     return targets
 
 

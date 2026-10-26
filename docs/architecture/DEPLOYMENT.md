@@ -8,7 +8,7 @@ sube. Ningún archivo del portal ni del contenido conoce al proveedor.
 - URL: `https://learninglabs.pages.dev/` (raíz).
 - Job `deploy-cloudflare` de `.github/workflows/ci.yml` → `deploy-cloudflare-pages.yml`
   con `project-name: learninglabs`.
-- Publica el mismo artefacto `dist` que GitHub Pages. Si el proyecto no existe, lo crea
+- Publica el artefacto `dist` (GitHub Pages ya solo sirve redirecciones, ver abajo). Si el proyecto no existe, lo crea
   con `--production-branch=main`; después verifica que
   `https://learninglabs.pages.dev/build-info.json` sirva el commit desplegado. Si
   Cloudflare asignó otro subdominio (nombre ocupado), el job falla.
@@ -46,14 +46,15 @@ sube. Ningún archivo del portal ni del contenido conoce al proveedor.
 - Para volver a publicar el portal en GitHub Pages: en el workflow, sube `dist` en lugar
   de `redirect`.
 
-## Login (cuando se conecte Supabase)
+## Login (Supabase y Google)
 
 - Supabase → *Auth → URL Configuration*: `Site URL = https://learninglabs.pages.dev`
   y `https://learninglabs.pages.dev/**` en *Redirect URLs*.
 - Google Cloud → pantalla de consentimiento de OAuth: página de inicio y aviso de
   privacidad bajo `learninglabs.pages.dev`.
-- `dist/` sigue sin URLs absolutas del hosting (`harness check` lo exige); la URL del
-  sitio vive en la configuración de Supabase y Google, no en el contenido.
+- `dist/` sigue sin URLs absolutas del hosting salvo canonical y sitemap, que salen de
+  `course.yaml → build.base_url` ([SEO.md](SEO.md)); `harness check` lo exige. Para el
+  login, la URL del sitio vive en la configuración de Supabase y Google.
 
 ## Dominio propio (futuro)
 

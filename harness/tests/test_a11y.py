@@ -51,8 +51,16 @@ def test_inject_only_requested_student_pages(tmp_path: Path):
     src = tmp_path / "patch.js"
     src.write_text("/* patch */", encoding="utf-8")
     touched = inject(tmp_path, src)
-    assert sorted(touched) == ["index.html", "labs/level-1/alfabetizacion.html"]
+    # site/ (index.html) se corrige en su marcado: el script solo va a páginas generadas y cápsulas.
+    assert sorted(touched) == ["labs/level-1/alfabetizacion.html"]
+    assert "data-course-a11y" not in (tmp_path / "index.html").read_text()
     assert "../" in path.read_text(encoding="utf-8")
     assert "data-course-a11y" not in (tmp_path / "admin.html").read_text()
     assert not inject(tmp_path, src)
     assert not applicable("docente.html")
+
+
+def test_script_never_invents_names_or_empty_alt():
+    script = (Path(__file__).resolve().parents[1] / "a11y" / "semantic.js").read_text(encoding="utf-8")
+    assert 'setAttribute("alt", label)' not in script and 'getAttribute("placeholder")' not in script
+    assert "Guía docente" not in script
