@@ -99,7 +99,8 @@
           const pago = d.plan === "cuotas"
             ? `Tu tarjeta quedó guardada: cobraremos 3 pagos de ${pesos(d.cuota)} MXN el ${lista((d.fechas_cuotas || []).map(corta))}. Hoy no se cobró nada.`
             : `Recibimos tu pago de ${pesos(d.monto)} MXN; Stripe te manda el recibo.`;
-          return mostrar(`¡Bienvenida, ${d.nombre}! Tu lugar está confirmado`, `${d.grupo} empieza el ${inicio}. ${pago}`, true, [boton("Ir a Mi avance", "btn-accent", "alumno.html"), boton("Ver el tutorial de Colab", "btn-line", "colab.html")]);
+          const ahorro = d.codigo && d.descuento_ref ? ` Con el código de recomendación ${d.codigo} ahorraste ${pesos(d.descuento_ref)}.` : "";
+          return mostrar(`¡Bienvenida, ${d.nombre}! Tu lugar está confirmado`, `${d.grupo} empieza el ${inicio}. ${pago}${ahorro} En Mi avance tienes tu propio código para recomendar el curso.`, true, [boton("Ir a Mi avance", "btn-accent", "alumno.html"), boton("Ver el tutorial de Colab", "btn-line", "colab.html")]);
         }
         if (d.estado === "esperando_pago") {
           return mostrar(`Tu lugar está apartado, ${d.nombre}`, "Stripe te dio las instrucciones para pagar en OXXO o por transferencia (también te llegan por correo). Tu lugar queda apartado mientras llega el pago; en cuanto se confirme, te mandamos los siguientes pasos.", false, [boton("Volver al inicio", "btn-line", "index.html")]);

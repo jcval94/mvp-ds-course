@@ -88,6 +88,14 @@
     .colab-key .acciones { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
     .colab-key .acciones small { color: var(--muted); font-size: 13px; }
     @media (max-width: 760px) { .colab-key { grid-template-columns: 1fr; padding: 20px; } }
+    /* Código de recomendación (0.13): su código, la liga para compartir y cómo va */
+    .referral { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 18px 28px; align-items: center; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 22px 26px; }
+    .referral h2 { margin: 6px 0 6px; font-size: 20px; }
+    .referral p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+    .referral p a { color: var(--accent-text); font-weight: 700; }
+    .referral .ref-stats { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; color: var(--muted); font-size: 14px; }
+    .referral .ref-stats b { color: var(--text); }
+    @media (max-width: 760px) { .referral { grid-template-columns: 1fr; padding: 20px; } }
 
     /* Clases en vivo (Google Meet) y grabaciones */
     .classes { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); overflow: hidden; }
@@ -557,6 +565,19 @@
         <button class="btn btn-accent" type="button" id="generarClave">Generar mi TDD_CLAVE</button>
         <small id="claveNota">Solo se muestra una vez. Si ya tenías una clave en Colab, la nueva la reemplaza: actualízala en Secretos.</small>
       </div>
+    </section>
+
+    <section class="referral" id="recomendar" hidden aria-labelledby="recTitle">
+      <div>
+        <p class="kicker-dark">Recomienda el curso</p>
+        <h2 id="recTitle">Tu código de recomendación</h2>
+        <p id="recTexto">Quien se inscriba con tu código paga 10 % menos y, cuando pague, tú recibes 10 % del precio del curso, hasta 30 %. <a href="terminos.html#recomendacion">Cómo funciona</a>.</p>
+      </div>
+      <dl class="key-pair">
+        <div><dt>CÓDIGO</dt><dd id="miCodigo"></dd><button type="button" id="copiarCodigo">Copiar</button></div>
+        <div><dt>LIGA</dt><dd id="miLigaRef"></dd><button type="button" id="copiarLigaRef">Copiar</button></div>
+      </dl>
+      <p class="ref-stats" id="recStats"></p>
     </section>
 
     <section class="help" id="ayuda" hidden aria-labelledby="ayudaTitle">

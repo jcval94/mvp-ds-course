@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Inscríbete al curso en vivo The Agentic Data Scientist: pago único con 10 % de descuento o 3 pagos con tarjeta. Pago seguro con Stripe.">
+  <meta name="description" content="Inscríbete al curso en vivo The Agentic Data Scientist: pago único con 10 % de descuento o 3 pagos con tarjeta; con código de recomendación, 10 % más. Pago seguro con Stripe.">
   <title>Inscripción · The Agentic D. Scientist</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="design/tokens/tokens.css">
@@ -62,11 +62,22 @@
     .nota { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
     .aviso { border-radius: 16px; padding: 14px 16px; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); font-size: 14px; line-height: 1.5; }
     .espera { display: grid; gap: 14px; }
+    /* Código de recomendación (0.13): la base valida el código y da el precio; aquí solo se muestra. */
+    .codigo-ref { display: grid; gap: 6px; font-size: 14px; min-width: 0; }
+    .codigo-ref > span { font-weight: 700; }
+    .codigo-fila { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
+    .codigo-fila .btn { flex: none; }
+    .codigo-fila input { flex: 1 1 160px; min-width: 0; width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-transform: uppercase; letter-spacing: .04em; }
+    .codigo-fila input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+    .codigo-ref small { color: var(--muted); line-height: 1.45; }
+    .codigo-ref small.ok { color: var(--accent-text); font-weight: 600; }
+    .codigo-ref small.err { color: var(--critical); font-weight: 600; }
+    .plan .antes { font-size: 13px; color: var(--muted); font-weight: 600; text-decoration: line-through; }
     .cargando { display: flex; gap: 12px; align-items: center; color: var(--muted); }
     .cargando i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); animation: girar .8s linear infinite; }
     @keyframes girar { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { .cargando i { animation: none; } .barra i { transition: none; } }
-    @media (max-width: 860px) { .insc { grid-template-columns: 1fr; } .resumen { order: -1; } }
+    @media (max-width: 860px) { .insc { grid-template-columns: minmax(0, 1fr); } .resumen { order: -1; } }
     @media (max-width: 560px) { .planes { grid-template-columns: 1fr; } .card { padding: 20px; } .insc-page main { padding-block: 32px 72px; } }
   </style>
 </head>
@@ -100,14 +111,20 @@
           <fieldset class="planes">
             <legend>¿Cómo quieres pagar?</legend>
             <label class="plan"><span class="tag">10 % de descuento</span><input type="radio" name="plan" value="contado" checked>
-              <b>Pago único</b><span class="monto"><span data-o="contado">$8,910</span> <small>MXN</small></span>
+              <b>Pago único</b><span class="monto"><span data-o="contado">$8,910</span> <small>MXN</small></span><span class="antes" data-o="contado_antes" hidden></span>
               <span>Tarjeta de crédito o débito, OXXO o transferencia SPEI. El descuento aplica solo si pagas todo de contado.</span></label>
             <label class="plan"><input type="radio" name="plan" value="cuotas">
-              <b>3 pagos</b><span class="monto"><span data-o="cuota">$3,300</span> <small>MXN c/u</small></span>
+              <b>3 pagos</b><span class="monto"><span data-o="cuota">$3,300</span> <small>MXN c/u</small></span><span class="antes" data-o="cuota_antes" hidden></span>
               <span>Con tarjeta, se cobran solos: <span data-o="fechas">8 ene, 8 feb y 8 mar de 2027</span>. Hoy no se cobra nada.</span></label>
           </fieldset>
           <div class="campos">
             <label class="campo"><span>Nombre completo</span><input name="nombre" autocomplete="name" required maxlength="80" placeholder="Como quieres que aparezca en tu constancia"></label>
+            <div class="codigo-ref">
+              <label for="codigo"><span>Código de recomendación <small>(opcional)</small></span></label>
+              <div class="codigo-fila"><input id="codigo" name="codigo" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="Ejemplo: ANA-7K3P">
+                <button class="btn btn-line" type="button" id="aplicarCodigo">Aplicar</button></div>
+              <small id="codigoNota">Si alguien inscrito te recomendó, escribe su código: pagas 10 % menos.</small>
+            </div>
             <label class="campo"><span>Tu Gmail</span><input name="correo" type="email" autocomplete="email" required maxlength="160" placeholder="nombre@gmail.com">
               <small>Con este correo entras a Mi avance y a tus cuadernos de Colab. Usa una cuenta de Google.</small></label>
             <label class="acepto"><input type="checkbox" name="acepto" required><span>Tengo 18 años o más, cumplo los <a href="instalacion.html" target="_blank" rel="noopener">requisitos</a> (laptop con Windows o macOS) y acepto los <a href="terminos.html" target="_blank" rel="noopener">términos y la política de reembolso</a> y el <a href="aviso-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</span></label>
@@ -144,7 +161,7 @@
           <div><dt>Inscripciones hasta</dt><dd data-o="cierre">El día de inicio</dd></div>
           <div><dt>Precio</dt><dd><span data-o="precio">$9,900</span> MXN con IVA · precio regular <s data-o="regular">$14,900</s></dd></div>
         </dl>
-        <p class="nota">El precio de fundador es solo para la Generación 1. El grupo abre con un mínimo de <span data-o="minimo">6</span> personas; si no se llega, te devolvemos el 100 % de lo pagado. Reembolso total si lo pides antes de que termine la segunda clase.</p>
+        <p class="nota">El precio de fundador es solo para la Generación 1. Con un <a href="terminos.html#recomendacion">código de recomendación</a> pagas 10 % menos, también sobre el pago único. El grupo abre con un mínimo de <span data-o="minimo">6</span> personas; si no se llega, te devolvemos el 100 % de lo pagado. Reembolso total si lo pides antes de que termine la segunda clase.</p>
       </aside>
     </div>
   </main>
@@ -177,6 +194,35 @@
       }
       const params = new URLSearchParams(location.search);
       if (params.get("cancelado")) $("#cancelado").hidden = false;
+
+      // Código de recomendación (?ref=CODIGO precarga el campo). La base lo valida y da el precio; si no es válido, se
+      // puede seguir sin código. Un ?ref= que no parece código (por ejemplo, un nombre de campaña) solo cuenta como origen.
+      let codigo = null; // {codigo, contado, cuota} si la base lo aceptó
+      const pareceCodigo = (v) => /^[A-Za-z0-9]{2,8}-[A-Za-z0-9]{4}$/.test((v || "").trim());
+      function pintarPrecios() {
+        if (!oferta) return;
+        const con = codigo && codigo.contado ? codigo : null;
+        poner("contado", pesos(con ? con.contado : oferta.contado)); poner("cuota", pesos(con ? con.cuota : oferta.cuota));
+        document.querySelectorAll('[data-o="contado_antes"]').forEach((e) => { e.hidden = !con; e.textContent = con ? pesos(oferta.contado) : ""; });
+        document.querySelectorAll('[data-o="cuota_antes"]').forEach((e) => { e.hidden = !con; e.textContent = con ? pesos(oferta.cuota) : ""; });
+      }
+      async function aplicarCodigo() {
+        const campo = $("#codigo"), nota = $("#codigoNota"), valor = campo.value.trim().toUpperCase();
+        codigo = null;
+        if (!valor) { nota.className = ""; nota.textContent = "Si alguien inscrito te recomendó, escribe su código: pagas 10 % menos."; pintarPrecios(); return; }
+        nota.className = ""; nota.textContent = "Revisando el código…";
+        try {
+          const r = await TDD.rpcPublico("validar_codigo_recomendacion", { p_codigo: valor, p_grupo: oferta && oferta.grupo });
+          if (r && r.valido) {
+            codigo = r; campo.value = r.codigo;
+            nota.className = "ok"; nota.textContent = `Código ${r.codigo} aplicado: 10 % menos${r.contado ? ` (pago único ${pesos(r.contado)} o 3 pagos de ${pesos(r.cuota)})` : ""}.`;
+          } else { nota.className = "err"; nota.textContent = (r && r.mensaje) || "Ese código no es válido; puedes inscribirte sin código."; }
+        } catch (_) { nota.className = "err"; nota.textContent = "No pudimos revisar el código. Intenta de nuevo o inscríbete sin código."; }
+        pintarPrecios();
+      }
+      $("#aplicarCodigo").addEventListener("click", aplicarCodigo);
+      $("#codigo").addEventListener("keydown", (ev) => { if (ev.key === "Enter") { ev.preventDefault(); aplicarCodigo(); } });
+      $("#codigo").addEventListener("input", () => { if (codigo) { codigo = null; pintarPrecios(); $("#codigoNota").className = ""; $("#codigoNota").textContent = "Pulsa «Aplicar» para revisar el código."; } });
 
       function pintarOferta(o) {
         oferta = o;
@@ -212,7 +258,12 @@
           const o = await TDD.rpcPublico("oferta_inscripcion", pedido ? { p_grupo: pedido } : {});
           if (!o || o.estado === "sin_venta") return mostrarEspera("sin_venta", "Déjanos tus datos y te escribimos en cuanto abra la inscripción en línea. También puedes escribirnos a augmentedlearninglabs@gmail.com.");
           pintarOferta(o);
-          if (o.estado === "abierta") mostrarForm(); else mostrarEspera(o.estado);
+          if (!o.recomendacion_pct) document.querySelector(".codigo-ref").hidden = true;
+          if (o.estado === "abierta") {
+            mostrarForm();
+            const ref = params.get("ref");
+            if (o.recomendacion_pct && pareceCodigo(ref)) { $("#codigo").value = ref.trim().toUpperCase().slice(0, 20); aplicarCodigo(); }
+          } else mostrarEspera(o.estado);
         } catch (_) {
           $("#cargando").hidden = true;
           const m = $("#cancelado"); m.hidden = false;
@@ -228,12 +279,15 @@
         if (nombre.length < 2) { msg.textContent = "Escribe tu nombre completo."; f.nombre.focus(); return; }
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo)) { msg.textContent = "Escribe un correo válido."; f.correo.focus(); return; }
         if (!f.acepto.checked) { msg.textContent = "Para continuar, confirma que tienes 18 años o más y aceptas los términos."; f.acepto.focus(); return; }
+        const escrito = $("#codigo").value.trim().toUpperCase();
+        if (escrito && (!codigo || codigo.codigo !== escrito)) { await aplicarCodigo(); if (!codigo) { msg.className = "msg err"; msg.textContent = "Revisa el código de recomendación o bórralo para seguir sin código."; $("#codigo").focus(); return; } }
         if (!/@gmail\.com$/.test(correo) && !confirm(`${correo} no es un Gmail. Para entrar a Mi avance y a Colab necesitas una cuenta de Google con ese correo. ¿Continuar?`)) return;
         b.disabled = true; msg.className = "msg"; msg.textContent = "Apartando tu lugar…";
         try {
           const r = await TDD.funcionPublica("tdd-inscripcion", { accion: "inscribir", plan: f.plan.value, nombre, correo, acepto: true,
-                                                                   grupo: oferta && oferta.grupo, origen: origen() });
+                                                                   grupo: oferta && oferta.grupo, origen: origen(), codigo: codigo ? codigo.codigo : null });
           if (r && r.url) { msg.textContent = "Te llevamos al pago seguro de Stripe…"; location.href = r.url; return; }
+          if (r && r.codigo_invalido) { codigo = null; pintarPrecios(); msg.className = "msg err"; msg.textContent = `${r.mensaje}.`; $("#codigoNota").className = "err"; $("#codigoNota").textContent = r.mensaje; $("#codigo").focus(); b.disabled = false; return; }
           if (r && r.ya_inscrito) { msg.className = "msg ok"; msg.textContent = r.mensaje; b.disabled = false; return; }
           if (r && r.lista_espera) { mostrarEspera(r.motivo); $("#formEspera").nombre.value = nombre; $("#formEspera").correo.value = correo; return; }
           throw new Error("Respuesta inesperada");

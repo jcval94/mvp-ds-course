@@ -169,6 +169,18 @@
         <ul class="checks" id="iEstado"></ul>
         <div class="table-wrap"><table class="tbl" id="tablaInscripciones"></table></div>
         <p class="legend-note">Las altas por Stripe son automáticas: al pagar (o al guardar la tarjeta de los 3 pagos) la persona queda como alumno de su grupo con un ID TDD-###, recibe su bienvenida y genera su TDD_CLAVE en Mi avance. Puedes seguir dando de alta a mano en Alumnos. Si una cuota no pasa, el alumno conserva el acceso hasta el viernes a las 17:00 que cierra su plazo de gracia; después ve las clases sin Meet ni grabaciones hasta que pague. Los reembolsos y cancelaciones se hacen en Stripe y aquí se reflejan solos.</p>
+        <!-- Código de recomendación (0.13): el dinero nunca se mueve solo; «Entregar» llama a Stripe por la Edge Function -->
+        <div class="card" id="iRecomendaciones">
+          <div class="card-head"><h2>Recompensas por entregar</h2><p id="iRecNota">Código de recomendación: 10 % para la persona recomendada y 10 % para quien recomienda, hasta 30 %</p></div>
+          <div class="kpis" id="iRecKpis"></div>
+          <div class="toolbar">
+            <label class="check-inline"><input type="checkbox" id="iRecTodas"> Mostrar entregadas y canceladas</label>
+            <span class="grow"></span>
+            <button class="btn btn-line btn-sm" type="button" id="iRecConfig">Configurar recomendación</button>
+          </div>
+          <div class="table-wrap"><table class="tbl" id="tablaRecompensas"></table></div>
+          <p class="legend-note">Una recompensa nace «pendiente» cuando la persona recomendada paga, pasa sola a «disponible» al terminar la 2.ª clase de su grupo (ya no puede pedir reembolso) y se cancela sola si se reembolsa antes. «Entregar» descuenta el monto de las cuotas que le falten a quien recomendó (saldo a favor en Stripe) o le hace un reembolso parcial si ya pagó todo; si pagó fuera de Stripe, la entregas tú por fuera y la confirmas aquí. Todo queda en la bitácora.</p>
+        </div>
         <div class="card">
           <div class="card-head"><h2>Lista de espera</h2><p id="iEsperaNota">Personas que pidieron lugar cuando el grupo estaba lleno o cerrado</p></div>
           <div class="table-wrap"><table class="tbl" id="tablaEspera"></table></div>
@@ -429,6 +441,31 @@
       <div class="dlg-foot">
         <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
         <button class="btn btn-accent btn-sm" type="submit" id="ventaGuardar">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dlg" id="dlgRecomendacion" aria-labelledby="recTitle">
+    <div class="dlg-head">
+      <div><p class="kicker-dark">Inscripciones</p><h2 id="recTitle">Código de recomendación</h2></div>
+      <button class="icon-btn" type="button" data-cerrar aria-label="Cerrar">✕</button>
+    </div>
+    <form class="dlg-body" id="formRecomendacion">
+      <p class="legend-note">Decisión del 30 oct 2026: 10 % a ambas personas, sin pasar de 30 % del curso. Los campos marcados ⚙ son supuestos por confirmar. Los cambios aplican a inscripciones nuevas; las recompensas ya creadas conservan su monto.</p>
+      <div class="form-grid">
+        <label class="check-inline wide"><input type="checkbox" name="activo"> Programa activo (la página acepta códigos)</label>
+        <label class="field"><span>Descuento a la persona recomendada (%)</span><input name="descuento_pct" type="number" min="0" max="50" step="0.5" required><small>Sobre el precio de lista de su generación; en 3 pagos baja cada cuota.</small></label>
+        <label class="field"><span>Recompensa por recomendado (%)</span><input name="recompensa_pct" type="number" min="0" max="50" step="0.5" required><small>Del precio de lista, por cada persona que pague.</small></label>
+        <label class="field"><span>Tope por persona (%)</span><input name="tope_pct" type="number" min="0" max="100" step="0.5" required><small>Máximo acumulado sobre el precio de su curso (G1: 30 % = $2,970).</small></label>
+        <label class="field"><span>⚙ Clases antes de liberar</span><input name="clases" type="number" min="0" max="30" step="1" required><small>La recompensa queda disponible al terminar esta clase del grupo del recomendado (fin del reembolso total).</small></label>
+        <label class="check-inline wide"><input type="checkbox" name="acumula"> ⚙ Se suma al 10 % del pago único (G1: $9,900 − $990 − $990 = $7,920)</label>
+        <label class="field wide"><span>⚙ Cómo se entrega</span><select name="entrega"><option value="auto">Automático: de sus cuotas si le faltan; si ya pagó, reembolso parcial</option><option value="reembolso">Siempre reembolso parcial</option><option value="manual">Siempre por fuera (lo confirmas tú)</option></select></label>
+        <label class="check-inline wide"><input type="checkbox" name="por_confirmar"> Marcar como «por confirmar» (supuestos ⚙ sin decisión final)</label>
+      </div>
+      <p class="form-msg" id="recMsg" role="status"></p>
+      <div class="dlg-foot">
+        <button class="btn btn-line btn-sm" type="button" data-cerrar>Cancelar</button>
+        <button class="btn btn-accent btn-sm" type="submit" id="recGuardar">Guardar</button>
       </div>
     </form>
   </dialog>

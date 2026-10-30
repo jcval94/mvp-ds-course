@@ -37,6 +37,7 @@
     docente_edita: "Edición", docente_clave: "Clave nueva", docente_fecha: "Fecha límite", docente_reto: "Reto", docente_califica: "Calificación",
     admin_grupo: "Grupo", admin_clase: "Clase", admin_acceso: "Acceso Studio", admin_docente: "Docente", admin_asigna: "Asignación", docente_ia: "Sugerencia de IA", admin_caso: "Cuaderno",
     inscripcion: "Inscripción", pago: "Pago", admin_venta: "Venta", admin_pago: "Pago a mano", alumno_clave: "Clave propia",
+    recomendacion: "Recomendación", admin_recomendacion: "Recomendación",
   };
   const TIPOS = { abrio: "Abrió el cuaderno", seccion: "Resolvió", hipotesis: "Hipótesis", respuesta: "Respondió", pista: "Pidió pista", control: "Control", completo: "Entregó el caso" };
   const PARTES = [["secciones", "Secciones"], ["hipotesis", "Hipótesis"], ["retos", "Retos"], ["casos", "Casos completos"], ["puntualidad", "A tiempo"], ["respuestas", "Respuestas"]];
@@ -171,6 +172,10 @@
     S.insc = val("inscripciones", []) || [];
     S.espera = val("espera", []) || [];
     S.eventosPago = val("eventosPago", []) || [];
+    // Código de recomendación (0.13): en bases anteriores la sección se oculta.
+    S.v13 = ADMIN && R.recompensas && R.recompensas.status === "fulfilled";
+    S.recompensas = val("recompensas", []) || [];
+    S.configRec = val("configRec", null);
     if (ADMIN) S.fnPagos = R.fnPagos.status === "fulfilled" ? { ok: true, ...R.fnPagos.value } : { ok: false, error: errorFuncion(R.fnPagos.reason || {}) };
     const opciones = gruposDelFiltro().map((g) => g.id);
     if (S.grupoSel && !opciones.includes(S.grupoSel)) S.grupoSel = "";
@@ -251,6 +256,8 @@
       espera: rpc("admin_lista_espera"),
       eventosPago: rpc("admin_eventos_pago", { p_limite: 50 }),
       fnPagos: funcion("tdd-inscripcion", { accion: "estado_funcion" }),
+      recompensas: rpc("admin_recompensas"),
+      configRec: rpc("admin_config_recomendacion"),
     });
     const claves = Object.keys(pedidos), r = await Promise.allSettled(Object.values(pedidos)), R = {};
     claves.forEach((k, i) => { R[k] = r[i]; });
@@ -293,6 +300,7 @@
     if (!S.esquema) banner("Falta el esquema 0.7 en la base: el panel puede leer, pero no crear grupos, docentes ni alumnos. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
     if (S.fn && !S.fn.ok) banner(`Altas y claves no disponibles: ${S.fn.error}`, true, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
     if (S.v10 && !S.v11) banner("Falta el esquema 0.11: sin él, nadie (ni administración) puede abrir los niveles 3 en adelante del sitio. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
+    if (S.v12 && !S.v13) banner("Falta el esquema 0.13: el código de recomendación (10 % para ambas personas, hasta 30 %) se activa al correr los pasos 1 a 3 del instalador y desplegar de nuevo tdd-inscripcion.", false, ["Abrir instalador", INSTALADOR]);
     if (S.v11 && !S.v12) banner("Falta el esquema 0.12: la inscripción en línea con Stripe, las cuotas y la lista de espera se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
     if (S.v11 && S.fn && S.fn.ok && S.fn.version === "0.8.0") banner("Despliega la función tdd-docente 0.9.0 para dar acceso a suscriptores de Augmented Studio.", false, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
     if (S.esquema && S.v08 && !S.v10) banner("Falta el esquema 0.10: las clases en vivo, sus grabaciones y los alias de ciudad se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
@@ -1068,7 +1076,7 @@
     const g = grupoInsc(), todos = $("#iIntentos").checked;
     const filas = S.insc.filter((x) => x.grupo === g && (todos || !sinPagar(x)) && (!soloEstado || x.estado === soloEstado));
     if (!filas.length) { const tr = el("tr"), td = el("td", null, soloEstado ? "No hay inscripciones en ese estado." : "Aún no hay inscripciones en línea en este grupo."); tr.append(td); tb.append(tr); return; }
-    const head = el("tr"); ["Persona", "Plan", "Estado", "Pagado", "Plazo", "Origen", "Desde", ""].forEach((h) => head.append(el("th", null, h)));
+    const head = el("tr"); ["Persona", "Plan", "Estado", "Pagado", "Plazo", "Origen", "Código usado / recomendado por", "Desde", ""].forEach((h) => head.append(el("th", null, h)));
     const thead = el("thead"); thead.append(head); const body = el("tbody");
     filas.forEach((x) => {
       const tr = el("tr"); if (sinPagar(x)) tr.className = "muted-row";
@@ -1088,7 +1096,11 @@
         catch (e) { toast(errorFuncion(e)); b.disabled = false; }
       }));
       if (x.stripe_cliente) { const a = el("a", "btn btn-line btn-sm", "Stripe"); a.href = stripeUrl(`customers/${x.stripe_cliente}`); a.target = "_blank"; a.rel = "noopener"; acc.append(a); }
-      tr.append(tdP, el("td", null, PLANES[x.plan] || x.plan), tdE, el("td", null, pagado), el("td", null, plazo), el("td", null, origen), el("td", null, relativo(x.creado)), acc);
+      const tdR = el("td");
+      if (x.codigo_ref) tdR.append(el("b", null, x.codigo_ref), el("br"), el("small", "muted", `${x.recomendado_por_id ? `de ${x.recomendado_por_id}` : "de quien ya no está"}${x.descuento_ref ? ` · −${pesos(x.descuento_ref)}` : ""}`));
+      else tdR.append(document.createTextNode("—"));
+      if (x.codigo_propio) tdR.append(el("br"), el("small", "muted", `Su código: ${x.codigo_propio}`));
+      tr.append(tdP, el("td", null, PLANES[x.plan] || x.plan), tdE, el("td", null, pagado), el("td", null, plazo), el("td", null, origen), tdR, el("td", null, relativo(x.creado)), acc);
       body.append(tr);
     });
     tb.append(thead, body);
@@ -1132,14 +1144,89 @@
     const ids = [...new Set([...S.grupos.map((g) => g.id), ...S.insc.map((x) => x.grupo)])];
     sel.replaceChildren(...ids.map((id) => new Option(nombreGrupo(id), id)));
     sel.value = ids.includes(actual) ? actual : (S.grupoSel && ids.includes(S.grupoSel) ? S.grupoSel : (S.grupos.find((g) => g.activo) || {}).id || ids[0] || "");
-    pintarEstadoPagos(); pintarTablaInsc(); pintarEspera(); pintarEventosPago(); cargarOferta();
+    pintarEstadoPagos(); pintarTablaInsc(); pintarRecompensas(); pintarEspera(); pintarEventosPago(); cargarOferta();
   }
-  on("#iGrupo", "change", () => { S.iGrupoSel = grupoInsc(); pintarTablaInsc(); pintarEspera(); cargarOferta(); });
+
+  // ---------- Código de recomendación (0.13) ----------
+  // El dinero nunca se mueve solo: «Entregar» llama a la Edge Function (que comprueba es_admin()) y ella a Stripe.
+  const ESTADOS_REC = { pendiente: ["Pendiente", ""], disponible: ["Disponible", "ok"], entregada: ["Entregada", "ok"], cancelada: ["Cancelada", ""] };
+  const VIAS = { cuotas: "De sus cuotas", reembolso: "Reembolso parcial", manual: "Por fuera (a mano)" };
+  function pintarRecompensas() {
+    const card = $("#iRecomendaciones"); if (!card) return;
+    card.hidden = !S.v13; if (!S.v13) return;
+    const g = grupoInsc(), todas = $("#iRecTodas").checked;
+    const del = S.recompensas.filter((x) => x.grupo === g);
+    const suma = (est) => del.filter((x) => est.includes(x.estado)).reduce((t, x) => t + (x.monto || 0), 0);
+    const cuenta = (est) => del.filter((x) => est.includes(x.estado)).length;
+    const c = S.configRec || {};
+    $("#iRecNota").textContent = c.descuento_pct != null
+      ? `${c.activo ? "Activo" : "En pausa"} · ${c.descuento_pct} % para la persona recomendada y ${c.recompensa_pct} % para quien recomienda, hasta ${c.tope_pct} %${c.acumula_contado ? " · se suma al 10 % del pago único" : ""}${c.por_confirmar ? " · ⚙ supuestos por confirmar" : ""}`
+      : "Código de recomendación";
+    const k = $("#iRecKpis"); k.replaceChildren(
+      kpi("Por entregar", pesos(suma(["disponible"])), `${plural(cuenta(["disponible"]), "recompensa", "recompensas")} lista${cuenta(["disponible"]) === 1 ? "" : "s"}`, { hot: cuenta(["disponible"]) > 0 }),
+      kpi("Pendientes", pesos(suma(["pendiente"])), "Esperan a que termine la 2.ª clase"),
+      kpi("Entregado", pesos(suma(["entregada"])), plural(cuenta(["entregada"]), "recompensa", "recompensas")),
+      kpi("Descuentos dados", pesos(S.insc.filter((x) => x.grupo === g && x.descuento_ref && !["pendiente", "cancelado"].includes(x.estado)).reduce((t, x) => t + x.descuento_ref, 0)), "A personas recomendadas que pagaron"),
+    );
+    const tb = $("#tablaRecompensas"); tb.replaceChildren();
+    const filas = del.filter((x) => todas || ["pendiente", "disponible"].includes(x.estado));
+    if (!filas.length) { const tr = el("tr"), td = el("td", null, del.length ? "Nada por entregar. Marca «Mostrar entregadas y canceladas» para ver el historial." : "Aún nadie se ha inscrito con un código de recomendación en este grupo."); tr.append(td); tb.append(tr); return; }
+    const head = el("tr"); ["Quien recomienda", "Recomendó a", "Monto", "Estado", "Disponible desde", "Entrega", ""].forEach((h) => head.append(el("th", null, h)));
+    const thead = el("thead"); thead.append(head); const body = el("tbody");
+    filas.forEach((x) => {
+      const tr = el("tr"); if (x.estado === "cancelada" || x.estado === "entregada") tr.className = "muted-row";
+      const tdQ = el("td"); tdQ.append(el("b", null, x.recomienda_nombre || "—"), el("br"), el("small", "muted", `${x.recomienda_id || ""} · ${x.codigo}`));
+      const tdA = el("td"); tdA.append(el("b", null, x.recomendado_nombre), el("br"), el("small", "muted", `${x.recomendado_correo} · ${(ESTADOS_INSC[x.recomendado_estado] || [x.recomendado_estado])[0]}`));
+      const [txt, cls] = ESTADOS_REC[x.estado] || [x.estado, ""];
+      const tdE = el("td"); tdE.append(pill(txt, cls)); if (x.motivo) tdE.append(el("br"), el("small", "muted", x.motivo));
+      const entrega = x.estado === "entregada" ? `${VIAS[x.via] || x.via}${x.entregada ? ` · ${fecha(x.entregada)}` : ""}${x.stripe_ref ? ` · ${x.stripe_ref}` : ""}` : (x.como_entregar ? VIAS[x.como_entregar] : "—");
+      const acc = el("td", "row-actions");
+      if (x.estado === "disponible") acc.append(boton("Entregar", "btn btn-accent btn-sm", (ev) => entregarRecompensa(x, ev.currentTarget)));
+      if (["pendiente", "disponible"].includes(x.estado)) acc.append(boton("Cancelar", "btn btn-line btn-sm", async () => {
+        if (!(await confirmar(`¿Cancelar la recompensa de ${pesos(x.monto)}?`, `${x.recomienda_nombre} no la recibirá. Úsalo solo si hubo un error; los reembolsos del recomendado la cancelan solos.`, "Cancelar recompensa"))) return;
+        try { await rpc("admin_cancelar_recompensa", { p_id: x.id, p_motivo: "cancelada por administración" }); toast("Recompensa cancelada"); cargar(true); } catch (e) { toast(e.message); }
+      }));
+      tr.append(tdQ, tdA, el("td", null, pesos(x.monto)), tdE, el("td", null, x.disponible_desde ? fecha(x.disponible_desde) : "Falta el calendario de clases"), el("td", null, entrega), acc);
+      body.append(tr);
+    });
+    tb.append(thead, body);
+  }
+  async function entregarRecompensa(x, b) {
+    const via = VIAS[x.como_entregar] || "Stripe";
+    if (!(await confirmar(`¿Entregar ${pesos(x.monto)} a ${x.recomienda_nombre}?`, x.como_entregar === "manual"
+      ? "No hay cuotas por cobrar ni un pago en Stripe para reembolsar: entrégala tú por fuera (transferencia) y confírmala aquí."
+      : `${via}: se hace en Stripe en este momento y no se puede deshacer desde aquí.`, "Entregar"))) return;
+    b.disabled = true;
+    try {
+      let r = await funcion("tdd-inscripcion", { accion: "entregar_recompensa", recompensa: x.id });
+      if (r && r.requiere_manual) {
+        if (!(await confirmar("Confirmar entrega a mano", r.mensaje, "Ya la entregué"))) { b.disabled = false; return; }
+        r = await funcion("tdd-inscripcion", { accion: "entregar_recompensa", recompensa: x.id, manual: true });
+      }
+      toast(`Recompensa entregada (${VIAS[r.via] || r.via})`); cargar(true);
+    } catch (e) { toast(errorFuncion(e)); b.disabled = false; }
+  }
+  on("#iRecTodas", "change", () => pintarRecompensas());
+  on("#iRecConfig", "click", () => {
+    const f = $("#formRecomendacion"), c = S.configRec || {}; f.reset();
+    f.activo.checked = !!c.activo; f.descuento_pct.value = c.descuento_pct ?? 10; f.recompensa_pct.value = c.recompensa_pct ?? 10; f.tope_pct.value = c.tope_pct ?? 30;
+    f.clases.value = c.clases_para_disponible ?? 2; f.acumula.checked = c.acumula_contado !== false; f.entrega.value = c.entrega || "auto"; f.por_confirmar.checked = c.por_confirmar !== false;
+    $("#recMsg").textContent = ""; $("#dlgRecomendacion").showModal(); f.descuento_pct.focus();
+  });
+  on("#formRecomendacion", "submit", async (ev) => {
+    ev.preventDefault(); const f = ev.target, msg = $("#recMsg"), b = $("#recGuardar"); b.disabled = true; msg.className = "form-msg"; msg.textContent = "Guardando…";
+    try {
+      await rpc("admin_guardar_recomendacion", { p_activo: f.activo.checked, p_descuento_pct: Number(f.descuento_pct.value), p_recompensa_pct: Number(f.recompensa_pct.value),
+        p_tope_pct: Number(f.tope_pct.value), p_acumula_contado: f.acumula.checked, p_clases: Number(f.clases.value), p_entrega: f.entrega.value, p_por_confirmar: f.por_confirmar.checked });
+      $("#dlgRecomendacion").close(); toast("Configuración del código de recomendación guardada"); cargar(true);
+    } catch (e) { msg.className = "form-msg err"; msg.textContent = e.message; } finally { b.disabled = false; }
+  });
+  on("#iGrupo", "change", () => { S.iGrupoSel = grupoInsc(); pintarTablaInsc(); pintarRecompensas(); pintarEspera(); cargarOferta(); });
   on("#iIntentos", "change", () => pintarTablaInsc());
   on("#iExportar", "click", () => {
     const g = grupoInsc(), filas = S.insc.filter((x) => x.grupo === g);
-    descargar(`inscripciones_${g}_${marca()}.csv`, csv([["nombre", "correo", "alumno_id", "plan", "estado", "monto_total", "pagado", "cuotas_pagadas", "cuotas_total", "vence_gracia", "utm_source", "utm_campaign", "creado"],
-      ...filas.map((x) => [x.nombre, x.correo, x.alumno_id, x.plan, x.estado, x.monto_total, x.pagado, x.cuotas_pagadas, x.cuotas_total, x.vence_gracia, (x.origen || {}).utm_source, (x.origen || {}).utm_campaign, x.creado])]), "text/csv");
+    descargar(`inscripciones_${g}_${marca()}.csv`, csv([["nombre", "correo", "alumno_id", "plan", "estado", "monto_total", "pagado", "cuotas_pagadas", "cuotas_total", "vence_gracia", "utm_source", "utm_campaign", "codigo_usado", "recomendado_por", "descuento_codigo", "codigo_propio", "creado"],
+      ...filas.map((x) => [x.nombre, x.correo, x.alumno_id, x.plan, x.estado, x.monto_total, x.pagado, x.cuotas_pagadas, x.cuotas_total, x.vence_gracia, (x.origen || {}).utm_source, (x.origen || {}).utm_campaign, x.codigo_ref, x.recomendado_por_id, x.descuento_ref, x.codigo_propio, x.creado])]), "text/csv");
   });
   on("#iVenta", "click", () => {
     const f = $("#formVenta"), o = S.oferta || {}; f.reset();

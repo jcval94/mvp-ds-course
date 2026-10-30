@@ -24,6 +24,12 @@ Registro de lo que José Carlos confirmó para la oferta publicada en learningla
 | Cierre de inscripciones | El día de inicio (8 ene 2027, al empezar la primera clase a las 18:00). Puede cambiar: se ajusta en admin.html → Inscripciones → Venta del grupo | 24 oct 2026 | Inscripción, términos |
 | Precio de fundador | Solo para la Generación 1 | 24 oct 2026 | Inicio, inscripción, términos |
 | Difusión | Facebook Ads, LinkedIn, WhatsApp y, más adelante, YouTube. Público: estudiantes, profesionistas que buscan cambiar de carrera y gente interesada en IA. Plan en `docs/DIFUSION_G1.md` | 24 oct 2026 | — |
+| Código de recomendación | «Que les den 10 % a ambas personas, con un límite de no más de 30 % del curso». La persona recomendada paga 10 % menos sobre el precio de lista de su generación; quien recomienda recibe 10 % del precio de lista por cada recomendado que pague, hasta 30 % del precio de su curso (G1: máx. 3 recompensas = $2,970). Cada alumno inscrito y al corriente tiene su código en Mi avance con la liga `inscripcion.html?ref=CODIGO`. Un código por inscripción, no aplica al propio Gmail ni a pagos ya hechos. El precio lo decide la base | 30 oct 2026 | Inscripción, Mi avance, términos, aviso de privacidad, admin.html → Inscripciones |
+| ⚙ Recomendación + pago único | **Supuesto por confirmar:** se acumula con el 10 % del pago único, ambos sobre precio de lista (G1: $9,900 − $990 − $990 = **$7,920**); en 3 pagos cada cuota baja 10 % (G1: $2,970). Se cambia en admin.html → Inscripciones → Configurar recomendación | 30 oct 2026 (⚙) | Inscripción, términos |
+| ⚙ Cuándo se libera la recompensa | **Supuesto por confirmar:** queda «disponible» al terminar la 2.ª clase del grupo del recomendado (fin del reembolso total) y se cancela sola si se reembolsa antes | 30 oct 2026 (⚙) | Términos, admin.html |
+| ⚙ Cómo se entrega la recompensa | **Supuesto por confirmar:** si quien recomienda paga en cuotas y le faltan, se descuenta de las siguientes (saldo a favor en Stripe); si ya pagó, reembolso parcial en Stripe. El dinero nunca se mueve solo: el docente pulsa «Entregar» en admin.html → Inscripciones → Recompensas por entregar | 30 oct 2026 (⚙) | Términos, admin.html |
+| Presupuesto de Facebook Ads | **50 USD** por ahora, repartidos por semana hasta el cierre del 8 ene (plan en `docs/DIFUSION_G1.md`) | 30 oct 2026 | — |
+| Clase abierta gratuita | **No habrá** por ahora | 30 oct 2026 | — |
 
 ## Cómo se calculan precio y fechas en el sitio
 
@@ -32,6 +38,10 @@ Registro de lo que José Carlos confirmó para la oferta publicada en learningla
 ## Cómo funciona la inscripción en línea
 
 `site/inscripcion.html` pide el precio, las fechas y el cupo a la base (`oferta_inscripcion()`), aparta el lugar y abre Stripe Checkout por la Edge Function `tdd-inscripcion` del backend. Al volver, `site/inscripcion-lista.html` confirma el estado. El precio que se cobra lo decide la base (`grupos.precio`, abierto en admin.html → Inscripciones → Venta del grupo), no esta página; `site/cursos.js` solo lo muestra en el inicio, así que si cambias el precio, cámbialo en los dos lugares. Detalle técnico y pasos para conectar Stripe: `docs/PAGOS.md` del backend.
+
+## Código de recomendación
+
+`site/inscripcion.html` acepta un código (campo opcional o `?ref=CODIGO` en la liga) y pide a la base el precio con descuento (`validar_codigo_recomendacion()`); al inscribirse, la Edge Function vuelve a validarlo y Stripe cobra el precio que da la base. Los valores (10 %, 10 %, 30 %, acumulación, clases antes de liberar y forma de entrega) viven en la configuración de la base y se cambian en admin.html → Inscripciones → Configurar recomendación; los marcados ⚙ arriba están por confirmar. Detalle técnico y pasos: `docs/PAGOS.md` del backend.
 
 ## Pendientes de definir
 

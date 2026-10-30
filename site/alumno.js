@@ -513,7 +513,7 @@
     T.data = await tiemposListos;
     $("#session").hidden = false; pintarPerfil(usuario, null, false);
     const uid = encodeURIComponent(usuario.id);
-    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas, clases, inscripcion] = await Promise.all([
+    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas, clases, inscripcion, recomendacion] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
       // cuaderno_url existe desde el esquema 0.8; en bases anteriores se piden sin él.
       api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite,cuaderno_url&order=modulo.asc,id.asc")
@@ -532,6 +532,8 @@
       api("/rest/v1/rpc/mis_clases", { method: "POST", body: "{}" }).catch(() => []),
       // Inscripción y pagos (0.12): estado de sus cuotas; en bases anteriores no aparece nada.
       api("/rest/v1/rpc/mi_inscripcion", { method: "POST", body: "{}" }).catch(() => null),
+      // Código de recomendación (0.13); en bases anteriores no aparece.
+      api("/rest/v1/rpc/mi_recomendacion", { method: "POST", body: "{}" }).catch(() => null),
     ]);
     const docente = rolBase && typeof rolBase === "object" ? (rolBase.admin || rolBase.docente ? rolBase : false) : rolBase === true;
     const perfil = perfiles[0] || null;
@@ -551,6 +553,7 @@
     pintarClases(clases);
     pintarPago(inscripcion);
     pintarAccesoColab(usuario, perfil, docente);
+    pintarRecomendacion(perfil && !docente ? recomendacion : null);
     pintarAvance({ usuario, perfil, casos, filas, eventos, retros });
     pintarBuzon();
     pintarMarcador(marcador);
@@ -588,6 +591,28 @@
         el("span", null, fechas.length ? `Próximo cobro a tu tarjeta: ${diaCuota(fechas[0])} (${pesos(i.monto_total / i.cuotas_total)} MXN).` : "Sin cobros pendientes."));
     } else return; // pagado de contado o liquidado: nada que avisar
     box.append(texto, ...acciones); box.hidden = false;
+  }
+
+  // ---------- Código de recomendación (0.13) ----------
+  // La base decide quién puede recomendar (inscrito y al corriente) y los montos; aquí solo se muestran.
+  function pintarRecomendacion(r) {
+    const sec = $("#recomendar");
+    sec.hidden = !(r && r.activo && r.codigo);
+    if (sec.hidden) return;
+    // Liga a inscripcion.html?ref=CODIGO en el mismo sitio (el build no fija el hosting).
+    const liga = new URL(`inscripcion.html?ref=${encodeURIComponent(r.codigo)}`, location.href).href;
+    $("#miCodigo").textContent = r.codigo; $("#miLigaRef").textContent = liga;
+    const copiar = async (v, b) => { try { await navigator.clipboard.writeText(v); b.textContent = "Copiado"; setTimeout(() => { b.textContent = "Copiar"; }, 1500); } catch (_) { b.textContent = "Cópialo a mano"; } };
+    $("#copiarCodigo").onclick = (e) => copiar(r.codigo, e.currentTarget);
+    $("#copiarLigaRef").onclick = (e) => copiar(liga, e.currentTarget);
+    if (r.recompensa && r.tope) {
+      $("#recTexto").firstChild.textContent = `Quien se inscriba con tu código paga ${r.descuento_pct} % menos y, cuando pague, tú recibes ${pesos(r.recompensa)} MXN (${r.recompensa_pct} % del curso), hasta ${pesos(r.tope)} (${r.tope_pct} %). `;
+    }
+    const st = $("#recStats"); st.replaceChildren();
+    const dato = (k, v) => { const s2 = el("span"); s2.append(document.createTextNode(`${k}: `), el("b", null, v)); st.append(s2); };
+    dato("Recompensas ganadas", pesos(r.ganado));
+    dato("Entregadas", pesos(r.entregado));
+    if (r.pendientes) dato("En espera", `${r.pendientes} (se liberan al terminar la 2.ª clase de cada persona)`);
   }
 
   // ---------- Acceso a Colab: el alumno genera su TDD_CLAVE (Edge Function tdd-inscripcion) ----------
