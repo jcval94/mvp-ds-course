@@ -13,8 +13,8 @@ Dos actividades antes de abrir la Generación 1, a cargo de José Carlos (único
 
 | ✓ | Prerrequisito | Dónde |
 | --- | --- | --- |
-| ☐ | Fusiona el PR 21 del backend (esquema 0.12 + casos 1.1, 4.1 v1.4 y 4.2). El enlace del instalador abre `main`, así que sin fusionar correrías la versión anterior | https://github.com/jcval94/agentic-ds-backen/pull/21 |
-| ☐ | Corre el instalador: pasos 1 a 4, luego 6 y 9 (como indica `docs/PAGOS.md` del backend). Si Colab no lo encuentra: **Archivo → Abrir cuaderno → GitHub → Incluir repositorios privados** | https://colab.research.google.com/github/jcval94/agentic-ds-backen/blob/main/instalador.ipynb |
+| ✓ | PR 21 del backend fusionado el 30 oct (esquema 0.12 + casos 1.1, 4.1 v1.4 y 4.2): el instalador de `main` ya es el correcto | https://github.com/jcval94/agentic-ds-backen/pull/21 |
+| ☐ | Corre el instalador: pasos 1 a 4, luego 6 y 9 (como indica `docs/PAGOS.md` del backend). El repo es privado: si Colab dice que no existe, autoriza una vez en https://colab.research.google.com/github/ marcando **Incluir repositorios privados**, o descárgalo desde https://github.com/jcval94/agentic-ds-backen/raw/main/instalador.ipynb y usa **Archivo → Subir cuaderno** | https://colab.research.google.com/github/jcval94/agentic-ds-backen/blob/main/instalador.ipynb |
 | ☐ | La función `tdd-docente` está en 0.9.0 y `tdd-inscripcion` desplegada (de esta sale el botón **Generar mi TDD_CLAVE** del alumno) | https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions |
 | ☐ | Corre el respaldo (paso 10 del instalador) para tener un punto de regreso | El mismo instalador |
 | ☐ | Tienes a la mano una cuenta de Gmail **externa** (no de administración) y un perfil de Chrome aparte o ventana de incógnito para ella | — |
