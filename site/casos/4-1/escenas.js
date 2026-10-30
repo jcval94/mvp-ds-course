@@ -104,7 +104,7 @@
     id: '4.1',
     titulo: 'LAS DOS SALAS',
     volver: '../../index.html',
-    colab: 'https://colab.research.google.com/drive/1FNfm7Lf5e69Lw3ER5BM8L4jQMrdbyAgQ',
+    colab: 'https://colab.research.google.com/drive/1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
     medios: 'medios.json',
