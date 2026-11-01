@@ -586,7 +586,11 @@
       const fechas = (i.fechas_cuotas || []).slice(i.cuotas_pagadas || 0);
       texto.append(el("b", null, `Pagos: ${i.cuotas_pagadas || 0} de ${i.cuotas_total} · al corriente`),
         el("span", null, fechas.length ? `Próximo cobro a tu tarjeta: ${diaCuota(fechas[0])} (${pesos(i.monto_total / i.cuotas_total)} MXN).` : "Sin cobros pendientes."));
-    } else return; // pagado de contado o liquidado: nada que avisar
+    } else if (!i.codigo) return; // pagado de contado o liquidado y sin código: nada que avisar
+    if (i.codigo && !i.bloqueo) {
+      texto.append(el("b", null, `Tu código de recomendación: ${i.codigo}`),
+        el("span", null, "Quien se inscriba con él tiene 10 % de descuento, y tú recibes 10 % del precio de vuelta por cada persona (hasta 30 %)."));
+    }
     box.append(texto, ...acciones); box.hidden = false;
   }
 

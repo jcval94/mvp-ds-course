@@ -2,7 +2,9 @@
 // la primera cuyo inicio aún no pasa (si todas pasaron, la última).
 // Reglas de pago (aplican a todas las generaciones):
 //   · Pago único: 10 % de descuento sobre el precio de la generación.
+//   · O el precio completo a 3 meses sin intereses con tarjeta de crédito (un solo cargo que el banco divide).
 //   · O 3 pagos iguales: el primero en la fecha de inicio, el segundo un mes después y el tercero dos meses después.
+//   · Con código de recomendación, 10 % más, multiplicado con el de contado (lo calcula la base al inscribirse).
 //   · Lo pagado de Augmented Studio en los 12 meses anteriores a la inscripción se descuenta.
 // Cada elemento con data-curso="clave" recibe el texto calculado; sin JavaScript queda el texto escrito en la página.
 (function () {

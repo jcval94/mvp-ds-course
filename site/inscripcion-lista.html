@@ -98,6 +98,8 @@
         if (d.estado === "pagado" || d.estado === "al_corriente" || d.estado === "liquidado") {
           const pago = d.plan === "cuotas"
             ? `Tu tarjeta quedó guardada: cobraremos 3 pagos de ${pesos(d.cuota)} MXN el ${lista((d.fechas_cuotas || []).map(corta))}. Hoy no se cobró nada.`
+            : d.plan === "msi"
+            ? `Recibimos tu pago de ${pesos(d.monto)} MXN a 3 meses sin intereses: tu banco lo divide en tu estado de cuenta. Stripe te manda el recibo.`
             : `Recibimos tu pago de ${pesos(d.monto)} MXN; Stripe te manda el recibo.`;
           return mostrar(`¡Bienvenida, ${d.nombre}! Tu lugar está confirmado`, `${d.grupo} empieza el ${inicio}. ${pago}`, true, [boton("Ir a Mi avance", "btn-accent", "alumno.html"), boton("Ver el tutorial de Colab", "btn-line", "colab.html")]);
         }
