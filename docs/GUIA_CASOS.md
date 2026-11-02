@@ -3,21 +3,24 @@
 **Estado:** decisiones del autor del 1 de noviembre de 2026 (respuestas C1 a C7). Complementa `docs/CRITERIO_PRIMERO.md`
 y `docs/ESTRUCTURA_GENERACION_1.md`. El banco de casos y su contrato están en `casos/`.
 
-## Escalas de cada caso (1 a 5)
+## Indicadores de cada caso (1 a 5)
 
-Cada caso lleva cuatro puntajes. Los tres primeros miden calidad: más es mejor. La duración solo describe cuánto ocupa.
+Son los seis indicadores del «Tablero de casos · Generación 1» (columnas Pop, Did, Sus, Gan, Dat y Sol). En todos, más
+es mejor. La duración va aparte, en minutos.
 
-| Escala | 1 | 3 | 5 |
+| Indicador | 1 | 3 | 5 |
 | --- | --- | --- | --- |
-| **Popularidad**: ¿qué tanto lo conoce la gente? | Solo lo conocen especialistas | Aparece en libros de divulgación o en cursos | Lo conoce el público general (película, noticia mundial, meme) |
-| **Didáctico**: ¿qué tan clara llega la lección al resolverlo? | La idea se pierde entre detalles | Enseña una idea clara, pero necesita explicación previa | La idea se descubre sola al resolverlo y se reconstruye con lápiz o datos pequeños |
-| **Sustancia**: ¿qué tan sólido es el caso? | Anécdota sin datos verificables | Hechos verificados con dos fuentes; datos parciales o reconstruidos | Fuentes primarias, datos reales accesibles y una decisión con consecuencias documentadas |
-| **Duración en clase** | 15 minutos o menos (calentamiento) | De 30 a 60 minutos | Más de 90 minutos (la clase completa o tarea) |
+| **Popularidad (Pop)**: ¿qué tanto lo conoce la gente? | Solo lo conocen especialistas | Aparece en libros de divulgación o en cursos | Lo conoce el público general (película, noticia mundial, meme) |
+| **Didáctico (Did)**: ¿qué tan clara llega la lección al resolverlo? | La idea se pierde entre detalles | Enseña una idea clara, pero necesita explicación previa | La idea se descubre sola al resolverlo y se reconstruye con lápiz o datos pequeños |
+| **Sustancia (Sus)**: ¿cuánta ciencia de datos cabe en el caso? | Una idea suelta | Un concepto completo con su herramienta | Varios conceptos encadenados que sostienen una clase entera |
+| **Gancho (Gan)**: ¿dan ganas de resolverlo? | Se entiende sin misterio | Plantea una pregunta interesante | Un misterio con giro que el alumno quiere resolver ya |
+| **Datos para reproducir (Dat)** | No hay datos | Datos parciales o reconstruibles a partir de fuentes | Datos reales y públicos, listos para el cuaderno |
+| **Solidez (Sol)**: ¿qué tan verificado está? | Anécdota o mito | Hechos verificados con dos fuentes; quedan dudas declaradas | Fuentes primarias y ningún mito pendiente |
 
-Los niveles 2 y 4 quedan entre los extremos. Para la duración: 2 = de 15 a 30 minutos y 4 = de 60 a 90 minutos.
+Los niveles 2 y 4 quedan entre los extremos. **Duración**: rango en minutos (por ejemplo, 30–45 min).
 
-Regla práctica: un caso principal pide **didáctico 4 o más y sustancia 3 o más**. La popularidad ayuda a enganchar,
-pero un caso poco conocido con buena sustancia vale más que uno famoso y endeble.
+Regla práctica: un caso principal pide **Did 4 o más, Sol 3 o más y Dat 3 o más** (datos reales primero). Pop y Gan
+ayudan a enganchar, pero un caso poco conocido y sólido vale más que uno famoso y endeble.
 
 ## Prueba del caso de ingenio (3 preguntas)
 
@@ -67,12 +70,14 @@ El centro del curso son los casos reales, los ejercicios con datos reales y los 
 ## Casos de México y América Latina (candidatos)
 
 Siete candidatos en `casos/staging/`, con afirmaciones verificadas, fuentes e incertidumbres. Ninguno está aprobado
-todavía: cada uno anota en `uncertainties` lo que falta verificar.
+todavía: cada uno anota en `uncertainties` lo que falta verificar. Dos ya estaban en el catálogo del tablero de casos:
+Hoy No Circula (E16, costo del error de la clase 8) y Progresa (S06, caso principal de la clase 9). Los otros cinco
+entran al catálogo como banco.
 
 | Caso | Tipo | Módulo sugerido | Decisión |
 | --- | --- | --- | --- |
-| `hoy-no-circula` | Costo | 4 o 5 · Comparaciones justas / ¿Funcionó? | ¿Mejoró el aire con la restricción por placa? |
-| `progresa-evaluacion` | Ingenio | 5 · ¿Funcionó? | ¿Cómo saber si un programa funciona antes de escalarlo? |
+| `hoy-no-circula` (E16) | Costo | 4 · clase 8 | ¿Mejoró el aire con la restricción por placa? |
+| `progresa-evaluacion` (S06) | Ingenio | 5 · clase 9 | ¿Cómo saber si un programa funciona antes de escalarlo? |
 | `argentina-inflacion-precios-en-linea` | Ingenio | 1 · Datos que mienten | ¿Cómo medir la inflación si no confías en la oficial? |
 | `impuesto-refrescos-mexico` | Ingenio | 4 o 5 · Comparaciones justas / ¿Funcionó? | ¿Bajó el consumo, comparado con qué? |
 | `exceso-mortalidad-covid-mexico` | Costo | 1 · Datos que mienten | ¿Qué cifra usar para decidir? |
