@@ -169,6 +169,7 @@
     S.studio = val("studio", []) || [];
     S.v12 = ADMIN && R.inscripciones && R.inscripciones.status === "fulfilled";
     S.insc = val("inscripciones", []) || [];
+    S.v13 = ADMIN && R.recompensas && R.recompensas.status === "fulfilled";   // meses sin intereses y recomendación
     S.espera = val("espera", []) || [];
     S.eventosPago = val("eventosPago", []) || [];
     S.recompensas = val("recompensas", []) || [];   // 0.13: en bases anteriores queda vacío
@@ -296,6 +297,7 @@
     if (!S.esquema) banner("Falta el esquema 0.7 en la base: el panel puede leer, pero no crear grupos, docentes ni alumnos. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
     if (S.fn && !S.fn.ok) banner(`Altas y claves no disponibles: ${S.fn.error}`, true, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
     if (S.v10 && !S.v11) banner("Falta el esquema 0.11: sin él, nadie (ni administración) puede abrir los niveles 3 en adelante del sitio. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
+    if (S.v12 && !S.v13) banner("Falta el esquema 0.13: los meses sin intereses y el código de recomendación se activan al correr los pasos 1 a 4, 6 y 9 del instalador y volver a desplegar la función tdd-inscripcion.", true, ["Abrir instalador", INSTALADOR]);
     if (S.v11 && !S.v12) banner("Falta el esquema 0.12: la inscripción en línea con Stripe, las cuotas y la lista de espera se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
     if (S.v11 && S.fn && S.fn.ok && S.fn.version === "0.8.0") banner("Despliega la función tdd-docente 0.9.0 para dar acceso a suscriptores de Augmented Studio.", false, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
     if (S.esquema && S.v08 && !S.v10) banner("Falta el esquema 0.10: las clases en vivo, sus grabaciones y los alias de ciudad se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
@@ -1711,7 +1713,9 @@
       const check = (ok, texto, nota) => { const li = el("li", ok ? "" : "bad"); const d = el("div"); d.append(document.createTextNode(texto)); if (nota) d.append(el("small", null, nota)); li.append(el("b", null, ok ? "✓" : "!"), d); ul.append(li); };
       check(true, `Sesión de administración: ${S.usuario.email}`);
       const inst = S.bitacora.find((b) => b.accion === "instalacion");
-      check(S.esquema && S.v08 && S.v10 && S.v11, S.v11 ? "Esquema 0.11: niveles de pago protegidos, clases en vivo, mensajes y retos activos" : S.v10 ? "Falta el esquema 0.11: los niveles 3+ no abren para nadie" : S.v08 ? "Falta el esquema 0.10 para clases en vivo y alias de ciudad" : S.esquema ? "Esquema 0.7: falta 0.8 para mensajes y avisos" : "Esquema anterior a 0.7", inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 3");
+      const esq = S.v13 ? "0.13" : S.v12 ? "0.12" : S.v11 ? "0.11" : S.v10 ? "0.10" : S.v08 ? "0.8" : S.esquema ? "0.7" : null;
+      check(S.v13, esq ? `Esquema ${esq} instalado${S.v13 ? ": meses sin intereses, código de recomendación, inscripción en línea y todo lo anterior" : " · falta el 0.13 (meses sin intereses y código de recomendación)"}` : "Esquema anterior a 0.7",
+        inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 4, 6 y 9");
       if (S.v10) { const fut = S.clases.filter((k) => finClase(k) > new Date()), sinGrab = S.clases.filter((k) => finClase(k) < new Date() && !k.grabacion_url);
         check(S.clases.length > 0 && !sinGrab.length, S.clases.length ? `${plural(S.clases.length, "clase", "clases")} · ${fut.length} por venir` : "Sin calendario de clases", S.clases.length ? (sinGrab.length ? `${plural(sinGrab.length, "clase pasada sin grabación", "clases pasadas sin grabación")}: pégala en la pestaña Clases` : "Todas las clases pasadas tienen grabación") : "Pestaña Clases → Generar calendario"); }
       const fnNueva = S.fn && S.fn.ok && S.fn.version === "0.9.0", fnIA = S.fn && S.fn.ok && ["0.8.0", "0.9.0"].includes(S.fn.version);
