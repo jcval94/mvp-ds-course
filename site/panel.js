@@ -171,6 +171,7 @@
     S.insc = val("inscripciones", []) || [];
     S.espera = val("espera", []) || [];
     S.eventosPago = val("eventosPago", []) || [];
+    S.recompensas = val("recompensas", []) || [];   // 0.13: en bases anteriores queda vacío
     if (ADMIN) S.fnPagos = R.fnPagos.status === "fulfilled" ? { ok: true, ...R.fnPagos.value } : { ok: false, error: errorFuncion(R.fnPagos.reason || {}) };
     const opciones = gruposDelFiltro().map((g) => g.id);
     if (S.grupoSel && !opciones.includes(S.grupoSel)) S.grupoSel = "";
@@ -250,6 +251,8 @@
       inscripciones: rpc("admin_inscripciones"),
       espera: rpc("admin_lista_espera"),
       eventosPago: rpc("admin_eventos_pago", { p_limite: 50 }),
+      // Código de recomendación (0.13): lo que hay que devolver a quien recomendó.
+      recompensas: rpc("admin_recompensas"),
       fnPagos: funcion("tdd-inscripcion", { accion: "estado_funcion" }),
     });
     const claves = Object.keys(pedidos), r = await Promise.allSettled(Object.values(pedidos)), R = {};
@@ -1023,7 +1026,7 @@
     pendiente: ["Pagando", ""], esperando_pago: ["OXXO / transferencia", ""], pagado: ["Pagado", "ok"], al_corriente: ["Al corriente", "ok"],
     atrasado: ["Cobro fallido", "crit"], liquidado: ["Liquidado", "ok"], cancelado: ["Cancelado", ""], reembolsado: ["Reembolsado", "crit"],
   };
-  const PLANES = { contado: "Pago único", cuotas: "3 pagos", manual: "A mano" };
+  const PLANES = { contado: "Pago único", msi: "3 meses sin intereses", cuotas: "3 pagos", manual: "A mano" };
   const pesos = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
   const aInput = (iso) => (iso ? new Date(iso).toLocaleString("sv-SE", { timeZone: TZ }).slice(0, 16).replace(" ", "T") : "");
   const deInput = (v) => (v ? `${v}:00-06:00` : null); // CDMX no tiene horario de verano desde 2022
@@ -1123,6 +1126,30 @@
     });
     tb.append(thead, body);
   }
+  // Recompensas por recomendación (0.13): 10 % del precio por persona, tope 30 %. Se devuelven desde Stripe a mano.
+  function pintarRecompensas() {
+    const tb = $("#tablaRecompensas"); if (!tb) return; tb.replaceChildren();
+    const pendientes = S.recompensas.filter((x) => x.estado === "pendiente" && x.monto > 0);
+    $("#iRecompensasNota").textContent = pendientes.length ? `${plural(pendientes.length, "devolución pendiente", "devoluciones pendientes")} · ${pesos(pendientes.reduce((s, x) => s + x.monto, 0))}` : "Lo que se devuelve a quien recomendó (10 % por persona, tope 30 %)";
+    if (!S.recompensas.length) { const tr = el("tr"), td = el("td", null, "Nadie se ha inscrito con un código todavía."); tr.append(td); tb.append(tr); return; }
+    const head = el("tr"); ["Recomendó", "Código", "Se inscribió", "A devolver", "Estado", ""].forEach((h) => head.append(el("th", null, h)));
+    const thead = el("thead"); thead.append(head); const body = el("tbody");
+    S.recompensas.forEach((x) => {
+      const tr = el("tr"); if (x.estado !== "pendiente") tr.className = "muted-row";
+      const tdP = el("td"); tdP.append(el("b", null, x.recomienda), el("br"), el("small", "muted", x.correo));
+      const [txt, cls] = { pendiente: ["Por devolver", "warn"], aplicada: ["Devuelto", "ok"], cancelada: ["Cancelada", ""] }[x.estado] || [x.estado, ""];
+      const tdE = el("td"); tdE.append(pill(x.monto > 0 ? txt : "Tope alcanzado", x.monto > 0 ? cls : ""));
+      const acc = el("td", "row-actions");
+      if (x.estado === "pendiente" && x.monto > 0) acc.append(boton("Marcar devuelto", "btn btn-line btn-sm", async (ev) => {
+        const b = ev.currentTarget; b.disabled = true;
+        try { await rpc("admin_recompensa_estado", { p_id: x.id, p_estado: "aplicada" }); x.estado = "aplicada"; pintarRecompensas(); toast("Marcada como devuelta"); }
+        catch (e) { toast(e.message); b.disabled = false; }
+      }));
+      tr.append(tdP, el("td", null, x.codigo), el("td", null, `${x.recomendado} · ${(ESTADOS_INSC[x.estado_recomendado] || [x.estado_recomendado])[0]}`), el("td", null, pesos(x.monto)), tdE, acc);
+      body.append(tr);
+    });
+    tb.append(thead, body);
+  }
   function pintarInscripciones() {
     const sel = $("#iGrupo"); if (!sel) return;
     const atrasados = S.insc.filter((x) => x.estado === "atrasado").length;
@@ -1132,7 +1159,7 @@
     const ids = [...new Set([...S.grupos.map((g) => g.id), ...S.insc.map((x) => x.grupo)])];
     sel.replaceChildren(...ids.map((id) => new Option(nombreGrupo(id), id)));
     sel.value = ids.includes(actual) ? actual : (S.grupoSel && ids.includes(S.grupoSel) ? S.grupoSel : (S.grupos.find((g) => g.activo) || {}).id || ids[0] || "");
-    pintarEstadoPagos(); pintarTablaInsc(); pintarEspera(); pintarEventosPago(); cargarOferta();
+    pintarEstadoPagos(); pintarTablaInsc(); pintarEspera(); pintarRecompensas(); pintarEventosPago(); cargarOferta();
   }
   on("#iGrupo", "change", () => { S.iGrupoSel = grupoInsc(); pintarTablaInsc(); pintarEspera(); cargarOferta(); });
   on("#iIntentos", "change", () => pintarTablaInsc());
