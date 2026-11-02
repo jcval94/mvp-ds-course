@@ -1154,7 +1154,7 @@
     const sel = $("#iGrupo"); if (!sel) return;
     const atrasados = S.insc.filter((x) => x.estado === "atrasado").length;
     $("#cntInscripciones").textContent = atrasados || "";
-    ["#iVenta", "#iManual", "#iExportar"].forEach((s) => { $(s).disabled = !S.v12; });
+    ["#iVenta", "#iManual", "#iExportar", "#iRecSesion0", "#iRecVispera"].forEach((s) => { if ($(s)) $(s).disabled = !S.v12; });
     const actual = sel.value || S.iGrupoSel;
     const ids = [...new Set([...S.grupos.map((g) => g.id), ...S.insc.map((x) => x.grupo)])];
     sel.replaceChildren(...ids.map((id) => new Option(nombreGrupo(id), id)));
@@ -1163,6 +1163,20 @@
   }
   on("#iGrupo", "change", () => { S.iGrupoSel = grupoInsc(); pintarTablaInsc(); pintarEspera(); cargarOferta(); });
   on("#iIntentos", "change", () => pintarTablaInsc());
+  // Recordatorios antes del inicio (0.13): un correo a todos los inscritos pagados del grupo. Se mandan a mano.
+  async function recordatorio(tipo, b) {
+    const g = grupoInsc(); if (!g) return;
+    const pagados = S.insc.filter((x) => x.grupo === g && ["pagado", "al_corriente", "atrasado", "liquidado"].includes(x.estado) && !x.bloqueo).length;
+    const que = tipo === "sesion0" ? "el recordatorio de la Sesión 0" : "el recordatorio de la víspera";
+    if (!pagados) { toast("Este grupo todavía no tiene inscritos pagados"); return; }
+    if (!confirm(`¿Mandar ${que} a ${plural(pagados, "persona", "personas")} de ${nombreGrupo(g)}?`)) return;
+    b.disabled = true;
+    try { const r = await funcion("tdd-inscripcion", { accion: "recordatorio", grupo: g, tipo }); toast(`Enviado a ${r.enviados} de ${r.total}`); }
+    catch (e) { toast(errorFuncion(e)); }
+    b.disabled = false;
+  }
+  on("#iRecSesion0", "click", (ev) => recordatorio("sesion0", ev.currentTarget));
+  on("#iRecVispera", "click", (ev) => recordatorio("vispera", ev.currentTarget));
   on("#iExportar", "click", () => {
     const g = grupoInsc(), filas = S.insc.filter((x) => x.grupo === g);
     descargar(`inscripciones_${g}_${marca()}.csv`, csv([["nombre", "correo", "alumno_id", "plan", "estado", "monto_total", "pagado", "cuotas_pagadas", "cuotas_total", "vence_gracia", "utm_source", "utm_campaign", "creado"],

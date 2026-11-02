@@ -19,7 +19,7 @@ Variantes por público:
 - **Cambio de carrera:** «Sin saber programar: Python, datos e IA con casos reales, viernes y sábados para que no choque con tu trabajo.»
 - **Interesados en IA:** «Usa la IA como tu asistente de datos sin firmar a ciegas lo que te dice: delega, verifica y decide tú.»
 
-Argumentos que siempre van: precio de fundador ($8,910 de contado o 3 pagos de $3,300) **solo para la Generación 1**; 30 lugares; grabación de cada clase; reembolso total si lo pides antes de que termine la segunda clase.
+Argumentos que siempre van: precio de fundador ($8,910 de contado, $9,900 a 3 meses sin intereses o 3 pagos de $3,300) **solo para la Generación 1**; con el código de recomendación de un alumno, 10 % adicional para ambos lados (quien recomienda, hasta 30 %); 30 lugares; grabación de cada clase; reembolso total si lo pides antes de que termine la segunda clase.
 
 ## Ligas con etiqueta (UTM)
 

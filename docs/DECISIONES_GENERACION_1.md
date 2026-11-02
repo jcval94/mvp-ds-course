@@ -37,6 +37,8 @@ Registro de lo que José Carlos confirmó para la oferta publicada en learningla
 
 `site/inscripcion.html` pide el precio, las fechas y el cupo a la base (`oferta_inscripcion()`), aparta el lugar y abre Stripe Checkout por la Edge Function `tdd-inscripcion` del backend. Al volver, `site/inscripcion-lista.html` confirma el estado. El precio que se cobra lo decide la base (`grupos.precio`, abierto en admin.html → Inscripciones → Venta del grupo), no esta página; `site/cursos.js` solo lo muestra en el inicio, así que si cambias el precio, cámbialo en los dos lugares. Detalle técnico y pasos para conectar Stripe: `docs/PAGOS.md` del backend.
 
+Antes del inicio, administración manda a mano dos correos desde admin.html → Inscripciones: «Recordatorio Sesión 0» (una semana antes, con la guía `instalacion.html`) y «Recordatorio víspera» (un día antes). La bienvenida al pagar ya lleva el TDD_ID, cómo generar la TDD_CLAVE, el tutorial de Colab y el código de recomendación.
+
 ## Pendientes de definir
 
 - Facturación: CFDI y régimen fiscal (tablero p04).

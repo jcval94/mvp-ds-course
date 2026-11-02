@@ -39,7 +39,7 @@ el código, lo escaso es ese criterio.
   de cada módulo; niveles 1 y 2 gratis, el resto con inscripción o plan.
 - **Plataforma:** portal estático en Cloudflare Pages, inicio de sesión, Mi
   avance, inscripción con Stripe y backend en Supabase (repositorio privado).
-- Requisitos del alumno: laptop con Windows o macOS, cuentas de Google, GitHub y ChatGPT, y GitHub
+- Requisitos del alumno: laptop con Windows o macOS, cuentas de Google, GitHub, ChatGPT y Claude, y GitHub
   Desktop y Codex instalados (`site/instalacion.html`).
 - Oferta y condiciones de la Generación 1: `docs/DECISIONES_GENERACION_1.md`.
 
