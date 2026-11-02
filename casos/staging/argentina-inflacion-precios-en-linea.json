@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "argentina-inflacion-precios-en-linea",
+  "title": "La inflación que no cuadraba",
+  "decision_question": "Si sospechas que la inflación oficial de un país no es real, ¿cómo la mides sin acceso a los datos del gobierno?",
+  "naive_answer": "Confiar en la cifra oficial o en encuestas de opinión.",
+  "ingenious_move": "Recolectar todos los días los precios publicados en línea por los supermercados y construir un índice propio que se pueda comparar con el oficial.",
+  "status": "candidate",
+  "access": "public",
+  "concepts": [
+    "data-provenance",
+    "web-scraping",
+    "measurement-validity"
+  ],
+  "level_hint": 1,
+  "verified_claims": [
+    {
+      "claim": "Alberto Cavallo comparó precios en línea de supermercados con la inflación oficial de octubre de 2007 a marzo de 2011 en cinco países de América Latina.",
+      "sources": [
+        "https://dspace.mit.edu/handle/1721.1/107462"
+      ]
+    },
+    {
+      "claim": "En Argentina la inflación de precios en línea fue casi tres veces la estimación oficial; en Brasil, Chile, Colombia y Venezuela el índice en línea siguió de cerca el nivel y las tendencias oficiales.",
+      "sources": [
+        "https://dspace.mit.edu/handle/1721.1/107462"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "Falta verificar con una segunda fuente las cifras anuales exactas de cada índice.",
+    "Los precios en línea de un supermercado no cubren servicios ni todos los bienes del índice oficial."
+  ],
+  "myths_to_avoid": [
+    "Los precios en línea demuestran fraude por sí solos: muestran una discrepancia; la comparación con otros países es lo que la vuelve sospechosa."
+  ],
+  "sources": [
+    "https://dspace.mit.edu/handle/1721.1/107462",
+    "https://www.npr.org/transcripts/nx-s1-5500542"
+  ],
+  "dataset": null
+}

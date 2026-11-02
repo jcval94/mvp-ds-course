@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "transantiago",
+  "title": "Transantiago: cambiarlo todo en un día",
+  "decision_question": "Santiago de Chile rediseña todo su transporte público. ¿Se lanza de golpe o por etapas?",
+  "naive_answer": "Lanzar todo el mismo día, como dice el plan.",
+  "ingenious_move": "Revisar si los supuestos del diseño (infraestructura, operación, pago) ya se cumplen antes de lanzar, y lanzar por etapas lo que no.",
+  "status": "candidate",
+  "access": "public",
+  "concepts": [
+    "planning-assumptions",
+    "rollout-risk",
+    "monitoring"
+  ],
+  "level_hint": 14,
+  "verified_claims": [
+    {
+      "claim": "Transantiago es el sistema integrado de transporte público de Santiago de Chile; se implementó de forma prematura en febrero de 2007, antes de que existiera buena parte de la infraestructura y de las condiciones de operación previstas.",
+      "sources": [
+        "https://en.cedeus.cl/?p=3457"
+      ]
+    },
+    {
+      "claim": "Tras un inicio difícil que atrajo atención mundial, el sistema mejoró en los años siguientes.",
+      "sources": [
+        "https://en.cedeus.cl/?p=3457"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "Faltan cifras verificadas de flota, tiempos de espera y demanda en el lanzamiento; la fuente citada solo da el resumen.",
+    "Las causas exactas siguen en discusión: diseño, contratos y tecnología de pago."
+  ],
+  "myths_to_avoid": [
+    "El problema fue solo la tarjeta de pago."
+  ],
+  "sources": [
+    "https://en.cedeus.cl/?p=3457",
+    "https://repositorio.uchile.cl/handle/2250/143824"
+  ],
+  "dataset": null
+}

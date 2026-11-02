@@ -25,8 +25,8 @@ Registro de lo que José Carlos confirmó para la oferta publicada en learningla
 | Precio de fundador | Solo para la Generación 1 | 24 oct 2026 | Inicio, inscripción, términos |
 | Código de recomendación | Cada alumno pagado recibe un código. **Cualquiera** puede usarlo (menos su dueño): 10 % de descuento que **se multiplica** con el de contado ($9,900 × 0.9 × 0.9 = $8,019). Quien recomienda recibe de vuelta 10 % del precio por persona, **tope 30 %**, como reembolso parcial que administración hace desde Stripe (admin.html → Inscripciones → Recomendaciones). No se combina con códigos de promoción de Stripe | 1 nov 2026 | Inicio, inscripción, términos, Mi avance, bienvenida |
 | Clase que no se da | Se repone todo el tiempo que no se dio **agregando semanas al final** del curso, en el mismo horario | 1 nov 2026 | Términos |
-| Calificación | **Bits** de los cuadernos de Colab **más el proyecto final** (ponderación por confirmar). Las misiones web no cuentan | 1 nov 2026 | Términos, Mi avance |
-| Constancia | No depende de la asistencia: se emite con el **proyecto final en GitHub**, individual, con datos reales, un problema real y un video breve. El despliegue para el CV es opcional | 1 nov 2026 | Términos |
+| Calificación | **Solo bits** de los cuadernos de Colab. El proyecto final no pondera: es requisito de la constancia. Las misiones web no cuentan | 1 nov 2026 | Términos, Mi avance |
+| Constancia | No depende de la asistencia ni de la calificación: se emite con el **proyecto final en GitHub**, individual, con datos reales, un problema real y un video breve. El despliegue para el CV es opcional | 1 nov 2026 | Términos |
 | Difusión | Facebook Ads, LinkedIn, WhatsApp y, más adelante, YouTube. Público: estudiantes, profesionistas que buscan cambiar de carrera y gente interesada en IA. Plan en `docs/DIFUSION_G1.md` | 24 oct 2026 | — |
 
 ## Cómo se calculan precio y fechas en el sitio
