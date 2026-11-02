@@ -28,6 +28,8 @@ Registro de lo que José Carlos confirmó para la oferta publicada en learningla
 | Calificación | **Solo bits** de los cuadernos de Colab. El proyecto final no pondera: es requisito de la constancia. Las misiones web no cuentan | 1 nov 2026 | Términos, Mi avance |
 | Constancia | No depende de la asistencia ni de la calificación: se emite con el **proyecto final en GitHub**, individual, con datos reales, un problema real y un video breve. El despliegue para el CV es opcional | 1 nov 2026 | Términos |
 | Difusión | Facebook Ads, LinkedIn, WhatsApp y, más adelante, YouTube. Público: estudiantes, profesionistas que buscan cambiar de carrera y gente interesada en IA. Plan en `docs/DIFUSION_G1.md` | 24 oct 2026 | — |
+| Presupuesto de Facebook Ads | **50 USD** por ahora, repartidos por semana hasta el cierre del 8 ene: 15 de prueba, 20 al público ganador, pausa en diciembre y 15 de cierre (plan en `docs/DIFUSION_G1.md`) | 30 oct 2026 | — |
+| Clase abierta gratuita | **No habrá** por ahora | 30 oct 2026 | — |
 
 ## Cómo se calculan precio y fechas en el sitio
 
