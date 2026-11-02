@@ -1,6 +1,8 @@
 /* Paneles de administración y docente: mismo papel cálido que Mi avance, más denso.
    Colores solo desde design/tokens (el guardia del harness rechaza literales). */
 .panel-page main { gap: 22px; }
+/* Los hijos de la rejilla no crecen más que la página: las pestañas se desplazan dentro de su barra. */
+.panel-page main > *, .vista, .vista > * { min-width: 0; }
 .muted { color: var(--muted); }
 .num { font-variant-numeric: tabular-nums; }
 .mono { font-family: var(--font-mono); }
@@ -41,7 +43,7 @@
 .tab-count:empty { display: none; }
 .tabs { overflow-x: auto; }
 .tabs button { white-space: nowrap; }
-.vista { display: grid; gap: 18px; }
+.vista { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); }
 
 /* Tarjetas y KPIs */
 .card { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); box-shadow: var(--shadow-card); padding: 22px 24px; min-width: 0; }
