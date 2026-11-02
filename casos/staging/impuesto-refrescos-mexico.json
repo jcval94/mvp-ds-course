@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "impuesto-refrescos-mexico",
+  "title": "¿Bajó el consumo con el impuesto al refresco?",
+  "decision_question": "En 2014 México grava las bebidas azucaradas con un peso por litro. ¿Cómo saber si cambió lo que compra la gente?",
+  "naive_answer": "Comparar las ventas de 2014 con las de 2013.",
+  "ingenious_move": "Comparar contra lo que habría pasado sin el impuesto, ajustando por inflación, población y tendencia previa.",
+  "status": "candidate",
+  "access": "public",
+  "concepts": [
+    "counterfactual",
+    "policy-evaluation",
+    "trend-adjustment"
+  ],
+  "level_hint": 10,
+  "verified_claims": [
+    {
+      "claim": "En 2014 México aplicó un impuesto de un peso por litro a las bebidas azucaradas.",
+      "sources": [
+        "https://sph.unc.edu/?p=286197"
+      ]
+    },
+    {
+      "claim": "Según el estudio publicado en Health Affairs, las compras bajaron 5.5 % el primer año y en promedio 9.7 % en los dos primeros años, ajustando por factores como inflación y cambios de población.",
+      "sources": [
+        "https://sph.unc.edu/?p=286197"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "Los reportes de la industria daban resultados distintos; falta citar uno para presentar la discusión completa.",
+    "El efecto en salud (obesidad, diabetes) no se mide en esta fuente."
+  ],
+  "myths_to_avoid": [
+    "El impuesto redujo la obesidad: la fuente mide compras, no salud."
+  ],
+  "sources": [
+    "https://sph.unc.edu/?p=286197",
+    "https://blogs.iadb.org/salud/es/impuesto-a-las-bebidas-azucaradas"
+  ],
+  "dataset": null
+}

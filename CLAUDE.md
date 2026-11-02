@@ -28,7 +28,8 @@ niveles es la herramienta interna que produce esa biblioteca.
   Firmar.
 - Usa `docs/ESTRUCTURA_GENERACION_1.md` para saber qué caso va en cada clase.
 - Para intros y cuadernos, usa las skills `tads-*` disponibles.
-- Etiqueta cualquier dato simulado; los hechos históricos llevan fuente.
+- Datos reales primero: simulados solo si no hay forma de llegar a los reales, y se avisa al inicio del ejercicio.
+  Los hechos históricos llevan fuente. Escalas, prueba de ingenio y casos con víctimas: `docs/GUIA_CASOS.md`.
 
 ## Niveles de la biblioteca (fábrica)
 

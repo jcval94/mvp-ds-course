@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "progresa-evaluacion",
+  "title": "Progresa: medir antes de escalar",
+  "decision_question": "México lanza un programa de transferencias condicionadas en comunidades rurales. ¿Cómo saber si funciona antes de llevarlo a todo el país?",
+  "naive_answer": "Comparar a quienes lo reciben con quienes no, o preguntar a los beneficiarios si les ayudó.",
+  "ingenious_move": "Aprovechar que no se podía llegar a todas las comunidades a la vez: unas lo recibieron 18 meses antes y sirvieron de comparación justa.",
+  "status": "candidate",
+  "access": "public",
+  "concepts": [
+    "randomized-experiment",
+    "phased-rollout",
+    "policy-evaluation"
+  ],
+  "level_hint": 9,
+  "verified_claims": [
+    {
+      "claim": "Progresa empezó en 1997. Para su evaluación se eligieron 506 comunidades: 320 recibieron el programa de inmediato y 186 sirvieron de comparación y lo recibieron 18 meses después.",
+      "sources": [
+        "https://www.povertyactionlab.org/es/evaluation/invirtiendo-en-transferencias-monetarias-para-mejorar-la-calidad-de-vida-en-el-largo"
+      ]
+    },
+    {
+      "claim": "Hubo una encuesta de línea base y encuestas cada seis meses de marzo de 1998 a noviembre de 2000, y otra en noviembre de 2003.",
+      "sources": [
+        "https://www.povertyactionlab.org/es/evaluation/invirtiendo-en-transferencias-monetarias-para-mejorar-la-calidad-de-vida-en-el-largo"
+      ]
+    },
+    {
+      "claim": "Cuatro años después de que el grupo de comparación entró al programa, el consumo del grupo que lo recibió primero era 5.6 % mayor.",
+      "sources": [
+        "https://www.povertyactionlab.org/es/evaluation/invirtiendo-en-transferencias-monetarias-para-mejorar-la-calidad-de-vida-en-el-largo"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "La página de J-PAL citada no confirma cómo se eligió cada grupo; falta citar la fuente original de IFPRI sobre la asignación aleatoria antes de aprobar.",
+    "Los resultados citados son de un estudio sobre inversión productiva; los efectos en escolaridad y salud requieren otras fuentes."
+  ],
+  "myths_to_avoid": [
+    "Progresa acabó con la pobreza rural."
+  ],
+  "sources": [
+    "https://www.povertyactionlab.org/es/evaluation/invirtiendo-en-transferencias-monetarias-para-mejorar-la-calidad-de-vida-en-el-largo",
+    "https://www.cgdev.org/node/3273"
+  ],
+  "dataset": null
+}

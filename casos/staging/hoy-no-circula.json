@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "hoy-no-circula",
+  "title": "¿Funcionó el Hoy No Circula?",
+  "decision_question": "La Ciudad de México prohíbe circular un día a la semana según la placa. ¿Mejoró el aire?",
+  "naive_answer": "Sí: con un día sin auto por placa, circula alrededor de una quinta parte menos de autos.",
+  "ingenious_move": "Mirar cómo respondió la gente: más autos registrados (muchos usados) y viajes movidos a horas y días sin restricción.",
+  "status": "candidate",
+  "access": "public",
+  "concepts": [
+    "policy-evaluation",
+    "regression-discontinuity",
+    "behavioral-response"
+  ],
+  "level_hint": 10,
+  "verified_claims": [
+    {
+      "claim": "El programa Hoy No Circula empezó el 20 de noviembre de 1989 en la Ciudad de México.",
+      "sources": [
+        "https://faculty.haas.berkeley.edu/ldavis/Davis%20JPE%202008.pdf"
+      ]
+    },
+    {
+      "claim": "Lucas Davis (Journal of Political Economy, 2008) usó lecturas horarias de estaciones de monitoreo de cinco contaminantes y un diseño de regresión discontinua (1986–1993) y no encontró evidencia de que la restricción mejorara la calidad del aire.",
+      "sources": [
+        "https://faculty.haas.berkeley.edu/ldavis/Davis%20JPE%202008.pdf"
+      ]
+    },
+    {
+      "claim": "El mismo estudio estima unos 325,000 vehículos registrados adicionales tras la restricción (intervalo aproximado de 51,000 a 597,000), en su mayoría usados según sus inferencias, y un aumento relativo de la contaminación en fines de semana y en la noche.",
+      "sources": [
+        "https://faculty.haas.berkeley.edu/ldavis/Davis%20JPE%202008.pdf"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "El estudio infiere que los autos adicionales eran usados; no mide directamente su origen.",
+    "Los resultados son de 1989–1993; versiones posteriores del programa (verificación, hologramas) no están evaluadas en esta fuente."
+  ],
+  "myths_to_avoid": [
+    "El Hoy No Circula no sirvió para nada: el estudio mide calidad del aire, no otros posibles efectos."
+  ],
+  "sources": [
+    "https://faculty.haas.berkeley.edu/ldavis/Davis%20JPE%202008.pdf",
+    "https://ssir.org/articles/entry/a_lot_of_hot_air"
+  ],
+  "dataset": null
+}
