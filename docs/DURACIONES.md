@@ -64,8 +64,51 @@ Los casos nuevos sin verificar del mapa no se muestran a estudiantes.
 Aunque las clases en vivo cubrieran todo el tiempo, quedarían unas 142 h de trabajo
 fuera de clase, **unas 13 h por semana** durante las 11 semanas. No cabe en un curso
 de ~2.5 meses para principiantes. Decisión pendiente del docente: elegir qué
-bloques son obligatorios (por ejemplo, el caso ancla y un bloque núcleo por nivel) y
-marcar el resto como opcional, o alargar la generación.
+bloques son obligatorios y marcar el resto como opcional, o alargar la generación.
+Abajo hay una propuesta.
+
+## Propuesta: bloques obligatorios (25 de octubre de 2026, pendiente del autor)
+
+No hace falta inventar un «bloque núcleo» por nivel: `clases/mapa_conceptos.yaml` ya
+asigna cada concepto a una clase y una etapa. La propuesta usa esas etapas para decidir
+qué es obligatorio fuera de clase:
+
+| Qué | Obligatorio fuera de clase | Conceptos | Horas |
+| --- | --- | ---: | ---: |
+| Etapa `antes` (prerrequisitos de la clase) | Lección, ejercicio guiado y repaso (35 min). La transferencia queda opcional | 31 | 18.1 |
+| Etapas `caso` y `error` (se revelan en clase) | Solo el ejercicio guiado (10 min), para fijar lo que se vio | 116 | 19.3 |
+| Misión del caso | Terminar lo que no cupo en los 35 min de clase (supuesto: 40 min) | 22 clases | 14.7 |
+| **Total** | | | **≈ 52 h** |
+
+Eso da **≈ 4.7 h por semana** en promedio, en lugar de ~13 h. Todo lo demás
+(transferencias, etapas `taller`, `decision`, `despues` y `autoestudio`, y el resto de
+la biblioteca) queda como práctica opcional; sigue contando en «Material total».
+
+Carga por semana (dos clases por semana; lo de `antes` se hace la semana de su clase):
+
+| Semana | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Horas | 6.8 | 9.8 | 4.0 | 2.3 | 2.5 | 6.8 | 5.2 | 5.3 | 4.5 | 2.3 | 2.5 |
+
+**Pico en la semana 2.** La clase 4 (Nightingale) tiene 7 conceptos `antes` del Nivel 2
+(media, mediana, moda, rango, percentiles, sesgo, caja). Si media, mediana y moda se
+adelantan a la semana 1, las dos primeras semanas quedan en 8.6 y 8.0 h. Como son
+prerrequisitos, adelantarlos no rompe la regla de no usar un concepto antes de su
+clase.
+
+Para probar otras combinaciones: `python scripts/carga_semanal.py` (las reglas están en
+`REGLAS` y `MISION_FUERA_DE_CLASE`).
+
+**Lo que decide el autor:**
+
+1. Si acepta las tres partes obligatorias o cambia alguna (por ejemplo, exigir también
+   la transferencia de `antes`: +5 h en total).
+2. Si los 40 min de misión fuera de clase son realistas; se recalibran con los eventos
+   de los cuadernos.
+3. Si adelanta media, mediana y moda a la semana 1.
+4. Cómo se muestra: marcar «obligatorio» en Mi avance y en el catálogo requiere cambiar
+   `site/tiempos.json`, `scripts/build_pages.py` y la interfaz; no se hace hasta que el
+   autor lo apruebe.
 
 ## Cómo calibrar
 
