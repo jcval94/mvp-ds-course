@@ -268,7 +268,10 @@
           <a href="methodology.html">Metodología</a>
           <a href="alumno.html">Mi avance</a>
         </nav>
-        <a class="header-cta" href="#generacion">Inscríbete <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        <div class="header-actions">
+          <a class="header-login" id="headerLogin" href="alumno.html"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span>Entrar</span></a>
+          <a class="header-cta" href="#generacion">Inscríbete <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
       </header>
 
       <div class="wrap hero-inner">
@@ -498,5 +501,9 @@
 
   <script src="cursos.js"></script>
   <script src="app.js"></script>
+  <script>
+    // Botón de acceso: si ya hay sesión en este navegador, lleva directo a Mi avance para continuar la misión.
+    try { if (JSON.parse(localStorage.getItem("tdd-sesion") || "null")) { const b = document.getElementById("headerLogin"); b.querySelector("span").textContent = "Continuar misión"; b.setAttribute("aria-label", "Continuar misión en Mi avance"); } } catch (_) {}
+  </script>
 </body>
 </html>
