@@ -67,7 +67,13 @@ de ~2.5 meses para principiantes. Decisión pendiente del docente: elegir qué
 bloques son obligatorios y marcar el resto como opcional, o alargar la generación.
 Abajo hay una propuesta.
 
-## Propuesta: bloques obligatorios (25 de octubre de 2026, pendiente del autor)
+## Decisión del autor (1 de noviembre de 2026)
+
+La tarea obligatoria fuera de clase es **como máximo 1 hora por semana**. La propuesta de abajo (unas 4.7 h) queda como
+referencia de lo que existe, no como carga obligatoria: lo obligatorio fuera de clase son los micro-casos y terminar lo que no
+cupo en clase; los laboratorios son práctica opcional. Detalle del Módulo 1 en `docs/MODULO_1_EJERCICIOS.md`.
+
+## Propuesta anterior: bloques obligatorios (25 de octubre de 2026, reemplazada)
 
 No hace falta inventar un «bloque núcleo» por nivel: `clases/mapa_conceptos.yaml` ya
 asigna cada concepto a una clase y una etapa. La propuesta usa esas etapas para decidir
