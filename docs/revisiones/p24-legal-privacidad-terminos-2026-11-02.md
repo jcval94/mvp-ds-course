@@ -1,11 +1,11 @@
 # [p24] Revisión preliminar de aviso de privacidad y términos — Generación 1
 
 **Fecha de corte:** 2 de noviembre de 2026  
-**Estado:** revisión documental terminada; **no aprobado para publicación como dictamen legal**.  
+**Estado:** revisión documental y correcciones editoriales incorporadas al PR #70; **sin publicar y pendiente de validación legal y operativa**.  
 **Responsable de decisiones comerciales y validación final:** autor del curso.  
 **Alcance:** sitio público (`site/aviso-privacidad.html` y `site/terminos.html`), formulario de inscripción, decisiones G1 y PR #25, #59 y #60. No se inspeccionó el payload real ni la configuración privada de Stripe, Supabase, Google u OpenAI. No se pudo confirmar que la versión desplegada en Cloudflare sea idéntica al commit analizado.
 
-> Este documento es una auditoría documental y guía de corrección, no asesoría ni certificación jurídica. Requiere revisión de un abogado mexicano antes de autorizar cobros e inscripción pública. No se modifican textos contractuales ni se aprueban supuestos del autor en este PR.
+> Este documento es una auditoría documental y guía de corrección, no asesoría ni certificación jurídica. Requiere revisión de un abogado mexicano antes de autorizar cobros e inscripción pública. Los textos contractuales se proponen en la rama del PR a partir de decisiones expresas del autor; **no están fusionados, no se publican y aún requieren validación jurídica y técnica**.
 
 ## 1. Fuentes y trazabilidad
 
@@ -88,12 +88,50 @@ No insertar textos entre corchetes ni términos condicionales en producción.
 - [x] Revisados el aviso, los términos, el formulario y los PR #25, #59 y #60 a fecha de corte.
 - [x] Identificados riesgos documentales y supuestos del autor con base legal.
 - [x] Entregadas propuestas no definitivas de texto y lista de verificación.
-- [ ] Decisiones D1–D10 aprobadas por el autor.
-- [ ] Dirección/CP/teléfono comercial verificados.
+- [x] Decisiones D1, D3, D4, D5 y D9 aprobadas por el autor; D2 confirmado parcialmente (CP sí; teléfono inexistente). D6, D7, D8 y D10 requieren verificaciones o decisiones adicionales.
+- [ ] Código postal 06900 incorporado y contrastado con la colonia; **no hay teléfono**, falta resolver el cumplimiento de LFPC 76 Bis III y confirmar que el domicilio publicado atienda notificaciones.
 - [ ] Redacción y flujos de IA, grabaciones, consentimiento y pagos cotejados contra sistemas reales.
 - [ ] Revisión jurídica externa aprobada.
-- [ ] Cambios documentales y de código publicados, CI verificada y aviso accesible en producción.
+- [x] Cambios editoriales preparados en la rama del PR, sin publicación.
+- [ ] Verificación CI y operativa del backend; aviso y términos en producción pendientes de actualización, sujeto a autorización para fusionar.
 - [ ] Tarea [p24] actualizada en el tablero original; no localizado con certeza desde los conectores consultados.
 
-**Estado sugerido al tablero:** “En revisión / Bloqueado por aprobación legal y decisiones del autor”, no “Terminado”.  
-**Advertencia:** el alcance de este PR es **solo este documento**; no contiene ni deberá contener cambios en términos del alumno, cobros, datos reales o backend privado.
+**Estado sugerido al tablero:** “En revisión — correcciones preparadas en PR #70, pendiente de conformidad legal y pruebas operativas”, no “Terminado”.  
+**Advertencia:** el PR contiene el informe, las decisiones comerciales registradas y propuestas de cambios en dos páginas legales. **No contiene cambios en cobros, datos reales o backend privado. No fusionar sin revisión final.**
+
+## 7. Actualización posterior: decisiones del autor y cambios propuestos (2 nov 2026)
+
+El autor autorizó expresamente continuar con correcciones **sin fusionar ni publicar**. Quedan adoptadas documentalmente estas decisiones:
+
+| Código | Decisión | Reflejo en este PR | Estado |
+| --- | --- | --- | --- |
+| D1 | Dos años desde la conclusión **efectiva** de la generación, incluidas semanas extra | `site/aviso-privacidad.html`; `docs/DECISIONES_GENERACION_1.md` | Texto ajustado; backend/respaldos sin verificar |
+| D2 | CP **06900**; no existe teléfono de atención | Aviso, términos y registro de decisiones | CP incluido; **bloqueador legal potencial** por LFPC 76 Bis III |
+| D3 | Reembolsos dentro de máximo 15 días hábiles, con precisión legal | Se especifica **procesamiento/orden de devolución** y que la acreditación bancaria depende de terceros; derechos legales preservados | Texto ajustado; falta validar con Stripe/abogado |
+| D4 | Nueva edición **viernes 12 de febrero de 2027** si enero no reúne mínimo 6 | Términos y registro de decisiones; segunda clase sábado **13 feb** y devolución voluntaria hasta 11:00 | Texto ajustado; **no creada** nueva generación en backend ni calendario |
+| D5 | Suspender tras gracia por cuota impaga, reactivar al confirmarse pago, conservar avance | Términos y registro de decisiones | Texto ajustado; falta prueba de reactivación backend |
+| D9 | Constancia por proyecto en **GitHub privado** con acceso para el profesor | Términos y registro de decisiones; calificación sigue solo bits | Texto ajustado; falta confirmar procedimiento técnico para acceso al repo |
+
+**Otros ajustes prudenciales:** la referencia a OpenAI evita asegurar que un texto libre no contenga información identificable. Se indica que la integración **está diseñada** para enviar pregunta, rúbrica y respuesta sin campos de nombre/correo/ID, pero esto debe contrastarse con el payload real. Este PR no inspecciona ni publica rúbricas ni datos de alumnos.
+
+### Pendientes que impiden dar por terminada p24
+
+1. **Contacto telefónico (P1):** el responsable confirmó que hoy no existe teléfono; no se inventó ni se añadió uno. La LFPC 76 Bis III exige proporcionar números telefónicos y otros medios de reclamación antes de transaccionar. Resolver con canal válido y abogado.
+2. **Augmented Studio (P1):** no está verificado el consentimiento para cobros automáticos, aviso de renovación ni cancelación inmediata. LFPC 76 Bis VIII-IX; no ocultar estos derechos por un texto genérico.
+3. **Promociones (P1):** definir y registrar consentimiento separado para marketing, comprobar cómo se revoca y que el flujo no envíe correos comerciales no autorizados.
+4. **OpenAI (P1):** verificar que los campos enviados coincidan con el aviso, que texto libre se trate con medidas de seguridad y que logs, historial y transferencias estén documentados.
+5. **Reembolsos/mora (P1):** validar en Stripe/test mode que el plazo y la reactivación sean implementables y que `15 días hábiles` sea defendible; si el banco pudiera demorar, informar antes del pago y no prometer fecha exacta de acreditación.
+6. **Grupo nuevo (P1):** la fecha del 12/02/2027 y la ventana de 13/02/2027 se reflejan solo en la **política condicional**. No crear grupo en Stripe/Supabase ni recalcular pagos automáticamente sin decisión operativa adicional.
+7. **Grabaciones, referidos y constancia (P2):** cerrar permisos de acceso a grabaciones, base de devoluciones por recomendación y método para compartir un GitHub privado con el profesor.
+8. **Términos vigentes/versionado (P2):** el checkbox de inscripción debe preservar evidencia de la versión aceptada; inspeccionar su comportamiento en backend.
+9. **Revisión jurídica externa (P1):** abogado de consumo y protección de datos en México debe validar texto y procesos antes de fusionar.
+10. **Tablero (operativo):** no se localizó la ficha original [p24] en las fuentes disponibles; enlazar este PR cuando se facilite su URL.
+
+### Archivos modificados en este PR
+
+- `site/aviso-privacidad.html`: CP, retención y advertencia del contenido libre enviado a IA.
+- `site/terminos.html`: CP, reprogramación, devolución voluntaria y obligatoria, mora/reactivación, GitHub privado.
+- `docs/DECISIONES_GENERACION_1.md`: respaldo de decisiones del autor.
+- `docs/revisiones/p24-legal-privacidad-terminos-2026-11-02.md`: auditoría y estados de seguimiento.
+
+**Pruebas y límites:** la revisión se hace sobre archivos del repo. No se ejecutó manualmente el harness local. Confirmar CI del PR y las pruebas funcionales del backend; las páginas de Cloudflare pueden no ser accesibles desde los conectores y no deben considerarse verificadas por este documento.
