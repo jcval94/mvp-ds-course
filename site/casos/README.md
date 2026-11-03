@@ -116,7 +116,7 @@ finales correctos); teclado; con AUTO apagado se llega a la ficha.
 | Revisión independiente de cifras, spoilers y accesibilidad | Opus 5.5, agente aparte que no vio el trabajo | high |
 
 ## Pendiente
-- Material real de 4.1 y 4.2: los candidatos están verificados en su `medios.json`; falta descargar los archivos (el
-  entorno de Claude no llega a Wikimedia ni al Wien Museum) y marcarlos `listo`.
+- Material real: el grabado del hospital (4.1) y el campanario (4.2) ya están `listo` (2 nov 2026). Falta el encabezado
+  del artículo de Science (4.2, cita breve).
 - `volver: '../../index.html'` lleva a la portada del sitio; cambiarlo si el área del alumno debe ser el destino.
 - Duración del cuaderno (`~50 min`) es la estimación base; ajustar por caso.

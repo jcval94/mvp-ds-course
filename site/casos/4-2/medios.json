@@ -1,11 +1,11 @@
 {
   "caso": "4.2",
-  "pendiente": "Descargar la foto del campanario desde su página de Wikimedia Commons (confirmar ahí autor y licencia), guardarla como medios/campanario.webp de 1200 px de ancho y hasta 350 KB, y cambiar su estado a «listo». El encabezado del artículo de Science queda como candidato de cita breve: recortar solo título y autores.",
+  "pendiente": "El encabezado del artículo de Science sigue como candidato de cita breve: recortar solo título y autores y guardarlo como medios/articulo.webp.",
   "items": [
     {
       "id": "campanario",
       "tipo": "foto",
-      "estado": "candidato",
+      "estado": "listo",
       "archivo": "medios/campanario.webp",
       "alt": "La torre Sather, el campanario de la Universidad de California en Berkeley, contra el cielo.",
       "pie": "El campanario de Berkeley",
