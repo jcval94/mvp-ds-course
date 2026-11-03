@@ -30,7 +30,7 @@ function fixture(initial = []) {
 test('repeated failures update one issue; clean run resolves it; recurrence reopens it', async () => {
   const f = fixture();
   for (const failed of [1, 2, 0, 1]) {
-    await track({...f, report: {summary: {failed}}, body: marker + '\nreport'});
+    await track({...f, report: {summary: {failed, manual: 0}}, body: marker + '\nreport'});
   }
   assert.equal(f.issues.length, 1);
   assert.equal(f.calls.filter(c => c[0] === 'create').length, 1);
@@ -41,13 +41,13 @@ test('repeated failures update one issue; clean run resolves it; recurrence reop
 
 test('healthy first run creates no issue', async () => {
   const f = fixture();
-  await track({...f, report: {summary: {failed: 0}}, body: marker});
+  await track({...f, report: {summary: {failed: 0, manual: 0}}, body: marker});
   assert.equal(f.issues.length, 0);
 });
 
 test('adopts an existing tracker and consolidates machine duplicates', async () => {
   const f = fixture([{number: 1, state: 'open', body: marker}, {number: 2, state: 'open', body: marker}]);
-  await track({...f, report: {summary: {failed: 1}}, body: marker});
+  await track({...f, report: {summary: {failed: 1, manual: 0}}, body: marker});
   assert.equal(f.issues[0].state, 'open');
   assert.equal(f.issues[1].state, 'closed');
   assert.equal(f.calls.filter(c => c[0] === 'create').length, 0);
@@ -57,4 +57,10 @@ test('incomplete result never resolves an existing issue', async () => {
   const f = fixture([{number: 1, state: 'open', body: marker}]);
   await assert.rejects(track({...f, report: {}, body: ''}), /Incomplete/);
   assert.equal(f.calls.length, 0);
+});
+
+test('manual reviews keep the tracker open without HTTP failures', async () => {
+  const f = fixture();
+  await track({...f, report: {summary: {failed: 0, manual: 1}}, body: marker});
+  assert.equal(f.issues[0].state, 'open');
 });

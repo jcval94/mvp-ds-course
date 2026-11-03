@@ -18,7 +18,7 @@ Sin `--rebuild`, reutiliza `dist/` si contiene `index.html`; si falta, lo constr
 Para revisar el código actual y evitar un build antiguo, usa `--rebuild`.
 Los informes son regenerables: se guardan fuera del árbol versionado y de `dist/`.
 Código de salida: 0 si no hay fallos de comprobación, 1 si los hay o existe un
-error del comando. JSON separa `ok`, `failed`, `ignored` y `skipped`.
+error del comando. JSON separa `ok`, `failed`, `manual`, `ignored` y `skipped`.
 
 ## Alcance y supuestos
 
@@ -52,7 +52,9 @@ error del comando. JSON separa `ok`, `failed`, `ignored` y `skipped`.
 - Un código 401/403 puede ser autorización/antirobot, no desaparición. Una raíz
   de API que devuelve 404 no demuestra que el servicio esté caído; se reporta
   la respuesta de esa URL concreta. Un 200 de Colab/Drive tampoco garantiza que
-  el cuaderno exista o que los alumnos tengan permisos: requiere revisión humana.
+  el cuaderno exista o que los alumnos tengan permisos. Las URLs de
+  `colab.research.google.com/drive/` y `drive.google.com` se marcan como
+  `manual` («revisar a mano»), sin petición, incluso tras una redirección.
 
 ## Excepciones revisables
 
@@ -77,7 +79,7 @@ credenciales de checkout ni requiere secretos. Una concurrencia global evita
 dos actualizaciones simultáneas. `harness/links_issue.cjs` crea la etiqueta
 `enlaces-rotos` si falta y mantiene un issue persistente con el marcador
 `<!-- harness-external-links -->`: actualiza/reabre el mismo issue ante fallos,
-lo cierra si el siguiente informe está limpio y no crea uno durante una primera
+lo mantiene abierto mientras haya revisiones manuales y lo cierra si el siguiente informe está limpio y no crea uno durante una primera
 corrida sana. Si ya existe un issue con la etiqueta, lo reutiliza. Solo consolida
 duplicados que contienen su propio marcador; no cierra issues humanos ajenos.
 
