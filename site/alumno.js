@@ -513,13 +513,15 @@
     T.data = await tiemposListos;
     $("#session").hidden = false; pintarPerfil(usuario, null, false);
     const uid = encodeURIComponent(usuario.id);
-    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas, clases, inscripcion] = await Promise.all([
+    const [perfiles, casos, filas, eventos, ultimoEvento, rolBase, marcador, retros, entregas, clases, inscripcion] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
       // cuaderno_url existe desde el esquema 0.8; en bases anteriores se piden sin él.
       api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite,cuaderno_url&order=modulo.asc,id.asc")
         .catch(() => api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite&order=modulo.asc,id.asc")),
       api("/rest/v1/vista_avance?select=usuario,alumno_id,nombre,grupo,caso,secciones_vistas,completo,ultimo_evento,entregado"),
       api(`/rest/v1/eventos?select=caso,seccion,tipo&usuario=eq.${uid}&tipo=eq.seccion&limit=5000`),
+      // Último punto de control: el evento más reciente del alumno (hora del servidor).
+      api(`/rest/v1/eventos?select=caso,seccion,tipo,creado&usuario=eq.${uid}&order=creado.desc,id.desc&limit=1`).catch(() => []),
       // Rol: mi_rol (0.7) o, en bases anteriores, es_docente.
       api("/rest/v1/rpc/mi_rol", { method: "POST", body: "{}" }).catch(() => api("/rest/v1/rpc/es_docente", { method: "POST", body: "{}" }).catch(() => false)),
       // Si la base aún no tiene el esquema 0.5, el marcador simplemente no aparece.
@@ -552,12 +554,46 @@
     pintarPago(inscripcion);
     pintarAccesoColab(usuario, perfil, docente);
     pintarAvance({ usuario, perfil, casos, filas, eventos, retros });
+    pintarContinuar(casos, (ultimoEvento || [])[0] || null);
     pintarBuzon();
     pintarMarcador(marcador);
     // La pestaña «Mi CV» (alumno-cv.js) se arma con los mismos datos.
     if (perfil) document.dispatchEvent(new CustomEvent("tdd:datos", { detail: { usuario, perfil, casos, filas, marcador } }));
     // La cuenta docente tiene su propio panel (docente.html); aquí solo el acceso.
     $("#vistaDocente").hidden = !docente;
+  }
+
+  // ---------- Continuar misión ----------
+  // Usa el último evento guardado en la base: si ese caso sigue abierto, regresa ahí y nombra la siguiente sección;
+  // si ya lo entregó (o no hay registros), propone el primer caso sin terminar, en el orden de las clases.
+  function pintarContinuar(casos, ultimo) {
+    const caja = $("#continuar"); if (!caja || !casos.length) return;
+    const terminado = (c) => !!V.porCaso.get(c.id)?.completo;
+    const vistasDe = (c) => V.vistas.get(c.id) || new Set();
+    let caso = ultimo && casos.find((c) => c.id === ultimo.caso && !terminado(c));
+    const retoma = !!caso;
+    if (!caso) caso = casos.slice().sort((a, b) => inicioClase(a) - inicioClase(b)).find((c) => !terminado(c));
+    const btn = $("#continuarBtn");
+    if (!caso) {
+      $("#continuarKicker").textContent = "Misiones al día";
+      $("#continuarTitulo").textContent = "Entregaste todos los casos publicados";
+      $("#continuarNota").textContent = "Cuando tu profesor publique el siguiente, aparecerá aquí.";
+      btn.hidden = true; caja.hidden = false; return;
+    }
+    const secciones = Array.isArray(caso.secciones) ? caso.secciones : [];
+    const vistas = vistasDe(caso);
+    const sigue = secciones.find((s) => !vistas.has(s));
+    $("#continuarKicker").textContent = retoma ? "Continuar misión · donde te quedaste" : vistas.size ? "Continuar misión" : "Siguiente misión";
+    $("#continuarTitulo").textContent = `Caso ${caso.id} · ${caso.titulo}`;
+    const partes = [`${vistas.size} de ${secciones.length} secciones`];
+    if (sigue) partes.push(`sigue: ${etiqueta(sigue)}`);
+    if (retoma && ultimo.creado) partes.push(`último registro ${relativo(ultimo.creado)}`);
+    $("#continuarNota").textContent = partes.join(" · ");
+    const enlace = caso.cuaderno_url || CUADERNOS[caso.id];
+    if (enlace) { btn.href = enlace; btn.textContent = vistas.size ? "Continuar misión" : "Empezar misión"; btn.hidden = false; }
+    else if (INTROS[caso.id]) { btn.href = INTROS[caso.id]; btn.removeAttribute("target"); btn.textContent = "Ver la intro"; btn.hidden = false; }
+    else btn.hidden = true;
+    caja.hidden = false;
   }
 
   // ---------- Inscripción y pagos (0.12) ----------

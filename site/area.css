@@ -98,3 +98,11 @@ code { font-family: var(--font-mono); font-size: .92em; background: var(--surfac
 @media (prefers-reduced-motion: reduce) {
   .skeleton { animation: none; }
 }
+
+/* ---------- Continuar misión: último punto de control según la base ---------- */
+.resume { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 20px 0;
+  padding: 22px 24px; border-radius: 18px; border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.resume h2 { margin: 4px 0 6px; font-size: 22px; }
+.resume .fine { margin: 0; }
+.resume-btn { flex: none; font-size: 16px; }
+@media (max-width: 640px) { .resume { flex-direction: column; align-items: stretch; } .resume-btn { width: 100%; } }
