@@ -414,10 +414,14 @@
 
     // Top 5
     const top = $("#top5"); top.replaceChildren();
-    [...A].filter((a) => a.bits > 0).sort((x, y) => y.bits - x.bits).slice(0, 5).forEach((a, i) => {
+    // El lugar viene del grupo de cada alumno. No crear un ranking global ni romper empates.
+    const variosGrupos = new Set(A.map((a) => a.grupo || "")).size > 1;
+    [...A].filter((a) => a.posicion && a.posicion <= 5)
+      .sort((x, y) => (x.grupo || "").localeCompare(y.grupo || "") || x.posicion - y.posicion || x.alumno_id.localeCompare(y.alumno_id)).forEach((a) => {
       const li = el("li"); const w = el("span", "who");
-      w.append(document.createTextNode(a.nombre), el("small", null, `${a.alias ? ` · «${a.alias}»` : " · sin alias"}${!S.grupoSel && gruposDelFiltro().length > 1 && a.grupo ? ` · ${a.grupo}` : ""}`));
-      li.append(el("span", "pos", String(i + 1)), w, el("b", "num", `${a.bits} bits`)); li.style.cursor = "pointer"; li.addEventListener("click", () => abrirFicha(a.id)); top.append(li);
+      w.append(document.createTextNode(a.nombre), el("small", null, ` · «${a.alias || "Participante"}»${variosGrupos ? ` · ${a.grupo ? nombreGrupo(a.grupo) : "Sin grupo"}` : ""}`));
+      li.value = a.posicion;
+      li.append(el("span", "pos", String(a.posicion)), w, el("b", "num", `${a.bits} bits`)); li.style.cursor = "pointer"; li.addEventListener("click", () => abrirFicha(a.id)); top.append(li);
     });
     if (!top.children.length) top.append(el("li", "empty", "Aún nadie suma bits."));
 
