@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from html import escape
 from datetime import date
 import os
 from pathlib import Path
@@ -175,6 +176,27 @@ def apply_course_theme(destination: Path, level_number: int, themes: dict[str, o
     return True
 
 
+def add_level2_provenance(destination: Path, manifest: dict, registry: dict) -> None:
+    """Append the approved public snapshot provenance to every level 2 page."""
+    datasets = {item["id"]: item for item in registry["datasets"]}
+    entries = []
+    for dataset_id in manifest["datasets"]:
+        item = datasets[dataset_id]
+        entries.append(
+            f'<li><a href="{escape(item["source_page"], quote=True)}">{escape(item["name"])}</a> · '
+            f'Licencia: <a href="{escape(item["license_url"], quote=True)}">{escape(item["license"])}</a> · '
+            f'SHA-256: <code>{escape(item["sha256"])}</code></li>'
+        )
+    footer = ('<footer aria-label="Procedencia de los datos" '
+              'style="padding:2rem;overflow-wrap:anywhere"><h2>Procedencia de los datos</h2><ul>'
+              + ''.join(entries) + '</ul></footer>')
+    for html in destination.glob("*.html"):
+        text = html.read_text(encoding="utf-8")
+        if text.count("</body>") != 1:
+            raise ValueError(f"{html}: se esperaba un cierre de body")
+        html.write_text(text.replace("</body>", footer + "</body>", 1), encoding="utf-8")
+
+
 def strip_catalog_hashes(value: object) -> None:
     """Omit hashes from the public catalog; level dataset provenance stays intact."""
     if isinstance(value, dict):
@@ -209,6 +231,8 @@ def main(*, docente: bool = False) -> None:
         apply_course_theme(destination, int(manifest["level"]), themes)
         if not docente:
             studentize_level(destination, int(manifest["level"]))
+        if int(manifest["level"]) == 2:
+            add_level2_provenance(destination, manifest, registry)
         level = {
             **manifest,
             "entrypoint": f"labs/level-{manifest['level']}/{manifest['entrypoint']}",
