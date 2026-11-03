@@ -261,7 +261,7 @@
     .feedback summary { cursor: pointer; font-weight: 700; color: var(--accent-text); }
     .feedback ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
     .feedback li { display: grid; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface-alt); border: 1px solid var(--line); }
-    .feedback li div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
+    .feedback .response { display: grid; gap: 4px; min-width: 0; overflow-wrap: anywhere; }
     .feedback .lvl { font-size: 12px; font-weight: 800; color: var(--accent-text); font-variant-numeric: tabular-nums; }
     .feedback p { margin: 0; color: var(--muted); line-height: 1.5; white-space: pre-line; }
     .feedback .lvl.pending { color: var(--muted); font-weight: 700; }
@@ -447,6 +447,14 @@
           <dl class="stats" id="stats"></dl>
         </div>
       </div>
+      <section class="resume" id="continuar" hidden aria-labelledby="continuarTitulo">
+        <div>
+          <p class="kicker-dark" id="continuarKicker">Continuar misión</p>
+          <h2 id="continuarTitulo">Tu siguiente paso</h2>
+          <p class="fine" id="continuarNota"></p>
+        </div>
+        <a class="btn btn-accent resume-btn" id="continuarBtn" target="_blank" rel="noopener">Continuar misión</a>
+      </section>
       <button class="inbox-strip" type="button" id="avisoMensajes" hidden></button>
       <section class="pay" id="pago" hidden aria-live="polite"></section>
       <section class="classes" id="clases" hidden aria-labelledby="claseTitulo">
@@ -491,7 +499,8 @@
               <li><b>10 bits</b> por caso completo y <b>5 más</b> si lo entregas a tiempo.</li>
               <li><b>Hasta 15 bits</b> por cada respuesta abierta, según la calificación de tu profesor (5 por nivel, de 0 a 3).</li>
             </ul>
-            <p>Los bits no cuentan para tu calificación: sirven para ver tu avance frente a tu grupo.</p>
+            <p>Tus bits son tu calificación. También sirven para ver tu avance frente a tu grupo. El proyecto final no suma bits: es el requisito para tu constancia.</p>
+            <p>Tu lugar y tu banda solo comparan tu avance dentro del grupo: no cambian tu calificación. Los empates comparten lugar.</p>
           </details>
         </div>
         <div class="board-side">
@@ -504,13 +513,17 @@
               <button class="btn btn-line" type="submit" id="aliasGuardar">Guardar</button>
             </div>
             <button class="link-btn" type="button" id="aliasOtra">Darme otra ciudad al azar</button>
-            <p class="fine" id="aliasNota">Te asignamos un alias de ciudad para que nadie sepa que eres tú. Puedes cambiarlo por el que quieras.</p>
+            <p class="fine" id="aliasNota" role="status">Te asignamos un alias de ciudad para que nadie sepa que eres tú. Puedes cambiarlo por el que quieras.</p>
           </form>
         </div>
       </section>
       <div class="cases-head">
         <h2>Casos</h2>
         <p id="casosNota">Se actualiza cada vez que avanzas en Colab.</p>
+      </div>
+      <div class="notice is-error" id="respuestasError" hidden role="status">
+        <p>No pudimos cargar tus respuestas y los comentarios de tu profesor.</p>
+        <button class="btn btn-line" type="button" id="respuestasReintentar">Reintentar</button>
       </div>
       <div class="case-tools" id="casosFiltros" role="group" aria-label="Filtrar y ordenar casos">
         <label><span>Módulo</span><select id="fModulo"></select></label>

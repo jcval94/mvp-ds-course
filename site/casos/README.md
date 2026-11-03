@@ -23,7 +23,7 @@ La resolución (hipótesis calificada, datos, giro, rúbrica) vive en el cuadern
 
 El botón de cada intro apunta al cuaderno vigente (`CUADERNO_URL` del caso en el backend). Si el cuaderno cambia de
 archivo en Drive, cambia `colab` en `escenas.js`, el enlace del `noscript` de su `index.html` y `CUADERNOS` en
-`site/alumno.js`. Vigentes: 4.1 v1.3 (`1FNfm7Lf5e69Lw3ER5BM8L4jQMrdbyAgQ`) y 4.2 v2.6 (`1dTrByn08HxKMfNRSDoy44FqGrCGS97qG`).
+`site/alumno.js`. Vigentes: 4.1 v1.4 (`1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD`) y 4.2 v2.6 (`1dTrByn08HxKMfNRSDoy44FqGrCGS97qG`).
 
 **No repetir.** El cuaderno copia las líneas de narración de cada intro en `PAGINA["frases"]` y el generador rechaza
 el cuaderno si repite alguna. Si cambias las líneas de una intro, avisa en el PR para actualizar `PAGINA` en el
@@ -116,7 +116,7 @@ finales correctos); teclado; con AUTO apagado se llega a la ficha.
 | Revisión independiente de cifras, spoilers y accesibilidad | Opus 5.5, agente aparte que no vio el trabajo | high |
 
 ## Pendiente
-- Material real de 4.1 y 4.2: los candidatos están verificados en su `medios.json`; falta descargar los archivos (el
-  entorno de Claude no llega a Wikimedia ni al Wien Museum) y marcarlos `listo`.
+- Material real: el grabado del hospital (4.1) y el campanario (4.2) ya están `listo` (2 nov 2026). Falta el encabezado
+  del artículo de Science (4.2, cita breve).
 - `volver: '../../index.html'` lleva a la portada del sitio; cambiarlo si el área del alumno debe ser el destino.
 - Duración del cuaderno (`~50 min`) es la estimación base; ajustar por caso.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Inscríbete al curso en vivo The Agentic Data Scientist: pago único con 10 % de descuento o 3 pagos con tarjeta. Pago seguro con Stripe.">
+  <meta name="description" content="Inscríbete al curso en vivo The Agentic Data Scientist: pago único con 10 % de descuento, 3 meses sin intereses o 3 pagos con tarjeta. Pago seguro con Stripe.">
   <title>Inscripción · The Agentic D. Scientist</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="design/tokens/tokens.css">
@@ -102,14 +102,19 @@
             <label class="plan"><span class="tag">10 % de descuento</span><input type="radio" name="plan" value="contado" checked>
               <b>Pago único</b><span class="monto"><span data-o="contado">$8,910</span> <small>MXN</small></span>
               <span>Tarjeta de crédito o débito, OXXO o transferencia SPEI. El descuento aplica solo si pagas todo de contado.</span></label>
+            <label class="plan"><input type="radio" name="plan" value="msi">
+              <b>3 meses sin intereses</b><span class="monto"><span data-o="msi">$9,900</span> <small>MXN</small></span>
+              <span>Con tarjeta de crédito mexicana: tu banco divide el pago en 3 meses. Si tu tarjeta no ofrece meses, elige otra opción.</span></label>
             <label class="plan"><input type="radio" name="plan" value="cuotas">
               <b>3 pagos</b><span class="monto"><span data-o="cuota">$3,300</span> <small>MXN c/u</small></span>
-              <span>Con tarjeta, se cobran solos: <span data-o="fechas">8 ene, 8 feb y 8 mar de 2027</span>. Hoy no se cobra nada.</span></label>
+              <span>Con tarjeta de débito o crédito, se cobran solos: <span data-o="fechas">8 ene, 8 feb y 8 mar de 2027</span>. Hoy no se cobra nada.</span></label>
           </fieldset>
           <div class="campos">
             <label class="campo"><span>Nombre completo</span><input name="nombre" autocomplete="name" required maxlength="80" placeholder="Como quieres que aparezca en tu constancia"></label>
             <label class="campo"><span>Tu Gmail</span><input name="correo" type="email" autocomplete="email" required maxlength="160" placeholder="nombre@gmail.com">
               <small>Con este correo entras a Mi avance y a tus cuadernos de Colab. Usa una cuenta de Google.</small></label>
+            <label class="campo"><span>Código de recomendación <small>(opcional)</small></span><input name="codigo" autocomplete="off" maxlength="20" placeholder="TDD12345" style="text-transform:uppercase">
+              <small>Si alguien del curso te lo compartió, tienes 10 % adicional, que se multiplica con el de contado. El precio final lo ves en Stripe.</small></label>
             <label class="acepto"><input type="checkbox" name="acepto" required><span>Tengo 18 años o más, cumplo los <a href="instalacion.html" target="_blank" rel="noopener">requisitos</a> (laptop con Windows o macOS) y acepto los <a href="terminos.html" target="_blank" rel="noopener">términos y la política de reembolso</a> y el <a href="aviso-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</span></label>
           </div>
           <p class="msg" id="msg" role="status"></p>
@@ -144,7 +149,7 @@
           <div><dt>Inscripciones hasta</dt><dd data-o="cierre">El día de inicio</dd></div>
           <div><dt>Precio</dt><dd><span data-o="precio">$9,900</span> MXN con IVA · precio regular <s data-o="regular">$14,900</s></dd></div>
         </dl>
-        <p class="nota">El precio de fundador es solo para la Generación 1. El grupo abre con un mínimo de <span data-o="minimo">6</span> personas; si no se llega, te devolvemos el 100 % de lo pagado. Reembolso total si lo pides antes de que termine la segunda clase.</p>
+        <p class="nota">El precio de fundador es solo para la Generación 1. El grupo abre con un mínimo de <span data-o="minimo">6</span> personas; si no se llega, te devolvemos el 100 % de lo pagado y el grupo se reprograma para un mes después. Reembolso total si lo pides antes de que termine la segunda clase.</p>
       </aside>
     </div>
   </main>
@@ -177,10 +182,11 @@
       }
       const params = new URLSearchParams(location.search);
       if (params.get("cancelado")) $("#cancelado").hidden = false;
+      if (params.get("codigo")) $("#form").codigo.value = params.get("codigo").slice(0, 20).toUpperCase();
 
       function pintarOferta(o) {
         oferta = o;
-        poner("nombre", o.nombre); poner("contado", pesos(o.contado)); poner("cuota", pesos(o.cuota)); poner("precio", pesos(o.precio));
+        poner("nombre", o.nombre); poner("contado", pesos(o.contado)); poner("msi", pesos(o.msi ?? o.precio)); poner("cuota", pesos(o.cuota)); poner("precio", pesos(o.precio));
         if (o.minimo) poner("minimo", String(o.minimo));
         if (Array.isArray(o.fechas_cuotas) && o.fechas_cuotas.length) poner("fechas", fechasCortas(o.fechas_cuotas));
         const ini = dia(o.inicio, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
@@ -224,6 +230,7 @@
         ev.preventDefault();
         const f = ev.target, msg = $("#msg"), b = $("#enviar");
         const nombre = f.nombre.value.trim().replace(/\s+/g, " "), correo = f.correo.value.trim().toLowerCase();
+        const codigo = f.codigo.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
         msg.className = "msg err";
         if (nombre.length < 2) { msg.textContent = "Escribe tu nombre completo."; f.nombre.focus(); return; }
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo)) { msg.textContent = "Escribe un correo válido."; f.correo.focus(); return; }
@@ -231,9 +238,10 @@
         if (!/@gmail\.com$/.test(correo) && !confirm(`${correo} no es un Gmail. Para entrar a Mi avance y a Colab necesitas una cuenta de Google con ese correo. ¿Continuar?`)) return;
         b.disabled = true; msg.className = "msg"; msg.textContent = "Apartando tu lugar…";
         try {
-          const r = await TDD.funcionPublica("tdd-inscripcion", { accion: "inscribir", plan: f.plan.value, nombre, correo, acepto: true,
+          const r = await TDD.funcionPublica("tdd-inscripcion", { accion: "inscribir", plan: f.plan.value, nombre, correo, acepto: true, codigo: codigo || null,
                                                                    grupo: oferta && oferta.grupo, origen: origen() });
           if (r && r.url) { msg.textContent = "Te llevamos al pago seguro de Stripe…"; location.href = r.url; return; }
+          if (r && r.codigo_invalido) { msg.className = "msg err"; msg.textContent = `${r.mensaje}. Corrígelo o déjalo vacío.`; f.codigo.focus(); b.disabled = false; return; }
           if (r && r.ya_inscrito) { msg.className = "msg ok"; msg.textContent = r.mensaje; b.disabled = false; return; }
           if (r && r.lista_espera) { mostrarEspera(r.motivo); $("#formEspera").nombre.value = nombre; $("#formEspera").correo.value = correo; return; }
           throw new Error("Respuesta inesperada");

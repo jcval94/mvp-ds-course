@@ -189,6 +189,8 @@ class Checker:
                            for key, _ in parse_qsl(parts.query))
         if url in self.form_targets or host in FORM_HOSTS or ACTION_PATH.search(unquote(parts.path)) or action_query:
             return "skipped", "Formulario o ruta de acción; no se envía"
+        if host == "drive.google.com" or (host == "colab.research.google.com" and parts.path.startswith("/drive/")):
+            return "manual", "Revisar a mano: la respuesta no garantiza acceso al recurso"
         if host in self.ignores:
             return "ignored", self.ignores[host]
         return None
@@ -262,7 +264,7 @@ def audit(dist: Path, *, site_url="", workers=4, **options):
         result["pages"] = urls[result["url"]]
     return {"checked_at": datetime.now(timezone.utc).isoformat(), "user_agent": USER_AGENT,
             "summary": {status: sum(r["status"] == status for r in results)
-                        for status in ("ok", "failed", "ignored", "skipped")}, "results": results}
+                        for status in ("ok", "failed", "manual", "ignored", "skipped")}, "results": results}
 
 
 def markdown(report):
@@ -276,7 +278,7 @@ def markdown(report):
         if result["status"] == "ok":
             continue
         for page in result["pages"]:
-            lines.append("| " + " | ".join(map(cell, (result["url"], page, result["code"] or "sin respuesta", result["status"], result["detail"]))) + " |")
+            lines.append("| " + " | ".join(map(cell, (result["url"], page, result["code"] or "sin respuesta", ("revisar a mano" if result["status"] == "manual" else result["status"]), result["detail"]))) + " |")
     return "\n".join(lines) + "\n"
 
 

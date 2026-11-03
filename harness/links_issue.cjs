@@ -5,7 +5,7 @@ module.exports = async function track({github, context, report, body}) {
   const {owner, repo} = context.repo;
   const label = 'enlaces-rotos';
   const marker = '<!-- harness-external-links -->';
-  if (!report.summary || !Number.isInteger(report.summary.failed)) {
+  if (!report.summary || !Number.isInteger(report.summary.failed) || !Number.isInteger(report.summary.manual)) {
     throw new Error('Incomplete link report; refusing to publish or resolve an issue');
   }
   try {
@@ -20,7 +20,7 @@ module.exports = async function track({github, context, report, body}) {
   })).filter(issue => !issue.pull_request).sort((a, b) => a.number - b.number);
   // Prefer our persistent issue; adopt an existing labeled tracker if necessary.
   const current = issues.find(issue => (issue.body || '').includes(marker)) || issues[0];
-  const failed = report.summary.failed > 0;
+  const failed = report.summary.failed > 0 || report.summary.manual > 0;
   if (!failed && !current) return;
   const run = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
   const footer = `\n\nInforme completo y excepciones: [ejecución y artefacto external-links-report](${run}).\n`;

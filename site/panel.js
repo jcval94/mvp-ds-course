@@ -169,8 +169,10 @@
     S.studio = val("studio", []) || [];
     S.v12 = ADMIN && R.inscripciones && R.inscripciones.status === "fulfilled";
     S.insc = val("inscripciones", []) || [];
+    S.v13 = ADMIN && R.recompensas && R.recompensas.status === "fulfilled";   // meses sin intereses y recomendación
     S.espera = val("espera", []) || [];
     S.eventosPago = val("eventosPago", []) || [];
+    S.recompensas = val("recompensas", []) || [];   // 0.13: en bases anteriores queda vacío
     if (ADMIN) S.fnPagos = R.fnPagos.status === "fulfilled" ? { ok: true, ...R.fnPagos.value } : { ok: false, error: errorFuncion(R.fnPagos.reason || {}) };
     const opciones = gruposDelFiltro().map((g) => g.id);
     if (S.grupoSel && !opciones.includes(S.grupoSel)) S.grupoSel = "";
@@ -250,6 +252,8 @@
       inscripciones: rpc("admin_inscripciones"),
       espera: rpc("admin_lista_espera"),
       eventosPago: rpc("admin_eventos_pago", { p_limite: 50 }),
+      // Código de recomendación (0.13): lo que hay que devolver a quien recomendó.
+      recompensas: rpc("admin_recompensas"),
       fnPagos: funcion("tdd-inscripcion", { accion: "estado_funcion" }),
     });
     const claves = Object.keys(pedidos), r = await Promise.allSettled(Object.values(pedidos)), R = {};
@@ -293,6 +297,7 @@
     if (!S.esquema) banner("Falta el esquema 0.7 en la base: el panel puede leer, pero no crear grupos, docentes ni alumnos. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
     if (S.fn && !S.fn.ok) banner(`Altas y claves no disponibles: ${S.fn.error}`, true, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
     if (S.v10 && !S.v11) banner("Falta el esquema 0.11: sin él, nadie (ni administración) puede abrir los niveles 3 en adelante del sitio. Corre los pasos 1 a 3 del instalador.", true, ["Abrir instalador", INSTALADOR]);
+    if (S.v12 && !S.v13) banner("Falta el esquema 0.13: los meses sin intereses y el código de recomendación se activan al correr los pasos 1 a 4, 6 y 9 del instalador y volver a desplegar la función tdd-inscripcion.", true, ["Abrir instalador", INSTALADOR]);
     if (S.v11 && !S.v12) banner("Falta el esquema 0.12: la inscripción en línea con Stripe, las cuotas y la lista de espera se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
     if (S.v11 && S.fn && S.fn.ok && S.fn.version === "0.8.0") banner("Despliega la función tdd-docente 0.9.0 para dar acceso a suscriptores de Augmented Studio.", false, ["Abrir Edge Functions", "https://supabase.com/dashboard/project/tvxhocccdetkukonhhnh/functions"]);
     if (S.esquema && S.v08 && !S.v10) banner("Falta el esquema 0.10: las clases en vivo, sus grabaciones y los alias de ciudad se activan al correr los pasos 1 a 3 del instalador.", false, ["Abrir instalador", INSTALADOR]);
@@ -409,10 +414,14 @@
 
     // Top 5
     const top = $("#top5"); top.replaceChildren();
-    [...A].filter((a) => a.bits > 0).sort((x, y) => y.bits - x.bits).slice(0, 5).forEach((a, i) => {
+    // El lugar viene del grupo de cada alumno. No crear un ranking global ni romper empates.
+    const variosGrupos = new Set(A.map((a) => a.grupo || "")).size > 1;
+    [...A].filter((a) => a.posicion && a.posicion <= 5)
+      .sort((x, y) => (x.grupo || "").localeCompare(y.grupo || "") || x.posicion - y.posicion || x.alumno_id.localeCompare(y.alumno_id)).forEach((a) => {
       const li = el("li"); const w = el("span", "who");
-      w.append(document.createTextNode(a.nombre), el("small", null, `${a.alias ? ` · «${a.alias}»` : " · sin alias"}${!S.grupoSel && gruposDelFiltro().length > 1 && a.grupo ? ` · ${a.grupo}` : ""}`));
-      li.append(el("span", "pos", String(i + 1)), w, el("b", "num", `${a.bits} bits`)); li.style.cursor = "pointer"; li.addEventListener("click", () => abrirFicha(a.id)); top.append(li);
+      w.append(document.createTextNode(a.nombre), el("small", null, ` · «${a.alias || "Participante"}»${variosGrupos ? ` · ${a.grupo ? nombreGrupo(a.grupo) : "Sin grupo"}` : ""}`));
+      li.value = a.posicion;
+      li.append(el("span", "pos", String(a.posicion)), w, el("b", "num", `${a.bits} bits`)); li.style.cursor = "pointer"; li.addEventListener("click", () => abrirFicha(a.id)); top.append(li);
     });
     if (!top.children.length) top.append(el("li", "empty", "Aún nadie suma bits."));
 
@@ -1023,7 +1032,7 @@
     pendiente: ["Pagando", ""], esperando_pago: ["OXXO / transferencia", ""], pagado: ["Pagado", "ok"], al_corriente: ["Al corriente", "ok"],
     atrasado: ["Cobro fallido", "crit"], liquidado: ["Liquidado", "ok"], cancelado: ["Cancelado", ""], reembolsado: ["Reembolsado", "crit"],
   };
-  const PLANES = { contado: "Pago único", cuotas: "3 pagos", manual: "A mano" };
+  const PLANES = { contado: "Pago único", msi: "3 meses sin intereses", cuotas: "3 pagos", manual: "A mano" };
   const pesos = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
   const aInput = (iso) => (iso ? new Date(iso).toLocaleString("sv-SE", { timeZone: TZ }).slice(0, 16).replace(" ", "T") : "");
   const deInput = (v) => (v ? `${v}:00-06:00` : null); // CDMX no tiene horario de verano desde 2022
@@ -1123,6 +1132,30 @@
     });
     tb.append(thead, body);
   }
+  // Recompensas por recomendación (0.13): 10 % del precio por persona, tope 30 %. Se devuelven desde Stripe a mano.
+  function pintarRecompensas() {
+    const tb = $("#tablaRecompensas"); if (!tb) return; tb.replaceChildren();
+    const pendientes = S.recompensas.filter((x) => x.estado === "pendiente" && x.monto > 0);
+    $("#iRecompensasNota").textContent = pendientes.length ? `${plural(pendientes.length, "devolución pendiente", "devoluciones pendientes")} · ${pesos(pendientes.reduce((s, x) => s + x.monto, 0))}` : "Lo que se devuelve a quien recomendó (10 % por persona, tope 30 %)";
+    if (!S.recompensas.length) { const tr = el("tr"), td = el("td", null, "Nadie se ha inscrito con un código todavía."); tr.append(td); tb.append(tr); return; }
+    const head = el("tr"); ["Recomendó", "Código", "Se inscribió", "A devolver", "Estado", ""].forEach((h) => head.append(el("th", null, h)));
+    const thead = el("thead"); thead.append(head); const body = el("tbody");
+    S.recompensas.forEach((x) => {
+      const tr = el("tr"); if (x.estado !== "pendiente") tr.className = "muted-row";
+      const tdP = el("td"); tdP.append(el("b", null, x.recomienda), el("br"), el("small", "muted", x.correo));
+      const [txt, cls] = { pendiente: ["Por devolver", "warn"], aplicada: ["Devuelto", "ok"], cancelada: ["Cancelada", ""] }[x.estado] || [x.estado, ""];
+      const tdE = el("td"); tdE.append(pill(x.monto > 0 ? txt : "Tope alcanzado", x.monto > 0 ? cls : ""));
+      const acc = el("td", "row-actions");
+      if (x.estado === "pendiente" && x.monto > 0) acc.append(boton("Marcar devuelto", "btn btn-line btn-sm", async (ev) => {
+        const b = ev.currentTarget; b.disabled = true;
+        try { await rpc("admin_recompensa_estado", { p_id: x.id, p_estado: "aplicada" }); x.estado = "aplicada"; pintarRecompensas(); toast("Marcada como devuelta"); }
+        catch (e) { toast(e.message); b.disabled = false; }
+      }));
+      tr.append(tdP, el("td", null, x.codigo), el("td", null, `${x.recomendado} · ${(ESTADOS_INSC[x.estado_recomendado] || [x.estado_recomendado])[0]}`), el("td", null, pesos(x.monto)), tdE, acc);
+      body.append(tr);
+    });
+    tb.append(thead, body);
+  }
   function pintarInscripciones() {
     const sel = $("#iGrupo"); if (!sel) return;
     const atrasados = S.insc.filter((x) => x.estado === "atrasado").length;
@@ -1132,7 +1165,7 @@
     const ids = [...new Set([...S.grupos.map((g) => g.id), ...S.insc.map((x) => x.grupo)])];
     sel.replaceChildren(...ids.map((id) => new Option(nombreGrupo(id), id)));
     sel.value = ids.includes(actual) ? actual : (S.grupoSel && ids.includes(S.grupoSel) ? S.grupoSel : (S.grupos.find((g) => g.activo) || {}).id || ids[0] || "");
-    pintarEstadoPagos(); pintarTablaInsc(); pintarEspera(); pintarEventosPago(); cargarOferta();
+    pintarEstadoPagos(); pintarTablaInsc(); pintarEspera(); pintarRecompensas(); pintarEventosPago(); cargarOferta();
   }
   on("#iGrupo", "change", () => { S.iGrupoSel = grupoInsc(); pintarTablaInsc(); pintarEspera(); cargarOferta(); });
   on("#iIntentos", "change", () => pintarTablaInsc());
@@ -1684,7 +1717,9 @@
       const check = (ok, texto, nota) => { const li = el("li", ok ? "" : "bad"); const d = el("div"); d.append(document.createTextNode(texto)); if (nota) d.append(el("small", null, nota)); li.append(el("b", null, ok ? "✓" : "!"), d); ul.append(li); };
       check(true, `Sesión de administración: ${S.usuario.email}`);
       const inst = S.bitacora.find((b) => b.accion === "instalacion");
-      check(S.esquema && S.v08 && S.v10 && S.v11, S.v11 ? "Esquema 0.11: niveles de pago protegidos, clases en vivo, mensajes y retos activos" : S.v10 ? "Falta el esquema 0.11: los niveles 3+ no abren para nadie" : S.v08 ? "Falta el esquema 0.10 para clases en vivo y alias de ciudad" : S.esquema ? "Esquema 0.7: falta 0.8 para mensajes y avisos" : "Esquema anterior a 0.7", inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 3");
+      const esq = S.v13 ? "0.13" : S.v12 ? "0.12" : S.v11 ? "0.11" : S.v10 ? "0.10" : S.v08 ? "0.8" : S.esquema ? "0.7" : null;
+      check(S.v13, esq ? `Esquema ${esq} instalado${S.v13 ? ": meses sin intereses, código de recomendación, inscripción en línea y todo lo anterior" : " · falta el 0.13 (meses sin intereses y código de recomendación)"}` : "Esquema anterior a 0.7",
+        inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 4, 6 y 9");
       if (S.v10) { const fut = S.clases.filter((k) => finClase(k) > new Date()), sinGrab = S.clases.filter((k) => finClase(k) < new Date() && !k.grabacion_url);
         check(S.clases.length > 0 && !sinGrab.length, S.clases.length ? `${plural(S.clases.length, "clase", "clases")} · ${fut.length} por venir` : "Sin calendario de clases", S.clases.length ? (sinGrab.length ? `${plural(sinGrab.length, "clase pasada sin grabación", "clases pasadas sin grabación")}: pégala en la pestaña Clases` : "Todas las clases pasadas tienen grabación") : "Pestaña Clases → Generar calendario"); }
       const fnNueva = S.fn && S.fn.ok && S.fn.version === "0.9.0", fnIA = S.fn && S.fn.ok && ["0.8.0", "0.9.0"].includes(S.fn.version);

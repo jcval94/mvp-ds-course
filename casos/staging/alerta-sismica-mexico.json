@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "alerta-sismica-mexico",
+  "title": "¿Cuándo debe sonar la alerta sísmica?",
+  "decision_question": "Con decenas de segundos de aviso y una magnitud estimada en segundos, ¿con qué umbral conviene hacer sonar la alerta en la Ciudad de México?",
+  "naive_answer": "Que suene con cualquier sismo, para no fallar nunca.",
+  "ingenious_move": "Pesar el costo de una falsa alarma contra el de un sismo sin aviso y fijar un umbral con confirmación de varias estaciones.",
+  "status": "candidate",
+  "access": "public",
+  "concepts": [
+    "decision-threshold",
+    "false-positives",
+    "classification-metrics"
+  ],
+  "level_hint": 7,
+  "verified_claims": [
+    {
+      "claim": "El Sistema de Alerta Sísmica Mexicano se desarrolló después del sismo de 1985, con el CIRES, y opera de forma continua desde 1991.",
+      "sources": [
+        "https://www.infobae.com/mexico/2022/09/19/como-se-activa-la-alerta-sismica-de-la-cdmx/"
+      ]
+    },
+    {
+      "claim": "La alerta se emite cuando la magnitud estimada ronda o supera 6 y al menos dos estaciones confirman la estimación; da decenas de segundos de aviso y a veces suena con sismos de baja intensidad.",
+      "sources": [
+        "https://www.infobae.com/mexico/2022/09/19/como-se-activa-la-alerta-sismica-de-la-cdmx/"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "Falta una fuente técnica del CIRES con el criterio exacto de activación y su historial de falsas alarmas.",
+    "El tiempo de aviso depende de la distancia del epicentro; para sismos cercanos puede no haber aviso."
+  ],
+  "myths_to_avoid": [
+    "La alerta predice sismos: solo detecta uno que ya empezó y avisa antes de que llegue la onda fuerte."
+  ],
+  "sources": [
+    "https://www.infobae.com/mexico/2022/09/19/como-se-activa-la-alerta-sismica-de-la-cdmx/",
+    "https://politica.expansion.mx/cdmx/2025/09/19/alerta-sismica-de-mexico-primera-en-el-mundo"
+  ],
+  "dataset": null
+}

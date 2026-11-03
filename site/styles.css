@@ -59,6 +59,15 @@ button, input { font: inherit; }
   white-space: nowrap;
 }
 .header-cta .icon { width: 14px; height: 14px; }
+.header-actions { display: flex; align-items: center; gap: 10px; }
+.header-login {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px;
+  border-radius: 12px; border: 1px solid var(--glass-line); background: var(--glass);
+  color: var(--hero-text); font-size: 14px; font-weight: 600; white-space: nowrap;
+}
+.header-login:hover { background: color-mix(in srgb, var(--hero-text) 14%, transparent); }
+.header-login .icon { width: 16px; height: 16px; }
+@media (max-width: 520px) { .header-actions .header-cta { display: none; } }
 
 /* ---------- Botones ---------- */
 .btn {

@@ -8,7 +8,7 @@
   // estos quedan como respaldo para bases anteriores.
   const CUADERNOS = {
     "1.1": "https://colab.research.google.com/drive/1IORmNL2F4zaOf_bV_EQvi2MN6QxuXfWR",
-    "4.1": "https://colab.research.google.com/drive/1FNfm7Lf5e69Lw3ER5BM8L4jQMrdbyAgQ",
+    "4.1": "https://colab.research.google.com/drive/1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD",
     "4.2": "https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG",
   };
   // Intro animada de cada caso (gancho de 1 minuto, pública): site/casos/<id>/. El caso se resuelve en Colab.
@@ -99,33 +99,39 @@
     return vistas > 0 ? ["En curso", "s-progress"] : ["Sin empezar", ""];
   }
 
-  // Tus respuestas del caso (la más reciente de cada pregunta) junto a la retroalimentación del profesor.
-  // «respuestas» viene ordenada de la más reciente a la más antigua; calificada = tiene modelo (nivel o comentario).
+  // Cada revisión acompaña al envío que la recibió, nunca a una respuesta posterior.
+  // «respuestas» viene ordenada de la más reciente a la más antigua.
   function comentarios(respuestas) {
+    if (!respuestas) return null;
+    if (!respuestas.length) return el("p", "fine", "Aún no hay respuestas abiertas en este caso.");
     const porPregunta = new Map();
-    (respuestas || []).forEach((r) => {
-      const p = porPregunta.get(r.pregunta) || { ultima: r, calificada: null };
-      if (!p.calificada && r.modelo) p.calificada = r;
-      porPregunta.set(r.pregunta, p);
+    respuestas.forEach((r) => {
+      if (!porPregunta.has(r.pregunta)) porPregunta.set(r.pregunta, []);
+      porPregunta.get(r.pregunta).push(r);
     });
-    if (!porPregunta.size) return null;
-    const conComentario = [...porPregunta.values()].filter((p) => p.calificada).length;
+    const conComentario = [...porPregunta.values()].filter((envios) => envios.some((r) => r.modelo)).length;
     const d = el("details", "feedback"); d.open = conComentario > 0;
     d.append(el("summary", null, `Tus respuestas · ${porPregunta.size}${conComentario ? ` · ${conComentario} con comentarios de tu profesor` : ""}`));
+    const envio = (r) => {
+      const box = el("div", "response");
+      const nivel = r.nivel != null ? `Nivel ${r.nivel} de 3 · ${5 * r.nivel} bits` : "Con comentario";
+      box.append(el("span", r.modelo ? "lvl" : "lvl pending", r.modelo ? nivel : "Sin revisar aún"));
+      const q = el("blockquote", "mine");
+      q.append(el("span", "mine-label", `Tu respuesta · ${fecha(r.creado)}`), el("span", null, r.texto));
+      box.append(q);
+      if (r.modelo && r.retro) box.append(el("p", "retro", r.retro));
+      return box;
+    };
     const ul = el("ul");
-    porPregunta.forEach(({ ultima, calificada }, pregunta) => {
-      const li = el("li"); const fila = el("div");
-      const nivel = (r) => (r.nivel != null ? `Nivel ${r.nivel} de 3 · ${5 * r.nivel} bits` : "Con comentario");
-      fila.append(el("b", null, PREGUNTAS[pregunta] || etiqueta(pregunta)),
-        el("span", calificada ? "lvl" : "lvl pending", !calificada ? "Sin revisar aún" : calificada === ultima ? nivel(calificada) : `${nivel(calificada)} (respuesta anterior)`));
-      li.append(fila);
-      if (ultima.texto) {
-        const q = el("blockquote", "mine"); q.append(el("span", "mine-label", `Tu respuesta · ${fecha(ultima.creado)}`), el("span", null, ultima.texto)); li.append(q);
-      }
-      if (calificada && calificada.retro) {
-        const p = el("p", "retro");
-        if (calificada !== ultima) p.append(el("span", "mine-label", `Sobre tu respuesta del ${fecha(calificada.creado)}`));
-        p.append(el("span", null, calificada.retro)); li.append(p);
+    porPregunta.forEach(([ultima, ...anteriores], pregunta) => {
+      const li = el("li");
+      li.append(el("b", null, PREGUNTAS[pregunta] || etiqueta(pregunta)), envio(ultima));
+      if (anteriores.length) {
+        const historial = el("details");
+        historial.append(el("summary", null, `Respuestas anteriores · ${anteriores.length}`));
+        const lista = el("ul");
+        anteriores.forEach((r) => { const item = el("li"); item.append(envio(r)); lista.append(item); });
+        historial.append(lista); li.append(historial);
       }
       ul.append(li);
     });
@@ -226,7 +232,8 @@
     const ultimo = propias.map((f) => f.ultimo_evento).filter(Boolean).sort().pop();
     stat(dl, "Última actividad", ultimo ? relativo(ultimo) : "Aún no hay registros", ultimo ? fecha(ultimo) : "Abre un caso en Colab para empezar");
 
-    Object.assign(V, { casos, porCaso, vistas, retros: retros || [] });
+    Object.assign(V, { casos, porCaso, vistas, retros });
+    pintarEstadoRespuestas();
     llenarFiltros(); pintarCasos();
   }
 
@@ -325,6 +332,10 @@
 
   // ---------- Filtros y orden de los casos ----------
   const V = { casos: [], porCaso: new Map(), vistas: new Map(), retros: [] };
+  function pintarEstadoRespuestas() {
+    $("#respuestasError").hidden = V.retros !== null;
+  }
+  const cargarRespuestas = (uid) => TDD.todo(`/rest/v1/respuestas?select=caso,pregunta,texto,nivel,retro,modelo,creado&usuario=eq.${uid}&order=creado.desc,id.desc`);
   const LLAVE_FILTROS = "tdd-alumno-filtros";
   const numCaso = (id) => String(id).split(".").map((n) => Number(n) || 0);
   const porId = (a, b) => { const x = numCaso(a.id), y = numCaso(b.id); return (x[0] - y[0]) || ((x[1] || 0) - (y[1] || 0)); };
@@ -370,7 +381,7 @@
     let modulo = Symbol("ninguno");
     lista.forEach(({ c }) => {
       if (fo === "modulo" && !fm && c.modulo !== modulo) { modulo = c.modulo; cont.append(el("h3", "module-head", c.modulo != null ? `Módulo ${c.modulo}` : "Sin módulo")); }
-      cont.append(tarjetaCaso(c, V.porCaso.get(c.id), V.vistas.get(c.id) || new Set(), V.retros.filter((r) => r.caso === c.id)));
+      cont.append(tarjetaCaso(c, V.porCaso.get(c.id), V.vistas.get(c.id) || new Set(), V.retros === null ? null : V.retros.filter((r) => r.caso === c.id)));
     });
     $("#casosConteo").textContent = lista.length === V.casos.length ? `${V.casos.length} casos` : `${lista.length} de ${V.casos.length} casos`;
     if (!V.casos.length) cont.append(el("p", "notice", "Todavía no hay casos publicados para tu generación."));
@@ -456,7 +467,8 @@
     const top = $("#top5"); top.replaceChildren();
     (m.top5 || []).forEach((t) => {
       const li = el("li", t.soy_yo ? "me" : ""); const pts = el("span", "pts", String(t.bits)); pts.append(el("small", null, " bits"));
-      li.append(el("span", "pos", String(t.posicion)), el("span", "who", t.alias), pts); top.append(li);
+      li.value = t.posicion;
+      li.append(el("span", "pos", String(t.posicion)), el("span", "who", t.alias || "Participante"), pts); top.append(li);
     });
     if (!(m.top5 || []).length) top.append(el("li", "empty", "Aún nadie suma bits. El primer reto acertado abre la tabla."));
     const main = $("#marcador .board-main");
@@ -474,7 +486,10 @@
     else if (m.siguiente.meta === "subir") sig.append(document.createTextNode("Te faltan "), el("b", null, `${m.siguiente.bits_faltantes} bits`), document.createTextNode(" para subir un lugar."));
     else sig.append(document.createTextNode("Te faltan "), el("b", null, `${m.siguiente.bits_faltantes} bits`), document.createTextNode(` para entrar al ${BANDAS[m.siguiente.meta]}.`));
     const nivel = ORDEN.indexOf(m.banda);
-    document.querySelectorAll("#escalera li").forEach((li) => { const i = ORDEN.indexOf(li.dataset.b); li.className = i === nivel ? "here" : i < nivel ? "done" : ""; });
+    document.querySelectorAll("#escalera li").forEach((li) => {
+      const i = ORDEN.indexOf(li.dataset.b); li.className = i === nivel ? "here" : i < nivel ? "done" : "";
+      if (i === nivel) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current");
+    });
     // Mezcla de bits
     const d = m.desglose || {}; const total = PARTES.reduce((s, [k]) => s + (d[k] || 0), 0);
     const mix = $("#mezcla"), ley = $("#leyenda"); mix.replaceChildren(); ley.replaceChildren();
@@ -487,7 +502,7 @@
     const g = m.grupo || {}; const cmp = $("#comparar"); cmp.replaceChildren();
     const tuTasa = d.retos_intentados ? d.primer_intento / d.retos_intentados : null;
     const fila = (t, v, nota) => { const w = el("div"); const dd = el("dd", null, v); if (nota) dd.append(el("small", null, ` ${nota}`)); w.append(el("dt", null, t), dd); cmp.append(w); };
-    fila("Mediana del grupo", `${Math.round(g.mediana_bits || 0)} bits`, `· tú ${m.bits}`);
+    fila("Mediana del grupo", `${g.mediana_bits ?? 0} bits`, `· tú ${m.bits}`);
     fila("Aciertos al primer intento", pct(tuTasa), `· grupo ${pct(g.tasa_primer_intento)}`);
   }
 
@@ -495,7 +510,9 @@
   $("#aliasOtra").addEventListener("click", () => { $("#aliasInput").value = ""; $("#aliasForm").requestSubmit(); });
   $("#aliasForm").addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    const nota = $("#aliasNota"), btn = $("#aliasGuardar"); btn.disabled = true;
+    const nota = $("#aliasNota"), btn = $("#aliasGuardar"), otra = $("#aliasOtra"), input = $("#aliasInput");
+    if (btn.disabled) return;
+    btn.disabled = otra.disabled = input.disabled = true;
     try {
       const nuevo = await api("/rest/v1/rpc/poner_alias", { method: "POST", body: JSON.stringify({ nuevo: $("#aliasInput").value }) });
       nota.className = "fine is-ok"; nota.textContent = `Listo: en el Top 5 apareces como «${nuevo || "Participante"}».`;
@@ -504,7 +521,7 @@
       if (m) pintarMarcador(m);
     } catch (e) {
       nota.className = "fine is-error"; nota.textContent = e.message && !/^HTTP/.test(e.message) ? e.message : "No pudimos guardar tu alias. Intenta de nuevo.";
-    } finally { btn.disabled = false; }
+    } finally { btn.disabled = otra.disabled = input.disabled = false; }
   });
 
   async function cargar() {
@@ -513,19 +530,21 @@
     T.data = await tiemposListos;
     $("#session").hidden = false; pintarPerfil(usuario, null, false);
     const uid = encodeURIComponent(usuario.id);
-    const [perfiles, casos, filas, eventos, rolBase, marcador, retros, entregas, clases, inscripcion] = await Promise.all([
+    const [perfiles, casos, filas, eventos, ultimoEvento, rolBase, marcador, retros, entregas, clases, inscripcion] = await Promise.all([
       api(`/rest/v1/perfiles?select=alumno_id,nombre,grupo&id=eq.${uid}`),
       // cuaderno_url existe desde el esquema 0.8; en bases anteriores se piden sin él.
       api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite,cuaderno_url&order=modulo.asc,id.asc")
         .catch(() => api("/rest/v1/casos?select=id,modulo,titulo,secciones,entrega_limite&order=modulo.asc,id.asc")),
       api("/rest/v1/vista_avance?select=usuario,alumno_id,nombre,grupo,caso,secciones_vistas,completo,ultimo_evento,entregado"),
       api(`/rest/v1/eventos?select=caso,seccion,tipo&usuario=eq.${uid}&tipo=eq.seccion&limit=5000`),
+      // Último punto de control: el evento más reciente del alumno (hora del servidor).
+      api(`/rest/v1/eventos?select=caso,seccion,tipo,creado&usuario=eq.${uid}&order=creado.desc,id.desc&limit=1`).catch(() => []),
       // Rol: mi_rol (0.7) o, en bases anteriores, es_docente.
       api("/rest/v1/rpc/mi_rol", { method: "POST", body: "{}" }).catch(() => api("/rest/v1/rpc/es_docente", { method: "POST", body: "{}" }).catch(() => false)),
       // Si la base aún no tiene el esquema 0.5, el marcador simplemente no aparece.
       api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null),
       // Sus respuestas con su calificación (si ya la tiene), la más reciente primero.
-      api(`/rest/v1/respuestas?select=caso,pregunta,texto,nivel,retro,modelo,creado&usuario=eq.${uid}&order=creado.desc&limit=500`).catch(() => []),
+      cargarRespuestas(uid).catch(() => null),
       // Fechas límite por grupo (0.7); si su grupo no tiene, cuenta la general del caso.
       api("/rest/v1/entregas_grupo?select=grupo,caso,limite").catch(() => []),
       // Clases en vivo y grabaciones de su grupo (0.10); en bases anteriores la sección no aparece.
@@ -552,12 +571,53 @@
     pintarPago(inscripcion);
     pintarAccesoColab(usuario, perfil, docente);
     pintarAvance({ usuario, perfil, casos, filas, eventos, retros });
+    $("#respuestasReintentar").onclick = async (e) => {
+      const btn = e.currentTarget; btn.disabled = true;
+      try {
+        V.retros = await cargarRespuestas(uid).catch(() => null);
+        pintarEstadoRespuestas(); pintarCasos();
+      } finally { btn.disabled = false; }
+    };
+    pintarContinuar(casos, (ultimoEvento || [])[0] || null);
     pintarBuzon();
     pintarMarcador(marcador);
     // La pestaña «Mi CV» (alumno-cv.js) se arma con los mismos datos.
     if (perfil) document.dispatchEvent(new CustomEvent("tdd:datos", { detail: { usuario, perfil, casos, filas, marcador } }));
     // La cuenta docente tiene su propio panel (docente.html); aquí solo el acceso.
     $("#vistaDocente").hidden = !docente;
+  }
+
+  // ---------- Continuar misión ----------
+  // Usa el último evento guardado en la base: si ese caso sigue abierto, regresa ahí y nombra la siguiente sección;
+  // si ya lo entregó (o no hay registros), propone el primer caso sin terminar, en el orden de las clases.
+  function pintarContinuar(casos, ultimo) {
+    const caja = $("#continuar"); if (!caja || !casos.length) return;
+    const terminado = (c) => !!V.porCaso.get(c.id)?.completo;
+    const vistasDe = (c) => V.vistas.get(c.id) || new Set();
+    let caso = ultimo && casos.find((c) => c.id === ultimo.caso && !terminado(c));
+    const retoma = !!caso;
+    if (!caso) caso = casos.slice().sort((a, b) => inicioClase(a) - inicioClase(b)).find((c) => !terminado(c));
+    const btn = $("#continuarBtn");
+    if (!caso) {
+      $("#continuarKicker").textContent = "Misiones al día";
+      $("#continuarTitulo").textContent = "Entregaste todos los casos publicados";
+      $("#continuarNota").textContent = "Cuando tu profesor publique el siguiente, aparecerá aquí.";
+      btn.hidden = true; caja.hidden = false; return;
+    }
+    const secciones = Array.isArray(caso.secciones) ? caso.secciones : [];
+    const vistas = vistasDe(caso);
+    const sigue = secciones.find((s) => !vistas.has(s));
+    $("#continuarKicker").textContent = retoma ? "Continuar misión · donde te quedaste" : vistas.size ? "Continuar misión" : "Siguiente misión";
+    $("#continuarTitulo").textContent = `Caso ${caso.id} · ${caso.titulo}`;
+    const partes = [`${vistas.size} de ${secciones.length} secciones`];
+    if (sigue) partes.push(`sigue: ${etiqueta(sigue)}`);
+    if (retoma && ultimo.creado) partes.push(`último registro ${relativo(ultimo.creado)}`);
+    $("#continuarNota").textContent = partes.join(" · ");
+    const enlace = caso.cuaderno_url || CUADERNOS[caso.id];
+    if (enlace) { btn.href = enlace; btn.textContent = vistas.size ? "Continuar misión" : "Empezar misión"; btn.hidden = false; }
+    else if (INTROS[caso.id]) { btn.href = INTROS[caso.id]; btn.removeAttribute("target"); btn.textContent = "Ver la intro"; btn.hidden = false; }
+    else btn.hidden = true;
+    caja.hidden = false;
   }
 
   // ---------- Inscripción y pagos (0.12) ----------
@@ -586,7 +646,11 @@
       const fechas = (i.fechas_cuotas || []).slice(i.cuotas_pagadas || 0);
       texto.append(el("b", null, `Pagos: ${i.cuotas_pagadas || 0} de ${i.cuotas_total} · al corriente`),
         el("span", null, fechas.length ? `Próximo cobro a tu tarjeta: ${diaCuota(fechas[0])} (${pesos(i.monto_total / i.cuotas_total)} MXN).` : "Sin cobros pendientes."));
-    } else return; // pagado de contado o liquidado: nada que avisar
+    } else if (!i.codigo) return; // pagado de contado o liquidado y sin código: nada que avisar
+    if (i.codigo && !i.bloqueo) {
+      texto.append(el("b", null, `Tu código de recomendación: ${i.codigo}`),
+        el("span", null, "Quien se inscriba con él tiene 10 % de descuento, y tú recibes 10 % del precio de vuelta por cada persona (hasta 30 %)."));
+    }
     box.append(texto, ...acciones); box.hidden = false;
   }
 

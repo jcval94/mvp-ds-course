@@ -17,6 +17,7 @@ herramienta interna con la que se producen los laboratorios.
   por clase y misiones en Colab que se califican. Fechas, precios y condiciones:
   [docs/DECISIONES_GENERACION_1.md](docs/DECISIONES_GENERACION_1.md). Qué caso va
   en cada clase: [docs/ESTRUCTURA_GENERACION_1.md](docs/ESTRUCTURA_GENERACION_1.md).
+  Ensayo en seco y piloto previos: [docs/PILOTO_G1.md](docs/PILOTO_G1.md).
 - **Biblioteca de laboratorios.** 13 niveles publicados (236 conceptos, 454
   ejercicios). Los niveles 1 y 2 son gratis; del 3 en adelante requieren
   inscripción o plan de pago. Son práctica opcional de cada módulo y no se

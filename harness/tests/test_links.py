@@ -229,3 +229,28 @@ def test_single_issue_lifecycle_offline():
     script = Path(__file__).with_name('links_issue.test.cjs')
     result = subprocess.run([node, '--test', str(script)], capture_output=True, text=True)
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+@pytest.mark.parametrize("url", [
+    "https://colab.research.google.com/drive/private",
+    "https://drive.google.com/file/d/private/view",
+    "https://drive.google.com/drive/folders/private",
+])
+def test_google_drive_links_require_manual_review_without_request(url, monkeypatch, tmp_path):
+    monkeypatch.setattr(links.Checker, "request", lambda *args: pytest.fail("unexpected request"))
+    (tmp_path / "index.html").write_text(f'<a href="{url}">Abrir</a>')
+    report = links.audit(tmp_path, pause=0)
+    assert report["summary"]["manual"] == 1
+    assert report["summary"]["ok"] == 0
+    assert report["results"][0]["status"] == "manual"
+    assert "revisar a mano" in links.markdown(report)
+
+
+def test_manual_review_matches_exact_hosts_and_redirects(monkeypatch):
+    checker = links.Checker(pause=0)
+    assert checker.exclusion("https://colab.research.google.com/github/a/b") is None
+    assert checker.exclusion("https://drive.google.com.example.org/file") is None
+    monkeypatch.setattr(checker, "request", lambda *args: (302, "https://drive.google.com/file/d/id/view", ""))
+    result = checker.check("https://example.org/link")
+    assert result["status"] == "manual"
+    assert result["final_url"] == "https://drive.google.com/file/d/id/view"
