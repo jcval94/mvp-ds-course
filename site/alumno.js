@@ -456,7 +456,8 @@
     const top = $("#top5"); top.replaceChildren();
     (m.top5 || []).forEach((t) => {
       const li = el("li", t.soy_yo ? "me" : ""); const pts = el("span", "pts", String(t.bits)); pts.append(el("small", null, " bits"));
-      li.append(el("span", "pos", String(t.posicion)), el("span", "who", t.alias), pts); top.append(li);
+      li.value = t.posicion;
+      li.append(el("span", "pos", String(t.posicion)), el("span", "who", t.alias || "Participante"), pts); top.append(li);
     });
     if (!(m.top5 || []).length) top.append(el("li", "empty", "Aún nadie suma bits. El primer reto acertado abre la tabla."));
     const main = $("#marcador .board-main");
@@ -474,7 +475,10 @@
     else if (m.siguiente.meta === "subir") sig.append(document.createTextNode("Te faltan "), el("b", null, `${m.siguiente.bits_faltantes} bits`), document.createTextNode(" para subir un lugar."));
     else sig.append(document.createTextNode("Te faltan "), el("b", null, `${m.siguiente.bits_faltantes} bits`), document.createTextNode(` para entrar al ${BANDAS[m.siguiente.meta]}.`));
     const nivel = ORDEN.indexOf(m.banda);
-    document.querySelectorAll("#escalera li").forEach((li) => { const i = ORDEN.indexOf(li.dataset.b); li.className = i === nivel ? "here" : i < nivel ? "done" : ""; });
+    document.querySelectorAll("#escalera li").forEach((li) => {
+      const i = ORDEN.indexOf(li.dataset.b); li.className = i === nivel ? "here" : i < nivel ? "done" : "";
+      if (i === nivel) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current");
+    });
     // Mezcla de bits
     const d = m.desglose || {}; const total = PARTES.reduce((s, [k]) => s + (d[k] || 0), 0);
     const mix = $("#mezcla"), ley = $("#leyenda"); mix.replaceChildren(); ley.replaceChildren();
@@ -487,7 +491,7 @@
     const g = m.grupo || {}; const cmp = $("#comparar"); cmp.replaceChildren();
     const tuTasa = d.retos_intentados ? d.primer_intento / d.retos_intentados : null;
     const fila = (t, v, nota) => { const w = el("div"); const dd = el("dd", null, v); if (nota) dd.append(el("small", null, ` ${nota}`)); w.append(el("dt", null, t), dd); cmp.append(w); };
-    fila("Mediana del grupo", `${Math.round(g.mediana_bits || 0)} bits`, `· tú ${m.bits}`);
+    fila("Mediana del grupo", `${g.mediana_bits ?? 0} bits`, `· tú ${m.bits}`);
     fila("Aciertos al primer intento", pct(tuTasa), `· grupo ${pct(g.tasa_primer_intento)}`);
   }
 
@@ -495,7 +499,9 @@
   $("#aliasOtra").addEventListener("click", () => { $("#aliasInput").value = ""; $("#aliasForm").requestSubmit(); });
   $("#aliasForm").addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    const nota = $("#aliasNota"), btn = $("#aliasGuardar"); btn.disabled = true;
+    const nota = $("#aliasNota"), btn = $("#aliasGuardar"), otra = $("#aliasOtra"), input = $("#aliasInput");
+    if (btn.disabled) return;
+    btn.disabled = otra.disabled = input.disabled = true;
     try {
       const nuevo = await api("/rest/v1/rpc/poner_alias", { method: "POST", body: JSON.stringify({ nuevo: $("#aliasInput").value }) });
       nota.className = "fine is-ok"; nota.textContent = `Listo: en el Top 5 apareces como «${nuevo || "Participante"}».`;
@@ -504,7 +510,7 @@
       if (m) pintarMarcador(m);
     } catch (e) {
       nota.className = "fine is-error"; nota.textContent = e.message && !/^HTTP/.test(e.message) ? e.message : "No pudimos guardar tu alias. Intenta de nuevo.";
-    } finally { btn.disabled = false; }
+    } finally { btn.disabled = otra.disabled = input.disabled = false; }
   });
 
   async function cargar() {
