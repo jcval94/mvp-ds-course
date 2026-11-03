@@ -99,33 +99,39 @@
     return vistas > 0 ? ["En curso", "s-progress"] : ["Sin empezar", ""];
   }
 
-  // Tus respuestas del caso (la más reciente de cada pregunta) junto a la retroalimentación del profesor.
-  // «respuestas» viene ordenada de la más reciente a la más antigua; calificada = tiene modelo (nivel o comentario).
+  // Cada revisión acompaña al envío que la recibió, nunca a una respuesta posterior.
+  // «respuestas» viene ordenada de la más reciente a la más antigua.
   function comentarios(respuestas) {
+    if (!respuestas) return null;
+    if (!respuestas.length) return el("p", "fine", "Aún no hay respuestas abiertas en este caso.");
     const porPregunta = new Map();
-    (respuestas || []).forEach((r) => {
-      const p = porPregunta.get(r.pregunta) || { ultima: r, calificada: null };
-      if (!p.calificada && r.modelo) p.calificada = r;
-      porPregunta.set(r.pregunta, p);
+    respuestas.forEach((r) => {
+      if (!porPregunta.has(r.pregunta)) porPregunta.set(r.pregunta, []);
+      porPregunta.get(r.pregunta).push(r);
     });
-    if (!porPregunta.size) return null;
-    const conComentario = [...porPregunta.values()].filter((p) => p.calificada).length;
+    const conComentario = [...porPregunta.values()].filter((envios) => envios.some((r) => r.modelo)).length;
     const d = el("details", "feedback"); d.open = conComentario > 0;
     d.append(el("summary", null, `Tus respuestas · ${porPregunta.size}${conComentario ? ` · ${conComentario} con comentarios de tu profesor` : ""}`));
+    const envio = (r) => {
+      const box = el("div", "response");
+      const nivel = r.nivel != null ? `Nivel ${r.nivel} de 3 · ${5 * r.nivel} bits` : "Con comentario";
+      box.append(el("span", r.modelo ? "lvl" : "lvl pending", r.modelo ? nivel : "Sin revisar aún"));
+      const q = el("blockquote", "mine");
+      q.append(el("span", "mine-label", `Tu respuesta · ${fecha(r.creado)}`), el("span", null, r.texto));
+      box.append(q);
+      if (r.modelo && r.retro) box.append(el("p", "retro", r.retro));
+      return box;
+    };
     const ul = el("ul");
-    porPregunta.forEach(({ ultima, calificada }, pregunta) => {
-      const li = el("li"); const fila = el("div");
-      const nivel = (r) => (r.nivel != null ? `Nivel ${r.nivel} de 3 · ${5 * r.nivel} bits` : "Con comentario");
-      fila.append(el("b", null, PREGUNTAS[pregunta] || etiqueta(pregunta)),
-        el("span", calificada ? "lvl" : "lvl pending", !calificada ? "Sin revisar aún" : calificada === ultima ? nivel(calificada) : `${nivel(calificada)} (respuesta anterior)`));
-      li.append(fila);
-      if (ultima.texto) {
-        const q = el("blockquote", "mine"); q.append(el("span", "mine-label", `Tu respuesta · ${fecha(ultima.creado)}`), el("span", null, ultima.texto)); li.append(q);
-      }
-      if (calificada && calificada.retro) {
-        const p = el("p", "retro");
-        if (calificada !== ultima) p.append(el("span", "mine-label", `Sobre tu respuesta del ${fecha(calificada.creado)}`));
-        p.append(el("span", null, calificada.retro)); li.append(p);
+    porPregunta.forEach(([ultima, ...anteriores], pregunta) => {
+      const li = el("li");
+      li.append(el("b", null, PREGUNTAS[pregunta] || etiqueta(pregunta)), envio(ultima));
+      if (anteriores.length) {
+        const historial = el("details");
+        historial.append(el("summary", null, `Respuestas anteriores · ${anteriores.length}`));
+        const lista = el("ul");
+        anteriores.forEach((r) => { const item = el("li"); item.append(envio(r)); lista.append(item); });
+        historial.append(lista); li.append(historial);
       }
       ul.append(li);
     });
@@ -226,7 +232,8 @@
     const ultimo = propias.map((f) => f.ultimo_evento).filter(Boolean).sort().pop();
     stat(dl, "Última actividad", ultimo ? relativo(ultimo) : "Aún no hay registros", ultimo ? fecha(ultimo) : "Abre un caso en Colab para empezar");
 
-    Object.assign(V, { casos, porCaso, vistas, retros: retros || [] });
+    Object.assign(V, { casos, porCaso, vistas, retros });
+    pintarEstadoRespuestas();
     llenarFiltros(); pintarCasos();
   }
 
@@ -325,6 +332,10 @@
 
   // ---------- Filtros y orden de los casos ----------
   const V = { casos: [], porCaso: new Map(), vistas: new Map(), retros: [] };
+  function pintarEstadoRespuestas() {
+    $("#respuestasError").hidden = V.retros !== null;
+  }
+  const cargarRespuestas = (uid) => TDD.todo(`/rest/v1/respuestas?select=caso,pregunta,texto,nivel,retro,modelo,creado&usuario=eq.${uid}&order=creado.desc,id.desc`);
   const LLAVE_FILTROS = "tdd-alumno-filtros";
   const numCaso = (id) => String(id).split(".").map((n) => Number(n) || 0);
   const porId = (a, b) => { const x = numCaso(a.id), y = numCaso(b.id); return (x[0] - y[0]) || ((x[1] || 0) - (y[1] || 0)); };
@@ -370,7 +381,7 @@
     let modulo = Symbol("ninguno");
     lista.forEach(({ c }) => {
       if (fo === "modulo" && !fm && c.modulo !== modulo) { modulo = c.modulo; cont.append(el("h3", "module-head", c.modulo != null ? `Módulo ${c.modulo}` : "Sin módulo")); }
-      cont.append(tarjetaCaso(c, V.porCaso.get(c.id), V.vistas.get(c.id) || new Set(), V.retros.filter((r) => r.caso === c.id)));
+      cont.append(tarjetaCaso(c, V.porCaso.get(c.id), V.vistas.get(c.id) || new Set(), V.retros === null ? null : V.retros.filter((r) => r.caso === c.id)));
     });
     $("#casosConteo").textContent = lista.length === V.casos.length ? `${V.casos.length} casos` : `${lista.length} de ${V.casos.length} casos`;
     if (!V.casos.length) cont.append(el("p", "notice", "Todavía no hay casos publicados para tu generación."));
@@ -533,7 +544,7 @@
       // Si la base aún no tiene el esquema 0.5, el marcador simplemente no aparece.
       api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null),
       // Sus respuestas con su calificación (si ya la tiene), la más reciente primero.
-      api(`/rest/v1/respuestas?select=caso,pregunta,texto,nivel,retro,modelo,creado&usuario=eq.${uid}&order=creado.desc&limit=500`).catch(() => []),
+      cargarRespuestas(uid).catch(() => null),
       // Fechas límite por grupo (0.7); si su grupo no tiene, cuenta la general del caso.
       api("/rest/v1/entregas_grupo?select=grupo,caso,limite").catch(() => []),
       // Clases en vivo y grabaciones de su grupo (0.10); en bases anteriores la sección no aparece.
@@ -560,6 +571,13 @@
     pintarPago(inscripcion);
     pintarAccesoColab(usuario, perfil, docente);
     pintarAvance({ usuario, perfil, casos, filas, eventos, retros });
+    $("#respuestasReintentar").onclick = async (e) => {
+      const btn = e.currentTarget; btn.disabled = true;
+      try {
+        V.retros = await cargarRespuestas(uid).catch(() => null);
+        pintarEstadoRespuestas(); pintarCasos();
+      } finally { btn.disabled = false; }
+    };
     pintarContinuar(casos, (ultimoEvento || [])[0] || null);
     pintarBuzon();
     pintarMarcador(marcador);

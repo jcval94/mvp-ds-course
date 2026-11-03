@@ -261,7 +261,7 @@
     .feedback summary { cursor: pointer; font-weight: 700; color: var(--accent-text); }
     .feedback ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
     .feedback li { display: grid; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface-alt); border: 1px solid var(--line); }
-    .feedback li div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; }
+    .feedback .response { display: grid; gap: 4px; min-width: 0; overflow-wrap: anywhere; }
     .feedback .lvl { font-size: 12px; font-weight: 800; color: var(--accent-text); font-variant-numeric: tabular-nums; }
     .feedback p { margin: 0; color: var(--muted); line-height: 1.5; white-space: pre-line; }
     .feedback .lvl.pending { color: var(--muted); font-weight: 700; }
@@ -520,6 +520,10 @@
       <div class="cases-head">
         <h2>Casos</h2>
         <p id="casosNota">Se actualiza cada vez que avanzas en Colab.</p>
+      </div>
+      <div class="notice is-error" id="respuestasError" hidden role="status">
+        <p>No pudimos cargar tus respuestas y los comentarios de tu profesor.</p>
+        <button class="btn btn-line" type="button" id="respuestasReintentar">Reintentar</button>
       </div>
       <div class="case-tools" id="casosFiltros" role="group" aria-label="Filtrar y ordenar casos">
         <label><span>Módulo</span><select id="fModulo"></select></label>
