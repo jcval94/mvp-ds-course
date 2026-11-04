@@ -1,6 +1,6 @@
 # Encargos para agentes · repo público
 
-**Estado:** 4 nov 2026. Lista viva de tareas que el autor delega a otra IA (Codex) o a Claude Code. Cada encargo lleva su id
+**Estado:** 4 nov 2026 (u06 fase 1). Lista viva de tareas que el autor delega a otra IA (Codex) o a Claude Code. Cada encargo lleva su id
 del «Tablero Generación 1» para que el avance se anote allá. Los encargos que tocan el backend privado viven en
 `docs/ENCARGOS.md` de `agentic-ds-backen`, no aquí.
 
@@ -101,14 +101,18 @@ Sube un nivel solo si el primer intento falla por razonamiento, no por falta de 
   no muestran ningún botón de Colab, aunque la base traiga `cuaderno_url`.
 - **Terminado:** `python scripts/qa_student_experience.py` y harness en verde; capturas antes y después a 390 y 1440 px.
 
-### E-10 · Resolver un caso en la página: reproductor y 1.1 Wald (tablero u06, fase 3)
+### E-10 · Resolver un caso en la página: motor y 1.1 Wald (tablero u06, fase 3)
 
-- **Depende de:** u01 (decisión del autor), fase 1 de u06 (recorrido de 1.1) y B-07 del backend (contrato de registro).
-- **Entorno:** Claude Code en el equipo del autor (Sonnet 5.5 medium) o Codex (`gpt-6.1-sol` Medium).
-- **Contexto:** el caso sigue a su intro en la misma página: apuesta, mirar los datos, retos calificados por la base,
-  error plantado, firma y revelación, registrados con la sesión de Google del área del alumno (`site/sesion.js`). Nada de
-  respuestas en este repo: la página solo envía lo que el alumno elige y muestra lo que la base contesta.
-- **Terminado:** se detalla en la fase 1 de u06; harness y `qa_student_experience.py` en verde.
+- **Depende de:** B-07 del backend (casos en la página, `mis_retos`). Diseño cerrado: `docs/CASO_EN_PAGINA.md`.
+- **Entorno:** Claude Code en el equipo del autor (Sonnet 5.5 medium; Opus 5.5 high si el motor se traba) o Codex
+  (`gpt-6.1-sol` Medium). Usa la skill `tads-intro-cinematica-8bits` para el estilo y las reglas de accesibilidad.
+- **Qué hacer:** `site/casos/caso.js` y `caso.css` con los componentes de la sección 7; `site/casos/1-1/caso.html` y
+  `caso-escenas.js` con el recorrido de la sección 6; los cambios de la sección 8 (ficha de la intro con `C.resolver`,
+  `EN_PAGINA` en `alumno.js`, `tiempos.json`); el laboratorio con `missions/m01-wald/app/sim.js`.
+- **Terminado:** recorrido completo con una cuenta de prueba (alumno, sin perfil y sin sesión); reanudar tras cerrar la
+  pestaña; la revelación no se abre sin firma; ninguna línea de la intro repetida (revisión nueva en el harness); harness y
+  `qa_student_experience.py` en verde; capturas a 390 y 1440 px y con movimiento reducido. Ninguna clave ni rúbrica en el
+  repo. Los textos visibles van como propuesta en el PR.
 
 ### E-11 · Inventario de lo que supone Colab en los Módulos 1 y 2 (tablero u07)
 
