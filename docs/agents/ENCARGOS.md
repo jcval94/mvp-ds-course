@@ -1,6 +1,6 @@
 # Encargos para agentes · repo público
 
-**Estado:** 2 nov 2026. Lista viva de tareas que el autor delega a otra IA (Codex) o a Claude Code. Cada encargo lleva su id
+**Estado:** 4 nov 2026. Lista viva de tareas que el autor delega a otra IA (Codex) o a Claude Code. Cada encargo lleva su id
 del «Tablero Generación 1» para que el avance se anote allá. Los encargos que tocan el backend privado viven en
 `docs/ENCARGOS.md` de `agentic-ds-backen`, no aquí.
 
@@ -13,6 +13,11 @@ del «Tablero Generación 1» para que el avance se anote allá. Los encargos qu
 5. Si falta una decisión del autor (textos visibles, precios, fechas, estilo, esquema), detente y pregúntala en el PR.
 
 ## Entornos y modelos
+
+**ChatGPT web** (con acceso de lectura a los repos, tokens sin límite) sirve para lecturas largas, auditorías,
+inventarios y borradores de documentos: no ejecuta código ni corre el harness. Si no puede abrir un PR, entrega cada
+archivo completo con su ruta. Modelo de partida: GPT-6.1 Sol en High.
+
 
 | Entorno | Úsalo cuando | Modelo y razonamiento de partida |
 | --- | --- | --- |
@@ -71,3 +76,62 @@ Sube un nivel solo si el primer intento falla por razonamiento, no por falta de 
 - **Contexto:** `casos/staging/{argentina-inflacion-precios-en-linea,impuesto-refrescos-mexico,exceso-mortalidad-covid-mexico,alerta-sismica-mexico,transantiago}.json`,
   `casos/AGENTS.md`, `docs/GUIA_CASOS.md`.
 - **Terminado:** cada incertidumbre se cierra con una fuente o pasa a mito; el caso se propone como `verified` en un PR.
+
+### E-08 · Final de la intro: qué sigue después (tablero u04)
+
+- **Entorno:** Codex. **Modelo:** `gpt-6.1-sol` Medium. **Alternativa:** Claude Code (skill `tads-intro-cinematica-8bits`).
+- **Contexto:** a muchos alumnos no les gustó el salto de la intro a Colab: la intro termina y de golpe están en otra
+  herramienta. `site/casos/motor.js` (escena final, `C.final`), `site/casos/*/escenas.js`, `site/casos/README.md`.
+- **Qué hacer:** la escena final muestra, antes del botón, 2 o 3 títulos cortos con lo que va a pasar después (por
+  ejemplo: dónde se abre el caso, qué hay que ejecutar primero y qué decisión van a tomar), definidos por caso en un campo
+  nuevo de `C.final` y con un texto por omisión en el motor. Debe servir tanto si el caso sigue en Colab como si sigue en
+  la página (u01). No adelanta la herramienta ni el giro (prueba de spoiler de `docs/CRITERIO_PRIMERO.md`).
+- **Terminado:** 1.1, 4.1 y 4.2 con sus títulos; README actualizado; con movimiento reducido se ven sin animación; harness
+  en verde; capturas a 390 y 1440 px. **Los textos visibles los aprueba el autor en el PR:** propónlos, no los fijes.
+
+### E-09 · Mi avance más ligero, con la intro antes que Colab (tablero u05)
+
+- **Fase 1 · ChatGPT web, GPT-6.1 Sol High.** Inventario de todo lo que ve el alumno en `site/alumno.html` (pestaña Mi
+  avance) en el orden en que aparece, con cuánto ocupa en un celular de 390 px, y una propuesta de jerarquía: qué queda
+  arriba, qué se pliega y qué se mueve a otra pestaña o al menú. Entrega `docs/revisiones/MI_AVANCE_CARGA.md`. El autor
+  decide sobre esa propuesta.
+- **Fase 2 · Codex, `gpt-6.1-sol` Medium.** Aplica lo aprobado en `site/alumno.html`, `site/alumno.js` y `site/area.css`.
+  Siempre, aunque la fase 1 no esté aprobada: en cada tarjeta de caso y en «Continuar misión», el botón de la intro va
+  **antes** que el de Colab; los casos que se rehacen en la página (lista `EN_PAGINA` en `alumno.js`, por ahora `"1.1"`)
+  no muestran ningún botón de Colab, aunque la base traiga `cuaderno_url`.
+- **Terminado:** `python scripts/qa_student_experience.py` y harness en verde; capturas antes y después a 390 y 1440 px.
+
+### E-10 · Resolver un caso en la página: reproductor y 1.1 Wald (tablero u06, fase 3)
+
+- **Depende de:** u01 (decisión del autor), fase 1 de u06 (recorrido de 1.1) y B-07 del backend (contrato de registro).
+- **Entorno:** Claude Code en el equipo del autor (Sonnet 5.5 medium) o Codex (`gpt-6.1-sol` Medium).
+- **Contexto:** el caso sigue a su intro en la misma página: apuesta, mirar los datos, retos calificados por la base,
+  error plantado, firma y revelación, registrados con la sesión de Google del área del alumno (`site/sesion.js`). Nada de
+  respuestas en este repo: la página solo envía lo que el alumno elige y muestra lo que la base contesta.
+- **Terminado:** se detalla en la fase 1 de u06; harness y `qa_student_experience.py` en verde.
+
+### E-11 · Inventario de lo que supone Colab en los Módulos 1 y 2 (tablero u07)
+
+- **Entorno:** ChatGPT web. **Modelo:** GPT-6.1 Sol High. **Depende de:** u01.
+- **Contexto:** si los Módulos 1 y 2 se resuelven en la página, varios documentos y páginas quedan mal: por ejemplo
+  `docs/ESTRUCTURA_GENERACION_1.md` («se califica lo que pasa en Colab»), `docs/MODULO_1_DISENO.md` (agenda de las
+  clases 1 y 2), `docs/OPERACION_G1.md`, `docs/PILOTO_G1.md`, `site/instalacion.html`, `site/colab.html`, `site/alumno.js`.
+- **Terminado:** `docs/revisiones/COLAB_M1_M2.md` con una fila por mención (archivo, línea, qué dice, qué cambiaría y si
+  es texto visible que decide el autor). Solo inventario: no cambies los documentos.
+
+### E-12 · El tutorial de Colab con ojos de principiante (tablero u08)
+
+- **Entorno:** ChatGPT web. **Modelo:** GPT-6.1 Sol High. **Alternativa:** Claude en la nube, Opus 5.5 high.
+- **Contexto:** `site/colab.html`, la sección «Acceso a Colab» de `site/alumno.html` y `site/instalacion.html`. Alumnos que
+  nunca han programado ni usado Colab.
+- **Terminado:** `docs/revisiones/TUTORIAL_COLAB.md` con cada paso donde alguien se puede atorar (término sin explicar,
+  botón que no se ve igual, paso implícito), qué pasa si Colab se desconecta, y una redacción propuesta. Los textos los
+  decide el autor: no edites las páginas.
+
+### E-13 · Harness: el enlace del cuaderno coincide en todos lados (tablero u09)
+
+- **Entorno:** Codex. **Modelo:** `gpt-6.1-terra` Light.
+- **Contexto:** `site/casos/README.md` pide cambiar el enlace del cuaderno en tres lugares a mano: `colab` de
+  `escenas.js`, el `noscript` de `index.html` del caso y `CUADERNOS` de `site/alumno.js`.
+- **Terminado:** una revisión en `harness/` que falla si los tres no coinciden para cada caso (y que acepta casos sin
+  cuaderno, como los de la página), con prueba en `harness/tests`; harness en verde.

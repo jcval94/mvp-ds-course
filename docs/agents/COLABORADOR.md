@@ -5,7 +5,7 @@ otros archivos o lo que es fácil malinterpretar. Si algo aquí contradice una
 instrucción de la tarea, la tarea manda; si contradice otro documento del repo,
 pregunta.
 
-Última revisión: 25 oct 2026.
+Última revisión: 4 nov 2026.
 
 ## 1. Qué es esto
 
@@ -19,6 +19,21 @@ datos. Se enseña con casos históricos reales donde hay que tomar una decisión
 - **Sitio oficial:** https://learninglabs.pages.dev (Cloudflare Pages). GitHub Pages
   solo redirige.
 - **Modelo:** niveles 1 y 2 gratis; del 3 en adelante con plan de pago o inscripción.
+
+## 1.1 Cambios de dirección del 4 nov 2026
+
+Retroalimentación de alumnos: no les gustó pasar de la intro de la página a Colab, Mi avance se ve sobrecargado, al
+final de algunas celdas aparece un JSON y, si Colab se desconecta, no saben que tienen que volver a ejecutar la primera
+celda.
+
+- **En revisión (tablero u01):** que los casos de los Módulos 1 y 2 (clases 1 a 4) se resuelvan en la página, sin Colab,
+  y que Colab entre en el Módulo 3. Mientras el autor decide, no construyas cuadernos nuevos de esos módulos.
+- **Decidido:** los cuadernos que ya no apliquen se rehacen en la página y se quitan de Mi avance (por ahora 1.1 Wald); en
+  Mi avance la intro va antes que Colab.
+- **Decidido:** dos tipos de cuaderno, «taquería» (práctica con los datos de Tacos Don Juan) y «caso» (caso real).
+- **Decidido:** toda intro termina diciendo qué va a pasar después; ninguna celda deja salidas sueltas; todo cuaderno
+  avisa cómo recuperar la sesión.
+- Encargos: E-08 a E-13 aquí y B-05 a B-07 en el backend.
 
 ## 2. Repos
 
