@@ -26,14 +26,17 @@ Retroalimentación de alumnos: no les gustó pasar de la intro de la página a C
 final de algunas celdas aparece un JSON y, si Colab se desconecta, no saben que tienen que volver a ejecutar la primera
 celda.
 
-- **En revisión (tablero u01):** que los casos de los Módulos 1 y 2 (clases 1 a 4) se resuelvan en la página, sin Colab,
-  y que Colab entre en el Módulo 3. Mientras el autor decide, no construyas cuadernos nuevos de esos módulos.
-- **Decidido:** los cuadernos que ya no apliquen se rehacen en la página y se quitan de Mi avance (por ahora 1.1 Wald); en
-  Mi avance la intro va antes que Colab.
+- **Decidido (u01):** las clases 1 a 4 (Módulos 1 y 2) van sin Colab: sus casos se rehacen y se resuelven en la página,
+  justo después de su intro. Colab entra **al inicio de la clase 5**, con un cuaderno corto de tipo «taquería» y luego
+  4.1 Semmelweis, el primer caso en Colab. No construyas cuadernos de Colab para las clases 1 a 4.
+- **Decidido:** desde la clase 5, Colab **no es obligatorio**: un caso va en Colab solo si lo necesita (simular, datos
+  grandes, código que el alumno escribe con Codex) o si Colab sube mucho su valor; si no, se resuelve en la página.
+  La lista caso por caso se arma en el tablero u10.
+- **Decidido:** el cuaderno 1.1 Wald sale de Mi avance; en Mi avance la intro va antes que Colab.
 - **Decidido:** dos tipos de cuaderno, «taquería» (práctica con los datos de Tacos Don Juan) y «caso» (caso real).
 - **Decidido:** toda intro termina diciendo qué va a pasar después; ninguna celda deja salidas sueltas; todo cuaderno
   avisa cómo recuperar la sesión.
-- Encargos: E-08 a E-13 aquí y B-05 a B-07 en el backend.
+- Encargos: E-08 a E-14 aquí y B-05 a B-07 en el backend.
 
 ## 2. Repos
 

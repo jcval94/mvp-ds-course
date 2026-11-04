@@ -85,7 +85,7 @@ Sube un nivel solo si el primer intento falla por razonamiento, no por falta de 
 - **Qué hacer:** la escena final muestra, antes del botón, 2 o 3 títulos cortos con lo que va a pasar después (por
   ejemplo: dónde se abre el caso, qué hay que ejecutar primero y qué decisión van a tomar), definidos por caso en un campo
   nuevo de `C.final` y con un texto por omisión en el motor. Debe servir tanto si el caso sigue en Colab como si sigue en
-  la página (u01). No adelanta la herramienta ni el giro (prueba de spoiler de `docs/CRITERIO_PRIMERO.md`).
+  la página (clases 1 a 4 siempre en la página; desde la 5, según u10). No adelanta la herramienta ni el giro (prueba de spoiler de `docs/CRITERIO_PRIMERO.md`).
 - **Terminado:** 1.1, 4.1 y 4.2 con sus títulos; README actualizado; con movimiento reducido se ven sin animación; harness
   en verde; capturas a 390 y 1440 px. **Los textos visibles los aprueba el autor en el PR:** propónlos, no los fijes.
 
@@ -103,7 +103,7 @@ Sube un nivel solo si el primer intento falla por razonamiento, no por falta de 
 
 ### E-10 · Resolver un caso en la página: reproductor y 1.1 Wald (tablero u06, fase 3)
 
-- **Depende de:** u01 (decisión del autor), fase 1 de u06 (recorrido de 1.1) y B-07 del backend (contrato de registro).
+- **Depende de:** fase 1 de u06 (recorrido de 1.1) y B-07 del backend (contrato de registro).
 - **Entorno:** Claude Code en el equipo del autor (Sonnet 5.5 medium) o Codex (`gpt-6.1-sol` Medium).
 - **Contexto:** el caso sigue a su intro en la misma página: apuesta, mirar los datos, retos calificados por la base,
   error plantado, firma y revelación, registrados con la sesión de Google del área del alumno (`site/sesion.js`). Nada de
@@ -112,8 +112,9 @@ Sube un nivel solo si el primer intento falla por razonamiento, no por falta de 
 
 ### E-11 · Inventario de lo que supone Colab en los Módulos 1 y 2 (tablero u07)
 
-- **Entorno:** ChatGPT web. **Modelo:** GPT-6.1 Sol High. **Depende de:** u01.
-- **Contexto:** si los Módulos 1 y 2 se resuelven en la página, varios documentos y páginas quedan mal: por ejemplo
+- **Entorno:** ChatGPT web. **Modelo:** GPT-6.1 Sol High.
+- **Contexto:** el autor decidió (4 nov) que las clases 1 a 4 se resuelven en la página y que Colab entra al inicio de la
+  clase 5; varios documentos y páginas quedan mal: por ejemplo
   `docs/ESTRUCTURA_GENERACION_1.md` («se califica lo que pasa en Colab»), `docs/MODULO_1_DISENO.md` (agenda de las
   clases 1 y 2), `docs/OPERACION_G1.md`, `docs/PILOTO_G1.md`, `site/instalacion.html`, `site/colab.html`, `site/alumno.js`.
 - **Terminado:** `docs/revisiones/COLAB_M1_M2.md` con una fila por mención (archivo, línea, qué dice, qué cambiaría y si
@@ -135,3 +136,18 @@ Sube un nivel solo si el primer intento falla por razonamiento, no por falta de 
   `escenas.js`, el `noscript` de `index.html` del caso y `CUADERNOS` de `site/alumno.js`.
 - **Terminado:** una revisión en `harness/` que falla si los tres no coinciden para cada caso (y que acepta casos sin
   cuaderno, como los de la página), con prueba en `harness/tests`; harness en verde.
+
+### E-14 · Página o Colab, caso por caso, de la clase 5 a la 22 (tablero u10)
+
+- **Entorno:** ChatGPT web, GPT-6.1 Sol High. **Alternativa:** Claude en la nube, Opus 5.5 high.
+- **Contexto:** decisión del autor (4 nov): Colab entra en la clase 5 con 4.1 Semmelweis, pero después no es obligatorio.
+  Un caso va en Colab solo si lo necesita o si Colab sube mucho su valor; si no, se queda en la página, que tiene menos
+  fricción. `docs/ESTRUCTURA_GENERACION_1.md` (caso principal y de error de cada clase), `docs/CRITERIO_PRIMERO.md`,
+  `docs/GUIA_CASOS.md`, `casos/` (fichas de cada caso).
+- **Criterios de partida** (ajústalos si encuentras uno mejor y dilo): Colab cuando el caso pide simular muchas veces,
+  datos que no caben o no se ven bien en una página, que el alumno escriba o lea código (con Codex), SQL o un modelo
+  entrenado; página cuando la decisión se toma con pocas cifras, una gráfica o una interacción.
+- **Terminado:** `docs/PAGINA_O_COLAB.md` con una fila por caso principal y de error de las clases 5 a 22: dónde va,
+  qué criterio decide, qué se perdería en el otro lugar y una nota de confianza. Que Colab no desaparezca por semanas
+  enteras sin razón (los alumnos olvidan cómo se usa) y que no aparezca en dos clases seguidas solo por inercia. El autor
+  aprueba la tabla; no cambies otros documentos.

@@ -33,6 +33,7 @@ Registro de lo que José Carlos confirmó para la oferta publicada en learningla
 | Difusión | Facebook Ads, LinkedIn, WhatsApp y, más adelante, YouTube. Público: estudiantes, profesionistas que buscan cambiar de carrera y gente interesada en IA. Plan en `docs/DIFUSION_G1.md` | 24 oct 2026 | — |
 | Presupuesto de Facebook Ads | **50 USD** por ahora, repartidos por semana hasta el cierre del 8 ene: 15 de prueba, 20 al público ganador, pausa en diciembre y 15 de cierre (plan en `docs/DIFUSION_G1.md`) | 30 oct 2026 | — |
 | Clase abierta gratuita | **No habrá** por ahora | 30 oct 2026 | — |
+| Colab | Clases 1 a 4 sin Colab: sus casos se resuelven en la página. Colab entra al inicio de la clase 5 con 4.1 Semmelweis. Desde ahí, un caso va en Colab solo si lo necesita o si Colab sube mucho su valor | 4 nov 2026 | `instalacion.html`, `colab.html`, Mi avance (pendiente, tablero u07) |
 
 ## Cómo se calculan precio y fechas en el sitio
 

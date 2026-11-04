@@ -13,7 +13,9 @@ cada clase. El tablero interactivo con todos los indicadores de cada caso vive e
 - **Mínimo viable por clase:** al menos un caso (el principal). Si una clase se alarga, el caso del error pasa a tarea.
 - **Hábitos:** dos casos seguidos nunca entrenan el mismo hábito de criterio (`docs/CRITERIO_PRIMERO.md`). La columna «Hábito»
   es el que entrena el caso en esta clase; a veces difiere del sugerido por el catálogo.
-- **Se califica lo que pasa en Colab** (apuestas, retos, encargos, verificaciones, firmas y Mi decisión), medido en bits. El
+- **Se califica lo que pasa en el caso** (apuestas, retos, encargos, verificaciones, firmas y Mi decisión), medido en bits.
+  Las clases 1 a 4 se resuelven en la página; Colab entra al inicio de la clase 5 y desde ahí cada caso va en Colab o en
+  la página según lo necesite (decisión del autor, 4 nov 2026; lista en `docs/PAGINA_O_COLAB.md`). El
   proyecto final es requisito de la constancia y no pondera. Las misiones web no cuentan para la calificación.
 - **Fuera de la Generación 1:** el Nivel 12 (ingeniería de productos de datos) y la parte profunda del 13 quedan como
   autoestudio en los 12 meses de Augmented Studio incluidos; el Módulo 9 da lo que un analista necesita de agentes.
