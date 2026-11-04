@@ -490,7 +490,7 @@
     d.innerHTML =
       '<dl class="tiempos"><div><dt>INTRO</dt><dd>' + esc(C.duracionIntro) + '</dd></div>' +
       '<div><dt>' + (C.resolver ? 'CASO' : 'CUADERNO') + '</dt><dd>' + esc(C.duracionCaso || C.duracionCuaderno) + '</dd></div></dl>' +
-      herr + despues + cta +
+      herr + despues + (C.aviso ? '<p class="nota"><b>Aviso de contenido.</b> ' + esc(C.aviso) + '</p>' : '') + cta +
       (fuentes ? '<details class="fuentes"><summary>Fuentes de las cifras</summary><ul>' + fuentes + '</ul></details>' : '') +
       (creditos ? '<details class="fuentes"><summary>Material de archivo y créditos</summary><ul>' + creditos + '</ul></details>' : '') +
       '<button class="enlace" id="repetir" type="button">Ver la intro otra vez</button>';
@@ -522,7 +522,7 @@
     var cam = e.camara || { x: 0, y: 0, w: 160 };
     S = { n: n, e: e, tok: token, timers: [], linea: -1, tecleo: null, alTerminar: null, listo: false, fin: false, trans: false,
       cam: { x: cam.x, y: cam.y, w: cam.w }, alTocar: null, texto: '', timerLinea: 0, timerCuenta: 0 };
-    lienzo.innerHTML = '<svg viewBox="0 0 160 90" role="img" aria-label="' + esc(e.alt) + '" preserveAspectRatio="xMidYMid meet">' +
+    lienzo.innerHTML = '<svg viewBox="0 0 160 90" role="' + (e.interactiva ? 'group' : 'img') + '" aria-label="' + esc(e.alt) + '" preserveAspectRatio="xMidYMid meet">' +
       e.arte() + '<g data-parts="1"></g></svg>';
     S.svg = lienzo.firstChild;
     S.parG = S.svg.querySelector('[data-parts]');
