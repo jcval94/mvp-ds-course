@@ -92,6 +92,22 @@ label.campo span{color:var(--tinta-suave);font-size:.92rem}
 .leyenda-b{display:flex;flex-wrap:wrap;gap:14px;font-size:.9rem;color:var(--tinta-suave)}
 .leyenda-b i{display:inline-block;width:14px;height:14px;margin-right:6px;vertical-align:-2px;background:var(--c);border:2px solid var(--tinta)}
 
+/* Columnas por mes (series largas) */
+.columnas{display:flex;align-items:flex-end;gap:2px;height:180px;border-bottom:3px solid var(--tinta-suave);padding-top:8px;overflow:hidden}
+.columnas i{flex:1 1 0;min-width:3px}
+.columnas i{flex:1 0 7px;background:var(--anil);min-width:7px;position:relative}
+.columnas i.marca{background:var(--comal)}
+.columnas i.tenue{background:var(--vacio)}
+.ejes{display:flex;justify-content:space-between;font-size:.82rem;color:var(--tinta-suave)}
+.difs{display:grid;gap:6px}
+.difs .fila-d{display:grid;grid-template-columns:5.5em minmax(0,1fr) 5em;gap:8px;align-items:center;font-size:.92rem;font-variant-numeric:tabular-nums}
+.difs .eje{position:relative;height:14px;background:var(--vacio)}
+.difs .eje::after{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:var(--tinta-suave)}
+.difs .eje i{position:absolute;top:0;bottom:0;background:var(--anil)}
+.difs .eje i.neg{background:var(--tq-salsa-clara)}
+.tarjeta-tipo{border:3px solid var(--tinta-suave);padding:10px 12px;display:grid;gap:8px}
+.tarjeta-tipo .fila{gap:8px}
+
 /* Acciones del alumno y libreta */
 .acciones{display:flex;flex-wrap:wrap;gap:8px}
 .acciones .btn{font-size:9px;padding:10px 10px}
@@ -157,6 +173,8 @@ label.campo span{color:var(--tinta-suave);font-size:.92rem}
 .tabla-t{border-collapse:collapse;width:100%;font-size:.95rem}
 .tabla-t th,.tabla-t td{border:2px solid var(--vacio);padding:8px 10px;text-align:left;vertical-align:top}
 .tabla-t th{font-weight:700;color:var(--comal)}
+.pieza .tabla-t th{color:var(--tq-comal-texto)}
+.pieza .tabla-t th,.pieza .tabla-t td{border-color:var(--tq-papel-sombra)}
 
 /* Laboratorio: 1,000 aviones */
 .hangar{display:grid;grid-template-columns:repeat(40,1fr);gap:2px;max-width:520px}

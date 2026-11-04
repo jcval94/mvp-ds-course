@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "id": "puerto-rico-maria-2017",
+  "title": "Puerto Rico: 64 o 2,975",
+  "decision_question": "Tres meses después del huracán María, la cifra oficial era de 64 muertes. ¿Qué cifra publicarías y cómo explicarías qué cuenta?",
+  "naive_answer": "Publicar los 64 casos confirmados: son las muertes cuyo certificado dice que fueron por el huracán, una por una.",
+  "ingenious_move": "Preguntar qué tiene que pasar para que una muerte cuente y, en lugar de esperar a que cada certificado lo diga, comparar las muertes registradas por todas las causas con las de los mismos meses en años normales.",
+  "status": "verified",
+  "access": "public",
+  "concepts": [
+    "define-the-variable",
+    "excess-mortality",
+    "baseline-comparison",
+    "measurement-validity"
+  ],
+  "level_hint": 1,
+  "verified_claims": [
+    {
+      "claim": "El centro del huracán María cruzó la costa sureste de Puerto Rico cerca de Yabucoa hacia las 10:15 UTC del 20 de septiembre de 2017, con vientos máximos cercanos a 135 nudos (categoría 4, justo por debajo de 5).",
+      "sources": [
+        "https://www.nhc.noaa.gov/data/tcr/AL152017_Maria.pdf"
+      ]
+    },
+    {
+      "claim": "En la segunda semana después del huracán la cifra oficial era de 16 muertes; en diciembre de 2017 era de 64, y el gobernador Ricardo Rosselló ordenó revisar todas las muertes ocurridas desde el huracán, sin aceptar todavía cifras basadas en análisis estadístico.",
+      "sources": [
+        "https://www.nbcnews.com/storyline/puerto-rico-crisis/puerto-rico-governor-orders-review-death-count-after-hurricane-maria-n830761"
+      ]
+    },
+    {
+      "claim": "La cifra de 64 incluía solo a personas cuyo certificado de defunción mencionaba al huracán como factor y cuya muerte certificó el Instituto de Ciencias Forenses de Puerto Rico.",
+      "sources": [
+        "https://www.boston.com/news/policy/2018/06/02/why-are-the-death-tolls-in-puerto-rico-from-hurricane-maria-so-different/"
+      ]
+    },
+    {
+      "claim": "Un análisis de The New York Times (diciembre de 2017) comparó las muertes diarias de 2017 con el promedio de los mismos días de 2015 y 2016 y encontró unas 1,052 muertes de más en septiembre y octubre; el Centro de Periodismo Investigativo (1,065) y Santos y Howard (1,085) usaron métodos parecidos.",
+      "sources": [
+        "https://www.boston.com/news/policy/2018/06/02/why-are-the-death-tolls-in-puerto-rico-from-hurricane-maria-so-different/"
+      ]
+    },
+    {
+      "claim": "El estudio de Harvard (Kishore et al., NEJM, mayo de 2018) encuestó 3,299 hogares elegidos al azar y estimó 4,645 muertes en exceso del 20 de septiembre al 31 de diciembre de 2017, con un intervalo de confianza del 95% de 793 a 8,498, comparando con la tasa oficial del mismo periodo de 2016.",
+      "sources": [
+        "https://github.com/c2-d2/pr_mort_official",
+        "https://www.nejm.org/doi/full/10.1056/NEJMsa1803972"
+      ]
+    },
+    {
+      "claim": "El intervalo de Harvard es tan amplio porque la encuesta encontró pocas muertes (56 en el año, 38 después del huracán); los autores aclaran que no afirman que murieron 4,645 personas: 4,645 es el centro del intervalo.",
+      "sources": [
+        "https://github.com/c2-d2/pr_mort_official/blob/master/misc/faq_sp.md"
+      ]
+    },
+    {
+      "claim": "En un informe al Congreso de agosto de 2018, el Gobierno de Puerto Rico reportó 1,427 muertes más de septiembre a diciembre de 2017 que el promedio del mismo periodo en los cuatro años anteriores, mientras la cifra oficial seguía en 64.",
+      "sources": [
+        "https://www.pbs.org/newshour/nation/puerto-rico-cites-storm-death-toll-of-1427-in-damage-report"
+      ]
+    },
+    {
+      "claim": "El estudio encargado por el Gobierno de Puerto Rico a la Escuela Milken de Salud Pública de la Universidad George Washington estimó 2,975 muertes en exceso de septiembre de 2017 a febrero de 2018, comparando las muertes registradas con las esperadas según patrones históricos y ajustando por edad, sexo y migración.",
+      "sources": [
+        "https://gwtoday.gwu.edu/node/9876"
+      ]
+    },
+    {
+      "claim": "En la versión publicada (The Lancet Planetary Health, octubre de 2018), la estimación es de 2,975 (IC 95%: 2,658 a 3,290) si se considera el desplazamiento de población, y de 1,191 (IC 95%: 836 a 1,544) con la población del censo; unas 241,251 personas dejaron la isla en ese periodo.",
+      "sources": [
+        "https://doaj.org/article/ae7fc955cea44f89abc80d9616592ae7",
+        "https://gwtoday.gwu.edu/node/10301"
+      ]
+    },
+    {
+      "claim": "El estudio de GWU encontró que la falta de comunicación, de guías y de capacitación de los médicos para certificar muertes en desastres limitó cuántas se registraron como relacionadas con el huracán; las tasas de error de los certificados estaban dentro de lo normal.",
+      "sources": [
+        "https://gwtoday.gwu.edu/node/9876"
+      ]
+    },
+    {
+      "claim": "El 28 de agosto de 2018, el gobernador Rosselló adoptó 2,975 como cifra oficial, aclarando que es un estimado y que no incluye los nombres de las víctimas.",
+      "sources": [
+        "https://eldiariony.com/2018/08/28/rosello-admite-errores-y-confirma-2975-muertos-por-huracan-maria-en-puerto-rico/",
+        "https://www.nhc.noaa.gov/data/tcr/AL152017_Maria.pdf"
+      ]
+    },
+    {
+      "claim": "El Registro Demográfico (tablas del 4 de junio de 2018, 2017 preliminar) registró 2,928 defunciones en septiembre y 3,040 en octubre de 2017, frente a 2,258 y 2,393 en 2015 y 2,367 y 2,357 en 2016.",
+      "sources": [
+        "https://github.com/c2-d2/pr_mort_official/blob/master/data/RD-Mortality-Report_2015-18-180531.pdf"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "No se pudo descargar el informe completo de GWU (el sitio publichealth.gwu.edu respondió 403): sus cifras vienen del comunicado de GW Today y del resumen del artículo en The Lancet Planetary Health (DOAJ).",
+    "El artículo original del New York Times (9 dic 2017) no se leyó por el muro de pago: el método y la cifra de 1,052 vienen de la reimpresión de Sheri Fink (NYT) en Boston.com.",
+    "No se verificó la fecha exacta en que la cifra oficial llegó a 64; consta que era 64 cuando el gobernador ordenó la revisión (diciembre de 2017) y en agosto de 2018.",
+    "Las cifras de 2017 y 2018 del Registro Demográfico son preliminares (junio de 2018). Otra serie del Instituto de Estadísticas de Puerto Rico difiere en algunas decenas por mes; versiones finales posteriores pueden diferir.",
+    "Licencia de los datos: los conteos son hechos de un documento público del Gobierno de Puerto Rico, redistribuidos con CC BY 3.0 US por el repositorio de Harvard. Falta que el autor confirme que basta ese crédito.",
+    "El cálculo simple del caso (mismo mes, promedio 2015 y 2016, sin ajustar población) no reproduce 2,975: queda entre las dos hipótesis de población de GWU. El caso no debe presentarlo como réplica del estudio.",
+    "Septiembre de 2017 incluye 19 días anteriores al huracán (y el paso cercano de Irma a inicios de mes); con datos mensuales el exceso de septiembre no es solo de María.",
+    "El exceso de mortalidad no dice qué muerte individual fue por el huracán: es una cifra agregada con incertidumbre."
+  ],
+  "myths_to_avoid": [
+    "2,975 es una lista de personas identificadas. Es un estimado estadístico con intervalo; el gobernador aclaró que no incluye nombres.",
+    "Harvard dijo que murieron 4,645 personas. Su resultado es un intervalo de 793 a 8,498; 4,645 es el centro.",
+    "El 64 fue una cifra inventada para ocultar muertes. Lo documentado es una regla de conteo estrecha (certificado que menciona el huracán y confirmación forense) y fallas de guía y capacitación; no se afirma intención.",
+    "Las muertes en exceso fueron por el viento y el agua el día del huracán. GWU encontró riesgo elevado durante seis meses y Harvard atribuye un tercio de las muertes reportadas a atención médica retrasada o interrumpida.",
+    "Hay una sola cifra correcta. Cada cifra responde a una definición y a una comparación distintas (periodo, línea base, población)."
+  ],
+  "sources": [
+    "https://www.nhc.noaa.gov/data/tcr/AL152017_Maria.pdf",
+    "https://www.nbcnews.com/storyline/puerto-rico-crisis/puerto-rico-governor-orders-review-death-count-after-hurricane-maria-n830761",
+    "https://www.boston.com/news/policy/2018/06/02/why-are-the-death-tolls-in-puerto-rico-from-hurricane-maria-so-different/",
+    "https://github.com/c2-d2/pr_mort_official",
+    "https://www.nejm.org/doi/full/10.1056/NEJMsa1803972",
+    "https://github.com/c2-d2/pr_mort_official/blob/master/misc/faq_sp.md",
+    "https://www.pbs.org/newshour/nation/puerto-rico-cites-storm-death-toll-of-1427-in-damage-report",
+    "https://gwtoday.gwu.edu/node/9876",
+    "https://gwtoday.gwu.edu/node/10301",
+    "https://doaj.org/article/ae7fc955cea44f89abc80d9616592ae7",
+    "https://eldiariony.com/2018/08/28/rosello-admite-errores-y-confirma-2975-muertos-por-huracan-maria-en-puerto-rico/",
+    "https://github.com/c2-d2/pr_mort_official/blob/master/data/RD-Mortality-Report_2015-18-180531.pdf"
+  ],
+  "dataset": {
+    "kind": "real",
+    "path": "casos/data/puerto-rico-maria-2017/defunciones_mensuales.csv",
+    "provenance": "Registro Demográfico del Departamento de Salud de Puerto Rico, defunciones por mes de ocurrencia (tablas del 4 jun 2018; 2017 y 2018 preliminares), copia en github.com/c2-d2/pr_mort_official commit 64d686c, consultada el 4 nov 2026. Detalle en casos/data/puerto-rico-maria-2017/README.md.",
+    "license": "CC BY 3.0 US (redistribución de c2-d2/pr_mort_official); conteos de un documento público del Gobierno de Puerto Rico",
+    "sha256": "0012834fc5e055114cbf32fc43730b46f332cfcd4b27984b9e24bb0223c2bed9"
+  },
+  "story_bridge": "En la taquería: ¿qué cuenta como «pedido cancelado», el que no se pagó o el que no se entregó?",
+  "analogy_limits": "El cálculo del caso es la comparación más simple (mismo mes, promedio de dos años, sin ajustar población); los estudios usan modelos con población, edad y tendencia, y sus cifras no salen de esta cuenta."
+}

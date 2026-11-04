@@ -14,10 +14,14 @@ from harness.config import ROOT
 CASOS = ROOT / "site/casos"
 PAGINA = sorted(p.parent for p in CASOS.glob("*/caso.html"))
 # Cómo se llama la herramienta de cada caso y en qué sección se nombra por primera vez (después de usarla).
-HERRAMIENTA = {"1-1": ("faltantes", ["sesgo de supervivencia", "sesgo de sobrevivencia", "faltantes no aleatorios"])}
+HERRAMIENTA = {"1-1": ("faltantes", ["sesgo de supervivencia", "sesgo de sobrevivencia", "faltantes no aleatorios"]),
+               "1-4": ("registro", ["exceso de mortalidad", "muertes en exceso", "exceso de muertes", "definir la variable",
+                                    "definicion de la variable"])}
 # Ids de secciones y de retos, en orden, tal como están registrados en la base del curso.
 RECORRIDO = {"1-1": (["preparacion", "apuesta", "registro", "asistente", "faltantes", "verificacion", "firma", "revelacion",
-                      "laboratorio", "cierre"], ["reto_menos_area", "reto_error_resumen", "reto_motores_faltan"])}
+                      "laboratorio", "cierre"], ["reto_menos_area", "reto_error_resumen", "reto_motores_faltan"]),
+             "1-4": (["preparacion", "apuesta", "regla", "registro", "asistente", "firma", "revelacion", "cierre"],
+                     ["reto_meses_normales", "reto_octubre_exceso", "reto_error_linea_base"])}
 
 
 def _norm(texto: str) -> str:
@@ -65,8 +69,9 @@ def test_la_herramienta_se_nombra_despues_de_usarla(carpeta: Path) -> None:
     for nombre in nombres:
         assert _norm(nombre) not in _norm((carpeta / "escenas.js").read_text(encoding="utf-8")), "la intro nombra la herramienta"
     # Dentro de su sección, el nombre llega en la tarjeta que aparece después del reto.
-    codigo = dict(secciones)[seccion]
-    assert codigo.find("tdd") == -1 and codigo.index("reto_") < codigo.lower().index("sesgo de supervivencia")
+    codigo = _norm(dict(secciones)[seccion])
+    primero = min(codigo.index(_norm(n)) for n in nombres if _norm(n) in codigo)
+    assert codigo.index("reto ") < primero, "la herramienta se nombra antes del reto de su sección"
 
 
 @pytest.mark.parametrize("carpeta", PAGINA, ids=lambda p: p.name)
@@ -86,6 +91,7 @@ def test_sin_claves_ni_colab(carpeta: Path) -> None:
         assert not re.search(r"respuesta\s*:\s*['\"]|tolerancia|r[uú]brica", texto, re.I), archivo
     assert "colab.research.google.com" not in (carpeta / "index.html").read_text(encoding="utf-8")
     assert "resolver: 'caso.html'" in (carpeta / "escenas.js").read_text(encoding="utf-8")
+    assert "puerta: function (S) { return !!S.respuestas.firma; }" in (carpeta / "caso-escenas.js").read_text(encoding="utf-8")
 
 
 def test_wald_usa_los_mismos_datos_y_simulador() -> None:
@@ -93,6 +99,17 @@ def test_wald_usa_los_mismos_datos_y_simulador() -> None:
     params = json.loads(datos[datos.index("=") + 1: datos.rindex(";")])
     assert params == json.loads((ROOT / "casos/data/wald-bombers/parametros.json").read_text(encoding="utf-8"))
     assert (ROOT / "site/casos/1-1/sim.js").read_bytes() == (ROOT / "missions/m01-wald/app/sim.js").read_bytes()
+
+
+def test_puerto_rico_usa_los_datos_reales() -> None:
+    import csv
+    datos = (ROOT / "site/casos/1-4/datos.js").read_text(encoding="utf-8")
+    filas = json.loads(datos[datos.index("=") + 1: datos.rindex(";")])
+    with (ROOT / "casos/data/puerto-rico-maria-2017/defunciones_mensuales.csv").open(encoding="utf-8", newline="") as f:
+        csvf = [{"anio": int(r["anio"]), "mes": int(r["mes"]), "defunciones": int(r["defunciones"]), "estado": r["estado"]} for r in csv.DictReader(f)]
+    assert filas == csvf
+    texto = (ROOT / "site/casos/1-4/caso-escenas.js").read_text(encoding="utf-8")
+    assert "Aviso de contenido" in texto and "aviso:" in (ROOT / "site/casos/1-4/escenas.js").read_text(encoding="utf-8")
 
 
 @pytest.mark.skipif(shutil.which("node") is None, reason="sin node")

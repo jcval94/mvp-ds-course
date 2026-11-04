@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "id": "gimli-glider-1983",
+  "title": "El planeador de Gimli",
+  "decision_question": "Los indicadores de combustible del 767 están en blanco y la carga se calculó a mano con cuentas que cuadran. ¿Cargarías y despacharías el avión con ese cálculo? ¿Qué revisarías antes de despegar y quién lo firma?",
+  "naive_answer": "Sí: las multiplicaciones y la resta están bien hechas, el capitán las repasó con su computadora de vuelo y el total coincide con lo que pide el plan.",
+  "ingenious_move": "Ponerle su unidad a cada número de la hoja y comparar el resultado con lo físicamente posible: el factor de la hoja convierte litros en libras, el plan está en kilos, y un litro de combustible no puede pesar más que un litro de agua.",
+  "status": "candidate",
+  "access": "public",
+  "concepts": [
+    "units-of-measure",
+    "conversion-factor",
+    "range-validation",
+    "verify-ai-output"
+  ],
+  "level_hint": 1,
+  "verified_claims": [
+    {
+      "claim": "El 23 de julio de 1983, el vuelo 143 de Air Canada, un Boeing 767-233 con matrícula C-GAUN, hizo un aterrizaje de emergencia en Gimli, Manitoba, después de quedarse sin combustible en vuelo.",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+        "https://cdn.aviation-safety.net/wikibase/327590",
+        "https://en.wikipedia.org/wiki/Gimli_Glider"
+      ]
+    },
+    {
+      "claim": "A bordo iban 69 personas: 61 pasajeros, 2 tripulantes de cabina de mando y 6 de cabina. No hubo muertos; el informe dice que tampoco hubo lesiones físicas importantes, y las lesiones menores ocurrieron durante la evacuación por los toboganes.",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+        "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
+        "https://cdn.aviation-safety.net/wikibase/327590"
+      ]
+    },
+    {
+      "claim": "Los tres indicadores de combustible de la cabina estaban en blanco. Según el informe, la lista de equipo mínimo (MEL, punto 28-41-1) exige que funcionen al menos dos de los tres para despachar el avión, y el capitán salió de Montreal y después de Ottawa con los indicadores en blanco, contra lo que dice la MEL.",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+        "https://en.wikipedia.org/wiki/Gimli_Glider"
+      ]
+    },
+    {
+      "claim": "El procesador de los indicadores tiene dos canales; un técnico desactivó el canal 2 y marcó su disyuntor como inoperativo. Con los indicadores sin funcionar, el combustible se midió a mano con varillas (drip sticks) calibradas en centímetros y convertidas a litros con tablas de a bordo.",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+        "https://cdn.aviation-safety.net/wikibase/327590"
+      ]
+    },
+    {
+      "claim": "En Montreal, la medición con varilla dio 7,682 litros en los tanques, y el vuelo Montreal-Ottawa-Edmonton requería 22,300 kg de combustible. Se cargaron unos 4,917 litros (Williams da 4,916).",
+      "sources": [
+        "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
+        "https://en.wikipedia.org/wiki/Gimli_Glider"
+      ]
+    },
+    {
+      "claim": "Para pasar de litros a peso se multiplicó por 1.77, que es el factor de litros a libras. El informe dice que el factor métrico de litros a kilos ronda 0.8 y que el resultado habría tenido que dividirse entre 2.2 para dar kilos.",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+        "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
+        "https://en.wikipedia.org/wiki/Gimli_Glider"
+      ]
+    },
+    {
+      "claim": "Según el informe, el capitán Pearson declaró que repasó las cuentas con su computadora de vuelo Jeppesen y las encontró matemáticamente correctas, y el avión salió de cada aeropuerto con solo la mitad del combustible que la tripulación creía tener.",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf"
+      ]
+    },
+    {
+      "claim": "Los primeros avisos (baja presión de combustible) aparecieron poco después de las 20:00, hora del centro, a 41,000 pies; el capitán desvió hacia Winnipeg y, con los dos motores apagados, a las 20:32 se dirigió a Gimli, a unas 12 millas.",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+        "https://en.wikipedia.org/wiki/Gimli_Glider"
+      ]
+    },
+    {
+      "claim": "El avión planeó sin motores unos 17 minutos y aterrizó en Gimli, una base militar en desuso (CFB Gimli cerró en septiembre de 1971) con una parte de la pista adaptada como pista de arrancones.",
+      "sources": [
+        "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
+        "https://en.wikipedia.org/wiki/Gimli_Glider",
+        "https://en.wikipedia.org/wiki/RCAF_Station_Gimli",
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf"
+      ]
+    },
+    {
+      "claim": "La densidad del combustible de avión Jet A y Jet A-1 a 15 °C está especificada entre 775 y 840 kg/m³ (0.775 a 0.840 kg por litro), según ASTM D1655, CGSB 3.23 y DEF STAN 91-091.",
+      "sources": [
+        "https://www.exxonmobil.com/en-ng/commercial-fuel/pds/gl-xx-jetfuel-series"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "Las cifras línea por línea (7,682 L, 22,300 kg, 4,916 o 4,917 L, y las de Ottawa) no se encontraron en el texto del informe Lockwood que se pudo leer: la extracción del PDF del FAA se corta en la parte III. Vienen de Williams (Flight Safety Australia, 2003) y de Wikipedia. Falta ubicarlas en el informe (parte III B, pp. 38-58, o apéndices) antes de pasar a verified.",
+    "Litros cargados: 4,917 (Wikipedia) o 4,916 (Williams). La cuenta da 4,916.9.",
+    "Ottawa: Wikipedia dice que se usó 1.78 (no 1.77) con 11,430 L y que se creyó tener 20,400 kg; 11,430 × 1.78 da 20,345. El informe accesible solo menciona 1.77.",
+    "Altitud al apagarse el segundo motor: el informe dice que el avión estaba a 35,000 pies a 65 millas de Winnipeg; Williams dice 28,500 pies a 65 millas de Winnipeg cuando se apagó el motor derecho. Se usa solo lo que comparten: desde 41,000 pies y unos 17 minutos de planeo.",
+    "Los 17 minutos de planeo vienen de Williams y de Wikipedia; el texto accesible del informe no da la duración.",
+    "No se verificó en el informe la causa técnica de la falla del procesador de combustible ni que el 767 fuera el primer avión métrico de la flota de Air Canada (lo dice Wikipedia).",
+    "Las fuentes difieren en quién hizo cada cuenta (técnicos, encargado de carga, copiloto); el caso no atribuye el error a una sola persona.",
+    "Falta la verificación independiente en otra sesión, como en wald-bombers.",
+    "Licencia de las fotos candidatas sin confirmar en Commons (las páginas de archivo no se pudieron abrir desde esta sesión)."
+  ],
+  "myths_to_avoid": [
+    "Los pilotos no sabían hacer cuentas. Las cuentas estaban bien hechas: el error fue el factor y la unidad, y nadie en la cadena lo detectó.",
+    "El avión tenía una fuga de combustible. Los tanques estaban secos porque se cargó de menos.",
+    "Aterrizó en un aeropuerto. Aterrizó en una base militar en desuso, con una parte de la pista usada para carreras.",
+    "Hubo muertos. No murió nadie.",
+    "La falla de los indicadores causó el accidente. Quitó una comprobación, pero el combustible faltó por el cálculo y por despachar el avión contra la MEL.",
+    "1.77 es la densidad del combustible. Es un factor de litros a libras; en kilos, un litro de combustible pesa alrededor de 0.8."
+  ],
+  "sources": [
+    "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+    "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
+    "https://en.wikipedia.org/wiki/Gimli_Glider",
+    "https://cdn.aviation-safety.net/wikibase/327590",
+    "https://en.wikipedia.org/wiki/RCAF_Station_Gimli",
+    "https://www.exxonmobil.com/en-ng/commercial-fuel/pds/gl-xx-jetfuel-series"
+  ],
+  "dataset": {
+    "kind": "real",
+    "path": "casos/data/gimli-glider-1983/cifras.csv",
+    "provenance": "Cifras publicadas, transcritas a mano el 4 nov 2026 de Williams (2003), Wikipedia y el informe Lockwood (1985), con fuente por fila. No es el documento original de carga; no trae resultados derivados.",
+    "license": "CC0-1.0",
+    "sha256": "d7fb6150394e3cc339d80b972d7db6c8c60dd962d855b547c7dfd4b0f891924b"
+  },
+  "story_bridge": "El proveedor manda la carne en libras y la receta de la taquería está en kilos: la cuenta puede estar bien hecha y el pedido salir a la mitad.",
+  "analogy_limits": "La hoja de carga que ve el alumno es una reconstrucción visual con cifras reales; el resumen del asistente es un error plantado para el ejercicio, no un documento histórico."
+}
