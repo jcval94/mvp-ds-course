@@ -280,6 +280,7 @@
     if ($("#cntDocentes")) $("#cntDocentes").textContent = S.docentes.length || "";
     llenarFiltros(); pintarBanners(); pintarResumen(); pintarAlumnos(); pintarCasos(); pintarClases(); pintarRespuestas(); pintarMensajes(); pintarDatos();
     if (ADMIN) { pintarGrupos(); pintarDocentes(); pintarStudio(); pintarInscripciones(); }
+    tableros?.actualizar();
   }
 
   // ---------- Vistas generales ----------
@@ -324,7 +325,14 @@
   on("#perfilBtn", "click", (e) => { e.stopPropagation(); abrirMenu($("#perfilMenu").hidden); });
   document.addEventListener("click", (e) => { if (!e.target.closest("#session")) abrirMenu(false); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#perfilMenu").hidden) { abrirMenu(false); $("#perfilBtn").focus(); } });
-  async function salir(scope) { abrirMenu(false); await TDD.cerrar(scope); mostrarEntrar(); aviso(scope === "global" ? "Cerraste sesión en todos tus dispositivos." : "Cerraste sesión.", false); }
+  async function salir(scope) { tableros?.limpiar(); abrirMenu(false); await TDD.cerrar(scope); mostrarEntrar(); aviso(scope === "global" ? "Cerraste sesión en todos tus dispositivos." : "Cerraste sesión.", false); }
+
+  // Tableros independientes: misma sesión, permisos y tokens visuales del panel.
+  const tableros = window.TDDTableros?.crear({
+    raiz: $("#tableros"), estado: () => S, alumnos: visibles,
+    abrirFicha, escribirA,
+    visible: () => !$("#panel").hidden && pestana() === "tableros",
+  });
 
   // ---------- Pestañas y filtro de grupo ----------
   const TABS = $$("#tabs [role=tab]").map((b) => b.id.replace("tab-", ""));
@@ -332,6 +340,7 @@
     if (!TABS.includes(tab)) return;
     TABS.forEach((t) => { $(`#tab-${t}`).setAttribute("aria-selected", String(t === tab)); $(`#v-${t}`).hidden = t !== tab; });
     guardarLocal(LLAVE_TAB, tab);
+    if (tab === "tableros" && S.cargado) tableros?.actualizar();
   }
   TABS.forEach((t) => on(`#tab-${t}`, "click", () => irA(t)));
   const pestana = () => TABS.find((t) => $(`#tab-${t}`).getAttribute("aria-selected") === "true");
@@ -1791,6 +1800,7 @@
   mostrarEntrar();
   if (retorno.error) aviso("No pudimos completar el inicio de sesión. Intenta de nuevo.", true);
   function fallo(e) {
+    tableros?.limpiar();
     if (e.message === "sesion") { TDD.olvidar(); mostrarEntrar(); aviso("Tu sesión expiró. Vuelve a entrar con Google.", false); return; }
     soloVista(null); $("#session").hidden = false;
     aviso(`No pudimos cargar el panel (${e.message}). Revisa tu conexión y recarga la página.`, true);

@@ -45,6 +45,34 @@
 .tabs button { white-space: nowrap; }
 .vista { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); }
 
+/* Tableros: reutilizan el papel, tipografía, acentos y tarjetas del panel. */
+.kpis.tablero-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#tableros .toolbar { align-items: end; }
+#tableros .field { min-width: 150px; max-width: 100%; }
+#tableros select { max-width: 100%; }
+.tablero-matriz { max-height: 520px; overflow: auto; }
+.tablero-matriz th { background: var(--surface); }
+.tablero-matriz thead th { position: sticky; top: 0; z-index: 2; }
+.tablero-matriz tbody th { position: sticky; left: 0; z-index: 1; }
+.tablero-celda { min-height: 42px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-soft); color: var(--muted); font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.tablero-celda.visita { background: var(--accent-soft); color: var(--accent-text); }
+.tablero-celda.acierto { background: var(--text); color: var(--surface); }
+.tablero-celda.revisar { color: var(--text); background: var(--surface); border-color: var(--critical); }
+.tablero-celda:focus-visible { outline: 3px solid var(--accent-text); outline-offset: 2px; }
+.tablero-respuesta { padding: 14px 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.tablero-respuesta p { white-space: pre-wrap; }
+.tablero-respuesta h3 { font-size: 15px; }
+.tablero-dias { display: flex; gap: 5px; overflow-x: auto; padding-top: 12px; }
+.tablero-dia { flex: 1 0 24px; min-width: 24px; text-align: center; }
+.tablero-dia-rail { display: flex; align-items: end; height: 110px; background: var(--surface-soft); }
+.tablero-dia i { display: block; width: 100%; background: var(--accent); border-radius: 4px 4px 0 0; }
+.tablero-dia small { color: var(--muted); font-size: 10px; }
+@media (max-width: 680px) {
+  .kpis.tablero-kpis { grid-template-columns: minmax(0, 1fr); }
+  #tableros .field { width: 100%; }
+  #tableros .hbars li { grid-template-columns: minmax(80px, 1fr) minmax(40px, 1fr) auto; }
+}
+
 /* Tarjetas y KPIs */
 .card { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); box-shadow: var(--shadow-card); padding: 22px 24px; min-width: 0; }
 .card > h2, .card-head h2 { margin: 0; font-size: 17px; letter-spacing: -.01em; }
