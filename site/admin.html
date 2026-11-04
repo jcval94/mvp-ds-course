@@ -99,6 +99,7 @@
 
       <div class="tabs" id="tabs" role="tablist" aria-label="Secciones del panel">
         <button type="button" role="tab" id="tab-resumen" aria-controls="v-resumen" aria-selected="true">Resumen</button>
+        <button type="button" role="tab" id="tab-tableros" aria-controls="v-tableros" aria-selected="false">Tableros</button>
         <button type="button" role="tab" id="tab-alumnos" aria-controls="v-alumnos" aria-selected="false">Alumnos <span class="tab-count" id="cntAlumnos"></span></button>
         <button type="button" role="tab" id="tab-inscripciones" aria-controls="v-inscripciones" aria-selected="false">Inscripciones <span class="tab-count hot" id="cntInscripciones"></span></button>
         <button type="button" role="tab" id="tab-grupos" aria-controls="v-grupos" aria-selected="false">Grupos <span class="tab-count" id="cntGrupos"></span></button>
@@ -110,6 +111,10 @@
         <button type="button" role="tab" id="tab-mensajes" aria-controls="v-mensajes" aria-selected="false">Mensajes <span class="tab-count hot" id="cntMensajes"></span></button>
         <button type="button" role="tab" id="tab-datos" aria-controls="v-datos" aria-selected="false">Datos</button>
       </div>
+
+      <section class="vista" id="v-tableros" role="tabpanel" aria-labelledby="tab-tableros" hidden>
+        <div id="tableros" class="vista"></div>
+      </section>
 
       <!-- Resumen -->
       <section class="vista" id="v-resumen" role="tabpanel" aria-labelledby="tab-resumen">
@@ -564,6 +569,7 @@
   </footer>
 
   <script src="sesion.js"></script>
+  <script src="tableros.js"></script>
   <script src="panel.js"></script>
 </body>
 </html>
