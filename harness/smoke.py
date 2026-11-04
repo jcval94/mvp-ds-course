@@ -61,6 +61,8 @@ def _targets(dist: Path) -> list[str]:
         targets.append("labs/level-1-v2/")
     targets += [path.parent.relative_to(dist).as_posix() + "/"
                 for path in sorted((dist / "casos").glob("*/escenas.js"))]
+    # Casos que se resuelven en la página: sin sesión muestran la puerta de entrada y no deben dar errores.
+    targets += [path.relative_to(dist).as_posix() for path in sorted((dist / "casos").glob("*/caso.html"))]
     return targets
 
 

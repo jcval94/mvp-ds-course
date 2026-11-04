@@ -1,6 +1,6 @@
 # Casos resueltos en la página · patrón y caso 1.1 Wald
 
-**Estado:** diseño del 4 nov 2026 (tablero u06, fase 1). Decisión del autor (u01): las clases 1 a 4 se resuelven en la página,
+**Estado:** diseño del 4 nov 2026 (tablero u06, fase 1); 1.1 construido y probado el mismo día (E-10), con revisión independiente. Decisión del autor (u01): las clases 1 a 4 se resuelven en la página,
 sin Colab; Colab entra al inicio de la clase 5 y desde ahí cada caso va donde más valga (`docs/PAGINA_O_COLAB.md`, u10).
 Este documento es la fuente para construir el reproductor (E-10) y el modelo para 1.2, 1.4, 13.11, 2.1, 2.2 y sus casos de
 error. Lo privado (claves de los retos, rúbricas, notas docentes y cambios de la base) vive en

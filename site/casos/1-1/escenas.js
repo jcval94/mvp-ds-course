@@ -1,5 +1,5 @@
 /* Caso 1.1 · «El mapa de agujeros» (los aviones de 1943) — cinemática jugable, formato completo
-   Solo la intro: gancho público. La apuesta, el giro, la herramienta y la revelación viven en el cuaderno de Colab.
+   Solo la intro: gancho público. La apuesta, el giro, la herramienta y la revelación viven en el caso (caso.html).
    Hechos verificados (casos/staging/wald-bombers.json): en la Segunda Guerra Mundial un grupo de matemáticos de la
    Universidad de Columbia, en Nueva York (Statistical Research Group), estudió el daño de los aviones que regresaban.
    Los agujeros del mapa son DATOS SIMULADOS (casos/data/wald-bombers, semilla 1943): 1,481 impactos en los aviones
@@ -167,10 +167,12 @@
     id: '1.1',
     titulo: 'EL MAPA DE AGUJEROS',
     volver: '../../index.html',
-    /* Pendiente: CUADERNO_URL del caso 1.1 cuando el cuaderno se suba a Drive. Mientras, la guía de Colab. */
-    colab: 'https://colab.research.google.com/drive/1IORmNL2F4zaOf_bV_EQvi2MN6QxuXfWR',
+    /* Desde el 4 nov 2026 el caso se resuelve en el sitio (docs/CASO_EN_PAGINA.md), no en Colab. */
+    resolver: 'caso.html',
     duracionIntro: '~1 min',
-    duracionCuaderno: '~50 min',
+    duracionCaso: '~45 min',
+    despues: ['Abres el expediente aquí mismo, sin cambiar de página.', 'Apuestas dónde van las placas antes de ver los datos.',
+      'Firmas tu decisión antes de saber qué pasó.'],
     medios: 'medios.json',
     herramientasOcultas: 2,
     fuentes: [

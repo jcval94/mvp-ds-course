@@ -29,8 +29,9 @@ def test_wald_intro_uses_returned_aircraft_data_and_geometry() -> None:
 
 def test_wald_intro_only_publishes_the_hook() -> None:
     intro = ROOT / "site/casos/1-1"
+    # La intro es el gancho; el caso en la página (caso.html y sus datos) vive al lado (docs/CASO_EN_PAGINA.md).
     assert {p.name for p in intro.rglob("*") if p.is_file()} == {
-        "index.html", "escenas.js", "medios.json"}
+        "index.html", "escenas.js", "medios.json", "caso.html", "caso-escenas.js", "datos.js", "sim.js"}
     media = json.loads((intro / "medios.json").read_text(encoding="utf-8"))
     assert media["caso"] == "1.1"
     assert all(item["estado"] == "candidato" for item in media["items"])

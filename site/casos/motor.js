@@ -456,7 +456,7 @@
     ir(idx + 1);
   }
 
-  /* ---------- escena final: ficha y botón a Colab ---------- */
+  /* ---------- escena final: ficha, qué sigue y botón al caso (página o Colab) ---------- */
   function fichaFinal() {
     var herr = '';
     if (C.herramientas && C.herramientas.length) {
@@ -477,12 +477,20 @@
     }).join('');
     var d = document.createElement('div');
     d.className = 'ficha entra';
+    /* Qué sigue después de la intro (C.despues): 2 o 3 títulos cortos para que el paso al caso no tome por sorpresa. */
+    var despues = (C.despues || []).length ? '<div class="despues"><p class="herr-t">QUE SIGUE</p><ol>' +
+      C.despues.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol></div>' : '';
+    /* C.resolver: el caso se resuelve en el sitio (clases 1 a 4). Si no, en Colab (C.colab). */
+    var cta = C.resolver
+      ? '<a class="btn grande" id="cta" href="' + esc(C.resolver) + '">RESOLVER EL CASO &gt;</a>' +
+        '<p class="nota">El caso se resuelve aquí mismo, en el sitio. Entra con tu cuenta de Google para que tu avance cuente; la intro no guarda nada.</p>'
+      : '<a class="btn grande" id="cta" href="' + esc(C.colab) + '" target="_blank" rel="noopener noreferrer">' +
+        'ABRIR EL CASO EN COLAB &gt;<span class="sr"> (se abre en una pestaña nueva)</span></a>' +
+        '<p class="nota">El caso completo se resuelve en Google Colab, y ahí se registra tu avance. Esta página no guarda nada.</p>';
     d.innerHTML =
       '<dl class="tiempos"><div><dt>INTRO</dt><dd>' + esc(C.duracionIntro) + '</dd></div>' +
-      '<div><dt>CUADERNO</dt><dd>' + esc(C.duracionCuaderno) + '</dd></div></dl>' + herr +
-      '<a class="btn grande" id="cta" href="' + esc(C.colab) + '" target="_blank" rel="noopener noreferrer">' +
-        'ABRIR EL CASO EN COLAB &gt;<span class="sr"> (se abre en una pestaña nueva)</span></a>' +
-      '<p class="nota">El caso completo se resuelve en Google Colab, y ahí se registra tu avance. Esta página no guarda nada.</p>' +
+      '<div><dt>' + (C.resolver ? 'CASO' : 'CUADERNO') + '</dt><dd>' + esc(C.duracionCaso || C.duracionCuaderno) + '</dd></div></dl>' +
+      herr + despues + cta +
       (fuentes ? '<details class="fuentes"><summary>Fuentes de las cifras</summary><ul>' + fuentes + '</ul></details>' : '') +
       (creditos ? '<details class="fuentes"><summary>Material de archivo y créditos</summary><ul>' + creditos + '</ul></details>' : '') +
       '<button class="enlace" id="repetir" type="button">Ver la intro otra vez</button>';

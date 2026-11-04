@@ -7,12 +7,14 @@
   // Cuadernos de cada caso en Drive. Desde el esquema 0.8 el enlace viene de la base (casos.cuaderno_url);
   // estos quedan como respaldo para bases anteriores.
   const CUADERNOS = {
-    "1.1": "https://colab.research.google.com/drive/1IORmNL2F4zaOf_bV_EQvi2MN6QxuXfWR",
     "4.1": "https://colab.research.google.com/drive/1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD",
     "4.2": "https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG",
   };
-  // Intro animada de cada caso (gancho de 1 minuto, pública): site/casos/<id>/. El caso se resuelve en Colab.
+  // Intro animada de cada caso (gancho de 1 minuto, pública): site/casos/<id>/.
   const INTROS = { "1.1": "casos/1-1/", "4.1": "casos/4-1/", "4.2": "casos/4-2/" };
+  // Casos que se resuelven en la página, sin Colab (clases 1 a 4; docs/CASO_EN_PAGINA.md). Nunca muestran botón de Colab,
+  // aunque la base traiga cuaderno_url.
+  const EN_PAGINA = { "1.1": "casos/1-1/caso.html" };
   const ETIQUETAS = {
     preparacion: "Preparación", hipotesis: "Hipótesis", clinicas: "Clínicas", azar: "Azar", sospechosos: "Sospechosos",
     explicacion: "Explicación", pista: "Pista", revelacion: "Revelación", laboratorio: "Laboratorio", cierre: "Cierre",
@@ -177,15 +179,20 @@
     foot.append(due);
     const acciones = el("div", "case-actions");
     if (M.on) { const q = el("button", "case-ask", "Preguntar a mi profesor"); q.type = "button"; q.addEventListener("click", () => abrirMensajes(caso.id)); acciones.append(q); }
-    const enlace = caso.cuaderno_url || CUADERNOS[caso.id];
-    if (enlace) {
-      const a = el("a", "btn btn-line", done ? "Repasar en Colab" : vistas ? "Continuar en Colab" : "Abrir en Colab");
-      a.href = enlace; a.target = "_blank"; a.rel = "noopener"; acciones.append(a);
-    } else acciones.append(el("span", "muted", "Tu profesor te comparte el cuaderno"));
+    // Primero la intro (si no está terminado), después el caso: en la página o en Colab.
     if (INTROS[caso.id] && !done) {
       const intro = el("a", "btn btn-line", "Ver la intro (1 min)");
       intro.href = INTROS[caso.id]; acciones.append(intro);
     }
+    const pagina = EN_PAGINA[caso.id];
+    const enlace = pagina ? null : (caso.cuaderno_url || CUADERNOS[caso.id]);
+    if (pagina) {
+      const a = el("a", "btn btn-line", done ? "Repasar el caso" : vistas ? "Continuar el caso" : "Resolver el caso");
+      a.href = pagina; acciones.append(a);
+    } else if (enlace) {
+      const a = el("a", "btn btn-line", done ? "Repasar en Colab" : vistas ? "Continuar en Colab" : "Abrir en Colab");
+      a.href = enlace; a.target = "_blank"; a.rel = "noopener"; acciones.append(a);
+    } else acciones.append(el("span", "muted", "Tu profesor te comparte el cuaderno"));
     foot.append(acciones);
 
     card.append(top, track, meta, lista);
@@ -230,7 +237,7 @@
       .sort((a, b) => new Date(a.entrega_limite) - new Date(b.entrega_limite))[0];
     stat(dl, "Próxima entrega", proxima ? `Caso ${proxima.id}` : "Nada pendiente", proxima ? `${fecha(proxima.entrega_limite)} · ${relativo(proxima.entrega_limite)}` : "");
     const ultimo = propias.map((f) => f.ultimo_evento).filter(Boolean).sort().pop();
-    stat(dl, "Última actividad", ultimo ? relativo(ultimo) : "Aún no hay registros", ultimo ? fecha(ultimo) : "Abre un caso en Colab para empezar");
+    stat(dl, "Última actividad", ultimo ? relativo(ultimo) : "Aún no hay registros", ultimo ? fecha(ultimo) : "Abre un caso para empezar");
 
     Object.assign(V, { casos, porCaso, vistas, retros });
     pintarEstadoRespuestas();
@@ -613,9 +620,12 @@
     if (sigue) partes.push(`sigue: ${etiqueta(sigue)}`);
     if (retoma && ultimo.creado) partes.push(`último registro ${relativo(ultimo.creado)}`);
     $("#continuarNota").textContent = partes.join(" · ");
-    const enlace = caso.cuaderno_url || CUADERNOS[caso.id];
-    if (enlace) { btn.href = enlace; btn.textContent = vistas.size ? "Continuar misión" : "Empezar misión"; btn.hidden = false; }
-    else if (INTROS[caso.id]) { btn.href = INTROS[caso.id]; btn.removeAttribute("target"); btn.textContent = "Ver la intro"; btn.hidden = false; }
+    // Sin avance, la misión empieza por su intro; con avance, se continúa donde se resuelve (página o Colab).
+    const pagina = EN_PAGINA[caso.id];
+    const enlace = pagina || caso.cuaderno_url || CUADERNOS[caso.id];
+    if (!vistas.size && INTROS[caso.id]) { btn.href = INTROS[caso.id]; btn.removeAttribute("target"); btn.textContent = "Empezar misión"; btn.hidden = false; }
+    else if (pagina) { btn.href = pagina; btn.removeAttribute("target"); btn.textContent = "Continuar misión"; btn.hidden = false; }
+    else if (enlace) { btn.href = enlace; btn.target = "_blank"; btn.textContent = vistas.size ? "Continuar misión" : "Empezar misión"; btn.hidden = false; }
     else btn.hidden = true;
     caja.hidden = false;
   }

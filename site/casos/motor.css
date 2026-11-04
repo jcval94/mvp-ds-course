@@ -149,6 +149,8 @@ svg text.px{font-family:"Press Start 2P","Courier New",monospace}
 .herr li{border:2px solid var(--tinta-suave);padding:4px 10px;font-size:.92rem}
 .herr li.bloq{border-style:dashed;color:var(--tinta-suave);letter-spacing:.2em}
 .nota{margin:0;font-size:.92rem;color:var(--tinta-suave)}
+.despues ol{margin:0;padding-left:22px;display:grid;gap:6px}
+.despues li{font-size:1rem}
 .fuentes{font-size:.92rem;color:var(--tinta-suave)}
 .fuentes summary{cursor:pointer;padding:4px 0}
 .fuentes ul{margin:8px 0 0;padding-left:20px}

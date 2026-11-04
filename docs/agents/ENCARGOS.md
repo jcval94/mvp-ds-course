@@ -103,6 +103,9 @@ Sube un nivel solo si el primer intento falla por razonamiento, no por falta de 
 
 ### E-10 · Resolver un caso en la página: motor y 1.1 Wald (tablero u06, fase 3)
 
+- **Hecho el 4 nov** (PR de `e10-caso-1-1-en-pagina`). Para los casos siguientes, copia el patrón: `site/casos/caso.js` no se toca;
+  cada caso agrega `caso.html` y `caso-escenas.js` y su fila en `harness/tests/test_caso_pagina.py`.
+
 - **Depende de:** B-07 del backend (casos en la página, `mis_retos`). Diseño cerrado: `docs/CASO_EN_PAGINA.md`.
 - **Entorno:** Claude Code en el equipo del autor (Sonnet 5.5 medium; Opus 5.5 high si el motor se traba) o Codex
   (`gpt-6.1-sol` Medium). Usa la skill `tads-intro-cinematica-8bits` para el estilo y las reglas de accesibilidad.
