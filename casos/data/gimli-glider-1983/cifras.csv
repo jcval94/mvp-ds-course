@@ -1,13 +1,14 @@
 id,lugar,magnitud,valor,unidad,fuente,nota
-requerido,Montreal,Combustible que pide el plan para Montreal-Ottawa-Edmonton,22300,kg,williams2003;wikipedia,El plan de vuelo del 767 está en kilos
-varilla_montreal,Montreal,Combustible en los tanques antes de cargar (varilla convertida con las tablas de a bordo),7682,L,williams2003;wikipedia,Williams dice «drip test»; las lecturas en centímetros no se publicaron en las fuentes leídas
-factor_hoja,Montreal,Número que se usó como «densidad» en la hoja de carga,1.77,lb/L,lockwood1985;wikipedia,Lockwood: 1.77 convierte litros en libras; se usó como si diera kilos
-litros_cargados,Montreal,Litros que se cargaron del camión,4917,L,wikipedia,Williams dice 4916; la cuenta de la hoja da 4916.9
-varilla_ottawa,Ottawa,Combustible en los tanques en Ottawa (varilla),11430,L,wikipedia,Lectura en Ottawa después del primer tramo
-factor_ottawa,Ottawa,Número que se usó en la hoja de Ottawa,1.78,lb/L,wikipedia,Lockwood solo menciona 1.77; discrepancia declarada
-creido_ottawa,Ottawa,Combustible que se anotó en la computadora de vuelo en Ottawa,20400,kg,wikipedia,Eran libras; 11430 x 1.78 = 20345
-densidad_fuentes,Referencia,Densidad del combustible que usan las fuentes,0.803,kg/L,wikipedia;lockwood1985,Lockwood: «typically around .8»
-libras_por_kilo,Referencia,Libras en un kilo según el manual de operaciones,2.2,lb/kg,lockwood1985,Manual de operaciones citado por Lockwood: kilos = libras / 2.2
+requerido,Montreal,Combustible mínimo que pide el plan para Montreal-Ottawa-Edmonton,22300,kg,lockwood1985;williams2003;wikipedia,"Lockwood p. 41 y p. 42 (STEP 3): «the minimum fuel required by the flight plan, 22,300 kilograms»"
+varilla_montreal,Montreal,Combustible en los tanques antes de cargar (primera medición con varilla convertida con las tablas de a bordo),7682,L,lockwood1985;williams2003;wikipedia,Lockwood p. 41-42: varillas de 64 y 62 cm convertidas a 3924 y 3758 L; total 7682 L
+factor_hoja,Montreal,Número que se usó como «densidad» en la hoja de carga,1.77,lb/L,lockwood1985;wikipedia,Lockwood p. 28 y p. 41: lo dio el cargador como «specific gravity»; 1.77 convierte litros en libras y se usó como si diera kilos
+litros_cargados,Montreal,Litros por cargar que salen de la hoja (8703 ÷ 1.77),4916,L,lockwood1985;williams2003,Lockwood p. 41-42: «4916 representing the number of litres to be added»; Wikipedia da 4917 (redondeo de 4916.9); el informe no dice cuánto se bombeó
+litros_pedidos,Montreal,Litros que la tripulación pidió al cargador (redondeo sugerido por él),5000,L,lockwood1985,Lockwood p. 41: «the 4900 litres was rounded to 5000 litres»; «requested by the flight crew to board 5000 litres»
+varilla_ottawa,Ottawa,Combustible en los tanques en Ottawa (varilla),11430,L,lockwood1985;wikipedia,"Lockwood p. 43 (testimonio de Simpson): «the total number of litres of fuel that was in both tanks, 11,430»"
+factor_ottawa,Ottawa,Número que se usó en la cuenta de Ottawa,1.78,lb/L,lockwood1985;wikipedia,"Lockwood p. 43: «asked for the specific gravity of the day, and was given 1.78»; p. 80: en Montreal y Ottawa se dieron 1.77 y 1.78"
+creido_ottawa,Ottawa,"Cota inferior de lo que calculó el capitán en Ottawa («in excess of 20,000»)",20000,sin unidad declarada,lockwood1985,"Lockwood p. 43: «over 20,000 'units of fuel'»; el capitán no dijo qué representaba. Wikipedia da 20400 kg y no está en el informe; 11430 x 1.78 = 20345"
+densidad_fuentes,Referencia,Densidad del Jet A que trae el manual (kilos por litro),0.80,kg/L,lockwood1985,Lockwood p. 41: «the figure .80 for Jet A fuel»; p. 28: «typically around .8». Wikipedia usa 0.803 (= 1.77 ÷ 2.2046)
+libras_por_kilo,Referencia,Libras en un kilo según el manual de operaciones,2.2,lb/kg,lockwood1985,Lockwood p. 28 y p. 41: «Kilograms loaded = pounds loaded divided by 2.2»
 densidad_min,Referencia,Densidad mínima del combustible de avión (Jet A y Jet A-1 a 15 °C),0.775,kg/L,exxonmobil,Especificación actual (ASTM D1655; CGSB 3.23; DEF STAN 91-091); rango de referencia y no dato de 1983
 densidad_max,Referencia,Densidad máxima del combustible de avión (Jet A y Jet A-1 a 15 °C),0.840,kg/L,exxonmobil,Igual que densidad_min
 agua,Referencia,Masa de un litro de agua (referencia física aproximada),1.0,kg/L,referencia_fisica,El combustible de avión pesa menos que el agua
