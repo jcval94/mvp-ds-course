@@ -1,0 +1,8 @@
+id,periodo,grupo,casas,personas,muertes,base_tasa,fuente,pagina,referencia
+t9_sv,primeras 7 semanas de la epidemia (hasta el 1854-08-26),Southwark and Vauxhall,40046,,1263,casas,Snow 1855 (2.a ed.) Tabla IX,86,https://www.gutenberg.org/ebooks/72894
+t9_lambeth,primeras 7 semanas de la epidemia (hasta el 1854-08-26),Lambeth,26107,,98,casas,Snow 1855 (2.a ed.) Tabla IX,86,https://www.gutenberg.org/ebooks/72894
+t9_resto,primeras 7 semanas de la epidemia (hasta el 1854-08-26),Resto de Londres,256423,,1422,casas,Snow 1855 (2.a ed.) Tabla IX,86,https://www.gutenberg.org/ebooks/72894
+t5_sv,1854 epidemia completa (distritos del sur),Southwark and Vauxhall,39726,267625,3706,personas,Snow 1856 Tabla V (fila de totales),,https://www.gutenberg.org/ebooks/66507
+t5_lambeth,1854 epidemia completa (distritos del sur),Lambeth,24854,171528,411,personas,Snow 1856 Tabla V (fila de totales),,https://www.gutenberg.org/ebooks/66507
+t5_pozos,1854 epidemia completa (distritos del sur),Bombas de calle y otras fuentes,,,338,,Snow 1856 Tabla V (fila de totales),,https://www.gutenberg.org/ebooks/66507
+t5_sin_averiguar,1854 epidemia completa (distritos del sur),Sin averiguar,,,623,,Snow 1856 Tabla V (fila de totales),,https://www.gutenberg.org/ebooks/66507
