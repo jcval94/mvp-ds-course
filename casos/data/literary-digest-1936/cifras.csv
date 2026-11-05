@@ -1,0 +1,18 @@
+id,quien,fecha,concepto,valor,unidad,tipo,referencia
+digest_enviadas,The Literary Digest,1936,boletas enviadas por correo,10000000,boletas,aproximado,https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf
+digest_devueltas,The Literary Digest,1936-10-31,boletas devueltas y contadas,2376523,boletas,publicado,https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf
+digest_landon,The Literary Digest,1936-10-31,boletas por Landon,1293669,boletas,publicado,https://historymatters.gmu.edu/d/5168
+digest_roosevelt,The Literary Digest,1936-10-31,boletas por Roosevelt,972897,boletas,publicado,https://historymatters.gmu.edu/d/5168
+digest_otros,The Literary Digest,1936-10-31,boletas por otros candidatos (devueltas menos Landon y Roosevelt),109957,boletas,derivado,https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf
+digest_ve_landon,The Literary Digest,1936-10-31,votos electorales pronosticados para Landon,370,votos electorales,publicado,https://historymatters.gmu.edu/d/5168
+digest_ve_roosevelt,The Literary Digest,1936-10-31,votos electorales pronosticados para Roosevelt (531 menos 370),161,votos electorales,publicado,https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf
+digest_1932_tasa,The Literary Digest,1932,tasa de respuesta de la encuesta de 1932,15,por ciento,publicado,https://doi.org/10.1017/S014555320001035X
+gallup_roosevelt,American Institute of Public Opinion (Gallup),1936-11-01,Roosevelt en la última encuesta antes de la elección,53.8,por ciento,publicado,https://en.wikipedia.org/wiki/Nationwide_opinion_polling_for_the_1936_United_States_presidential_election
+gallup_landon,American Institute of Public Opinion (Gallup),1936-11-01,Landon en la última encuesta antes de la elección,42.8,por ciento,publicado,https://en.wikipedia.org/wiki/Nationwide_opinion_polling_for_the_1936_United_States_presidential_election
+resultado_roosevelt,Elección del 3 de noviembre de 1936,1936-11-03,votos populares de Roosevelt,27750866,votos,publicado,https://www.presidency.ucsb.edu/statistics/elections/1936
+resultado_landon,Elección del 3 de noviembre de 1936,1936-11-03,votos populares de Landon,16679683,votos,publicado,https://www.presidency.ucsb.edu/statistics/elections/1936
+resultado_total,Elección del 3 de noviembre de 1936,1936-11-03,votos populares totales,45646991,votos,publicado,https://www.presidency.ucsb.edu/statistics/elections/1936
+resultado_ve_roosevelt,Elección del 3 de noviembre de 1936,1936-11-03,votos electorales de Roosevelt,523,votos electorales,publicado,https://www.archives.gov/electoral-college/1936
+resultado_ve_landon,Elección del 3 de noviembre de 1936,1936-11-03,votos electorales de Landon (Maine y Vermont),8,votos electorales,publicado,https://www.archives.gov/electoral-college/1936
+resultado_1932_roosevelt,Elección de 1932,1932-11-08,Roosevelt en el voto popular de 1932,57.4,por ciento,publicado,https://en.wikipedia.org/wiki/1932_United_States_presidential_election
+resultado_1932_hoover,Elección de 1932,1932-11-08,Hoover en el voto popular de 1932,39.6,por ciento,publicado,https://en.wikipedia.org/wiki/1932_United_States_presidential_election

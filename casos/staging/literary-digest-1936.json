@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "id": "literary-digest-1936",
+  "title": "La encuesta del Literary Digest (1936)",
+  "decision_question": "Con 2.4 millones de boletas devueltas que dan ganador a Landon, ¿qué debe publicar el editor sobre la elección presidencial de 1936?",
+  "naive_answer": "Publicar que gana Landon: 2.4 millones de boletas es la muestra más grande jamás contada y la revista había acertado en elecciones anteriores.",
+  "ingenious_move": "Preguntar quién recibió la boleta y, sobre todo, quién la devolvió: la mayoría no contestó, y si los que callaron votaban distinto, el tamaño no corrige nada. Una muestra mucho más chica, elegida para parecerse a los votantes, daba otro ganador.",
+  "status": "verified",
+  "access": "public",
+  "concepts": [
+    "sample-vs-population",
+    "sampling-frame",
+    "nonresponse-bias",
+    "sample-size-vs-representativeness"
+  ],
+  "level_hint": 1,
+  "verified_claims": [
+    {
+      "claim": "Para la elección presidencial de 1936, The Literary Digest envió por correo unos diez millones de boletas y le regresaron casi 2.4 millones.",
+      "sources": [
+        "https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf",
+        "https://doi.org/10.1017/S014555320001035X",
+        "https://www.bitbybitbook.com/en/1st-ed/asking-questions/total-survey-error/representation/"
+      ]
+    },
+    {
+      "claim": "El conteo final del Digest, publicado el 31 de octubre de 1936 con el titular «Landon, 1,293,669; Roosevelt, 972,897», daba a Landon 57% de los votos de los dos grandes candidatos y 370 votos electorales.",
+      "sources": [
+        "https://historymatters.gmu.edu/d/5168",
+        "https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf"
+      ]
+    },
+    {
+      "claim": "Lohr y Brick citan un editorial del Digest de 1936 con 2,376,523 votantes contados; sin ponderar, los datos del Digest daban a Roosevelt 16 estados y 161 de los 531 votos electorales.",
+      "sources": [
+        "https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf"
+      ]
+    },
+    {
+      "claim": "Roosevelt ganó con 60.8% del voto popular y 523 votos electorales contra 8 de Landon, que solo ganó Maine y Vermont.",
+      "sources": [
+        "https://www.archives.gov/electoral-college/1936",
+        "https://www.presidency.ucsb.edu/statistics/elections/1936"
+      ]
+    },
+    {
+      "claim": "La última encuesta de Gallup (American Institute of Public Opinion) antes de la elección, cerrada el 1 de noviembre de 1936, daba a Roosevelt 53.8% y a Landon 42.8%. Entre los dos grandes, Gallup quedó 6.8 puntos por debajo del porcentaje real de Roosevelt.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Nationwide_opinion_polling_for_the_1936_United_States_presidential_election",
+        "https://doi.org/10.1017/S014555320001035X"
+      ]
+    },
+    {
+      "claim": "La lista de envío del Digest combinaba listas de clubes y asociaciones, padrones de votantes, registros de ocupaciones y directorios de ciudades, pero su mayor parte venía de directorios telefónicos y registros de dueños de automóviles.",
+      "sources": [
+        "https://doi.org/10.1017/S014555320001035X",
+        "https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf"
+      ]
+    },
+    {
+      "claim": "Squire (1988), con una encuesta de Gallup de 1937 que preguntó quién había participado en la encuesta del Digest, concluyó que tanto la muestra como la respuesta estaban sesgadas y que, si todos los que recibieron boleta hubieran respondido, el Digest al menos habría dado como ganador a Roosevelt.",
+      "sources": [
+        "https://doi.org/10.1086/269085",
+        "https://doi.org/10.1017/S014555320001035X"
+      ]
+    },
+    {
+      "claim": "Lusinchi (2012), con la misma encuesta de 1937, estima que la mayoría de los dueños de teléfono o automóvil (53.9%) prefería a Roosevelt, que 56.6% de la lista del Digest lo apoyaba y que la no respuesta fue la causa principal: de los 19.6 puntos de error, atribuye 13.7 a la no respuesta y 5.9 a la muestra.",
+      "sources": [
+        "https://doi.org/10.1017/S014555320001035X"
+      ]
+    },
+    {
+      "claim": "En la encuesta de 1937, entre 764 personas que dijeron haber recibido la boleta del Digest, quienes la devolvieron se inclinaban por Landon (57.1% ponderado) y quienes no la devolvieron, por Roosevelt (60.9% ponderado).",
+      "sources": [
+        "https://doi.org/10.1017/S014555320001035X"
+      ]
+    },
+    {
+      "claim": "La boleta del Digest preguntaba también por quién se había votado en 1932. Entre quienes respondieron en 1936, los que dijeron haber votado por el candidato republicano en 1932 estaban sobrerrepresentados en todos los estados menos cinco; ponderar por ese dato habría dado a Roosevelt 26 estados y 276 votos electorales.",
+      "sources": [
+        "https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf"
+      ]
+    },
+    {
+      "claim": "Desde 1924 la encuesta del Digest había acertado al ganador de las presidenciales; en 1932 su tasa de respuesta fue de 15%.",
+      "sources": [
+        "https://doi.org/10.1017/S014555320001035X"
+      ]
+    },
+    {
+      "claim": "En 1932 Roosevelt ganó con 57.4% del voto popular frente a 39.6% de Hoover.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/1932_United_States_presidential_election"
+      ]
+    },
+    {
+      "claim": "The Literary Digest dejó de publicarse en 1938, menos de dos años después de la elección; Time compró y absorbió a sus suscriptores.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/The_Literary_Digest"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "El tamaño de la muestra de Gallup no está claro: Wikipedia y Freedman, Pisani y Purves dan 50,000; Lusinchi cita a Robinson (1937) con 125,000 para el pronóstico electoral. El caso dice «entre 50 mil y 125 mil».",
+    "No se leyó un escaneo del número del 31 de octubre de 1936: el titular y el conteo vienen de History Matters y de Lohr y Brick. Falta leer la página original antes de aprobar el caso.",
+    "Las «diez millones» de boletas son una cifra redonda de la propia revista; History Matters menciona además «veinte millones» en otro contexto. El caso usa 10,000,000 y lo dice.",
+    "El reparto del error entre lista y no respuesta depende del método y de una encuesta de 1937 por cuotas, no probabilística, que pregunta por recuerdos de seis meses antes: Squire, Lusinchi y Lohr y Brick no lo cuantifican igual. Lo firme es que la no respuesta pesó mucho y que la explicación de «solo ricos con teléfono» no alcanza.",
+    "Wikipedia dice que el Digest encuestó primero a sus propios lectores; Lusinchi (nota 8, citando al Digest de 1928) dice que no usaba su lista de suscriptores. El caso no afirma que se usara la lista de suscriptores.",
+    "No se leyó directamente a Bryson (1976, The American Statistician), solo su resumen en Lusinchi y en Lohr y Brick; tampoco el texto completo de Squire (1988), solo su resumen.",
+    "Que Gallup pronosticara de antemano el resultado del Digest con unas 3,000 boletas lo cuentan Freedman, Pisani y Purves y PBS, pero no se verificó en una fuente primaria: el caso no lo usa.",
+    "La tabla por estado del Digest no se obtuvo de una fuente verificable; la transcripción disponible en línea tiene errores visibles."
+  ],
+  "myths_to_avoid": [
+    "«El Digest falló porque solo preguntó a ricos con teléfono y coche.» La lista sí se cargaba a esos grupos, pero los estudios con la encuesta de 1937 encuentran que la mayoría de los dueños de teléfono o coche votó por Roosevelt y que la no respuesta pesó tanto o más.",
+    "«El Digest usó su lista de suscriptores.» Lusinchi cita al propio Digest diciendo que no la usaba; las fuentes coinciden en directorios telefónicos y registros de autos como la mayor parte.",
+    "«Gallup acertó el resultado.» Acertó al ganador, pero quedó 6.8 puntos por debajo del porcentaje de Roosevelt entre los dos grandes.",
+    "«Con una muestra más grande el Digest habría acertado.» Ya era la más grande; con la misma lista y la misma respuesta, más boletas repiten el mismo sesgo.",
+    "«Gallup encuestó a 3,000 personas.» Esa cifra se asocia a su pronóstico del resultado del Digest, no a su pronóstico de la elección.",
+    "«La revista cerró por la encuesta.» Cerró en 1938 y la encuesta dañó su reputación, pero las fuentes revisadas no prueban que fuera la única causa."
+  ],
+  "sources": [
+    "https://historymatters.gmu.edu/d/5168",
+    "https://doi.org/10.1086/269085",
+    "https://doi.org/10.1017/S014555320001035X",
+    "https://www.degruyterbrill.com/document/doi/10.1515/spp-2016-0006/pdf",
+    "https://www.bitbybitbook.com/en/1st-ed/asking-questions/total-survey-error/representation/",
+    "https://www.archives.gov/electoral-college/1936",
+    "https://www.presidency.ucsb.edu/statistics/elections/1936",
+    "https://en.wikipedia.org/wiki/Nationwide_opinion_polling_for_the_1936_United_States_presidential_election",
+    "https://en.wikipedia.org/wiki/The_Literary_Digest",
+    "https://en.wikipedia.org/wiki/1932_United_States_presidential_election",
+    "https://onlinebooks.library.upenn.edu/webbin/cinfo/literarydigest"
+  ],
+  "dataset": {
+    "kind": "real",
+    "path": "casos/data/literary-digest-1936/cifras.csv",
+    "provenance": "Cifras nacionales publicadas por The Literary Digest (31 oct 1936), Gallup (1 nov 1936), National Archives y The American Presidency Project, con fuente por fila; casos/data/literary-digest-1936/README.md.",
+    "license": "CC0-1.0 (compilación); cifras históricas con fuente por fila",
+    "sha256": "3c00cafaf57c7b2a9ac74129d3015768b023002de2548d346cde17c3b99f04ad"
+  },
+  "story_bridge": "Don Juan pregunta qué tal la salsa nueva solo a quienes dejan propina: muchos opinan, pero no los que se fueron sin dejarla.",
+  "analogy_limits": "El caso usa cifras nacionales reales; el cálculo de «qué haría falta entre los que no contestaron» supone que toda la lista vota y que solo hay dos candidatos, y se marca como un cálculo hipotético, no como dato."
+}

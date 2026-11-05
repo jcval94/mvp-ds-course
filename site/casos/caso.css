@@ -5,7 +5,7 @@
 .caso .sup{flex-wrap:wrap}
 .estado-reg{font-family:"Press Start 2P","Courier New",monospace;font-size:8px;line-height:1.5;color:var(--tinta-suave);
   border:2px dashed var(--vacio);padding:5px 8px}
-.estado-reg.ok{color:var(--anil);border-color:var(--anil)}
+.estado-reg.ok{color:var(--tq-vidrio);border-color:var(--tq-vidrio)}
 .estado-reg.pend{color:var(--comal);border-color:var(--comal)}
 .caso .pips{gap:0;flex-wrap:wrap}
 .pips button{width:30px;height:30px;padding:7px;background:none;border:0;cursor:pointer}
@@ -66,7 +66,7 @@ label.campo span{color:var(--tinta-suave);font-size:.92rem}
 .campo textarea:focus,.campo input:focus{outline:none;border-color:var(--comal)}
 .conteo{font-size:.85rem;color:var(--tinta-suave);justify-self:end}
 .guardado{font-size:.92rem;color:var(--tinta-suave);min-height:1.4em}
-.guardado.ok{color:var(--anil)}
+.guardado.ok{color:var(--tq-vidrio)}
 .guardado.pend{color:var(--comal)}
 .guardado.mal{color:var(--salsa-clara,var(--tq-salsa-clara))}
 
@@ -132,7 +132,7 @@ label.campo span{color:var(--tinta-suave);font-size:.92rem}
 .reto-res.no{border-color:var(--salsa)}
 .reto-res.pend{border-color:var(--comal)}
 .reto-res b{font-family:"Press Start 2P","Courier New",monospace;font-weight:400;font-size:9px;line-height:1.6}
-.reto-res.ok b{color:var(--anil)}
+.reto-res.ok b{color:var(--tq-vidrio)}
 .reto-res.no b{color:var(--tq-salsa-clara)}
 .monedas{display:inline-flex;gap:3px;vertical-align:middle}
 .monedas i{width:10px;height:10px;background:var(--comal);border:2px solid var(--tq-sombra);animation:moneda .5s steps(4) both;animation-delay:calc(var(--i) * 70ms)}
@@ -152,7 +152,7 @@ label.campo span{color:var(--tinta-suave);font-size:.92rem}
 /* Sellos y contador */
 .sello{justify-self:start;font-family:"Press Start 2P","Courier New",monospace;font-size:clamp(11px,3.2vw,15px);line-height:1.4;
   color:var(--salsa);border:4px solid var(--salsa);padding:10px 14px;transform:rotate(-3deg);animation:golpe .35s steps(4) both}
-.sello.anil{color:var(--anil);border-color:var(--anil)}
+.sello.anil{color:var(--tq-vidrio);border-color:var(--tq-vidrio)}
 .sello.comal{color:var(--comal);border-color:var(--comal)}
 .sello-det{font-size:.95rem;color:var(--tinta-suave)}
 @keyframes golpe{from{transform:scale(2.2) rotate(-3deg);opacity:0}}
@@ -184,7 +184,7 @@ label.campo span{color:var(--tinta-suave);font-size:.92rem}
 .marcador{display:flex;gap:18px;flex-wrap:wrap}
 .marcador div{display:grid;gap:4px}
 .marcador dt{font-family:"Press Start 2P","Courier New",monospace;font-size:8px;color:var(--tinta-suave)}
-.marcador dd{margin:0;font-family:"Press Start 2P","Courier New",monospace;font-size:16px;color:var(--anil)}
+.marcador dd{margin:0;font-family:"Press Start 2P","Courier New",monospace;font-size:16px;color:var(--tq-vidrio)}
 .marcador dd.base{color:var(--tinta-suave)}
 
 .frase{border-left:6px solid var(--comal);padding:8px 12px;font-size:1.05rem}
