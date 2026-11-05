@@ -26,6 +26,7 @@
   },
   "casos": {
     "1.1": { "titulo": "Wald y los bombarderos", "estado": "construido", "min": 45 },
+    "1.2": { "titulo": "La encuesta del Literary Digest", "estado": "construido", "min": 42 },
     "1.4": { "titulo": "Puerto Rico: ¿cuántas muertes dejó María?", "estado": "construido", "min": 25 },
     "2.1": { "titulo": "John Snow y el cólera", "estado": "planeado" },
     "4.1": { "titulo": "Semmelweis", "estado": "construido", "min": 80 },

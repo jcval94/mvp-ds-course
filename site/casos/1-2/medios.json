@@ -1,0 +1,33 @@
+{
+  "caso": "1.2",
+  "pendiente": "Conseguir un escaneo de la página del 31 de octubre de 1936 (HathiTrust, Internet Archive o una biblioteca) y recortar solo el titular; bajar la foto de Harris & Ewing de la Library of Congress (LCCN 2016878441) a 1200 px y ≤ 350 KB. Cambiar cada una a «listo».",
+  "items": [
+    {
+      "id": "titular",
+      "tipo": "recorte",
+      "estado": "candidato",
+      "archivo": "medios/titular.webp",
+      "alt": "Titular de The Literary Digest del 31 de octubre de 1936 con el conteo de Landon y Roosevelt.",
+      "pie": "The Literary Digest, 31 de octubre de 1936 (solo el titular)",
+      "credito": "The Literary Digest (Funk & Wagnalls)",
+      "licencia": "Cita breve",
+      "nota": "Solo el titular con el conteo; el subtítulo, que dice cuántas boletas salieron, no se muestra.",
+      "fuente": "https://historymatters.gmu.edu/d/5168",
+      "escena": 3,
+      "spoiler": "Muestra el pronóstico, que es el gancho; no dice cuántas boletas salieron, quién respondió ni el resultado."
+    },
+    {
+      "id": "campana",
+      "tipo": "foto",
+      "estado": "candidato",
+      "archivo": "medios/campana.webp",
+      "alt": "John Hamilton, jefe de campaña de Landon, habla en el National Press Club de Washington en septiembre de 1936.",
+      "pie": "John Hamilton, jefe de campaña de Landon, 10 de septiembre de 1936",
+      "credito": "Harris & Ewing · Library of Congress",
+      "licencia": "Dominio público",
+      "fuente": "https://www.loc.gov/item/2016878441/",
+      "escena": 2,
+      "spoiler": "Muestra la confianza de una campaña, no el resultado ni el mecanismo."
+    }
+  ]
+}

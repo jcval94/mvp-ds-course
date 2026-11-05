@@ -15,11 +15,15 @@ CASOS = ROOT / "site/casos"
 PAGINA = sorted(p.parent for p in CASOS.glob("*/caso.html"))
 # Cómo se llama la herramienta de cada caso y en qué sección se nombra por primera vez (después de usarla).
 HERRAMIENTA = {"1-1": ("faltantes", ["sesgo de supervivencia", "sesgo de sobrevivencia", "faltantes no aleatorios"]),
+               "1-2": ("silencio", ["marco muestral", "no respuesta", "sesgo de no respuesta", "sesgo de seleccion",
+                                    "muestra representativa", "poblacion objetivo"]),
                "1-4": ("registro", ["exceso de mortalidad", "muertes en exceso", "exceso de muertes", "definir la variable",
                                     "definicion de la variable"])}
 # Ids de secciones y de retos, en orden, tal como están registrados en la base del curso.
 RECORRIDO = {"1-1": (["preparacion", "apuesta", "registro", "asistente", "faltantes", "verificacion", "firma", "revelacion",
                       "laboratorio", "cierre"], ["reto_menos_area", "reto_error_resumen", "reto_motores_faltan"]),
+             "1-2": (["preparacion", "apuesta", "conteo", "silencio", "comparacion", "verificacion", "firma", "revelacion",
+                      "laboratorio", "cierre"], ["reto_error_tasa_respuesta", "reto_tasa_real", "reto_silencio", "reto_gallup_dos"]),
              "1-4": (["preparacion", "apuesta", "regla", "registro", "asistente", "firma", "revelacion", "cierre"],
                      ["reto_meses_normales", "reto_octubre_exceso", "reto_error_linea_base"])}
 
@@ -99,6 +103,15 @@ def test_wald_usa_los_mismos_datos_y_simulador() -> None:
     params = json.loads(datos[datos.index("=") + 1: datos.rindex(";")])
     assert params == json.loads((ROOT / "casos/data/wald-bombers/parametros.json").read_text(encoding="utf-8"))
     assert (ROOT / "site/casos/1-1/sim.js").read_bytes() == (ROOT / "missions/m01-wald/app/sim.js").read_bytes()
+
+
+def test_digest_usa_las_cifras_reales() -> None:
+    import csv
+    datos = (ROOT / "site/casos/1-2/datos.js").read_text(encoding="utf-8")
+    cifras = json.loads(re.search(r"window.DigestCifras = (\{.*?\});", datos).group(1))
+    with (ROOT / "casos/data/literary-digest-1936/cifras.csv").open(encoding="utf-8", newline="") as f:
+        for r in csv.DictReader(f):
+            assert float(cifras[r["id"]]) == float(r["valor"]), r["id"]
 
 
 def test_puerto_rico_usa_los_datos_reales() -> None:
