@@ -28,7 +28,7 @@ studio/dist/
 *.zip
 
 # Capturas regenerables de QA (QA_SCREENSHOT_DIR por omisión)
-/output/qa/
+/output/
 
 # axe-core se instala en CI (versión fijada); nunca se versiona
 /harness/a11y/node_modules/
