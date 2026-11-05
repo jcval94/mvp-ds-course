@@ -29,6 +29,7 @@
     "1.2": { "titulo": "La encuesta del Literary Digest", "estado": "construido", "min": 42 },
     "1.4": { "titulo": "Puerto Rico: ¿cuántas muertes dejó María?", "estado": "construido", "min": 25 },
     "2.1": { "titulo": "John Snow y el cólera", "estado": "planeado" },
+    "2.3": { "titulo": "Challenger: ¿lanzarías mañana?", "estado": "construido", "min": 25 },
     "4.1": { "titulo": "Semmelweis", "estado": "construido", "min": 80 },
     "4.2": { "titulo": "Berkeley", "estado": "construido", "min": 70 },
     "13.3": { "titulo": "COVID perdidos en Excel", "estado": "planeado" },

@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "id": "challenger-1986",
+  "title": "El transbordador Challenger",
+  "decision_question": "La víspera del lanzamiento, el pronóstico anuncia la mañana más fría de todo el programa y los ingenieros de las juntas piden no lanzar por debajo de 53 °F. Con el historial de vuelos en la mano, ¿lanzarías mañana?",
+  "naive_answer": "Mirar solo los vuelos que tuvieron daño en las juntas: el daño aparece tanto a 53 °F como a 75 °F, así que la temperatura no parece importar y se puede lanzar.",
+  "ingenious_move": "Preguntar qué vuelos faltan en la gráfica: al agregar los vuelos sin daño, la proporción de vuelos con daño cambia por completo entre fríos y cálidos; además, ningún vuelo se había hecho por debajo de 53 °F, así que lo que pasaría a menos de 36 °F estaba fuera de todo lo observado.",
+  "status": "verified",
+  "access": "public",
+  "concepts": [
+    "selection-bias",
+    "missing-data",
+    "honest-graphics",
+    "extrapolation",
+    "conditional-proportion"
+  ],
+  "level_hint": 2,
+  "verified_claims": [
+    {
+      "claim": "El vuelo 51-L del Challenger despegó a las 11:38 a. m. (hora del este) del 28 de enero de 1986 y terminó 73 segundos después; murieron los siete tripulantes.",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch3.htm"
+      ]
+    },
+    {
+      "claim": "La temperatura del aire al lanzar era de 36 °F (2.2 °C), 15 grados más fría que la de cualquier lanzamiento anterior; la temperatura local calculada de las juntas era de 28 ± 5 °F, y la figura 2 del informe pone 31 °F para la junta de 51-L.",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch3.htm",
+        "https://www.nasa.gov/history/rogersrep/v1ch4.htm",
+        "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
+      ]
+    },
+    {
+      "claim": "La víspera, 27 de enero de 1986, NASA y Morton Thiokol sostuvieron una teleconferencia: la primera fase empezó a las 5:45 p. m. y la segunda hacia las 8:45 p. m. (hora del este); se le dijo a Thiokol que se pronosticaban unos 26 °F para la hora prevista del lanzamiento (9:38 a. m.) y una mínima de 22 °F en la madrugada.",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
+      ]
+    },
+    {
+      "claim": "Los ingenieros de Thiokol recomendaron no lanzar si la temperatura de las juntas tóricas era menor que la de cualquier vuelo anterior, 53 °F (vuelo 51-C, enero de 1985, el de peor paso de gases); Boisjoly: «no deberíamos volar fuera de nuestra base de datos, que era de 53 grados».",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
+      ]
+    },
+    {
+      "claim": "Tras una pausa fuera de línea pedida por Thiokol, de unos 30 minutos, la gerencia de Thiokol cambió su recomendación y aprobó el lanzamiento, contra la opinión de sus ingenieros; según Boisjoly, a un gerente se le pidió «quitarse el sombrero de ingeniero y ponerse el de gerente». La recomendación final se envió por telefax.",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch5.htm"
+      ]
+    },
+    {
+      "claim": "Según la Comisión Rogers, los gerentes compararon contra la temperatura solo los vuelos en los que se había observado daño térmico en las juntas tóricas (figura 6), no la frecuencia sobre todos los vuelos; con todos los vuelos (figura 7), incluidos los «normales» sin erosión ni paso de gases, el cuadro es sustancialmente distinto y el daño se concentra en los vuelos fríos.",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
+      ]
+    },
+    {
+      "claim": "Hallazgo de la Comisión: un análisis cuidadoso del historial de las juntas tóricas habría revelado la correlación entre el daño y la baja temperatura; ni NASA ni Thiokol lo hicieron, y no estaban preparados para evaluar el riesgo de lanzar en condiciones más extremas que las ya vividas.",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
+      ]
+    },
+    {
+      "claim": "La Comisión concluyó que el accidente empezó con la falla de la junta del motor derecho del cohete sólido, que el proceso de decisión tuvo una falla grave y que NASA y Thiokol habían llegado a aceptar la erosión y el paso de gases como un riesgo aceptable.",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch5.htm",
+        "https://www.nasa.gov/history/rogersrep/v1ch6.htm"
+      ]
+    },
+    {
+      "claim": "En los 23 vuelos previos con cohetes recuperados, 7 tuvieron al menos una junta tórica primaria de las juntas de campo con daño térmico (9 juntas en total); la temperatura de esos vuelos fue de 53 a 81 °F y ninguno se lanzó por debajo de 53 °F.",
+      "sources": [
+        "https://www.nasa.gov/history/rogersrep/v1ch6.htm",
+        "https://archive.ics.uci.edu/dataset/92/challenger+usa+space+shuttle+o+ring"
+      ]
+    },
+    {
+      "claim": "Dalal, Fowlkes y Hoadley (JASA, 1989) analizaron los 23 vuelos con regresión binomial y logística, encontraron evidencia estadística fuerte de un efecto de la temperatura y estimaron que a 31 °F la probabilidad de falla catastrófica de una junta de campo era de al menos 13 %; posponer a 60 °F la habría bajado a al menos 2 %.",
+      "sources": [
+        "https://doi.org/10.1080/01621459.1989.10478858"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "La tabla 1 de Dalal et al. no se leyó en el PDF original (muro de pago): sus cifras vienen de UCI (CC BY 4.0) y del paquete R vcd, que coinciden en los 23 vuelos; el resumen del artículo sí se leyó.",
+    "El volumen V del informe Rogers (audiencias) no se consultó directamente; los testimonios citados vienen del capítulo 5 del volumen I, que los transcribe.",
+    "51-C cuenta 2 juntas primarias con daño en Dalal y UCI, pero 3 incidentes en la figura 2 de Rogers (incluye la junta secundaria); algunas copias de la tabla de Dalal ponen 3.",
+    "La transcripción HTML de la figura 2 en nasa.gov da 80 °F para STS-3 y 67 °F para 41-G; Dalal, UCI y vcd dan 69 y 78 °F. Falta cotejar con el escaneo del informe; ninguno de los dos vuelos tuvo daño.",
+    "El conteo de vuelos a 66 °F o más del informe Rogers incluye STS-4 (cohetes perdidos en el mar, sin datos de juntas); con los 23 vuelos con datos hay uno menos. Detalle en la parte privada del backend.",
+    "La temperatura «del lanzamiento» cambia según la fuente: 26 °F pronosticados para las 9:38, 28 ± 5 °F calculados para las juntas, 31 °F en la figura 2 y en Dalal, 36 °F del aire a las 11:38. El caso debe decir cuál usa.",
+    "La figura 6 de Rogers es una reconstrucción de la Comisión de lo que compararon los gerentes; no es una lámina mostrada en la teleconferencia. Thiokol presentó unas 14 láminas, ninguna con todos los vuelos contra la temperatura.",
+    "Robison, Boisjoly, Hoeker y Young (2002) sostienen que los ingenieros no tenían la temperatura de las juntas para la mayoría de los vuelos y que la gráfica de Tufte (1997) mezcla temperatura de la junta con la del aire; el caso no debe culpar a los ingenieros por no graficar.",
+    "Licencia del material de la intro: las láminas de Thiokol reproducidas en el informe son documentos de un contratista publicados por el gobierno; falta confirmar que pueden usarse como dominio público."
+  ],
+  "myths_to_avoid": [
+    "Nadie advirtió el riesgo. Los ingenieros de Thiokol recomendaron no lanzar por debajo de 53 °F la víspera; la gerencia cambió la recomendación.",
+    "Los ingenieros no supieron hacer una gráfica y por eso murieron los astronautas. Es la lectura de Tufte, discutida por Boisjoly y otros: les faltaban datos de temperatura y el problema principal fue de decisión, no de diseño gráfico.",
+    "La gráfica sin los vuelos sin daño se mostró en la teleconferencia. La Comisión describe así la comparación que hicieron los gerentes y la reconstruye en su figura 6; no es una lámina de esa noche.",
+    "El frío fue la única causa. La Comisión ubica el origen en el diseño de la junta y en la aceptación de la erosión como riesgo normal; el frío empeoró una falla conocida.",
+    "El Challenger explotó. El informe habla de una combustión explosiva de los propelentes y de la ruptura del vehículo; el caso no describe ni muestra ese momento.",
+    "Con un modelo se sabía qué pasaría a 31 °F. Ningún vuelo se hizo por debajo de 53 °F: cualquier cifra a esa temperatura es una extrapolación con mucha incertidumbre, y Dalal et al. la publicaron en 1989, después del accidente."
+  ],
+  "sources": [
+    "https://www.nasa.gov/history/rogersrep/v1ch3.htm",
+    "https://www.nasa.gov/history/rogersrep/v1ch4.htm",
+    "https://www.nasa.gov/history/rogersrep/v1ch5.htm",
+    "https://www.nasa.gov/history/rogersrep/v1ch6.htm",
+    "https://doi.org/10.1080/01621459.1989.10478858",
+    "https://archive.ics.uci.edu/dataset/92/challenger+usa+space+shuttle+o+ring",
+    "https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/vcd/SpaceShuttle.csv",
+    "https://onlineethics.org/cases/representation-and-misrepresentation-tufte-and-morton-thiokol-engineers-challenger",
+    "https://www.nasa.gov/history/rogersrep/v1p112.htm"
+  ],
+  "dataset": {
+    "kind": "real",
+    "path": "casos/data/challenger-1986/vuelos.csv",
+    "provenance": "Comisión Rogers (1986), vol. I, cap. 6, figura 2, y Dalal, Fowlkes y Hoadley (JASA 1989), tabla 1, vía UCI (Draper 1993) y el paquete R vcd; 23 vuelos con cohetes recuperados, consultados el 4 nov 2026. Detalle y discrepancias en casos/data/challenger-1986/README.md.",
+    "license": "Dominio público (informe del Gobierno de EE. UU.); transcripción de UCI con CC BY 4.0",
+    "sha256": "05889c48d0e0d3d274b3b2c290acd4bf4dc481c23ed5bc3ba6ea0c5e411e1a89"
+  },
+  "story_bridge": "En la taquería: Don Juan revisa solo las quejas de los días en que algo salió mal; ¿cómo sabe si el problema es la lluvia si nunca mira los días buenos?",
+  "analogy_limits": "En el caso real había un riesgo de vida, ingenieros que advirtieron y una gerencia que decidió; la taquería solo conserva el mecanismo de mirar únicamente los casos con falla."
+}

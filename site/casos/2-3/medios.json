@@ -1,0 +1,19 @@
+{
+  "caso": "2.3",
+  "pendiente": "Buscar en NASA Images (images.nasa.gov) una foto de hielo en la plataforma la mañana del 28 de enero de 1986 que no muestre el lanzamiento, el accidente ni personas; guardarla como medios/plataforma-hielo-1986.webp de 1200 px y hasta 350 KB y cambiarla a «listo». La lámina de Thiokol (informe Rogers, vol. I, cap. 5) no entra en la intro hasta confirmar su licencia. Las escenas funcionan igual sin ellas.",
+  "items": [
+    {
+      "id": "plataforma-hielo-1986",
+      "tipo": "foto",
+      "estado": "candidato",
+      "archivo": "medios/plataforma-hielo-1986.webp",
+      "alt": "Hielo en la estructura de la plataforma de lanzamiento la mañana del 28 de enero de 1986.",
+      "pie": "Hielo en la plataforma, 28 de enero de 1986",
+      "credito": "NASA",
+      "licencia": "Dominio público",
+      "fuente": "https://images.nasa.gov/",
+      "escena": 1,
+      "spoiler": "Es un lugar con hielo, sin el transbordador despegando ni personas: muestra el frío, no qué pasó."
+    }
+  ]
+}

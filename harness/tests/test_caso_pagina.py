@@ -18,14 +18,18 @@ HERRAMIENTA = {"1-1": ("faltantes", ["sesgo de supervivencia", "sesgo de sobrevi
                "1-2": ("silencio", ["marco muestral", "no respuesta", "sesgo de no respuesta", "sesgo de seleccion",
                                     "muestra representativa", "poblacion objetivo"]),
                "1-4": ("registro", ["exceso de mortalidad", "muertes en exceso", "exceso de muertes", "definir la variable",
-                                    "definicion de la variable"])}
+                                    "definicion de la variable"]),
+               "2-3": ("vuelos", ["lo que una grafica deja fuera", "lo que la grafica deja fuera", "sesgo de seleccion",
+                                  "extrapolar", "extrapolacion"])}
 # Ids de secciones y de retos, en orden, tal como están registrados en la base del curso.
 RECORRIDO = {"1-1": (["preparacion", "apuesta", "registro", "asistente", "faltantes", "verificacion", "firma", "revelacion",
                       "laboratorio", "cierre"], ["reto_menos_area", "reto_error_resumen", "reto_motores_faltan"]),
              "1-2": (["preparacion", "apuesta", "conteo", "silencio", "comparacion", "verificacion", "firma", "revelacion",
                       "laboratorio", "cierre"], ["reto_error_tasa_respuesta", "reto_tasa_real", "reto_silencio", "reto_gallup_dos"]),
              "1-4": (["preparacion", "apuesta", "regla", "registro", "asistente", "firma", "revelacion", "cierre"],
-                     ["reto_meses_normales", "reto_octubre_exceso", "reto_error_linea_base"])}
+                     ["reto_meses_normales", "reto_octubre_exceso", "reto_error_linea_base"]),
+             "2-3": (["preparacion", "apuesta", "grafica", "vuelos", "asistente", "firma", "revelacion", "cierre"],
+                     ["reto_grafica_patron", "reto_vuelos_calidos", "reto_fuera_de_rango", "reto_error_sin_ceros"])}
 
 
 def _norm(texto: str) -> str:
@@ -123,6 +127,18 @@ def test_puerto_rico_usa_los_datos_reales() -> None:
     assert filas == csvf
     texto = (ROOT / "site/casos/1-4/caso-escenas.js").read_text(encoding="utf-8")
     assert "Aviso de contenido" in texto and "aviso:" in (ROOT / "site/casos/1-4/escenas.js").read_text(encoding="utf-8")
+
+
+def test_challenger_usa_los_vuelos_reales() -> None:
+    import csv
+    datos = (ROOT / "site/casos/2-3/datos.js").read_text(encoding="utf-8")
+    filas = json.loads(datos[datos.index("=") + 1: datos.rindex(";")])
+    with (ROOT / "casos/data/challenger-1986/vuelos.csv").open(encoding="utf-8", newline="") as f:
+        csvf = [{"orden": int(r["orden"]), "vuelo": r["vuelo"], "fecha": r["fecha"], "f": int(r["temperatura_f"]),
+                 "c": float(r["temperatura_c"]), "juntas": int(r["juntas_con_dano"])} for r in csv.DictReader(f)]
+    assert filas == csvf and len(filas) == 23 and sum(1 for x in filas if x["juntas"]) == 7
+    texto = (ROOT / "site/casos/2-3/caso-escenas.js").read_text(encoding="utf-8")
+    assert "Aviso de contenido" in texto and "aviso:" in (ROOT / "site/casos/2-3/escenas.js").read_text(encoding="utf-8")
 
 
 @pytest.mark.skipif(shutil.which("node") is None, reason="sin node")
