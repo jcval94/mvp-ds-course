@@ -1,0 +1,20 @@
+{
+  "caso": "13.11",
+  "pendiente": "Recortar del informe Lockwood (Internet Archive 31761116358912) solo el encabezado corto «Final Report of the Board of Inquiry · Air Canada Boeing 767 C-GAUN», sin la mención de Gimli, como medios/informe-lockwood-1985.webp, y cambiarlo a «listo». Foto del avión: la de Ted Quackenbush es GFDL 1.2 (no admitida); revisar a mano «Air_Canada_Boeing_767-233;_C-GAUN@SFO;17.02.1985_(5702291035).jpg» en Wikimedia Commons (posible CC BY-SA 2.0). Las escenas funcionan igual sin ellas: el avión va en pixeles.",
+  "items": [
+    {
+      "id": "informe-lockwood-1985",
+      "tipo": "documento",
+      "estado": "candidato",
+      "archivo": "medios/informe-lockwood-1985.webp",
+      "alt": "Encabezado del informe final de la junta de investigación sobre el Boeing 767 C-GAUN de Air Canada.",
+      "pie": "Informe final de la junta de investigación, 1985 (solo el encabezado)",
+      "credito": "G. H. Lockwood, Gobierno de Canadá",
+      "licencia": "Cita breve",
+      "fuente": "https://archive.org/details/31761116358912",
+      "escena": 2,
+      "spoiler": "Recortado al título corto: no menciona Gimli ni el aterrizaje de emergencia.",
+      "nota": "Solo el encabezado corto del informe, para mostrar que hubo una investigación oficial; el título completo menciona Gimli y no se muestra."
+    }
+  ]
+}
