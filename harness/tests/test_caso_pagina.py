@@ -19,6 +19,8 @@ HERRAMIENTA = {"1-1": ("faltantes", ["sesgo de supervivencia", "sesgo de sobrevi
                                     "muestra representativa", "poblacion objetivo"]),
                "1-4": ("registro", ["exceso de mortalidad", "muertes en exceso", "exceso de muertes", "definir la variable",
                                     "definicion de la variable"]),
+               "2-1": ("sur", ["tasa por poblacion expuesta", "poblacion expuesta", "razon de tasas", "riesgo relativo",
+                               "experimento natural", "grupo de comparacion"]),
                "2-3": ("vuelos", ["lo que una grafica deja fuera", "lo que la grafica deja fuera", "sesgo de seleccion",
                                   "extrapolar", "extrapolacion"])}
 # Ids de secciones y de retos, en orden, tal como están registrados en la base del curso.
@@ -28,6 +30,10 @@ RECORRIDO = {"1-1": (["preparacion", "apuesta", "registro", "asistente", "faltan
                       "laboratorio", "cierre"], ["reto_error_tasa_respuesta", "reto_tasa_real", "reto_silencio", "reto_gallup_dos"]),
              "1-4": (["preparacion", "apuesta", "regla", "registro", "asistente", "firma", "revelacion", "cierre"],
                      ["reto_meses_normales", "reto_octubre_exceso", "reto_error_linea_base"]),
+             "2-1": (["preparacion", "apuesta", "calle", "sur", "asistente", "segunda_prueba", "firma", "revelacion",
+                      "laboratorio", "cierre"],
+                     ["reto_mapa_deja_fuera", "reto_tasa_sv", "reto_cuantas_veces", "reto_error_grafica", "reto_peor_caso",
+                      "reto_taqueria_expuestos"]),
              "2-3": (["preparacion", "apuesta", "grafica", "vuelos", "asistente", "firma", "revelacion", "cierre"],
                      ["reto_grafica_patron", "reto_vuelos_calidos", "reto_fuera_de_rango", "reto_error_sin_ceros"])}
 
@@ -127,6 +133,24 @@ def test_puerto_rico_usa_los_datos_reales() -> None:
     assert filas == csvf
     texto = (ROOT / "site/casos/1-4/caso-escenas.js").read_text(encoding="utf-8")
     assert "Aviso de contenido" in texto and "aviso:" in (ROOT / "site/casos/1-4/escenas.js").read_text(encoding="utf-8")
+
+
+def test_snow_usa_los_datos_reales() -> None:
+    import csv
+    texto = (ROOT / "site/casos/2-1/datos.js").read_text(encoding="utf-8")
+    d = json.loads(texto[texto.index("=") + 1: texto.rindex(";")])
+    base = ROOT / "casos/data/john-snow-colera-1854"
+    with (base / "companias.csv").open(encoding="utf-8", newline="") as f:
+        comp = [{"id": r["id"], "grupo": r["grupo"], **{k: int(r[k]) if r[k] else None for k in ("casas", "personas", "muertes")}}
+                for r in csv.DictReader(f)]
+    assert d["companias"] == comp
+    with (base / "cronologia_broad_street.csv").open(encoding="utf-8", newline="") as f:
+        cron = [{"fecha": r["fecha"], "ataques": int(r["ataques_mortales"])} for r in csv.DictReader(f)]
+    assert d["cronologia"] == cron and sum(x["ataques"] for x in cron) == d["cifras"]["bs_total_tabla1"] == 616
+    # Sin las tasas que imprimió Snow ni las respuestas de los retos.
+    for prohibido in ("315", "8.4", "37.5", "138.5", "60.3"):
+        assert prohibido not in (ROOT / "site/casos/2-1/caso-escenas.js").read_text(encoding="utf-8") + texto
+    assert "Aviso de contenido" in (ROOT / "site/casos/2-1/caso-escenas.js").read_text(encoding="utf-8")
 
 
 def test_challenger_usa_los_vuelos_reales() -> None:
