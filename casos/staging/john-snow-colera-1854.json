@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "id": "john-snow-colera-1854",
+  "title": "John Snow y el cólera (Londres, 1854)",
+  "decision_question": "En el otoño de 1854, con las muertes por cólera del sur de Londres contadas por compañía de agua, ¿qué le recomiendas a la autoridad sanitaria: esperar al plazo de la ley de 1852 para que las compañías muevan sus tomas, o actuar ya sobre el agua de Southwark & Vauxhall?",
+  "naive_answer": "Comparar muertes: Southwark & Vauxhall tiene muchas más, pero también abastece más casas, y el resto de Londres tiene todavía más muertes; además casi todos los médicos creen que el cólera viene del aire sucio. Con esos conteos parece que el agua no explica nada y se puede esperar.",
+  "ingenious_move": "Dividir las muertes entre las casas que abastece cada compañía: en las mismas calles, con vecinos ricos y pobres mezclados, las casas de Southwark & Vauxhall tuvieron muchas más muertes por casa que las de Lambeth, que había movido su toma río arriba. La comparación aguanta con personas en lugar de casas y aun en el peor caso para el agua.",
+  "status": "verified",
+  "access": "public",
+  "concepts": [
+    "rates-vs-counts",
+    "exposed-population",
+    "two-group-comparison",
+    "natural-experiment",
+    "spatial-counts",
+    "verify-ai-output"
+  ],
+  "level_hint": 2,
+  "verified_claims": [
+    {
+      "claim": "La segunda edición, muy ampliada, de «On the Mode of Communication of Cholera» de John Snow la publicó John Churchill en Londres en 1855; su prefacio está fechado el 11 de diciembre de 1854.",
+      "sources": [
+        "https://www.gutenberg.org/ebooks/72894",
+        "https://archive.org/details/b28985266"
+      ]
+    },
+    {
+      "claim": "Snow escribió que hubo más de quinientos ataques mortales de cólera en diez días a menos de 250 yardas del cruce de Cambridge Street y Broad Street, en Soho; su Tabla I suma 616 ataques mortales y 616 muertes del 19 de agosto al 30 de septiembre de 1854, con 45 ataques sin fecha.",
+      "sources": [
+        "https://www.gutenberg.org/ebooks/72894",
+        "https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_f.html"
+      ]
+    },
+    {
+      "claim": "Según la Tabla I de Snow, los ataques llegaron a su máximo el 1 de septiembre (143) y el 8 de septiembre, el día en que se quitó el mango de la bomba, ya eran 12. Snow escribió que los ataques habían disminuido tanto antes de que se dejara de usar el agua que era imposible decidir si el pozo aún tenía el veneno del cólera.",
+      "sources": [
+        "https://www.gutenberg.org/ebooks/72894",
+        "https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak"
+      ]
+    },
+    {
+      "claim": "Snow habló con la Junta de Guardianes de la parroquia de St James la tarde del 7 de septiembre de 1854 y el mango de la bomba de Broad Street se quitó al día siguiente.",
+      "sources": [
+        "https://www.gutenberg.org/ebooks/72894",
+        "https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_f.html"
+      ]
+    },
+    {
+      "claim": "De 83 muertes registradas en los últimos tres días de la semana que terminó el 2 de septiembre, solo 10 ocurrieron en casas claramente más cerca de otra bomba: en 5 la familia mandaba por agua a Broad Street, 3 eran niños que iban a la escuela junto a esa bomba y 2 correspondían a la mortalidad que ya había antes del brote.",
+      "sources": [
+        "https://www.gutenberg.org/ebooks/72894"
+      ]
+    },
+    {
+      "claim": "En el asilo (workhouse) de Poland Street, rodeado de casas con muertes y con pozo propio, murieron 5 de 535 internos; en la cervecería de Broad Street, cuyos más de 70 obreros tomaban cerveza y no agua, nadie enfermó de gravedad.",
+      "sources": [
+        "https://www.gutenberg.org/ebooks/72894"
+      ]
+    },
+    {
+      "claim": "En la Tabla IX de su libro de 1855 (p. 86), Snow compara las primeras siete semanas de la epidemia de 1854, hasta el 26 de agosto: casas abastecidas por Southwark & Vauxhall, 40,046, con 1,263 muertes; por Lambeth, 26,107, con 98; resto de Londres, 256,423, con 1,422; y da para cada fila las muertes por cada 10,000 casas.",
+      "sources": [
+        "https://github.com/tscoleman/SnowCholera",
+        "https://data8.datascience.uchicago.edu/chapters/02/2/snow-s-grand-experiment",
+        "https://epi-snow.ph.ucla.edu/Stream3_GrandExperiment_d.html"
+      ]
+    },
+    {
+      "claim": "La tasa por cada 10,000 casas que Snow imprimió para el resto de Londres (59) no sale de las casas y muertes de su propia tabla, que dan 55.5; la de Lambeth está truncada.",
+      "sources": [
+        "https://github.com/tscoleman/SnowCholera"
+      ]
+    },
+    {
+      "claim": "Snow describió la comparación como un experimento «en la escala más grande»: más de 300,000 personas de distintas condiciones y ocupaciones, mezcladas, con tuberías de las dos compañías que pasaban por todas las calles y casi todos los patios; además comprobó la compañía de cada casa con recibos y con una prueba de sal en el agua.",
+      "sources": [
+        "https://epi-snow.ph.ucla.edu/Stream3_GrandExperiment_d.html",
+        "https://data8.datascience.uchicago.edu/chapters/02/2/snow-s-grand-experiment"
+      ]
+    },
+    {
+      "claim": "La compañía de Lambeth movió su toma río arriba, a Seething Wells cerca de Thames Ditton, en 1852; Southwark & Vauxhall siguió tomando agua en Battersea, en el tramo contaminado, hasta mudarse a Hampton en agosto de 1855.",
+      "sources": [
+        "https://epi-snow.ph.ucla.edu/Stream3_GrandExperiment_d.html"
+      ]
+    },
+    {
+      "claim": "La Metropolis Water Act de 1852 prohibió, a partir del 31 de agosto de 1855, que las compañías tomaran agua del Támesis para uso doméstico debajo de Teddington Lock.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Metropolis_Water_Act_1852"
+      ]
+    },
+    {
+      "claim": "En la Tabla V de su artículo de 1856 (epidemia completa en los distritos del sur), Snow da 3,706 muertes entre 267,625 personas abastecidas por Southwark & Vauxhall y 411 entre 171,528 por Lambeth (138 y 23 por cada 10,000 en lo impreso), más 338 muertes de bombas y otras fuentes y 623 sin averiguar.",
+      "sources": [
+        "https://www.gutenberg.org/ebooks/66507",
+        "https://github.com/tscoleman/SnowCholera"
+      ]
+    },
+    {
+      "claim": "La idea de que Snow descubrió la causa al mirar su mapa es un mito: su teoría del agua es anterior al mapa, que confirmó lo que ya pensaba; y la Junta de Salud atribuyó la epidemia al aire (miasma) y rechazó su teoría.",
+      "sources": [
+        "https://doi.org/10.1016/S0140-6736(00)02442-9",
+        "https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_f.html",
+        "https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak"
+      ]
+    },
+    {
+      "claim": "El reverendo Henry Whitehead, que al principio creía en el miasma, investigó con Snow y encontró en 1855 el caso índice: el agua del lavado de una bebé enferma en el número 40 de Broad Street iba a un drenaje junto al pozo.",
+      "sources": [
+        "https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_f.html",
+        "https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak"
+      ]
+    },
+    {
+      "claim": "El libro de Snow casi no tuvo eco en su momento: según la UCLA, de 300 ejemplares se vendieron 56.",
+      "sources": [
+        "https://epi-snow.ph.ucla.edu/Stream3_GrandExperiment_d.html"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "La Tabla IX no se leyó directo en el escaneo de la p. 86; coinciden tres transcripciones (Coleman, Data 8, UCLA). Falta mirarla en el escaneo del Wellcome (archive.org/details/b28985266) antes de aprobar.",
+    "El texto de Snow 1855 se leyó en Project Gutenberg con una herramienta que resume páginas largas; las cifras de Broad Street (83, 10, 5, 3, 2, 61, 6, 6, 535, 5, más de 70) y la Tabla I se comprobaron por sumas, pero conviene cotejarlas con el escaneo.",
+    "El número total de muertes del brote depende del área y de la fuente: Snow da 616 en su Tabla I; Wikipedia, 420 con otra fuente. El caso usa 616 y dice que es la tabla de Snow.",
+    "La tasa impresa de 59 por 10,000 casas para el resto de Londres no sale de las cifras de la propia tabla (dan 55.5). No se sabe si es un error de imprenta o de cálculo de Snow.",
+    "Las casas no son personas: la Tabla IX compara por casas, y las casas de las dos compañías podían tener distinto número de habitantes. La Tabla V de 1856 compara por personas, con población estimada por Snow, y deja 623 muertes sin compañía.",
+    "Quién elegía la compañía de cada casa (dueños, inquilinos anteriores) no se verificó en fuente primaria: el caso solo dice que las tuberías de las dos pasaban por las mismas calles y que cada una abastecía a ricos y pobres, como escribió Snow.",
+    "La fecha y las razones exactas de la respuesta oficial (Committee for Scientific Inquiries, 1855) y la aceptación posterior de William Farr no se leyeron en fuente primaria; el caso las cuenta solo en la revelación y sin fechas finas.",
+    "Que se volviera a poner el mango después del brote lo dice Wikipedia sin fecha; el caso no lo afirma como hecho."
+  ],
+  "myths_to_avoid": [
+    "«Quitar el mango acabó con la epidemia.» Los ataques ya iban de 143 (1 de septiembre) a 12 (8 de septiembre) cuando se quitó; el propio Snow dijo que no se podía decidir si el pozo seguía contaminado.",
+    "«Snow descubrió la causa al mirar el mapa.» Su teoría del agua es de 1849; el mapa se publicó en el libro de 1855 para mostrar lo que ya había encontrado casa por casa.",
+    "«El mapa convenció a todos.» La Junta de Salud mantuvo la explicación del miasma; el libro vendió poco y la idea se aceptó años después.",
+    "«El mapa prueba la causa.» Un mapa de muertes muestra dónde murió la gente, no cuánta vivía ahí ni quién tomaba de qué agua: la prueba fuerte fue la comparación de tasas entre las dos compañías.",
+    "«Snow hizo un experimento.» Nadie asignó el agua al azar: es un experimento natural, y Snow lo defendió mostrando que los dos grupos estaban mezclados en las mismas calles.",
+    "«Snow descubrió el bacilo del cólera.» No: lo describió Filippo Pacini en 1854 y lo aisló Robert Koch en 1883; Snow nunca lo vio."
+  ],
+  "sources": [
+    "https://www.gutenberg.org/ebooks/72894",
+    "https://archive.org/details/b28985266",
+    "https://www.gutenberg.org/ebooks/66507",
+    "https://github.com/tscoleman/SnowCholera",
+    "https://data8.datascience.uchicago.edu/chapters/02/2/snow-s-grand-experiment",
+    "https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_f.html",
+    "https://epi-snow.ph.ucla.edu/Stream3_GrandExperiment_d.html",
+    "https://doi.org/10.1016/S0140-6736(00)02442-9",
+    "https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak",
+    "https://en.wikipedia.org/wiki/Metropolis_Water_Act_1852"
+  ],
+  "dataset": {
+    "kind": "real",
+    "path": "casos/data/john-snow-colera-1854/companias.csv",
+    "provenance": "Tabla IX de Snow 1855 (p. 86) y fila de totales de la Tabla V de Snow 1856, de dominio público, cotejadas con la transcripción de T. Coleman (BSD-2-Clause); cronología y cifras de Broad Street de Snow 1855 en archivos hermanos. Detalle en casos/data/john-snow-colera-1854/README.md.",
+    "license": "CC0-1.0 (compilación); obras de John Snow de dominio público",
+    "sha256": "ffd0415f496348baf4d3936336f77fd3acf11da077f911e8623b77a5d59a09ba"
+  },
+  "story_bridge": "Don Juan recibe más quejas de la sucursal del centro que de la del norte, pero el centro vende seis veces más tacos: antes de culpar a la sucursal, cuenta las quejas por cada mil pedidos.",
+  "analogy_limits": "Las cifras son reales y de Snow. Las casas no son personas y la compañía de cada casa no se asignó al azar; el caso lo dice y compara también por personas y con el peor caso de las muertes sin compañía."
+}

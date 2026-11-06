@@ -1,0 +1,19 @@
+id,quien,fecha,concepto,valor,unidad,tipo,referencia
+bs_registradas,Registrador General (lista revisada por Snow),1854-09-02,muertes registradas en los ultimos tres dias de la semana en los tres subdistritos,83,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+bs_cerca_otra_bomba,John Snow,1854,de esas 83: en casas claramente mas cerca de otra bomba de calle,10,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+bs_cerca_broad,John Snow,1854,de esas 83: en casas mas cerca de la bomba de Broad Street (83 menos 10),73,muertes,derivado,https://www.gutenberg.org/ebooks/72894
+bs_tomaban,John Snow,1854,de las 73: tomaban agua de la bomba segun sus familias,61,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+bs_sin_dato,John Snow,1854,de las 73: sin informacion,6,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+bs_no_tomaban,John Snow,1854,de las 73: no tomaban agua de la bomba,6,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+bs_10_familias,John Snow,1854,de las 10 mas cerca de otra bomba: familias que siempre mandaban por agua a Broad Street,5,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+bs_10_escuela,John Snow,1854,de las 10 mas cerca de otra bomba: ninos que iban a la escuela junto a la bomba,3,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+bs_10_antes,John Snow,1854,de las 10 mas cerca de otra bomba: muertes como las que ya ocurrian antes del brote,2,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+asilo_internos,John Snow,1854,internos del asilo (workhouse) de Poland Street; tenia pozo propio,535,personas,publicado,https://www.gutenberg.org/ebooks/72894
+asilo_muertes,John Snow,1854,muertes por colera en el asilo de Poland Street,5,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+cerveceria_obreros,John Snow,1854,obreros de la cerveceria de Broad Street (mas de 70); tomaban cerveza y no agua,70,personas,minimo,https://www.gutenberg.org/ebooks/72894
+cerveceria_muertes,John Snow,1854,muertes por colera entre los obreros de la cerveceria (dos con malestar leve),0,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+bs_total_tabla1,John Snow,1854-12,total de ataques mortales de la Tabla I (19 ago a 30 sep),616,muertes,publicado,https://www.gutenberg.org/ebooks/72894
+mango,Junta de Guardianes de St James,1854-09-08,dia en que se quito el mango de la bomba (Snow hablo con la junta el 7),8,dia de septiembre,publicado,https://epi-snow.ph.ucla.edu/Stream2_BSPoutbreak_f.html
+lambeth_mueve,Lambeth Water Company,1852,la compania movio su toma rio arriba a Seething Wells (Thames Ditton),1852,anio,publicado,https://epi-snow.ph.ucla.edu/Stream3_GrandExperiment_d.html
+sv_mueve,Southwark and Vauxhall Water Company,1855-08,la compania movio su toma a Hampton,1855,anio,publicado,https://epi-snow.ph.ucla.edu/Stream3_GrandExperiment_d.html
+ley_1852,Parlamento britanico,1855-08-31,Metropolis Water Act 1852: prohibido tomar agua para uso domestico del Tamesis debajo de Teddington Lock desde esta fecha,1855,anio,publicado,https://en.wikipedia.org/wiki/Metropolis_Water_Act_1852

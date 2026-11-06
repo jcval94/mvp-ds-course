@@ -11,10 +11,10 @@
     "4.2": "https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG",
   };
   // Intro animada de cada caso (gancho de 1 minuto, pública): site/casos/<id>/.
-  const INTROS = { "1.1": "casos/1-1/", "1.2": "casos/1-2/", "1.4": "casos/1-4/", "2.3": "casos/2-3/", "4.1": "casos/4-1/", "4.2": "casos/4-2/" };
+  const INTROS = { "1.1": "casos/1-1/", "1.2": "casos/1-2/", "1.4": "casos/1-4/", "2.1": "casos/2-1/", "2.3": "casos/2-3/", "4.1": "casos/4-1/", "4.2": "casos/4-2/" };
   // Casos que se resuelven en la página, sin Colab (clases 1 a 4; docs/CASO_EN_PAGINA.md). Nunca muestran botón de Colab,
   // aunque la base traiga cuaderno_url.
-  const EN_PAGINA = { "1.1": "casos/1-1/caso.html", "1.2": "casos/1-2/caso.html", "1.4": "casos/1-4/caso.html", "2.3": "casos/2-3/caso.html" };
+  const EN_PAGINA = { "1.1": "casos/1-1/caso.html", "1.2": "casos/1-2/caso.html", "1.4": "casos/1-4/caso.html", "2.1": "casos/2-1/caso.html", "2.3": "casos/2-3/caso.html" };
   const ETIQUETAS = {
     preparacion: "Preparación", hipotesis: "Hipótesis", clinicas: "Clínicas", azar: "Azar", sospechosos: "Sospechosos",
     explicacion: "Explicación", pista: "Pista", revelacion: "Revelación", laboratorio: "Laboratorio", cierre: "Cierre",
