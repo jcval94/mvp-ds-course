@@ -1,6 +1,6 @@
 # Caso 2.1 en la página · «John Snow y el cólera» (Londres, 1854)
 
-**Estado:** propuesta de diseño del 4 nov 2026 para el autor. Sigue el patrón de `docs/CASO_EN_PAGINA.md` (modelo: 1.1,
+**Estado:** construido el 6 nov 2026 (`site/casos/2-1/`); diseño del 4 nov. Sin construir todavía: el visor del mapa con zoom y el recorte `tabla-ix` de la revelación (el caso usa un plano esquemático y enlaza el mapa en Commons). Sigue el patrón de `docs/CASO_EN_PAGINA.md` (modelo: 1.1,
 sección 6) y los recorridos de 1.2 y 1.4. Lo privado (claves de los retos, rúbricas, cifras resueltas, plan docente y el
 bloque para `casos/caso_2_1.py`) vive en `docs/casos-pagina/2-1-john-snow-privado.md` de `agentic-ds-backen`. Aquí no hay
 respuestas ni rúbricas. Nada está construido; los textos visibles los aprueba el autor.
@@ -97,7 +97,7 @@ expuestos en cada grupo.»
 | `reto_cuantas_veces` (★★★) | `sur` | número | ¿Cuántas veces más muertes por casa tuvieron las casas de Southwark & Vauxhall que las de Lambeth? | Un número con un decimal | Saca la de Lambeth igual y divide una entre otra. |
 | `reto_error_grafica` (★★) | `asistente` | opción | Compara la gráfica con la tabla. ¿Dónde está el error? | «Divide las muertes de cada fila entre las casas de todo Londres, no entre las casas de esa fila» · «El eje vertical no empieza en cero y exagera la diferencia» · «Le falta la fila de Lambeth» · «No tiene ningún error» | Recalcula una barra con la calculadora y compárala con tu columna. |
 | `reto_peor_caso` (★★★) | `segunda_prueba` | número | Supón que las 623 muertes sin averiguar fueran todas de clientes de Lambeth. ¿Cuántas veces más muertes por persona tendría todavía Southwark & Vauxhall? | Un número con un decimal | Suma las 623 a Lambeth, saca las dos tasas por personas y divide. |
-| `reto_taqueria_expuestos` (★) | `cierre` | opción | Don Juan estrenó una salsa. Esta semana, 6 clientes que la probaron y 4 que no se quejaron del estómago. ¿Qué necesita antes de culpar a la salsa? | «Cuántos clientes probaron la salsa y cuántos no» · «Nada: 6 es más que 4» · «A qué hora llegaron los que se quejaron» · «Cuánto cuesta la salsa» | ¿Contra cuántos estaban expuestos en cada grupo? |
+| `reto_taqueria_expuestos` (★) | `cierre` | opción | Don Juan estrenó una salsa. Esta semana se quejaron del estómago 6 clientes que la probaron y 4 que no la probaron. ¿Qué necesita antes de culpar a la salsa? | «Cuántos clientes probaron la salsa y cuántos no» · «Nada: 6 es más que 4» · «A qué hora llegaron los que se quejaron» · «Cuánto cuesta la salsa» | ¿Contra cuántos estaban expuestos en cada grupo? |
 
 Preguntas abiertas con los mismos nombres que 1.1: `hipotesis_razon`, `verificacion`, `firma`, `mi_decision`.
 

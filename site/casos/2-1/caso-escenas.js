@@ -36,22 +36,22 @@
     var min = o.min || 0, max = o.max, y = function (v) { return y0 - alto * (Math.max(v, min) - min) / ((max - min) || 1); };
     var s = '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="var(--tq-papel)"/>';
     s += '<text x="' + (W / 2) + '" y="16" font-size="10" text-anchor="middle" fill="var(--tq-comal-texto)" font-weight="700">' + o.titulo + '</text>';
-    [0, 0.5, 1].forEach(function (k) { var v = min + k * (max - min), yy = y(v);
+    (o.ocultar ? [] : [0, 0.5, 1]).forEach(function (k) { var v = min + k * (max - min), yy = y(v);
       s += '<line x1="' + x0 + '" y1="' + yy + '" x2="' + (W - 10) + '" y2="' + yy + '" stroke="var(--tq-papel-sombra)"/>';
       s += '<text x="' + (x0 - 4) + '" y="' + (yy + 3) + '" font-size="8" text-anchor="end" fill="var(--tq-comal-texto)">' + fmt(v, max < 10 ? 1 : 0) + '</text>'; });
     var ancho = (W - x0 - 20) / o.barras.length;
     o.barras.forEach(function (b, i) {
       var x = x0 + 10 + i * ancho, h = y0 - y(b.v);
       s += '<rect x="' + x + '" y="' + y(b.v) + '" width="' + (ancho - 20) + '" height="' + Math.max(h, 0) + '" fill="var(--tq-anil-gris)"/>';
-      s += '<text x="' + (x + (ancho - 20) / 2) + '" y="' + (y(b.v) - 4) + '" font-size="9" text-anchor="middle" fill="var(--tq-comal-texto)">' + fmt(b.v, o.decimales == null ? 1 : o.decimales) + '</text>';
+      s += '<text x="' + (x + (ancho - 20) / 2) + '" y="' + (y(b.v) - 4) + '" font-size="9" text-anchor="middle" fill="var(--tq-comal-texto)">' + (o.ocultar ? '?' : fmt(b.v, o.decimales == null ? 1 : o.decimales)) + '</text>';
       s += '<text x="' + (x + (ancho - 20) / 2) + '" y="' + (y0 + 12) + '" font-size="8" text-anchor="middle" fill="var(--tq-comal-texto)">' + b.n + '</text>';
     });
     s += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + (W - 10) + '" y2="' + y0 + '" stroke="var(--tq-comal-texto)" stroke-width="1.5"/>';
     if (o.pie) s += '<text x="' + x0 + '" y="' + (H - 6) + '" font-size="7.5" fill="var(--tq-comal-texto)">' + o.pie + '</text>';
     svg.innerHTML = s; return svg;
   }
-  /* Plano esquemático de Soho (no a escala): bombas, el asilo y la cervecería. El mapa original de Snow se muestra
-     en su lugar cuando su archivo está en medios/ (medios.json, «mapa-snow»). */
+  /* Plano esquemático de Soho (no a escala): bombas, el asilo y la cervecería. El mapa original de Snow debería
+     mostrarse en su lugar (medios.json, «mapa-snow»); pendiente: hoy el caso no lo carga y solo enlaza Commons. */
   function plano(ctx) {
     var ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg');
     svg.setAttribute('viewBox', '0 0 320 200'); svg.setAttribute('role', 'img'); svg.style.width = '100%'; svg.style.maxWidth = '560px'; svg.style.display = 'block';
@@ -61,7 +61,7 @@
     s += '<text x="200" y="68" font-size="8" fill="var(--tq-comal-texto)">BROAD STREET</text>';
     s += '<rect x="96" y="12" width="44" height="40" fill="var(--tq-papel-sombra)"/><text x="118" y="30" font-size="7" text-anchor="middle" fill="var(--tq-comal-texto)">ASILO</text><text x="118" y="40" font-size="7" text-anchor="middle" fill="var(--tq-comal-texto)">(pozo propio)</text>';
     s += '<rect x="176" y="84" width="48" height="34" fill="var(--tq-papel-sombra)"/><text x="200" y="104" font-size="7" text-anchor="middle" fill="var(--tq-comal-texto)">CERVECERÍA</text>';
-    [['Broad St.', 162, 64], ['Rupert St.', 290, 166], ['Bridle Ln.', 260, 30], ['Marlborough Mews', 30, 30], ['Warwick St.', 40, 170]].forEach(function (b, i) {
+    [['Broad St.', 162, 64], ['Rupert St.', 290, 166], ['Bridle Ln.', 180, 172], ['Marlborough St.', 30, 30], ['Warwick St.', 40, 170]].forEach(function (b, i) {
       s += '<rect x="' + (b[1] - 5) + '" y="' + (b[2] - 5) + '" width="10" height="10" fill="var(--tq-anil)"/>';
       s += '<text x="' + b[1] + '" y="' + (b[2] + (i === 0 ? -8 : 16)) + '" font-size="7" text-anchor="middle" fill="var(--tq-comal-texto)">' + b[0] + '</text>';
     });
@@ -124,7 +124,7 @@
 
       /* 3 · la calle: el plano, la libreta de Snow y dos islas que no cuadran */
       { id: 'calle', titulo: 'LA CALLE', render: function (ctx, cuerpo) {
-        ctx.p('Se despliega el plano. Snow marcó cada muerte en su casa; las bombas de agua van en azul.');
+        ctx.p('Se despliega el plano. En su mapa, Snow marcó cada muerte con una barra en su casa. Este esquema no trae las barras: solo las bombas de agua, en azul.');
         cuerpo.appendChild(plano(ctx));
         ctx.p('El mapa original de Snow (1855) se puede ver completo en <a href="https://commons.wikimedia.org/wiki/File:Snow-cholera-map-1.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.', 'nota');
         ctx.h3('LA LIBRETA DE SNOW');
@@ -281,7 +281,7 @@
         }
         pintarTabla();
         var m = ctx.el('div', 'tarjeta'); m.appendChild(ctx.el('h3', null, '¿ESTABAN MEZCLADOS?'));
-        m.appendChild(ctx.el('p', null, 'Snow escribió que las tuberías de las dos compañías pasaban por todas las calles, y que cada una abastecía a ricos y pobres, casas grandes y chicas. Nadie eligió su compañía por estar sano o enfermo.'));
+        m.appendChild(ctx.el('p', null, 'Snow escribió que las tuberías de las dos compañías pasaban por todas las calles, y que cada una abastecía a ricos y pobres, casas grandes y chicas.'));
         cuerpo.appendChild(m);
         ctx.h3('¿Y SI LAS ' + fila('t5_sin_averiguar').muertes + ' FUERAN TODAS DE UN GRUPO?');
         ctx.p('Elige a qué grupo mandarlas. La tabla suma la fila; las cuentas las haces tú.', 'nota');
@@ -362,9 +362,9 @@
           '. Snow mismo escribió que para entonces el brote había bajado tanto que no se podía saber si el pozo seguía contaminado. Su tabla suma ' + CI.bs_total_tabla1 + ' ataques mortales; de ' + sin[0].ataques + ' no se sabe la fecha.');
         var t = ctx.el('div', 'tarjeta verificado'); t.appendChild(ctx.el('h3', null, 'JOHN SNOW · VERIFICADO'));
         var dl = ctx.el('dl');
-        [['LO QUE SÍ PASÓ', 'La comparación del sur de Londres fue la prueba fuerte: dos compañías, las mismas calles y una diferencia enorme por casa. Southwark & Vauxhall mudó su toma a Hampton en agosto de ' + CI.sv_mueve + ', al vencer el plazo de la ley.'],
-         ['NO CONVENCIÓ A TODOS', 'La autoridad sanitaria siguió con la explicación del aire. Del libro de Snow se vendieron 56 de 300 ejemplares. El reverendo Henry Whitehead, que creía en el miasma, investigó con él y en 1855 encontró el primer caso del brote junto al pozo.'],
-         ['LA TABLA FAMOSA TAMBIÉN SE REVISA', 'Para el resto de Londres Snow imprimió 59 muertes por cada 10,000 casas; con sus mismas cifras salen 55.5. La comparación no cambia, pero hasta una tabla célebre se recalcula.'],
+        [['LO QUE SI PASO', 'La comparación del sur de Londres fue la prueba fuerte: dos compañías, las mismas calles y una diferencia enorme por casa. Southwark & Vauxhall mudó su toma a Hampton en agosto de ' + CI.sv_mueve + ', al vencer el plazo de la ley.'],
+         ['NO CONVENCIO A TODOS', 'La autoridad sanitaria siguió con la explicación del aire. Del libro de Snow se vendieron 56 de 300 ejemplares. El reverendo Henry Whitehead, que al principio creía en el miasma, investigó con él y en 1855 encontró el primer caso del brote junto al pozo.'],
+         ['LA TABLA FAMOSA TAMBIEN SE REVISA', 'Para el resto de Londres Snow imprimió 59 muertes por cada 10,000 casas; con sus mismas cifras salen 55.5. La comparación no cambia, pero hasta una tabla célebre se recalcula.'],
          ['LO QUE NO SE SABE', 'Cuántas personas vivían en cada casa por compañía (por eso la segunda prueba), cómo se eligió la compañía de cada casa y la cifra total del brote, que cambia según el área que se cuente.'],
          ['MITOS', 'Quitar el mango acabó con la epidemia (ya venía bajando) · Snow lo descubrió mirando el mapa (su idea del agua es anterior; el mapa la mostró) · El mapa convenció a todos (no) · Snow descubrió la bacteria (la describió Pacini en 1854 y la aisló Koch en 1883).']
         ].forEach(function (f) { var a = document.createElement('div'); a.appendChild(ctx.el('dt', 'px', f[0])); a.appendChild(ctx.el('dd', null, f[1])); dl.appendChild(a); });
@@ -383,6 +383,10 @@
         var d = ctx.datos; d.div = d.div || 'fila'; d.eje = d.eje || '0'; d.filas = d.filas || 'tres'; d.periodo = d.periodo || 'casas';
         var zona = ctx.el('div'), frase = ctx.el('p', 'frase'); frase.setAttribute('role', 'status');
         var ultimo = null, temp = null;
+        // Mientras los retos 2, 3 o 5 sigan pendientes («Lo intento después»), las gráficas con división no muestran números.
+        var pendientes = ['reto_tasa_sv', 'reto_cuantas_veces', 'reto_peor_caso'].filter(function (id) {
+          var r = ctx.S.retos[id]; return !(r && (r.acierto || r.primer_acierto || r.sinComprobar || (r.intento || r.intentos || 0) >= 5));
+        });
         function pintar() {
           var base = d.periodo === 'casas' ? T9.map(function (f) { return { id: f.id, n: NOMBRE[f.id], expuestos: f.casas, muertes: f.muertes }; })
             : [T5SV, T5L].map(function (f) { return { id: f.id.replace('t5', 't9'), n: NOMBRE[f.id], expuestos: f.personas, muertes: f.muertes }; });
@@ -390,26 +394,28 @@
           var total = base.reduce(function (s, f) { return s + f.expuestos; }, 0);
           var barras = filas.map(function (f) { return { n: f.n.replace('Southwark & Vauxhall', 'S&V'), v: d.div === 'nada' ? f.muertes : 10000 * f.muertes / (d.div === 'todo' ? total : f.expuestos) }; });
           var max = Math.max.apply(null, barras.map(function (b) { return b.v; })) * 1.15;
-          var min = d.eje === '30' ? Math.min(30, max / 2) : 0;
+          var min = d.eje === '30' ? Math.min(30, max / 2) : 0, ocultar = pendientes.length > 0 && d.div !== 'nada';
           var unidad = d.periodo === 'casas' ? 'casas' : 'personas';
           zona.innerHTML = '';
-          zona.appendChild(grafica(ctx, { titulo: d.div === 'nada' ? 'Muertes' : 'Muertes por cada 10,000 ' + unidad, barras: barras, max: max, min: min, decimales: d.div === 'nada' ? 0 : 1,
+          zona.appendChild(grafica(ctx, { titulo: d.div === 'nada' ? 'Muertes' : 'Muertes por cada 10,000 ' + unidad, barras: barras, max: max, min: min, decimales: d.div === 'nada' ? 0 : 1, ocultar: ocultar,
             pie: (d.periodo === 'casas' ? 'Snow 1855, Tabla IX: primeras siete semanas.' : 'Snow 1856, Tabla V: epidemia completa.') + (min ? ' Eje desde ' + fmt(min) + '.' : ''),
-            alt: barras.map(function (b) { return b.n + ' ' + fmt(b.v, 1); }).join(', ') + (min ? '. El eje empieza en ' + fmt(min) : '') }));
-          var t = d.div === 'nada' ? 'Cuenta muertes: gana el grupo con más ' + unidad + ', no el de más riesgo.'
-            : d.div === 'todo' ? 'Divide todo entre el mismo número: tiene la forma de los conteos aunque el título diga tasa.'
-            : 'Cada grupo entre sus propios ' + unidad + ': esta sí compara riesgos.';
-          if (min) t += ' Con el eje desde ' + fmt(min) + ', las diferencias se ven más grandes de lo que son.';
-          if (d.filas !== 'tres') t += ' Quitar una fila cambia contra qué comparas.';
+            alt: barras.map(function (b) { return b.n + (ocultar ? '' : ' ' + fmt(b.v, d.div === 'nada' ? 0 : 1)); }).join(', ') + (min ? '. El eje empieza en ' + fmt(min) : '') }));
+          var t = d.div === 'nada' ? 'Solo cuenta muertes: un grupo con más ' + unidad + ' puede quedar arriba sin tener más riesgo.'
+            : d.div === 'todo' ? 'Divide todo entre el mismo número: tiene la forma de los conteos aunque el título diga «por cada 10,000».'
+            : 'Cada grupo entre sus propias ' + unidad + ': esta sí compara riesgos.';
+          if (min && min > 0.1 * max) t += ' Con el eje desde ' + fmt(min) + ', las diferencias se ven más grandes de lo que son.';
+          else if (min) t += ' El eje empieza en ' + fmt(min) + ', pero con números tan grandes casi no cambia la forma.';
+          if (ocultar) t += ' Los números aparecen cuando resuelvas los retos pendientes de este caso.';
+          if (filas.length < base.length) t += ' Quitar una fila cambia contra qué comparas.';
           frase.textContent = t;
           var clave = [d.div, d.eje, d.filas, d.periodo].join('·');
           if (clave !== ultimo) { ultimo = clave; clearTimeout(temp); temp = setTimeout(function () { ctx.registrar('laboratorio', { div: d.div, eje: d.eje, filas: d.filas, periodo: d.periodo }); }, 10000); }
         }
         [['div', 'Qué dividir', [['nada', 'Nada'], ['fila', 'Casas o personas de cada fila'], ['todo', 'Las de todos juntos']]],
-         ['eje', 'Dónde empieza el eje', [['0', 'En 0'], ['30', 'En 30']]],
+         ['eje', 'Dónde empieza el eje', [['0', 'En 0'], ['30', 'Más arriba de 0']]],
          ['filas', 'Qué filas entran', [['tres', 'Todas'], ['sin_resto', 'Sin el resto de Londres'], ['sin_lambeth', 'Sin Lambeth']]],
          ['periodo', 'Qué datos', [['casas', 'Siete semanas, por casas'], ['personas', 'Epidemia completa, por personas']]]].forEach(function (p) {
-          ctx.h3(p[1].toUpperCase());
+          ctx.h3(p[1].normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase());
           var perilla = ctx.opciones({ lista: p[2], clave: p[0], clase: 'zonas', etiqueta: p[1], alCambiar: function (x) { if (!x[0]) { ctx.datos[p[0]] = p[2][0][0]; ctx.guardar(); perilla.poner([p[2][0][0]]); } pintar(); } });
         });
         cuerpo.appendChild(zona); cuerpo.appendChild(frase);
@@ -420,12 +426,12 @@
       /* 10 · transferir */
       { id: 'cierre', titulo: 'TU PROPIA DECISION', render: function (ctx, cuerpo) {
         ctx.h3('LA MISMA IDEA EN LA TAQUERIA');
-        cuerpo.appendChild(tabla(ctx, ['EN LA TAQUERÍA', 'EN 1854'], [
+        cuerpo.appendChild(tabla(ctx, ['EN LA TAQUERIA', 'EN 1854'], [
           ['La sucursal del centro tiene más quejas que la del norte', 'El resto de Londres tiene más muertes que cualquier compañía'],
           ['Pero el centro vende seis veces más tacos', 'Pero tiene seis veces más casas que Southwark & Vauxhall'],
           ['Quejas por cada mil pedidos, en cada sucursal', 'Muertes por cada 10,000 casas, en cada compañía']], 'La misma idea en la taquería'));
         ctx.reto({ id: 'reto_taqueria_expuestos', titulo: '★ RETO 6', dificultad: 1, tipo: 'opcion',
-          pregunta: 'Don Juan estrenó una salsa. Esta semana, 6 clientes que la probaron y 4 que no se quejaron del estómago. ¿Qué necesita antes de culpar a la salsa?',
+          pregunta: 'Don Juan estrenó una salsa. Esta semana se quejaron del estómago 6 clientes que la probaron y 4 que no la probaron. ¿Qué necesita antes de culpar a la salsa?',
           opciones: ['Cuántos clientes probaron la salsa y cuántos no', 'Nada: 6 es más que 4', 'A qué hora llegaron los que se quejaron', 'Cuánto cuesta la salsa'],
           pista: '¿Contra cuántos estaban expuestos en cada grupo?', alResponder: function () {}, alSaltar: function () {} });
         ctx.h3('MI DECISION');

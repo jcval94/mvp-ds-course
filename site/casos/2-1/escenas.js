@@ -52,8 +52,8 @@
     return s;
   }
   /* 4 · el plano: varias bombas iguales */
-  var BOMBAS = [['b1', 'Broad Street', 70, 40], ['b2', 'Rupert Street', 120, 60], ['b3', 'Bridle Lane', 104, 22],
-                ['b4', 'Marlborough Mews', 34, 22], ['b5', 'Warwick Street', 40, 62]];
+  var BOMBAS = [['b1', 'Broad Street', 70, 40], ['b2', 'Rupert Street', 120, 60], ['b3', 'Bridle Lane', 84, 66],
+                ['b4', 'Marlborough Street', 34, 22], ['b5', 'Warwick Street', 40, 62]];
   function plano() {
     var s = R(0, 0, 160, 90, 'var(--tq-papel)');
     [[0, 34, 160, 4], [0, 56, 160, 4], [26, 0, 4, 90], [62, 0, 4, 90], [98, 0, 4, 90], [130, 0, 4, 90]].forEach(function (r) { s += R(r[0], r[1], r[2], r[3], 'var(--tq-manila)'); });
@@ -72,7 +72,7 @@
     duracionIntro: '~1 min',
     duracionCaso: '~40 min',
     medios: 'medios.json',
-    herramientasOcultas: 3,
+    herramientasOcultas: 4,
     aviso: 'El caso trata sobre muertes reales por cólera en Londres en 1854. Trabajamos con conteos, no con historias personales.',
     despues: ['Abres el expediente aquí mismo, sin cambiar de página.', 'Apuestas antes de ver los datos.', 'Firmas tu decisión antes de saber qué pasó.'],
     fuentes: [
@@ -86,7 +86,7 @@
         arte: calle,
         lineas: [
           { t: 'Londres, finales de agosto de 1854.', al: function (g) { g.portada('1854', 'LONDRES', function () { g.archivo('tamesis', { lado: 'der', ms: 4200 }); }); } },
-          { t: 'En Soho no hay agua en las casas: la gente la saca de bombas en la calle.', al: function (g) { g.aparecer(g.q('fila'), 500); } }
+          { t: 'En Soho, mucha gente saca el agua de bombas en la calle.', al: function (g) { g.aparecer(g.q('fila'), 500); } }
         ] },
       { alt: 'Un cuarto con una ventana y una libreta sobre la mesa. Aparece una nube con la palabra aire.',
         arte: medico,

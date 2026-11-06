@@ -1,6 +1,6 @@
 {
   "caso": "2.1",
-  "pendiente": "Confirmar en Wikimedia Commons la ficha de cada pieza (autor, fecha y plantilla de dominio público), bajarla a medios/ en webp y cambiarla a «listo». El mapa de Snow va en el caso (sección «La calle»), no en la intro; mientras no esté, el caso muestra un plano esquemático y enlaza el mapa en Commons. Las escenas funcionan igual sin ellas.",
+  "pendiente": "Confirmar en Wikimedia Commons la ficha de cada pieza (autor, fecha y plantilla de dominio público), bajarla a medios/ en webp y cambiarla a «listo». El mapa de Snow (Commons, File:Snow-cholera-map-1.jpg, dominio público) no va aquí: medios.json es de la intro y el mapa la delataría. El caso muestra un plano esquemático y enlaza el mapa en Commons; ponerlo dentro del caso necesita un visor (pendiente). Las escenas funcionan igual sin ellas.",
   "items": [
     {
       "id": "retrato",
@@ -27,19 +27,6 @@
       "fuente": "https://wellcomecollection.org/",
       "escena": 1,
       "spoiler": "Una calle y una bomba, sin cólera, sin muertes y sin compañías de agua."
-    },
-    {
-      "id": "mapa-snow",
-      "tipo": "documento",
-      "estado": "candidato",
-      "archivo": "medios/mapa-snow.webp",
-      "alt": "Mapa de John Snow de las muertes por cólera alrededor de Broad Street, Soho, 1854.",
-      "pie": "Mapa de Snow, 2.ª edición de On the Mode of Communication of Cholera (1855)",
-      "credito": "John Snow; litografía de Charles F. Cheffins",
-      "licencia": "Dominio público",
-      "fuente": "https://commons.wikimedia.org/wiki/File:Snow-cholera-map-1.jpg",
-      "escena": 0,
-      "spoiler": "Va en el caso, no en la intro: muestra el conteo espacial que el alumno analiza."
     }
   ]
 }
