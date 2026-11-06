@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="Área del alumno de The Agentic D. Scientist: entra con Google y revisa tu avance en cada caso de Colab.">
+  <meta name="description" content="Área del alumno de The Agentic D. Scientist: entra con Google y revisa tu avance en cada caso.">
   <meta name="robots" content="noindex">
   <title>Mi avance · The Agentic D. Scientist</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -407,7 +407,7 @@
       <div>
         <p class="kicker-dark">Área del alumno · Generación 1</p>
         <h1 id="entrarTitle">Tu avance, <em>caso por caso.</em></h1>
-        <p class="lead">Entra con el Gmail con el que te inscribiste y mira qué partes de cada caso ya resolviste en Colab y cuándo vence cada entrega.</p>
+        <p class="lead">Entra con el Gmail con el que te inscribiste y mira qué partes de cada caso ya resolviste, tu práctica y cuándo vence cada entrega.</p>
         <div class="gate-actions">
           <button class="btn btn-accent" type="button" id="entrar">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/></svg>
@@ -416,8 +416,8 @@
         </div>
         <p class="fine" id="entrarNota">Usamos tu cuenta de Google solo para identificarte. Consulta el <a href="aviso-privacidad.html">aviso de privacidad</a>.</p>
         <ol class="steps">
-          <li><span class="n">1</span><span><b>Usa el mismo Gmail</b> que diste al inscribirte; es el que liga esta página con tus cuadernos.</span></li>
-          <li><span class="n">2</span><span><b>Resuelve los casos en Colab</b> con tus secretos <code>TDD_ID</code> y <code>TDD_CLAVE</code> (<a href="colab.html">cómo ponerlos</a>); cada sección se guarda sola.</span></li>
+          <li><span class="n">1</span><span><b>Usa el mismo Gmail</b> que diste al inscribirte; es el que guarda tu avance a tu nombre.</span></li>
+          <li><span class="n">2</span><span><b>Resuelve los casos aquí mismo</b>, en el sitio: cada sección se guarda sola. Colab llega en la clase 5.</span></li>
           <li><span class="n">3</span><span><b>Vuelve aquí</b> para ver tu avance y tus fechas de entrega. Solo tú y tu profesor lo ven.</span></li>
         </ol>
       </div>
@@ -454,6 +454,14 @@
           <p class="fine" id="continuarNota"></p>
         </div>
         <a class="btn btn-accent resume-btn" id="continuarBtn" target="_blank" rel="noopener">Continuar misión</a>
+      </section>
+      <section class="resume" id="practica" hidden aria-labelledby="practicaTitulo">
+        <div>
+          <p class="kicker-dark" id="practicaKicker">Práctica · 10 minutos</p>
+          <h2 id="practicaTitulo">Repasa con 5 micro-casos</h2>
+          <p class="fine" id="practicaNota">Una situación, una pregunta y la respuesta al momento, desde el celular.</p>
+        </div>
+        <a class="btn btn-accent resume-btn" id="practicaBtn" href="practica/">Practicar</a>
       </section>
       <button class="inbox-strip" type="button" id="avisoMensajes" hidden></button>
       <section class="pay" id="pago" hidden aria-live="polite"></section>
@@ -575,7 +583,8 @@
     <section class="help" id="ayuda" hidden aria-labelledby="ayudaTitle">
       <h2 id="ayudaTitle">¿No ves tu avance?</h2>
       <ul>
-        <li>En Colab, abre <b>Secretos</b> (el icono de llave) y revisa que <code>TDD_ID</code> sea tu Gmail y <code>TDD_CLAVE</code> la clave que generaste en <a href="#acceso-colab">Acceso a Colab</a> (o la que te dimos), con acceso activado para el cuaderno. <a href="colab.html">Ver el paso a paso con imágenes</a>.</li>
+        <li>En los casos del sitio, revisa que entraste con el Gmail de tu inscripción: en tu menú (arriba a la derecha) y en tu resumen aparece el correo con el que entraste.</li>
+        <li>En los cuadernos de Colab (desde la clase 5), abre <b>Secretos</b> (el icono de llave) y revisa que <code>TDD_ID</code> sea tu Gmail y <code>TDD_CLAVE</code> la clave que generaste en <a href="#acceso-colab">Acceso a Colab</a> (o la que te dimos), con acceso activado para el cuaderno. <a href="colab.html">Ver el paso a paso con imágenes</a>.</li>
         <li>Si el cuaderno dice <b>Modo invitado</b>, tu avance no se está guardando a tu nombre.</li>
         <li>Si sigue sin aparecer, escríbele a tu profesor desde <b>Mensajes</b> (arriba a la derecha) o a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a> con tu ID de alumno.</li>
       </ul>

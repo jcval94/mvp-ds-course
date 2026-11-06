@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ronda en vivo · Docente · The Agentic Data Scientist</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1b2236">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="practica.css">
+<style>
+  .app{max-width:1100px}
+  .config{display:grid;gap:14px}
+  .config label{display:grid;gap:6px;font-weight:700}
+  .config select{font:inherit;padding:12px;color:var(--tinta);background:var(--sombra);border:3px solid var(--tinta-suave)}
+  .modos{display:grid;gap:10px}
+  @media (min-width:800px){.modos{grid-template-columns:repeat(3,1fr)}}
+  .lista{max-height:420px;overflow:auto;display:grid;gap:6px;padding-right:6px}
+  .lista label{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;font-weight:400;background:var(--sombra);padding:10px}
+  .lista input{width:22px;height:22px;margin-top:2px}
+  .proyector{display:grid;gap:18px}
+  .proyector .situacion{font-size:clamp(18px,2.4vw,28px)}
+  .proyector .pregunta{font-size:clamp(22px,3.2vw,40px)}
+  .proyector .op,.proyector .parte{font-size:clamp(17px,2vw,24px)}
+  .unete{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center;background:var(--sombra);padding:12px 16px}
+  .unete b{font-family:"Press Start 2P",monospace;font-size:clamp(10px,1.4vw,14px);color:var(--comal)}
+  .controles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .conteo{font-family:"Press Start 2P",monospace;font-size:clamp(12px,1.6vw,18px)}
+  .dist{display:grid;gap:8px}
+  .dist .f{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr) auto;gap:10px;align-items:center}
+  .dist .b{height:22px;background:var(--vacio)}
+  .dist .b span{display:block;height:100%;background:var(--tinta-suave)}
+  .dist .f.ok .b span{background:var(--anil)}
+  .dist .f.ok b{color:var(--anil)}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{text-align:left;padding:8px;border-bottom:2px solid var(--vacio);vertical-align:top}
+  th{font-family:"Press Start 2P",monospace;font-size:8px;line-height:1.5;color:var(--tinta-suave)}
+  .tabla{overflow:auto}
+</style>
+</head>
+<body>
+<main class="app" id="app">
+  <div class="barra-sup">
+    <a href="../docente.html">← PANEL DOCENTE</a>
+    <button class="salir" id="salir" type="button" hidden>SALIR</button>
+  </div>
+
+  <section id="vEntrar" hidden>
+    <h1>RONDA EN VIVO</h1>
+    <p class="lead">Para docentes. Entra con tu cuenta de Google de docente.</p>
+    <button class="btn" id="entrar" type="button">ENTRAR CON GOOGLE</button>
+  </section>
+
+  <section id="vNoDocente" hidden>
+    <h1>RONDA EN VIVO</h1>
+    <p class="lead">Esta página es para docentes. Si eres alumno, entra a la <a href="./">práctica</a>.</p>
+  </section>
+
+  <section id="vConfig" class="config" hidden aria-labelledby="tConfig">
+    <h1 id="tConfig">RONDA EN VIVO</h1>
+    <p class="lead">Proyecta 5 micro-casos al inicio de la clase. El grupo contesta desde el celular en <b class="url-practica">la página de práctica</b> y tú revelas la respuesta cuando todos votaron. También sirve sin celulares, con votación a mano alzada.</p>
+    <label>Grupo <select id="grupo"></select></label>
+    <div class="modos">
+      <button class="btn" id="mCalentamiento" type="button">CALENTAMIENTO DE LA CLASE 1</button>
+      <button class="btn" id="mAuto" type="button">5 DE LO QUE YA VIO EL GRUPO</button>
+      <button class="btn sec" id="mElegir" type="button" aria-expanded="false">ELEGIR MICRO-CASOS</button>
+    </div>
+    <p class="nota">«5 de lo que ya vio el grupo» toma micro-casos de las clases que ya terminaron, empezando por lo que más le ha costado al grupo.</p>
+    <div id="elegir" hidden class="tarjeta" style="display:grid;gap:12px">
+      <label>Clase <select id="filtroClase"><option value="">Todas</option></select></label>
+      <div class="lista" id="lista"></div>
+      <button class="btn" id="iniciarElegidos" type="button" disabled>EMPEZAR CON LOS ELEGIDOS</button>
+    </div>
+    <div class="tarjeta" style="display:grid;gap:12px">
+      <h2 class="px" style="margin:0;font-size:11px;line-height:1.5">COMO VA LA PRACTICA DEL GRUPO</h2>
+      <p class="nota">Lo que menos aciertan a la primera va arriba: úsalo para la sesión de dudas.</p>
+      <div class="tabla" id="tablaMicro"></div>
+      <div class="tabla" id="tablaAlumnos"></div>
+    </div>
+  </section>
+
+  <section id="vRonda" class="proyector" hidden aria-labelledby="rPregunta">
+    <h1 class="sr">Ronda en vivo</h1>
+    <div class="unete"><span>Contesta en</span><b class="url-practica">la página de práctica</b><span class="conteo" id="rConteo" aria-live="polite"></span></div>
+    <div class="chips" id="rChips"></div>
+    <p class="situacion" id="rSituacion"></p>
+    <h2 class="pregunta" id="rPregunta"></h2>
+    <div class="zona" id="rZona"></div>
+    <div id="rResultado" hidden class="tarjeta" style="display:grid;gap:12px" aria-live="polite"></div>
+    <div class="controles">
+      <button class="btn sec" id="cAnterior" type="button">ANTERIOR</button>
+      <button class="btn" id="cRevelar" type="button">REVELAR</button>
+      <button class="btn" id="cSiguiente" type="button">SIGUIENTE</button>
+      <button class="btn sec" id="cCerrar" type="button">SALIR DE LA RONDA</button>
+    </div>
+    <p class="nota" id="rPie"></p>
+  </section>
+
+  <p class="aviso" id="error" hidden role="alert"></p>
+</main>
+<script src="../sesion.js"></script>
+<script src="practica.js"></script>
+<script src="vivo.js"></script>
+</body>
+</html>

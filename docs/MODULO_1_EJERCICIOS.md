@@ -4,22 +4,21 @@
 del 1 nov: la tarea es **como máximo 1 hora por semana** y la **calificación son los bits**. Esa regla de 1 hora reemplaza la
 propuesta de unas 4.7 horas semanales de `docs/DURACIONES.md`.
 
-## Qué existe hoy
+## Qué existe hoy (actualizado el 6 nov 2026)
+
+Decisión del 4 nov: las clases 1 a 4 se resuelven en el sitio, sin Colab; Colab entra al inicio de la clase 5.
 
 | Pieza | Clase | Estado | Qué falta |
 | --- | --- | --- | --- |
-| Calentamiento: los gatos que caen | 1 | No necesita material: se cuenta en vivo | Una lámina con la pregunta |
-| 1.1 Wald: intro y cuaderno | 1 | **Listo** (revisado para alumnos el 2 nov) | Subir a Drive la versión revisada |
-| 1.4 Puerto Rico: intro corta y cuaderno | 1 | No existe | Construirlo (encargos E-02 y B-02) |
-| Reto de la taquería | 1 | No existe | Construirlo (B-03) |
-| 1.2 Literary Digest: intro y cuaderno | 2 | No existe | Construirlo después del piloto (E-01 y B-01) |
-| 13.11 Gimli: intro corta y cuaderno | 2 | No existe | Construirlo (E-02 y B-02) |
+| Calentamiento: los gatos que caen | 1 | **Listo** como micro-caso `n01-gatos` en la ronda en vivo (`practica/vivo.html`, botón «Calentamiento de la clase 1») | Revisar el texto |
+| 1.1 Wald: intro y caso en la página | 1 | **Listo** (`casos/1-1/`) | — |
+| 1.4 Puerto Rico: intro corta y caso en la página | 1 | **Listo** (`casos/1-4/`) | 3 medios candidatos |
+| Reto de la taquería | 1 → 5 | Pasa a la clase 5 como primer cuaderno de Colab (B-03 y B-06) | — |
+| 1.2 Literary Digest: intro y caso en la página | 2 | **Listo** (`casos/1-2/`) | — |
+| 13.11 Gimli: intro corta y caso en la página | 2 | **Listo** (`casos/13-11/`, PR #85) | Foto del avión |
 | Laboratorios del Nivel 1 (alfabetización, calidad, tipos, preparación) | 1 y 2 | Listos en el sitio | — |
-| Micro-casos del Módulo 1 | Entre clases | Banco de 14 en el backend, sin plataforma | Decidir formato y construir (E-06 y B-04) |
-| Extras: 13.7 Genes y 13.9 Ariane 5 | Opcional | No existen como cuaderno; están en Expedientes como lectura | Nada antes del 8 ene |
-
-**Para el 8 de enero, lo indispensable** es Wald (ya está) y un caso principal para la clase 2. Si 1.2 no llega a tiempo, la
-clase 2 abre con Gimli y la encuesta sesgada en vivo, y 1.2 pasa a la semana siguiente.
+| Micro-casos (práctica tipo Duolingo) | Entre clases y al inicio de cada clase | **Listos**: `practica/` (alumno) y `practica/vivo.html` (docente), banco de los módulos 1 y 2 en el backend | Probar con 2 o 3 personas del piloto |
+| Extras: 13.7 Genes y 13.9 Ariane 5 | Opcional | Lectura en Expedientes | Nada antes del 8 ene |
 
 ## Revisión para alumnos (lo que se corrigió)
 
@@ -36,20 +35,20 @@ clase 2 abre con Gimli y la encuesta sesgada en vivo, y 1.2 pasa a la semana sig
 
 | Clase | Ejercicio | Min | Formato |
 | --- | --- | ---: | --- |
-| 1 · vie 8 ene | Bienvenida, Colab y elegir la decisión de «Mi decisión» | 20 | Guiado por el docente |
-| 1 | Calentamiento: los gatos que caen | 5 | Apuesta a mano alzada |
-| 1 | **1.1 Wald**, secciones 1 a 7 (apuesta, registro, error del asistente, lo que no llegó, verificación, firma, revelación) | 55 | Colab, individual |
-| 1 | **1.4 Puerto Rico** (si no está listo: Wald sección 8, el laboratorio de placas) | 30 | Colab, individual |
+| 1 · vie 8 ene | Bienvenida, Mi avance y elegir la decisión de «Mi decisión» | 20 | Guiado por el docente |
+| 1 | Calentamiento: los gatos que caen | 5 | Ronda en vivo (celular o mano alzada) |
+| 1 | **1.1 Wald**, en la página (apuesta, registro, error del asistente, lo que no llegó, verificación, firma, revelación) | 45 | Sitio, individual |
+| 1 | **1.4 Puerto Rico**, en la página | 25 | Sitio, individual |
 | 1 | Laboratorio de calidad de datos | 15 | Sitio, en parejas |
-| 1 | Transferir: taquería y piezas 1 y 2 de «Mi decisión» | 15 | Discusión y Colab |
-| 1 | Reto de la taquería | 20 | Colab |
+| 1 | Transferir: taquería y piezas 1 y 2 de «Mi decisión» | 15 | Discusión y sitio |
+| 1 | Primera práctica en vivo: 5 micro-casos de la clase (el reto de la taquería pasa a la clase 5) | 15 | Ronda en vivo |
 | 1 | Cierre: las frases del día | 10 | En vivo |
-| 2 · sáb 9 ene | **Micro-casos en vivo** (recuperación sin notas) | 10 | 5 micro-casos en pantalla, votación |
-| 2 | **1.2 Literary Digest** | 45 | Colab, individual |
+| 2 · sáb 9 ene | **Micro-casos en vivo** (recuperación sin notas) | 10 | Ronda en vivo: «5 de lo que ya vio el grupo» |
+| 2 | **1.2 Literary Digest**, en la página | 42 | Sitio, individual |
 | 2 | Encuesta sesgada en vivo y laboratorio de alfabetización | 15 | En vivo y sitio |
-| 2 | **13.11 Gimli** | 35 | Colab, individual |
+| 2 | **13.11 Vuelo 143 (Gimli)**, en la página | 30 | Sitio, individual |
 | 2 | Laboratorio de tipos de variables | 15 | Sitio, en parejas |
-| 2 | Transferir: piezas 3 y 4 de «Mi decisión» | 20 | Colab |
+| 2 | Transferir: piezas 3 y 4 de «Mi decisión» | 20 | Sitio |
 | 2 | Cierre del módulo | 30 | En vivo |
 
 (Los minutos no suman los descansos de 10 minutos de cada clase.)
@@ -61,7 +60,7 @@ del sábado 9 al viernes 15 de enero:
 
 | Tarea | Min | Por qué es obligatoria |
 | --- | ---: | --- |
-| 3 sesiones de micro-casos (5 cada una) | 30 | Repaso espaciado de los tres hábitos del módulo |
+| 3 sesiones de práctica en `practica/` (5 micro-casos cada una) | 30 | Repaso espaciado de los tres hábitos del módulo |
 | Terminar lo que no cupo en clase (el caso de costo o una pieza de «Mi decisión») | hasta 25 | El mínimo de cada clase es su caso principal; lo demás se termina aquí |
 | Revisar el correo de retroalimentación y responder si algo no quedó claro | 5 | Cierra el ciclo con el docente |
 
@@ -77,7 +76,7 @@ justa; sí aparecen en Mi avance como «Expediente extra».
 | Wald sección 8: el laboratorio de placas (si no se hizo en clase) | Cuaderno 1.1 |
 | Laboratorio de preparación básica | Sitio, Nivel 1 |
 | Lecturas de Expedientes del módulo: Ariane 5, genes de Excel, Vasa, Bolsa de Vancouver | Expedientes sin resolver |
-| Micro-casos de nivel 3 | Página de micro-casos, cuando exista |
+| Micro-casos de nivel 3 | `practica/` (suben solos de nivel con tres aciertos seguidos) |
 
 ## Micro-casos tipo Duolingo
 
@@ -100,7 +99,20 @@ el backend privado; aquí solo se describe el formato.
 **Lo que no son:** no reemplazan a los casos. El caso enseña el hábito con datos; el micro-caso lo practica en otro contexto
 para que no se olvide.
 
-### Decisiones pendientes del autor
+### Cómo quedó construido (6 nov 2026)
+
+- **Alumno:** `practica/` (learninglabs.pages.dev/practica). Sesiones de 5, seis tipos de ejercicio (elegir, verdadero o
+  falso, calcular con la calculadora 8 bits, ordenar pasos, encontrar el error en un borrador del asistente y emparejar),
+  respuesta y explicación al momento, nivel por hábito, repaso espaciado y racha de días. Mi avance muestra la tarjeta de
+  práctica y los bits de práctica en el desglose.
+- **Docente:** `practica/vivo.html`. Abre una ronda para su grupo (calentamiento de la clase 1, «5 de lo que ya vio el
+  grupo» o elegidos a mano), proyecta, ve cuántos contestaron, revela con la distribución de respuestas y pasa a la
+  siguiente. Abajo, qué micro-casos le cuestan más al grupo y cuánto practica cada alumno.
+- **Base (backend, esquema 0.15):** el banco y sus claves viven solo en la base; la página nunca las ve antes de contestar.
+- **Decisiones que se tomaron por omisión** (las propuestas de este documento): 1 bit por acierto al primer intento con tope
+  de 15 por semana; la página `practica/`; un micro-caso se abre cuando termina su clase en el calendario del grupo.
+
+### Decisiones del autor (propuestas originales; se aplicaron las tres primeras)
 
 1. **Bits de los micro-casos.** Propuesta: 1 bit por acierto al primer intento, con tope de 15 por semana, para que cuenten
    en la calificación sin que convenga repetir sesiones.

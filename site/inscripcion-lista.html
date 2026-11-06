@@ -56,8 +56,8 @@
         <p id="texto"></p>
         <ol class="pasos" id="pasos" hidden>
           <li><span>Entra a <a href="alumno.html">Mi avance</a> con Google usando el mismo Gmail con el que te inscribiste<span id="correo"></span>.</span></li>
-          <li><span>En <b>Acceso a Colab</b>, genera tu <b>TDD_CLAVE</b>. Tu <b>TDD_ID</b> es tu Gmail.</span></li>
-          <li><span>Sigue el <a href="colab.html">tutorial de Colab</a> para guardar TDD_ID y TDD_CLAVE en tus cuadernos.</span></li>
+          <li><span>Prepara tu computadora con la <a href="instalacion.html">Sesión 0</a>: unos 30 minutos, una sola vez, antes de la primera clase.</span></li>
+          <li><span>El día de la clase, la liga de Google Meet aparece en Mi avance. Los casos se resuelven en el sitio, desde ahí mismo.</span></li>
         </ol>
         <div class="acciones" id="acciones"></div>
         <p class="nota" id="nota">Te mandamos un correo con estos pasos. ¿Dudas? Escríbenos a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a>.</p>
@@ -101,7 +101,7 @@
             : d.plan === "msi"
             ? `Recibimos tu pago de ${pesos(d.monto)} MXN a 3 meses sin intereses: tu banco lo divide en tu estado de cuenta. Stripe te manda el recibo.`
             : `Recibimos tu pago de ${pesos(d.monto)} MXN; Stripe te manda el recibo.`;
-          return mostrar(`¡Bienvenida, ${d.nombre}! Tu lugar está confirmado`, `${d.grupo} empieza el ${inicio}. ${pago}`, true, [boton("Ir a Mi avance", "btn-accent", "alumno.html"), boton("Ver el tutorial de Colab", "btn-line", "colab.html")]);
+          return mostrar(`¡Hola, ${d.nombre}! Tu lugar está confirmado`, `${d.grupo} empieza el ${inicio}. ${pago}`, true, [boton("Ir a Mi avance", "btn-accent", "alumno.html"), boton("Preparar mi computadora", "btn-line", "instalacion.html")]);
         }
         if (d.estado === "esperando_pago") {
           return mostrar(`Tu lugar está apartado, ${d.nombre}`, "Stripe te dio las instrucciones para pagar en OXXO o por transferencia (también te llegan por correo). Tu lugar queda apartado mientras llega el pago; en cuanto se confirme, te mandamos los siguientes pasos.", false, [boton("Volver al inicio", "btn-line", "index.html")]);
