@@ -388,6 +388,8 @@
       reto: function (o) { return reto(o, dentroDe(o, cuerpo)); },
       calculadora: function (dentro) { return calculadora(dentro || cuerpo); }
     };
+    // Piezas comunes de los casos (piezas.js): apuesta, verificación, cierre, tablas, libreta…
+    if (window.CasoPiezas) { var piezas = window.CasoPiezas(ctx, cuerpo); Object.keys(piezas).forEach(function (k) { if (!(k in ctx)) ctx[k] = piezas[k]; }); }
     return ctx;
   }
   function dentroDe(o, cuerpo) { return o.dentro || cuerpo; }

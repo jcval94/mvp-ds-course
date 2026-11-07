@@ -9,20 +9,10 @@
   var fmt = function (n, d) { return Number(n).toLocaleString('es-MX', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); };
   var pct = function (a, b) { return fmt(100 * a / b, 1) + '%'; };
   var NO_VOLVIERON = K.digest_enviadas - K.digest_devueltas;
-  function lista(items) { var u = document.createElement('ul'); items.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; u.appendChild(li); }); return u; }
-  function tabla(cabeza, filas) {
-    var t = document.createElement('table'); t.className = 'tabla-t';
-    t.innerHTML = '<thead><tr>' + cabeza.map(function (c) { return '<th scope="col">' + c + '</th>'; }).join('') + '</tr></thead>';
-    var tb = document.createElement('tbody');
-    filas.forEach(function (f) { var tr = document.createElement('tr'); f.forEach(function (c) { var td = document.createElement('td'); td.textContent = c; tr.appendChild(td); }); tb.appendChild(tr); });
-    t.appendChild(tb); return t;
-  }
-  function libreta(ctx, cuerpo, control) {
-    var lib = ctx.el('div', 'libreta'); lib.appendChild(ctx.el('h3', null, 'TU LIBRETA')); var ul = ctx.el('ul'); lib.appendChild(ul); cuerpo.appendChild(lib);
-    var notas = ctx.controles(control).map(function (v) { return v.texto; }).filter(Boolean);
-    function pintar() { ul.innerHTML = ''; notas.forEach(function (t) { ul.appendChild(ctx.el('li', null, t)); }); if (!notas.length) ul.appendChild(ctx.el('li', 'vacia', 'Todavía no compruebas nada.')); }
-    pintar();
-    return function (accion, texto) { if (notas.indexOf(texto) < 0) { notas.push(texto); ctx.registrar(control, { accion: accion, texto: texto }); } pintar(); ctx.anunciar(texto); };
+  /* Libreta de comprobaciones: cada nota nueva se registra en el control. */
+  function libreta(ctx, control) {
+    var lib = ctx.libreta(ctx.controles(control).map(function (v) { return v.texto; }).filter(Boolean), null, 'Todavía no compruebas nada.');
+    return function (accion, texto) { if (lib.notas.indexOf(texto) < 0) ctx.registrar(control, { accion: accion, texto: texto }); lib.anotar(texto); };
   }
 
   window.CASO_PAGINA = {
@@ -31,44 +21,20 @@
 
       { id: 'preparacion', titulo: 'EL EXPEDIENTE', render: function (ctx, cuerpo) {
         ctx.p('Estás en la redacción de una revista, días antes de la elección de 1936. Llegó el expediente de su encuesta.');
-        var exp = ctx.el('div', 'expediente'); cuerpo.appendChild(exp);
-        function abrir() {
-          exp.innerHTML = '';
-          [['EL CONTEO FINAL', 'Las boletas que regresaron, por candidato.', ''], ['LA BITACORA DEL CORREO', 'Cuántas boletas se mandaron.', ''],
-           ['EL RESUMEN', 'Un asistente preparó un resumen. Todavía no lo abres.', 'borrador'], ['OTRA ENCUESTA', 'Un sobre sellado. Se abre más adelante.', '']].forEach(function (p, i) {
-            var d = ctx.el('div', 'pieza' + (p[2] ? ' borrador' : '')); d.style.setProperty('--i', i);
-            d.appendChild(ctx.el('b', null, p[0])); d.appendChild(ctx.el('p', null, p[1])); if (p[2]) d.appendChild(ctx.el('span', 'sello-mini', 'BORRADOR'));
-            exp.appendChild(d);
-          });
-          ctx.datos.abierto = true; ctx.guardar(); ctx.listo();
-        }
-        if (ctx.datos.abierto) abrir(); else { var b = ctx.boton('ABRIR EL EXPEDIENTE', function () { b.remove(); abrir(); }); }
-        var av = ctx.el('div', 'aviso'); av.innerHTML = '<b>Datos reales.</b> Las cifras se publicaron en 1936; las fuentes están al final. Un cálculo del caso es hipotético y lo dice.';
-        cuerpo.appendChild(av);
+        ctx.expediente([['EL CONTEO FINAL', 'Las boletas que regresaron, por candidato.'], ['LA BITACORA DEL CORREO', 'Cuántas boletas se mandaron.'],
+          ['EL RESUMEN', 'Un asistente preparó un resumen. Todavía no lo abres.', true], ['OTRA ENCUESTA', 'Un sobre sellado. Se abre más adelante.']]);
+        ctx.aviso('<b>Datos reales.</b> Las cifras se publicaron en 1936; las fuentes están al final. Un cálculo del caso es hipotético y lo dice.');
       } },
 
       { id: 'apuesta', titulo: 'TU APUESTA', render: function (ctx, cuerpo) {
         var pz = ctx.el('div', 'pieza'); pz.appendChild(ctx.el('b', null, 'UNA POSTAL')); pz.appendChild(ctx.el('p', null, '¿Por quién vas a votar: Roosevelt o Landon? Devuélvala por correo.')); cuerpo.appendChild(pz);
         ctx.p('Regresaron 2.4 millones de postales como esta. <b>¿Le crees a 2.4 millones de boletas?</b>');
-        var OPC = ['Sí, con tantas boletas no se equivoca', 'Sí, pero con dudas', 'Poco', 'No'];
-        var sel = ctx.opciones({ lista: OPC.map(function (o) { return [o, o]; }), clave: 'opcion', etiqueta: 'Tu apuesta', alCambiar: function (v) { anotar.disabled = !v[0]; } });
-        if (ctx.S.hip && !ctx.datos.opcion) sel.poner([ctx.S.hip]);
-        ctx.campo({ id: 'razon', etiqueta: '¿Por qué? Una o dos frases.', renglones: 3, max: 600, inicial: ctx.S.respuestas.hipotesis_razon || '' });
-        var res = ctx.el('div'), g;
-        var anotar = ctx.boton('ANOTAR MI APUESTA', function () {
-          var o = sel.valor()[0]; if (!o) return;
-          var ok = ctx.hipotesis(o, ctx.datos.razon || '');
-          res.innerHTML = ''; ctx.sello('APUESTA ANOTADA', 'Tu apuesta: ' + o.toLowerCase() + '. Al final la vas a comparar con lo que pasó.', 'comal', res);
-          ctx.marcarGuardado(g, ok); ctx.listo();
-        });
-        anotar.disabled = !sel.valor()[0];
-        cuerpo.appendChild(res); g = ctx.guardado();
-        if (ctx.S.hip) { ctx.sello('APUESTA ANOTADA', 'Tu apuesta: ' + ctx.S.hip.toLowerCase() + '.', 'comal', res); ctx.listo(); }
+        ctx.apuesta(['Sí, con tantas boletas no se equivoca', 'Sí, pero con dudas', 'Poco', 'No'], '. Al final la vas a comparar con lo que pasó.');
       } },
 
       { id: 'conteo', titulo: 'EL CONTEO', render: function (ctx, cuerpo) {
         ctx.p('El conteo final que publicó la revista el 31 de octubre de 1936:');
-        cuerpo.appendChild(tabla(['Candidato', 'Boletas'], [['Alf Landon', fmt(K.digest_landon)], ['Franklin D. Roosevelt', fmt(K.digest_roosevelt)], ['Otros', fmt(K.digest_otros)], ['Total devueltas', fmt(K.digest_devueltas)]]));
+        cuerpo.appendChild(ctx.tabla(['Candidato', 'Boletas'], [['Alf Landon', fmt(K.digest_landon)], ['Franklin D. Roosevelt', fmt(K.digest_roosevelt)], ['Otros', fmt(K.digest_otros)], ['Total devueltas', fmt(K.digest_devueltas)]]));
         ctx.p('Su pronóstico de votos electorales: Landon ' + K.digest_ve_landon + ', Roosevelt ' + K.digest_ve_roosevelt + ', de 531.');
         var barras = ctx.el('div'); cuerpo.appendChild(barras);
         var partes = ctx.controles('sacar_parte').map(function (v) { return v.quien; });
@@ -94,7 +60,7 @@
         cuerpo.appendChild(r);
         ctx.p('El resumen <b>puede tener un error</b>. Comprueba antes de usarlo.');
         var f = ctx.el('div', 'acciones'); cuerpo.appendChild(f);
-        var anotar = libreta(ctx, cuerpo, 'comprobacion');
+        var anotar = libreta(ctx, 'comprobacion');
         [['bitacora', 'LEER LA BITACORA DEL CORREO', 'Bitácora: se mandaron unos ' + fmt(K.digest_enviadas) + ' boletas por correo.'],
          ['contar', 'CONTAR LAS BOLETAS DEL CONTEO', 'El conteo suma ' + fmt(K.digest_devueltas) + ' boletas devueltas.'],
          ['landon57', 'REVISAR EL 57% DE LANDON', 'Landon entre los dos grandes: ' + fmt(K.digest_landon) + ' ÷ (' + fmt(K.digest_landon) + ' + ' + fmt(K.digest_roosevelt) + ') = ' + pct(K.digest_landon, K.digest_landon + K.digest_roosevelt) + '.'],
@@ -134,7 +100,7 @@
         var r = ctx.el('div'), nom = ctx.el('div');
         function columnas() {
           cols.innerHTML = '';
-          cols.appendChild(tabla(['Dato', 'Regresaron', 'No regresaron'], [['Boletas', fmt(K.digest_devueltas), fmt(NO_VOLVIERON)],
+          cols.appendChild(ctx.tabla(['Dato', 'Regresaron', 'No regresaron'], [['Boletas', fmt(K.digest_devueltas), fmt(NO_VOLVIERON)],
             ['Landon', pct(K.digest_landon, K.digest_devueltas), '?'], ['Roosevelt', pct(K.digest_roosevelt, K.digest_devueltas), '?']]));
           if (!r.childNodes.length) {
             r.appendChild(ctx.el('p', null, 'Cálculo hipotético: supón que toda la lista de unos ' + fmt(K.digest_enviadas) + ' vota y que solo cuentan Landon y Roosevelt.'));
@@ -151,11 +117,8 @@
         cuerpo.appendChild(r); cuerpo.appendChild(nom);
         function nombrar() {
           if (nom.childNodes.length) return;
-          var c = ctx.el('div', 'tarjeta nombre'); c.appendChild(ctx.el('h3', null, 'LO QUE ACABAS DE USAR TIENE NOMBRE'));
-          var p = ctx.el('p'); p.innerHTML = 'Los votantes son la <b>población</b>. La lista de donde salieron los nombres es el <b>marco muestral</b>. Quienes recibieron la boleta son la <b>muestra</b>. Los que no la devolvieron son la <b>no respuesta</b>, y cuando piensan distinto de los que sí contestaron hay <b>sesgo de no respuesta</b>. Más boletas no corrigen quién llega a tu tabla.';
-          c.appendChild(p);
-          var p2 = ctx.el('p', 'nota'); p2.innerHTML = 'Para practicar lo que acabas de usar: <a href="../../labs/level-1/alfabetizacion.html">Laboratorio: alfabetización de datos</a>. Es opcional y no cuenta para la calificación.'; c.appendChild(p2);
-          nom.appendChild(c);
+          ctx.nombre(['Los votantes son la <b>población</b>. La lista de donde salieron los nombres es el <b>marco muestral</b>. Quienes recibieron la boleta son la <b>muestra</b>. Los que no la devolvieron son la <b>no respuesta</b>, y cuando piensan distinto de los que sí contestaron hay <b>sesgo de no respuesta</b>. Más boletas no corrigen quién llega a tu tabla.'],
+            ['../../labs/level-1/alfabetizacion.html', 'Laboratorio: alfabetización de datos'], nom);
         }
         if (ctx.S.retos.reto_silencio) { nombrar(); ctx.listo(); } else if ((ctx.S.datos._luego || {}).reto_silencio) ctx.listo();
       } },
@@ -166,7 +129,7 @@
         pz.appendChild(ctx.el('p', null, 'Preguntó a entre unas 50 mil y 125 mil personas (las fuentes no coinciden), elegidas para parecerse a los votantes en lugar de mandar boletas a una lista.'));
         cuerpo.appendChild(pz);
         ctx.p('Al lado, el Digest: Landon con 57% entre los dos grandes. Para comparar, pon las dos encuestas en la misma escala.');
-        var anotar = libreta(ctx, cuerpo, 'comprobacion');
+        var anotar = libreta(ctx, 'comprobacion');
         var f = ctx.el('div', 'acciones'); cuerpo.appendChild(f);
         ctx.boton('VER EL TAMAÑO DE CADA ENCUESTA', function () { anotar('tamano', 'Digest: ' + fmt(K.digest_devueltas) + ' boletas contadas. Gallup: entre unas 50 mil y 125 mil personas.'); }, 'sec', f);
         ctx.boton('VER COMO ELIGIO GALLUP', function () { anotar('metodo', 'Gallup eligió a quién preguntar para parecerse a los votantes; el Digest contó lo que regresó de su lista.'); }, 'sec', f);
@@ -182,17 +145,8 @@
         ctx.p('Antes de decidir, escribe <b>qué revisaste</b> para confiar en lo que encontraste y <b>qué encontraste</b>. Busca dos comprobaciones distintas.');
         var hechas = ctx.controles('comprobacion').map(function (v) { return v.texto; }).filter(Boolean);
         var lib = ctx.el('div', 'libreta'); lib.appendChild(ctx.el('h3', null, 'LO QUE YA HICISTE'));
-        lib.appendChild(hechas.length ? lista(hechas) : ctx.el('p', 'vacia', 'Aún no hay comprobaciones en tu libreta.')); cuerpo.appendChild(lib);
-        ctx.campo({ id: 'c1', etiqueta: 'Comprobación 1: qué revisé y qué encontré', renglones: 3, max: 900, inicial: ctx.S.respuestas.verificacion || '' });
-        ctx.campo({ id: 'c2', etiqueta: 'Comprobación 2: qué revisé y qué encontré', renglones: 3, max: 900 });
-        var g;
-        ctx.boton('ANOTAR MI VERIFICACION', function () {
-          var t1 = (ctx.datos.c1 || '').trim(), t2 = (ctx.datos.c2 || '').trim();
-          if (!t1 && !t2) { g.className = 'guardado mal'; g.textContent = 'Escribe al menos una comprobación.'; return; }
-          ctx.marcarGuardado(g, ctx.responder('verificacion', t2 ? '1) ' + t1 + ' 2) ' + t2 : t1, 'verificar')); ctx.listo();
-        });
-        g = ctx.guardado();
-        if (ctx.S.respuestas.verificacion) ctx.listo();
+        lib.appendChild(hechas.length ? ctx.lista(hechas) : ctx.el('p', 'vacia', 'Aún no hay comprobaciones en tu libreta.')); cuerpo.appendChild(lib);
+        ctx.verificacion({ sinIntro: true });
       } },
 
       { id: 'firma', titulo: 'FIRMA TU DECISION', render: function (ctx, cuerpo) {
@@ -231,16 +185,12 @@
           { nombre: 'Roosevelt', color: 'var(--anil)', valores: [E[0].roosevelt_pct, E[1].roosevelt_pct], etiquetas: [E[0].roosevelt_pct + '%', E[1].roosevelt_pct + '%'] },
           { nombre: 'Landon', color: 'var(--comal)', valores: [E[0].landon_pct, E[1].landon_pct], etiquetas: [E[0].landon_pct + '%', E[1].landon_pct + '%'] }], max: 100,
           pie: 'Quienes devolvieron la boleta se inclinaban por Landon; quienes no la devolvieron, por Roosevelt (Lusinchi 2012, tabla 2).' });
-        var t = ctx.el('div', 'tarjeta verificado'); t.appendChild(ctx.el('h3', null, 'THE LITERARY DIGEST · VERIFICADO'));
-        var dl = ctx.el('dl');
-        [['LA PREGUNTA DE 1932', 'La boleta también preguntaba por quién votaste en 1932. Entre quienes respondieron, los votantes de Hoover sobraban en 43 de 48 estados, aunque Roosevelt ganó 1932 con ' + fmt(K.resultado_1932_roosevelt, 1) + '%. Era una pista que la revista tenía en la mano.'],
+        ctx.verificado('THE LITERARY DIGEST · VERIFICADO', [['LA PREGUNTA DE 1932', 'La boleta también preguntaba por quién votaste en 1932. Entre quienes respondieron, los votantes de Hoover sobraban en 43 de 48 estados, aunque Roosevelt ganó 1932 con ' + fmt(K.resultado_1932_roosevelt, 1) + '%. Era una pista que la revista tenía en la mano.'],
          ['LA DISCUSION', 'Squire (1988): la lista y la respuesta estaban sesgadas; si todos hubieran contestado, el Digest al menos habría dado el ganador. Lusinchi (2012): la mayoría de los dueños de teléfono o auto votó por Roosevelt y pesó más quién contestó. Lohr y Brick (2017): con la pregunta de 1932 se podía corregir el ganador, no el margen.'],
          ['GALLUP', 'Acertó al ganador, pero también se quedó corto con Roosevelt.'],
          ['DESPUES', 'The Literary Digest dejó de publicarse en 1938.'],
          ['LO QUE NO SABEMOS', 'Cuánto pesó cada filtro (la lista o quién contestó), el tamaño exacto de la encuesta de Gallup y el reparto por estado del conteo.'],
-         ['MITOS', 'Que solo preguntó a ricos con teléfono, que usó su lista de suscriptores, que Gallup acertó el resultado o que con más boletas habría acertado.']
-        ].forEach(function (f) { var a = document.createElement('div'); a.appendChild(ctx.el('dt', 'px', f[0])); a.appendChild(ctx.el('dd', null, f[1])); dl.appendChild(a); });
-        t.appendChild(dl); cuerpo.appendChild(t);
+         ['MITOS', 'Que solo preguntó a ricos con teléfono, que usó su lista de suscriptores, que Gallup acertó el resultado o que con más boletas habría acertado.']]);
         var m = /^Le digo al editor: (.+?)\. En una frase/.exec(ctx.S.respuestas.firma || '');
         var tu = ctx.el('div', 'tarjeta'); tu.appendChild(ctx.el('h3', null, 'TU APUESTA Y TU FIRMA'));
         tu.appendChild(ctx.el('p', null, 'Tu apuesta: ' + (ctx.S.hip || '(no la anotaste)') + '. Tu firma: ' + (m ? m[1] : '(todavía no firmas)') + '.'));
@@ -280,30 +230,14 @@
 
       { id: 'cierre', titulo: 'TU PROPIA DECISION', render: function (ctx, cuerpo) {
         ctx.h3('LA MISMA IDEA EN LA TAQUERIA');
-        cuerpo.appendChild(tabla(['En la taquería', 'En 1936'], [
+        cuerpo.appendChild(ctx.tabla(['En la taquería', 'En 1936'], [
           ['Don Juan pregunta qué tal la salsa nueva solo a quienes dejan propina', 'El Digest solo contó las boletas que regresaron'],
           ['Quien se fue sin dejar propina no opina, y quizá se fue por la salsa', 'La mayoría de las boletas no regresó'],
           ['Preguntar a uno de cada diez clientes en la caja, deje propina o no', 'Elegir a quién preguntar para parecerse a todos los votantes']]));
-        ctx.h3('MI DECISION');
-        ctx.p('¿Qué es una fila en los datos de tu decisión? <b>¿Quién no aparece?</b>');
-        ctx.campo({ id: 'mi', etiqueta: 'Mi decisión: qué es una fila y quién no aparece', renglones: 4, max: 1500, inicial: ctx.S.respuestas.mi_decision || '' });
-        var fin = ctx.el('div'), g;
-        ctx.boton('ENTREGAR Y CERRAR EL CASO', function () {
-          var texto = (ctx.datos.mi || '').trim();
-          if (!texto) { g.className = 'guardado mal'; g.textContent = 'Escribe tu pieza de Mi decisión para cerrar el caso.'; return; }
-          var ok = ctx.responder('mi_decision', texto, 'cierre'); ctx.completar(); ctx.marcarGuardado(g, ok); cerrar();
-        });
-        g = ctx.guardado(); cuerpo.appendChild(fin);
-        function cerrar() {
-          fin.innerHTML = ''; ctx.sello('CASO 1.2 RESUELTO', null, 'comal', fin);
-          var bits = Object.keys(ctx.S.retos).reduce(function (s, k) { return s + (ctx.S.retos[k].bits || 0); }, 0);
-          if (ctx.M.modo === 'alumno') fin.appendChild(ctx.el('p', null, 'Bits de este caso: ' + bits + '. Tu marcador completo está en Mi avance.'));
-          var f = ctx.el('p', 'frase'); f.innerHTML = '<b>El criterio en una frase:</b> ¿Qué falta en mis datos? Antes de contar respuestas, pregunta quién no pudo responder.'; fin.appendChild(f);
-          ctx.listo();
-        }
-        if (ctx.S.completo) cerrar();
-        var fu = document.createElement('details'); fu.className = 'mas';
-        fu.innerHTML = '<summary>Fuentes</summary><ul>' + [
+        ctx.cierre({ codigo: '1.2', pregunta: '¿Qué es una fila en los datos de tu decisión? <b>¿Quién no aparece?</b>',
+          etiqueta: 'Mi decisión: qué es una fila y quién no aparece',
+          frase: '¿Qué falta en mis datos? Antes de contar respuestas, pregunta quién no pudo responder.' });
+        ctx.desplegable('Fuentes', [
           ['https://historymatters.gmu.edu/d/5168', 'History Matters (GMU): «Landon, 1,293,669; Roosevelt, 972,897», The Literary Digest, 31 oct 1936.'],
           ['https://doi.org/10.1515/spp-2016-0006', 'Lohr y Brick (2017), Statistics, Politics and Policy 8(1).'],
           ['https://doi.org/10.1017/S014555320001035X', 'Lusinchi (2012), Social Science History 36(1).'],
@@ -311,8 +245,7 @@
           ['https://www.archives.gov/electoral-college/1936', 'National Archives: resultados del Colegio Electoral de 1936.'],
           ['https://www.presidency.ucsb.edu/statistics/elections/1936', 'The American Presidency Project: elección de 1936.'],
           ['https://en.wikipedia.org/wiki/Nationwide_opinion_polling_for_the_1936_United_States_presidential_election', 'Encuestas de 1936, incluida la de Gallup del 1 nov.']
-        ].map(function (f) { return '<li><a href="' + f[0] + '" target="_blank" rel="noopener noreferrer">' + f[1] + '</a></li>'; }).join('') + '</ul>';
-        cuerpo.appendChild(fu);
+        ]);
       } }
     ]
   };

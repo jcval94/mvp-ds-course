@@ -2,7 +2,7 @@
 // La sesión y las llamadas a Supabase viven en sesion.js (compartido con el panel docente).
 // La seguridad la pone la base: cada alumno solo ve lo suyo.
 (function () {
-  const api = TDD.api;
+  const { api, rpc } = TDD;
   const CONTACTO = "augmentedlearninglabs@gmail.com";
   // Cuadernos de cada caso en Drive. Desde el esquema 0.8 el enlace viene de la base (casos.cuaderno_url);
   // estos quedan como respaldo para bases anteriores.
@@ -430,7 +430,7 @@
     const d = $("#dlgMensajes"); if (!d.open) d.showModal();
     const lista = $("#mensajesLista"); lista.scrollTop = lista.scrollHeight;
     if (caso) $("#mensajeTexto").focus();
-    if (nuevos.size) api("/rest/v1/rpc/marcar_mensajes_leidos", { method: "POST", body: "{}" })
+    if (nuevos.size) rpc("marcar_mensajes_leidos")
       .then(() => { const t = new Date().toISOString(); M.lista.forEach((m) => { if (nuevos.has(m.id)) m.leido = t; }); pintarBuzon(); }).catch(() => {});
   }
   function pintarHilo(nuevos = new Set()) {
@@ -451,7 +451,7 @@
     const b = $("#mensajeEnviar"), nota = $("#mensajeNota"), texto = $("#mensajeTexto").value.trim(); if (!texto) return;
     b.disabled = true; nota.className = "fine"; nota.textContent = "Enviando…";
     try {
-      await api("/rest/v1/rpc/alumno_enviar_mensaje", { method: "POST", body: JSON.stringify({ p_texto: texto, p_caso: $("#mensajeTema").value || null }) });
+      await rpc("alumno_enviar_mensaje", { p_texto: texto, p_caso: $("#mensajeTema").value || null });
       $("#mensajeTexto").value = ""; await cargarMensajes(); pintarHilo(); pintarBuzon();
       const lista = $("#mensajesLista"); lista.scrollTop = lista.scrollHeight;
       nota.className = "fine"; nota.textContent = "Enviado. Te avisamos aquí cuando te respondan.";
@@ -524,10 +524,10 @@
     if (btn.disabled) return;
     btn.disabled = otra.disabled = input.disabled = true;
     try {
-      const nuevo = await api("/rest/v1/rpc/poner_alias", { method: "POST", body: JSON.stringify({ nuevo: $("#aliasInput").value }) });
+      const nuevo = await rpc("poner_alias", { nuevo: $("#aliasInput").value });
       nota.className = "fine is-ok"; nota.textContent = `Listo: en el Top 5 apareces como «${nuevo || "Participante"}».`;
       if (nuevo) $("#aliasInput").value = nuevo;
-      const m = await api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null);
+      const m = await rpc("mi_marcador").catch(() => null);
       if (m) pintarMarcador(m);
     } catch (e) {
       nota.className = "fine is-error"; nota.textContent = e.message && !/^HTTP/.test(e.message) ? e.message : "No pudimos guardar tu alias. Intenta de nuevo.";
@@ -550,17 +550,17 @@
       // Último punto de control: el evento más reciente del alumno (hora del servidor).
       api(`/rest/v1/eventos?select=caso,seccion,tipo,creado&usuario=eq.${uid}&order=creado.desc,id.desc&limit=1`).catch(() => []),
       // Rol: mi_rol (0.7) o, en bases anteriores, es_docente.
-      api("/rest/v1/rpc/mi_rol", { method: "POST", body: "{}" }).catch(() => api("/rest/v1/rpc/es_docente", { method: "POST", body: "{}" }).catch(() => false)),
+      rpc("mi_rol").catch(() => rpc("es_docente").catch(() => false)),
       // Si la base aún no tiene el esquema 0.5, el marcador simplemente no aparece.
-      api("/rest/v1/rpc/mi_marcador", { method: "POST", body: "{}" }).catch(() => null),
+      rpc("mi_marcador").catch(() => null),
       // Sus respuestas con su calificación (si ya la tiene), la más reciente primero.
       cargarRespuestas(uid).catch(() => null),
       // Fechas límite por grupo (0.7); si su grupo no tiene, cuenta la general del caso.
       api("/rest/v1/entregas_grupo?select=grupo,caso,limite").catch(() => []),
       // Clases en vivo y grabaciones de su grupo (0.10); en bases anteriores la sección no aparece.
-      api("/rest/v1/rpc/mis_clases", { method: "POST", body: "{}" }).catch(() => []),
+      rpc("mis_clases").catch(() => []),
       // Inscripción y pagos (0.12): estado de sus cuotas; en bases anteriores no aparece nada.
-      api("/rest/v1/rpc/mi_inscripcion", { method: "POST", body: "{}" }).catch(() => null),
+      rpc("mi_inscripcion").catch(() => null),
     ]);
     const docente = rolBase && typeof rolBase === "object" ? (rolBase.admin || rolBase.docente ? rolBase : false) : rolBase === true;
     const perfil = perfiles[0] || null;
@@ -576,7 +576,7 @@
     }
     soloVista("#vistaAvance"); $("#ayuda").hidden = false;
     // Práctica tipo Duolingo (0.15): racha, bits de la semana y repasos. En bases anteriores la tarjeta no aparece.
-    api("/rest/v1/rpc/mi_practica", { method: "POST", body: "{}" }).then((p) => {
+    rpc("mi_practica").then((p) => {
       if (!p) return;
       $("#practica").hidden = false;
       if (p.repasos) { $("#practicaKicker").textContent = "Práctica · tienes repaso"; $("#practicaTitulo").textContent = `${p.repasos} micro-caso${p.repasos === 1 ? "" : "s"} por repasar`; }

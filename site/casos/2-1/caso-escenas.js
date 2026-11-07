@@ -11,23 +11,8 @@
   var T9 = [fila('t9_sv'), fila('t9_lambeth'), fila('t9_resto')], T5SV = fila('t5_sv'), T5L = fila('t5_lambeth');
   var NOMBRE = { t9_sv: 'Southwark & Vauxhall', t9_lambeth: 'Lambeth', t9_resto: 'Resto de Londres', t5_sv: 'Southwark & Vauxhall', t5_lambeth: 'Lambeth' };
   var CASAS_TODAS = T9.reduce(function (s, x) { return s + x.casas; }, 0);
-  var fmt = function (n, d) { return Number(n).toLocaleString('es-MX', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); };
   var num = function (t) { var x = parseFloat(String(t || '').replace(/,(?=\d{3}\b)/g, '').replace(',', '.')); return isFinite(x) ? x : null; };
 
-  function tabla(ctx, cabeza, filas, etiqueta) {
-    var caja = ctx.el('div', 'tabla-caja'); caja.tabIndex = 0; caja.setAttribute('role', 'region'); caja.setAttribute('aria-label', etiqueta + ', desplazable');
-    var t = ctx.el('table', 'tabla');
-    t.innerHTML = '<thead><tr>' + cabeza.map(function (c) { return '<th scope="col">' + c + '</th>'; }).join('') + '</tr></thead>';
-    var tb = document.createElement('tbody');
-    filas.forEach(function (f) { var tr = document.createElement('tr'); f.forEach(function (c) { var td = document.createElement('td'); if (c && c.nodeType) td.appendChild(c); else td.textContent = c; tr.appendChild(td); }); tb.appendChild(tr); });
-    t.appendChild(tb); caja.appendChild(t); return caja;
-  }
-  function libreta(ctx, dentro, notas) {
-    var lib = ctx.el('div', 'libreta'); lib.appendChild(ctx.el('h3', null, 'TU LIBRETA')); var ul = ctx.el('ul'); lib.appendChild(ul);
-    function pintar() { ul.innerHTML = ''; notas.forEach(function (t) { ul.appendChild(ctx.el('li', null, t)); }); if (!notas.length) ul.appendChild(ctx.el('li', 'vacia', 'Todavía no anotas nada.')); }
-    dentro.appendChild(lib); pintar();
-    return { anotar: function (t) { if (notas.indexOf(t) < 0) notas.push(t); pintar(); ctx.anunciar(t); } };
-  }
   /* Barras verticales en SVG con eje que puede no empezar en cero (gráfica del asistente y laboratorio). */
   function grafica(ctx, o) {
     var ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg'), W = 320, H = 190, x0 = 40, y0 = 160, alto = 130;
@@ -38,12 +23,12 @@
     s += '<text x="' + (W / 2) + '" y="16" font-size="10" text-anchor="middle" fill="var(--tq-comal-texto)" font-weight="700">' + o.titulo + '</text>';
     (o.ocultar ? [] : [0, 0.5, 1]).forEach(function (k) { var v = min + k * (max - min), yy = y(v);
       s += '<line x1="' + x0 + '" y1="' + yy + '" x2="' + (W - 10) + '" y2="' + yy + '" stroke="var(--tq-papel-sombra)"/>';
-      s += '<text x="' + (x0 - 4) + '" y="' + (yy + 3) + '" font-size="8" text-anchor="end" fill="var(--tq-comal-texto)">' + fmt(v, max < 10 ? 1 : 0) + '</text>'; });
+      s += '<text x="' + (x0 - 4) + '" y="' + (yy + 3) + '" font-size="8" text-anchor="end" fill="var(--tq-comal-texto)">' + ctx.fmt(v, max < 10 ? 1 : 0) + '</text>'; });
     var ancho = (W - x0 - 20) / o.barras.length;
     o.barras.forEach(function (b, i) {
       var x = x0 + 10 + i * ancho, h = y0 - y(b.v);
       s += '<rect x="' + x + '" y="' + y(b.v) + '" width="' + (ancho - 20) + '" height="' + Math.max(h, 0) + '" fill="var(--tq-anil-gris)"/>';
-      s += '<text x="' + (x + (ancho - 20) / 2) + '" y="' + (y(b.v) - 4) + '" font-size="9" text-anchor="middle" fill="var(--tq-comal-texto)">' + (o.ocultar ? '?' : fmt(b.v, o.decimales == null ? 1 : o.decimales)) + '</text>';
+      s += '<text x="' + (x + (ancho - 20) / 2) + '" y="' + (y(b.v) - 4) + '" font-size="9" text-anchor="middle" fill="var(--tq-comal-texto)">' + (o.ocultar ? '?' : ctx.fmt(b.v, o.decimales == null ? 1 : o.decimales)) + '</text>';
       s += '<text x="' + (x + (ancho - 20) / 2) + '" y="' + (y0 + 12) + '" font-size="8" text-anchor="middle" fill="var(--tq-comal-texto)">' + b.n + '</text>';
     });
     s += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + (W - 10) + '" y2="' + y0 + '" stroke="var(--tq-comal-texto)" stroke-width="1.5"/>';
@@ -75,25 +60,13 @@
 
       /* 1 · el expediente */
       { id: 'preparacion', titulo: 'EL EXPEDIENTE', render: function (ctx, cuerpo) {
-        var av = ctx.el('div', 'aviso'); av.innerHTML = '<b>Aviso de contenido.</b> Este caso trata sobre muertes reales por cólera en Londres en 1854. Trabajamos con conteos, no con historias personales.';
-        cuerpo.appendChild(av);
+        ctx.aviso('<b>Aviso de contenido.</b> Este caso trata sobre muertes reales por cólera en Londres en 1854. Trabajamos con conteos, no con historias personales.');
         ctx.p('Sobre la mesa de la parroquia de St James cae un expediente. Lo armó John Snow en el otoño de 1854.');
-        var exp = ctx.el('div', 'expediente'); cuerpo.appendChild(exp);
-        function abrir() {
-          exp.innerHTML = '';
-          [['EL PLANO DE SOHO', 'Las calles del brote, con sus bombas de agua. Doblado.', ''],
-           ['LA LIBRETA DE SNOW', 'Las muertes que anotó casa por casa, cerca de cada bomba.', ''],
-           ['LA TABLA DEL SUR DE LONDRES', 'Casas y muertes del otro lado del río. Cerrada con cinta.', ''],
-           ['LA GRAFICA DEL ASISTENTE', 'Una gráfica hecha con esa tabla. Todavía no la abres.', 'borrador']].forEach(function (p, i) {
-            var d = ctx.el('div', 'pieza' + (p[2] ? ' borrador' : '')); d.style.setProperty('--i', i);
-            d.appendChild(ctx.el('b', null, p[0])); d.appendChild(ctx.el('p', null, p[1])); if (p[2]) d.appendChild(ctx.el('span', 'sello-mini', 'BORRADOR'));
-            exp.appendChild(d);
-          });
-          ctx.datos.abierto = true; ctx.guardar(); ctx.listo();
-        }
-        if (ctx.datos.abierto) abrir(); else { var b = ctx.boton('ABRIR EL EXPEDIENTE', function () { b.remove(); abrir(); }); }
-        var r = ctx.el('div', 'aviso'); r.innerHTML = '<b>Datos reales.</b> Las cifras son las que John Snow publicó en 1855 y 1856. Las fuentes están al final del caso.';
-        cuerpo.appendChild(r);
+        ctx.expediente([['EL PLANO DE SOHO', 'Las calles del brote, con sus bombas de agua. Doblado.'],
+          ['LA LIBRETA DE SNOW', 'Las muertes que anotó casa por casa, cerca de cada bomba.'],
+          ['LA TABLA DEL SUR DE LONDRES', 'Casas y muertes del otro lado del río. Cerrada con cinta.'],
+          ['LA GRAFICA DEL ASISTENTE', 'Una gráfica hecha con esa tabla. Todavía no la abres.', true]]);
+        ctx.aviso('<b>Datos reales.</b> Las cifras son las que John Snow publicó en 1855 y 1856. Las fuentes están al final del caso.');
       } },
 
       /* 2 · la apuesta, sobre una calle limpia (no es el mapa real) */
@@ -106,20 +79,7 @@
         s += '<rect x="80" y="30" width="4" height="14" fill="var(--tq-anil)"/><rect x="78" y="30" width="8" height="3" fill="var(--tq-anil)"/>';
         svg.innerHTML = s; cuerpo.appendChild(svg);
         ctx.p('<b>Si pones un punto por cada muerte y casi todos caen alrededor de esta bomba, ¿eso prueba que la culpa es del agua?</b>');
-        var OPC = ['Sí, eso lo prueba', 'Es una pista fuerte, pero falta comparar', 'No: alrededor de la bomba también vive más gente', 'No: el aire malo del barrio está en el mismo lugar'];
-        var sel = ctx.opciones({ lista: OPC.map(function (o) { return [o, o]; }), clave: 'opcion', etiqueta: 'Tu apuesta', alCambiar: function (x) { anotar.disabled = !x[0]; } });
-        if (ctx.S.hip && !ctx.datos.opcion) sel.poner([ctx.S.hip]);
-        ctx.campo({ id: 'razon', etiqueta: '¿Por qué? Una o dos frases.', renglones: 3, max: 600, inicial: ctx.S.respuestas.hipotesis_razon || '' });
-        var res = ctx.el('div'), g;
-        var anotar = ctx.boton('ANOTAR MI APUESTA', function () {
-          var o = sel.valor()[0]; if (!o) return;
-          var ok = ctx.hipotesis(o, ctx.datos.razon || '');
-          res.innerHTML = ''; ctx.sello('APUESTA ANOTADA', 'Tu apuesta: ' + o.toLowerCase() + '.', 'comal', res);
-          ctx.marcarGuardado(g, ok); ctx.listo();
-        });
-        anotar.disabled = !sel.valor()[0];
-        cuerpo.appendChild(res); g = ctx.guardado();
-        if (ctx.S.hip) { ctx.sello('APUESTA ANOTADA', 'Tu apuesta: ' + ctx.S.hip.toLowerCase() + '.', 'comal', res); ctx.listo(); }
+        ctx.apuesta(['Sí, eso lo prueba', 'Es una pista fuerte, pero falta comparar', 'No: alrededor de la bomba también vive más gente', 'No: el aire malo del barrio está en el mismo lugar']);
       } },
 
       /* 3 · la calle: el plano, la libreta de Snow y dos islas que no cuadran */
@@ -147,16 +107,16 @@
         pintarLista();
 
         ctx.h3('DOS ISLAS EN EL PLANO');
-        ctx.p('El <b>asilo de Poland Street</b> está rodeado de casas con muertes. Tenía ' + fmt(CI.asilo_internos) + ' internos y su propio pozo, y murieron ' + CI.asilo_muertes + '. La <b>cervecería</b> de Broad Street tenía más de ' + CI.cerveceria_obreros + ' obreros que tomaban cerveza, no agua, y ninguno murió.');
+        ctx.p('El <b>asilo de Poland Street</b> está rodeado de casas con muertes. Tenía ' + ctx.fmt(CI.asilo_internos) + ' internos y su propio pozo, y murieron ' + CI.asilo_muertes + '. La <b>cervecería</b> de Broad Street tenía más de ' + CI.cerveceria_obreros + ' obreros que tomaban cerveza, no agua, y ninguno murió.');
         ctx.p('<b>¿Pocas muertes porque ahí vivía poca gente, o por otra cosa?</b>');
         var notas = ctx.controles('cuenta').filter(function (x) { return x.que === 'asilo'; }).map(function (x) { return x.texto; });
-        var lib = libreta(ctx, cuerpo, notas);
+        var lib = ctx.libreta(notas);
         ctx.calculadora();
         var inp = ctx.campo({ id: 'asilo', etiqueta: 'Con la calculadora: muertes por cada 1,000 internos del asilo', renglones: 1, max: 12 });
         inp.inputMode = 'decimal';
         ctx.boton('ANOTAR EN LA LIBRETA', function () {
           var x = num(ctx.datos.asilo); if (x == null) return;
-          var t = 'Asilo de Poland Street: ' + fmt(x, 1) + ' muertes por cada 1,000 internos.';
+          var t = 'Asilo de Poland Street: ' + ctx.fmt(x, 1) + ' muertes por cada 1,000 internos.';
           ctx.registrar('cuenta', { que: 'asilo', valor: x, texto: t }); lib.anotar(t);
         }, 'sec');
         ctx.reto({ id: 'reto_mapa_deja_fuera', titulo: '★ RETO 1', dificultad: 1, tipo: 'opcion',
@@ -178,10 +138,10 @@
         var guardadas = {}; ctx.controles('tasa_fila').forEach(function (x) { guardadas[x.fila] = x.valor; });
         T9.forEach(function (f) {
           var i = ctx.el('input'); i.type = 'text'; i.inputMode = 'decimal'; i.size = 6; i.style.width = '5.5em'; i.style.maxWidth = '100%'; i.setAttribute('aria-label', 'Muertes por cada 10,000 casas de ' + NOMBRE[f.id]);
-          if (guardadas[f.id] != null) i.value = fmt(guardadas[f.id], 1);
+          if (guardadas[f.id] != null) i.value = ctx.fmt(guardadas[f.id], 1);
           entradas[f.id] = i; celdas[f.id] = i;
         });
-        cuerpo.appendChild(tabla(ctx, ['GRUPO', 'CASAS', 'MUERTES', 'POR 10,000 CASAS'], T9.map(function (f) { return [NOMBRE[f.id], fmt(f.casas), fmt(f.muertes), celdas[f.id]]; }), 'Casas y muertes por compañía'));
+        cuerpo.appendChild(ctx.tabla(['GRUPO', 'CASAS', 'MUERTES', 'POR 10,000 CASAS'], T9.map(function (f) { return [NOMBRE[f.id], ctx.fmt(f.casas), ctx.fmt(f.muertes), celdas[f.id]]; }), { caja: 'Casas y muertes por compañía' }));
         var graf = ctx.el('div'); cuerpo.appendChild(graf);
         var nota = ctx.el('p', 'nota'); nota.setAttribute('role', 'status'); cuerpo.appendChild(nota);
         function pintar() {
@@ -219,11 +179,9 @@
         cuerpo.appendChild(nom);
         function nombrar() {
           if (nom.childNodes.length) return;
-          var c = ctx.el('div', 'tarjeta nombre'); c.appendChild(ctx.el('h3', null, 'LO QUE ACABAS DE USAR TIENE NOMBRE'));
-          var a = ctx.el('p'); a.innerHTML = 'Dividir las muertes de cada grupo entre cuántos estaban expuestos (casas o personas) es una <b>tasa por población expuesta</b>. Dividir una tasa entre otra es una <b>razón de tasas</b>, también llamada riesgo relativo.';
-          var b = ctx.el('p'); b.innerHTML = 'Y cuando la vida reparte a la gente en dos grupos que nadie eligió para un estudio, pero que están mezclados en todo lo demás, se llama <b>experimento natural</b>. Un mapa o una barra de conteos no te dicen contra qué comparar: el <b>grupo de comparación</b> lo eliges tú.';
-          var l = ctx.el('p', 'nota'); l.innerHTML = 'Para practicar lo que acabas de usar: <a href="../../labs/level-2/comparacion-visual.html">Laboratorio: comparación visual</a>. Es opcional y no cuenta para la calificación.';
-          c.appendChild(a); c.appendChild(b); c.appendChild(l); nom.appendChild(c);
+          ctx.nombre(['Dividir las muertes de cada grupo entre cuántos estaban expuestos (casas o personas) es una <b>tasa por población expuesta</b>. Dividir una tasa entre otra es una <b>razón de tasas</b>, también llamada riesgo relativo.',
+            'Y cuando la vida reparte a la gente en dos grupos que nadie eligió para un estudio, pero que están mezclados en todo lo demás, se llama <b>experimento natural</b>. Un mapa o una barra de conteos no te dicen contra qué comparar: el <b>grupo de comparación</b> lo eliges tú.'],
+            ['../../labs/level-2/comparacion-visual.html', 'Laboratorio: comparación visual'], nom);
         }
         if (ctx.S.retos.reto_cuantas_veces) nombrar();
         if (ctx.S.retos.reto_cuantas_veces || (ctx.S.datos._luego || {}).reto_cuantas_veces) ctx.listo();
@@ -235,18 +193,18 @@
         var pz = ctx.el('div', 'pieza borrador'); pz.appendChild(ctx.el('b', null, 'GRAFICA DEL ASISTENTE')); pz.appendChild(ctx.el('span', 'sello-mini', 'BORRADOR'));
         var malas = T9.map(function (f) { return { n: NOMBRE[f.id].replace('Southwark & Vauxhall', 'S&V'), v: Math.round(10000 * f.muertes / CASAS_TODAS * 10) / 10 }; });
         pz.appendChild(grafica(ctx, { titulo: 'Muertes por cada 10,000 casas, julio y agosto de 1854', barras: malas, max: 50, min: 0,
-          pie: 'Fuente: Snow (1855), Tabla IX. ' + fmt(CASAS_TODAS) + ' casas.',
-          alt: 'Gráfica del asistente: Southwark & Vauxhall ' + fmt(malas[0].v, 1) + ', Lambeth ' + fmt(malas[1].v, 1) + ', resto de Londres ' + fmt(malas[2].v, 1) + '. Eje desde cero. Nota al pie: ' + fmt(CASAS_TODAS) + ' casas.' }));
+          pie: 'Fuente: Snow (1855), Tabla IX. ' + ctx.fmt(CASAS_TODAS) + ' casas.',
+          alt: 'Gráfica del asistente: Southwark & Vauxhall ' + ctx.fmt(malas[0].v, 1) + ', Lambeth ' + ctx.fmt(malas[1].v, 1) + ', resto de Londres ' + ctx.fmt(malas[2].v, 1) + '. Eje desde cero. Nota al pie: ' + ctx.fmt(CASAS_TODAS) + ' casas.' }));
         pz.appendChild(ctx.el('p', null, '«Conclusión: el resto de Londres tiene la tasa más alta. La diferencia entre las dos compañías no alcanza para culpar al agua.»'));
         cuerpo.appendChild(pz);
         ctx.h3('TU MESA DE VERIFICACION');
         var notas = ctx.controles('comprobacion').map(function (x) { return x.texto; }).filter(Boolean);
         var acc = ctx.el('div', 'acciones'); cuerpo.appendChild(acc);
-        var lib = libreta(ctx, cuerpo, notas);
+        var lib = ctx.libreta(notas);
         function anotar(a, t) { if (notas.indexOf(t) < 0) ctx.registrar('comprobacion', { accion: a, texto: t }); lib.anotar(t); }
         ctx.boton('MIRAR DONDE EMPIEZA EL EJE', function () { anotar('eje', 'Eje: empieza en 0.'); }, 'sec', acc);
         ctx.boton('CONTAR LAS FILAS', function () { anotar('filas', 'Filas: la gráfica tiene 3 barras y la tabla 3 filas.'); }, 'sec', acc);
-        ctx.boton('LEER EL TITULO Y LA NOTA', function () { anotar('nota', 'Título: «por cada 10,000 casas». Nota al pie: ' + fmt(CASAS_TODAS) + ' casas.'); }, 'sec', acc);
+        ctx.boton('LEER EL TITULO Y LA NOTA', function () { anotar('nota', 'Título: «por cada 10,000 casas». Nota al pie: ' + ctx.fmt(CASAS_TODAS) + ' casas.'); }, 'sec', acc);
         var rc = ctx.el('div', 'tarjeta'); rc.appendChild(ctx.el('h3', null, 'RECALCULAR UNA BARRA'));
         rc.appendChild(ctx.el('p', null, 'Elige una barra, recalcúlala con la calculadora y compárala con la gráfica y con tu columna.'));
         ctx.calculadora(rc);
@@ -255,7 +213,7 @@
         ctx.boton('ANOTAR MI CUENTA', function () {
           var f = eleg.valor()[0], x = num(ctx.datos.recalculo); if (!f || x == null) return;
           var m = malas[T9.map(function (y) { return y.id; }).indexOf(f)];
-          anotar('recalcular', 'Recalculé ' + NOMBRE[f] + ': me da ' + fmt(x, 1) + '; la gráfica dice ' + fmt(m.v, 1) + '.');
+          anotar('recalcular', 'Recalculé ' + NOMBRE[f] + ': me da ' + ctx.fmt(x, 1) + '; la gráfica dice ' + ctx.fmt(m.v, 1) + '.');
         }, 'sec', rc);
         cuerpo.appendChild(rc);
         ctx.reto({ id: 'reto_error_grafica', titulo: '★★ RETO 4', dificultad: 2, tipo: 'opcion',
@@ -273,11 +231,11 @@
         var caja = ctx.el('div'); cuerpo.appendChild(caja);
         function pintarTabla() {
           caja.innerHTML = '';
-          var filas = [[NOMBRE.t5_sv, fmt(T5SV.personas), fmt(T5SV.muertes + (peor === 't5_sv' ? fila('t5_sin_averiguar').muertes : 0))],
-                       [NOMBRE.t5_lambeth, fmt(T5L.personas), fmt(T5L.muertes + (peor === 't5_lambeth' ? fila('t5_sin_averiguar').muertes : 0))],
-                       ['Bombas de calle y otras fuentes', '—', fmt(fila('t5_pozos').muertes)],
-                       ['Sin averiguar', '—', peor ? '0 (sumadas a ' + NOMBRE[peor] + ')' : fmt(fila('t5_sin_averiguar').muertes)]];
-          caja.appendChild(tabla(ctx, ['GRUPO', 'PERSONAS', 'MUERTES'], filas, 'Epidemia completa por personas'));
+          var filas = [[NOMBRE.t5_sv, ctx.fmt(T5SV.personas), ctx.fmt(T5SV.muertes + (peor === 't5_sv' ? fila('t5_sin_averiguar').muertes : 0))],
+                       [NOMBRE.t5_lambeth, ctx.fmt(T5L.personas), ctx.fmt(T5L.muertes + (peor === 't5_lambeth' ? fila('t5_sin_averiguar').muertes : 0))],
+                       ['Bombas de calle y otras fuentes', '—', ctx.fmt(fila('t5_pozos').muertes)],
+                       ['Sin averiguar', '—', peor ? '0 (sumadas a ' + NOMBRE[peor] + ')' : ctx.fmt(fila('t5_sin_averiguar').muertes)]];
+          caja.appendChild(ctx.tabla(['GRUPO', 'PERSONAS', 'MUERTES'], filas, { caja: 'Epidemia completa por personas' }));
         }
         pintarTabla();
         var m = ctx.el('div', 'tarjeta'); m.appendChild(ctx.el('h3', null, '¿ESTABAN MEZCLADOS?'));
@@ -290,31 +248,20 @@
           ctx.boton(op[1], function () { peor = op[0]; ctx.registrar('peor_caso', { grupo: op[0] }); pintarTabla(); ctx.anunciar(op[0] ? 'Sumadas a ' + NOMBRE[op[0]] + '.' : 'Sin asignar.'); }, 'sec', acc);
         });
         var notas = ctx.controles('cuenta').filter(function (x) { return x.que === 'personas'; }).map(function (x) { return x.texto; });
-        var lib = libreta(ctx, cuerpo, notas);
+        var lib = ctx.libreta(notas);
         ctx.calculadora();
         var i1 = ctx.campo({ id: 'sv', etiqueta: 'Southwark & Vauxhall: muertes por cada 10,000 personas', renglones: 1, max: 12 }); i1.inputMode = 'decimal';
         var i2 = ctx.campo({ id: 'lam', etiqueta: 'Lambeth: muertes por cada 10,000 personas', renglones: 1, max: 12 }); i2.inputMode = 'decimal';
         ctx.boton('ANOTAR EN LA LIBRETA', function () {
           var a = num(ctx.datos.sv), b = num(ctx.datos.lam); if (a == null || b == null) return;
-          var t = 'Por personas' + (peor ? ' (las ' + fila('t5_sin_averiguar').muertes + ' sumadas a ' + NOMBRE[peor] + ')' : '') + ': Southwark & Vauxhall ' + fmt(a, 1) + ' y Lambeth ' + fmt(b, 1) + ' por cada 10,000.';
+          var t = 'Por personas' + (peor ? ' (las ' + fila('t5_sin_averiguar').muertes + ' sumadas a ' + NOMBRE[peor] + ')' : '') + ': Southwark & Vauxhall ' + ctx.fmt(a, 1) + ' y Lambeth ' + ctx.fmt(b, 1) + ' por cada 10,000.';
           ctx.registrar('cuenta', { que: 'personas', sv: a, lambeth: b, peor: peor, texto: t }); lib.anotar(t);
         }, 'sec');
         ctx.reto({ id: 'reto_peor_caso', titulo: '★★★ RETO 5', dificultad: 3, tipo: 'numero', etiqueta: 'Tu respuesta (veces)',
           pregunta: 'Supón que las ' + fila('t5_sin_averiguar').muertes + ' muertes sin averiguar fueran todas de clientes de Lambeth. ¿Cuántas veces más muertes por persona tendría todavía Southwark & Vauxhall?',
           pista: 'Suma las ' + fila('t5_sin_averiguar').muertes + ' a Lambeth, saca las dos tasas por personas y divide.',
           alResponder: function () {}, alSaltar: function () {} });
-        ctx.h3('VERIFICA');
-        ctx.p('Escribe qué revisaste para confiar en la comparación y qué encontraste. Busca dos comprobaciones que no salgan de la misma cuenta.');
-        ctx.campo({ id: 'c1', etiqueta: 'Comprobación 1: qué revisé y qué encontré', renglones: 3, max: 900, inicial: ctx.S.respuestas.verificacion || '' });
-        ctx.campo({ id: 'c2', etiqueta: 'Comprobación 2: qué revisé y qué encontré', renglones: 3, max: 900 });
-        var g;
-        ctx.boton('ANOTAR MI VERIFICACION', function () {
-          var t1 = (ctx.datos.c1 || '').trim(), t2 = (ctx.datos.c2 || '').trim();
-          if (!t1 && !t2) { g.className = 'guardado mal'; g.textContent = 'Escribe al menos una comprobación.'; return; }
-          ctx.marcarGuardado(g, ctx.responder('verificacion', t2 ? '1) ' + t1 + ' 2) ' + t2 : t1, 'verificar')); ctx.listo();
-        });
-        g = ctx.guardado();
-        if (ctx.S.respuestas.verificacion) ctx.listo();
+        ctx.verificacion({ texto: 'Escribe qué revisaste para confiar en la comparación y qué encontraste. Busca dos comprobaciones que no salgan de la misma cuenta.' });
       } },
 
       /* 7 · la firma */
@@ -360,15 +307,11 @@
         var pico = con.reduce(function (a, b) { return b.ataques > a.ataques ? b : a; }), dia8 = con.filter(function (x) { return x.fecha === '1854-09-08'; })[0];
         ctx.p('Snow habló con la junta de la parroquia la tarde del 7 de septiembre y pidió quitar el mango de la bomba de Broad Street; se quitó al día siguiente. Pero el máximo fue el ' + Number(pico.fecha.slice(8)) + ' de septiembre (' + pico.ataques + ' ataques mortales) y el día ' + CI.mango + ' ya eran ' + dia8.ataques +
           '. Snow mismo escribió que para entonces el brote había bajado tanto que no se podía saber si el pozo seguía contaminado. Su tabla suma ' + CI.bs_total_tabla1 + ' ataques mortales; de ' + sin[0].ataques + ' no se sabe la fecha.');
-        var t = ctx.el('div', 'tarjeta verificado'); t.appendChild(ctx.el('h3', null, 'JOHN SNOW · VERIFICADO'));
-        var dl = ctx.el('dl');
-        [['LO QUE SI PASO', 'La comparación del sur de Londres fue la prueba fuerte: dos compañías, las mismas calles y una diferencia enorme por casa. Southwark & Vauxhall mudó su toma a Hampton en agosto de ' + CI.sv_mueve + ', al vencer el plazo de la ley.'],
+        ctx.verificado('JOHN SNOW · VERIFICADO', [['LO QUE SI PASO', 'La comparación del sur de Londres fue la prueba fuerte: dos compañías, las mismas calles y una diferencia enorme por casa. Southwark & Vauxhall mudó su toma a Hampton en agosto de ' + CI.sv_mueve + ', al vencer el plazo de la ley.'],
          ['NO CONVENCIO A TODOS', 'La autoridad sanitaria siguió con la explicación del aire. Del libro de Snow se vendieron 56 de 300 ejemplares. El reverendo Henry Whitehead, que al principio creía en el miasma, investigó con él y en 1855 encontró el primer caso del brote junto al pozo.'],
          ['LA TABLA FAMOSA TAMBIEN SE REVISA', 'Para el resto de Londres Snow imprimió 59 muertes por cada 10,000 casas; con sus mismas cifras salen 55.5. La comparación no cambia, pero hasta una tabla célebre se recalcula.'],
          ['LO QUE NO SE SABE', 'Cuántas personas vivían en cada casa por compañía (por eso la segunda prueba), cómo se eligió la compañía de cada casa y la cifra total del brote, que cambia según el área que se cuente.'],
-         ['MITOS', 'Quitar el mango acabó con la epidemia (ya venía bajando) · Snow lo descubrió mirando el mapa (su idea del agua es anterior; el mapa la mostró) · El mapa convenció a todos (no) · Snow descubrió la bacteria (la describió Pacini en 1854 y la aisló Koch en 1883).']
-        ].forEach(function (f) { var a = document.createElement('div'); a.appendChild(ctx.el('dt', 'px', f[0])); a.appendChild(ctx.el('dd', null, f[1])); dl.appendChild(a); });
-        t.appendChild(dl); cuerpo.appendChild(t);
+         ['MITOS', 'Quitar el mango acabó con la epidemia (ya venía bajando) · Snow lo descubrió mirando el mapa (su idea del agua es anterior; el mapa la mostró) · El mapa convenció a todos (no) · Snow descubrió la bacteria (la describió Pacini en 1854 y la aisló Koch en 1883).']]);
         var m = /^Le recomiendo a la autoridad: (.+?)\. En una frase/.exec(ctx.S.respuestas.firma || '');
         var tu = ctx.el('div', 'tarjeta'); tu.appendChild(ctx.el('h3', null, 'TU APUESTA Y TU FIRMA'));
         tu.appendChild(ctx.el('p', null, 'Tu apuesta: ' + (ctx.S.hip || '(no la anotaste)') + '. Tu firma: ' + (m ? m[1] : '(todavía no firmas)') + '.'));
@@ -398,13 +341,13 @@
           var unidad = d.periodo === 'casas' ? 'casas' : 'personas';
           zona.innerHTML = '';
           zona.appendChild(grafica(ctx, { titulo: d.div === 'nada' ? 'Muertes' : 'Muertes por cada 10,000 ' + unidad, barras: barras, max: max, min: min, decimales: d.div === 'nada' ? 0 : 1, ocultar: ocultar,
-            pie: (d.periodo === 'casas' ? 'Snow 1855, Tabla IX: primeras siete semanas.' : 'Snow 1856, Tabla V: epidemia completa.') + (min ? ' Eje desde ' + fmt(min) + '.' : ''),
-            alt: barras.map(function (b) { return b.n + (ocultar ? '' : ' ' + fmt(b.v, d.div === 'nada' ? 0 : 1)); }).join(', ') + (min ? '. El eje empieza en ' + fmt(min) : '') }));
+            pie: (d.periodo === 'casas' ? 'Snow 1855, Tabla IX: primeras siete semanas.' : 'Snow 1856, Tabla V: epidemia completa.') + (min ? ' Eje desde ' + ctx.fmt(min) + '.' : ''),
+            alt: barras.map(function (b) { return b.n + (ocultar ? '' : ' ' + ctx.fmt(b.v, d.div === 'nada' ? 0 : 1)); }).join(', ') + (min ? '. El eje empieza en ' + ctx.fmt(min) : '') }));
           var t = d.div === 'nada' ? 'Solo cuenta muertes: un grupo con más ' + unidad + ' puede quedar arriba sin tener más riesgo.'
             : d.div === 'todo' ? 'Divide todo entre el mismo número: tiene la forma de los conteos aunque el título diga «por cada 10,000».'
             : 'Cada grupo entre sus propias ' + unidad + ': esta sí compara riesgos.';
-          if (min && min > 0.1 * max) t += ' Con el eje desde ' + fmt(min) + ', las diferencias se ven más grandes de lo que son.';
-          else if (min) t += ' El eje empieza en ' + fmt(min) + ', pero con números tan grandes casi no cambia la forma.';
+          if (min && min > 0.1 * max) t += ' Con el eje desde ' + ctx.fmt(min) + ', las diferencias se ven más grandes de lo que son.';
+          else if (min) t += ' El eje empieza en ' + ctx.fmt(min) + ', pero con números tan grandes casi no cambia la forma.';
           if (ocultar) t += ' Los números aparecen cuando resuelvas los retos pendientes de este caso.';
           if (filas.length < base.length) t += ' Quitar una fila cambia contra qué comparas.';
           frase.textContent = t;
@@ -426,42 +369,25 @@
       /* 10 · transferir */
       { id: 'cierre', titulo: 'TU PROPIA DECISION', render: function (ctx, cuerpo) {
         ctx.h3('LA MISMA IDEA EN LA TAQUERIA');
-        cuerpo.appendChild(tabla(ctx, ['EN LA TAQUERIA', 'EN 1854'], [
+        cuerpo.appendChild(ctx.tabla(['EN LA TAQUERIA', 'EN 1854'], [
           ['La sucursal del centro tiene más quejas que la del norte', 'El resto de Londres tiene más muertes que cualquier compañía'],
           ['Pero el centro vende seis veces más tacos', 'Pero tiene seis veces más casas que Southwark & Vauxhall'],
-          ['Quejas por cada mil pedidos, en cada sucursal', 'Muertes por cada 10,000 casas, en cada compañía']], 'La misma idea en la taquería'));
+          ['Quejas por cada mil pedidos, en cada sucursal', 'Muertes por cada 10,000 casas, en cada compañía']], { caja: 'La misma idea en la taquería' }));
         ctx.reto({ id: 'reto_taqueria_expuestos', titulo: '★ RETO 6', dificultad: 1, tipo: 'opcion',
           pregunta: 'Don Juan estrenó una salsa. Esta semana se quejaron del estómago 6 clientes que la probaron y 4 que no la probaron. ¿Qué necesita antes de culpar a la salsa?',
           opciones: ['Cuántos clientes probaron la salsa y cuántos no', 'Nada: 6 es más que 4', 'A qué hora llegaron los que se quejaron', 'Cuánto cuesta la salsa'],
           pista: '¿Contra cuántos estaban expuestos en cada grupo?', alResponder: function () {}, alSaltar: function () {} });
-        ctx.h3('MI DECISION');
-        ctx.p('En tu decisión, <b>¿qué dos grupos comparas? ¿Cuántos estaban expuestos en cada uno?</b>');
-        ctx.campo({ id: 'mi', etiqueta: 'Mi decisión: qué dos grupos comparo y cuántos estaban expuestos en cada uno', renglones: 4, max: 1500, inicial: ctx.S.respuestas.mi_decision || '' });
-        var fin = ctx.el('div'), g;
-        ctx.boton('ENTREGAR Y CERRAR EL CASO', function () {
-          var texto = (ctx.datos.mi || '').trim();
-          if (!texto) { g.className = 'guardado mal'; g.textContent = 'Escribe tu pieza de Mi decisión para cerrar el caso.'; return; }
-          var ok = ctx.responder('mi_decision', texto, 'cierre'); ctx.completar(); ctx.marcarGuardado(g, ok); cerrar();
-        });
-        g = ctx.guardado(); cuerpo.appendChild(fin);
-        function cerrar() {
-          fin.innerHTML = ''; ctx.sello('CASO 2.1 RESUELTO', null, 'comal', fin);
-          var bits = Object.keys(ctx.S.retos).reduce(function (s, k) { return s + (ctx.S.retos[k].bits || 0); }, 0);
-          if (ctx.M.modo === 'alumno') fin.appendChild(ctx.el('p', null, 'Bits de este caso: ' + bits + '. Tu marcador completo está en Mi avance.'));
-          var f = ctx.el('p', 'frase'); f.innerHTML = '<b>El criterio en una frase:</b> ¿Contra qué lo comparo? Antes de comparar conteos, divide entre cuántos estaban expuestos en cada grupo.'; fin.appendChild(f);
-          var s = ctx.el('p'); s.innerHTML = 'Siguiente caso de la clase: <a href="../2-3/">¿Lanzarías mañana?</a>'; fin.appendChild(s);
-          ctx.listo();
-        }
-        if (ctx.S.completo) cerrar();
-        var fu = document.createElement('details'); fu.className = 'mas';
-        fu.innerHTML = '<summary>Fuentes</summary><ul>' + [
+        ctx.cierre({ codigo: '2.1', pregunta: 'En tu decisión, <b>¿qué dos grupos comparas? ¿Cuántos estaban expuestos en cada uno?</b>',
+          etiqueta: 'Mi decisión: qué dos grupos comparo y cuántos estaban expuestos en cada uno',
+          frase: '¿Contra qué lo comparo? Antes de comparar conteos, divide entre cuántos estaban expuestos en cada grupo.',
+          siguiente: ['../2-3/', '¿Lanzarías mañana?'] });
+        ctx.desplegable('Fuentes', [
           ['https://www.gutenberg.org/ebooks/72894', 'Snow, J. (1855). On the Mode of Communication of Cholera, 2.ª ed.: Tablas I y IX, la libreta de Broad Street, el asilo y la cervecería.'],
           ['https://www.gutenberg.org/ebooks/66507', 'Snow, J. (1856). Cholera and the Water Supply in the South Districts of London in 1854: Tabla V.'],
           ['https://epi-snow.ph.ucla.edu/Stream3_GrandExperiment_d.html', 'Frerichs, R. R. John Snow (UCLA): las tomas de las compañías y el libro.'],
           ['https://doi.org/10.1016/S0140-6736(00)02442-9', 'Brody, H. y otros (2000). Map-making and myth-making in Broad Street. The Lancet 356: 64–68.'],
           ['https://data8.datascience.uchicago.edu/chapters/02/2/snow-s-grand-experiment', 'Data 8: Snow’s «Grand Experiment» (transcripción de la Tabla IX).']
-        ].map(function (f) { return '<li><a href="' + f[0] + '" target="_blank" rel="noopener noreferrer">' + f[1] + '</a></li>'; }).join('') + '</ul>';
-        cuerpo.appendChild(fu);
+        ]);
       } }
     ]
   };
