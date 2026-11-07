@@ -10,7 +10,7 @@ Decisión del 4 nov: las clases 1 a 4 se resuelven en el sitio, sin Colab; Colab
 
 | Pieza | Clase | Estado | Qué falta |
 | --- | --- | --- | --- |
-| Calentamiento: los gatos que caen | 1 | **Listo** como micro-caso `n01-gatos` en la ronda en vivo (`practica/vivo.html`, botón «Calentamiento de la clase 1») | Revisar el texto |
+| Calentamiento: los gatos que caen | 1 | **Listo** como micro-caso `n01-gatos` en la ronda en vivo (`practica/vivo.html`, botón «Calentamiento de la clase 1») | — (texto revisado el 7 nov contra Whitney y Mehlhaff, 1987, y Vnuk et al., 2004) |
 | 1.1 Wald: intro y caso en la página | 1 | **Listo** (`casos/1-1/`) | — |
 | 1.4 Puerto Rico: intro corta y caso en la página | 1 | **Listo** (`casos/1-4/`) | 3 medios candidatos |
 | Reto de la taquería | 1 → 5 | Pasa a la clase 5 como primer cuaderno de Colab (B-03 y B-06) | — |
