@@ -5,7 +5,7 @@
   "decision_question": "Los indicadores de combustible del 767 están en blanco y la carga se calculó a mano con cuentas que cuadran. ¿Cargarías y despacharías el avión con ese cálculo? ¿Qué revisarías antes de despegar y quién lo firma?",
   "naive_answer": "Sí: las multiplicaciones y la resta están bien hechas, el capitán las repasó con su computadora de vuelo y el total coincide con lo que pide el plan.",
   "ingenious_move": "Ponerle su unidad a cada número de la hoja y comparar el resultado con lo físicamente posible: el factor de la hoja convierte litros en libras, el plan está en kilos, y un litro de combustible no puede pesar más que un litro de agua.",
-  "status": "candidate",
+  "status": "verified",
   "access": "public",
   "concepts": [
     "units-of-measure",
@@ -46,35 +46,48 @@
       ]
     },
     {
-      "claim": "En Montreal, la medición con varilla dio 7,682 litros en los tanques, y el vuelo Montreal-Ottawa-Edmonton requería 22,300 kg de combustible. Se cargaron unos 4,917 litros (Williams da 4,916).",
+      "claim": "En Montreal, la primera medición con varilla dio 64 y 62 cm, que con las tablas se convirtieron en 3,924 y 3,758 litros: 7,682 litros en los tanques. El plan pedía un mínimo de 22,300 kg. La hoja dio 7,682 × 1.77 = 13,597; 22,300 − 13,597 = 8,703; 8,703 ÷ 1.77 = 4,916 litros por cargar. El cargador sugirió redondear a 5,000 y la tripulación le pidió 5,000 litros (Lockwood, pp. 41-42). El informe no dice cuántos litros se bombearon; Wikipedia da 4,917.",
       "sources": [
-        "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
-        "https://en.wikipedia.org/wiki/Gimli_Glider"
-      ]
-    },
-    {
-      "claim": "Para pasar de litros a peso se multiplicó por 1.77, que es el factor de litros a libras. El informe dice que el factor métrico de litros a kilos ronda 0.8 y que el resultado habría tenido que dividirse entre 2.2 para dar kilos.",
-      "sources": [
+        "https://archive.org/details/31761116358912",
         "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
-        "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
-        "https://en.wikipedia.org/wiki/Gimli_Glider"
+        "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf"
       ]
     },
     {
-      "claim": "Según el informe, el capitán Pearson declaró que repasó las cuentas con su computadora de vuelo Jeppesen y las encontró matemáticamente correctas, y el avión salió de cada aeropuerto con solo la mitad del combustible que la tripulación creía tener.",
+      "claim": "El cargador dio 1.77 como «specific gravity» en Montreal y 1.78 en Ottawa; ese número convierte litros en libras (Lockwood, pp. 28, 41, 43 y 80). El informe dice que el factor de litros a kilos ronda 0.8, que el manual trae .80 para el Jet A y que kilos = libras ÷ 2.2 (pp. 28 y 41).",
       "sources": [
+        "https://archive.org/details/31761116358912",
         "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf"
       ]
     },
     {
-      "claim": "Los primeros avisos (baja presión de combustible) aparecieron poco después de las 20:00, hora del centro, a 41,000 pies; el capitán desvió hacia Winnipeg y, con los dos motores apagados, a las 20:32 se dirigió a Gimli, a unas 12 millas.",
+      "claim": "La cuenta correcta según el informe: 7,682 × 1.77 ÷ 2.2 = 6,180 kg a bordo antes de cargar; 22,300 − 6,180 = 16,120 kg por cargar; 16,120 ÷ 1.77 × 2.2 = 20,036 litros, «en el área de 20,000 litros» (Lockwood, p. 42).",
       "sources": [
-        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
-        "https://en.wikipedia.org/wiki/Gimli_Glider"
+        "https://archive.org/details/31761116358912"
       ]
     },
     {
-      "claim": "El avión planeó sin motores unos 17 minutos y aterrizó en Gimli, una base militar en desuso (CFB Gimli cerró en septiembre de 1971) con una parte de la pista adaptada como pista de arrancones.",
+      "claim": "En Ottawa, la varilla dio 11,430 litros en los dos tanques; el capitán pidió la «specific gravity» del día, le dieron 1.78 y calculó «más de 20,000 'unidades de combustible'», sin decir qué representaba la cifra (Lockwood, p. 43).",
+      "sources": [
+        "https://archive.org/details/31761116358912"
+      ]
+    },
+    {
+      "claim": "Según el informe, el capitán Pearson declaró que repasó las cuentas con su computadora de vuelo Jeppesen y las encontró matemáticamente correctas (p. 41), y el avión salió de cada aeropuerto con solo la mitad del combustible que la tripulación creía tener (p. 28).",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+        "https://archive.org/details/31761116358912"
+      ]
+    },
+    {
+      "claim": "Los primeros avisos (baja presión de combustible) aparecieron poco después de las 20:00, hora del centro, a 41,000 pies (Lockwood, p. 28); con los dos motores apagados, el avión estaba a 35,000 pies, a 65 millas de Winnipeg y 45 de Gimli, y a las 20:32 se dirigió a Gimli, a unas 12 millas (p. 29).",
+      "sources": [
+        "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+        "https://archive.org/details/31761116358912"
+      ]
+    },
+    {
+      "claim": "El avión planeó sin motores unos 17 minutos (Williams 2003; Wikipedia; el informe no da la duración) y aterrizó en Gimli, una base militar en desuso (CFB Gimli cerró en septiembre de 1971) con una parte de la pista adaptada como pista de arrancones.",
       "sources": [
         "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
         "https://en.wikipedia.org/wiki/Gimli_Glider",
@@ -90,15 +103,16 @@
     }
   ],
   "uncertainties": [
-    "Las cifras línea por línea (7,682 L, 22,300 kg, 4,916 o 4,917 L, y las de Ottawa) no se encontraron en el texto del informe Lockwood que se pudo leer: la extracción del PDF del FAA se corta en la parte III. Vienen de Williams (Flight Safety Australia, 2003) y de Wikipedia. Falta ubicarlas en el informe (parte III B, pp. 38-58, o apéndices) antes de pasar a verified.",
-    "Litros cargados: 4,917 (Wikipedia) o 4,916 (Williams). La cuenta da 4,916.9.",
-    "Ottawa: Wikipedia dice que se usó 1.78 (no 1.77) con 11,430 L y que se creyó tener 20,400 kg; 11,430 × 1.78 da 20,345. El informe accesible solo menciona 1.77.",
-    "Altitud al apagarse el segundo motor: el informe dice que el avión estaba a 35,000 pies a 65 millas de Winnipeg; Williams dice 28,500 pies a 65 millas de Winnipeg cuando se apagó el motor derecho. Se usa solo lo que comparten: desde 41,000 pies y unos 17 minutos de planeo.",
-    "Los 17 minutos de planeo vienen de Williams y de Wikipedia; el texto accesible del informe no da la duración.",
+    "Los 17 minutos de planeo vienen solo de fuentes secundarias (Williams 2003; Wikipedia, que cita a Airlive.net): no aparecen en el informe Lockwood (búsqueda en el texto completo de la copia de Internet Archive).",
+    "Altitud al apagarse el segundo motor: el informe (p. 29) da 35,000 pies después de fallar los dos; Williams da 28,500 pies cuando se apagó el derecho. Se usa la cifra del informe.",
+    "Litros bombeados en Montreal: el informe da 4,916 por cargar según la hoja y 5,000 pedidos al cargador (p. 41), pero no la cantidad bombeada. Wikipedia da 4,917 (4,916.9 redondeado); no está en el informe. El caso usa 4,916.",
+    "Ottawa: el informe (p. 43) da «más de 20,000», no los 20,400 kg de Wikipedia (11,430 × 1.78 = 20,345). No da litros cargados en Ottawa.",
+    "Densidad: el informe usa .80 (manual, p. 41) y «alrededor de .8» (p. 28); el 0.803 de Wikipedia es 1.77 ÷ 2.2046. El caso usa 0.80.",
+    "Las páginas citadas son las impresas del informe; en el visor de Internet Archive son la hoja impresa + 8 (p. 41 = hoja 49), según el page_numbers.json del ítem 31761116358912.",
     "No se verificó en el informe la causa técnica de la falla del procesador de combustible ni que el 767 fuera el primer avión métrico de la flota de Air Canada (lo dice Wikipedia).",
     "Las fuentes difieren en quién hizo cada cuenta (técnicos, encargado de carga, copiloto); el caso no atribuye el error a una sola persona.",
-    "Falta la verificación independiente en otra sesión, como en wald-bombers.",
-    "Licencia de las fotos candidatas sin confirmar en Commons (las páginas de archivo no se pudieron abrir desde esta sesión)."
+    "Licencia de las fotos sin confirmar: las páginas de archivo de Wikimedia Commons no se pudieron abrir desde la sesión de verificación (4 nov 2026). La de Ted Quackenbush (LAX, 1985) es GFDL 1.2, que no sirve.",
+    "Antes de approved: revisión humana del texto en un PR que agregue el caso a casos/cases.jsonl."
   ],
   "myths_to_avoid": [
     "Los pilotos no sabían hacer cuentas. Las cuentas estaban bien hechas: el error fue el factor y la unidad, y nadie en la cadena lo detectó.",
@@ -106,10 +120,11 @@
     "Aterrizó en un aeropuerto. Aterrizó en una base militar en desuso, con una parte de la pista usada para carreras.",
     "Hubo muertos. No murió nadie.",
     "La falla de los indicadores causó el accidente. Quitó una comprobación, pero el combustible faltó por el cálculo y por despachar el avión contra la MEL.",
-    "1.77 es la densidad del combustible. Es un factor de litros a libras; en kilos, un litro de combustible pesa alrededor de 0.8."
+    "1.77 es la densidad del combustible. Es un factor de litros a libras; en kilos, un litro de combustible pesa alrededor de 0.8 (el manual de la empresa decía .80 para el Jet A)."
   ],
   "sources": [
     "https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf",
+    "https://archive.org/details/31761116358912",
     "https://www.bu.edu/gk12/kai/Lesson%201/Gimli_Glider.pdf",
     "https://en.wikipedia.org/wiki/Gimli_Glider",
     "https://cdn.aviation-safety.net/wikibase/327590",
@@ -119,9 +134,9 @@
   "dataset": {
     "kind": "real",
     "path": "casos/data/gimli-glider-1983/cifras.csv",
-    "provenance": "Cifras publicadas, transcritas a mano el 4 nov 2026 de Williams (2003), Wikipedia y el informe Lockwood (1985), con fuente por fila. No es el documento original de carga; no trae resultados derivados.",
+    "provenance": "Cifras publicadas, transcritas a mano el 4 nov 2026; las del cálculo, verificadas el mismo día contra el informe Lockwood (1985, copia de Internet Archive), con fuente y página por fila. No es el documento original de carga; no trae resultados derivados.",
     "license": "CC0-1.0",
-    "sha256": "d7fb6150394e3cc339d80b972d7db6c8c60dd962d855b547c7dfd4b0f891924b"
+    "sha256": "3908e702150619d952313d7e79989d7fc0cfe48324433288611fef88d7b87daa"
   },
   "story_bridge": "El proveedor manda la carne en libras y la receta de la taquería está en kilos: la cuenta puede estar bien hecha y el pedido salir a la mitad.",
   "analogy_limits": "La hoja de carga que ve el alumno es una reconstrucción visual con cifras reales; el resumen del asistente es un error plantado para el ejercicio, no un documento histórico."
