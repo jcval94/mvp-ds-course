@@ -498,10 +498,13 @@
       if (i === nivel) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current");
     });
     // Mezcla de bits
-    const d = m.desglose || {}; const total = PARTES.reduce((s, [k]) => s + (d[k] || 0), 0);
+    const d = m.desglose || {};
+    // «Práctica» existe desde el esquema 0.15: con una base anterior no se muestra.
+    const partes = PARTES.filter(([k]) => k !== "practica" || d.practica != null);
+    const total = partes.reduce((s, [k]) => s + (d[k] || 0), 0);
     const mix = $("#mezcla"), ley = $("#leyenda"); mix.replaceChildren(); ley.replaceChildren();
-    mix.setAttribute("aria-label", PARTES.map(([k, n]) => `${n}: ${d[k] || 0}`).join(", "));
-    PARTES.forEach(([k, n]) => {
+    mix.setAttribute("aria-label", partes.map(([k, n]) => `${n}: ${d[k] || 0}`).join(", "));
+    partes.forEach(([k, n]) => {
       const v = d[k] || 0; if (total && v) { const i = el("i", `k-${k}`); i.style.width = `${(v / total) * 100}%`; mix.append(i); }
       const li = el("li"); li.append(el("i", `k-${k}`), document.createTextNode(`${n} `), el("b", null, String(v))); ley.append(li);
     });
