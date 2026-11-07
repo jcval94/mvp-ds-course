@@ -17,16 +17,9 @@
     ['Faltan', fmt(PLAN) + ' − ' + fmt(EN_TANQUE) + ' = ' + fmt(FALTAN)],
     ['Litros a cargar', fmt(FALTAN) + ' ÷ ' + fmt(F, 2) + ' = ' + fmt(CARGA)]];
 
-  function tabla(cabeza, filas, cls) {
-    var t = document.createElement('table'); t.className = cls || 'tabla-t';
-    t.innerHTML = '<thead><tr>' + cabeza.map(function (c) { return '<th scope="col">' + c + '</th>'; }).join('') + '</tr></thead>';
-    var tb = document.createElement('tbody');
-    filas.forEach(function (f) { var tr = document.createElement('tr'); f.forEach(function (c) { var td = document.createElement('td'); if (c && c.nodeType) td.appendChild(c); else td.textContent = c; tr.appendChild(td); }); tb.appendChild(tr); });
-    t.appendChild(tb); return t;
-  }
   function hoja(ctx, filas) {
     var pz = ctx.el('div', 'pieza'); pz.appendChild(ctx.el('b', null, 'HOJA DE CARGA · MONTREAL · VUELO 143'));
-    pz.appendChild(tabla(['Línea', 'Cuenta'], filas)); return pz;
+    pz.appendChild(ctx.tabla(['Línea', 'Cuenta'], filas)); return pz;
   }
   /* Tanque en pixeles (decorativo): se llena hasta la marca de la hoja. */
   function tanque(ctx, rotulo) {
@@ -65,42 +58,18 @@
 
       { id: 'preparacion', titulo: 'EL EXPEDIENTE', render: function (ctx, cuerpo) {
         ctx.p('Estás en la plataforma de Montreal, antes de la salida del vuelo 143 a Ottawa y a Edmonton. Llegó el expediente.');
-        var exp = ctx.el('div', 'expediente'); cuerpo.appendChild(exp);
-        function abrir() {
-          exp.innerHTML = '';
-          [['EL PLAN DE VUELO', 'Montreal-Ottawa-Edmonton. Pide un mínimo de ' + fmt(PLAN) + ' kg de combustible.', ''],
-           ['LA NOTA DE MANTENIMIENTO', 'Los indicadores de combustible de la cabina están en blanco: se mide a mano, con una varilla.', ''],
-           ['LA HOJA DE CARGA', 'Las cuentas de cuánto cargar. Cerrada.', ''],
-           ['EL VISTO BUENO DEL ASISTENTE', 'Una revisión de la hoja. Todavía no la abres.', 'borrador']].forEach(function (p, i) {
-            var d = ctx.el('div', 'pieza' + (p[2] ? ' borrador' : '')); d.style.setProperty('--i', i);
-            d.appendChild(ctx.el('b', null, p[0])); d.appendChild(ctx.el('p', null, p[1])); if (p[2]) d.appendChild(ctx.el('span', 'sello-mini', 'BORRADOR'));
-            exp.appendChild(d);
-          });
-          ctx.datos.abierto = true; ctx.guardar(); ctx.listo();
-        }
-        if (ctx.datos.abierto) abrir(); else { var b = ctx.boton('ABRIR EL EXPEDIENTE', function () { b.remove(); abrir(); }); }
-        var r = ctx.el('div', 'aviso'); r.innerHTML = '<b>Cifras reales.</b> Vienen del informe de la investigación (Lockwood, 1985). La hoja de carga es una reconstrucción con esas cifras.';
-        cuerpo.appendChild(r);
+        ctx.expediente([['EL PLAN DE VUELO', 'Montreal-Ottawa-Edmonton. Pide un mínimo de ' + fmt(PLAN) + ' kg de combustible.'],
+          ['LA NOTA DE MANTENIMIENTO', 'Los indicadores de combustible de la cabina están en blanco: se mide a mano, con una varilla.'],
+          ['LA HOJA DE CARGA', 'Las cuentas de cuánto cargar. Cerrada.'],
+          ['EL VISTO BUENO DEL ASISTENTE', 'Una revisión de la hoja. Todavía no la abres.', true]]);
+        ctx.aviso('<b>Cifras reales.</b> Vienen del informe de la investigación (Lockwood, 1985). La hoja de carga es una reconstrucción con esas cifras.');
       } },
 
       { id: 'apuesta', titulo: 'TU APUESTA', render: function (ctx, cuerpo) {
         ctx.p('Se abre la hoja de carga tal como se llenó. Como en la original, las cuentas no llevan unidades.');
         cuerpo.appendChild(hoja(ctx, HOJA));
         ctx.p('<b>¿Cargarías el avión con este cálculo?</b>');
-        var OPC = ['Sí, lo cargaría', 'No lo cargaría', 'Lo cargaría después de revisar algo', 'No sé'];
-        var sel = ctx.opciones({ lista: OPC.map(function (o) { return [o, o]; }), clave: 'opcion', etiqueta: 'Tu apuesta', alCambiar: function (x) { anotar.disabled = !x[0]; } });
-        if (ctx.S.hip && !ctx.datos.opcion) sel.poner([ctx.S.hip]);
-        ctx.campo({ id: 'razon', etiqueta: '¿Por qué? Una o dos frases.', renglones: 3, max: 600, inicial: ctx.S.respuestas.hipotesis_razon || '' });
-        var res = ctx.el('div'), g;
-        var anotar = ctx.boton('ANOTAR MI APUESTA', function () {
-          var o = sel.valor()[0]; if (!o) return;
-          var ok = ctx.hipotesis(o, ctx.datos.razon || '');
-          res.innerHTML = ''; ctx.sello('APUESTA ANOTADA', 'Tu apuesta: ' + o.toLowerCase() + '.', 'comal', res);
-          ctx.marcarGuardado(g, ok); ctx.listo();
-        });
-        anotar.disabled = !sel.valor()[0];
-        cuerpo.appendChild(res); g = ctx.guardado();
-        if (ctx.S.hip) { ctx.sello('APUESTA ANOTADA', 'Tu apuesta: ' + ctx.S.hip.toLowerCase() + '.', 'comal', res); ctx.listo(); }
+        ctx.apuesta(['Sí, lo cargaría', 'No lo cargaría', 'Lo cargaría después de revisar algo', 'No sé']);
       } },
 
       { id: 'cuentas', titulo: 'LAS CUENTAS', render: function (ctx, cuerpo) {
@@ -118,7 +87,7 @@
           return [HOJA[p[0]][0], HOJA[p[0]][1], celda];
         });
         var pz = ctx.el('div', 'pieza'); pz.appendChild(ctx.el('b', null, 'LA HOJA, LINEA POR LINEA'));
-        pz.appendChild(tabla(['Línea', 'Cuenta', '¿Cuadra?'], filas)); cuerpo.appendChild(pz);
+        pz.appendChild(ctx.tabla(['Línea', 'Cuenta', '¿Cuadra?'], filas)); cuerpo.appendChild(pz);
         ctx.calculadora();
         ctx.p('El camión cisterna carga los litros de la hoja. El tanque llega a la marca.', 'nota');
         cuerpo.appendChild(tanque(ctx, 'LA HOJA'));
@@ -138,10 +107,8 @@
         cuerpo.appendChild(pz);
 
         ctx.h3('TU MESA DE VERIFICACION');
-        var lib = ctx.el('div', 'libreta'); lib.appendChild(ctx.el('h3', null, 'TU LIBRETA')); var ul = ctx.el('ul'); lib.appendChild(ul);
-        var notas = ctx.controles('comprobacion').map(function (x) { return x.texto; }).filter(Boolean);
-        function pintarLib() { ul.innerHTML = ''; notas.forEach(function (t) { ul.appendChild(ctx.el('li', null, t)); }); if (!notas.length) ul.appendChild(ctx.el('li', 'vacia', 'Todavía no compruebas nada.')); }
-        function anotar(a, t) { if (notas.indexOf(t) < 0) { notas.push(t); ctx.registrar('comprobacion', { accion: a, texto: t }); } pintarLib(); ctx.anunciar(t); }
+        var lib;
+        function anotar(a, t) { if (lib.notas.indexOf(t) < 0) ctx.registrar('comprobacion', { accion: a, texto: t }); lib.anotar(t); }
 
         /* 1 · etiquetas: una unidad para cada número (no califica) */
         var et = ctx.el('div', 'tarjeta'); et.appendChild(ctx.el('h3', null, 'ETIQUETAS'));
@@ -181,7 +148,7 @@
           anotar('bascula', 'Báscula: según el visto bueno, un litro pesaría ' + fmt(x, 3) + ' kg.');
         }, 'sec', ba);
         cuerpo.appendChild(ba);
-        cuerpo.appendChild(lib); pintarLib();
+        lib = ctx.libreta(ctx.controles('comprobacion').map(function (x) { return x.texto; }).filter(Boolean), null, 'Todavía no compruebas nada.');
 
         ctx.reto({ id: 'reto_error_factor', titulo: '★★ RETO 2', dificultad: 2, tipo: 'opcion',
           pregunta: '¿Dónde está el error del visto bueno?',
@@ -215,23 +182,11 @@
         cuerpo.appendChild(nom);
         function nombrar() {
           if (nom.childNodes.length) return;
-          var t = ctx.el('div', 'tarjeta nombre'); t.appendChild(ctx.el('h3', null, 'LO QUE ACABAS DE USAR TIENE NOMBRE'));
-          var p1 = ctx.el('p'); p1.innerHTML = 'Le pusiste su unidad a cada número y descubriste que el 1.77 convierte litros en <b>libras</b>, no en kilos: son las <b>unidades y el factor de conversión</b>. Un factor solo convierte la unidad que dice.';
-          var p2 = ctx.el('p'); p2.innerHTML = 'Y comparaste lo que pesaría un litro con lo que es posible: eso es <b>validar rangos</b>. Antes de creer un resultado, compáralo con lo que puede pasar en el mundo.';
-          var p3 = ctx.el('p', 'nota'); p3.innerHTML = 'Para practicar lo que acabas de usar: <a href="../../labs/level-1/tipos-variables.html">Laboratorio: tipos de variables</a>. Es opcional y no cuenta para la calificación.';
-          t.appendChild(p1); t.appendChild(p2); t.appendChild(p3); nom.appendChild(t);
+          ctx.nombre(['Le pusiste su unidad a cada número y descubriste que el 1.77 convierte litros en <b>libras</b>, no en kilos: son las <b>unidades y el factor de conversión</b>. Un factor solo convierte la unidad que dice.',
+            'Y comparaste lo que pesaría un litro con lo que es posible: eso es <b>validar rangos</b>. Antes de creer un resultado, compáralo con lo que puede pasar en el mundo.'],
+            ['../../labs/level-1/tipos-variables.html', 'Laboratorio: tipos de variables'], nom);
           var vf = ctx.el('div'); nom.appendChild(vf);
-          vf.appendChild(ctx.el('h3', null, 'VERIFICA'));
-          vf.appendChild(ctx.el('p', null, 'Escribe qué revisaste para confiar en tu cifra y qué encontraste. Busca dos comprobaciones que no salgan de la misma hoja.'));
-          ctx.campo({ id: 'c1', etiqueta: 'Comprobación 1: qué revisé y qué encontré', renglones: 3, max: 900, inicial: ctx.S.respuestas.verificacion || '', dentro: vf });
-          ctx.campo({ id: 'c2', etiqueta: 'Comprobación 2: qué revisé y qué encontré', renglones: 3, max: 900, dentro: vf });
-          var g;
-          ctx.boton('ANOTAR MI VERIFICACION', function () {
-            var t1 = (ctx.datos.c1 || '').trim(), t2 = (ctx.datos.c2 || '').trim();
-            if (!t1 && !t2) { g.className = 'guardado mal'; g.textContent = 'Escribe al menos una comprobación.'; return; }
-            ctx.marcarGuardado(g, ctx.responder('verificacion', t2 ? '1) ' + t1 + ' 2) ' + t2 : t1, 'verificar')); ctx.listo();
-          }, '', vf);
-          g = ctx.guardado(vf);
+          ctx.verificacion({ dentro: vf, texto: 'Escribe qué revisaste para confiar en tu cifra y qué encontraste. Busca dos comprobaciones que no salgan de la misma hoja.' });
         }
         if (ctx.S.retos.reto_kilos_reales) nombrar();
         if (ctx.S.retos.reto_kilos_reales || (ctx.S.datos._luego || {}).reto_kilos_reales || ctx.S.respuestas.verificacion) ctx.listo();
@@ -279,14 +234,10 @@
          'Aterriza. Iban 69 personas a bordo y no murió nadie. Hubo lesiones menores en la evacuación por los toboganes.'
         ].forEach(function (t) { ol.appendChild(ctx.el('li', null, t)); });
         cuerpo.appendChild(ol);
-        var t = ctx.el('div', 'tarjeta verificado'); t.appendChild(ctx.el('h3', null, 'VUELO 143 · VERIFICADO'));
-        var dl = ctx.el('dl');
-        [['LO QUE SI PASO', 'El 1.77 convierte litros en libras y se usó como si diera kilos. El capitán declaró que repasó las cuentas y eran «matemáticamente correctas». Según el informe, había que cargar unos 20,000 litros, no ' + fmt(CARGA) + '.'],
+        ctx.verificado('VUELO 143 · VERIFICADO', [['LO QUE SI PASO', 'El 1.77 convierte litros en libras y se usó como si diera kilos. El capitán declaró que repasó las cuentas y eran «matemáticamente correctas». Según el informe, había que cargar unos 20,000 litros, no ' + fmt(CARGA) + '.'],
          ['LA CADENA', 'El informe reparte las causas: indicadores en blanco contra la lista de equipo mínimo, mantenimiento, la carga, la tripulación y los procedimientos de la empresa. No fue el error de una sola persona.'],
          ['LO QUE NO SE SABE', 'Cuántos litros se bombearon de verdad (se pidieron 5,000), la duración exacta del planeo y la altitud exacta al apagarse cada motor: las fuentes no coinciden.'],
-         ['MITOS', 'Los pilotos no sabían multiplicar (las cuentas estaban bien) · hubo una fuga (no) · aterrizó en un aeropuerto (era una base en desuso) · hubo muertos (no).']
-        ].forEach(function (f) { var a = document.createElement('div'); a.appendChild(ctx.el('dt', 'px', f[0])); a.appendChild(ctx.el('dd', null, f[1])); dl.appendChild(a); });
-        t.appendChild(dl); cuerpo.appendChild(t);
+         ['MITOS', 'Los pilotos no sabían multiplicar (las cuentas estaban bien) · hubo una fuga (no) · aterrizó en un aeropuerto (era una base en desuso) · hubo muertos (no).']]);
         var m = /^Decido: (.+?)\. Revisiones/.exec(ctx.S.respuestas.firma || '');
         var tu = ctx.el('div', 'tarjeta'); tu.appendChild(ctx.el('h3', null, 'TU APUESTA, TU CIFRA Y TU FIRMA'));
         var dato = (ctx.S.datos.kilos || {}).tuyo;
@@ -299,36 +250,19 @@
 
       { id: 'cierre', titulo: 'TU PROPIA DECISION', render: function (ctx, cuerpo) {
         ctx.h3('LA MISMA IDEA EN LA TAQUERIA');
-        var tb = tabla(['En la taquería', 'En 1983'], [
+        var tb = ctx.tabla(['En la taquería', 'En 1983'], [
           ['El proveedor manda la carne en libras y la receta de Don Juan está en kilos', 'La hoja daba libras y el plan pedía kilos'],
           ['La cuenta del pedido está bien hecha', 'Las cuentas de la hoja estaban bien hechas'],
           ['Y aun así llega menos de la mitad de la carne', 'Y el avión salió con menos de la mitad del combustible']]);
         cuerpo.appendChild(tb);
-        ctx.h3('MI DECISION');
-        ctx.p('Piensa en una decisión real tuya. ¿Qué dato te llega <b>en otra unidad o en otro formato</b>? ¿Con qué lo comprobarías que no salga de la misma cuenta?');
-        ctx.campo({ id: 'mi', etiqueta: 'Mi decisión: qué dato viene en otra unidad o formato y cómo lo revisaría', renglones: 4, max: 1500, inicial: ctx.S.respuestas.mi_decision || '' });
-        var fin = ctx.el('div'), g;
-        ctx.boton('ENTREGAR Y CERRAR EL CASO', function () {
-          var texto = (ctx.datos.mi || '').trim();
-          if (!texto) { g.className = 'guardado mal'; g.textContent = 'Escribe tu pieza de Mi decisión para cerrar el caso.'; return; }
-          var ok = ctx.responder('mi_decision', texto, 'cierre'); ctx.completar(); ctx.marcarGuardado(g, ok); cerrar();
-        });
-        g = ctx.guardado(); cuerpo.appendChild(fin);
-        function cerrar() {
-          fin.innerHTML = ''; ctx.sello('CASO 13.11 RESUELTO', null, 'comal', fin);
-          var bits = Object.keys(ctx.S.retos).reduce(function (s, k) { return s + (ctx.S.retos[k].bits || 0); }, 0);
-          if (ctx.M.modo === 'alumno') fin.appendChild(ctx.el('p', null, 'Bits de este caso: ' + bits + '. Tu marcador completo está en Mi avance.'));
-          var f = ctx.el('p', 'frase'); f.innerHTML = '<b>El criterio en una frase:</b> ¿Cómo lo verifico? Un número sin su unidad no es un dato.'; fin.appendChild(f);
-          ctx.listo();
-        }
-        if (ctx.S.completo) cerrar();
-        var fu = document.createElement('details'); fu.className = 'mas';
-        fu.innerHTML = '<summary>Fuentes</summary><ul>' + [
+        ctx.cierre({ codigo: '13.11', pregunta: 'Piensa en una decisión real tuya. ¿Qué dato te llega <b>en otra unidad o en otro formato</b>? ¿Con qué lo comprobarías que no salga de la misma cuenta?',
+          etiqueta: 'Mi decisión: qué dato viene en otra unidad o formato y cómo lo revisaría',
+          frase: '¿Cómo lo verifico? Un número sin su unidad no es un dato.' });
+        ctx.desplegable('Fuentes', [
           ['https://archive.org/details/31761116358912', 'Lockwood, G. H. (1985). Final Report of the Board of Inquiry into Air Canada Boeing 767 C-GAUN, pp. 28-29 y 41-43.'],
           ['https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf', 'El mismo informe, copia de la FAA (texto hasta la p. 42).'],
           ['https://en.wikipedia.org/wiki/Gimli_Glider', 'Wikipedia, «Gimli Glider» (duración del planeo, según reportes publicados).']
-        ].map(function (f) { return '<li><a href="' + f[0] + '" target="_blank" rel="noopener noreferrer">' + f[1] + '</a></li>'; }).join('') + '</ul>';
-        cuerpo.appendChild(fu);
+        ]);
       } }
     ]
   };

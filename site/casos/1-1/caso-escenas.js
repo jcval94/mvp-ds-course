@@ -45,8 +45,6 @@
     return svg;
   }
 
-  function lista(items) { var u = document.createElement('ul'); items.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; u.appendChild(li); }); return u; }
-
   window.CASO_PAGINA = {
     id: '1.1', version: 'pagina-1.0', titulo: '¿DONDE BLINDAR LOS AVIONES?', intro: './', minutos: 45,
     secciones: [
@@ -54,25 +52,11 @@
       /* 1 · el expediente */
       { id: 'preparacion', titulo: 'EL EXPEDIENTE', render: function (ctx, cuerpo) {
         ctx.p('Llegó el expediente de la misión. Trae tres piezas y una tarea: decidir dónde van <b>dos placas de blindaje</b>.');
-        var av = ctx.el('div', 'aviso'); av.innerHTML = '<b>Datos simulados.</b> Los aviones de este caso salen de una simulación hecha para mostrar el mecanismo: no son cifras históricas. La historia real llega al final, con sus fuentes.';
-        cuerpo.appendChild(av);
-        var exp = ctx.el('div', 'expediente');
-        function abrir() {
-          exp.innerHTML = '';
-          [['EL REGISTRO', 'Avión por avión, los agujeros que encontraron los mecánicos al revisar cada uno.'],
-           ['LA BITACORA', 'Cuántos aviones salieron a la misión.'],
-           ['EL RESUMEN', 'Un asistente leyó todo y preparó un resumen para ahorrarte tiempo. Todavía no lo abres.']].forEach(function (p, i) {
-            var d = ctx.el('div', 'pieza' + (i === 2 ? ' borrador' : '')); d.style.setProperty('--i', i);
-            d.appendChild(ctx.el('b', null, p[0])); d.appendChild(ctx.el('p', null, p[1]));
-            if (i === 2) d.appendChild(ctx.el('span', 'sello-mini', 'BORRADOR'));
-            exp.appendChild(d);
-          });
-          ctx.datos.abierto = true; ctx.guardar(); ctx.listo();
-          ctx.anunciar('Expediente abierto: el registro, la bitácora y el resumen del asistente.');
-        }
-        cuerpo.appendChild(exp);
-        if (ctx.datos.abierto) abrir();
-        else { var b = ctx.boton('ABRIR EL EXPEDIENTE', function () { b.remove(); abrir(); }); }
+        ctx.aviso('<b>Datos simulados.</b> Los aviones de este caso salen de una simulación hecha para mostrar el mecanismo: no son cifras históricas. La historia real llega al final, con sus fuentes.');
+        ctx.expediente([['EL REGISTRO', 'Avión por avión, los agujeros que encontraron los mecánicos al revisar cada uno.'],
+          ['LA BITACORA', 'Cuántos aviones salieron a la misión.'],
+          ['EL RESUMEN', 'Un asistente leyó todo y preparó un resumen para ahorrarte tiempo. Todavía no lo abres.', true]],
+          { anuncio: 'Expediente abierto: el registro, la bitácora y el resumen del asistente.' });
         ctx.p('Antes de abrir un solo número, vas a apostar.', 'nota');
       } },
 
@@ -235,11 +219,9 @@
         }
         function nombrar() {
           if (d.childNodes.length) return;
-          var t = ctx.el('div', 'tarjeta nombre'); t.appendChild(ctx.el('h3', null, 'LO QUE ACABAS DE USAR TIENE NOMBRE'));
-          t.appendChild(ctx.el('p', null, 'Los agujeros que faltan en motores y cabina no desaparecieron: estaban en los aviones que no volvieron. Un agujero ahí probablemente derribaba al avión, y por eso casi no aparece en el registro.'));
-          var p1 = ctx.el('p'); p1.innerHTML = 'Tus datos solo traen los casos que pasaron un filtro (volver). A eso se le llama <b>sesgo de supervivencia</b>. Y los datos que faltan no faltan al azar: faltan justo los que más importan. Son <b>faltantes no aleatorios</b>.'; t.appendChild(p1);
-          var p2 = ctx.el('p', 'nota'); p2.innerHTML = 'Para practicar lo que acabas de usar: <a href="../../labs/level-1/calidad-datos.html">Laboratorio: calidad de datos</a>. Es opcional y no cuenta para la calificación.'; t.appendChild(p2);
-          d.appendChild(t);
+          ctx.nombre(['Los agujeros que faltan en motores y cabina no desaparecieron: estaban en los aviones que no volvieron. Un agujero ahí probablemente derribaba al avión, y por eso casi no aparece en el registro.',
+            'Tus datos solo traen los casos que pasaron un filtro (volver). A eso se le llama <b>sesgo de supervivencia</b>. Y los datos que faltan no faltan al azar: faltan justo los que más importan. Son <b>faltantes no aleatorios</b>.'],
+            ['../../labs/level-1/calidad-datos.html', 'Laboratorio: calidad de datos'], d);
         }
         if (ctx.datos.buscado) paso1();
         else { var bb = ctx.boton('BUSCAR LOS QUE FALTAN', function () { bb.remove(); ctx.datos.buscado = true; ctx.guardar(); paso1(); }, '', a); }
@@ -255,21 +237,9 @@
         var div = ctx.controles('dividir_area').length; if (div) hechas.push('Dividiste los agujeros de ' + div + ' zona' + (div > 1 ? 's' : '') + ' entre su área.');
         ctx.controles('comprobacion').forEach(function (v) { hechas.push({ filas: 'Contaste las filas del registro.', bitacora: 'Leíste la bitácora.', suma: 'Sumaste todos los agujeros.', alas: 'Contaste los agujeros de las alas.' }[v.accion] || ''); });
         if ((ctx.S.datos.faltantes || {}).parejo) hechas.push('Comparaste el registro con lo que esperarías si los agujeros cayeran parejo.');
-        lib.appendChild(hechas.length ? lista(hechas.filter(Boolean)) : ctx.el('p', 'vacia', 'Aún no hay comprobaciones en tu libreta.'));
+        lib.appendChild(hechas.length ? ctx.lista(hechas.filter(Boolean)) : ctx.el('p', 'vacia', 'Aún no hay comprobaciones en tu libreta.'));
         cuerpo.appendChild(lib);
-        var previa = ctx.S.respuestas.verificacion || '';
-        ctx.campo({ id: 'c1', etiqueta: 'Comprobación 1: qué revisé y qué encontré', renglones: 3, max: 900, inicial: previa });
-        ctx.campo({ id: 'c2', etiqueta: 'Comprobación 2: qué revisé y qué encontré', renglones: 3, max: 900 });
-        var g;
-        ctx.boton('ANOTAR MI VERIFICACION', function () {
-          var t1 = (ctx.datos.c1 || '').trim(), t2 = (ctx.datos.c2 || '').trim();
-          if (!t1 && !t2) { g.className = 'guardado mal'; g.textContent = 'Escribe al menos una comprobación.'; return; }
-          var texto = t2 ? '1) ' + t1 + ' 2) ' + t2 : t1;
-          var ok = ctx.responder('verificacion', texto, 'verificar');
-          ctx.marcarGuardado(g, ok); ctx.listo();
-        });
-        g = ctx.guardado();
-        if (previa) ctx.listo();
+        ctx.verificacion({ sinIntro: true });
       } },
 
       /* 7 · firma (la revelación no se abre sin ella) */
@@ -317,16 +287,12 @@
             { nombre: 'Volvieron (' + ctx.fmt(VOLVIERON.length) + ')', color: ANIL, valores: ZONAS.map(function (z) { return H[z] / VOLVIERON.length; }) },
             { nombre: 'No volvieron (' + ctx.fmt(NO_VOLVIERON.length) + ')', color: SALSA, valores: ZONAS.map(function (z) { return HD[z] / NO_VOLVIERON.length; }) }],
             pie: 'Los ' + NO_VOLVIERON.length + ' aviones que no volvieron tienen casi un agujero en motores por avión; los que volvieron, menos de 0.2. En fuselaje, alas y cola, los dos grupos se parecen.' }, zona);
-          var t = ctx.el('div', 'tarjeta verificado'); t.appendChild(ctx.el('h3', null, 'EXPEDIENTE: ABRAHAM WALD · VERIFICADO'));
-          var dl = ctx.el('dl');
-          [['QUIEN', 'Matemático del Statistical Research Group de la Universidad de Columbia, en Nueva York, durante la Segunda Guerra Mundial.'],
+          ctx.verificado('EXPEDIENTE: ABRAHAM WALD · VERIFICADO', [['QUIEN', 'Matemático del Statistical Research Group de la Universidad de Columbia, en Nueva York, durante la Segunda Guerra Mundial.'],
            ['QUE HIZO', 'Hacia 1943 escribió memorandos con un método para estimar qué tan vulnerable era cada parte de un avión a partir del daño de los que regresaban.'],
            ['SU SUPUESTO', 'En sus ejemplos, los impactos se reparten según el área que cada parte presenta al ataque: una idea parecida a la de «Lo que no llegó».'],
            ['DESPUES', 'El Center for Naval Analyses reimprimió los memorandos en julio de 1980; su método se usó para analizar datos de Corea y Vietnam.'],
            ['LO QUE SI ESCRIBIO', 'Ejemplos hipotéticos con motores, fuselaje y combustible, y que el método puede guiar dónde va el blindaje.'],
-           ['LO QUE NO SABEMOS', 'Qué blindaje se cambió de verdad por su trabajo ni cuántas vidas se salvaron. La imagen del avión con puntos rojos no muestra sus datos.']
-          ].forEach(function (f) { var a = document.createElement('div'); a.appendChild(ctx.el('dt', 'px', f[0])); a.appendChild(ctx.el('dd', null, f[1])); dl.appendChild(a); });
-          t.appendChild(dl); zona.appendChild(t);
+           ['LO QUE NO SABEMOS', 'Qué blindaje se cambió de verdad por su trabajo ni cuántas vidas se salvaron. La imagen del avión con puntos rojos no muestra sus datos.']], zona);
           var firm = (ctx.S.datos.firma || {}).firmadas || [];
           var m = /Decido blindar: (.+?) y (.+?)\. Certeza/.exec(ctx.S.respuestas.firma || '');
           var textoFirma = firm.length === 2 ? NOMBRE[firm[0]] + ' y ' + NOMBRE[firm[1]] : m ? m[1] + ' y ' + m[2] : '(todavía no firmas)';
@@ -370,12 +336,10 @@
       /* 10 · tu propia decisión */
       { id: 'cierre', titulo: 'TU PROPIA DECISION', render: function (ctx, cuerpo) {
         ctx.h3('LA MISMA IDEA EN LA TAQUERIA');
-        var t = ctx.el('table', 'tabla-t');
-        t.innerHTML = '<thead><tr><th scope="col">En la taquería</th><th scope="col">En la guerra</th></tr></thead><tbody>' +
-          '<tr><td>Don Juan pregunta qué mejorar solo a los clientes que regresan</td><td>Revisar solo los aviones que volvieron</td></tr>' +
-          '<tr><td>Los que no volvieron nunca dicen por qué se fueron</td><td>Los aviones derribados no llegan al registro</td></tr>' +
-          '<tr><td>Preguntar a quien dejó de venir, o mirar qué pasó en su última visita</td><td>Buscar los agujeros que faltan</td></tr></tbody>';
-        cuerpo.appendChild(t);
+        cuerpo.appendChild(ctx.tabla(['En la taquería', 'En la guerra'], [
+          ['Don Juan pregunta qué mejorar solo a los clientes que regresan', 'Revisar solo los aviones que volvieron'],
+          ['Los que no volvieron nunca dicen por qué se fueron', 'Los aviones derribados no llegan al registro'],
+          ['Preguntar a quien dejó de venir, o mirar qué pasó en su última visita', 'Buscar los agujeros que faltan']]));
         ctx.h3('MI DECISION');
         ctx.p('Piensa en una decisión real de tu trabajo, tu escuela o tu vida. Escribe <b>qué casos no llegan a los datos con los que decides</b> y por qué. Es la primera pieza de tu proyecto «Mi decisión».');
         ctx.campo({ id: 'mi', etiqueta: 'Mi decisión: qué casos no llegan a mis datos', renglones: 4, max: 1500, inicial: ctx.S.respuestas.mi_decision || '' });
@@ -391,7 +355,7 @@
         function cerrar() {
           fin.innerHTML = '';
           ctx.sello('CASO 1.1 RESUELTO', null, 'comal', fin);
-          fin.appendChild(lista(['Los agujeros que importaban no estaban en el registro: estaban en los aviones que no volvieron.',
+          fin.appendChild(ctx.lista(['Los agujeros que importaban no estaban en el registro: estaban en los aviones que no volvieron.',
             'Contar filas destapó el error del asistente; comparar con lo esperado destapó lo que faltaba.',
             'La pregunta que te llevas: qué falta en mis datos y por qué.']));
           var bits = Object.keys(ctx.S.retos).reduce(function (s, k) { return s + (ctx.S.retos[k].bits || 0); }, 0);
@@ -400,18 +364,14 @@
           ctx.listo();
         }
         if (ctx.S.completo) cerrar();
-        var glo = document.createElement('details'); glo.className = 'mas'; glo.innerHTML = '<summary>Glosario</summary>';
-        glo.appendChild(lista(['Sesgo de supervivencia: sacar conclusiones solo con los casos que pasaron un filtro (los aviones que volvieron) e ignorar los que no.',
+        ctx.desplegable('Glosario', ['Sesgo de supervivencia: sacar conclusiones solo con los casos que pasaron un filtro (los aviones que volvieron) e ignorar los que no.',
           'Faltantes no aleatorios: datos que faltan por una razón relacionada con lo que quieres medir.',
           'Proceso generador de datos: el camino por el que un caso llega (o no llega) a tu tabla.',
-          'Esperado contra observado: comparar lo que verías bajo un supuesto (impactos parejos) con lo que de verdad hay.']));
-        cuerpo.appendChild(glo);
-        var fu = document.createElement('details'); fu.className = 'mas';
-        fu.innerHTML = '<summary>Fuentes</summary><ul>' +
-          '<li><a href="https://www.ams.org/samplings/feature-column/fc-2016-06" target="_blank" rel="noopener noreferrer">Casselman, B. (2016). «The Legend of Abraham Wald». AMS Feature Column.</a></li>' +
-          '<li><a href="https://apps.dtic.mil/sti/pdfs/ADA091073.pdf" target="_blank" rel="noopener noreferrer">Center for Naval Analyses (1980). Reimpresión de «A Method of Estimating Plane Vulnerability Based on Damage of Survivors», de Abraham Wald (CRC 432).</a></li>' +
-          '<li><a href="https://github.com/jcval94/mvp-ds-course/tree/main/casos/data/wald-bombers" target="_blank" rel="noopener noreferrer">Datos simulados del caso (CC0). No son cifras históricas.</a></li></ul>';
-        cuerpo.appendChild(fu);
+          'Esperado contra observado: comparar lo que verías bajo un supuesto (impactos parejos) con lo que de verdad hay.']);
+        ctx.desplegable('Fuentes', [
+          ['https://www.ams.org/samplings/feature-column/fc-2016-06', 'Casselman, B. (2016). «The Legend of Abraham Wald». AMS Feature Column.'],
+          ['https://apps.dtic.mil/sti/pdfs/ADA091073.pdf', 'Center for Naval Analyses (1980). Reimpresión de «A Method of Estimating Plane Vulnerability Based on Damage of Survivors», de Abraham Wald (CRC 432).'],
+          ['https://github.com/jcval94/mvp-ds-course/tree/main/casos/data/wald-bombers', 'Datos simulados del caso (CC0). No son cifras históricas.']]);
       } }
     ]
   };

@@ -7,16 +7,7 @@
   'use strict';
   var V = window.VuelosChallenger;
   var CON_DANO = V.filter(function (v) { return v.juntas > 0; });
-  var fmt = function (n, d) { return Number(n).toLocaleString('es-MX', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); };
   var MANANA = 26;
-  function lista(items) { var u = document.createElement('ul'); items.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; u.appendChild(li); }); return u; }
-  function tabla(cabeza, filas, cls) {
-    var t = document.createElement('table'); t.className = cls || 'tabla-t';
-    t.innerHTML = '<thead><tr>' + cabeza.map(function (c) { return '<th scope="col">' + c + '</th>'; }).join('') + '</tr></thead>';
-    var tb = document.createElement('tbody');
-    filas.forEach(function (f) { var tr = document.createElement('tr'); f.forEach(function (c) { var td = document.createElement('td'); if (c && c.nodeType) td.appendChild(c); else td.textContent = c; tr.appendChild(td); }); tb.appendChild(tr); });
-    t.appendChild(tb); return t;
-  }
   /* Gráfica de dispersión: temperatura (°F) contra juntas con daño. o = { vuelos, desde, manana } */
   function dispersion(o) {
     var ns = 'http://www.w3.org/2000/svg', W = 320, H = 200, x0 = 34, x1 = 310, y0 = 170, y1 = 16;
@@ -54,42 +45,17 @@
     secciones: [
 
       { id: 'preparacion', titulo: 'EL EXPEDIENTE', render: function (ctx, cuerpo) {
-        var av = ctx.el('div', 'aviso'); av.innerHTML = '<b>Aviso de contenido.</b> Este caso trata sobre el accidente del transbordador Challenger, en el que murieron siete personas. Trabajamos con los datos de los vuelos; no mostramos el accidente.';
-        cuerpo.appendChild(av);
+        ctx.aviso('<b>Aviso de contenido.</b> Este caso trata sobre el accidente del transbordador Challenger, en el que murieron siete personas. Trabajamos con los datos de los vuelos; no mostramos el accidente.');
         ctx.p('Es la noche del 27 de enero de 1986. Mañana está programado el lanzamiento del Challenger. Llegó el expediente.');
-        var exp = ctx.el('div', 'expediente'); cuerpo.appendChild(exp);
-        function abrir() {
-          exp.innerHTML = '';
-          [['EL PRONOSTICO', 'La temperatura esperada para mañana.', ''], ['LA GRAFICA DE LA VISPERA', 'Cómo se compararon los vuelos anteriores. Cerrada.', ''],
-           ['EL RESUMEN DEL ASISTENTE', 'Una tabla con una recomendación. Todavía no la abres.', 'borrador'], ['EL REGISTRO', 'Los 23 vuelos anteriores, cerrado con cinta.', '']].forEach(function (p, i) {
-            var d = ctx.el('div', 'pieza' + (p[2] ? ' borrador' : '')); d.style.setProperty('--i', i);
-            d.appendChild(ctx.el('b', null, p[0])); d.appendChild(ctx.el('p', null, p[1])); if (p[2]) d.appendChild(ctx.el('span', 'sello-mini', 'BORRADOR'));
-            exp.appendChild(d);
-          });
-          ctx.datos.abierto = true; ctx.guardar(); ctx.listo();
-        }
-        if (ctx.datos.abierto) abrir(); else { var b = ctx.boton('ABRIR EL EXPEDIENTE', function () { b.remove(); abrir(); }); }
-        var r = ctx.el('div', 'aviso'); r.innerHTML = '<b>Datos reales.</b> Son los registros de los 23 vuelos anteriores, del informe de la Comisión Rogers (1986).';
-        cuerpo.appendChild(r);
+        ctx.expediente([['EL PRONOSTICO', 'La temperatura esperada para mañana.'], ['LA GRAFICA DE LA VISPERA', 'Cómo se compararon los vuelos anteriores. Cerrada.'],
+          ['EL RESUMEN DEL ASISTENTE', 'Una tabla con una recomendación. Todavía no la abres.', true], ['EL REGISTRO', 'Los 23 vuelos anteriores, cerrado con cinta.']]);
+        ctx.aviso('<b>Datos reales.</b> Son los registros de los 23 vuelos anteriores, del informe de la Comisión Rogers (1986).');
       } },
 
       { id: 'apuesta', titulo: 'TU APUESTA', render: function (ctx, cuerpo) {
         PRONOSTICO(ctx, cuerpo);
         ctx.p('<b>¿Lanzarías mañana?</b> Todavía no hay gráfica sobre la mesa.');
-        var OPC = ['Sí, lanzaría', 'No, esperaría a que suba la temperatura', 'No sé: necesito ver los vuelos anteriores'];
-        var sel = ctx.opciones({ lista: OPC.map(function (o) { return [o, o]; }), clave: 'opcion', etiqueta: 'Tu apuesta', alCambiar: function (v) { anotar.disabled = !v[0]; } });
-        if (ctx.S.hip && !ctx.datos.opcion) sel.poner([ctx.S.hip]);
-        ctx.campo({ id: 'razon', etiqueta: '¿Por qué? Una o dos frases.', renglones: 3, max: 600, inicial: ctx.S.respuestas.hipotesis_razon || '' });
-        var res = ctx.el('div'), g;
-        var anotar = ctx.boton('ANOTAR MI APUESTA', function () {
-          var o = sel.valor()[0]; if (!o) return;
-          var ok = ctx.hipotesis(o, ctx.datos.razon || '');
-          res.innerHTML = ''; ctx.sello('APUESTA ANOTADA', 'Tu apuesta: ' + o.toLowerCase() + '.', 'comal', res);
-          ctx.marcarGuardado(g, ok); ctx.listo();
-        });
-        anotar.disabled = !sel.valor()[0];
-        cuerpo.appendChild(res); g = ctx.guardado();
-        if (ctx.S.hip) { ctx.sello('APUESTA ANOTADA', 'Tu apuesta: ' + ctx.S.hip.toLowerCase() + '.', 'comal', res); ctx.listo(); }
+        ctx.apuesta(['Sí, lanzaría', 'No, esperaría a que suba la temperatura', 'No sé: necesito ver los vuelos anteriores']);
       } },
 
       { id: 'grafica', titulo: 'LA GRAFICA DE LA VISPERA', render: function (ctx, cuerpo) {
@@ -97,7 +63,7 @@
         cuerpo.appendChild(dispersion({ vuelos: CON_DANO }));
         ctx.p('Reconstrucción de la comparación que describe la Comisión Rogers (figura 6), no una lámina de esa noche.', 'nota');
         var det = document.createElement('details'); det.className = 'mas'; det.innerHTML = '<summary>Ver las cifras de la gráfica</summary>';
-        det.appendChild(tabla(['Vuelo', 'Temperatura', 'Juntas con daño'], CON_DANO.map(function (v) { return [v.vuelo, v.f + ' °F', String(v.juntas)]; })));
+        det.appendChild(ctx.tabla(['Vuelo', 'Temperatura', 'Juntas con daño'], CON_DANO.map(function (v) { return [v.vuelo, v.f + ' °F', String(v.juntas)]; })));
         cuerpo.appendChild(det);
         ctx.reto({ id: 'reto_grafica_patron', titulo: '★ RETO 1', dificultad: 1, tipo: 'opcion',
           pregunta: '¿Qué ves entre la temperatura y el daño en esta gráfica?',
@@ -116,15 +82,14 @@
         var manana = ctx.controles('marcar_manana').length > 0;
         function enGrafica() { return V.filter(function (v) { return v.juntas > 0 || agregados.indexOf(v.vuelo) >= 0; }); }
         function pintar() { graf.innerHTML = ''; graf.appendChild(dispersion({ vuelos: enGrafica(), desde: manana ? 20 : 50, manana: manana })); cont.textContent = 'La gráfica lleva ' + enGrafica().length + ' de 23 vuelos.'; }
-        var tc = ctx.el('div', 'tabla-caja'); tc.tabIndex = 0; tc.setAttribute('role', 'region'); tc.setAttribute('aria-label', 'Registro de los 23 vuelos, desplazable');
         var orden = V.slice().sort(function (a, b) { return a.f - b.f; });
-        tc.appendChild(tabla(['Vuelo', 'Temperatura', 'Juntas con daño', 'En la gráfica'], orden.map(function (v) {
+        var tc = ctx.tabla(['Vuelo', 'Temperatura', 'Juntas con daño', 'En la gráfica'], orden.map(function (v) {
           if (v.juntas > 0) return [v.vuelo, v.f + ' °F', String(v.juntas), 'Sí'];
           var b = ctx.el('button', 'btn sec', agregados.indexOf(v.vuelo) >= 0 ? 'AGREGADO' : 'AGREGAR'); b.type = 'button';
           b.disabled = agregados.indexOf(v.vuelo) >= 0; b.setAttribute('aria-label', 'Agregar el vuelo ' + v.vuelo + ' a la gráfica');
           b.addEventListener('click', function () { agregar(v); b.textContent = 'AGREGADO'; b.disabled = true; });
           return [v.vuelo, v.f + ' °F', String(v.juntas), b];
-        }), 'tabla'));
+        }), { caja: 'Registro de los 23 vuelos' });
         cuerpo.appendChild(tc);
         var todos = ctx.boton('AGREGAR TODOS LOS QUE FALTAN', function () {
           V.forEach(function (v) { if (!v.juntas && agregados.indexOf(v.vuelo) < 0) agregar(v, true); });
@@ -166,11 +131,9 @@
         }
         function nombrar() {
           if (nom.childNodes.length) return;
-          var t = ctx.el('div', 'tarjeta nombre'); t.appendChild(ctx.el('h3', null, 'LO QUE ACABAS DE USAR TIENE NOMBRE'));
-          var p1 = ctx.el('p'); p1.innerHTML = 'Agregaste los vuelos sin daño que la víspera no estaban en la gráfica: buscaste <b>lo que una gráfica deja fuera</b>. Cuando las filas que quedan fuera no son al azar (aquí, justo los vuelos sin problema), se llama <b>sesgo de selección</b>.';
-          var p2 = ctx.el('p'); p2.innerHTML = 'Y viste que mañana cae fuera de todo lo ya volado: decidir ahí es <b>extrapolar fuera del rango observado</b>. Los datos no dicen qué pasa donde nunca se probó.';
-          var p3 = ctx.el('p', 'nota'); p3.innerHTML = 'Para practicar lo que acabas de usar: <a href="../../labs/level-2/comparacion-visual.html">Laboratorio: comparación visual</a>. Es opcional y no cuenta para la calificación.';
-          t.appendChild(p1); t.appendChild(p2); t.appendChild(p3); nom.appendChild(t);
+          ctx.nombre(['Agregaste los vuelos sin daño que la víspera no estaban en la gráfica: buscaste <b>lo que una gráfica deja fuera</b>. Cuando las filas que quedan fuera no son al azar (aquí, justo los vuelos sin problema), se llama <b>sesgo de selección</b>.',
+            'Y viste que mañana cae fuera de todo lo ya volado: decidir ahí es <b>extrapolar fuera del rango observado</b>. Los datos no dicen qué pasa donde nunca se probó.'],
+            ['../../labs/level-2/comparacion-visual.html', 'Laboratorio: comparación visual'], nom);
         }
         pintar(); paso2();
         if (ctx.S.retos.reto_vuelos_calidos || (ctx.S.datos._luego || {}).reto_vuelos_calidos) paso3();
@@ -183,22 +146,20 @@
         pz.appendChild(ctx.el('span', 'sello-mini', 'BORRADOR'));
         var frio = CON_DANO.filter(function (v) { return v.f < 66; }), calido = CON_DANO.filter(function (v) { return v.f >= 66; });
         var suma = function (xs) { return xs.reduce(function (s, v) { return s + v.juntas; }, 0); };
-        pz.appendChild(tabla(['Grupo', 'Vuelos', 'Juntas con daño', 'Promedio por vuelo'], [
-          ['Fríos (menos de 66 °F)', String(frio.length), String(suma(frio)), fmt(suma(frio) / frio.length, 2)],
-          ['Cálidos (66 °F o más)', String(calido.length), String(suma(calido)), fmt(suma(calido) / calido.length, 2)]]));
+        pz.appendChild(ctx.tabla(['Grupo', 'Vuelos', 'Juntas con daño', 'Promedio por vuelo'], [
+          ['Fríos (menos de 66 °F)', String(frio.length), String(suma(frio)), ctx.fmt(suma(frio) / frio.length, 2)],
+          ['Cálidos (66 °F o más)', String(calido.length), String(suma(calido)), ctx.fmt(suma(calido) / calido.length, 2)]]));
         pz.appendChild(ctx.el('p', null, 'Conclusión del asistente: los vuelos cálidos tienen tanto daño por vuelo como los fríos; la temperatura no explica el daño. Recomiendo lanzar.'));
         cuerpo.appendChild(pz);
         ctx.h3('TU MESA DE VERIFICACION');
-        var lib = ctx.el('div', 'libreta'); lib.appendChild(ctx.el('h3', null, 'TU LIBRETA')); var ul = ctx.el('ul'); lib.appendChild(ul);
-        var notas = ctx.controles('comprobacion').map(function (v) { return v.texto; }).filter(Boolean);
-        function pintarLib() { ul.innerHTML = ''; notas.forEach(function (t) { ul.appendChild(ctx.el('li', null, t)); }); if (!notas.length) ul.appendChild(ctx.el('li', 'vacia', 'Todavía no compruebas nada.')); }
-        function anotar(a, t) { if (notas.indexOf(t) < 0) { notas.push(t); ctx.registrar('comprobacion', { accion: a, texto: t }); } pintarLib(); ctx.anunciar(t); }
+        var lib;
+        function anotar(a, t) { if (lib.notas.indexOf(t) < 0) ctx.registrar('comprobacion', { accion: a, texto: t }); lib.anotar(t); }
         var f = ctx.el('div', 'acciones'); cuerpo.appendChild(f);
         var fr = V.filter(function (v) { return v.f < 66; }), ca = V.filter(function (v) { return v.f >= 66; });
         ctx.boton('CONTAR VUELOS DEL REGISTRO DE MENOS DE 66 °F', function () { anotar('frios', 'El registro tiene ' + fr.length + ' vuelos de menos de 66 °F.'); }, 'sec', f);
         ctx.boton('CONTAR VUELOS DEL REGISTRO DE 66 °F O MAS', function () { anotar('calidos', 'El registro tiene ' + ca.length + ' vuelos de 66 °F o más.'); }, 'sec', f);
         ctx.boton('CONTAR LOS VUELOS QUE USO LA TABLA', function () { anotar('tabla', 'La tabla usa ' + CON_DANO.length + ' vuelos de los 23.'); }, 'sec', f);
-        cuerpo.appendChild(lib); pintarLib();
+        lib = ctx.libreta(ctx.controles('comprobacion').map(function (v) { return v.texto; }).filter(Boolean), null, 'Todavía no compruebas nada.');
         ctx.reto({ id: 'reto_error_sin_ceros', titulo: '★★ RETO 4', dificultad: 2, tipo: 'opcion',
           pregunta: '¿Dónde está el error del resumen?',
           opciones: ['Solo cuenta los vuelos que tuvieron daño; deja fuera los vuelos sin daño', 'Suma mal las juntas dañadas de los vuelos fríos',
@@ -207,18 +168,7 @@
           alResponder: function () { verif.hidden = false; }, alSaltar: function () { verif.hidden = false; } });
         var verif = ctx.el('div'); verif.hidden = !ctx.S.retos.reto_error_sin_ceros && !(ctx.S.datos._luego || {}).reto_error_sin_ceros && !ctx.S.respuestas.verificacion;
         cuerpo.appendChild(verif);
-        verif.appendChild(ctx.el('h3', null, 'VERIFICA'));
-        verif.appendChild(ctx.el('p', null, 'Escribe qué revisaste para confiar en lo que encontraste y qué encontraste. Busca dos comprobaciones distintas.'));
-        ctx.campo({ id: 'c1', etiqueta: 'Comprobación 1: qué revisé y qué encontré', renglones: 3, max: 900, inicial: ctx.S.respuestas.verificacion || '', dentro: verif });
-        ctx.campo({ id: 'c2', etiqueta: 'Comprobación 2: qué revisé y qué encontré', renglones: 3, max: 900, dentro: verif });
-        var g;
-        ctx.boton('ANOTAR MI VERIFICACION', function () {
-          var t1 = (ctx.datos.c1 || '').trim(), t2 = (ctx.datos.c2 || '').trim();
-          if (!t1 && !t2) { g.className = 'guardado mal'; g.textContent = 'Escribe al menos una comprobación.'; return; }
-          ctx.marcarGuardado(g, ctx.responder('verificacion', t2 ? '1) ' + t1 + ' 2) ' + t2 : t1, 'verificar')); ctx.listo();
-        }, '', verif);
-        g = ctx.guardado(verif);
-        if (ctx.S.respuestas.verificacion) ctx.listo();
+        ctx.verificacion({ dentro: verif, texto: 'Escribe qué revisaste para confiar en lo que encontraste y qué encontraste. Busca dos comprobaciones distintas.' });
       } },
 
       { id: 'firma', titulo: 'FIRMA TU DECISION', render: function (ctx, cuerpo) {
@@ -253,7 +203,7 @@
 
       { id: 'revelacion', titulo: 'LA REVELACION', puerta: function (S) { return !!S.respuestas.firma; }, render: function (ctx, cuerpo) {
         ctx.h3('LA VISPERA Y EL DIA');
-        cuerpo.appendChild(lista([
+        cuerpo.appendChild(ctx.lista([
           '27 de enero, 5:45 p. m. y 8:45 p. m.: teleconferencias entre NASA y Morton Thiokol.',
           'Los ingenieros de Thiokol recomiendan no lanzar por debajo de 53 °F, el vuelo más frío hasta entonces.',
           'Hay una pausa de unos 30 minutos. Después, Thiokol cambia su recomendación y la confirma por telefax.',
@@ -262,13 +212,9 @@
         ctx.h3('LA GRAFICA QUE NADIE HIZO');
         ctx.p('La Comisión Rogers comparó la figura de solo los vuelos con daño (como la de la víspera) con la de los 23 vuelos (como la que armaste tú): con todos los vuelos, los de 66 °F o más casi nunca tienen daño y todos los vuelos por debajo de 66 °F lo tuvieron.');
         cuerpo.appendChild(dispersion({ vuelos: V, desde: 20, manana: true }));
-        var t = ctx.el('div', 'tarjeta verificado'); t.appendChild(ctx.el('h3', null, 'CHALLENGER · VERIFICADO'));
-        var dl = ctx.el('dl');
-        [['LO QUE SI PASO', 'La Comisión concluyó que la falla empezó en una junta del cohete derecho y que el frío contribuyó; también señaló fallas en cómo se tomó la decisión.'],
+        ctx.verificado('CHALLENGER · VERIFICADO', [['LO QUE SI PASO', 'La Comisión concluyó que la falla empezó en una junta del cohete derecho y que el frío contribuyó; también señaló fallas en cómo se tomó la decisión.'],
          ['DESPUES', 'Dalal, Fowlkes y Hoadley (1989) estimaron con los 23 vuelos al menos 13% de probabilidad de falla de una junta a 31 °F, y advirtieron que es una extrapolación lejos de los datos.'],
-         ['LO QUE SE DISCUTE', 'Qué temperatura tenían las juntas en el momento (el aire marcaba 36 °F; las juntas estaban más frías) y cuánto pesó la gráfica frente a la presión del calendario.']
-        ].forEach(function (f) { var a = document.createElement('div'); a.appendChild(ctx.el('dt', 'px', f[0])); a.appendChild(ctx.el('dd', null, f[1])); dl.appendChild(a); });
-        t.appendChild(dl); cuerpo.appendChild(t);
+         ['LO QUE SE DISCUTE', 'Qué temperatura tenían las juntas en el momento (el aire marcaba 36 °F; las juntas estaban más frías) y cuánto pesó la gráfica frente a la presión del calendario.']]);
         var m = /^Decido: (.+?)\. Temperatura mínima/.exec(ctx.S.respuestas.firma || '');
         var tu = ctx.el('div', 'tarjeta'); tu.appendChild(ctx.el('h3', null, 'TU APUESTA Y TU FIRMA'));
         tu.appendChild(ctx.el('p', null, 'Tu apuesta: ' + (ctx.S.hip || '(no la anotaste)') + '. Tu firma: ' + (m ? m[1] : '(todavía no firmas)') + '.'));
@@ -279,36 +225,19 @@
 
       { id: 'cierre', titulo: 'TU PROPIA DECISION', render: function (ctx, cuerpo) {
         ctx.h3('LA MISMA IDEA EN LA TAQUERIA');
-        cuerpo.appendChild(tabla(['En la taquería', 'En 1986'], [
+        cuerpo.appendChild(ctx.tabla(['En la taquería', 'En 1986'], [
           ['Don Juan quiere saber si la lluvia retrasa las entregas y revisa solo las quejas de los días con retraso', 'La víspera solo se graficaron los vuelos con daño'],
           ['Nunca mira los días sin quejas', 'Los vuelos sin daño quedaron fuera'],
           ['Nunca ha repartido con tormenta, y mañana hay tormenta', 'Mañana iba a hacer más frío que en cualquier vuelo anterior']]));
-        ctx.h3('MI DECISION');
-        ctx.p('Piensa en la gráfica o la tabla con la que tomas una decisión real. ¿<b>Qué casos deja fuera</b>? ¿Vas a decidir <b>fuera de lo que ya viste</b>?');
-        ctx.campo({ id: 'mi', etiqueta: 'Mi decisión: qué deja fuera mi gráfica y si decido fuera de lo que ya vi', renglones: 4, max: 1500, inicial: ctx.S.respuestas.mi_decision || '' });
-        var fin = ctx.el('div'), g;
-        ctx.boton('ENTREGAR Y CERRAR EL CASO', function () {
-          var texto = (ctx.datos.mi || '').trim();
-          if (!texto) { g.className = 'guardado mal'; g.textContent = 'Escribe tu pieza de Mi decisión para cerrar el caso.'; return; }
-          var ok = ctx.responder('mi_decision', texto, 'cierre'); ctx.completar(); ctx.marcarGuardado(g, ok); cerrar();
-        });
-        g = ctx.guardado(); cuerpo.appendChild(fin);
-        function cerrar() {
-          fin.innerHTML = ''; ctx.sello('CASO 2.3 RESUELTO', null, 'comal', fin);
-          var bits = Object.keys(ctx.S.retos).reduce(function (s, k) { return s + (ctx.S.retos[k].bits || 0); }, 0);
-          if (ctx.M.modo === 'alumno') fin.appendChild(ctx.el('p', null, 'Bits de este caso: ' + bits + '. Tu marcador completo está en Mi avance.'));
-          var f = ctx.el('p', 'frase'); f.innerHTML = '<b>El criterio en una frase:</b> ¿Qué falta en mis datos? Antes de leer una gráfica, pregunta qué casos quedaron fuera y si vas a decidir más allá de lo que ya viste.'; fin.appendChild(f);
-          ctx.listo();
-        }
-        if (ctx.S.completo) cerrar();
-        var fu = document.createElement('details'); fu.className = 'mas';
-        fu.innerHTML = '<summary>Fuentes</summary><ul>' + [
+        ctx.cierre({ codigo: '2.3', pregunta: 'Piensa en la gráfica o la tabla con la que tomas una decisión real. ¿<b>Qué casos deja fuera</b>? ¿Vas a decidir <b>fuera de lo que ya viste</b>?',
+          etiqueta: 'Mi decisión: qué deja fuera mi gráfica y si decido fuera de lo que ya vi',
+          frase: '¿Qué falta en mis datos? Antes de leer una gráfica, pregunta qué casos quedaron fuera y si vas a decidir más allá de lo que ya viste.' });
+        ctx.desplegable('Fuentes', [
           ['https://www.nasa.gov/history/rogersrep/v1ch3.htm', 'Comisión Rogers (1986), vol. I, cap. 3: el lanzamiento y la temperatura.'],
           ['https://www.nasa.gov/history/rogersrep/v1ch5.htm', 'Comisión Rogers (1986), vol. I, cap. 5: las teleconferencias de la víspera.'],
           ['https://www.nasa.gov/history/rogersrep/v1ch6.htm', 'Comisión Rogers (1986), vol. I, cap. 6: figuras 6 y 7, los vuelos y la temperatura.'],
           ['https://doi.org/10.1080/01621459.1989.10478858', 'Dalal, Fowlkes y Hoadley (1989), Journal of the American Statistical Association 84(408).']
-        ].map(function (f) { return '<li><a href="' + f[0] + '" target="_blank" rel="noopener noreferrer">' + f[1] + '</a></li>'; }).join('') + '</ul>';
-        cuerpo.appendChild(fu);
+        ]);
       } }
     ]
   };
