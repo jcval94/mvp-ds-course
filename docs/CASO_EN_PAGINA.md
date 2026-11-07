@@ -123,6 +123,11 @@ Reutilizables por los casos de las clases 1 a 4. Cada uno funciona con teclado y
 | `sello(texto)`, `contador(n)` | Los golpes visuales del cuaderno, en la página |
 | `cierre({frase, siguiente})` | Sello final, criterio en una frase, bits del caso y enlaces |
 
+Las piezas que se repiten entre casos viven en `site/casos/piezas.js` y `caso.js` las agrega a `ctx`:
+`lista`, `aviso`, `tabla`, `libreta`, `expediente`, `apuesta`, `verificacion`, `nombre`, `verificado`,
+`desplegable` y `cierre`. Cada `caso.html` carga `../piezas.js` antes de `../caso.js`. Lo propio de cada caso
+(escenas, gráficas, retos) se queda en su `caso-escenas.js`; si una pieza aparece en dos casos, va a `piezas.js`.
+
 ## 8. Lo que cambia en otras piezas
 
 | Pieza | Cambio | Dónde |
