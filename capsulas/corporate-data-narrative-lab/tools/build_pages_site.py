@@ -581,7 +581,7 @@ SITE_CSS = """
   --teal: #276b64;
   --plum: #7b3f53;
   --moss: #617249;
-  --gold: #a87524;
+  --gold: #885f1d;
 }
 
 * {
