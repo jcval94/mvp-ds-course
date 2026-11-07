@@ -22,7 +22,9 @@ HERRAMIENTA = {"1-1": ("faltantes", ["sesgo de supervivencia", "sesgo de sobrevi
                "2-1": ("sur", ["tasa por poblacion expuesta", "poblacion expuesta", "razon de tasas", "riesgo relativo",
                                "experimento natural", "grupo de comparacion"]),
                "2-3": ("vuelos", ["lo que una grafica deja fuera", "lo que la grafica deja fuera", "sesgo de seleccion",
-                                  "extrapolar", "extrapolacion"])}
+                                  "extrapolar", "extrapolacion"]),
+               "13-11": ("kilos", ["factor de conversion", "factores de conversion", "validar rangos", "validar el rango",
+                                   "validacion de rangos", "analisis dimensional", "unidades de medida"])}
 # Ids de secciones y de retos, en orden, tal como están registrados en la base del curso.
 RECORRIDO = {"1-1": (["preparacion", "apuesta", "registro", "asistente", "faltantes", "verificacion", "firma", "revelacion",
                       "laboratorio", "cierre"], ["reto_menos_area", "reto_error_resumen", "reto_motores_faltan"]),
@@ -35,7 +37,9 @@ RECORRIDO = {"1-1": (["preparacion", "apuesta", "registro", "asistente", "faltan
                      ["reto_mapa_deja_fuera", "reto_tasa_sv", "reto_cuantas_veces", "reto_error_grafica", "reto_peor_caso",
                       "reto_taqueria_expuestos"]),
              "2-3": (["preparacion", "apuesta", "grafica", "vuelos", "asistente", "firma", "revelacion", "cierre"],
-                     ["reto_grafica_patron", "reto_vuelos_calidos", "reto_fuera_de_rango", "reto_error_sin_ceros"])}
+                     ["reto_grafica_patron", "reto_vuelos_calidos", "reto_fuera_de_rango", "reto_error_sin_ceros"]),
+             "13-11": (["preparacion", "apuesta", "cuentas", "asistente", "kilos", "firma", "revelacion", "cierre"],
+                       ["reto_litros_total", "reto_error_factor", "reto_kilos_reales"])}
 
 
 def _norm(texto: str) -> str:
@@ -163,6 +167,15 @@ def test_challenger_usa_los_vuelos_reales() -> None:
     assert filas == csvf and len(filas) == 23 and sum(1 for x in filas if x["juntas"]) == 7
     texto = (ROOT / "site/casos/2-3/caso-escenas.js").read_text(encoding="utf-8")
     assert "Aviso de contenido" in texto and "aviso:" in (ROOT / "site/casos/2-3/escenas.js").read_text(encoding="utf-8")
+
+
+def test_gimli_usa_las_cifras_reales() -> None:
+    import csv
+    datos = (ROOT / "site/casos/13-11/datos.js").read_text(encoding="utf-8")
+    cifras = json.loads(datos[datos.index("=") + 1: datos.rindex(";")])
+    with (ROOT / "casos/data/gimli-glider-1983/cifras.csv").open(encoding="utf-8", newline="") as f:
+        filas = list(csv.DictReader(f))
+    assert {r["id"]: {"valor": float(r["valor"]), "unidad": r["unidad"]} for r in filas} == cifras
 
 
 @pytest.mark.skipif(shutil.which("node") is None, reason="sin node")

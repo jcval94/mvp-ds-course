@@ -56,6 +56,10 @@
 .avion-elegir svg .zona.sel2 rect{fill:var(--anil)}
 .zonas{display:flex;flex-wrap:wrap;gap:8px}
 .zonas .opcion{flex:1 1 140px}
+.zonas.unidades{gap:6px}
+.zonas.unidades .opcion{flex:0 0 auto;padding:6px 10px;font-size:.9rem}
+.etiqueta-fila{display:grid;gap:6px;margin:10px 0}
+.pieza.borrador>b{display:block;padding-right:92px}
 @media (min-width:760px){.avion-elegir{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}}
 
 .opcion[aria-pressed="true"]{border-color:var(--comal);background:var(--tq-suelo)}
