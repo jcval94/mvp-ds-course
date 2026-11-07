@@ -27,6 +27,9 @@
 .franja h2:focus{outline:none}
 .franja span{font-family:"Press Start 2P","Courier New",monospace;font-size:8px;color:var(--tinta-suave)}
 .cuerpo{padding:16px 16px 18px;display:grid;gap:14px}
+/* Los hijos de las rejillas no crecen por su contenido: una tabla ancha se desplaza dentro de .tabla-caja y no ensancha la página. */
+.caso>*,.seccion>*,.cuerpo>*,.reto>*,.tarjeta>*{min-width:0}
+.reto .num input{max-width:100%}
 .cuerpo p{margin:0}
 .cuerpo h3{margin:0;font-family:"Press Start 2P","Courier New",monospace;font-weight:400;font-size:10px;line-height:1.6;color:var(--tinta)}
 .aviso{border:3px solid var(--comal);padding:10px 12px;font-size:.95rem}
