@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Práctica · The Agentic Data Scientist</title>
+<meta name="description" content="Práctica de 10 minutos con micro-casos: situaciones reales, una pregunta y la respuesta al momento. Para repasar lo que viste en clase desde el celular.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1b2236">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="practica.css">
+</head>
+<body>
+<main class="app" id="app">
+  <div class="barra-sup">
+    <a href="../alumno.html">← MI AVANCE</a>
+    <button class="salir" id="salir" type="button" hidden>SALIR</button>
+  </div>
+
+  <!-- Sin sesión -->
+  <section id="vEntrar" hidden aria-labelledby="tEntrar">
+    <h1 id="tEntrar" aria-label="Práctica">PRACTICA</h1>
+    <p class="lead">Cinco micro-casos de un minuto: una situación real, una pregunta y la respuesta al momento. Repasas lo que viste en clase para que no se te olvide.</p>
+    <div class="tarjeta" style="margin-top:16px;display:grid;gap:12px">
+      <p style="margin:0">Entra con el mismo Gmail de tu inscripción para que tu práctica cuente.</p>
+      <button class="btn" id="entrar" type="button">ENTRAR CON GOOGLE</button>
+    </div>
+  </section>
+
+  <!-- Inicio -->
+  <section id="vInicio" hidden aria-labelledby="tInicio">
+    <h1 id="tInicio" aria-label="Práctica">PRACTICA</h1>
+    <p class="lead" id="saludo">Cinco micro-casos, unos 10 minutos.</p>
+    <div class="aviso vivo" id="avisoVivo" hidden role="status">
+      <b>Tu clase tiene una ronda en vivo.</b>
+      <button class="btn" id="entrarVivo" type="button">ENTRAR A LA RONDA</button>
+    </div>
+    <dl class="hud" aria-label="Tu práctica">
+      <div><dt>RACHA</dt><dd><svg class="flama" viewBox="0 0 8 8" aria-hidden="true" shape-rendering="crispEdges"><rect x="3" y="0" width="2" height="1" fill="var(--tq-comal)"/><rect x="2" y="1" width="4" height="2" fill="var(--tq-comal)"/><rect x="1" y="3" width="6" height="3" fill="var(--tq-comal)"/><rect x="3" y="4" width="2" height="2" fill="var(--tq-salsa)"/><rect x="2" y="6" width="4" height="1" fill="var(--tq-comal)"/></svg><span id="racha">0</span><small id="rachaTxt">días</small></dd></div>
+      <div><dt>BITS DE LA SEMANA</dt><dd><span id="bitsSemana">0</span><small>de <span id="tope">15</span></small></dd></div>
+      <div><dt>POR REPASAR</dt><dd><span id="repasos">0</span><small>micro-casos</small></dd></div>
+    </dl>
+    <div class="tarjeta">
+      <h2 class="px" style="margin:0;font-size:11px;line-height:1.5">TU NIVEL POR HABITO</h2>
+      <div class="niveles" id="niveles"></div>
+      <p class="nota" style="margin-top:12px">Tres aciertos seguidos suben un nivel; dos errores seguidos lo bajan. Lo que fallas vuelve en tu siguiente sesión.</p>
+    </div>
+    <button class="btn" id="empezar" type="button">EMPEZAR · 5 MICRO-CASOS</button>
+    <p class="nota" id="disponibles"></p>
+    <p class="nota">Ganas 1 bit por cada micro-caso que aciertas a la primera, hasta 15 bits por semana. Los bits son tu calificación.</p>
+  </section>
+
+  <!-- Sesión -->
+  <section id="vJuego" hidden aria-labelledby="tPregunta">
+    <h1 class="sr">Práctica en curso</h1>
+    <div class="progreso">
+      <button class="salir" id="dejar" type="button" aria-label="Dejar la sesión">✕</button>
+      <div class="pasos" id="pasos" aria-hidden="true"></div>
+      <span class="contador" id="contador"></span>
+    </div>
+    <div class="chips" id="chips"></div>
+    <p class="situacion" id="situacion"></p>
+    <h2 class="pregunta" id="tPregunta"></h2>
+    <div class="zona" id="zona"></div>
+  </section>
+
+  <!-- Final -->
+  <section id="vFin" hidden aria-labelledby="tFin">
+    <h1 id="tFin" class="sr">Sesión terminada</h1>
+    <div style="text-align:center;margin:10px 0 6px"><span class="sello pop" id="selloFin">SESION COMPLETA</span></div>
+    <dl class="hud">
+      <div><dt>ACIERTOS</dt><dd><span id="finAciertos">0</span><small>de <span id="finTotal">5</span></small></dd></div>
+      <div><dt>BITS GANADOS</dt><dd><span id="finBits">0</span><small>esta sesión</small></dd></div>
+      <div><dt>RACHA</dt><dd><span id="finRacha">0</span><small>días</small></dd></div>
+    </dl>
+    <ul class="resumen" id="finLista"></ul>
+    <button class="btn" id="otra" type="button" aria-label="Otra sesión">OTRA SESION</button>
+    <a class="btn sec" href="../alumno.html">VOLVER A MI AVANCE</a>
+  </section>
+
+  <!-- Ronda en vivo -->
+  <section id="vVivo" hidden aria-labelledby="tVivo">
+    <h1 id="tVivo">RONDA EN VIVO</h1>
+    <p class="lead" id="vivoEstado" role="status">Conectando…</p>
+    <div id="vivoItem" hidden style="display:grid;gap:16px">
+      <div class="chips" id="vivoChips"></div>
+      <p class="situacion" id="vivoSituacion"></p>
+      <h2 class="pregunta" id="vivoPregunta"></h2>
+      <div class="zona" id="vivoZona"></div>
+    </div>
+  </section>
+
+  <p class="aviso" id="error" hidden role="alert"></p>
+  <noscript><p class="aviso">La práctica necesita JavaScript.</p></noscript>
+</main>
+
+<div class="pie" id="pie" hidden>
+  <div class="dentro" id="pieDentro" aria-live="polite">
+    <p class="veredicto" id="veredicto"></p>
+    <p id="pieTexto"></p>
+    <button class="btn" id="accion" type="button" disabled>COMPROBAR</button>
+  </div>
+</div>
+
+<script src="../sesion.js"></script>
+<script src="practica.js"></script>
+</body>
+</html>

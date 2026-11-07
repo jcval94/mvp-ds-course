@@ -112,7 +112,7 @@
           <div class="campos">
             <label class="campo"><span>Nombre completo</span><input name="nombre" autocomplete="name" required maxlength="80" placeholder="Como quieres que aparezca en tu constancia"></label>
             <label class="campo"><span>Tu Gmail</span><input name="correo" type="email" autocomplete="email" required maxlength="160" placeholder="nombre@gmail.com">
-              <small>Con este correo entras a Mi avance y a tus cuadernos de Colab. Usa una cuenta de Google.</small></label>
+              <small>Con este correo entras a Mi avance y a tus casos. Usa una cuenta de Google.</small></label>
             <label class="campo"><span>Código de recomendación <small>(opcional)</small></span><input name="codigo" autocomplete="off" maxlength="20" placeholder="TDD12345" style="text-transform:uppercase">
               <small>Si alguien del curso te lo compartió, tienes 10 % adicional, que se multiplica con el de contado. El precio final lo ves en Stripe.</small></label>
             <label class="acepto"><input type="checkbox" name="acepto" required><span>Tengo 18 años o más, cumplo los <a href="instalacion.html" target="_blank" rel="noopener">requisitos</a> (laptop con Windows o macOS) y acepto los <a href="terminos.html" target="_blank" rel="noopener">términos y la política de reembolso</a> y el <a href="aviso-privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a>.</span></label>
@@ -235,7 +235,7 @@
         if (nombre.length < 2) { msg.textContent = "Escribe tu nombre completo."; f.nombre.focus(); return; }
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo)) { msg.textContent = "Escribe un correo válido."; f.correo.focus(); return; }
         if (!f.acepto.checked) { msg.textContent = "Para continuar, confirma que tienes 18 años o más y aceptas los términos."; f.acepto.focus(); return; }
-        if (!/@gmail\.com$/.test(correo) && !confirm(`${correo} no es un Gmail. Para entrar a Mi avance y a Colab necesitas una cuenta de Google con ese correo. ¿Continuar?`)) return;
+        if (!/@gmail\.com$/.test(correo) && !confirm(`${correo} no es un Gmail. Para entrar a Mi avance necesitas una cuenta de Google con ese correo. ¿Continuar?`)) return;
         b.disabled = true; msg.className = "msg"; msg.textContent = "Apartando tu lugar…";
         try {
           const r = await TDD.funcionPublica("tdd-inscripcion", { accion: "inscribir", plan: f.plan.value, nombre, correo, acepto: true, codigo: codigo || null,

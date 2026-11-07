@@ -462,7 +462,7 @@
 
   const BANDAS = { top5: "Top 5", top20: "Top 20 %", top50: "Top 50 %", en_camino: "En camino" };
   const ORDEN = ["en_camino", "top50", "top20", "top5"];
-  const PARTES = [["secciones", "Secciones"], ["hipotesis", "Hipótesis"], ["retos", "Retos"], ["casos", "Casos completos"], ["puntualidad", "A tiempo"], ["respuestas", "Respuestas"]];
+  const PARTES = [["secciones", "Secciones"], ["hipotesis", "Hipótesis"], ["retos", "Retos"], ["casos", "Casos completos"], ["puntualidad", "A tiempo"], ["respuestas", "Respuestas"], ["practica", "Práctica"]];
   const pct = (x) => (x == null ? "—" : `${Math.round(x * 100)} %`);
 
   function pintarMarcador(m) {
@@ -498,10 +498,13 @@
       if (i === nivel) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current");
     });
     // Mezcla de bits
-    const d = m.desglose || {}; const total = PARTES.reduce((s, [k]) => s + (d[k] || 0), 0);
+    const d = m.desglose || {};
+    // «Práctica» existe desde el esquema 0.15: con una base anterior no se muestra.
+    const partes = PARTES.filter(([k]) => k !== "practica" || d.practica != null);
+    const total = partes.reduce((s, [k]) => s + (d[k] || 0), 0);
     const mix = $("#mezcla"), ley = $("#leyenda"); mix.replaceChildren(); ley.replaceChildren();
-    mix.setAttribute("aria-label", PARTES.map(([k, n]) => `${n}: ${d[k] || 0}`).join(", "));
-    PARTES.forEach(([k, n]) => {
+    mix.setAttribute("aria-label", partes.map(([k, n]) => `${n}: ${d[k] || 0}`).join(", "));
+    partes.forEach(([k, n]) => {
       const v = d[k] || 0; if (total && v) { const i = el("i", `k-${k}`); i.style.width = `${(v / total) * 100}%`; mix.append(i); }
       const li = el("li"); li.append(el("i", `k-${k}`), document.createTextNode(`${n} `), el("b", null, String(v))); ley.append(li);
     });
@@ -572,11 +575,20 @@
       return;
     }
     soloVista("#vistaAvance"); $("#ayuda").hidden = false;
+    // Práctica tipo Duolingo (0.15): racha, bits de la semana y repasos. En bases anteriores la tarjeta no aparece.
+    api("/rest/v1/rpc/mi_practica", { method: "POST", body: "{}" }).then((p) => {
+      if (!p) return;
+      $("#practica").hidden = false;
+      if (p.repasos) { $("#practicaKicker").textContent = "Práctica · tienes repaso"; $("#practicaTitulo").textContent = `${p.repasos} micro-caso${p.repasos === 1 ? "" : "s"} por repasar`; }
+      else if (p.racha) $("#practicaKicker").textContent = `Práctica · racha de ${p.racha} día${p.racha === 1 ? "" : "s"}`;
+      $("#practicaNota").textContent = `${p.bits_semana} de ${p.tope_semana} bits esta semana · ${p.disponibles ? `${p.disponibles} micro-casos abiertos` : "se abren al terminar tu primera clase"}.`;
+      if (p.hoy >= 5) $("#practicaBtn").textContent = "Practicar otra vez";
+    }).catch(() => {});
     // Mensajes: solo para alumnos inscritos (las cuentas del equipo responden desde su panel).
     if (perfil && !docente) await cargarMensajes(); else M.on = false;
     pintarClases(clases);
     pintarPago(inscripcion);
-    pintarAccesoColab(usuario, perfil, docente);
+    pintarAccesoColab(usuario, perfil, docente, clases);
     pintarAvance({ usuario, perfil, casos, filas, eventos, retros });
     $("#respuestasReintentar").onclick = async (e) => {
       const btn = e.currentTarget; btn.disabled = true;
@@ -665,9 +677,18 @@
   }
 
   // ---------- Acceso a Colab: el alumno genera su TDD_CLAVE (Edge Function tdd-inscripcion) ----------
-  function pintarAccesoColab(usuario, perfil, docente) {
+  // Las clases 1 a 4 se resuelven en la página: Colab entra en la clase 5. La sección aparece una semana antes de la
+  // clase 5 de su grupo (o desde ya si el grupo no tiene calendario cargado).
+  const COLAB_DESDE_CLASE = 5;
+  function colabYa(clases) {
+    const lista = Array.isArray(clases) ? clases : [];
+    if (!lista.length) return true;
+    const c5 = lista.find((k) => Number(k.numero) === COLAB_DESDE_CLASE);
+    return !!c5 && new Date(c5.inicio).getTime() - Date.now() <= 7 * 24 * 3600 * 1000;
+  }
+  function pintarAccesoColab(usuario, perfil, docente, clases) {
     const sec = $("#acceso-colab");
-    sec.hidden = !(perfil && !docente);
+    sec.hidden = !(perfil && !docente && colabYa(clases));
     if (sec.hidden) return;
     const correo = (usuario.email || "").toLowerCase();
     const tddId = correo.endsWith("@alumnos.taqueriadedatos.mx") ? perfil.alumno_id : correo;
