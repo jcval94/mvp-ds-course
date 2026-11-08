@@ -478,6 +478,7 @@
       li.append(el("span", "pos", String(t.posicion)), el("span", "who", t.alias || "Participante"), pts); top.append(li);
     });
     if (!(m.top5 || []).length) top.append(el("li", "empty", "Aún nadie suma bits. El primer reto acertado abre la tabla."));
+    if (!m.participa) document.dispatchEvent(new CustomEvent("tdd:marcador", { detail: m }));
     const main = $("#marcador .board-main");
     sec.classList.toggle("solo", !m.participa);
     $("#marcador .board-side h3").textContent = m.participa ? "Top 5" : "Top 5 · así lo ve tu grupo";
@@ -514,6 +515,7 @@
     const fila = (t, v, nota) => { const w = el("div"); const dd = el("dd", null, v); if (nota) dd.append(el("small", null, ` ${nota}`)); w.append(el("dt", null, t), dd); cmp.append(w); };
     fila("Mediana del grupo", `${g.mediana_bits ?? 0} bits`, `· tú ${m.bits}`);
     fila("Aciertos al primer intento", pct(tuTasa), `· grupo ${pct(g.tasa_primer_intento)}`);
+    document.dispatchEvent(new CustomEvent("tdd:marcador", { detail: m }));
   }
 
   // Vacío = otra ciudad al azar (la base la elige sin repetir).
@@ -600,8 +602,8 @@
     pintarContinuar(casos, (ultimoEvento || [])[0] || null);
     pintarBuzon();
     pintarMarcador(marcador);
-    // La pestaña «Mi CV» (alumno-cv.js) se arma con los mismos datos.
-    if (perfil) document.dispatchEvent(new CustomEvent("tdd:datos", { detail: { usuario, perfil, casos, filas, marcador } }));
+    // Las pestañas «Mi CV» (alumno-cv.js), «Store» y «Clases grabadas» (alumno-store.js) se arman con los mismos datos.
+    if (perfil) document.dispatchEvent(new CustomEvent("tdd:datos", { detail: { usuario, perfil, casos, filas, marcador, clases, docente } }));
     // La cuenta docente tiene su propio panel (docente.html); aquí solo el acceso.
     $("#vistaDocente").hidden = !docente;
   }

@@ -167,6 +167,9 @@
     S.clases = val("clases", []);
     S.v11 = ADMIN && R.studio && R.studio.status === "fulfilled";
     S.studio = val("studio", []) || [];
+    const st = val("store", null);
+    S.v16 = ADMIN && !!st && Array.isArray(st.articulos);
+    S.store = S.v16 ? { articulos: st.articulos, canjes: st.canjes || [], metas: st.metas || [] } : { articulos: [], canjes: [], metas: [] };
     S.v12 = ADMIN && R.inscripciones && R.inscripciones.status === "fulfilled";
     S.insc = val("inscripciones", []) || [];
     S.v13 = ADMIN && R.recompensas && R.recompensas.status === "fulfilled";   // meses sin intereses y recomendación
@@ -248,6 +251,8 @@
       admins: S.esquema ? rpc("admin_administradores") : Promise.resolve([]),
       // Suscripciones de Augmented Studio (0.11): en bases anteriores la pestaña lo explica.
       studio: rpc("admin_accesos"),
+      // Store de bits (0.16): en bases anteriores la pestaña lo explica.
+      store: rpc("admin_tienda"),
       // Inscripciones y pagos con Stripe (0.12): en bases anteriores la pestaña lo explica.
       inscripciones: rpc("admin_inscripciones"),
       espera: rpc("admin_lista_espera"),
@@ -279,7 +284,7 @@
     if ($("#cntGrupos")) $("#cntGrupos").textContent = S.grupos.length || "";
     if ($("#cntDocentes")) $("#cntDocentes").textContent = S.docentes.length || "";
     llenarFiltros(); pintarBanners(); pintarResumen(); pintarAlumnos(); pintarCasos(); pintarClases(); pintarRespuestas(); pintarMensajes(); pintarDatos();
-    if (ADMIN) { pintarGrupos(); pintarDocentes(); pintarStudio(); pintarInscripciones(); }
+    if (ADMIN) { pintarGrupos(); pintarDocentes(); pintarStudio(); pintarInscripciones(); pintarStore(); }
     tableros?.actualizar();
   }
 
@@ -1036,6 +1041,114 @@
     } finally { b.disabled = false; }
   });
 
+  // ---------- Store: canjes de bits (0.16) ----------
+  const CAT_STORE = { cosmetico: "Cosmético", influencia: "Influencia", contenido: "Contenido", carrera: "Carrera", studio: "Studio" };
+  const EST_STORE = { pendiente: ["Por entregar", "dark"], entregado: ["Entregado", "ok"], anulado: ["Anulado", "crit"] };
+  function filaVacia(tb, texto, cols = 1) { const tr = el("tr"), td = el("td", null, texto); td.colSpan = cols; tr.append(td); tb.append(tr); }
+  function detalleCanje(c) {
+    return [c.eleccion, c.caso ? `Caso ${c.caso}` : null, c.texto ? `«${c.texto}»` : null].filter(Boolean).join(" · ") || "—";
+  }
+  async function estadoCanje(c, estado) {
+    const anular = estado === "anulado";
+    if (anular && !(await confirmar(`¿Anular el canje de ${c.alumno || c.alumno_id}?`, `${c.nombre} · ${c.precio} bits. Se le devuelve el saldo; su lugar en el ranking no cambia.`, "Anular canje"))) return;
+    try { await rpc("admin_canje_estado", { p_canje: c.id, p_estado: estado, p_nota: null }); toast(anular ? "Canje anulado: saldo devuelto" : "Marcado como entregado"); cargar(true); }
+    catch (e) { toast(e.message); }
+  }
+  function pintarStore() {
+    const pend = $("#tablaStorePend"); if (!pend) return;
+    const cat = $("#tablaStoreCat"), metas = $("#tablaStoreMetas"), hist = $("#tablaStoreHist");
+    [pend, cat, metas, hist].forEach((t) => t.replaceChildren());
+    const porEntregar = S.store.canjes.filter((c) => c.estado === "pendiente");
+    $("#cntStore").textContent = porEntregar.length || "";
+    if (!S.v16) { filaVacia(pend, "La Store llega con el esquema 0.16: corre los pasos 1 a 3 del instalador."); return; }
+    const cabeza = (t, cols) => { const tr = el("tr"); cols.forEach((h) => tr.append(el("th", null, h))); const th = el("thead"); th.append(tr); t.append(th); return el("tbody"); };
+    // Por entregar
+    if (!porEntregar.length) filaVacia(pend, "Nada pendiente. Aquí aparecen las revisiones, simulacros, preguntas y votos que te toca atender.");
+    else {
+      const b = cabeza(pend, ["Fecha", "Alumno", "Artículo", "Detalle", ""]);
+      porEntregar.forEach((c) => {
+        const tr = el("tr"), tdA = el("td"); tdA.append(el("b", null, c.alumno || "—"), el("small", "muted", ` · ${c.alumno_id || ""}${c.correo ? ` · ${c.correo}` : ""}`));
+        const acc = el("td", "row-actions");
+        acc.append(boton("Entregado", "btn btn-accent btn-sm", () => estadoCanje(c, "entregado")), boton("Anular", "btn btn-danger btn-sm", () => estadoCanje(c, "anulado")));
+        tr.append(el("td", null, fecha(c.creado)), tdA, el("td", null, c.nombre + (c.periodo > 1 && c.articulo === "pregunta_prioritaria" ? ` · clase ${c.periodo}` : "")), el("td", null, detalleCanje(c)), acc);
+        b.append(tr);
+      });
+      pend.append(b);
+    }
+    // Catálogo
+    const bc = cabeza(cat, ["Artículo", "Precio", "Existencias", "Desde clase", "Entrega", "Vendidos", "Activo", ""]);
+    S.store.articulos.forEach((a) => {
+      const tr = el("tr"); if (!a.activo) tr.className = "muted-row";
+      const num = (v, min) => { const i = el("input", "inp inp-num"); i.type = "number"; i.min = String(min); i.value = v == null ? "" : String(v); return i; };
+      const iPrecio = num(a.precio, 1), iExist = num(a.existencias, 0), iDesde = num(a.desde_clase, 0);
+      iExist.placeholder = "∞"; iPrecio.setAttribute("aria-label", `Precio de ${a.nombre}`); iExist.setAttribute("aria-label", `Existencias de ${a.nombre}`); iDesde.setAttribute("aria-label", `Clase desde la que se abre ${a.nombre}`);
+      const chk = el("input"); chk.type = "checkbox"; chk.checked = a.activo; chk.setAttribute("aria-label", `${a.nombre} activo`);
+      const tdN = el("td"); tdN.append(el("b", null, a.nombre), el("small", "muted", ` · ${CAT_STORE[a.categoria] || a.categoria}${a.por_clase ? " · por clase" : ""}${a.limite_alumno ? ` · máx. ${a.limite_alumno} por alumno` : ""}`));
+      const tdE = el("td");
+      let iOpc = null;
+      if (a.entrega === "archivo") {
+        const ents = a.entregables || [];
+        ents.forEach((x) => { const d = el("div", "ent"); d.append(enlace(x.url, x.caso ? `Caso ${x.caso}` : "Enlace"), boton("Quitar", "link-btn", async () => {
+          try { await rpc("admin_guardar_entregable", { p_articulo: a.id, p_caso: x.caso, p_url: null }); toast("Enlace quitado"); cargar(true); } catch (e) { toast(e.message); } })); tdE.append(d); });
+        const f = el("form", "inline-form"), u = el("input", "inp"); u.type = "url"; u.required = true; u.placeholder = "Enlace de Drive"; u.setAttribute("aria-label", `Enlace de ${a.nombre}`);
+        let sc = null;
+        if (a.requiere_caso) { sc = el("select", "inp"); sc.setAttribute("aria-label", "Caso"); S.casos.forEach((c) => sc.append(new Option(`Caso ${c.id}`, c.id))); f.append(sc); }
+        const bt = el("button", "btn btn-line btn-sm", "Agregar"); bt.type = "submit"; f.append(u, bt);
+        f.addEventListener("submit", async (ev) => { ev.preventDefault(); bt.disabled = true;
+          try { await rpc("admin_guardar_entregable", { p_articulo: a.id, p_caso: sc ? sc.value : null, p_url: u.value.trim() }); toast("Enlace guardado: ya se puede canjear"); cargar(true); }
+          catch (e) { toast(e.message); bt.disabled = false; } });
+        tdE.append(f);
+      } else if (a.efecto && a.efecto.votacion) {
+        iOpc = el("textarea", "inp"); iOpc.rows = 3; iOpc.value = (a.opciones || []).join("\n"); iOpc.placeholder = "Una opción por línea"; iOpc.setAttribute("aria-label", "Opciones de la votación");
+        const votos = new Map(); S.store.canjes.filter((c) => c.articulo === a.id && c.periodo === a.ronda && c.estado !== "anulado").forEach((c) => votos.set(c.eleccion, (votos.get(c.eleccion) || 0) + 1));
+        tdE.append(el("small", "muted", `Ronda ${a.ronda}${votos.size ? " · " + [...votos].map(([k, v]) => `${k}: ${v}`).join(" · ") : " · sin votos"}`), iOpc,
+          boton("Nueva ronda", "link-btn", async () => {
+            if (!(await confirmar("¿Abrir una nueva ronda de votación?", "Todos pueden volver a votar. Los votos anteriores quedan en el historial.", "Nueva ronda"))) return;
+            try { await rpc("admin_guardar_articulo", { p: { id: a.id, ronda: a.ronda + 1, opciones: iOpc.value.split("\n").map((x) => x.trim()).filter(Boolean) } }); toast("Ronda nueva abierta"); cargar(true); } catch (e) { toast(e.message); } }));
+      } else tdE.append(document.createTextNode(a.entrega === "auto" ? "Automática" : "Tú la entregas"));
+      const guardar = boton("Guardar", "btn btn-line btn-sm", async () => {
+        const p = { id: a.id, precio: Number(iPrecio.value), existencias: iExist.value === "" ? null : Number(iExist.value), desde_clase: Number(iDesde.value || 0), activo: chk.checked };
+        if (iOpc) p.opciones = iOpc.value.split("\n").map((x) => x.trim()).filter(Boolean);
+        if (!(p.precio > 0)) { toast("El precio debe ser mayor a 0"); return; }
+        guardar.disabled = true;
+        try { await rpc("admin_guardar_articulo", { p }); toast(`${a.nombre}: guardado`); cargar(true); } catch (e) { toast(e.message); guardar.disabled = false; }
+      });
+      const tdP = el("td"), tdX = el("td"), tdD = el("td"), tdA = el("td"), acc = el("td", "row-actions");
+      tdP.append(iPrecio); tdX.append(iExist); tdD.append(iDesde); tdA.append(chk); acc.append(guardar);
+      tr.append(tdN, tdP, tdX, tdD, tdE, el("td", null, String(a.vendidos || 0)), tdA, acc);
+      bc.append(tr);
+    });
+    cat.append(bc);
+    // Metas
+    const bm = cabeza(metas, ["Promedio de bits ganados", "Premio", "Activa", ""]);
+    const filaMeta = (m) => {
+      const tr = el("tr"), u = el("input", "inp inp-num"), pr = el("input", "inp"), ch = el("input");
+      u.type = "number"; u.min = "1"; u.value = m ? m.umbral : ""; u.setAttribute("aria-label", "Umbral");
+      pr.value = m ? m.premio : ""; pr.placeholder = "Premio para todo el grupo"; pr.setAttribute("aria-label", "Premio");
+      ch.type = "checkbox"; ch.checked = m ? m.activo : true; ch.setAttribute("aria-label", "Meta activa");
+      const b = boton(m ? "Guardar" : "Agregar", "btn btn-line btn-sm", async () => {
+        try { await rpc("admin_guardar_meta", { p_id: m ? m.id : null, p_umbral: Number(u.value), p_premio: pr.value, p_activo: ch.checked }); toast("Meta guardada"); cargar(true); } catch (e) { toast(e.message); }
+      });
+      const t1 = el("td"), t2 = el("td"), t3 = el("td"), t4 = el("td", "row-actions"); t1.append(u); t2.append(pr); t3.append(ch); t4.append(b);
+      tr.append(t1, t2, t3, t4); bm.append(tr);
+    };
+    S.store.metas.forEach(filaMeta); filaMeta(null);
+    metas.append(bm);
+    // Historial
+    if (!S.store.canjes.length) filaVacia(hist, "Aún no hay canjes.");
+    else {
+      const bh = cabeza(hist, ["Fecha", "Alumno", "Artículo", "Bits", "Detalle", "Estado", ""]);
+      S.store.canjes.forEach((c) => {
+        const tr = el("tr"), [et, cls] = EST_STORE[c.estado] || [c.estado, ""], tdS = el("td"), acc = el("td", "row-actions");
+        tdS.append(pill(et, cls)); if (c.nota) tdS.append(el("small", "muted", ` ${c.nota}`));
+        if (c.estado !== "anulado") acc.append(boton("Anular", "btn btn-danger btn-sm", () => estadoCanje(c, "anulado")));
+        tr.append(el("td", null, fecha(c.creado)), el("td", null, `${c.alumno || "—"} · ${c.alumno_id || ""}`), el("td", null, c.nombre), el("td", null, String(c.precio)), el("td", null, detalleCanje(c)), tdS, acc);
+        bh.append(tr);
+      });
+      hist.append(bh);
+    }
+  }
+
   // ---------- Inscripciones y pagos con Stripe (0.12) ----------
   const ESTADOS_INSC = {
     pendiente: ["Pagando", ""], esperando_pago: ["OXXO / transferencia", ""], pagado: ["Pagado", "ok"], al_corriente: ["Al corriente", "ok"],
@@ -1729,6 +1842,8 @@
       const esq = S.v13 ? "0.13" : S.v12 ? "0.12" : S.v11 ? "0.11" : S.v10 ? "0.10" : S.v08 ? "0.8" : S.esquema ? "0.7" : null;
       check(S.v13, esq ? `Esquema ${esq} instalado${S.v13 ? ": meses sin intereses, código de recomendación, inscripción en línea y todo lo anterior" : " · falta el 0.13 (meses sin intereses y código de recomendación)"}` : "Esquema anterior a 0.7",
         inst ? `Última instalación ${relativo(inst.creado)} · ${inst.detalle || ""}` : "Instalador, pasos 1 a 4, 6 y 9");
+      check(S.v16, S.v16 ? `Store de bits activa (esquema 0.16) · ${plural(S.store.canjes.length, "canje", "canjes")}` : "Falta el esquema 0.16: la Store de bits",
+        S.v16 ? "Gastar bits no cambia el ranking ni la calificación" : "Instalador vigente, pasos 1 a 4, 6 y 9");
       if (S.v10) { const fut = S.clases.filter((k) => finClase(k) > new Date()), sinGrab = S.clases.filter((k) => finClase(k) < new Date() && !k.grabacion_url);
         check(S.clases.length > 0 && !sinGrab.length, S.clases.length ? `${plural(S.clases.length, "clase", "clases")} · ${fut.length} por venir` : "Sin calendario de clases", S.clases.length ? (sinGrab.length ? `${plural(sinGrab.length, "clase pasada sin grabación", "clases pasadas sin grabación")}: pégala en la pestaña Clases` : "Todas las clases pasadas tienen grabación") : "Pestaña Clases → Generar calendario"); }
       const fnNueva = S.fn && S.fn.ok && S.fn.version === "0.9.0", fnIA = S.fn && S.fn.ok && ["0.8.0", "0.9.0"].includes(S.fn.version);
