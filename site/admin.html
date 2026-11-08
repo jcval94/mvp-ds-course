@@ -106,6 +106,7 @@
         <button type="button" role="tab" id="tab-docentes" aria-controls="v-docentes" aria-selected="false">Docentes <span class="tab-count" id="cntDocentes"></span></button>
         <button type="button" role="tab" id="tab-clases" aria-controls="v-clases" aria-selected="false">Clases <span class="tab-count" id="cntClases"></span></button>
         <button type="button" role="tab" id="tab-studio" aria-controls="v-studio" aria-selected="false">Studio <span class="tab-count" id="cntStudio"></span></button>
+        <button type="button" role="tab" id="tab-store" aria-controls="v-store" aria-selected="false">Store <span class="tab-count hot" id="cntStore"></span></button>
         <button type="button" role="tab" id="tab-casos" aria-controls="v-casos" aria-selected="false">Casos y retos</button>
         <button type="button" role="tab" id="tab-respuestas" aria-controls="v-respuestas" aria-selected="false">Por calificar <span class="tab-count" id="cntRespuestas"></span></button>
         <button type="button" role="tab" id="tab-mensajes" aria-controls="v-mensajes" aria-selected="false">Mensajes <span class="tab-count hot" id="cntMensajes"></span></button>
@@ -238,6 +239,31 @@
           <button class="btn btn-accent btn-sm" type="button" id="nuevoAcceso">+ Acceso</button>
         </div>
         <div class="table-wrap"><table class="tbl" id="tablaStudio"></table></div>
+      </section>
+
+      <!-- Store: canjes de bits (0.16) -->
+      <section class="vista" id="v-store" role="tabpanel" aria-labelledby="tab-store" hidden>
+        <div class="toolbar">
+          <p class="legend-note grow" style="margin:0">Los alumnos canjean su saldo de bits en la pestaña Store de Mi avance. Gastar no cambia su lugar, su banda ni su calificación: esos usan sus bits ganados. Anular un canje devuelve el saldo.</p>
+        </div>
+        <section class="box" aria-labelledby="storePendTitle">
+          <h3 id="storePendTitle">Por entregar</h3>
+          <div class="table-wrap"><table class="tbl" id="tablaStorePend"></table></div>
+        </section>
+        <section class="box" aria-labelledby="storeCatTitle">
+          <h3 id="storeCatTitle">Catálogo</h3>
+          <p class="legend-note">Los artículos de tipo «archivo» se muestran como «Próximamente» hasta que pegues su enlace de Drive. Los de un caso (versión del director) llevan un enlace por caso. Para abrir una votación, escribe las opciones (una por línea); «Nueva ronda» deja votar otra vez a todos.</p>
+          <div class="table-wrap"><table class="tbl tbl-store" id="tablaStoreCat"></table></div>
+        </section>
+        <section class="box" aria-labelledby="storeMetasTitle">
+          <h3 id="storeMetasTitle">Metas de grupo</h3>
+          <p class="legend-note">Se alcanzan con el promedio de bits ganados del grupo. Tú entregas el premio.</p>
+          <div class="table-wrap"><table class="tbl" id="tablaStoreMetas"></table></div>
+        </section>
+        <section class="box" aria-labelledby="storeHistTitle">
+          <h3 id="storeHistTitle">Todos los canjes</h3>
+          <div class="table-wrap"><table class="tbl" id="tablaStoreHist"></table></div>
+        </section>
       </section>
 
       <!-- Respuestas -->

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="design/tokens/tokens.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="area.css">
+  <link rel="stylesheet" href="alumno-store.css">
   <style>
     /* Mi avance: papel cálido, tarjetas blancas y el ámbar solo donde ya avanzaste. Lo compartido con el panel docente está en area.css.
        Colores solo desde design/tokens (el guardia del harness rechaza literales). */
@@ -431,7 +432,9 @@
 
     <div class="tabs" id="tabs" role="tablist" aria-label="Secciones del área del alumno" hidden>
       <button type="button" role="tab" id="tabAvance" aria-selected="true" aria-controls="vistaAvance">Mi avance</button>
-      <button type="button" role="tab" id="tabCV" aria-selected="false" aria-controls="vistaCV">Mi CV <span class="tab-new">Nuevo</span></button>
+      <button type="button" role="tab" id="tabCV" aria-selected="false" aria-controls="vistaCV">Mi CV</button>
+      <button type="button" role="tab" id="tabStore" aria-selected="false" aria-controls="vistaStore">Store <span class="tab-new">Nuevo</span></button>
+      <button type="button" role="tab" id="tabClases" aria-selected="false" aria-controls="vistaClases">Clases grabadas</button>
     </div>
 
     <section id="vistaAvance" hidden aria-labelledby="holaTitle">
@@ -509,6 +512,7 @@
             </ul>
             <p>Tus bits son tu calificación. También sirven para ver tu avance frente a tu grupo. El proyecto final no suma bits: es el requisito para tu constancia.</p>
             <p>Tu lugar y tu banda solo comparan tu avance dentro del grupo: no cambian tu calificación. Los empates comparten lugar.</p>
+            <p>Los bits que gastas en la Store no se restan de aquí: tu lugar, tu banda y tu calificación usan siempre tus bits ganados.</p>
           </details>
         </div>
         <div class="board-side">
@@ -613,6 +617,73 @@
         </div>
       </div>
     </section>
+    <section class="store" id="vistaStore" hidden aria-labelledby="storeTitle">
+      <div class="store-head">
+        <div class="store-saldo">
+          <p class="kicker-dark">Store · canjea tus bits</p>
+          <h2 id="storeTitle"><b id="storeSaldo">0</b> <span>bits para gastar</span></h2>
+          <p class="store-nota" id="storeNota"></p>
+          <p class="store-garantia"><b>Gastar no te baja de lugar.</b> Tu lugar en el Top 5, tu banda y tu calificación se calculan con tus bits ganados; la Store solo usa tu saldo.</p>
+        </div>
+        <dl class="store-cuentas">
+          <div><dt>Bits ganados</dt><dd id="storeGanados">0</dd></div>
+          <div><dt>Gastados</dt><dd id="storeGastado">0</dd></div>
+          <div><dt>Tu alias hoy</dt><dd id="storeYo" class="store-yo"></dd></div>
+        </dl>
+      </div>
+      <p class="notice is-error" id="storeError" hidden role="status"></p>
+      <section class="store-metas" id="storeMetas" hidden aria-labelledby="metasTitle">
+        <div class="store-metas-head">
+          <h3 id="metasTitle">Metas de tu grupo</h3>
+          <p id="metasNota"></p>
+        </div>
+        <ol class="metas" id="metasLista"></ol>
+      </section>
+      <div class="store-filtros" id="storeFiltros" role="group" aria-label="Filtrar la Store"></div>
+      <div class="store-grid" id="storeGrid" aria-live="polite"></div>
+      <section class="store-mios" aria-labelledby="miosTitle">
+        <h3 id="miosTitle">Lo que has canjeado</h3>
+        <ul class="mios" id="storeMios"></ul>
+      </section>
+    </section>
+
+    <section class="grabadas" id="vistaClases" hidden aria-labelledby="grabadasTitle">
+      <div class="grabadas-head">
+        <div>
+          <p class="kicker-dark">Clases grabadas</p>
+          <h2 id="grabadasTitle">Vuelve a ver cualquier clase</h2>
+          <p id="grabadasNota">Cada clase se graba en Google Meet. La grabación aparece aquí al terminar y se queda 12 meses desde la fecha de su clase.</p>
+        </div>
+        <label class="grabadas-buscar"><span>Buscar</span><input id="grabadasBuscar" type="search" placeholder="Tema, caso o número de clase"></label>
+      </div>
+      <div class="player" id="grabadasPlayer" hidden>
+        <div class="player-marco" id="playerMarco"></div>
+        <div class="player-info">
+          <p class="kicker-dark" id="playerKicker"></p>
+          <h3 id="playerTitulo"></h3>
+          <p class="fine" id="playerNota"></p>
+          <a class="btn btn-line" id="playerDrive" target="_blank" rel="noopener">Abrir en Google Drive</a>
+        </div>
+      </div>
+      <ol class="grabadas-lista" id="grabadasLista"></ol>
+    </section>
+
+    <dialog class="msg-dlg store-dlg" id="dlgCanje" aria-labelledby="canjeTitle">
+      <form method="dialog" id="canjeForm">
+        <div class="msg-dlg-head">
+          <div><p class="kicker-dark" id="canjeKicker">Canjear</p><h2 id="canjeTitle">Artículo</h2></div>
+          <button class="msg-close" type="button" id="canjeCerrar" aria-label="Cerrar">×</button>
+        </div>
+        <p id="canjeDesc"></p>
+        <div id="canjeCampos"></div>
+        <p class="canje-cuenta" id="canjeCuenta"></p>
+        <p class="fine">Tu lugar en el ranking y tu calificación no cambian: solo baja tu saldo de la Store.</p>
+        <div class="msg-actions">
+          <button class="btn btn-accent" type="submit" id="canjeOk">Canjear</button>
+          <p class="fine" id="canjeMsg" role="status"></p>
+        </div>
+      </form>
+    </dialog>
     <dialog class="msg-dlg" id="dlgMensajes" aria-labelledby="mensajesTitle">
       <div class="msg-dlg-head">
         <div><p class="kicker-dark">Tu profesor</p><h2 id="mensajesTitle">Mensajes</h2></div>
@@ -640,5 +711,6 @@
   <script src="sesion.js"></script>
   <script src="alumno.js"></script>
   <script src="alumno-cv.js"></script>
+  <script src="alumno-store.js"></script>
 </body>
 </html>

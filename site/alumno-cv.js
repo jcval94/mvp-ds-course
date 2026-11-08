@@ -212,15 +212,21 @@
   }
 
   // ---------- Pestañas ----------
+  // Mi avance, Mi CV, Store y Clases grabadas. Store y Clases grabadas las pinta alumno-store.js al recibir «tdd:pestana».
   const PANEL_AVANCE = ["#vistaAvance", "#vistaDocente", "#ayuda"];
+  const PESTANAS = { avance: ["#tabAvance", null], cv: ["#tabCV", "#vistaCV"], store: ["#tabStore", "#vistaStore"], clases: ["#tabClases", "#vistaClases"] };
   function pestana(cual) {
-    const cv = cual === "cv";
-    $("#tabAvance").setAttribute("aria-selected", String(!cv)); $("#tabCV").setAttribute("aria-selected", String(cv));
-    PANEL_AVANCE.forEach((s) => $(s).classList.toggle("tab-off", cv));
-    $("#vistaCV").hidden = !cv;
-    try { history.replaceState(null, "", cv ? "#cv" : location.pathname); } catch (_) {}
-    if (cv) { render(); requestAnimationFrame(ajustarZoom); }
+    if (!PESTANAS[cual]) cual = "avance";
+    Object.entries(PESTANAS).forEach(([k, [tab, vista]]) => {
+      $(tab).setAttribute("aria-selected", String(k === cual));
+      if (vista) $(vista).hidden = k !== cual;
+    });
+    PANEL_AVANCE.forEach((s) => $(s).classList.toggle("tab-off", cual !== "avance"));
+    try { history.replaceState(null, "", cual === "avance" ? location.pathname : `#${cual}`); } catch (_) {}
+    if (cual === "cv") { render(); requestAnimationFrame(ajustarZoom); }
+    document.dispatchEvent(new CustomEvent("tdd:pestana", { detail: cual }));
   }
+  window.TDD_PESTANA = pestana;
 
   document.addEventListener("tdd:datos", (ev) => {
     ctx = ev.detail;
@@ -230,10 +236,9 @@
     if (!datos.correo) datos.correo = ctx.usuario.email || "";
     pintarEditor();
     $("#tabs").hidden = false;
-    pestana(location.hash === "#cv" ? "cv" : "avance");
+    pestana(location.hash.slice(1) || "avance");
   });
-  $("#tabAvance").addEventListener("click", () => pestana("avance"));
-  $("#tabCV").addEventListener("click", () => pestana("cv"));
+  Object.entries(PESTANAS).forEach(([k, [tab]]) => $(tab).addEventListener("click", () => pestana(k)));
   $("#cvPdf").addEventListener("click", () => { document.body.classList.add("imprimiendo-cv"); const z = $("#cvHoja").style.zoom; $("#cvHoja").style.zoom = "1"; window.print(); $("#cvHoja").style.zoom = z; document.body.classList.remove("imprimiendo-cv"); });
   window.addEventListener("resize", () => { if (!$("#vistaCV").hidden) ajustarZoom(); });
 })();

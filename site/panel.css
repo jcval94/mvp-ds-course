@@ -430,3 +430,12 @@ dialog.dlg::backdrop { background: color-mix(in srgb, var(--text) 40%, transpare
 .row-actions { display: flex; gap: 6px; justify-content: flex-end; white-space: nowrap; }
 .horarios { display: grid; gap: 8px; }
 .horario-fila { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, .8fr); gap: 8px; }
+
+/* Store (0.16) */
+.inp.inp-num { width: 96px; }
+.tbl-store td { vertical-align: top; }
+.tbl-store textarea.inp { min-width: 200px; margin: 6px 0; }
+.tbl-store .inline-form { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tbl-store .inline-form .inp { width: auto; flex: 1 1 160px; }
+.tbl-store .ent { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; }
+#v-store .box + .box { margin-top: 16px; }
