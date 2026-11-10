@@ -46,6 +46,16 @@ solo cuando hace falta. La continuidad visual la da la estafeta (sección 4), no
 6. **8 bits dentro del caso** con la paleta `--tq-*` (sin verde: el «sí» es anil); el resto del sitio sigue sobrio.
 7. **Accesible y móvil primero:** todo control con teclado, texto real en el DOM, `aria-live` para la retroalimentación,
    sin animación con `prefers-reduced-motion`, nada que se mueva más de 5 s sin pausa, objetivos táctiles de 44 px.
+8. **Términos al alcance.** Todo caso cierra con un desplegable «Glosario» (`ctx.desplegable('Glosario', ['Término:
+   definición', …])`) con los términos que nombró; una palabra de contexto que no es la herramienta (por ejemplo, «votos
+   electorales») lleva su propio desplegable «¿Qué es…?» donde aparece. El nombre de la herramienta nunca va en un
+   desplegable antes de su sección.
+9. **Una opción con humor, solo donde cabe.** En un reto de opción múltiple sobre el trabajo del asistente puede ir una
+   opción irónica (humor de oficina) que apunte a la confianza ciega, nunca al desenlace del caso. Se agrega al final de la
+   lista y no se cambia el texto de las demás: la base compara por texto. No va en casos con víctimas (`docs/GUIA_CASOS.md`).
+10. **Una gráfica, una escala.** Si una acción del alumno cambia la etiqueta de una barra (de conteo a porcentaje), el largo
+    de la barra no cambia. Botones y tablas sobre papel usan la tinta del papel y caben en 390 px sin desbordar.
+
 
 ## 4. La estafeta: intro → caso → Mi avance
 

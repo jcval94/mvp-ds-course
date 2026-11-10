@@ -44,7 +44,7 @@
     var extra = document.getElementById('estadoAccion');
     if (extra) extra.remove();
     if (M.modo === 'invitado' || M.modo === 'sinperfil') {
-      e.textContent = M.modo === 'invitado' ? 'SIN GUARDAR · PRUEBA' : 'SIN INSCRIPCION · NO CUENTA';
+      e.textContent = M.modo === 'invitado' ? 'SIN GUARDAR' : 'SIN INSCRIPCION · NO CUENTA';
       var a = el(M.modo === 'invitado' ? 'button' : 'a', 'mini', M.modo === 'invitado' ? 'ENTRAR' : 'INSCRIBIRME'); a.id = 'estadoAccion';
       if (M.modo === 'invitado') { a.type = 'button'; a.addEventListener('click', function () { try { sessionStorage.removeItem('tdd-prueba'); } catch (_) {} TDD.entrar(); }); }
       else a.href = '../../inscripcion.html';
