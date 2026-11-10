@@ -57,7 +57,7 @@ def minimum_touch_target(page, selector: str, minimum: int = 44) -> None:
 def assert_home(page) -> None:
     page.goto(BASE, wait_until="networkidle")
     page.get_by_text("The Agentic D. Scientist", exact=True).first.wait_for()
-    page.get_by_role("heading", name="Conviértete en un Agentic Data Scientist").wait_for()
+    page.get_by_role("heading", name="Aprende ciencia de datos e IA desde cero, con casos reales").wait_for()
     page.get_by_text("Historia", exact=True).first.wait_for()
     page.get_by_text("Intuición", exact=True).first.wait_for()
     page.get_by_text("Visual", exact=True).first.wait_for()
@@ -71,10 +71,7 @@ def assert_home(page) -> None:
 def assert_placement(page) -> None:
     page.goto(f"{BASE}/placement.html", wait_until="networkidle")
     page.get_by_role("heading", name="No estudies lo que ya sabes.").wait_for()
-    page.get_by_text("≈ 5 min", exact=True).wait_for()
-    page.get_by_text("≤ 10", exact=True).wait_for()
-    page.get_by_text("No requiere", exact=True).wait_for()
-    page.get_by_text("Ruta personal", exact=True).wait_for()
+    page.get_by_text("≈ 5 minutos · máximo 10 preguntas · sin cuenta", exact=True).wait_for()
     assert page.locator("#optionGrid button").count() == 4
     assert page.locator("#submitAnswer").is_disabled()
     page.locator("#optionGrid button").first.click()

@@ -3,15 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="Curso en vivo de ciencia de datos e IA desde cero, basado en casos reales. Generación 1: inicia el 8 de enero de 2027, viernes y sábados, 30 lugares. Prueba gratis los primeros dos niveles.">
-  <meta property="og:title" content="The Agentic D. Scientist">
-  <meta property="og:description" content="Generación 1 · inicia 8 de enero de 2027 · curso en vivo de ciencia de datos e IA basado en casos reales.">
-  <title>The Agentic D. Scientist · Curso de IA y ciencia de datos</title>
+  <meta name="description" content="Curso en vivo de ciencia de datos e IA desde cero, con casos reales. Generación 1: del 8 de enero al 20 de marzo de 2027, viernes y sábados, 30 lugares.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="The Agentic Data Scientist">
+  <meta property="og:title" content="Curso de ciencia de datos e IA desde cero · The Agentic Data Scientist">
+  <meta property="og:description" content="En vivo, con casos reales y sin saber programar. Generación 1: inicia el 8 de enero de 2027, 30 lugares.">
+  <meta name="twitter:card" content="summary">
+  <title>Curso de ciencia de datos e IA desde cero · The Agentic Data Scientist</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="design/tokens/tokens.css">
   <link rel="stylesheet" href="styles.css">
+  <!-- Datos estructurados del curso. Fechas y precio deben coincidir con cursos.js y docs/DECISIONES_GENERACION_1.md. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "The Agentic Data Scientist",
+    "description": "Curso en vivo de ciencia de datos e IA desde cero, basado en casos reales de toma de decisiones.",
+    "inLanguage": "es-MX",
+    "provider": { "@type": "Organization", "name": "Augmented Learning Labs" },
+    "offers": { "@type": "Offer", "category": "Paid", "price": "9900", "priceCurrency": "MXN" },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "name": "Generación 1",
+      "courseMode": "Online",
+      "startDate": "2027-01-08",
+      "endDate": "2027-03-20",
+      "courseWorkload": "PT66H"
+    }
+  }
+  </script>
   <style>
-    /* Landing: estructura de The Agentic D. Scientist (Continuum). Colores solo desde design/tokens. */
+    /* Landing de The Agentic Data Scientist. Colores solo desde design/tokens. */
     body.landing { background: var(--surface); }
     .landing main { max-width: none; padding: 0; }
 
@@ -20,7 +44,7 @@
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      min-height: clamp(560px, 86vh, 780px);
+      min-height: clamp(520px, 80vh, 720px);
       display: flex;
       flex-direction: column;
       background: var(--hero);
@@ -52,8 +76,8 @@
     }
     .landing .site-header nav a { color: var(--hero-text); }
     .landing .site-header nav a:hover { color: var(--hero-soft); }
-    .landing .header-cta { background: var(--glass); color: var(--hero-text); border: 1px solid var(--glass-line); backdrop-filter: blur(6px); }
-    .landing .header-cta:hover { background: color-mix(in srgb, var(--hero-text) 18%, transparent); }
+    .landing .header-cta { background: var(--accent); color: var(--on-accent); }
+    .landing .header-cta:hover { background: var(--accent-hover); }
     .hero-inner {
       position: relative;
       z-index: 1;
@@ -63,8 +87,8 @@
       grid-template-columns: minmax(0, 640px);
       justify-content: start;
       align-content: center;
-      gap: 36px;
-      padding-block: 56px 72px;
+      gap: 28px;
+      padding-block: 48px 72px;
     }
     .hero-kicker {
       display: inline-flex;
@@ -80,65 +104,73 @@
       font-weight: 500;
     }
     .hero-kicker .icon { width: 14px; height: 14px; color: var(--accent); }
-    .hero-copy h1 { margin: 22px 0 0; font-size: clamp(40px, 5.6vw, 62px); line-height: 1.08; letter-spacing: -.025em; font-weight: 700; max-width: 640px; }
-    .hero-copy p { margin: 24px 0 0; max-width: 580px; color: var(--hero-soft); font-size: 18px; line-height: 1.6; text-wrap: pretty; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
+    .hero-copy h1 { margin: 22px 0 0; font-size: clamp(38px, 5.2vw, 58px); line-height: 1.08; letter-spacing: -.025em; font-weight: 700; max-width: 640px; text-wrap: balance; }
+    .hero-copy p { margin: 22px 0 0; max-width: 560px; color: var(--hero-soft); font-size: 18px; line-height: 1.6; text-wrap: pretty; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .hero-copy p.hero-price { margin-top: 16px; font-size: 14px; }
+    .hero-price b { color: var(--hero-text); font-weight: 600; }
 
-    /* Tarjeta "Qué hacer ahora": franja compacta bajo los botones, sobre la parte oscura de la foto */
+    /* "Continúa donde ibas": solo aparece si esta persona ya abrió una misión o hizo el diagnóstico. */
     .progress-card {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      grid-template-areas: "kicker kicker" "texto boton" "extra extra";
       column-gap: 20px;
       align-items: center;
       max-width: 580px;
       border-radius: var(--r-card);
       background: color-mix(in srgb, var(--hero) 55%, transparent);
       border: 1px solid var(--glass-line);
-      padding: 18px 20px;
+      padding: 16px 20px;
       backdrop-filter: blur(10px);
     }
-    .progress-card .card-kicker { grid-area: kicker; }
-    .progress-card .card-texto { grid-area: texto; min-width: 0; }
-    .progress-card #missionLink { grid-area: boton; }
-    .progress-card .card-secondary { grid-area: extra; }
-    .progress-card .card-kicker { margin: 0; color: var(--hero-soft); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-    .progress-card .mission-kicker { display: block; margin-top: 10px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-    .progress-card h2 { margin: 4px 0 4px; font-size: 19px; line-height: 1.25; letter-spacing: -.015em; }
+    .progress-card .card-texto { min-width: 0; }
+    .progress-card .mission-kicker { display: block; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .progress-card h2 { margin: 4px 0 4px; font-size: 18px; line-height: 1.25; letter-spacing: -.015em; }
     .progress-card p { margin: 0; color: var(--hero-soft); font-size: 14px; line-height: 1.55; }
-    .progress-card .btn { margin-top: 10px; white-space: nowrap; }
-    .progress-card .card-secondary { display: block; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--glass-line); color: var(--hero-soft); font-size: 13px; line-height: 1.5; }
-    .progress-card .card-secondary b { color: var(--hero-text); font-weight: 600; }
-    .progress-card .card-secondary:hover b { color: var(--accent); }
+    .progress-card .btn { white-space: nowrap; }
 
     /* Banda de indicadores */
-    .stats-band { padding: 30px 0; border-bottom: 1px solid var(--line); background: var(--surface); }
-
-    /* Qué aprenderás */
-    .what-band { position: relative; }
-    .what-band::before { content: ""; position: absolute; inset: 0; background: url("assets/shadow-bg.jpg") center / cover no-repeat; opacity: .55; pointer-events: none; }
-    .what-band .wrap { position: relative; }
-    .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-    .feature-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 24px; transition: border-color .2s ease; }
-    .feature-card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
-    .feature-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, transparent), color-mix(in srgb, var(--accent) 6%, transparent)); color: var(--accent-text); margin-bottom: 14px; }
-    .feature-icon .icon { width: 20px; height: 20px; }
-    .feature-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
-    .feature-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .stats-band { padding: 26px 0; border-bottom: 1px solid var(--line); background: var(--surface); }
+    .landing .summary-rail { grid-template-columns: repeat(4, 1fr); }
 
     /* Cómo aprenderás */
-    .method-head { margin: 64px 0 20px; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; }
-    .method-head h3 { margin: 0; font-size: 22px; letter-spacing: -.01em; }
-    .method-head p { margin: 0; color: var(--muted); font-size: 14px; }
-    .learning-path { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
-    .learning-step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; min-height: 140px; }
+    .learning-path { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+    .learning-step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; }
     .step-number { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 10px; background: var(--surface-soft); color: var(--muted); font-size: 12px; font-weight: 700; }
     .learning-step:first-child .step-number { background: var(--accent); color: var(--on-accent); }
     .learning-step strong { display: block; margin-top: 14px; font-size: 15px; font-weight: 600; }
     .learning-step span:not(.step-number) { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 
-    /* Currículum */
-    .curriculum-cta { margin-top: 32px; display: flex; justify-content: center; }
+    /* Probar un caso */
+    .case-teaser { margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 32px; align-items: center; border-radius: var(--r-card); background: var(--hero); color: var(--hero-text); padding: 28px 32px; }
+    .case-teaser .kicker { color: var(--accent); margin-bottom: 8px; }
+    .case-teaser h3 { margin: 0; font-size: 24px; letter-spacing: -.015em; }
+    .case-teaser p:not(.kicker) { margin: 8px 0 0; max-width: 560px; color: var(--hero-soft); font-size: 15px; line-height: 1.6; }
+
+    /* Generación 1 */
+    .cohort-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; }
+    .cohort-fact { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; }
+    .cohort-fact dt { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .cohort-fact dd { margin: 6px 0 0; font-size: 16px; font-weight: 600; line-height: 1.4; }
+    .cohort-fact dd > span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; font-weight: 500; line-height: 1.5; }
+    .cohort-fact dd a { color: var(--accent-text); font-weight: 700; }
+    .cohort-fact.price { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
+    .cohort-cta { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; }
+    .cohort-cta p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* Temario */
+    .feature-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .feature-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; }
+    .feature-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: var(--accent-soft); color: var(--accent-text); margin-bottom: 12px; }
+    .feature-icon .icon { width: 18px; height: 18px; }
+    .feature-card h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+    .feature-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .catalog-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin-bottom: 14px; }
+    .catalog-tools p { margin: 0; color: var(--muted); font-size: 14px; }
+    .catalog-tools p a { color: var(--accent-text); font-weight: 700; }
+    .curriculum-cta { margin-top: 24px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .btn-line { background: var(--surface); color: var(--text); border-color: var(--line); }
+    .btn-line:hover { border-color: var(--accent); background: var(--accent-soft); }
 
     /* Planes */
     .plan-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
@@ -148,48 +180,40 @@
     .plan-card h3 { margin: 0; font-size: 18px; font-weight: 600; }
     .plan-tagline { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
     .plan-price { margin: 20px 0 0; font-size: 30px; font-weight: 700; letter-spacing: -.02em; }
-    .plan-price small, .plan-from { display: block; color: var(--muted); font-size: 13px; font-weight: 500; letter-spacing: 0; }
-    .plan-price small { margin-top: 4px; }
-    .plan-from { margin-bottom: 2px; }
-    .plan-includes { margin: 22px 0 10px; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-    .plan-card ul { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 9px; flex: 1; align-content: start; }
+    .plan-price small { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; font-weight: 500; letter-spacing: 0; line-height: 1.5; }
+    .plan-was { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .plan-was s { margin-right: 4px; }
+    .plan-card ul { list-style: none; margin: 22px 0 24px; padding: 0; display: grid; gap: 9px; flex: 1; align-content: start; }
     .plan-card li { display: flex; gap: 8px; font-size: 14px; line-height: 1.45; }
     .plan-card li .icon { width: 16px; height: 16px; margin-top: 2px; color: var(--accent-text); stroke-width: 3; }
     .plan-card .btn { width: 100%; min-height: 46px; font-size: 14px; }
     .plans-note { margin: 28px auto 0; max-width: 620px; text-align: center; color: var(--muted); font-size: 13px; line-height: 1.6; }
     .plans-note a { color: var(--accent-text); font-weight: 700; }
 
-    /* Transparencia */
-    .trust-drawer { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 0 22px; }
-    .trust-drawer > summary { min-height: 64px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 600; list-style: none; }
-    .trust-drawer > summary::-webkit-details-marker { display: none; }
-    .trust-drawer > summary::after { content: "+"; color: var(--accent-text); font-size: 22px; }
-    .trust-drawer[open] > summary::after { content: "−"; }
+    /* Preguntas frecuentes y transparencia: mismos plegables */
+    .faq-list { max-width: 760px; margin-inline: auto; display: grid; gap: 10px; }
+    .faq-item, .trust-drawer { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 0 22px; }
+    .faq-item > summary, .trust-drawer > summary { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; font-weight: 600; list-style: none; }
+    .faq-item > summary::-webkit-details-marker, .trust-drawer > summary::-webkit-details-marker { display: none; }
+    .faq-item > summary::after, .trust-drawer > summary::after { content: "+"; color: var(--accent-text); font-size: 22px; }
+    .faq-item[open] > summary::after, .trust-drawer[open] > summary::after { content: "−"; }
+    .faq-item p { margin: 0; padding: 0 0 20px; max-width: 640px; color: var(--muted); font-size: 15px; line-height: 1.65; }
+    .faq-item p a { color: var(--accent-text); font-weight: 700; }
+    .trust-drawer > summary { font-size: 14px; color: var(--muted); }
     .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; padding: 8px 0 32px; }
     .trust-grid h2 { margin: 0; font-size: 20px; }
     .trust-grid p.lead { margin: 6px 0 18px; color: var(--muted); font-size: 13px; }
+    .band-tight { padding: 32px 0; }
 
     /* CTA final */
-    .final-cta { position: relative; overflow: hidden; padding: 96px 0; text-align: center; color: var(--hero-text); background: radial-gradient(50% 80% at 50% 0%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 70%), var(--hero); }
+    .final-cta { position: relative; overflow: hidden; padding: 88px 0; text-align: center; color: var(--hero-text); background: radial-gradient(50% 80% at 50% 0%, color-mix(in srgb, var(--accent) 18%, transparent) 0, transparent 70%), var(--hero); }
     .final-cta h2 { margin: 0; font-size: clamp(30px, 4vw, 40px); line-height: 1.15; letter-spacing: -.02em; }
     .final-cta p { margin: 16px auto 0; max-width: 460px; color: var(--hero-soft); }
-    .final-cta .btn { margin-top: 32px; }
-
-    .band-tight { padding: 40px 0; }
-
-    /* Generación 1 */
-    .cohort-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .cohort-fact { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 20px; }
-    .cohort-fact dt { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-    .cohort-fact dd { margin: 6px 0 0; font-size: 16px; font-weight: 600; line-height: 1.4; }
-    .cohort-fact dd > span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; font-weight: 500; }
-    .cohort-cta { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; }
-    .cohort-cta p { margin: 0; color: var(--muted); font-size: 14px; }
-    .plan-was { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
-    .plan-was s { margin-right: 4px; }
     .final-cta .cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
-    .final-cta .cta-row .btn { margin-top: 0; }
     .landing footer { max-width: var(--max); }
+
+    /* Navegación móvil: la inscripción siempre a un toque */
+    .landing .mobile-nav a.nav-cta { margin: 9px 10px 9px 4px; min-height: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-size: 13px; font-weight: 700; }
 
     @media (max-width: 1024px) {
       .hero-inner { padding-block: 40px 56px; }
@@ -200,7 +224,7 @@
           linear-gradient(90deg, color-mix(in srgb, var(--hero) 92%, transparent) 0, color-mix(in srgb, var(--hero) 70%, transparent) 55%, color-mix(in srgb, var(--hero) 35%, transparent) 100%);
       }
       .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .learning-path { grid-template-columns: repeat(5, minmax(150px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
+      .learning-path { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
       .trust-grid { grid-template-columns: 1fr; }
       .cohort-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -208,23 +232,34 @@
     @media (max-width: 800px) {
       body.landing { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
       .landing .header-cta { display: none; }
-      .hero-inner { padding-block: 28px 56px; gap: 28px; }
-      .hero-copy h1 { font-size: clamp(36px, 10vw, 46px); }
+      .hero-inner { padding-block: 24px 48px; gap: 24px; }
+      .hero-copy h1 { font-size: clamp(32px, 9vw, 42px); }
       .hero-copy p { font-size: 16px; }
       .hero-actions { display: grid; grid-template-columns: 1fr; }
       .hero-actions .btn { width: 100%; }
       .hero-section { min-height: 0; }
       .hero-section::before { background: color-mix(in srgb, var(--hero) 80%, transparent); }
       .hero-photo img { object-position: 74% 30%; }
-      .progress-card { grid-template-columns: 1fr; grid-template-areas: "kicker" "texto" "boton" "extra"; padding: 18px; }
+      .progress-card { grid-template-columns: 1fr; row-gap: 12px; padding: 16px; }
       .progress-card .btn { width: 100%; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .learning-path { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; }
-      .learning-step { min-width: 72%; scroll-snap-align: start; }
+      .landing .summary-rail { grid-template-columns: 1fr 1fr; }
+      /* Los cinco pasos se leen como lista: nada escondido detrás de un deslizamiento lateral. */
+      .learning-path { grid-template-columns: 1fr; gap: 8px; }
+      .learning-step { display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 12px; padding: 14px 16px; }
+      .learning-step .step-number { grid-row: 1 / 3; }
+      .learning-step strong { margin-top: 0; }
+      .learning-step span:not(.step-number) { margin-top: 2px; }
+      .case-teaser { grid-template-columns: 1fr; padding: 24px 20px; }
+      .case-teaser .btn { width: 100%; }
+      .feature-grid { grid-template-columns: 1fr; gap: 10px; }
+      .feature-card { display: grid; grid-template-columns: 38px minmax(0, 1fr); column-gap: 12px; padding: 16px; }
+      .feature-icon { grid-row: 1 / 3; margin: 0; }
       .plan-grid { grid-template-columns: 1fr; }
-      .cohort-grid { grid-template-columns: 1fr; }
-      .trust-drawer { padding: 0 16px; }
-      .final-cta { padding: 72px 0; }
+      .cohort-grid { grid-template-columns: 1fr; gap: 10px; }
+      .cohort-fact { padding: 16px; }
+      .faq-item, .trust-drawer { padding: 0 16px; }
+      .final-cta { padding: 64px 0; }
+      .final-cta .cta-row .btn, .curriculum-cta .btn { width: 100%; }
     }
   </style>
 </head>
@@ -241,8 +276,6 @@
       <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></symbol>
       <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
       <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
-      <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
-      <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
       <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
     </defs>
   </svg>
@@ -260,47 +293,69 @@
           <strong>The Agentic D. Scientist</strong>
         </a>
         <nav aria-label="Navegación principal">
-          <a href="#what">Qué aprenderás</a>
+          <a href="#what">Cómo aprenderás</a>
           <a href="#generacion">Generación 1</a>
-          <a href="#catalogo">Currículum</a>
+          <a href="#catalogo">Temario</a>
           <a href="#planes">Planes</a>
-          <a href="placement.html">Diagnóstico</a>
-          <a href="methodology.html">Metodología</a>
-          <a href="alumno.html">Mi avance</a>
+          <a href="#preguntas">Preguntas</a>
         </nav>
         <div class="header-actions">
           <a class="header-login" id="headerLogin" href="alumno.html"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span>Entrar</span></a>
-          <a class="header-cta" href="#generacion">Inscríbete <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="header-cta" href="inscripcion.html">Inscríbete <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
       </header>
 
       <div class="wrap hero-inner">
         <div class="hero-copy">
           <p class="hero-kicker"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg>Generación 1 · inicia 8 de enero de 2027 · 30 lugares</p>
-          <h1 id="heroTitle">Conviértete en un Agentic Data Scientist</h1>
-          <p>Aprende ciencia de datos e IA desde cero resolviendo decisiones reales, como los bombarderos de Wald o el lavado de manos de Semmelweis. Clases en vivo los viernes y sábados, con misiones prácticas en Colab.</p>
+          <h1 id="heroTitle">Aprende ciencia de datos e IA desde cero, con casos reales</h1>
+          <p>Sin saber programar. Cada semana resuelves una decisión real, como los bombarderos de Wald o el lavado de manos de Semmelweis, y la herramienta llega cuando el caso la pide. Clases en vivo los viernes y sábados.</p>
           <div class="hero-actions">
-            <a class="btn btn-accent" href="#generacion">Inscríbete a la Generación 1 · inicia 8 ene</a>
-            <a class="btn btn-ghost student-primary" id="continueLink" href="#catalogo">Probar gratis</a>
+            <a class="btn btn-accent" href="#generacion">Inscríbete a la Generación 1</a>
+            <a class="btn btn-ghost student-primary" id="continueLink" href="casos/1-1/">Mira el primer caso · 1 min</a>
           </div>
+          <p class="hero-price">Precio de fundador: <b><span data-curso="pago_unico">$8,910</span> MXN</b> en un solo pago o 3 pagos de <span data-curso="cuota">$3,300</span>.</p>
         </div>
 
-        <aside class="progress-card" aria-labelledby="missionHeading">
-          <p class="card-kicker" id="missionHeading">Qué hacer ahora</p>
+        <aside class="progress-card" id="progressCard" aria-labelledby="continueTitle" hidden>
           <div class="card-texto">
-            <span class="mission-kicker" id="continueKicker">Comienza la ruta</span>
-            <h2 id="continueTitle">Tu primera misión</h2>
-            <p id="continueMeta">Abriremos el primer bloque publicado. Cuando vuelvas, este acceso recordará en este dispositivo la última misión que abriste.</p>
+            <span class="mission-kicker" id="continueKicker">Continúa</span>
+            <h2 id="continueTitle">Tu misión</h2>
+            <p id="continueMeta"></p>
           </div>
-          <a class="btn btn-ghost" id="missionLink" href="#catalogo">Abrir misión</a>
-          <a class="card-secondary" href="placement.html"><b>¿Ya sabes algo? Haz el diagnóstico.</b> Hasta 10 preguntas para saltarte lo que ya dominas.</a>
+          <a class="btn btn-ghost" id="missionLink" href="#catalogo">Continuar misión</a>
         </aside>
       </div>
     </section>
 
     <div class="stats-band">
-      <div class="wrap"><dl class="summary-rail" id="summaryRail" aria-label="Cobertura total de la ruta"></dl></div>
+      <div class="wrap"><dl class="summary-rail" id="summaryRail" aria-label="El curso en números"></dl></div>
     </div>
+
+    <section id="what" class="band band-white" aria-labelledby="whatTitle">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Cómo aprenderás</p>
+          <h2 class="section-title" id="whatTitle">Cada clase parte de una decisión real</h2>
+          <p class="section-lead">Cada misión avanza desde un problema humano hasta una decisión verificable.</p>
+        </div>
+        <ol class="learning-path" aria-label="Secuencia didáctica">
+          <li class="learning-step"><span class="step-number">1</span><strong>Historia</strong><span>Entiende por qué importa el problema.</span></li>
+          <li class="learning-step"><span class="step-number">2</span><strong>Intuición</strong><span>Construye el mecanismo sin empezar por la fórmula.</span></li>
+          <li class="learning-step"><span class="step-number">3</span><strong>Visual</strong><span>Manipula evidencia y observa qué cambia.</span></li>
+          <li class="learning-step"><span class="step-number">4</span><strong>Código</strong><span>Reproduce y extiende el análisis.</span></li>
+          <li class="learning-step"><span class="step-number">5</span><strong>Decisión</strong><span>Convierte el concepto en una acción defendible.</span></li>
+        </ol>
+        <aside class="case-teaser" aria-labelledby="teaserTitle">
+          <div>
+            <p class="kicker">Caso 1.1 · gratis y sin cuenta</p>
+            <h3 id="teaserTitle">El mapa de agujeros</h3>
+            <p>1943. Los aviones vuelven con agujeros y el blindaje no alcanza para todo. ¿Te alcanza el mapa de agujeros para decidir dónde va?</p>
+          </div>
+          <a class="btn btn-accent" href="casos/1-1/">Ver el caso <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </aside>
+      </div>
+    </section>
 
     <section id="generacion" class="band band-alt" aria-labelledby="cohortTitle">
       <div class="wrap">
@@ -310,137 +365,136 @@
           <p class="section-lead">No necesitas saber programar: empezamos desde cero y cada semana resuelves un caso real con datos.</p>
         </div>
         <dl class="cohort-grid">
-          <div class="cohort-fact"><dt>Fechas</dt><dd>Del viernes 8 de enero al sábado 20 de marzo de 2027<span>11 semanas · 22 clases de 3 horas · 66 horas en vivo</span></dd></div>
-          <div class="cohort-fact"><dt>Horario (hora CDMX)</dt><dd>Viernes de 18:00 a 21:00<br>Sábados de 8:00 a 11:00<span>2 clases y 6 horas en vivo por semana</span></dd></div>
-          <div class="cohort-fact"><dt>Modalidad</dt><dd>En vivo, en línea por Google Meet<span>Necesitas una laptop con Windows o macOS (no tableta, celular ni Chromebook), internet estable y cuentas gratuitas de Google, GitHub, ChatGPT y Claude. <a href="instalacion.html">Requisitos y cómo prepararte</a></span></dd></div>
-          <div class="cohort-fact"><dt>Lugares</dt><dd>30 personas<span>Un grupo pequeño para resolver dudas en clase. Abre con un mínimo de 6; si no se llega, te devolvemos el 100 % y el grupo se reprograma un mes después.</span></dd></div>
+          <div class="cohort-fact"><dt>Fechas</dt><dd>Del viernes 8 de enero al sábado 20 de marzo de 2027<span>22 clases de 3 horas · 66 horas en vivo</span></dd></div>
+          <div class="cohort-fact"><dt>Horario (hora CDMX)</dt><dd>Viernes de 18:00 a 21:00<br>Sábados de 8:00 a 11:00</dd></div>
+          <div class="cohort-fact"><dt>Modalidad</dt><dd>En vivo, en línea por Google Meet<span>Con laptop Windows o macOS. <a href="instalacion.html">Requisitos y cómo prepararte</a></span></dd></div>
+          <div class="cohort-fact"><dt>Lugares</dt><dd>30 personas<span>Un grupo pequeño para resolver dudas en clase.</span></dd></div>
           <div class="cohort-fact"><dt>Si faltas a una clase</dt><dd>Recibes la grabación<span>Disponible durante 12 meses a partir de cada clase.</span></dd></div>
-          <div class="cohort-fact"><dt>Precio <span data-curso="nombre">Generación 1</span></dt><dd><b data-curso="pago_unico">$8,910</b> MXN en un solo pago<span>10% de descuento solo de contado, IVA incluido · o <span data-curso="precio">$9,900</span> a 3 meses sin intereses con tarjeta de crédito · o 3 pagos de <span data-curso="cuota">$3,300</span> con cargo automático a tu tarjeta: <span data-curso="fechas_cortas">8 ene, 8 feb y 8 mar de 2027</span> · precio de fundador solo para la Generación 1 · precio regular <span data-curso="regular">$14,900</span> · lo pagado de Augmented Studio en los últimos 12 meses se descuenta</span></dd></div>
+          <div class="cohort-fact price"><dt>Precio de fundador</dt><dd><b data-curso="pago_unico">$8,910</b> MXN en un solo pago<span>O 3 pagos de <span data-curso="cuota">$3,300</span>, o <span data-curso="precio">$9,900</span> a 3 meses sin intereses. IVA incluido. Precio regular: <span data-curso="regular">$14,900</span>.</span></dd></div>
         </dl>
         <div class="cohort-cta">
           <a class="btn btn-accent" href="inscripcion.html">Inscríbete a la Generación 1 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-          <p>Pago seguro con Stripe: tarjeta, OXXO o transferencia. Inscripciones abiertas hasta el día de inicio o hasta llenar los 30 lugares.</p>
+          <p>Pago seguro con Stripe: tarjeta, OXXO o transferencia.</p>
         </div>
       </div>
     </section>
 
-    <section id="what" class="band band-white what-band" aria-labelledby="whatTitle">
+    <section id="catalogo" class="band band-white" aria-labelledby="curriculumTitle">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker">Qué aprenderás</p>
-          <h2 class="section-title" id="whatTitle">De los fundamentos de datos a desplegar sistemas de IA</h2>
+          <p class="kicker">Temario</p>
+          <h2 class="section-title" id="curriculumTitle">De los fundamentos de datos a desplegar sistemas de IA</h2>
+          <p class="section-lead">Trece niveles progresivos. Los niveles 1 y 2 son gratis.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-database"/></svg></span><h3>Fundamentos de Data Science</h3><p>Estadística, Python y manejo de datos del mundo real.</p></article>
           <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg></span><h3>LLMs y prompting avanzado</h3><p>Aprovecha modelos modernos con técnicas que funcionan en producción.</p></article>
           <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-bot"/></svg></span><h3>Agentes autónomos</h3><p>Diseña, orquesta y evalúa agentes que toman decisiones.</p></article>
           <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-rocket"/></svg></span><h3>MLOps ligero</h3><p>Versiona, monitorea y despliega tus proyectos con confianza.</p></article>
-          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-graduation-cap"/></svg></span><h3>Casos reales</h3><p>Cada herramienta aparece cuando hace falta para tomar una decisión histórica con datos.</p></article>
-          <article class="feature-card"><span class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-video"/></svg></span><h3>Clases en vivo</h3><p>Un grupo de 30 personas, con grabación de cada clase por si no puedes asistir.</p></article>
         </div>
-
-        <div id="ruta" class="method-head">
-          <h3>Cómo aprenderás</h3>
-          <p>Cada misión avanza desde un problema humano hasta una decisión verificable.</p>
-        </div>
-        <div class="learning-path" role="region" tabindex="0" aria-label="Secuencia didáctica">
-          <div class="learning-step"><span class="step-number">1</span><strong>Historia</strong><span>Entiende por qué importa el problema.</span></div>
-          <div class="learning-step"><span class="step-number">2</span><strong>Intuición</strong><span>Construye el mecanismo sin empezar por la fórmula.</span></div>
-          <div class="learning-step"><span class="step-number">3</span><strong>Visual</strong><span>Manipula evidencia y observa qué cambia.</span></div>
-          <div class="learning-step"><span class="step-number">4</span><strong>Código</strong><span>Reproduce y extiende el análisis.</span></div>
-          <div class="learning-step"><span class="step-number">5</span><strong>Decisión</strong><span>Convierte el concepto en una acción defendible.</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="catalogo" class="band band-alt" aria-labelledby="curriculumTitle">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="kicker">Currículum</p>
-          <h2 class="section-title" id="curriculumTitle">Niveles progresivos</h2>
-          <p class="section-lead">Trece niveles publicados, de los fundamentos a operar sistemas de IA. Los niveles 1 y 2 son gratis.</p>
-        </div>
-        <div class="filters" aria-label="Filtros del currículum">
-          <div id="levelFilters"></div>
-          <label><span class="sr-only">Buscar concepto</span><input id="search" type="search" placeholder="Buscar concepto"></label>
+        <div class="catalog-tools">
+          <p>¿Ya sabes algo de datos? <a href="placement.html">Haz el diagnóstico de 5 minutos</a> y empieza donde te toca.</p>
+          <label><span class="sr-only">Buscar un tema en el temario</span><input id="search" type="search" placeholder="Buscar un tema"></label>
         </div>
         <div id="catalog"></div>
-        <p class="publication-note">Solo aparecen paquetes que pasan los evals técnicos y pedagógicos.</p>
         <div class="curriculum-cta">
+          <button class="btn btn-line" type="button" id="catalogMore" hidden>Ver todos los niveles</button>
           <a class="btn btn-dark" data-start-free href="#catalogo">Probar Nivel 1 gratis <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
       </div>
     </section>
 
-    <section id="planes" class="band band-white" aria-labelledby="plansTitle">
+    <section id="planes" class="band band-alt" aria-labelledby="plansTitle">
       <div class="wrap">
         <div class="section-head center">
           <p class="kicker">Planes</p>
           <h2 class="section-title" id="plansTitle">Elige cómo quieres avanzar</h2>
         </div>
         <div class="plan-grid">
+          <article class="plan-card featured" data-plan="agentic_ds">
+            <span class="plan-popular">Cupo limitado · 30 lugares</span>
+            <h3>Agentic Data Scientist</h3>
+            <p class="plan-tagline">Curso en vivo de 11 semanas. Inicia el 8 de enero de 2027.</p>
+            <p class="plan-price"><span data-curso="pago_unico">$8,910</span> MXN<small>En un solo pago, con 10 % de descuento · o 3 pagos de <span data-curso="cuota">$3,300</span> · o <span data-curso="precio">$9,900</span> a 3 meses sin intereses</small></p>
+            <p class="plan-was"><s><span data-curso="regular">$14,900</span> MXN</s> precio regular</p>
+            <ul aria-label="Incluye">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>22 clases en vivo de 3 horas, viernes y sábados</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Grabación de cada clase</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Casos reales y laboratorios guiados</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Cuadernos y plantillas de cada caso</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>12 meses de Augmented Studio incluidos</span></li>
+            </ul>
+            <a class="btn btn-accent" href="inscripcion.html">Inscríbete</a>
+          </article>
+          <article class="plan-card" data-plan="augmented_studio">
+            <h3>Augmented Studio</h3>
+            <p class="plan-tagline">Para autodidactas constantes.</p>
+            <p class="plan-price">$89 MXN<small>al mes · o $999 MXN al año</small></p>
+            <ul aria-label="Incluye">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todo lo del plan gratis</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Niveles 3 en adelante</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todos los ejercicios de la plataforma</span></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Lo que pagues en los 12 meses previos se descuenta si te inscribes al curso en vivo</span></li>
+            </ul>
+            <a class="btn btn-dark" href="mailto:augmentedlearninglabs@gmail.com?subject=Quiero%20el%20plan%20Augmented%20Studio">Quiero este plan</a>
+          </article>
           <article class="plan-card" data-plan="free">
-            <h3>Free</h3>
+            <h3>Gratis</h3>
             <p class="plan-tagline">Para empezar a explorar.</p>
             <p class="plan-price">$0</p>
-            <p class="plan-includes">Incluye:</p>
-            <ul>
+            <ul aria-label="Incluye">
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Nivel 1: Fundamentos</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Nivel 2: Descripción y visualización</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Materiales públicos del curso</span></li>
             </ul>
             <a class="btn btn-dark" data-start-free href="#catalogo">Empezar gratis</a>
           </article>
-          <article class="plan-card" data-plan="augmented_studio">
-            <h3>Augmented Studio</h3>
-            <p class="plan-tagline">Para autodidactas constantes.</p>
-            <p class="plan-price">$89 MXN<small>al mes · o $999 MXN al año</small></p>
-            <p class="plan-includes">Incluye:</p>
-            <ul>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todo lo del plan Free</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Niveles 3 en adelante</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Todos los ejercicios de la plataforma</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Lo que pagues en los 12 meses previos se descuenta si te inscribes al curso en vivo</span></li>
-            </ul>
-            <a class="btn btn-dark" href="mailto:valc941226@gmail.com?subject=Quiero%20el%20plan%20Augmented%20Studio">Quiero este plan</a>
-          </article>
-          <article class="plan-card featured" data-plan="agentic_ds">
-            <span class="plan-popular">Cupo limitado · 30 lugares</span>
-            <h3>Agentic Data Scientist</h3>
-            <p class="plan-tagline">Curso en vivo de 11 semanas. Inicia el 8 de enero de 2027.</p>
-            <p class="plan-price"><span data-curso="pago_unico">$8,910</span> MXN<small>Pago único con 10% de descuento · o <span data-curso="precio">$9,900</span> a 3 meses sin intereses · o 3 pagos de <span data-curso="cuota">$3,300</span> (<span data-curso="fechas_cortas">8 ene, 8 feb y 8 mar de 2027</span>)</small></p>
-            <p class="plan-was"><s><span data-curso="regular">$14,900</span> MXN</s> precio regular</p>
-            <p class="plan-includes">Incluye:</p>
-            <ul>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>22 clases en vivo de 3 horas (66 horas): 2 por semana, 6 horas semanales, viernes y sábados</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Grabación de cada clase</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Misiones con casos reales en Colab</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Laboratorios guiados</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Cuadernos y plantillas de cada caso</span></li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>12 meses de Augmented Studio incluidos</span></li>
-            </ul>
-            <a class="btn btn-accent" href="inscripcion.html">Inscríbete</a>
-          </article>
           <article class="plan-card" data-plan="business">
             <h3>Agentic Data Transformation</h3>
             <p class="plan-tagline">Para equipos de 10, 20 o hasta 30 personas.</p>
             <p class="plan-price">A medida</p>
-            <p class="plan-includes">Incluye:</p>
-            <ul>
+            <ul aria-label="Incluye">
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Programa para equipos</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Onboarding y diagnóstico</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Sesiones privadas</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Reportes de avance</span></li>
               <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span>Soporte dedicado</span></li>
             </ul>
-            <a class="btn btn-dark" href="mailto:valc941226@gmail.com?subject=Agentic%20Data%20Transformation%20para%20mi%20equipo">Contactar ventas</a>
+            <a class="btn btn-dark" href="mailto:augmentedlearninglabs@gmail.com?subject=Agentic%20Data%20Transformation%20para%20mi%20equipo">Contactar ventas</a>
           </article>
         </div>
-        <p class="plans-note">Precios en pesos mexicanos con IVA incluido. La Generación 1 se paga en línea con Stripe (tarjeta, OXXO o transferencia; los meses sin intereses y los 3 pagos, con tarjeta). Con el código de recomendación de un alumno tienes 10 % adicional. Para Augmented Studio o equipos, escríbenos a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a>. Consulta los <a href="terminos.html">términos y la política de reembolso</a>.</p>
+        <p class="plans-note">Precios en pesos mexicanos con IVA incluido. Con el código de recomendación de un alumno tienes 10 % adicional. Para Augmented Studio o equipos, escríbenos a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a>.</p>
       </div>
     </section>
 
-    <section class="band band-alt band-tight" aria-label="Fuentes, datasets y validación">
+    <section id="preguntas" class="band band-white" aria-labelledby="faqTitle">
+      <div class="wrap">
+        <div class="section-head center">
+          <p class="kicker">Preguntas frecuentes</p>
+          <h2 class="section-title" id="faqTitle">Antes de inscribirte</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item"><summary>¿Necesito saber programar?</summary><p>No. Empezamos desde cero y cada herramienta aparece cuando el caso la necesita.</p></details>
+          <details class="faq-item"><summary>¿Qué necesito para tomar el curso?</summary><p>Una laptop con Windows o macOS (no tableta, celular ni Chromebook), internet estable y cuentas gratuitas de Google, GitHub, ChatGPT y Claude. Aquí están los <a href="instalacion.html">requisitos y cómo prepararte</a>.</p></details>
+          <details class="faq-item"><summary>¿Qué pasa si falto a una clase?</summary><p>Recibes la grabación de cada clase, disponible durante 12 meses.</p></details>
+          <details class="faq-item"><summary>¿Cómo se paga?</summary><p>En línea con Stripe: tarjeta, OXXO o transferencia. Los 3 meses sin intereses son con tarjeta de crédito. Los 3 pagos se cargan solos a tu tarjeta: <span data-curso="fechas_cortas">8 ene, 8 feb y 8 mar de 2027</span>.</p></details>
+          <details class="faq-item"><summary>¿Puedo pedir un reembolso?</summary><p>Sí: te devolvemos el 100 % si lo pides antes de que termine la segunda clase. Además, el grupo abre con un mínimo de 6 personas; si no se llega, te devolvemos todo y el grupo se reprograma un mes después. El detalle está en los <a href="terminos.html">términos y la política de reembolso</a>.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="finalTitle">
+      <div class="wrap">
+        <h2 id="finalTitle">Aparta tu lugar en la Generación 1</h2>
+        <p>Inicia el viernes 8 de enero de 2027. 30 lugares a precio de fundador, solo para esta generación.</p>
+        <div class="cta-row">
+          <a class="btn btn-accent" href="inscripcion.html">Inscríbete a la Generación 1 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn-ghost" data-start-free href="#catalogo">Probar gratis los niveles 1 y 2</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band-white band-tight" aria-label="Fuentes, datasets y validación">
       <div class="wrap">
         <details class="trust-drawer">
           <summary>Fuentes, datasets y validación</summary>
@@ -463,40 +517,28 @@
         </details>
       </div>
     </section>
-
-    <section class="final-cta" aria-labelledby="finalTitle">
-      <div class="wrap">
-        <h2 id="finalTitle">Aparta tu lugar en la Generación 1</h2>
-        <p>Inicia el viernes 8 de enero de 2027. 30 lugares a precio de fundador, solo para esta generación: $8,910 MXN en un solo pago, $9,900 a 3 meses sin intereses o 3 pagos de $3,300 con tarjeta, IVA incluido.</p>
-        <div class="cta-row">
-          <a class="btn btn-accent" href="inscripcion.html">Inscríbete a la Generación 1 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-          <a class="btn btn-ghost" data-start-free href="#catalogo">Probar gratis los niveles 1 y 2</a>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
     <a class="brand" href="#top"><svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg><strong>The Agentic D. Scientist</strong></a>
     <nav aria-label="Pie de página">
       <a href="#generacion">Generación 1</a>
+      <a href="#catalogo">Temario</a>
       <a href="#planes">Planes</a>
-      <a href="#catalogo">Currículum</a>
-      <a href="methodology.html">Metodología</a>
-      <a href="https://github.com/jcval94/mvp-ds-course">Repositorio</a>
+      <a href="placement.html">Diagnóstico</a>
       <a href="alumno.html">Mi avance</a>
       <a href="instalacion.html">Prepara tu computadora</a>
       <a href="aviso-privacidad.html">Aviso de privacidad</a>
       <a href="terminos.html">Términos</a>
     </nav>
-    <p>© 2026 Augmented Learning Labs · The Agentic D. Scientist · Todos los derechos reservados.</p>
+    <p>© 2026 Augmented Learning Labs · The Agentic Data Scientist · Todos los derechos reservados.</p>
   </footer>
 
   <nav class="mobile-nav" aria-label="Navegación móvil">
-    <a href="#top" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-brain"/></svg><span>Inicio</span></a>
-    <a href="#catalogo"><svg class="icon" aria-hidden="true"><use href="#i-graduation-cap"/></svg><span>Currículum</span></a>
-    <a href="alumno.html"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span>Mi avance</span></a>
+    <a href="#catalogo"><svg class="icon" aria-hidden="true"><use href="#i-graduation-cap"/></svg><span>Temario</span></a>
     <a href="#planes"><svg class="icon" aria-hidden="true"><use href="#i-rocket"/></svg><span>Planes</span></a>
+    <a href="alumno.html"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span>Mi avance</span></a>
+    <a class="nav-cta" href="inscripcion.html"><span>Inscríbete</span></a>
   </nav>
 
   <script src="cursos.js"></script>

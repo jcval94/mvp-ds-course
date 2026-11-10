@@ -43,7 +43,6 @@ button, input { font: inherit; }
 .site-header nav { display: flex; align-items: center; gap: 26px; }
 .site-header nav a { color: var(--muted); font-size: 14px; white-space: nowrap; }
 @media (max-width: 1180px) { .site-header nav { gap: 16px; } .site-header nav a { font-size: 13px; } }
-@media (max-width: 1060px) and (min-width: 801px) { .site-header nav a[href="methodology.html"], .site-header nav a[href="placement.html"] { display: none; } }
 .site-header nav a:hover, .site-header nav a[aria-current="page"] { color: var(--text); }
 .header-cta {
   display: inline-flex;
@@ -114,30 +113,6 @@ main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
 .summary-rail dd { margin: 0; font-size: 26px; letter-spacing: -.02em; font-weight: 700; }
 
 /* Catálogo por niveles */
-.filters {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 14px 16px;
-  margin-bottom: 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-card);
-}
-#levelFilters { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
-#levelFilters button {
-  border: 1px solid var(--line);
-  border-radius: var(--r-pill);
-  background: var(--surface);
-  padding: 6px 12px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-}
-#levelFilters button:hover { border-color: var(--accent); color: var(--text); }
-#levelFilters button.active { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 #search {
   width: 220px;
   border: 1px solid var(--line);
@@ -175,7 +150,8 @@ main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
 .level-title h3 { margin: 0; font-size: 16px; font-weight: 600; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .level-title span { color: var(--muted); font-size: 13px; }
 .plan-badge { display: inline-flex; align-items: center; gap: 4px; border-radius: var(--r-pill); padding: 2px 8px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--surface-soft); color: var(--muted); }
-.plan-badge .icon { width: 10px; height: 10px; }
+.plan-badge .icon { width: 12px; height: 12px; }
+.level-group:not(.free) .plan-badge { background: none; padding: 0; }
 .level-group.free .plan-badge { background: var(--accent-soft); color: var(--accent-text); }
 .catalog-case { display: grid; gap: 4px; padding: 14px 22px; background: var(--surface-soft); border-top: 1px solid var(--line); font-size: 13px; }
 .catalog-case b { font-size: 14px; font-weight: 600; }
@@ -196,7 +172,6 @@ main, footer { max-width: var(--max); margin: 0 auto; padding-inline: 24px; }
 .catalog-row a { color: var(--accent-text); font-size: 13px; font-weight: 700; justify-self: end; }
 .catalog-row a:hover { text-decoration: underline; }
 .catalog-row[hidden], .level-group[hidden] { display: none; }
-.publication-note { margin: 22px 0 0; color: var(--muted); font-size: 13px; }
 .empty { color: var(--muted); padding: 28px 0; }
 
 /* Datasets y validación */
@@ -262,12 +237,11 @@ footer p { margin: 0; color: var(--muted); font-size: 12px; }
   .band { padding: 64px 0; }
   .summary-rail { grid-template-columns: 1fr 1fr; gap: 20px 0; }
   .summary-rail div:nth-child(odd) { padding-left: 0; border-left: 0; }
-  .filters { align-items: stretch; flex-direction: column; padding: 12px; }
-  #levelFilters { width: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
-  #levelFilters button { flex: 0 0 auto; }
-  #search { width: 100%; }
+  .catalog-tools label, #search { width: 100%; }
   .level-head { padding: 14px 16px; gap: 12px; }
   .level-number { width: 38px; height: 38px; }
+  .level-title h3 { display: block; }
+  .level-title h3 .plan-badge { margin-left: 6px; vertical-align: middle; }
   .catalog-row { grid-template-columns: 1fr auto; padding: 12px 16px; min-height: 64px; gap: 4px 16px; }
   .catalog-row span { grid-column: 1; }
   .catalog-row a { grid-row: 1 / 3; grid-column: 2; }
