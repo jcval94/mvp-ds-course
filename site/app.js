@@ -2,8 +2,6 @@
   const response = await fetch("catalog.json");
   if (!response.ok) throw new Error("No se pudo cargar catalog.json");
   const catalog = await response.json();
-  let activeLevel = "all";
-
   const $ = (selector) => document.querySelector(selector);
   const create = (tag, attributes = {}, text = "") => {
     const element = document.createElement(tag);
@@ -38,33 +36,20 @@
 
   // Tiempos estimados: "2 h 20 min" / "45 min". Vienen de site/tiempos.json vía catalog.json.
   const dur = (m) => { m = Math.round(m / 5) * 5; return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} min` : ""}`; };
-  const caseStatus = { construido: "Disponible en Colab", en_preparacion: "En preparación", planeado: "Próximamente", por_verificar: "En revisión" };
+  const caseStatus = { construido: "Disponible", en_preparacion: "En preparación", planeado: "Próximamente", por_verificar: "En revisión" };
 
+  // Cuatro cifras que le sirven a quien decide inscribirse; el resto vive en Metodología.
+  const live = catalog.timing || {};
   const summary = [
-    ["Conceptos verificados", catalog.totals.concepts],
+    ["Clases en vivo", live.live_class && live.live_class.sesiones ? live.live_class.sesiones : "—"],
+    ["Horas en vivo", live.live_total ? `${Math.round(live.live_total / 60)} h` : "—"],
+    ["Conceptos", catalog.totals.concepts],
     ["Ejercicios", catalog.totals.exercises],
-    ["Niveles", catalog.levels.length],
-    ["Curso en vivo", catalog.timing && catalog.timing.live_total ? `${Math.round(catalog.timing.live_total / 60)} h` : "—"],
-    ["Material total", catalog.timing ? `≈ ${Math.round(catalog.timing.total / 60)} h` : "—"],
-    ["Actualizado", catalog.updated_at],
   ];
   summary.forEach(([label, value]) => {
     const wrapper = create("div");
     wrapper.append(create("dt", {}, label), create("dd", {}, String(value)));
     $("#summaryRail").append(wrapper);
-  });
-
-  const filters = [["all", "Todos"], ...catalog.levels.map((level) => [String(level.level), `Nivel ${level.level}`])];
-  filters.forEach(([value, label]) => {
-    const button = create("button", { type: "button", "data-level": value }, label);
-    if (value === "all") button.classList.add("active");
-    button.addEventListener("click", () => {
-      activeLevel = value;
-      document.querySelectorAll("#levelFilters button").forEach((item) => item.classList.toggle("active", item === button));
-      applyFilters();
-      if (value !== "all") { const chosen = document.querySelector(`.level-group[data-level="${value}"]`); if (chosen) chosen.open = true; }
-    });
-    $("#levelFilters").append(button);
   });
 
   const saveLastMission = (mission) => writeJson("dcf-last-mission", mission);
@@ -75,13 +60,15 @@
     const free = FREE_LEVELS.includes(Number(level.level));
     // Cada nivel es plegable para que el currículum se lea como la lista de niveles de la landing.
     const group = create("details", { class: free ? "level-group free" : "level-group", "data-level": String(level.level) });
-    if (Number(level.level) === 1) group.open = true;
+    // En pantallas anchas el Nivel 1 llega abierto; en el celular todo llega plegado para no alargar la página.
+    if (Number(level.level) === 1 && matchMedia("(min-width: 801px)").matches) group.open = true;
     const head = create("summary", { class: "level-head" });
     const title = create("div", { class: "level-title" });
     const heading = create("h3", {}, `Nivel ${level.level} · ${level.title}`);
     const badge = create("span", { class: "plan-badge" });
-    if (!free) badge.append(icon("lock"));
-    badge.append(document.createTextNode(free ? "Gratis" : "Plan pagado"));
+    // Los niveles de pago solo llevan el candado: repetir "Plan pagado" once veces era ruido.
+    if (free) badge.textContent = "Gratis";
+    else badge.append(icon("lock"), create("span", { class: "sr-only" }, "Incluido en el curso en vivo y en Augmented Studio"));
     heading.append(badge);
     const tiempo = level.minutes ? ` · ≈ ${dur(level.minutes.total)}` : "";
     title.append(heading, create("span", {}, `${level.concept_count} conceptos · ${level.exercise_count} ejercicios${tiempo}`));
@@ -92,7 +79,7 @@
       const named = c.status !== "por_verificar" && c.title;
       note.append(create("b", {}, named ? `Caso real del módulo: ${c.title}` : "Caso real del módulo: en revisión"),
         create("span", { class: "case-state" }, caseStatus[c.status] || ""),
-        create("span", {}, `Misión ≈ ${dur(c.minutes)}${level.minutes ? ` · ${level.concept_count} conceptos ≈ ${dur(level.minutes.concepts)} (${level.minutes.per_concept} min cada uno)` : ""}`));
+        create("span", {}, `Misión ≈ ${dur(c.minutes)}`));
       if (c.bank && c.bank.length) note.append(create("span", { class: "case-bank" }, `También en clase: ${c.bank.join(" · ")}`));
       group.append(note);
     }
@@ -142,15 +129,15 @@
       $("#continueMeta").textContent = `${mission.levelTitle}.${review}`;
       $("#missionLink").textContent = "Empezar ruta recomendada";
       $("#continueLink").textContent = "Empezar mi ruta";
-    } else {
-      $("#continueKicker").textContent = `Empieza · Nivel ${mission.level}`;
-      $("#continueMeta").textContent = `${mission.levelTitle}. Este es el primer bloque publicado de la ruta.`;
-      $("#missionLink").textContent = "Abrir primera misión";
-      $("#continueLink").textContent = "Probar gratis";
     }
-    $("#continueTitle").textContent = mission.title;
-    $("#missionLink").href = mission.href; $("#continueLink").href = mission.href;
-    [$("#missionLink"), $("#continueLink")].forEach((link) => link.addEventListener("click", () => saveLastMission(mission)));
+    // Quien llega por primera vez ve solo el hero (el botón secundario lleva al primer caso).
+    // La tarjeta "continúa" aparece cuando hay algo que continuar: una misión abierta o un diagnóstico hecho.
+    if (source !== "first") {
+      $("#continueTitle").textContent = mission.title;
+      $("#missionLink").href = mission.href; $("#continueLink").href = mission.href;
+      [$("#missionLink"), $("#continueLink")].forEach((link) => link.addEventListener("click", () => saveLastMission(mission)));
+      $("#progressCard").hidden = false;
+    }
   }
 
   const tableHeader = create("div", { class: "data-row header", role: "row" });
@@ -167,15 +154,24 @@
     const wrapper = create("div"); wrapper.append(create("dt", {}, term), create("dd", {}, description)); $("#validationList").append(wrapper);
   });
 
+  // El temario muestra los primeros niveles; el resto se despliega con un botón (o al buscar).
+  const FIRST_LEVELS = 5;
+  let showAll = catalog.levels.length <= FIRST_LEVELS;
+  const more = $("#catalogMore");
+  if (more) {
+    more.textContent = `Ver los ${catalog.levels.length} niveles`;
+    more.addEventListener("click", () => { showAll = true; applyFilters(); });
+  }
   function applyFilters() {
     const query = $("#search").value.trim().toLowerCase(); let visibleRows = 0;
-    document.querySelectorAll(".level-group").forEach((group) => {
-      const levelAllowed = activeLevel === "all" || group.dataset.level === activeLevel; let groupVisible = false;
+    if (more) more.hidden = showAll || Boolean(query);
+    document.querySelectorAll(".level-group").forEach((group, index) => {
+      let groupVisible = false;
       group.querySelectorAll(".catalog-row").forEach((row) => {
-        const searchAllowed = !query || row.dataset.search.includes(query); row.hidden = !(levelAllowed && searchAllowed);
+        const searchAllowed = !query || row.dataset.search.includes(query); row.hidden = !searchAllowed;
         if (!row.hidden) { groupVisible = true; visibleRows += 1; }
       });
-      group.hidden = !groupVisible;
+      group.hidden = !groupVisible || (!query && !showAll && index >= FIRST_LEVELS);
       if (query && groupVisible) group.open = true;
     });
     let empty = $("#catalog .empty");
@@ -183,4 +179,5 @@
     if (visibleRows && empty) empty.remove();
   }
   $("#search").addEventListener("input", applyFilters);
+  applyFilters();
 })();

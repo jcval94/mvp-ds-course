@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Inscríbete al curso en vivo The Agentic Data Scientist: pago único con 10 % de descuento, 3 meses sin intereses o 3 pagos con tarjeta. Pago seguro con Stripe.">
-  <title>Inscripción · The Agentic D. Scientist</title>
+  <title>Inscripción · The Agentic Data Scientist</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="design/tokens/tokens.css">
   <link rel="stylesheet" href="styles.css">
@@ -20,17 +20,19 @@
     .insc { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr); gap: 22px; align-items: start; }
     .card { border: 1px solid var(--line); border-radius: 24px; background: var(--surface); padding: 26px; box-shadow: var(--shadow-card); display: grid; gap: 18px; }
     .card h2 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
-    .planes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; border: 0; padding: 0; margin: 0; }
+    .planes { display: grid; gap: 10px; border: 0; padding: 0; margin: 0; }
     .planes legend { font-weight: 700; margin-bottom: 10px; padding: 0; }
-    .plan { position: relative; display: grid; gap: 6px; border: 1.5px solid var(--line); border-radius: 18px; padding: 16px 16px 16px 46px; cursor: pointer; background: var(--surface-alt); }
+    .plan { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 4px 16px; border: 1.5px solid var(--line); border-radius: 18px; padding: 16px 16px 16px 46px; cursor: pointer; background: var(--surface-alt); }
     .plan:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); }
     .plan input { position: absolute; left: 16px; top: 19px; width: 18px; height: 18px; accent-color: var(--accent-text); margin: 0; }
     .plan:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
     .plan:has(input:focus-visible) { outline: 2px solid var(--accent-text); outline-offset: 2px; }
     .plan b { font-size: 15px; }
-    .plan .monto, .plan .monto span { font-size: 26px; font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+    .plan .monto, .plan .monto span { font-size: 22px; font-weight: 800; letter-spacing: -.02em; color: var(--text); }
     .plan .monto small { font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: 0; }
     .plan span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .plan > span:last-child { grid-column: 1 / -1; }
+    .plan .monto { white-space: nowrap; }
     .plan .tag { position: absolute; right: 12px; top: -10px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 800; border-radius: var(--r-pill); padding: 3px 10px; }
     #form { display: grid; gap: 22px; }
     .campos { display: grid; gap: 14px; }
@@ -66,8 +68,9 @@
     .cargando i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); animation: girar .8s linear infinite; }
     @keyframes girar { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { .cargando i { animation: none; } .barra i { transition: none; } }
-    @media (max-width: 860px) { .insc { grid-template-columns: 1fr; } .resumen { order: -1; } }
-    @media (max-width: 560px) { .planes { grid-template-columns: 1fr; } .card { padding: 20px; } .insc-page main { padding-block: 32px 72px; } }
+    /* En el celular el formulario va primero: quien llega aquí ya decidió; el resumen queda debajo como referencia. */
+    @media (max-width: 860px) { .insc { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .card { padding: 20px; } .insc-page main { padding-block: 28px 72px; } .insc-head p { font-size: 15px; } }
   </style>
 </head>
 <body class="insc-page">
@@ -195,7 +198,8 @@
         if (window.TDD_CURSO && TDD_CURSO.regular) poner("regular", TDD_CURSO.regular);
         if (o.cupo) {
           const quedan = Math.max(o.disponibles ?? 0, 0);
-          $("#lugares").hidden = false;
+          // Se muestra cuando ya se ocupó al menos la mitad: antes de eso "quedan 30 de 30" resta confianza en vez de dar urgencia.
+          $("#lugares").hidden = quedan > o.cupo / 2;
           $("#lugaresTexto").textContent = quedan === 0 ? `Sin lugares disponibles · cupo de ${o.cupo}` : `${quedan === 1 ? "Queda 1 lugar" : `Quedan ${quedan} lugares`} de ${o.cupo}`;
           $("#lugaresBarra").style.width = `${Math.round(((o.cupo - quedan) / o.cupo) * 100)}%`;
         }

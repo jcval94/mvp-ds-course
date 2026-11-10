@@ -133,7 +133,7 @@ def main() -> None:
         page.on("pageerror", lambda error: page_errors.append(str(error)))
 
         page.goto(BASE, wait_until="networkidle")
-        assert page.title() == "The Agentic D. Scientist · Curso de IA y ciencia de datos"
+        assert page.title() == "Curso de ciencia de datos e IA desde cero · The Agentic Data Scientist"
         page.locator("#summaryRail").get_by_text("236", exact=True).wait_for()
         page.locator("#summaryRail").get_by_text("454", exact=True).wait_for()
         assert page.locator(".level-group").count() == 13
@@ -145,13 +145,11 @@ def main() -> None:
         page.locator("#search").fill("Modelado")
         assert page.locator(".catalog-row:not([hidden])").count() >= 1
         page.locator("#search").fill("")
-        page.get_by_role("button", name="Nivel 6").click()
-        assert page.locator('.level-group[data-level="6"]:not([hidden])').count() == 1
+        assert page.locator("#progressCard").is_hidden()
 
         page.goto(f"{BASE}/placement.html", wait_until="networkidle")
-        assert page.title() == "Diagnóstico · The Agentic D. Scientist"
-        page.get_by_text("104", exact=True).wait_for()
-        page.get_by_text("26", exact=True).wait_for()
+        assert page.title() == "Diagnóstico · The Agentic Data Scientist"
+        page.get_by_text("máximo 10 preguntas").wait_for()
         assert page.locator("#visualFrame img").count() == 1
         assert page.locator("#optionGrid button").count() == 4
         no_overflow(page, "diagnostico desktop")
