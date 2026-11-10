@@ -1,0 +1,71 @@
+/* Intro del curso («Alguien tuvo que decidir»). Una sola toma: la cámara se aleja y cada escena resulta ser una hoja
+   de la siguiente. Colores solo del grupo --tq-* de design/tokens; mismas fuentes que las intros de los casos. */
+@import url("../design/tokens/tokens.css");
+@font-face{font-family:"Press Start 2P";font-style:normal;font-weight:400;font-display:swap;
+  src:url("../casos/fuentes/press-start-2p-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:400;font-display:swap;
+  src:url("../casos/fuentes/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:700;font-display:swap;
+  src:url("../casos/fuentes/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2")}
+
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--tq-sombra);color:var(--tq-crema)}
+body{font-family:"Atkinson Hyperlegible",system-ui,sans-serif;font-size:17px;line-height:1.5;min-height:100vh}
+.intro{max-width:880px;margin:0 auto;padding:12px 14px 40px;display:grid;gap:12px;min-height:100svh;align-content:center}
+.barra{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.barra h1{margin:0;font-family:"Press Start 2P","Courier New",monospace;font-weight:400;font-size:9px;line-height:1.6;color:var(--tq-crema-suave)}
+.salir,.enlace{color:var(--tq-crema-suave);font-size:14px}
+.salir:hover,.enlace:hover{color:var(--tq-comal)}
+
+.escenario{position:relative;aspect-ratio:4/3;background:var(--tq-sombra);border:4px solid var(--tq-crema);overflow:hidden}
+#mundo{display:block;width:100%;height:100%;shape-rendering:crispEdges;image-rendering:pixelated}
+#mundo text{font-family:"Press Start 2P","Courier New",monospace}
+.velo{position:absolute;inset:0;background:var(--tq-sombra);opacity:1;pointer-events:none}
+
+.cierre{position:absolute;inset:0;display:grid;align-content:center;justify-items:center;gap:10px;padding:16px;text-align:center;
+  background:color-mix(in srgb,var(--tq-sombra) 86%,transparent)}
+.cierre[hidden]{display:none}
+.cierre p{margin:0}
+.marca{font-family:"Press Start 2P","Courier New",monospace;font-size:clamp(15px,4.6vw,30px);line-height:1.5;color:var(--tq-comal)}
+.lema{font-size:clamp(16px,3.2vw,22px);font-weight:700}
+.firma{font-family:"Press Start 2P","Courier New",monospace;font-size:9px;color:var(--tq-crema-suave);display:flex;align-items:flex-end;gap:6px;margin-top:4px}
+.firma span{display:inline-block;width:120px;border-bottom:2px solid var(--tq-crema-suave);height:14px}
+.firma i{display:inline-block;width:8px;height:14px;background:var(--tq-comal);margin-left:-126px;animation:cursor 1s steps(1) infinite}
+@keyframes cursor{50%{opacity:0}}
+.acciones{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:8px}
+
+.btn{display:inline-block;font-family:"Press Start 2P","Courier New",monospace;font-size:10px;line-height:1.5;padding:12px 14px;min-height:44px;
+  border:4px solid var(--tq-comal);background:var(--tq-comal);color:var(--tq-comal-texto);text-decoration:none;text-transform:uppercase;cursor:pointer}
+.btn:hover{background:var(--tq-comal-claro);border-color:var(--tq-comal-claro)}
+.btn.sec{background:transparent;color:var(--tq-crema);border-color:var(--tq-crema)}
+.btn.sec:hover{background:var(--tq-cielo-bajo)}
+.btn:disabled{opacity:.35;cursor:default}
+.btn:disabled:hover{background:transparent}
+.btn:focus-visible,.salir:focus-visible,.enlace:focus-visible,summary:focus-visible{outline:3px solid var(--tq-comal);outline-offset:3px}
+
+.avance{height:6px;background:var(--tq-vacio)}
+.avance i{display:block;height:100%;width:0;background:var(--tq-comal)}
+.linea{margin:0;min-height:4.6em;font-size:clamp(18px,4.4vw,24px);line-height:1.4}
+.linea b{color:var(--tq-comal);font-weight:700}
+.linea .ano{font-family:"Press Start 2P","Courier New",monospace;font-size:.6em;color:var(--tq-crema-suave);display:block;margin-bottom:4px}
+.controles{display:flex;flex-wrap:wrap;gap:8px}
+.controles .btn{font-size:9px;padding:10px 12px}
+.guion{margin:0;padding-left:22px;display:grid;gap:8px}
+.guion[hidden]{display:none}
+.fuentes{color:var(--tq-crema-suave);font-size:15px}
+.fuentes summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
+.fuentes a{color:var(--tq-crema)}
+.fuentes ul{margin:4px 0 8px;padding-left:20px}
+.fuentes p{margin:0}
+
+/* Tintas del mundo: una clase por token para pintar el SVG sin colores literales. */
+.k-sombra{fill:var(--tq-sombra)}.k-noche{fill:var(--tq-noche)}.k-panel{fill:var(--tq-panel)}.k-tinta{fill:var(--tq-tinta)}
+.k-cielo{fill:var(--tq-cielo)}.k-cielo-bajo{fill:var(--tq-cielo-bajo)}.k-vacio{fill:var(--tq-vacio)}.k-gris{fill:var(--tq-gris)}
+.k-traje{fill:var(--tq-traje)}.k-madera{fill:var(--tq-madera)}.k-cafe{fill:var(--tq-cafe)}.k-cafe-oscuro{fill:var(--tq-cafe-oscuro)}
+.k-piedra{fill:var(--tq-piedra)}.k-piedra-oscura{fill:var(--tq-piedra-oscura)}.k-manila{fill:var(--tq-manila)}.k-manila-clara{fill:var(--tq-manila-clara)}
+.k-papel{fill:var(--tq-papel)}.k-papel-sombra{fill:var(--tq-papel-sombra)}.k-papel-pliegue{fill:var(--tq-papel-pliegue)}
+.k-crema{fill:var(--tq-crema)}.k-comal{fill:var(--tq-comal)}.k-anil{fill:var(--tq-anil)}.k-vidrio{fill:var(--tq-vidrio)}
+.k-salsa{fill:var(--tq-salsa)}.k-comal-texto{fill:var(--tq-comal-texto)}.k-luz{fill:var(--tq-luz)}.k-ventana-noche{fill:var(--tq-ventana-noche)}
+
+@media (min-width:700px){.intro{padding-top:20px}.barra h1{font-size:11px}}
+@media (prefers-reduced-motion:reduce){.firma i{animation:none}}
