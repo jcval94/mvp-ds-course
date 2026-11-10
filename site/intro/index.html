@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alguien tuvo que decidir · The Agentic Data Scientist</title>
-<meta name="description" content="1943, 1936, 1983, 2017: cuatro decisiones reales con datos y una pregunta para hoy. La intro de 45 segundos del curso The Agentic Data Scientist.">
+<meta name="description" content="1943, 1936, 1983, 2017: cuatro decisiones reales con datos y una pregunta para hoy. La intro de 35 segundos del curso The Agentic Data Scientist.">
 <meta property="og:title" content="Alguien tuvo que decidir · The Agentic Data Scientist">
 <meta property="og:description" content="Cuatro decisiones reales y una pregunta para hoy: ¿quién revisa la respuesta? Mira la intro del curso.">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
@@ -12,57 +12,51 @@
 </head>
 <body>
 <main class="intro" id="intro">
+  <canvas id="lienzo" role="img" aria-label="Animación: miles de puntos de luz se reorganizan para formar un bombardero con agujeros, dos barras de una encuesta, un medidor de combustible lleno, el número 64, una palomita que se convierte en un signo de interrogación y, al final, una firma."></canvas>
+  <div class="ano" id="ano" aria-hidden="true"></div>
+  <div class="destello" id="destello" aria-hidden="true"></div>
+
   <header class="barra">
     <h1>The Agentic Data Scientist</h1>
-    <a class="salir" href="../index.html">Ir al curso</a>
+    <a href="../index.html">Ir al curso</a>
   </header>
 
-  <div class="escenario" id="escenario">
-    <svg id="mundo" viewBox="0 0 120 90" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="mundoAlt"><title id="mundoAlt">Animación de 8 bits: la cámara se aleja de un bombardero de 1943 y descubre que es una hoja dentro de un expediente; el expediente crece con una encuesta de 1936, una hoja de carga de 1983 y un registro de 2017, hasta llegar a un escritorio de hoy con el resumen de un asistente de IA.</title></svg>
-    <div class="velo" id="velo" aria-hidden="true"></div>
-    <section class="cierre" id="cierre" hidden>
-      <p class="marca">THE AGENTIC<br>DATA SCIENTIST</p>
-      <p class="lema">Aprende a decidir con datos.</p>
-      <p class="firma" aria-hidden="true">FIRMA: <span></span><i></i></p>
-      <div class="acciones">
-        <a class="btn" href="../casos/1-1/">Resuelve el primer caso</a>
-        <button class="btn sec" type="button" id="repetir">Ver de nuevo</button>
-      </div>
-      <a class="enlace" href="../index.html#generacion">Conoce la Generación 1</a>
-    </section>
-  </div>
-
-  <div class="avance" aria-hidden="true"><i id="avance"></i></div>
   <p class="linea" id="linea" aria-live="polite"></p>
 
-  <div class="controles">
-    <button class="btn sec" type="button" id="pausa" aria-pressed="false">Pausa</button>
-    <button class="btn sec" type="button" id="sonido" aria-pressed="false">Sonido: no</button>
-    <button class="btn sec" type="button" id="saltar">Saltar</button>
-  </div>
+  <section class="cierre" id="cierre" hidden>
+    <p class="marca">The Agentic<br>Data Scientist</p>
+    <p class="lema">Aprende a decidir con datos.</p>
+    <div class="acciones">
+      <a class="btn" href="../casos/1-1/">Resuelve el primer caso</a>
+      <button class="btn sec" type="button" id="repetir">Ver de nuevo</button>
+    </div>
+    <a class="enlace" href="../index.html#generacion">Conoce la Generación 1</a>
+  </section>
 
   <ol class="guion" id="guion" hidden>
-    <li><b>1943.</b> Los aviones vuelven con agujeros. Hay blindaje para pocas zonas. ¿Dónde lo pones?</li>
+    <li><b>1943.</b> Los aviones vuelven con agujeros. ¿Dónde pones el blindaje?</li>
     <li><b>1936.</b> Más de dos millones de boletas dan un ganador. ¿Les crees?</li>
     <li><b>1983.</b> Las cuentas de la hoja de carga cuadran. ¿Con eso despegas?</li>
     <li><b>2017.</b> Tras el huracán María, la cifra oficial de muertes es 64. ¿Te alcanza ese número?</li>
     <li><b>Hoy.</b> La respuesta te llega en segundos. ¿Quién la revisa?</li>
   </ol>
 
-  <details class="fuentes">
-    <summary>De dónde sale cada escena</summary>
-    <ul>
-      <li><a href="../casos/1-1/">Caso 1.1 · El mapa de agujeros (1943)</a></li>
-      <li><a href="../casos/1-2/">Caso 1.2 · La encuesta del Literary Digest (1936)</a></li>
-      <li><a href="../casos/13-11/">Caso 13.11 · Vuelo 143 (1983)</a></li>
-      <li><a href="../casos/1-4/">Caso 1.4 · Huracán María (2017)</a></li>
-    </ul>
-    <p>Las cifras y sus fuentes están citadas en cada caso.</p>
-  </details>
+  <div class="pie">
+    <div class="avance" aria-hidden="true"><i id="avance"></i></div>
+    <div class="controles">
+      <button type="button" id="pausa" aria-pressed="false">Pausa</button>
+      <button type="button" id="sonido" aria-pressed="false">Sonido: no</button>
+      <button type="button" id="saltar">Saltar</button>
+      <details class="fuentes">
+        <summary>Fuentes</summary>
+        <p>Cada escena sale de un caso del curso, con sus cifras y fuentes citadas:
+          <a href="../casos/1-1/">1943</a>, <a href="../casos/1-2/">1936</a>, <a href="../casos/13-11/">1983</a> y <a href="../casos/1-4/">2017</a>.</p>
+      </details>
+    </div>
+  </div>
 
   <noscript>
-    <p>La intro animada necesita JavaScript. En resumen: cuatro decisiones reales con datos (1943, 1936, 1983 y 2017) y una pregunta para hoy: cuando la respuesta te llega en segundos, ¿quién la revisa?</p>
-    <p><a href="../casos/1-1/">Resuelve el primer caso</a></p>
+    <p class="sin-js">La intro animada necesita JavaScript. En resumen: cuatro decisiones reales con datos (1943, 1936, 1983 y 2017) y una pregunta para hoy: cuando la respuesta te llega en segundos, ¿quién la revisa? <a href="../casos/1-1/">Resuelve el primer caso</a>.</p>
   </noscript>
 </main>
 <script src="intro.js"></script>

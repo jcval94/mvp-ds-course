@@ -1,232 +1,211 @@
 /* Intro del curso: «Alguien tuvo que decidir».
-   Una sola toma. Hay cinco niveles anidados (1943, 1936, 1983, 2017 y hoy): cada uno es una hoja dentro del siguiente,
-   a un cuarto de su tamaño. La cámara empieza dentro del más pequeño y se aleja. Todo lo que se ve es función del
-   tiempo t (en segundos): por eso pausar, saltar y repetir no dejan estados a medias.
-   Sin dependencias y sin colores literales: las tintas son clases .k-* de intro.css (tokens --tq-*). */
+   Miles de puntos de luz (cada punto, un dato) se reorganizan para formar cada decisión: un bombardero con agujeros,
+   las barras de una encuesta, un medidor lleno, el número 64, una palomita que se vuelve signo de interrogación y una firma.
+   Entre una forma y la siguiente los puntos estallan, giran y vuelven a caer en su lugar.
+   Sin dependencias. Los colores se leen de los tokens del sitio (no hay colores escritos aquí). */
 (function () {
   'use strict';
-  var W = 120, H = 90, ESC = 0.25, FIN = 40;
-  /* Dónde vive, dentro de cada nivel, la hoja del nivel anterior. */
-  var HUECO = [null, { x: 82, y: 10 }, { x: 8, y: 58 }, { x: 80, y: 56 }, { x: 10, y: 40 }];
-
-  var mundo = document.getElementById('mundo');
-  if (!mundo) return;
+  var lienzo = document.getElementById('lienzo');
+  if (!lienzo || !lienzo.getContext) return;
+  var ctx = lienzo.getContext('2d');
   var $ = function (id) { return document.getElementById(id); };
   var reducir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FIN = 35, T_CIERRE = 31.6;
 
-  /* ---------- dibujo ---------- */
-  function R(x, y, w, h, k, extra) { return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" class="k-' + k + '"' + (extra ? ' ' + extra : '') + '/>'; }
-  function T(x, y, tam, k, texto, extra) { return '<text x="' + x + '" y="' + y + '" font-size="' + tam + '" class="k-' + k + '"' + (extra ? ' ' + extra : '') + '>' + texto + '</text>'; }
-  function G(id, contenido, extra) { return '<g id="' + id + '"' + (extra ? ' ' + extra : '') + '>' + contenido + '</g>'; }
-  /* La hoja del nivel anterior, sujeta con un clip. */
-  function hoja(n, dentro) {
-    var h = HUECO[n];
-    return R(h.x - 1, h.y - 1, W * ESC + 2, H * ESC + 2, 'papel-sombra') +
-      '<g transform="translate(' + h.x + ',' + h.y + ') scale(' + ESC + ')" clip-path="url(#marco)">' + dentro + '</g>' +
-      R(h.x + 4, h.y - 3.4, 0.7, 3, 'gris') + R(h.x + 5.5, h.y - 3.4, 0.7, 3, 'gris') + R(h.x + 4, h.y - 3.4, 2.2, 0.7, 'gris');
+  /* ---------- tintas (desde design/tokens) ---------- */
+  var estilo = getComputedStyle(document.documentElement);
+  function tinta(nombre) {
+    var v = estilo.getPropertyValue(nombre).trim().replace('#', '');
+    if (v.length === 3) v = v[0] + v[0] + v[1] + v[1] + v[2] + v[2];
+    var n = parseInt(v, 16);
+    return isFinite(n) && v.length === 6 ? [n >> 16 & 255, n >> 8 & 255, n & 255] : [255, 255, 255];
   }
-  function papel(fondo) { return R(0, 0, W, H, fondo) + R(8, 6, 108, 82, 'sombra', 'opacity=".35"') + R(6, 4, 108, 82, 'papel'); }
+  var COL = { base: tinta('--hero-text'), acento: tinta('--accent'), alerta: tinta('--critical'), frio: tinta('--tq-vidrio'), fondo: tinta('--hero') };
+  function rgb(c, a) { return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + a + ')'; }
 
-  /* 1943 · el bombardero visto desde arriba */
-  var AGUJEROS = [[26, 40], [31, 43], [38, 41], [47, 44], [52, 39], [69, 43], [77, 40], [84, 44], [91, 41], [95, 43],
-    [58, 48], [61, 53], [58, 58], [61, 63], [50, 69], [57, 70], [64, 69], [70, 70], [59, 30], [34, 38], [88, 38]];
-  function nivel0() {
-    var s = R(0, 0, W, H, 'cielo') + R(0, 60, W, 30, 'cielo-bajo');
-    var nubes = '';
-    [[10, 12, 16], [92, 30, 20], [24, 70, 14], [70, 80, 18], [100, 62, 12], [44, 22, 10]].forEach(function (n) { nubes += R(n[0], n[1], n[2], 2, 'vacio') + R(n[0] + 2, n[1] - 1, n[2] - 5, 1, 'vacio'); });
-    s += G('n0nubes', nubes + '<g transform="translate(0,-90)">' + nubes + '</g>');
-    var av = R(57, 18, 6, 56, 'piedra') + R(58, 16, 4, 2, 'piedra') + R(58, 20, 4, 4, 'vidrio') +
-      R(30, 36, 60, 2, 'piedra-oscura') + R(22, 38, 76, 8, 'piedra') + R(22, 45, 76, 1, 'piedra-oscura') +
-      R(46, 68, 28, 4, 'piedra') + R(46, 71, 28, 1, 'piedra-oscura') + R(59, 66, 2, 9, 'piedra-oscura');
-    [36, 45, 71, 80].forEach(function (x) { av += R(x, 31, 4, 7, 'piedra-oscura') + R(x - 1, 30, 6, 1, 'crema', 'opacity=".5"'); });
-    var ag = '';
-    AGUJEROS.forEach(function (a, i) { ag += R(a[0], a[1], 2, 2, 'salsa', 'id="ag' + i + '"'); });
-    s += G('n0avion', av + ag);
-    s += G('n0ano', T(60, 12, 8, 'crema', '1943', 'text-anchor="middle"'));
-    return s;
+  /* ---------- azar repetible: la intro se ve igual cada vez ---------- */
+  var semilla = 20270108;
+  function azar() { semilla = (semilla * 1664525 + 1013904223) >>> 0; return semilla / 4294967296; }
+
+  /* ---------- formas: se dibujan en un cuadro de 200 x 200 y se convierten en puntos ---------- */
+  var U = 200, taller = document.createElement('canvas'); taller.width = taller.height = U;
+  var tc = taller.getContext('2d', { willReadFrequently: true });
+  var FUENTE = '800 %px "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif';
+  function muestrear(dibujar) {                    /* devuelve los pixeles pintados como lista de [x, y] */
+    tc.clearRect(0, 0, U, U); tc.fillStyle = tc.strokeStyle = rgb([255, 255, 255], 1); tc.lineCap = 'round'; tc.lineJoin = 'round';
+    dibujar(tc);
+    var d = tc.getImageData(0, 0, U, U).data, pts = [];
+    for (var y = 0; y < U; y++) for (var x = 0; x < U; x++) if (d[(y * U + x) * 4 + 3] > 120) pts.push([x, y]);
+    return pts;
   }
-  /* 1936 · las boletas */
-  function nivel1(dentro) {
-    var s = papel('madera') + T(13, 19, 8, 'comal-texto', '1936') + T(13, 26, 2.6, 'papel-sombra', 'BOLETAS DEVUELTAS');
-    s += T(13, 37, 2.6, 'comal-texto', 'LANDON') + R(13, 39, 60, 6, 'papel-pliegue') + R(13, 39, 0, 6, 'salsa', 'id="n1a"');
-    s += T(13, 51, 2.6, 'comal-texto', 'ROOSEVELT') + R(13, 53, 60, 6, 'papel-pliegue') + R(13, 53, 0, 6, 'anil', 'id="n1b"');
-    var b = '';
-    for (var i = 0; i < 12; i++) {
-      var x = 14 + (i * 17) % 52, y = 78 - (i % 4) * 2.5;
-      b += '<g id="bo' + i + '" data-x="' + x + '" data-y="' + y + '">' + R(0, 0, 9, 5, 'papel-sombra') + R(0.5, 0.5, 8, 4, 'crema') + R(2, 2, 5, 0.6, 'papel-sombra') + '</g>';
+  function avion(c) {
+    function r(x, y, w, h) { c.fillRect(100 + (x - 60) * 2.1, 100 + (y - 46) * 2.1, w * 2.1, h * 2.1); }
+    r(57, 16, 6, 58); r(22, 37, 76, 9); r(30, 35, 60, 2); r(46, 67, 28, 5); [36, 45, 71, 80].forEach(function (x) { r(x, 30, 4, 7); });
+  }
+  var AGUJEROS = [[26, 40], [31, 43], [38, 41], [47, 44], [52, 39], [69, 43], [77, 40], [84, 44], [91, 41], [95, 43], [58, 48], [61, 53],
+    [58, 58], [61, 63], [50, 69], [57, 70], [64, 69], [70, 70], [59, 28], [34, 38], [88, 38]];
+  function agujeros(c) { AGUJEROS.forEach(function (a) { c.beginPath(); c.arc(100 + (a[0] + 1 - 60) * 2.1, 100 + (a[1] + 1 - 46) * 2.1, 3.4, 0, 7); c.fill(); }); }
+  function arco(c, r, ancho, hasta) { c.lineWidth = ancho; c.beginPath(); c.arc(100, 112, r, Math.PI * 0.8, Math.PI * (0.8 + 1.4 * hasta)); c.stroke(); }
+  function texto(c, t, tam, y) { c.font = FUENTE.replace('%', tam); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(t, 100, y); }
+  var FORMAS = {
+    avion: [[avion, 'base', 0.8], [agujeros, 'alerta', 0.2]],
+    barras: [[function (c) { c.fillRect(16, 52, 164, 34); }, 'acento', 0.52], [function (c) { c.fillRect(16, 112, 124, 34); }, 'frio', 0.4], [function (c) { c.fillRect(8, 40, 3, 120); }, 'base', 0.08]],
+    medidor: [[function (c) { arco(c, 84, 3, 1); }, 'base', 0.2], [function (c) { arco(c, 64, 22, 0.97); }, 'acento', 0.6],
+      [function (c) { var a = Math.PI * (0.8 + 1.4 * 0.97); c.lineWidth = 5; c.beginPath(); c.moveTo(100, 112); c.lineTo(100 + Math.cos(a) * 50, 112 + Math.sin(a) * 50); c.stroke(); c.beginPath(); c.arc(100, 112, 8, 0, 7); c.fill(); }, 'base', 0.2]],
+    cifra: [[function (c) { texto(c, '64', 150, 104); }, 'base', 1]],
+    listo: [[function (c) { c.lineWidth = 8; c.beginPath(); c.arc(100, 100, 82, 0, 7); c.stroke(); }, 'frio', 0.5], [function (c) { c.lineWidth = 20; c.beginPath(); c.moveTo(62, 102); c.lineTo(90, 130); c.lineTo(142, 72); c.stroke(); }, 'base', 0.5]],
+    duda: [[function (c) { texto(c, '?', 190, 104); }, 'acento', 1]],
+    firma: [[function (c) { c.fillRect(20, 150, 160, 2.5); }, 'base', 0.45],
+      [function (c) { c.lineWidth = 3; c.beginPath(); c.moveTo(34, 138); c.bezierCurveTo(50, 96, 62, 96, 60, 136); c.bezierCurveTo(70, 100, 84, 104, 82, 134); c.bezierCurveTo(100, 108, 112, 118, 108, 136); c.bezierCurveTo(126, 120, 150, 122, 170, 128); c.stroke(); }, 'acento', 0.55]]
+  };
+  var puntosDe = {};
+  function prepararFormas() { Object.keys(FORMAS).forEach(function (k) { puntosDe[k] = FORMAS[k].map(function (capa) { return { pts: muestrear(capa[0]), color: COL[capa[1]], parte: capa[2] }; }); }); }
+
+  /* ---------- puntos ---------- */
+  var ancho = 0, alto = 0, dpr = 1, P = [], N = 0;
+  function medir() {
+    dpr = Math.min(2, window.devicePixelRatio || 1); ancho = lienzo.clientWidth; alto = lienzo.clientHeight;
+    lienzo.width = Math.round(ancho * dpr); lienzo.height = Math.round(alto * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function crearPuntos() {
+    N = Math.max(900, Math.min(2200, Math.round(ancho * alto / 520))); P = [];
+    for (var i = 0; i < N; i++) P.push({ x: azar() * ancho, y: azar() * alto, vx: (azar() - 0.5) * 30, vy: (azar() - 0.5) * 30, ux: 0, uy: 0, libre: true,
+      k: 38 + azar() * 60, r: 0.8 + azar() * 1.5, fase: azar() * 6.28, espera: 0, c: COL.base.slice(), cd: COL.base });
+  }
+  /* Dónde y a qué tamaño se arma la forma. La firma del cierre va más abajo y más chica, bajo el título. */
+  var centroY = 0.4, zoom = 1;
+  function escala() { return zoom * Math.min(ancho * 0.84, alto * 0.5) / U; }
+  function cx() { return ancho / 2; } function cy() { return alto * centroY; }
+
+  /* Reparte los puntos en una forma. fuerza: cuánto estallan antes de volver (0 = se acomodan con calma). */
+  function formar(nombre, fuerza) {
+    var capas = puntosDe[nombre], orden = [], i;
+    for (i = 0; i < N; i++) orden.push(i);
+    for (i = N - 1; i > 0; i--) { var j = (azar() * (i + 1)) | 0, tmp = orden[i]; orden[i] = orden[j]; orden[j] = tmp; }
+    var desde = 0;
+    capas.forEach(function (capa, n) {
+      var hasta = n === capas.length - 1 ? N : Math.min(N, desde + Math.round(N * capa.parte));
+      for (var q = desde; q < hasta; q++) {
+        var p = P[orden[q]], pt = capa.pts[(azar() * capa.pts.length) | 0];
+        p.ux = pt[0] - U / 2 + azar() - 0.5; p.uy = pt[1] - U / 2 + azar() - 0.5; p.cd = capa.color; p.libre = false; p.espera = azar() * 0.45;
+      }
+      desde = hasta;
+    });
+    if (fuerza) estallar(fuerza);
+  }
+  function estallar(fuerza) {
+    for (var i = 0; i < N; i++) {
+      var p = P[i], dx = p.x - cx(), dy = p.y - cy(), d = Math.sqrt(dx * dx + dy * dy) || 1, v = fuerza * (220 + azar() * 560);
+      p.vx += dx / d * v - dy / d * v * 0.7; p.vy += dy / d * v + dx / d * v * 0.7;
     }
-    return s + hoja(1, dentro) + b;
   }
-  /* 1983 · la hoja de carga */
-  function nivel2(dentro) {
-    var s = papel('tinta') + T(13, 19, 8, 'comal-texto', '1983') + T(13, 26, 2.6, 'papel-sombra', 'HOJA DE CARGA');
-    s += R(74, 13, 30, 5, 'piedra-oscura') + R(104, 14, 3, 3, 'piedra-oscura') + R(72, 8, 4, 6, 'piedra-oscura') + R(84, 18, 12, 2, 'papel-sombra') + R(100, 14, 3, 2, 'vidrio');
-    [0, 1, 2].forEach(function (i) {
-      var y = 33 + i * 8;
-      s += R(13, y, 34 + i * 6, 2, 'papel-sombra') + R(13, y + 3, 20 + i * 4, 1, 'papel-pliegue') + R(84, y - 1, 20, 5, 'papel-pliegue') +
-        G('ok' + i, R(106, y - 1, 5, 5, 'anil') + R(107, y + 1, 1, 2, 'crema') + R(108, y + 2, 1, 1, 'crema') + R(109, y, 1, 2, 'crema'));
-    });
-    s += T(46, 63, 2.6, 'comal-texto', 'COMBUSTIBLE') + R(46, 65, 64, 10, 'gris') + R(47, 66, 62, 8, 'papel-pliegue') + R(47, 66, 0, 8, 'comal', 'id="n2c"');
-    return s + hoja(2, dentro);
-  }
-  /* 2017 · el registro */
-  function nivel3(dentro) {
-    var s = papel('cafe-oscuro') + T(13, 19, 8, 'comal-texto', '2017') + T(13, 26, 2.6, 'papel-sombra', 'REGISTRO');
-    for (var i = 0; i < 12; i++) s += G('mes' + i, R(13 + (i % 4) * 13, 31 + Math.floor(i / 4) * 8, 11, 6, 'papel-pliegue') + R(14 + (i % 4) * 13, 35, 9 - (i % 3) * 2, 1, 'papel-sombra', 'transform="translate(0,' + Math.floor(i / 4) * 8 + ')"'));
-    s += G('n3nota', R(71, 13, 38, 30, 'papel-sombra') + R(70, 12, 38, 30, 'manila-clara') + T(89, 20, 2.4, 'comal-texto', 'CIFRA OFICIAL', 'text-anchor="middle"') + T(89, 37, 13, 'comal-texto', '64', 'text-anchor="middle"'));
-    return s + hoja(3, dentro);
-  }
-  /* Hoy · el escritorio y el asistente */
-  function nivel4(dentro) {
-    var s = R(0, 0, W, H, 'noche');
-    [[8, 8], [20, 20], [34, 6], [108, 10], [112, 30], [4, 30]].forEach(function (e) { s += R(e[0], e[1], 1, 1, 'gris'); });
-    s += R(0, 66, W, 24, 'madera') + R(0, 66, W, 1.5, 'cafe');
-    s += R(70, 58, 8, 8, 'gris') + R(60, 65, 28, 3, 'gris') + R(46, 10, 56, 48, 'traje') + R(49, 13, 50, 42, 'sombra') + R(49, 13, 50, 42, 'ventana-noche', 'id="n4luz" opacity="0"');
-    var lineas = '';
-    [30, 34, 26, 32, 20].forEach(function (w, i) { lineas += R(57, 26 + i * 4.4, 0, 1.6, 'papel-sombra', 'id="tx' + i + '" data-w="' + w + '"'); });
-    s += G('n4tarjeta', R(54, 17, 40, 34, 'papel') + T(57, 23, 2.6, 'comal-texto', 'RESUMEN') + lineas, 'opacity="0"');
-    s += G('n4borrador', '<g transform="rotate(-8)">' + R(-15, -4, 30, 8, 'salsa') + R(-14, -3, 28, 6, 'papel') + T(0, 1.4, 3, 'salsa', 'BORRADOR', 'text-anchor="middle"') + '</g>');
-    s += R(6, 37, 38, 30, 'cafe-oscuro', 'opacity=".5"') + R(5, 36, 38, 30, 'manila') + R(5, 34, 14, 3, 'manila');
-    s += hoja(4, dentro);
-    s += G('n4sello', '<g transform="rotate(-10)">' + R(-17, -4.5, 34, 9, 'salsa') + R(-16, -3.5, 32, 7, 'manila-clara') + T(0, 1.2, 2.5, 'salsa', 'SIN RESOLVER', 'text-anchor="middle"') + '</g>');
-    return s;
-  }
-  /* Cada hoja recorta lo que dibuja: nubes y boletas que entran desde fuera no se salen de su marco. */
-  mundo.insertAdjacentHTML('beforeend', '<defs><clipPath id="marco"><rect x="0" y="0" width="' + W + '" height="' + H + '"/></clipPath></defs>' + nivel4(nivel3(nivel2(nivel1(nivel0())))));
+  function soltar() { for (var i = 0; i < N; i++) { P[i].libre = true; P[i].cd = COL.base; } }
 
-  /* ---------- cámara ---------- */
-  var caja = [];                                   /* rectángulo de cada nivel en coordenadas del mundo (nivel 4) */
-  caja[4] = { x: 0, y: 0, w: W };
-  for (var n = 3; n >= 0; n--) { var e = caja[n + 1].w / W; caja[n] = { x: caja[n + 1].x + HUECO[n + 1].x * e, y: caja[n + 1].y + HUECO[n + 1].y * e, w: caja[n + 1].w * ESC }; }
-  function vista(nivel, f) { var c = caja[nivel], w = c.w * f, h = w * H / W; return { cx: c.x + c.w / 2, cy: c.y + c.w * H / W / 2, w: w, h: h }; }
-  var CLAVES = [[0, 0, 1], [4.4, 0, 0.82], [5.4, 0, 0.82], [7.0, 1, 0.9], [11.6, 1, 1], [13.0, 2, 0.9], [17.6, 2, 1], [19.0, 3, 0.9], [23.6, 3, 1], [25.8, 4, 0.9], [36, 4, 1], [FIN, 4, 1]];
-  function sua(u) { return u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; }
-  function camara(t) {
-    var i = 0; while (i < CLAVES.length - 2 && t >= CLAVES[i + 1][0]) i++;
-    var a = CLAVES[i], b = CLAVES[i + 1], u = Math.max(0, Math.min(1, (t - a[0]) / (b[0] - a[0])));
-    var va = vista(a[1], a[2]), vb = vista(b[1], b[2]);
-    u = a[1] === b[1] ? u * (2 - u) : sua(u);
-    var w = va.w * Math.pow(vb.w / va.w, u);        /* el zoom avanza en proporción, no en unidades: se siente parejo */
-    var k = Math.abs(vb.w - va.w) < 1e-9 ? u : (w - va.w) / (vb.w - va.w);
-    var cx = va.cx + (vb.cx - va.cx) * k, cy = va.cy + (vb.cy - va.cy) * k, h = w * H / W;
-    /* el golpe del sello sacude un instante */
-    var g = golpe(t, 31) + golpe(t, 36.4);
-    cx += Math.sin(t * 90) * g * w * 0.012; cy += Math.cos(t * 70) * g * w * 0.012;
-    mundo.setAttribute('viewBox', (cx - w / 2) + ' ' + (cy - h / 2) + ' ' + w + ' ' + h);
+  var sacudida = 0;
+  function avanzar(dt, t) {
+    var s = escala(), ox = cx(), oy = cy();
+    for (var i = 0; i < N; i++) {
+      var p = P[i];
+      if (p.libre) {                                /* a la deriva, con un remolino lento */
+        p.vx += (Math.sin(p.fase + t * 0.6 + p.y * 0.01) * 14 - p.vx * 0.6) * dt; p.vy += (Math.cos(p.fase + t * 0.5 + p.x * 0.01) * 14 - p.vy * 0.6) * dt;
+      } else if (p.espera > 0) { p.espera -= dt; p.vx *= 1 - 1.6 * dt; p.vy *= 1 - 1.6 * dt; }
+      else {                                        /* resorte hacia su lugar, con un temblor mínimo para que la forma respire */
+        var tx = ox + p.ux * s + Math.sin(t * 1.7 + p.fase) * 1.2, ty = oy + p.uy * s + Math.cos(t * 1.3 + p.fase) * 1.2;
+        p.vx += ((tx - p.x) * p.k - p.vx * 11) * dt; p.vy += ((ty - p.y) * p.k - p.vy * 11) * dt;
+      }
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      if (p.libre) { if (p.x < -20) p.x = ancho + 20; if (p.x > ancho + 20) p.x = -20; if (p.y < -20) p.y = alto + 20; if (p.y > alto + 20) p.y = -20; }
+      var f = Math.min(1, dt * 5); p.c[0] += (p.cd[0] - p.c[0]) * f; p.c[1] += (p.cd[1] - p.c[1]) * f; p.c[2] += (p.cd[2] - p.c[2]) * f;
+    }
+    sacudida = Math.max(0, sacudida - dt * 3);
   }
-  function golpe(t, t0) { return t >= t0 && t < t0 + 0.35 ? 1 - (t - t0) / 0.35 : 0; }
-
-  /* ---------- lo que pasa en cada nivel, como función de t ---------- */
-  function p(t, a, b) { return Math.max(0, Math.min(1, (t - a) / (b - a))); }
-  function rebote(u) { return u <= 0 ? 0 : u >= 1 ? 1 : 1 + 2.2 * Math.pow(u - 1, 3) + 1.2 * Math.pow(u - 1, 2); }
-  function salto(el, cx, cy, s) { el.setAttribute('transform', 'translate(' + cx + ',' + cy + ') scale(' + s + ') translate(' + (-cx) + ',' + (-cy) + ')'); el.setAttribute('opacity', s > 0.01 ? 1 : 0); }
-  var q = {};
-  ['n0nubes', 'n0avion', 'n0ano', 'n1a', 'n1b', 'n2c', 'n3nota', 'n4luz', 'n4tarjeta', 'n4borrador', 'n4sello'].forEach(function (id) { q[id] = $(id); });
-  var ag = AGUJEROS.map(function (_, i) { return $('ag' + i); });
-  var bo = []; for (var i = 0; i < 12; i++) bo.push($('bo' + i));
-  var ok = [0, 1, 2].map(function (i) { return $('ok' + i); });
-  var mes = []; for (i = 0; i < 12; i++) mes.push($('mes' + i));
-  var tx = [0, 1, 2, 3, 4].map(function (i) { return $('tx' + i); });
-
-  function pintar(t) {
-    camara(t);
-    $('velo').style.opacity = 1 - p(t, 0, 0.7);
-    /* 1943 */
-    q.n0nubes.setAttribute('transform', 'translate(0,' + ((t * 9) % 90) + ')');
-    q.n0avion.setAttribute('transform', 'translate(0,' + (Math.sin(t * 1.6) * 0.8).toFixed(2) + ')');
-    salto(q.n0ano, 60, 9, rebote(p(t, 0.5, 1.0))); if (t > 1) q.n0ano.setAttribute('opacity', 1 - p(t, 2.6, 3.2));
-    ag.forEach(function (el, i) { var a = AGUJEROS[i]; salto(el, a[0] + 1, a[1] + 1, rebote(p(t, 1.2 + i * 0.17, 1.45 + i * 0.17))); });
-    /* 1936 */
-    q.n1a.setAttribute('width', 57 * 0.6 * sua(p(t, 8.2, 9.6)) * (60 / 36));
-    q.n1b.setAttribute('width', 43 * 0.6 * sua(p(t, 8.5, 9.9)) * (60 / 36));
-    bo.forEach(function (el, i) {
-      var u = p(t, 7.3 + i * 0.22, 7.9 + i * 0.22), x = +el.dataset.x, y = +el.dataset.y;
-      el.setAttribute('transform', 'translate(' + x + ',' + (y - (1 - u * u) * 95) + ') rotate(' + ((i % 3) - 1) * 6 * (1 - u) + ')');
-    });
-    /* 1983 */
-    ok.forEach(function (el, i) { salto(el, 108.5, 34.5 + i * 8, rebote(p(t, 13.9 + i * 0.55, 14.2 + i * 0.55))); });
-    q.n2c.setAttribute('width', 62 * sua(p(t, 14.4, 16.6)));
-    /* 2017 */
-    mes.forEach(function (el, i) { el.setAttribute('opacity', p(t, 19.6 + i * 0.12, 19.8 + i * 0.12)); });
-    salto(q.n3nota, 89, 27, rebote(p(t, 21.2, 21.6)));
-    /* hoy */
-    q.n4luz.setAttribute('opacity', p(t, 26.4, 26.9) * (0.85 + 0.15 * Math.sin(t * 5)));
-    q.n4tarjeta.setAttribute('opacity', p(t, 27.0, 27.4));
-    tx.forEach(function (el, i) { el.setAttribute('width', +el.dataset.w * p(t, 27.5 + i * 0.5, 27.9 + i * 0.5)); });
-    var s = p(t, 30.8, 31), z = 1 + (1 - s) * 2.2;
-    q.n4borrador.setAttribute('transform', 'translate(78,42) scale(' + z + ')'); q.n4borrador.setAttribute('opacity', s);
-    s = p(t, 36.2, 36.4); z = 1 + (1 - s) * 2.2;
-    q.n4sello.setAttribute('transform', 'translate(25,52) scale(' + z + ')'); q.n4sello.setAttribute('opacity', s);
-    $('avance').style.width = (100 * Math.min(1, t / FIN)) + '%';
+  function dibujar(limpio) {
+    ctx.globalCompositeOperation = 'source-over';
+    if (limpio) ctx.clearRect(0, 0, ancho, alto);
+    else { ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = rgb([0, 0, 0], 0.3); ctx.fillRect(0, 0, ancho, alto); ctx.globalCompositeOperation = 'source-over'; }   /* estela */
+    var dx = sacudida ? (Math.random() - 0.5) * 14 * sacudida : 0, dy = sacudida ? (Math.random() - 0.5) * 14 * sacudida : 0;
+    for (var i = 0; i < N; i++) {
+      var p = P[i], v = Math.abs(p.vx) + Math.abs(p.vy);
+      ctx.fillStyle = rgb(p.c, p.libre ? 0.55 : 0.95);
+      if (v > 260) {                                /* rápido: se estira en la dirección del movimiento */
+        ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = p.r * 1.4; ctx.beginPath(); ctx.moveTo(p.x + dx, p.y + dy); ctx.lineTo(p.x + dx - p.vx * 0.022, p.y + dy - p.vy * 0.022); ctx.stroke();
+      } else { ctx.beginPath(); ctx.arc(p.x + dx, p.y + dy, p.r, 0, 6.283); ctx.fill(); }
+    }
   }
 
-  /* ---------- narración ---------- */
-  var LINEAS = [
-    [0.5, '1943', 'Los aviones vuelven con agujeros.'],
-    [3.0, '1943', 'Hay blindaje para pocas zonas. <b>¿Dónde lo pones?</b>'],
-    [7.2, '1936', 'Más de dos millones de boletas dan un ganador.'],
-    [9.9, '1936', 'Más de dos millones de boletas dan un ganador. <b>¿Les crees?</b>'],
-    [13.2, '1983', 'Las cuentas de la hoja de carga cuadran.'],
-    [16.0, '1983', 'Las cuentas de la hoja de carga cuadran. <b>¿Con eso despegas?</b>'],
-    [19.2, '2017', 'Tras el huracán María, la cifra oficial de muertes es 64.'],
-    [21.9, '2017', 'Tras el huracán María, la cifra oficial de muertes es 64. <b>¿Te alcanza ese número?</b>'],
-    [26.4, 'HOY', 'La respuesta te llega en segundos.'],
-    [31.2, 'HOY', 'La respuesta te llega en segundos. <b>¿Quién la revisa?</b>'],
-    [36.4, 'HOY', 'Alguien tiene que decidir. <b>Falta tu firma.</b>']];
-  var lineaActual = -2;
-  function narrar(t) {
-    var i = -1; LINEAS.forEach(function (l, k) { if (t >= l[0]) i = k; });
-    if (i === lineaActual) return;
-    lineaActual = i;
-    $('linea').innerHTML = i < 0 ? '' : '<span class="ano">' + LINEAS[i][1] + '</span>' + LINEAS[i][2];
-  }
+  /* ---------- lo que se lee ---------- */
+  function palabras(t, base) { return t.split(' ').map(function (w, i) { return '<span style="animation-delay:' + (base + i * 0.055).toFixed(2) + 's">' + w + '</span>'; }).join(' '); }
+  var frase = '';
+  function decir(t) { frase = t; $('linea').innerHTML = t ? palabras(t, 0) : ''; }
+  function preguntar(q) { $('linea').innerHTML = (frase ? frase + ' ' : '') + '<b class="q">' + palabras(q, 0) + '</b>'; }
+  function ano(t) { var e = $('ano'); e.classList.remove('entra'); e.textContent = t; if (t) { void e.offsetWidth; e.classList.add('entra'); } }
+  function destello() { if (reducir) return; var e = $('destello'); e.classList.remove('va'); void e.offsetWidth; e.classList.add('va'); }
+
+  /* ---------- guion: qué pasa en cada segundo ---------- */
+  function corte(forma, fuerza, etiqueta, texto, nota) { formar(forma, fuerza); ano(etiqueta); decir(texto); if (fuerza >= 1) { destello(); sacudida = 1; } tono(nota, 0.5, nota / 2); }
+  var GUION = [
+    [0, function () { soltar(); ano(''); decir('Detrás de cada dato,'); }],
+    [1.3, function () { preguntar('alguien tuvo que decidir.'); }],
+    [3.2, function () { corte('avion', 1, '1943', 'Los aviones vuelven con agujeros.', 110); }],
+    [5.5, function () { preguntar('¿Dónde pones el blindaje?'); estallar(0.12); }],
+    [8.2, function () { corte('barras', 1, '1936', 'Más de dos millones de boletas dan un ganador.', 123); }],
+    [10.6, function () { preguntar('¿Les crees?'); estallar(0.12); }],
+    [13.2, function () { corte('medidor', 1, '1983', 'Las cuentas de la hoja de carga cuadran.', 139); }],
+    [15.6, function () { preguntar('¿Con eso despegas?'); estallar(0.12); }],
+    /* 2017 es un caso con víctimas: los puntos se acomodan con calma, sin estallido ni destello. */
+    [18.2, function () { corte('cifra', 0, '2017', 'Tras el huracán María, la cifra oficial de muertes es 64.', 98); }],
+    [21.0, function () { preguntar('¿Te alcanza ese número?'); }],
+    [23.6, function () { corte('listo', 1.2, 'HOY', 'Hoy la respuesta te llega en segundos.', 196); }],
+    [26.8, function () { formar('duda', 1.5); destello(); sacudida = 1.4; preguntar('¿Quién la revisa?'); tono(70, 0.5, 35); }],
+    [30.8, function () { centroY = 0.7; zoom = 0.7; formar('firma', 0.6); ano(''); decir(''); tono(392, 0.7); }],
+    [T_CIERRE, function () { mostrarCierre(true); }]];
+  var hecho = 0;
 
   /* ---------- sonido (apagado hasta que la persona lo pide) ---------- */
-  var audio = null, conSonido = false;
-  var NOTAS = [[1.2, 520, 0.05], [5.6, 110, 0.9, 220], [11.6, 123, 0.9, 247], [17.6, 139, 0.9, 277], [23.6, 156, 1.4, 311], [31, 70, 0.25], [36.4, 60, 0.3], [38, 392, 0.5]];
+  var audio = null, conSonido = false, callado = false;
   function tono(f, d, hasta) {
-    if (!conSonido || !audio) return;
+    if (!conSonido || !audio || callado) return;
     var o = audio.createOscillator(), g = audio.createGain(), a = audio.currentTime;
-    o.type = 'square'; o.frequency.setValueAtTime(f, a); if (hasta) o.frequency.exponentialRampToValueAtTime(hasta, a + d);
-    g.gain.setValueAtTime(0.05, a); g.gain.exponentialRampToValueAtTime(0.001, a + d);
-    o.connect(g); g.connect(audio.destination); o.start(a); o.stop(a + d);
+    o.type = 'sine'; o.frequency.setValueAtTime(f, a); if (hasta) o.frequency.exponentialRampToValueAtTime(hasta, a + d);
+    g.gain.setValueAtTime(0.18, a); g.gain.exponentialRampToValueAtTime(0.001, a + d); o.connect(g); g.connect(audio.destination); o.start(a); o.stop(a + d);
   }
 
   /* ---------- reloj y controles ---------- */
   var t = 0, antes = 0, corriendo = false, cuadro = 0;
-  function mostrarCierre(si) { $('cierre').hidden = !si; $('pausa').disabled = si; $('saltar').disabled = si; }
+  function mostrarCierre(si) { $('cierre').hidden = !si; $('pausa').disabled = si; $('saltar').disabled = si; if (si) $('linea').innerHTML = ''; }
+  function tic(dt) { while (hecho < GUION.length && t + dt >= GUION[hecho][0]) GUION[hecho++][1](); avanzar(dt, t); t = Math.min(FIN, t + dt); }
   function paso(ahora) {
-    cuadro = 0;
-    if (!corriendo) return;
-    var dt = Math.min(0.1, (ahora - antes) / 1000), previo = t; antes = ahora; t = Math.min(FIN, t + dt);
-    NOTAS.forEach(function (nt) { if (previo < nt[0] && t >= nt[0]) tono(nt[1], nt[2], nt[3]); });
-    pintar(t); narrar(t);
-    if (t >= 38.6 && $('cierre').hidden) mostrarCierre(true);
+    cuadro = 0; if (!corriendo) return;
+    var dt = Math.min(0.05, (ahora - antes) / 1000); antes = ahora;
+    tic(dt); dibujar(false); $('avance').style.width = (100 * t / FIN) + '%';
     if (t >= FIN) { corriendo = false; return; }
     cuadro = requestAnimationFrame(paso);
   }
   function correr() { if (corriendo) return; corriendo = true; antes = performance.now(); if (!cuadro) cuadro = requestAnimationFrame(paso); }
-  function ir(a) { t = a; pintar(t); narrar(t); mostrarCierre(t >= 38.6); }
+  function reiniciar() { semilla = 20270108; centroY = 0.4; zoom = 1; t = 0; hecho = 0; sacudida = 0; frase = ''; mostrarCierre(false); $('linea').innerHTML = ''; crearPuntos(); }
+  /* Lleva la intro a un segundo exacto recorriendo el guion sin dibujar (para Saltar y para las pruebas). */
+  function ir(a) { corriendo = false; reiniciar(); callado = true; while (t < a - 1e-6) tic(Math.min(1 / 30, a - t)); callado = false; dibujar(true); $('avance').style.width = (100 * t / FIN) + '%'; }
 
   $('pausa').addEventListener('click', function () {
-    var pausar = corriendo; corriendo = !pausar; this.textContent = pausar ? 'Seguir' : 'Pausa'; this.setAttribute('aria-pressed', pausar ? 'true' : 'false');
-    if (!pausar) { corriendo = false; correr(); }
+    var pausar = corriendo; this.textContent = pausar ? 'Seguir' : 'Pausa'; this.setAttribute('aria-pressed', pausar ? 'true' : 'false');
+    if (pausar) corriendo = false; else correr();
   });
   $('sonido').addEventListener('click', function () {
     conSonido = !conSonido; this.textContent = 'Sonido: ' + (conSonido ? 'sí' : 'no'); this.setAttribute('aria-pressed', conSonido ? 'true' : 'false');
-    if (conSonido && !audio) { var A = window.AudioContext || window.webkitAudioContext; if (A) audio = new A(); }
-    if (audio && audio.state === 'suspended') audio.resume();
+    try { if (conSonido && !audio) { var A = window.AudioContext || window.webkitAudioContext; if (A) audio = new A(); } if (audio && audio.state === 'suspended') audio.resume(); } catch (e) { conSonido = false; }
   });
-  $('saltar').addEventListener('click', function () { corriendo = false; ir(FIN); $('cierre').querySelector('a').focus(); });
-  $('repetir').addEventListener('click', function () {
-    $('pausa').textContent = 'Pausa'; $('pausa').setAttribute('aria-pressed', 'false'); corriendo = false; ir(0); correr();
-  });
+  $('saltar').addEventListener('click', function () { ir(FIN); $('cierre').querySelector('a').focus(); });
+  $('repetir').addEventListener('click', function () { $('pausa').textContent = 'Pausa'; $('pausa').setAttribute('aria-pressed', 'false'); corriendo = false; reiniciar(); dibujar(true); correr(); });
+  window.addEventListener('resize', function () { medir(); if (!corriendo) dibujar(true); });
+  window.__introCurso = { ir: ir, fin: FIN, t: function () { return t; }, puntos: function () { return N; } };
 
-  /* Para pruebas: llevar la intro a un segundo exacto. */
-  window.__introCurso = { ir: function (a) { corriendo = false; ir(a); }, fin: FIN, t: function () { return t; } };
-
-  if (reducir) {                                   /* sin movimiento: el cuadro final y el guion completo a la vista */
-    ir(FIN); $('guion').hidden = false; $('linea').hidden = true; $('repetir').hidden = true;
-    $('pausa').hidden = true; $('saltar').hidden = true; $('sonido').hidden = true;
-  } else { ir(0); correr(); }
+  function empezar() {
+    medir(); prepararFormas(); reiniciar();
+    if (reducir) {                                 /* sin movimiento: la última forma, el cierre y el guion completo a la vista */
+      ir(FIN); lienzo.hidden = true; $('guion').hidden = false; ['pausa', 'saltar', 'sonido', 'repetir'].forEach(function (id) { $(id).hidden = true; });
+    } else correr();
+  }
+  /* La cifra y el signo se dibujan con la tipografía del sitio: se espera a que cargue, pero no más de 1.2 s. */
+  var listo = false; function unaVez() { if (!listo) { listo = true; empezar(); } }
+  if (document.fonts && document.fonts.load) { document.fonts.load(FUENTE.replace('%', 40), '64?').then(unaVez, unaVez); setTimeout(unaVez, 1200); } else unaVez();
 })();
