@@ -36,15 +36,15 @@
   function regla(ctx, valor) {
     var caja = ctx.el('div', 'regla-caja');
     var ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg'), X = function (k) { return 12 + k / 2 * 296; };
-    svg.setAttribute('viewBox', '0 0 320 64'); svg.setAttribute('aria-hidden', 'true'); svg.style.width = '100%'; svg.style.maxWidth = '560px';
+    svg.setAttribute('viewBox', '0 0 320 84'); svg.setAttribute('aria-hidden', 'true'); svg.style.width = '100%'; svg.style.maxWidth = '560px';
     var s = '<rect x="' + X(v('densidad_min')) + '" y="18" width="' + (X(v('densidad_max')) - X(v('densidad_min'))) + '" height="20" fill="var(--tq-suelo)"/>' +
       '<line x1="12" y1="38" x2="308" y2="38" stroke="var(--tinta-suave)" stroke-width="1.5"/>';
-    [0, 0.5, 1, 1.5, 2].forEach(function (k) { s += '<text x="' + X(k) + '" y="50" font-size="8" text-anchor="middle" fill="var(--tinta-suave)">' + k + ' kg</text>'; });
-    s += '<text x="' + X((v('densidad_min') + v('densidad_max')) / 2) + '" y="14" font-size="7" text-anchor="middle" fill="var(--tinta-suave)">combustible</text>';
-    s += '<line x1="' + X(v('agua')) + '" y1="22" x2="' + X(v('agua')) + '" y2="38" stroke="var(--tq-vidrio)" stroke-width="2"/><text x="' + X(v('agua')) + '" y="62" font-size="7" text-anchor="middle" fill="var(--tq-vidrio)">agua</text>';
+    [0, 0.5, 1, 1.5, 2].forEach(function (k) { s += '<text x="' + X(k) + '" y="54" font-size="12" text-anchor="middle" fill="var(--tinta-suave)">' + k + ' kg</text>'; });
+    s += '<text x="' + X(v('densidad_max')) + '" y="72" font-size="11" text-anchor="end" fill="var(--tinta-suave)">combustible</text>';
+    s += '<line x1="' + X(v('agua')) + '" y1="22" x2="' + X(v('agua')) + '" y2="38" stroke="var(--tq-vidrio)" stroke-width="2"/><text x="' + (X(v('agua')) + 4) + '" y="72" font-size="11" text-anchor="start" fill="var(--tq-vidrio)">agua</text>';
     if (valor != null && isFinite(valor)) {
       var x = X(Math.max(0, Math.min(2, valor)));
-      s += '<rect x="' + (x - 4) + '" y="24" width="8" height="8" fill="var(--comal)"/><text x="' + x + '" y="20" font-size="8" text-anchor="middle" fill="var(--comal)">tú</text>';
+      s += '<rect x="' + (x - 4) + '" y="24" width="8" height="8" fill="var(--comal)"/><text x="' + x + '" y="13" font-size="12" text-anchor="middle" fill="var(--comal)">tú</text>';
     }
     svg.innerHTML = s; caja.appendChild(svg);
     caja.appendChild(ctx.el('p', 'nota', (valor != null && isFinite(valor) ? 'Tu valor: ' + fmt(valor, 3) + ' kg por litro. ' : 'Todavía no pones tu valor. ') +
@@ -153,7 +153,8 @@
         ctx.reto({ id: 'reto_error_factor', titulo: '★★ RETO 2', dificultad: 2, tipo: 'opcion',
           pregunta: '¿Dónde está el error del visto bueno?',
           opciones: ['Multiplica los litros por 1.77, que convierte litros en libras, y escribe el resultado como kilos',
-            'Suma mal los litros que había y los que se cargaron', 'Usa una lectura de la varilla distinta de la de la hoja', 'No tiene ningún error'],
+            'Suma mal los litros que había y los que se cargaron', 'Usa una lectura de la varilla distinta de la de la hoja', 'No tiene ningún error',
+            'No hay error: dice «las cuentas cuadran» y lo confirma alguien de toda su confianza, o sea, él mismo'],
           pista: 'Compara lo que pesaría un litro según el visto bueno con la ficha y con un litro de agua.',
           alResponder: function () { ctx.listo(); }, alSaltar: function () { ctx.listo(); } });
         if (ctx.S.retos.reto_error_factor || (ctx.S.datos._luego || {}).reto_error_factor) ctx.listo();
@@ -258,6 +259,10 @@
         ctx.cierre({ codigo: '13.11', pregunta: 'Piensa en una decisión real tuya. ¿Qué dato te llega <b>en otra unidad o en otro formato</b>? ¿Con qué lo comprobarías que no salga de la misma cuenta?',
           etiqueta: 'Mi decisión: qué dato viene en otra unidad o formato y cómo lo revisaría',
           frase: '¿Cómo lo verifico? Un número sin su unidad no es un dato.' });
+        ctx.desplegable('Glosario', ['Unidad: lo que cuenta un número (litros, kilos, libras). Sin ella, el número no dice nada.',
+          'Factor de conversión: el número por el que multiplicas para pasar de una unidad a otra. Solo sirve para el par de unidades que dice.',
+          'Validar rangos: comparar un resultado con lo que es posible en el mundo antes de creerlo.',
+          'Verificación independiente: comprobar con algo que no salga de la misma cuenta que quieres revisar.']);
         ctx.desplegable('Fuentes', [
           ['https://archive.org/details/31761116358912', 'Lockwood, G. H. (1985). Final Report of the Board of Inquiry into Air Canada Boeing 767 C-GAUN, pp. 28-29 y 41-43.'],
           ['https://www.faa.gov/sites/faa.gov/files/2024-12/AirCanada143_C-GAUN.pdf', 'El mismo informe, copia de la FAA (texto hasta la p. 42).'],

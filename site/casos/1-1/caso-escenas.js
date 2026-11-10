@@ -180,7 +180,7 @@
         ctx.reto({ id: 'reto_error_resumen', titulo: '★★ RETO 2', dificultad: 2, tipo: 'opcion',
           pregunta: 'Compara el resumen con la bitácora y con el registro. ¿Dónde está el error?',
           opciones: ['Dice que revisó 1,000 aviones, pero el registro tiene 736', 'Dice que hay 1,481 agujeros, pero el registro suma 1,184',
-            'Dice que las alas tienen 698 agujeros, pero son 316', 'No tiene ningún error'],
+            'Dice que las alas tienen 698 agujeros, pero son 316', 'No tiene ningún error', 'No puede tener error: lo escribió con mucha seguridad y con viñetas'],
           pista: 'Cuenta cuántas filas tiene el registro y compáralo con lo que el resumen dice que revisó.',
           alResponder: function () { ctx.listo(); } });
       } },

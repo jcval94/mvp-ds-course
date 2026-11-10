@@ -198,10 +198,29 @@ label.campo span{color:var(--tinta-suave);font-size:.92rem}
 .fin-acciones{display:flex;gap:10px;flex-wrap:wrap}
 details.mas{font-size:.95rem;color:var(--tinta-suave)}
 details.mas summary{cursor:pointer;padding:4px 0}
-details.mas ul{margin:8px 0 0;padding-left:20px}
+details.mas ul{margin:8px 0 0;padding-left:20px;display:grid;gap:8px}
+details.mas li b{color:var(--tinta)}
+details.mas summary{min-height:44px;display:flex;align-items:center;gap:8px}
+details.mas summary::before{content:"+";font-family:"Press Start 2P","Courier New",monospace;font-size:10px;color:var(--comal)}
+details.mas[open] summary::before{content:"-"}
+details.mas summary::-webkit-details-marker{display:none}
+details.mas summary{list-style:none}
+/* Una tabla dentro de una pieza de papel nunca ensancha la pieza: se ajusta y, si aun así no cabe, se desplaza. */
+.pieza{overflow-x:auto}
+.pieza>*{min-width:0;max-width:100%}
+/* Botones dentro de una celda: ocupan la celda y parten el texto en lugar de salirse. */
+/* Un botón secundario sobre papel usa la tinta del papel: con la tinta clara del fondo oscuro no se leía. */
+.pieza .btn.sec{color:var(--tq-comal-texto);border-color:var(--tq-comal-texto);background:transparent;box-shadow:none}
+.tabla-t td .btn{width:100%;padding:8px 4px;font-size:8px;line-height:1.5;white-space:normal;overflow-wrap:anywhere}
 .oculto-hasta{opacity:.55}
 
 @media (max-width:480px){
+  /* El encabezado se repite en cada sección: en el celular ocupa lo mínimo para que el contenido empiece arriba. */
+  .caso{gap:10px;padding-top:10px}
+  .caso .sup{flex-wrap:nowrap;gap:6px}
+  .caso .sup .estado-reg{margin-left:auto}
+  .caso .titulo{font-size:12px}
+  .pieza .tabla-t th,.pieza .tabla-t td{padding:6px 5px;font-size:.82rem;overflow-wrap:anywhere;hyphens:auto}
   .tabla th,.tabla td{padding:6px 6px;font-size:.86rem}
   .tabla th{font-size:7px}
 }

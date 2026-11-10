@@ -131,7 +131,8 @@
         t.appendChild(dl); aqui(dentro).appendChild(t); return t;
       },
 
-      /* Desplegable «Fuentes» o «Glosario»: items de texto o [url, texto]. */
+      /* Desplegable «Fuentes», «Glosario» o «¿Qué es…?»: items de texto o [url, texto].
+         Un texto con la forma «Término: definición» resalta el término para que el glosario se lea de un vistazo. */
       desplegable: function (titulo, items, dentro) {
         var d = document.createElement('details'); d.className = 'mas';
         d.appendChild(ctx.el('summary', null, titulo));
@@ -139,7 +140,11 @@
         items.forEach(function (it) {
           var li = document.createElement('li');
           if (Array.isArray(it)) { var a = ctx.el('a', null, it[1]); a.href = it[0]; a.target = '_blank'; a.rel = 'noopener noreferrer'; li.appendChild(a); }
-          else li.textContent = it;
+          else {
+            var corte = it.indexOf(': ');
+            if (corte > 0 && corte <= 48) { li.appendChild(ctx.el('b', null, it.slice(0, corte))); li.appendChild(document.createTextNode(it.slice(corte))); }
+            else li.textContent = it;
+          }
           u.appendChild(li);
         });
         d.appendChild(u); aqui(dentro).appendChild(d); return d;

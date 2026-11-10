@@ -36,13 +36,14 @@
         ctx.p('El conteo final que publicó la revista el 31 de octubre de 1936:');
         cuerpo.appendChild(ctx.tabla(['Candidato', 'Boletas'], [['Alf Landon', fmt(K.digest_landon)], ['Franklin D. Roosevelt', fmt(K.digest_roosevelt)], ['Otros', fmt(K.digest_otros)], ['Total devueltas', fmt(K.digest_devueltas)]]));
         ctx.p('Su pronóstico de votos electorales: Landon ' + K.digest_ve_landon + ', Roosevelt ' + K.digest_ve_roosevelt + ', de 531.');
+        ctx.desplegable('¿Qué son los votos electorales?', ['En Estados Unidos no gana quien junta más votos en todo el país. Cada estado reparte un número fijo de votos electorales y, casi siempre, se los lleva completos quien gana ese estado. En 1936 había 531: ganaba quien juntara 266.']);
         var barras = ctx.el('div'); cuerpo.appendChild(barras);
         var partes = ctx.controles('sacar_parte').map(function (v) { return v.quien; });
         var QUIEN = [['landon', 'Landon', K.digest_landon], ['roosevelt', 'Roosevelt', K.digest_roosevelt], ['otros', 'Otros', K.digest_otros]];
         function pintar() {
           barras.innerHTML = '';
           ctx.barras({ categorias: QUIEN.map(function (q) { return q[1]; }), series: [{ nombre: 'Boletas', color: 'var(--anil)',
-            valores: QUIEN.map(function (q) { return partes.indexOf(q[0]) >= 0 ? 100 * q[2] / K.digest_devueltas : q[2] / 25000; }),
+            valores: QUIEN.map(function (q) { return 100 * q[2] / K.digest_devueltas; }),   /* misma escala siempre: al sacar la parte cambia la etiqueta, no el largo de la barra */
             etiquetas: QUIEN.map(function (q) { return partes.indexOf(q[0]) >= 0 ? pct(q[2], K.digest_devueltas) : fmt(q[2]); }) }],
             pie: 'Las barras con porcentaje son la parte de cada uno en las boletas devueltas.' }, barras);
         }
@@ -71,7 +72,8 @@
         ctx.reto({ id: 'reto_error_tasa_respuesta', titulo: '★★ RETO 1', dificultad: 2, tipo: 'opcion',
           pregunta: 'Compara el resumen con la bitácora y con el conteo. ¿Dónde está el error?',
           opciones: ['La tasa de respuesta usa las boletas devueltas como denominador', 'El 57% de Landon no sale de las cifras del conteo',
-            'El total de boletas no coincide con la suma de Landon y Roosevelt', 'No tiene ningún error'],
+            'El total de boletas no coincide con la suma de Landon y Roosevelt', 'No tiene ningún error',
+            'El error sería dudar: un resumen que dice «100%» merece confianza al 100%'],
           pista: 'Una tasa de respuesta compara las que regresaron con las que salieron. Mira la bitácora.',
           alResponder: paso2, alSaltar: paso2 });
         cuerpo.appendChild(r2);
@@ -237,6 +239,12 @@
         ctx.cierre({ codigo: '1.2', pregunta: '¿Qué es una fila en los datos de tu decisión? <b>¿Quién no aparece?</b>',
           etiqueta: 'Mi decisión: qué es una fila y quién no aparece',
           frase: '¿Qué falta en mis datos? Antes de contar respuestas, pregunta quién no pudo responder.' });
+        ctx.desplegable('Glosario', ['Población: todas las personas sobre las que quieres saber algo (aquí, quienes iban a votar).',
+          'Marco muestral: la lista de donde salen los nombres a los que preguntas.',
+          'Muestra: las personas de la lista a las que sí les preguntas.',
+          'Tasa de respuesta: de cada 100 a quienes preguntaste, cuántos contestaron.',
+          'No respuesta: quienes recibieron la pregunta y no contestaron.',
+          'Sesgo de no respuesta: el error que aparece cuando quienes no contestan piensan distinto de quienes sí.']);
         ctx.desplegable('Fuentes', [
           ['https://historymatters.gmu.edu/d/5168', 'History Matters (GMU): «Landon, 1,293,669; Roosevelt, 972,897», The Literary Digest, 31 oct 1936.'],
           ['https://doi.org/10.1515/spp-2016-0006', 'Lohr y Brick (2017), Statistics, Politics and Policy 8(1).'],
