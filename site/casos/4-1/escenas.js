@@ -109,9 +109,10 @@
     duracionCuaderno: '~50 min',
     despues: ['Se abre Google Colab en otra pestaña.',
       { t: 'Guardas tu copia y ejecutas la primera celda.', u: '../../colab.html', n: 'Ver la guía de Colab' },
-      'Apuestas una causa y decides qué cambiarías en el hospital.'],
+      'Apuestas una causa antes de ver los datos y firmas tu decisión.'],
     medios: 'medios.json',
-    herramientas: ['Comparación de proporciones', 'Prueba chi cuadrada', 'Descarte sistemático de hipótesis', 'Comparación antes y después'],
+    // Las herramientas no se nombran antes de la apuesta (prueba de spoiler de docs/CRITERIO_PRIMERO.md): se revelan al resolver el caso.
+    herramientasOcultas: 4,
     fuentes: [
       { t: 'Ignaz Semmelweis (Wikipedia)', u: 'https://en.wikipedia.org/wiki/Ignaz_Semmelweis',
         n: 'Mortalidad materna de 1846: clínica 1, 459 de 4,010 (11.4 %); clínica 2, 105 de 3,754 (2.8 %).' }
