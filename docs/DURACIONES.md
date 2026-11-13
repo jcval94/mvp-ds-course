@@ -38,7 +38,7 @@ archivo y se vuelve a construir.
 | Apertura y repaso de la tarea | 10 |
 | Caso real: la decisión y las primeras hipótesis | 25 |
 | Herramienta guiada en vivo | 50 |
-| Misión en Colab, en parejas | 35 |
+| Caso en la página o en Colab (según `docs/PAGINA_O_COLAB.md`), en parejas | 35 |
 | Transferencia y discusión | 25 |
 | Revelación del caso, qué enseña y bits | 20 |
 | Descanso | 15 |
@@ -50,8 +50,7 @@ La tabla `clases` ya guarda el caso de cada sesión (`clases.caso`).
 
 Cada nivel (módulo) tiene **un caso ancla** que cierra el nivel y un **banco** de
 casos para usar en clase en vivo (`docs/CASE_MISSION_MAP.md`). El catálogo muestra el
-ancla y el banco. Estados visibles: *Disponible en Colab* (4.1 y 4.2), *En preparación*
-(1.1 Wald), *Próximamente* y *En revisión* (15.4 Replit, hasta verificar fuentes).
+ancla y el banco. Estados visibles: *Disponible en la página* (1.1, 1.2, 1.4, 13.11, 2.1 y 2.3), *Disponible en Colab* (4.1 y 4.2), *En preparación*, *Próximamente* y *En revisión* (15.4 Replit, hasta verificar fuentes).
 Los casos nuevos sin verificar del mapa no se muestran a estudiantes.
 
 ## Lo que sale de los números
