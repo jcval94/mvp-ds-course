@@ -96,9 +96,12 @@ def test_cada_revision_acompana_su_envio_y_conserva_historial(alumno):
     expect(historial).to_contain_text("Comentario anterior")
     expect(feedback).to_contain_text("Con comentario")
     expect(feedback).not_to_contain_text("Otra revisión")
-    page.select_option("#fModulo", "4")
-    expect(page.locator("#casos .feedback")).to_contain_text("Otra revisión")
-    expect(page.locator("#casos .feedback")).to_contain_text("Nivel 2 de 3 · 10 bits")
+    # Con menos de 6 casos no hay filtros (u05): la revisión del 4.1 va en su propia tarjeta, plegada.
+    expect(page.locator("#casosFiltros")).to_be_hidden()
+    otra = page.locator("#casos .case").nth(1).locator(".feedback")
+    expect(otra).not_to_have_attribute("open", "")
+    expect(otra).to_contain_text("Otra revisión")
+    expect(otra).to_contain_text("Nivel 2 de 3 · 10 bits")
     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
 
 

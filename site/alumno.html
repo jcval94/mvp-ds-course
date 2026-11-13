@@ -16,22 +16,22 @@
        Colores solo desde design/tokens (el guardia del harness rechaza literales). */
     /* Con sesión */
     #vistaAvance { display: grid; gap: 18px; }
-    .summary { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 40px; align-items: center; padding: 34px; border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); }
+    .summary { position: relative; overflow: hidden; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px; align-items: center; padding: 20px 24px; border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); }
     .summary::after { content: ""; position: absolute; right: -80px; top: -80px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(var(--accent-soft) 0, transparent 70%); pointer-events: none; }
-    .ring { position: relative; width: 168px; height: 168px; }
+    .ring { position: relative; width: 76px; height: 76px; }
     .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
     .ring circle { fill: none; stroke-width: 12; }
     .ring .bg { stroke: var(--track); }
     .ring .fg { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(.2, .8, .2, 1); }
     .ring .val { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
-    .ring .val b { font-size: 44px; font-weight: 800; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1; }
-    .ring .val span { margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .ring .val b { font-size: 20px; font-weight: 800; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1; }
+    .ring .val span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
     .hello { position: relative; z-index: 1; min-width: 0; }
-    .hello h1 { margin: 10px 0 0; font-size: clamp(30px, 4vw, 44px); line-height: 1.08; letter-spacing: -.025em; font-weight: 800; text-wrap: balance; }
+    .hello h1 { margin: 4px 0 0; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.08; letter-spacing: -.025em; font-weight: 800; text-wrap: balance; }
     .chips { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
     .chip { background: var(--surface-alt); border: 1px solid var(--line); border-radius: var(--r-pill); padding: 5px 12px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
     .chip b { color: var(--text); }
-    .stats { margin: 24px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .stats { margin: 12px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .stats div { border-top: 1px solid var(--line); padding-top: 12px; min-width: 0; }
     .stats dt { color: var(--muted); font-size: 12px; }
     .stats dd { margin: 6px 0 0; font-size: 17px; font-weight: 700; line-height: 1.3; overflow-wrap: anywhere; }
@@ -65,7 +65,7 @@
     .due { font-size: 13px; color: var(--muted); }
     .due b { color: var(--text); }
     .due.late b { color: var(--critical); }
-    .case-foot .btn { min-height: 42px; padding: 0 18px; }
+    .case-foot .btn { min-height: 44px; padding: 0 18px; }
     .case-foot .muted { color: var(--muted); font-size: 13px; }
 
     /* Inscripción y pagos (0.12): estado de las cuotas y aviso si un cobro no pasó */
@@ -77,7 +77,10 @@
     .pay span { color: var(--muted); font-size: 14px; line-height: 1.5; }
     .pay.crit b { color: var(--critical); }
     /* Acceso a Colab: el alumno genera su propia TDD_CLAVE */
-    .colab-key { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px 28px; align-items: center; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 22px 26px; scroll-margin-top: 24px; }
+    .colab-key { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 0 26px; scroll-margin-top: 24px; }
+    .colab-key > summary { cursor: pointer; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding: 18px 0; min-height: 44px; }
+    .colab-key .colab-t { font-size: 18px; font-weight: 700; }
+    .colab-body { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px 28px; align-items: center; padding: 4px 0 22px; }
     .colab-key h2 { margin: 6px 0 6px; font-size: 20px; }
     .colab-key p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
     .colab-key p a { color: var(--accent-text); font-weight: 700; }
@@ -85,13 +88,13 @@
     .key-pair div { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; background: var(--surface-alt); }
     .key-pair dt { font-size: 12px; font-weight: 800; letter-spacing: .06em; color: var(--muted); min-width: 86px; }
     .key-pair dd { margin: 0; font-family: var(--font-mono); font-size: 15px; overflow-wrap: anywhere; flex: 1; }
-    .key-pair button { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 6px 10px; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
-    .colab-key .acciones { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .colab-key .acciones small { color: var(--muted); font-size: 13px; }
-    @media (max-width: 760px) { .colab-key { grid-template-columns: 1fr; padding: 20px; } }
+    .key-pair button { min-height: 44px; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 0 14px; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .colab-body .acciones { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .colab-body .acciones small { color: var(--muted); font-size: 13px; }
+    @media (max-width: 760px) { .colab-body { grid-template-columns: 1fr; } .colab-key { padding: 0 20px; } }
 
     /* Clases en vivo (Google Meet) y grabaciones */
-    .classes { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); overflow: hidden; }
+    .classes { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--line); border-radius: 28px; background: var(--surface); box-shadow: var(--shadow-soft); overflow: hidden; }
     .class-next { padding: 28px 32px; display: grid; gap: 12px; align-content: start; min-width: 0; background: linear-gradient(135deg, var(--accent-soft) 0, var(--surface) 70%); }
     .class-next h2 { margin: 0; font-size: clamp(22px, 2.6vw, 28px); line-height: 1.2; letter-spacing: -.02em; overflow-wrap: anywhere; }
     .class-next.live .kicker-dark { color: var(--critical); }
@@ -111,22 +114,11 @@
     .countdown span { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
     .class-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
     .class-actions .btn { min-height: 44px; padding: 0 18px; }
-    .class-recs { padding: 28px; background: var(--surface-alt); border-left: 1px solid var(--line); display: grid; gap: 12px; align-content: start; min-width: 0; }
-    .class-recs h3 { margin: 0; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text); }
-    .recs { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-    .recs li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); font-size: 14px; }
-    .recs li > div { min-width: 0; }
-    .recs li b { display: block; overflow-wrap: anywhere; }
-    .recs li small { color: var(--muted); font-size: 12px; }
-    .recs a { flex: 0 0 auto; font-weight: 700; color: var(--accent-text); white-space: nowrap; }
-    .recs .pend { flex: 0 0 auto; color: var(--muted); font-size: 12px; white-space: nowrap; }
-    .recs .vacio { color: var(--muted); font-size: 14px; border-style: dashed; }
     .case-class { color: var(--accent-text); font-weight: 600; }
     .link-btn { justify-self: start; padding: 0; border: 0; background: none; color: var(--accent-text); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
     @media (max-width: 860px) {
       .classes { grid-template-columns: 1fr; }
-      .class-recs { border-left: 0; border-top: 1px solid var(--line); }
-      .class-next, .class-recs { padding: 22px 18px; }
+        .class-next { padding: 22px 18px; }
       .class-actions .btn { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) { .class-next.live .kicker-dark::before { animation: none; } }
@@ -189,9 +181,9 @@
     .alias { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 16px; }
     .alias label { font-size: 13px; font-weight: 700; }
     .alias-row { display: flex; gap: 8px; }
-    .alias input { flex: 1 1 auto; min-width: 0; min-height: 42px; border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; font: inherit; background: var(--surface); color: var(--text); }
+    .alias input { flex: 1 1 auto; min-width: 0; min-height: 44px; border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; font: inherit; background: var(--surface); color: var(--text); }
     .alias input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-    .alias .btn { min-height: 42px; padding: 0 16px; }
+    .alias .btn { min-height: 44px; padding: 0 16px; }
     .alias .fine { margin: 0; }
     .alias .fine.is-error { color: var(--critical); }
     .alias .fine.is-ok { color: var(--accent-text); font-weight: 600; }
@@ -269,9 +261,10 @@
     .feedback .mine { margin: 2px 0 0; padding: 8px 12px; border-left: 3px solid var(--line); background: var(--surface); border-radius: 0 10px 10px 0; line-height: 1.5; white-space: pre-line; overflow-wrap: anywhere; max-height: 9.5em; overflow: auto; }
     .feedback .mine-label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 2px; white-space: normal; }
     .feedback .retro { color: var(--text); }
+    .help > summary { cursor: pointer; color: var(--text); font-size: 16px; font-weight: 700; min-height: 44px; display: flex; align-items: center; }
+    .help[open] > summary { margin-bottom: 8px; }
     .help { border: 1px dashed var(--line); border-radius: var(--r-card); padding: 20px 24px; color: var(--muted); line-height: 1.6; font-size: 14px; background: color-mix(in srgb, var(--surface) 60%, transparent); }
-    .help h2 { margin: 0 0 8px; color: var(--text); font-size: 16px; }
-    .help b { color: var(--text); }
+        .help b { color: var(--text); }
     .help ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
 
     /* Filtros de casos */
@@ -285,7 +278,7 @@
     .case-count { margin: 0 0 10px auto; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
     .case-tools[hidden] { display: none; }
     .case-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 10px 16px; margin-left: auto; }
-    .case-ask { border: 0; background: none; padding: 0; font: inherit; font-size: 13px; font-weight: 700; color: var(--accent-text); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .case-ask { min-height: 44px; border: 0; background: none; padding: 0; font: inherit; font-size: 13px; font-weight: 700; color: var(--accent-text); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
     .module-head { grid-column: 1 / -1; margin: 6px 0 -4px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text); }
 
     /* Campana y mensajes */
@@ -330,13 +323,11 @@
       .cv-layout { grid-template-columns: 1fr; }
       .cv-preview { position: static; }
       .board-side { border-left: 0; border-top: 1px solid var(--line); }
-      .summary { grid-template-columns: 1fr; justify-items: start; }
     }
     @media (max-width: 620px) {
-      .summary { padding: 22px; gap: 24px; }
-      .ring { width: 150px; height: 150px; }
-      .ring .val b { font-size: 36px; }
-      .ring .val span { font-size: 11px; }
+      .summary { padding: 16px 18px; gap: 14px; }
+      .ring { width: 60px; height: 60px; }
+      .ring .val b { font-size: 16px; }
       .stats { grid-template-columns: 1fr; }
       .case { padding: 20px; }
       .board-main, .board-side { padding: 22px; }
@@ -354,6 +345,23 @@
       .track i.on { animation: none; }
       .ring .fg { transition: none; }
     }
+
+    /* Mi avance más ligero (u05): resumen plegado, «Qué sigue» arriba, tarjeta compacta, marcador sin ruido con 0 bits */
+    .resumen > summary, .plegado > summary, .secs > summary, .alias-caja > summary { cursor: pointer; color: var(--accent-text); font-size: 14px; font-weight: 700; min-height: 44px; display: flex; align-items: center; }
+    .resumen { margin-top: 2px; }
+    .resume-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    #pagoArriba:empty { display: none; }
+    .plegado { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); padding: 0 20px; }
+    .plegado[open] { padding-bottom: 16px; }
+    .plegado .pay { border: 0; padding: 0; background: none; }
+    .secs { font-size: 13px; }
+    .secs > summary { min-height: 32px; font-size: 13px; }
+    .secs .sections { margin-top: 8px; }
+    .case-foot .link-btn { min-height: 44px; display: inline-flex; align-items: center; }
+    .board-main.cero .ladder, .board-main.cero .mix, .board-main.cero .mix-legend, .board-main.cero .compare, .board-main.cero .band-badge { display: none; }
+    .alias-caja { border-top: 1px solid var(--line); padding-top: 6px; }
+    .alias-caja .alias { border-top: 0; padding-top: 6px; }
+    .class-actions .grabadas-link { min-height: 44px; }
   </style>
 </head>
 <body class="area alumno-page">
@@ -374,7 +382,7 @@
       </button>
       <button class="profile-btn" type="button" id="perfilBtn" aria-haspopup="true" aria-expanded="false" aria-controls="perfilMenu">
         <img id="avatar" alt="" referrerpolicy="no-referrer" hidden><span class="initials" id="iniciales" aria-hidden="true"></span>
-        <span>Profile</span>
+        <span>Mi cuenta</span>
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
       </button>
       <div class="profile-menu" id="perfilMenu" role="menu" aria-labelledby="perfilBtn" hidden>
@@ -446,28 +454,25 @@
         <div class="hello">
           <p class="kicker-dark">Mi avance</p>
           <h1 id="holaTitle">Hola</h1>
-          <div class="chips" id="chips"></div>
-          <dl class="stats" id="stats"></dl>
+          <details class="resumen" id="resumen">
+            <summary>Tu resumen</summary>
+            <dl class="stats" id="stats"></dl>
+          </details>
         </div>
       </div>
+      <div id="pagoArriba"></div>
       <section class="resume" id="continuar" hidden aria-labelledby="continuarTitulo">
         <div>
-          <p class="kicker-dark" id="continuarKicker">Continuar misión</p>
+          <p class="kicker-dark" id="continuarKicker">Qué sigue</p>
           <h2 id="continuarTitulo">Tu siguiente paso</h2>
           <p class="fine" id="continuarNota"></p>
         </div>
-        <a class="btn btn-accent resume-btn" id="continuarBtn" target="_blank" rel="noopener">Continuar misión</a>
-      </section>
-      <section class="resume" id="practica" hidden aria-labelledby="practicaTitulo">
-        <div>
-          <p class="kicker-dark" id="practicaKicker">Práctica · 10 minutos</p>
-          <h2 id="practicaTitulo">Repasa con 5 micro-casos</h2>
-          <p class="fine" id="practicaNota">Una situación, una pregunta y la respuesta al momento, desde el celular.</p>
+        <div class="resume-actions">
+          <a class="btn btn-accent resume-btn" id="continuarBtn">Continuar el caso</a>
+          <a class="btn btn-line resume-btn" id="continuarMeet" target="_blank" rel="noopener" hidden>Entrar a Google Meet</a>
         </div>
-        <a class="btn btn-accent resume-btn" id="practicaBtn" href="practica/">Practicar</a>
       </section>
       <button class="inbox-strip" type="button" id="avisoMensajes" hidden></button>
-      <section class="pay" id="pago" hidden aria-live="polite"></section>
       <section class="classes" id="clases" hidden aria-labelledby="claseTitulo">
         <div class="class-next" id="claseProxima">
           <p class="kicker-dark" id="claseKicker">Próxima clase en vivo</p>
@@ -479,13 +484,58 @@
             <button class="btn btn-line" type="button" id="claseIcs">Agregar todas a mi calendario</button>
           </div>
           <p class="fine" id="claseNota"></p>
-          <details class="agenda" id="claseAgenda" hidden><summary>Cómo se reparte la clase</summary><ul></ul><p class="fine">Tiempos estimados: el profesor puede ajustarlos según el ritmo del grupo.</p></details>
+          <details class="agenda"            <summary>Cómo se reparte la clase</summary><ul></ul><p class="fine">Tiempos estimados: el profesor puede ajustarlos según el ritmo del grupo.</p></details>
         </div>
-        <div class="class-recs">
-          <h3>Grabaciones</h3>
-          <ul class="recs" id="grabaciones"></ul>
-          <p class="fine">Cada grabación queda disponible 12 meses desde la fecha de su clase.</p>
+      </section>
+      <details class="colab-key" id="acceso-colab" hidden>
+        <summary><span class="kicker-dark">Acceso a Colab</span><span class="colab-t" id="colabTitle">Tu TDD_ID y tu TDD_CLAVE</span></summary>
+        <div class="colab-body">
+          <p>Tus cuadernos guardan tu avance a tu nombre con estos dos datos en los Secretos de Colab. <a href="colab.html">Ver el paso a paso con imágenes</a>.</p>
+          <dl class="key-pair">
+            <div><dt>TDD_ID</dt><dd id="miTddId"></dd><button type="button" id="copiarId">Copiar</button></div>
+            <div><dt>TDD_CLAVE</dt><dd id="miClave">Genera la tuya abajo</dd><button type="button" id="copiarClave" hidden>Copiar</button></div>
+          </dl>
+          <div class="acciones">
+            <button class="btn btn-accent" type="button" id="generarClave">Generar mi TDD_CLAVE</button>
+            <small id="claveNota">Solo se muestra una vez. Si ya tenías una clave en Colab, la nueva la reemplaza: actualízala en Secretos.</small>
+          </div>
         </div>
+      </details>
+      <div class="cases-head">
+        <h2>Casos</h2>
+        <p id="casosNota">Se actualiza cada vez que avanzas en un caso, en la página o en Colab.</p>
+      </div>
+      <div class="notice is-error" id="respuestasError" hidden role="status">
+        <p>No pudimos cargar tus respuestas y los comentarios de tu profesor.</p>
+        <button class="btn btn-line" type="button" id="respuestasReintentar">Reintentar</button>
+      </div>
+      <div class="case-tools" id="casosFiltros" role="group" aria-label="Filtrar y ordenar casos">
+        <label><span>Módulo</span><select id="fModulo"></select></label>
+        <label><span>Estado</span><select id="fEstado">
+          <option value="">Todos</option>
+          <option value="pendientes">Por entregar</option>
+          <option value="curso">En curso</option>
+          <option value="nuevos">Sin empezar</option>
+          <option value="entregados">Entregados</option>
+        </select></label>
+        <label><span>Orden</span><select id="fOrden">
+          <option value="sugerido">Sugerido: lo que sigue primero</option>
+          <option value="fecha">Fecha de entrega</option>
+          <option value="modulo">Módulo y número</option>
+          <option value="avance">Avance</option>
+          <option value="clase">Fecha de su clase</option>
+        </select></label>
+        <label class="grow"><span>Buscar</span><input id="fBuscar" type="search" placeholder="Número o título del caso"></label>
+        <p class="case-count" id="casosConteo" role="status"></p>
+      </div>
+      <div class="cases" id="casos"></div>
+      <section class="resume" id="practica" hidden aria-labelledby="practicaTitulo">
+        <div>
+          <p class="kicker-dark" id="practicaKicker">Práctica · 10 minutos</p>
+          <h2 id="practicaTitulo">Repasa con 5 micro-casos</h2>
+          <p class="fine" id="practicaNota">Una situación, una pregunta y la respuesta al momento, desde el celular.</p>
+        </div>
+        <a class="btn btn-accent resume-btn" id="practicaBtn" href="practica/">Practicar</a>
       </section>
       <section class="board" id="marcador" hidden aria-labelledby="marcadorTitle">
         <div class="board-main">
@@ -518,6 +568,8 @@
         <div class="board-side">
           <h3>Top 5</h3>
           <ol class="podium" id="top5"></ol>
+          <details class="alias-caja" id="aliasCaja">
+            <summary><span id="aliasResumen">Tu alias en el Top 5</span> · <b>cambiar</b></summary>
           <form class="alias" id="aliasForm">
             <label for="aliasInput">Tu alias en el Top 5</label>
             <div class="alias-row">
@@ -527,38 +579,22 @@
             <button class="link-btn" type="button" id="aliasOtra">Darme otra ciudad al azar</button>
             <p class="fine" id="aliasNota" role="status">Te asignamos un alias de ciudad para que nadie sepa que eres tú. Puedes cambiarlo por el que quieras.</p>
           </form>
+          </details>
         </div>
       </section>
-      <div class="cases-head">
-        <h2>Casos</h2>
-        <p id="casosNota">Se actualiza cada vez que avanzas en un caso, en la página o en Colab.</p>
-      </div>
-      <div class="notice is-error" id="respuestasError" hidden role="status">
-        <p>No pudimos cargar tus respuestas y los comentarios de tu profesor.</p>
-        <button class="btn btn-line" type="button" id="respuestasReintentar">Reintentar</button>
-      </div>
-      <div class="case-tools" id="casosFiltros" role="group" aria-label="Filtrar y ordenar casos">
-        <label><span>Módulo</span><select id="fModulo"></select></label>
-        <label><span>Estado</span><select id="fEstado">
-          <option value="">Todos</option>
-          <option value="pendientes">Por entregar</option>
-          <option value="curso">En curso</option>
-          <option value="nuevos">Sin empezar</option>
-          <option value="entregados">Entregados</option>
-        </select></label>
-        <label><span>Orden</span><select id="fOrden">
-          <option value="sugerido">Sugerido: lo que sigue primero</option>
-          <option value="fecha">Fecha de entrega</option>
-          <option value="modulo">Módulo y número</option>
-          <option value="avance">Avance</option>
-          <option value="clase">Fecha de su clase</option>
-        </select></label>
-        <label class="grow"><span>Buscar</span><input id="fBuscar" type="search" placeholder="Número o título del caso"></label>
-        <p class="case-count" id="casosConteo" role="status"></p>
-      </div>
-      <div class="cases" id="casos"></div>
+      <details class="plegado" id="pagoPlegado" hidden>
+        <summary id="pagoResumen">Tus pagos y tu código de recomendación</summary>
+      </details>
+      <details class="help" id="ayuda" hidden>
+        <summary id="ayudaTitle">¿No ves tu avance?</summary>
+        <ul>
+          <li>En los casos del sitio, revisa que entraste con el Gmail de tu inscripción: en tu menú <b>Mi cuenta</b> (arriba a la derecha) aparece el correo con el que entraste.</li>
+          <li class="solo-colab" hidden>En los cuadernos de Colab (desde la clase 5), abre <b>Secretos</b> (el icono de llave) y revisa que <code>TDD_ID</code> sea tu Gmail y <code>TDD_CLAVE</code> la clave que generaste en <a href="#acceso-colab">Acceso a Colab</a> (o la que te dimos), con acceso activado para el cuaderno. <a href="colab.html">Ver el paso a paso con imágenes</a>.</li>
+          <li class="solo-colab" hidden>Si el cuaderno dice <b>Modo invitado</b>, tu avance no se está guardando a tu nombre.</li>
+          <li>Si sigue sin aparecer, escríbele a tu profesor desde <b>Mensajes</b> (arriba a la derecha) o a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a> con tu ID de alumno.</li>
+        </ul>
+      </details>
     </section>
-
     <section class="teacher-cta" id="vistaDocente" hidden aria-labelledby="docenteTitle">
       <div>
         <p class="kicker-dark">Tu cuenta del curso</p>
@@ -568,31 +604,7 @@
       <a class="btn btn-dark" href="docente.html" id="panelLink">Abrir panel docente</a>
     </section>
 
-    <section class="colab-key" id="acceso-colab" hidden aria-labelledby="colabTitle">
-      <div>
-        <p class="kicker-dark">Acceso a Colab</p>
-        <h2 id="colabTitle">Tu TDD_ID y tu TDD_CLAVE</h2>
-        <p>Tus cuadernos guardan tu avance a tu nombre con estos dos datos en los Secretos de Colab. <a href="colab.html">Ver el paso a paso con imágenes</a>.</p>
-      </div>
-      <dl class="key-pair">
-        <div><dt>TDD_ID</dt><dd id="miTddId"></dd><button type="button" id="copiarId">Copiar</button></div>
-        <div><dt>TDD_CLAVE</dt><dd id="miClave">Genera la tuya abajo</dd><button type="button" id="copiarClave" hidden>Copiar</button></div>
-      </dl>
-      <div class="acciones">
-        <button class="btn btn-accent" type="button" id="generarClave">Generar mi TDD_CLAVE</button>
-        <small id="claveNota">Solo se muestra una vez. Si ya tenías una clave en Colab, la nueva la reemplaza: actualízala en Secretos.</small>
-      </div>
-    </section>
 
-    <section class="help" id="ayuda" hidden aria-labelledby="ayudaTitle">
-      <h2 id="ayudaTitle">¿No ves tu avance?</h2>
-      <ul>
-        <li>En los casos del sitio, revisa que entraste con el Gmail de tu inscripción: en tu menú (arriba a la derecha) y en tu resumen aparece el correo con el que entraste.</li>
-        <li>En los cuadernos de Colab (desde la clase 5), abre <b>Secretos</b> (el icono de llave) y revisa que <code>TDD_ID</code> sea tu Gmail y <code>TDD_CLAVE</code> la clave que generaste en <a href="#acceso-colab">Acceso a Colab</a> (o la que te dimos), con acceso activado para el cuaderno. <a href="colab.html">Ver el paso a paso con imágenes</a>.</li>
-        <li>Si el cuaderno dice <b>Modo invitado</b>, tu avance no se está guardando a tu nombre.</li>
-        <li>Si sigue sin aparecer, escríbele a tu profesor desde <b>Mensajes</b> (arriba a la derecha) o a <a href="mailto:augmentedlearninglabs@gmail.com">augmentedlearninglabs@gmail.com</a> con tu ID de alumno.</li>
-      </ul>
-    </section>
 
     <section class="cv" id="vistaCV" hidden aria-labelledby="cvTitle">
       <div class="cv-intro">

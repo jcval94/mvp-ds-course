@@ -213,7 +213,7 @@
 
   // ---------- Pestañas ----------
   // Mi avance, Mi CV, Store y Clases grabadas. Store y Clases grabadas las pinta alumno-store.js al recibir «tdd:pestana».
-  const PANEL_AVANCE = ["#vistaAvance", "#vistaDocente", "#ayuda"];
+  const PANEL_AVANCE = ["#vistaAvance", "#vistaDocente", "#ayuda", "#acceso-colab"];
   const PESTANAS = { avance: ["#tabAvance", null], cv: ["#tabCV", "#vistaCV"], store: ["#tabStore", "#vistaStore"], clases: ["#tabClases", "#vistaClases"] };
   function pestana(cual) {
     if (!PESTANAS[cual]) cual = "avance";
