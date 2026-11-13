@@ -23,7 +23,8 @@ La resolución (hipótesis calificada, datos, giro, rúbrica) vive en el cuadern
 
 El botón de cada intro apunta al cuaderno vigente (`CUADERNO_URL` del caso en el backend). Si el cuaderno cambia de
 archivo en Drive, cambia `colab` en `escenas.js`, el enlace del `noscript` de su `index.html` y `CUADERNOS` en
-`site/alumno.js`. Vigentes: 4.1 v1.4 (`1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD`) y 4.2 v2.6 (`1dTrByn08HxKMfNRSDoy44FqGrCGS97qG`).
+`site/alumno.js`; `python -m harness all` falla si los tres no coinciden o si un caso que se resuelve en la página tiene
+enlace de Colab. Vigentes: 4.1 v1.4 (`1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD`) y 4.2 v2.6 (`1dTrByn08HxKMfNRSDoy44FqGrCGS97qG`).
 
 **No repetir.** El cuaderno copia las líneas de narración de cada intro en `PAGINA["frases"]` y el generador rechaza
 el cuaderno si repite alguna. Si cambias las líneas de una intro, avisa en el PR para actualizar `PAGINA` en el

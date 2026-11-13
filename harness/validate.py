@@ -260,6 +260,68 @@ def validate_case_media(root: Path = ROOT) -> list[str]:
     return errors
 
 
+NOTEBOOK_PLACES = ("'colab' de escenas.js", "noscript de index.html", "CUADERNOS de site/alumno.js")
+JS_COMMENT = re.compile(r"/\*.*?\*/|(?<![:\w\"'])//[^\n]*", re.S)
+JS_PAIR = re.compile(r"""["']([^"']+)["']\s*:\s*["']([^"']*)["']""")
+JS_COLAB_FIELD = re.compile(r"""\bcolab\s*:\s*(["'`])(.*?)\1""", re.S)
+HTML_NOSCRIPT = re.compile(r"<noscript\b[^>]*>(.*?)</noscript>", re.S | re.I)
+HTML_COLAB_HREF = re.compile(r"""href\s*=\s*["']([^"']*\bcolab\.[^"']*)["']""", re.I)
+
+
+def _js_object(text: str, name: str) -> dict[str, str] | None:
+    """Pares "clave": "valor" de `const <name> = { … };`; None si la constante no existe."""
+    match = re.search(rf"\bconst\s+{name}\s*=\s*\{{(.*?)\}}\s*;", text, re.S)
+    return None if match is None else dict(JS_PAIR.findall(JS_COMMENT.sub("", match.group(1))))
+
+
+def validate_notebook_links(root: Path = ROOT) -> list[str]:
+    """El enlace del cuaderno de Colab de cada caso es el mismo en sus tres lugares, o no está en ninguno.
+
+    Lugares: `colab` de site/casos/<id>/escenas.js, el `noscript` de su index.html y `CUADERNOS` de site/alumno.js.
+    Un caso de `EN_PAGINA` (se resuelve en el sitio) no lleva enlace de Colab en ninguno.
+    """
+    errors: list[str] = []
+    cuadernos: dict[str, str] = {}
+    en_pagina: dict[str, str] = {}
+    alumno = root / "site" / "alumno.js"
+    if alumno.is_file():
+        text = alumno.read_text(encoding="utf-8")
+        for name, target in (("CUADERNOS", cuadernos), ("EN_PAGINA", en_pagina)):
+            found = _js_object(text, name)
+            if found is None:
+                errors.append(f"site/alumno.js: no se encontró la constante {name}; el harness la necesita para comparar el enlace del cuaderno de cada caso")
+            else:
+                target.update(found)
+
+    case_dirs = {p.parent.name.replace("-", "."): p.parent for p in (root / "site" / "casos").glob("*/escenas.js")}
+    for case_id in sorted(set(case_dirs) | set(cuadernos) | set(en_pagina)):
+        found: list[str | None] = [None, None, cuadernos.get(case_id) or None]
+        checked = [False, False, True]
+        case_dir = case_dirs.get(case_id)
+        label = f"caso {case_id}"
+        if case_dir is not None:
+            label += f" ({case_dir.relative_to(root).as_posix()})"
+            fields = {m.group(2).strip() for m in JS_COLAB_FIELD.finditer(JS_COMMENT.sub("", (case_dir / "escenas.js").read_text(encoding="utf-8")))}
+            links: set[str] = set()
+            index = case_dir / "index.html"
+            if index.is_file():
+                for block in HTML_NOSCRIPT.findall(index.read_text(encoding="utf-8")):
+                    links.update(link.strip() for link in HTML_COLAB_HREF.findall(block))
+            for place, values in ((0, fields - {""}), (1, links)):
+                checked[place] = True
+                if len(values) > 1:
+                    errors.append(f"{label}: hay más de un enlace de Colab en {NOTEBOOK_PLACES[place]}: {sorted(values)}")
+                found[place] = min(values) if values else None
+        present = [(NOTEBOOK_PLACES[i], found[i]) for i in range(3) if checked[i]]
+        detail = "; ".join(f"{place}: {value or 'sin enlace'}" for place, value in present)
+        if case_id in en_pagina:
+            if any(value for _, value in present):
+                errors.append(f"{label}: se resuelve en la página (EN_PAGINA de site/alumno.js) y no debe tener enlace de Colab. {detail}")
+        elif len({value for _, value in present}) > 1:
+            errors.append(f"{label}: el enlace del cuaderno de Colab no coincide en sus tres lugares; debe ser el mismo en todos o no estar en ninguno. {detail}")
+    return errors
+
+
 def tracked_files(root: Path = ROOT) -> list[str]:
     try:
         output = subprocess.run(["git", "ls-files", "-z"], cwd=root, check=True, capture_output=True).stdout
@@ -301,6 +363,7 @@ def run(root: Path = ROOT) -> dict[str, Any]:
     errors += validate_design_tokens(root)
     errors += validate_color_literals(root)
     errors += validate_case_media(root)
+    errors += validate_notebook_links(root)
     hygiene_errors, report = validate_repo_hygiene(load_course(root), root)
     errors += hygiene_errors
     if errors:
