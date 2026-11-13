@@ -172,6 +172,8 @@ para que el panel docente y la calificación no distingan el origen salvo por `v
 3. **Revelación para quien no firma:** propuesta, sin firma no hay revelación, ni para invitados.
 4. **Cuaderno 1.1 en Drive:** marcarlo OBSOLETO cuando el caso en la página esté publicado (c08).
 
+**Respuesta del autor (13 nov 2026):** sí a las propuestas 2, 3 y 4. Invitados: no se registra nada; sin firma no hay revelación.
+
 ## 11. Construcción y revisión (siguientes fases de u06)
 
 1. **Backend (B-07):** casos en la página en el generador, la función de estado de retos, mensaje de error neutro y pruebas.
