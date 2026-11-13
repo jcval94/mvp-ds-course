@@ -457,6 +457,11 @@
   }
 
   /* ---------- escena final: ficha, qué sigue y botón al caso (página o Colab) ---------- */
+  var DESPUES_PAGINA = ['Abres el expediente aquí mismo, sin cambiar de página.', 'Apuestas antes de ver los datos.',
+    'Firmas tu decisión antes de saber qué pasó.'];
+  var DESPUES_COLAB = ['Se abre Google Colab en otra pestaña.',
+    { t: 'Guardas tu copia y ejecutas la primera celda.', u: '../../colab.html', n: 'Ver la guía de Colab' },
+    'Apuestas antes de ver los datos y firmas tu decisión.'];
   function fichaFinal() {
     var herr = '';
     if (C.herramientas && C.herramientas.length) {
@@ -477,9 +482,15 @@
     }).join('');
     var d = document.createElement('div');
     d.className = 'ficha entra';
-    /* Qué sigue después de la intro (C.despues): 2 o 3 títulos cortos para que el paso al caso no tome por sorpresa. */
-    var despues = (C.despues || []).length ? '<div class="despues"><p class="herr-t">QUE SIGUE</p><ol>' +
-      C.despues.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol></div>' : '';
+    /* Qué sigue después de la intro (C.despues): 2 o 3 títulos cortos para que el paso al caso no tome por sorpresa.
+       Cada título es un texto o { t, u, n }: texto, enlace de ayuda (por ejemplo la guía de Colab) y su rótulo.
+       Si el caso no define ninguno, se usa el texto por omisión según siga en la página o en Colab. */
+    var pasos = (C.despues || []).length ? C.despues : (C.resolver ? DESPUES_PAGINA : DESPUES_COLAB);
+    var despues = '<div class="despues"><p class="herr-t">QUE SIGUE</p><ol>' + pasos.map(function (p) {
+      if (typeof p === 'string') return '<li>' + esc(p) + '</li>';
+      return '<li>' + esc(p.t) + (p.u ? ' <a href="' + esc(p.u) + '" target="_blank" rel="noopener noreferrer">' + esc(p.n || 'Ver cómo') +
+        '<span class="sr"> (se abre en una pestaña nueva)</span></a>' : '') + '</li>';
+    }).join('') + '</ol></div>';
     /* C.resolver: el caso se resuelve en el sitio (clases 1 a 4). Si no, en Colab (C.colab). */
     var cta = C.resolver
       ? '<a class="btn grande" id="cta" href="' + esc(C.resolver) + '">RESOLVER EL CASO &gt;</a>' +

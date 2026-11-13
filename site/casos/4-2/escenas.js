@@ -192,6 +192,9 @@
     colab: 'https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
+    despues: ['Se abre Google Colab en otra pestaña.',
+      { t: 'Guardas tu copia y ejecutas la primera celda.', u: '../../colab.html', n: 'Ver la guía de Colab' },
+      'Apuestas y firmas tu veredicto: ¿hubo trato desigual o no?'],
     medios: 'medios.json',
     herramientasOcultas: 4,
     fuentes: [

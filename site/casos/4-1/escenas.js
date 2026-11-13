@@ -107,6 +107,9 @@
     colab: 'https://colab.research.google.com/drive/1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
+    despues: ['Se abre Google Colab en otra pestaña.',
+      { t: 'Guardas tu copia y ejecutas la primera celda.', u: '../../colab.html', n: 'Ver la guía de Colab' },
+      'Apuestas una causa y decides qué cambiarías en el hospital.'],
     medios: 'medios.json',
     herramientas: ['Comparación de proporciones', 'Prueba chi cuadrada', 'Descarte sistemático de hipótesis', 'Comparación antes y después'],
     fuentes: [

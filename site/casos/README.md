@@ -29,6 +29,19 @@ archivo en Drive, cambia `colab` en `escenas.js`, el enlace del `noscript` de su
 el cuaderno si repite alguna. Si cambias las líneas de una intro, avisa en el PR para actualizar `PAGINA` en el
 backend. Las piezas que la página ya mostró (rejillas de 100, balanza 44/35) no se repiten en el cuaderno.
 
+## Qué sigue después de la intro (`despues`)
+Toda intro termina diciendo qué va a pasar después, para que el paso al caso no tome por sorpresa. La ficha final
+pinta, antes del botón, el bloque «QUE SIGUE» con los 2 o 3 títulos de `CASO.despues` (en `escenas.js`):
+
+1. **Dónde** se abre el caso (aquí mismo en la página, o Google Colab en otra pestaña).
+2. **Qué se hace primero** (apostar; en Colab, guardar la copia y ejecutar la primera celda).
+3. **Qué decisión** se va a tomar o firmar.
+
+Cada título es un texto corto o un objeto `{ t, u, n }` (texto, enlace de ayuda y rótulo del enlace; se abre en otra
+pestaña). Los casos que siguen en Colab enlazan así la guía `../../colab.html`. Si un caso no define `despues`, el motor
+usa un texto por omisión según tenga `resolver` (página) o `colab`. Los títulos pasan la prueba de spoiler: no nombran la
+herramienta ni adelantan el giro. No son líneas de narración. Son textos visibles: los aprueba el autor en el PR.
+
 ## Material real del caso (`medios.json`)
 Cada carpeta de caso trae `medios.json` con las fotos, grabados, recortes de noticias, documentos o videos reales del
 caso. El motor los carga antes de la primera escena (`CASO.medios = 'medios.json'` en `escenas.js`) y las escenas los
@@ -87,7 +100,7 @@ cada línea dispara un cambio visual. Entre escenas, una persiana de 16 tiras.
 
 ## Caso nuevo
 1. Copia `4-1/` a `X-Y/`; en `index.html` cambia título, descripción, `noscript` y enlace de Colab.
-2. En `escenas.js` cambia `CASO` (id, título, `colab`, duraciones, herramientas, fuentes, `medios`) y reescribe las
+2. En `escenas.js` cambia `CASO` (id, título, `colab`, duraciones, `despues`, herramientas, fuentes, `medios`) y reescribe las
    escenas: formato completo para un caso principal y corto (3 escenas) para uno de «el costo del error».
    Escribe `medios.json`, guarda las imágenes en `medios/` y llama `g.archivo`/`g.video` donde la historia lo pide
    (normalmente en la primera escena, después de la portada).
