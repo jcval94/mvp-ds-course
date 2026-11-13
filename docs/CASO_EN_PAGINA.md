@@ -32,7 +32,7 @@ solo cuando hace falta. La continuidad visual la da la estafeta (sección 4), no
 
 ## 3. Reglas del patrón
 
-1. **Un caso, un lugar.** Si un caso se resuelve en la página, no tiene cuaderno de Colab ni botón a Colab en ningún lado.
+1. **Un caso, una estafeta.** Un caso se resuelve en la página, en Colab (solo 4.1 y 4.2, ya construidos) o es **mixto**: expediente, apuesta y fricción en la página y una sola estafeta de ida a un cuaderno corto con el tramo de código, que termina el caso (`docs/PAGINA_O_COLAB.md`, aprobado el 13 nov 2026). Cada cosa se pide una vez: si la apuesta se registró en la página, el cuaderno no la vuelve a pedir. Un caso que se resuelve completo en la página no tiene cuaderno ni botón a Colab en ningún lado.
 2. **No repetir con la intro.** Ninguna línea de narración de `escenas.js` aparece en el caso (lo comprueba el harness,
    como hoy `PAGINA["frases"]` en el backend) y ninguna pieza que la intro animó se vuelve a animar (en 1.1, el mapa de
    agujeros sobre el avión). Las cifras sí se repiten cuando el caso las necesita para trabajar, ampliadas.
@@ -171,6 +171,8 @@ para que el panel docente y la calificación no distingan el origen salvo por `v
    Propuesta: no registrar nada en la página; basta la analítica de inscripción.
 3. **Revelación para quien no firma:** propuesta, sin firma no hay revelación, ni para invitados.
 4. **Cuaderno 1.1 en Drive:** marcarlo OBSOLETO cuando el caso en la página esté publicado (c08).
+
+**Respuesta del autor (13 nov 2026):** sí a las propuestas 2, 3 y 4. Invitados: no se registra nada; sin firma no hay revelación.
 
 ## 11. Construcción y revisión (siguientes fases de u06)
 

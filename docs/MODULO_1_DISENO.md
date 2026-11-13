@@ -6,7 +6,7 @@ casos y las dos clases de la Generación 1. La estructura completa del curso est
 Ningún caso de este módulo está construido todavía con el contrato de criterio.
 
 - **Nivel:** 1 · Fundamentos (`docs/CURRICULUM_MAP.md`).
-- **Prerrequisitos:** ninguno. Los alumnos no saben Python y usan Colab por primera vez.
+- **Prerrequisitos:** ninguno. Los alumnos no saben Python; el Módulo 1 se resuelve en la página, sin Colab (decisión del 4 nov 2026; Colab entra en la clase 5).
 - **Objetivo observable:** ante un conjunto de datos y una decisión, el alumno dice qué representa cada fila, qué tipo tiene
   cada dato, qué podría estar mal o faltar, y cómo una transformación cambia la lectura. Firma una decisión con su certeza y lo
   que no sabe.
@@ -39,7 +39,7 @@ En la ficha de cada caso el alumno ve tres cosas:
 - **la pregunta detonadora.**
 
 El **giro**, las **herramientas** y la **revelación** viven en las notas docentes (`MATERIAL`) y en la sección de revelación
-del cuaderno. La intro animada de la página no nombra herramientas ni pide la apuesta: la apuesta vive en Colab.
+del cuaderno. La intro animada de la página no nombra herramientas ni pide la apuesta: la apuesta se registra en `caso.html`, donde se resuelve el caso.
 
 **Todos los casos tienen intro animada, también los de costo**, y toda intro incluye material real del caso: fotos, recortes
 de noticias o documentos y, cuando existe, video, con créditos y licencia (`site/casos/README.md`). Los casos de costo usan el
@@ -169,16 +169,16 @@ clase.
 
 | Hora | Min | Actividad |
 | --- | ---: | --- |
-| 18:00 | 20 | Bienvenida y Colab (secretos `TDD_ID` y `TDD_CLAVE`). Cada quien elige la decisión real de **Mi decisión**. |
+| 18:00 | 20 | Bienvenida y entrada con Google a Mi avance (sin Colab). Cada quien elige la decisión real de **Mi decisión**. |
 | 18:20 | 5 | Calentamiento: los gatos que caen de los edificios (apuesta a mano alzada, sin cuaderno) |
 | 18:25 | 5 | Intro de 1.1 en pantalla y apuesta del grupo |
-| 18:30 | 50 | Caso 1.1 Wald en Colab: apuesta, mirar, fricción, herramienta, error plantado y firma. Revelación. |
+| 18:30 | 50 | Caso 1.1 Wald en la página: apuesta, mirar, fricción, herramienta, error plantado y firma. Revelación. |
 | 19:20 | 10 | Descanso |
 | 19:30 | 5 | Intro de 1.4 Puerto Rico (material real) |
 | 19:35 | 25 | Caso 1.4 Puerto Rico: 64 o 2,975 |
 | 20:00 | 15 | Laboratorio de alfabetización y calidad como práctica |
 | 20:15 | 15 | Transferir: la taquería y Mi decisión (piezas 1 y 2) |
-| 20:30 | 20 | Reto de la taquería en Colab, con su error plantado |
+| 20:30 | 20 | Reto de la taquería en la página, con su error plantado |
 | 20:50 | 10 | Cierre: las frases del día y tarea (13.7 Genes, opcional) |
 
 ### Clase 2 · sábado 9 de enero, 8:00 a 11:00 · «2.4 millones de boletas equivocadas»
@@ -187,7 +187,7 @@ clase.
 | --- | ---: | --- |
 | 8:00 | 10 | Recuperación sin notas: apuesta rápida sobre Wald o Puerto Rico y una firma anónima |
 | 8:10 | 5 | Intro de 1.2 en pantalla y apuesta del grupo |
-| 8:15 | 40 | Caso 1.2 Literary Digest en Colab |
+| 8:15 | 40 | Caso 1.2 Literary Digest en la página |
 | 8:55 | 15 | Práctica: la encuesta sesgada en vivo y el laboratorio de alfabetización |
 | 9:10 | 10 | Descanso |
 | 9:20 | 5 | Intro de 13.11 Gimli (material real) |
@@ -196,7 +196,7 @@ clase.
 | 10:10 | 20 | Transferir: la taquería y Mi decisión (piezas 3 y 4) |
 | 10:30 | 30 | Cierre del módulo: firmas, frases, Mi decisión con cuatro piezas, qué sigue (Módulo 2, John Snow) y tarea opcional (Ariane 5) |
 
-Si una clase se alarga, el caso de costo pendiente pasa a tarea: su cuaderno registra solo. El mínimo de cada clase es su caso
+Si una clase se alarga, el caso de costo pendiente pasa a tarea: la página registra el avance con la sesión del alumno. El mínimo de cada clase es su caso
 principal.
 
 ## Decisiones del plan (respondidas el 24 de octubre de 2026)
@@ -206,7 +206,7 @@ principal.
 | 1 | ¿El Módulo 1 son los 4 temas del Nivel 1? | Sí |
 | 2 | ¿Cuántas clases lleva el módulo? | 2: viernes 8 y sábado 9 de enero |
 | 3 | ¿El caso 13.7 lleva intro animada? | Queda como tarea opcional. Si se produce como caso, lleva intro como todos |
-| 4 | ¿Qué hacemos con la misión m01-wald? | Las misiones web no cuentan para la calificación: su simulador de 1,000 aviones pasa al cuaderno de Colab y la página jugable se retira; la intro de 1 minuto toma su lugar |
+| 4 | ¿Qué hacemos con la misión m01-wald? | Las misiones web no cuentan para la calificación: su simulador de 1,000 aviones pasa al laboratorio de `casos/1-1/caso.html` (antes era el cuaderno de Colab; cambió el 4 nov) y la intro de 1 minuto toma su lugar |
 | 5 | ¿Qué id llevan los casos en la base? | Los del temario (1.1, 1.2, 13.7…), como 4.1 y 4.2 |
 | 6 | ¿Los cuadernos del Nivel 1 son gratuitos? | Sí, como el Nivel 1 en el sitio |
 | 7 | ¿Quién hace el piloto? | 2 o 3 personas sin Python, fuera del grupo: uno en noviembre con 4.2 (plataforma) y otro la semana del 7 de diciembre con los casos de este módulo |

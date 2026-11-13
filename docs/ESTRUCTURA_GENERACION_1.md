@@ -13,7 +13,7 @@ cada clase. El tablero interactivo con todos los indicadores de cada caso vive e
 - **Mínimo viable por clase:** al menos un caso (el principal). Si una clase se alarga, el caso del error pasa a tarea.
 - **Hábitos:** dos casos seguidos nunca entrenan el mismo hábito de criterio (`docs/CRITERIO_PRIMERO.md`). La columna «Hábito»
   es el que entrena el caso en esta clase; a veces difiere del sugerido por el catálogo.
-- **Se califica lo que pasa en Colab** (apuestas, retos, encargos, verificaciones, firmas y Mi decisión), medido en bits. El
+- **Se califica lo que pasa en los casos, en la página o en Colab** (apuestas, retos, encargos, verificaciones, firmas y Mi decisión), medido en bits. Dónde se resuelve cada caso: `docs/PAGINA_O_COLAB.md`. Las prácticas de la taquería dan bits pero no cuentan para la calificación. El
   proyecto final es requisito de la constancia y no pondera. Las misiones web no cuentan para la calificación.
 - **Fuera de la Generación 1:** el Nivel 12 (ingeniería de productos de datos) y la parte profunda del 13 quedan como
   autoestudio en los 12 meses de Augmented Studio incluidos; el Módulo 9 da lo que un analista necesita de agentes.
@@ -332,9 +332,11 @@ Casos del catálogo que no quedaron en una clase. Se quedan en el módulo donde 
 - **Módulos 1 a 3 (clases 1 a 6) listos el 20 de diciembre de 2026**; del 23 de diciembre al 3 de enero no hay trabajo planeado.
 - **Ya construidos:** 4.1 Semmelweis (clase 5) y 4.2 Berkeley (clase 7). 1.1 Wald tiene caso verificado, datos y kit: va primero.
 - **Formatos** (plantilla común del generador; cada caso cambia datos, animaciones y retos):
-  - **Completo** para el caso principal: intro de 5 escenas (~1 min) y cuaderno de 40 a 60 minutos.
+  - **Completo** para el caso principal: intro de 5 escenas (~1 min) y caso de 40 a 60 minutos.
   - **Corto** para el caso del error: intro de 3 escenas (~40 s: el material real, el número que no cuadra y el expediente
-    del costo) y cuaderno de 15 a 25 minutos.
+    del costo) y caso de 15 a 25 minutos.
+  - En los dos formatos el caso se resuelve en la página salvo que necesite código; entonces es mixto, con un tramo de
+    Colab de 15 a 25 minutos (`docs/PAGINA_O_COLAB.md`).
 - **Carga:** 42 casos nuevos con intro (20 principales y 22 de error). Si no alcanza, el orden de recorte es: primero las
   opciones secundarias, después el cuaderno del caso del error (queda su intro y una lectura guiada), nunca el caso principal.
 

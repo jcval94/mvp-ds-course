@@ -13,7 +13,7 @@ y documéntalo»). Son la referencia operativa hasta que el autor cambie algo. L
 | Alta automática del alumno y bienvenida | Código listo | Correo configurado desde augmentedlearninglabs@gmail.com (`correo/README.md` del backend) |
 | Recordatorios Sesión 0 y víspera | Botones en admin.html | Mandarlos el 1 y el 7 de enero |
 | Mi avance (clases, bits, Top 5, mensajes, TDD_CLAVE) | Listo | Liga de Meet recurrente cargada en admin.html → Clases |
-| Cuadernos de Colab con registro de avance | Listos los casos 1.1, 4.1 y 4.2 | **Faltan los cuadernos e intros de las demás clases**, empezando por la clase 2 (1.2 Literary Digest y E48 Gimli). Es el pendiente más grande |
+| Casos con registro de avance | En la página: 1.1, 1.2, 1.4, 13.11, 2.1 y 2.3. En Colab: 4.1 y 4.2 | **Faltan los casos de las clases 3 en adelante** (reparto en `docs/PAGINA_O_COLAB.md`). Es el pendiente más grande |
 | Panel docente y de administración | Listo | — |
 | Ensayo en seco y piloto (`docs/PILOTO_G1.md`) | Pendiente | Ensayo en seco y piloto con 2 o 3 personas antes del 8 de noviembre |
 

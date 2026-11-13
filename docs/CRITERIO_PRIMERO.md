@@ -210,8 +210,8 @@ cifras en fuentes primarias (`docs/CASE_MISSION_MAP.md`).
 | Artefacto | Qué cambia |
 | --- | --- |
 | Temario de casos | Giro y Herramientas son guía docente. El estudiante ve decisión, datos y pregunta detonadora. |
-| Intro de la página | Gancho y nada más. La apuesta vive en Colab. **Todo caso tiene intro**, también los de «el costo del error» (formato corto de 3 escenas), y toda intro muestra material real del caso (fotos, recortes, documentos o video) con crédito y licencia, sin adelantar la revelación (`site/casos/README.md`). |
-| Cuaderno de Colab | Sigue el arco. Registra apuesta, encargo, verificación y firma. |
+| Intro de la página | Gancho y nada más. La apuesta se registra donde se resuelve el caso: en `caso.html` (casos de la página y mixtos) o en Colab (4.1 y 4.2), nunca en la intro. **Todo caso tiene intro**, también los de «el costo del error» (formato corto de 3 escenas), y toda intro muestra material real del caso (fotos, recortes, documentos o video) con crédito y licencia, sin adelantar la revelación (`site/casos/README.md`). |
+| Cuaderno de Colab | Sigue el arco. En 4.1 y 4.2 registra apuesta, encargo, verificación y firma; en un caso mixto empieza donde termina la página y no vuelve a pedir la apuesta (`docs/PAGINA_O_COLAB.md`). |
 | Laboratorio por concepto | Es práctica y consulta enlazada desde el momento Herramienta del caso, no la puerta de entrada. |
 | Clase en vivo | Abre con un caso y su apuesta. El concepto aparece dentro del caso y el laboratorio va después. |
 | Evaluación | Califica el encargo, la verificación y la firma, además del resultado. |
