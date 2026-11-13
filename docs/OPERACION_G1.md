@@ -22,14 +22,20 @@ de las semanas 2 a 4, (4) el resto antes de cada semana, al menos una semana ant
 
 ## D2 · Lo que ve el alumno el día 1 en Mi avance
 
-1. Aviso de bienvenida y estado de su inscripción (o su código de recomendación si ya pagó todo).
-2. **Clase de hoy**: título, hora y liga de Meet; grabaciones de las clases pasadas.
-3. **Acceso a Colab**: su TDD_ID y el botón para generar su TDD_CLAVE.
-4. **Casos**: el caso de la clase, con su intro y su cuaderno.
-5. **Bits y Top 5**: su banda (En camino, Top 50 %, Top 20 %, Top 5) y el alias con el que aparece.
-6. **Mensajes** con el profesor.
+Orden aprobado el 13 nov 2026 (tablero u05; inventario en `docs/revisiones/MI_AVANCE_CARGA.md`). La pregunta guía es «¿qué hago ahora?».
 
-Regla: el día 1 nada pide más de un clic para llegar a la clase y al cuaderno de hoy.
+1. Saludo con un anillo pequeño de avance; el resumen (casos entregados, próxima entrega, última actividad) va plegado.
+2. **Aviso de pagos**, solo si hay algo que hacer (cobro fallido o acceso en pausa).
+3. **Qué sigue**: el caso que toca, con su botón («Empezar el caso» lleva a la intro; «Continuar el caso», a donde se resuelve). El día de clase, también la liga de Meet.
+4. Mensajes nuevos del profesor, si los hay.
+5. **Próxima clase**: título, hora, cuenta regresiva, Meet y un enlace a la pestaña Clases grabadas.
+6. **Acceso a Colab** abierto la semana previa a la clase 5 y durante ella; antes no aparece y después queda plegado al final.
+7. **Casos**: tarjetas compactas (estado, barra, avance y una acción principal; secciones y respuestas plegadas, salvo la respuesta con comentario más reciente). Filtros solo desde 6 casos.
+8. **Práctica**, solo cuando hay micro-casos abiertos.
+9. **Bits y Top 5**, abiertos. Con 0 bits, una línea que explica cómo ganar el primero. El alias se cambia en un desplegable.
+10. Plegados al final: pagos al corriente y código de recomendación, y «¿No ves tu avance?» (sus viñetas de Colab solo desde que Colab aparece).
+
+ID, grupo y correo viven en el menú **Mi cuenta**. Regla: el día 1 nada pide más de un clic para llegar a la clase y al caso de hoy.
 
 ## D3 · Las preguntas que el docente contesta en 10 segundos
 

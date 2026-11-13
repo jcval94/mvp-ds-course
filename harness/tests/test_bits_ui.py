@@ -134,6 +134,10 @@ def test_zero_bits_and_no_attempts(screen):
     expect(page.locator("#mezcla i")).to_have_count(0)
     expect(page.locator("#comparar")).to_contain_text("— · grupo —")
     expect(page.locator("#top5 .empty")).to_be_visible()
+    # Con 0 bits no se ve el marcador completo, solo cómo ganar el primero (u05).
+    expect(page.locator("#escalera")).to_be_hidden()
+    expect(page.locator("#comparar")).to_be_hidden()
+    expect(page.locator("#siguiente")).to_contain_text("primer bit")
 
 
 @pytest.mark.parametrize("marker", [{"inscrito": False}, {"inscrito": True, "participa": False, "top5": []}])
@@ -148,6 +152,7 @@ def test_nonparticipants(screen, marker):
 
 def test_save_and_random_alias_without_concurrent_requests(screen):
     page = screen(delayAlias=True)
+    page.locator("#aliasCaja > summary").click()  # el alias vive en un desplegable (u05)
     page.locator("#aliasInput").fill("Alias ficticio")
     page.locator("#aliasGuardar").click()
     for selector in ("#aliasGuardar", "#aliasOtra", "#aliasInput"):
@@ -167,6 +172,7 @@ def test_save_and_random_alias_without_concurrent_requests(screen):
 
 def test_alias_error_keeps_input_and_allows_retry(screen):
     page = screen(aliasError=True)
+    page.locator("#aliasCaja > summary").click()
     page.locator("#aliasInput").fill("Alias ocupado")
     page.locator("#aliasGuardar").click()
     expect(page.locator("#aliasNota")).to_have_text("Ese alias ya está en uso.")

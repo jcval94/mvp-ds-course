@@ -18,7 +18,7 @@
   const ETIQUETAS = {
     preparacion: "Preparación", hipotesis: "Hipótesis", clinicas: "Clínicas", azar: "Azar", sospechosos: "Sospechosos",
     explicacion: "Explicación", pista: "Pista", revelacion: "Revelación", laboratorio: "Laboratorio", cierre: "Cierre",
-    total: "Total", departamentos: "Departamentos",
+    total: "Total", departamentos: "Departamentos", verificacion: "Verificación",
   };
   // Nombre de cada respuesta abierta para el alumno (las etiquetas del docente están en el panel).
   const PREGUNTAS = { hipotesis_razon: "La razón de tu hipótesis", explicacion: "Tu explicación", ejemplo: "Tu ejemplo para tu trabajo" };
@@ -42,7 +42,7 @@
     aviso(scope === "global" ? "Cerraste sesión en todos tus dispositivos." : "Cerraste sesión.", false);
   }
 
-  // ---------- Menú Profile ----------
+  // ---------- Menú Mi cuenta ----------
   const iniciales = (n) => String(n || "").trim().split(/\s+/).slice(0, 2).map((p) => p[0] || "").join("").toUpperCase();
   function abrirMenu(abrir) {
     $("#perfilMenu").hidden = !abrir; $("#perfilBtn").setAttribute("aria-expanded", String(abrir));
@@ -103,6 +103,7 @@
 
   // Cada revisión acompaña al envío que la recibió, nunca a una respuesta posterior.
   // «respuestas» viene ordenada de la más reciente a la más antigua.
+  // Solo se abre sola la respuesta con comentario más reciente de todo el curso (V.abrir); las demás quedan plegadas.
   function comentarios(respuestas) {
     if (!respuestas) return null;
     if (!respuestas.length) return el("p", "fine", "Aún no hay respuestas abiertas en este caso.");
@@ -112,7 +113,7 @@
       porPregunta.get(r.pregunta).push(r);
     });
     const conComentario = [...porPregunta.values()].filter((envios) => envios.some((r) => r.modelo)).length;
-    const d = el("details", "feedback"); d.open = conComentario > 0;
+    const d = el("details", "feedback"); d.open = !!V.abrir && respuestas.includes(V.abrir);
     d.append(el("summary", null, `Tus respuestas · ${porPregunta.size}${conComentario ? ` · ${conComentario} con comentarios de tu profesor` : ""}`));
     const envio = (r) => {
       const box = el("div", "response");
@@ -165,8 +166,10 @@
     else if (minCaso && done) izq.append(document.createTextNode(` · tiempo estimado ${dur(minCaso)}`));
     meta.append(izq, el("span", null, done ? "Caso completo" : siguiente ? `Sigue: ${etiqueta(siguiente)}` : "Falta marcar el cierre"));
 
-    const lista = el("ul", "sections");
-    secciones.forEach((s) => lista.append(el("li", vistasSet.has(s) ? "on" : s === siguiente && !done ? "next" : "", etiqueta(s))));
+    const lista = el("details", "secs");
+    lista.append(el("summary", null, `Ver las ${secciones.length} secciones`));
+    const ul = el("ul", "sections"); lista.append(ul);
+    secciones.forEach((s) => ul.append(el("li", vistasSet.has(s) ? "on" : s === siguiente && !done ? "next" : "", etiqueta(s))));
 
     const foot = el("div", "case-foot");
     const due = el("span", "due");
@@ -179,18 +182,20 @@
     foot.append(due);
     const acciones = el("div", "case-actions");
     if (M.on) { const q = el("button", "case-ask", "Preguntar a mi profesor"); q.type = "button"; q.addEventListener("click", () => abrirMensajes(caso.id)); acciones.append(q); }
-    // Primero la intro (si no está terminado), después el caso: en la página o en Colab.
-    if (INTROS[caso.id] && !done) {
+    // Una sola acción principal: sin empezar, la intro (y el caso como enlace); con avance, el caso (en la página o en Colab).
+    const empezarConIntro = !!INTROS[caso.id] && !done && !vistas;
+    if (empezarConIntro) {
       const intro = el("a", "btn btn-line", "Ver la intro (1 min)");
       intro.href = INTROS[caso.id]; acciones.append(intro);
     }
+    const claseCaso = empezarConIntro ? "link-btn" : "btn btn-line";
     const pagina = EN_PAGINA[caso.id];
     const enlace = pagina ? null : (caso.cuaderno_url || CUADERNOS[caso.id]);
     if (pagina) {
-      const a = el("a", "btn btn-line", done ? "Repasar el caso" : vistas ? "Continuar el caso" : "Resolver el caso");
+      const a = el("a", claseCaso, done ? "Repasar el caso" : vistas ? "Continuar el caso" : "Resolver el caso");
       a.href = pagina; acciones.append(a);
     } else if (enlace) {
-      const a = el("a", "btn btn-line", done ? "Repasar en Colab" : vistas ? "Continuar en Colab" : "Abrir en Colab");
+      const a = el("a", claseCaso, done ? "Repasar en Colab" : vistas ? "Continuar en Colab" : "Abrir en Colab");
       a.href = enlace; a.target = "_blank"; a.rel = "noopener"; acciones.append(a);
     } else acciones.append(el("span", "muted", "Tu profesor te comparte el cuaderno"));
     foot.append(acciones);
@@ -216,10 +221,6 @@
   function pintarAvance({ usuario, perfil, casos, filas, eventos, retros }) {
     const nombre = (perfil && perfil.nombre) || usuario.user_metadata?.full_name || usuario.email;
     $("#holaTitle").textContent = `Hola, ${String(nombre).split(" ")[0]}`;
-    const chips = $("#chips"); chips.replaceChildren();
-    const chip = (a, b) => { const c = el("span", "chip"); c.append(document.createTextNode(a), el("b", null, b)); chips.append(c); };
-    if (perfil) { chip("ID ", perfil.alumno_id); if (perfil.grupo) chip("Grupo ", perfil.grupo); }
-    chip("", usuario.email);
 
     const propias = filas.filter((f) => f.usuario === usuario.id);
     const porCaso = new Map(propias.map((f) => [f.caso, f]));
@@ -239,7 +240,7 @@
     const ultimo = propias.map((f) => f.ultimo_evento).filter(Boolean).sort().pop();
     stat(dl, "Última actividad", ultimo ? relativo(ultimo) : "Aún no hay registros", ultimo ? fecha(ultimo) : "Abre un caso para empezar");
 
-    Object.assign(V, { casos, porCaso, vistas, retros });
+    Object.assign(V, { casos, porCaso, vistas, retros, abrir: (retros || []).find((r) => r.modelo) || null });
     pintarEstadoRespuestas();
     llenarFiltros(); pintarCasos();
   }
@@ -253,7 +254,6 @@
   const C = { lista: [], timer: null };
   const diaCorto = (iso) => new Date(iso).toLocaleDateString("es-MX", { timeZone: TZ, weekday: "short", day: "numeric", month: "short" });
   const diaLargo = (iso, tz = TZ) => new Date(iso).toLocaleString("es-MX", { timeZone: tz, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", hour12: false });
-  const soloFecha = (iso) => new Date(iso).toLocaleDateString("es-MX", { timeZone: TZ, day: "numeric", month: "short", year: "numeric" });
   const claseDeCaso = (id) => C.lista.find((k) => k.caso === id) || null;
   const inicioClase = (c) => { const k = claseDeCaso(c.id); return k ? new Date(k.inicio).getTime() : Infinity; };
 
@@ -264,19 +264,15 @@
     if (!C.lista.length) return;
     pintarProxima();
     C.timer = setInterval(pintarProxima, 30 * 1000);
-    const ul = $("#grabaciones"); ul.replaceChildren();
-    const pasadas = C.lista.filter((k) => new Date(k.fin) < new Date()).reverse();
-    pasadas.forEach((k) => {
-      const li = el("li"), info = el("div");
-      info.append(el("b", null, `Clase ${k.numero} · ${k.tema}`), el("small", null, `${diaCorto(k.inicio)}${k.caso ? ` · Caso ${k.caso}` : ""}`));
-      li.append(info);
-      if (k.grabacion_url) {
-        const a = el("a", null, "Ver grabación"); a.href = k.grabacion_url; a.target = "_blank"; a.rel = "noopener";
-        a.title = `Disponible hasta el ${soloFecha(k.grabacion_hasta)}`; li.append(a);
-      } else li.append(el("span", "pend", new Date(k.grabacion_hasta) < new Date() ? "Ya no disponible" : "Grabación en proceso"));
-      ul.append(li);
-    });
-    if (!pasadas.length) ul.append(el("li", "vacio", "Después de cada clase, aquí aparece su grabación."));
+    // Las grabaciones viven en su pestaña; aquí solo el enlace, cuando ya hay clases pasadas.
+    const pasadas = C.lista.filter((k) => new Date(k.fin) < new Date()).length;
+    let ir = $("#irGrabadas");
+    if (!ir) {
+      ir = el("button", "btn btn-line grabadas-link", "Ver clases grabadas"); ir.type = "button"; ir.id = "irGrabadas";
+      ir.addEventListener("click", () => { if (window.TDD_PESTANA) { window.TDD_PESTANA("clases"); window.scrollTo(0, 0); } });
+      $("#claseProxima .class-actions").append(ir);
+    }
+    ir.hidden = !pasadas;
   }
 
   function pintarProxima() {
@@ -289,8 +285,8 @@
     if (!prox) {
       $("#claseKicker").textContent = "Clases en vivo";
       $("#claseTitulo").textContent = "Terminaron las clases de tu generación";
-      $("#claseCuando").textContent = `Fueron ${C.lista.length} clases. Sus grabaciones siguen disponibles 12 meses.`;
-      meet.hidden = true; $("#claseNota").textContent = ""; return;
+      $("#claseCuando").textContent = `Fueron ${C.lista.length} clases. Sus grabaciones siguen disponibles 12 meses en Clases grabadas.`;
+      meet.hidden = true; $("#claseNota").textContent = ""; pintarMeetHoy(null, false); return;
     }
     const empezo = new Date(prox.inicio) <= ahora, horas = (new Date(prox.fin) - new Date(prox.inicio)) / 3600000;
     $("#claseKicker").textContent = actual ? (empezo ? "En vivo ahora" : "Empieza en unos minutos") : "Próxima clase en vivo";
@@ -307,7 +303,19 @@
     meet.hidden = !prox.meet_url;
     if (prox.meet_url) { meet.href = prox.meet_url; meet.className = actual ? "btn btn-accent" : "btn btn-line"; meet.textContent = actual ? "Entrar a Google Meet" : "Liga de Google Meet"; }
     pintarAgenda();
-    $("#claseNota").textContent = prox.meet_url ? "Entra con tu cuenta de Google unos minutos antes. La clase se graba y la grabación aparece aquí." : "Tu profesor publicará aquí la liga de Google Meet.";
+    pintarMeetHoy(prox, !!actual);
+    $("#claseNota").textContent = prox.meet_url ? "Entra con tu cuenta de Google unos minutos antes. La clase se graba y la grabación aparece en Clases grabadas." : "Tu profesor publicará aquí la liga de Google Meet.";
+  }
+
+  // El día de clase, la liga de Meet también va en «Qué sigue», junto al caso.
+  const diaMx = (d) => new Date(d).toLocaleDateString("en-CA", { timeZone: TZ });
+  function pintarMeetHoy(prox, enVivo) {
+    const b = $("#continuarMeet"); if (!b) return;
+    const hoy = !!prox && !!prox.meet_url && diaMx(prox.inicio) === diaMx(Date.now());
+    b.hidden = !hoy; if (!hoy) return;
+    b.href = prox.meet_url;
+    b.className = `btn ${enVivo ? "btn-accent" : "btn-line"} resume-btn`;
+    b.textContent = enVivo ? "Entrar a Google Meet" : `Clase de hoy · ${new Date(prox.inicio).toLocaleTimeString("es-MX", { timeZone: TZ, hour: "2-digit", minute: "2-digit", hour12: false })}`;
   }
 
   // Cómo se reparte una clase de 3 horas, con minutos por parte (se pinta una sola vez).
@@ -338,12 +346,13 @@
   $("#claseIcs").addEventListener("click", calendario);
 
   // ---------- Filtros y orden de los casos ----------
-  const V = { casos: [], porCaso: new Map(), vistas: new Map(), retros: [] };
+  const V = { casos: [], porCaso: new Map(), vistas: new Map(), retros: [], abrir: null };
   function pintarEstadoRespuestas() {
     $("#respuestasError").hidden = V.retros !== null;
   }
   const cargarRespuestas = (uid) => TDD.todo(`/rest/v1/respuestas?select=caso,pregunta,texto,nivel,retro,modelo,creado&usuario=eq.${uid}&order=creado.desc,id.desc`);
   const LLAVE_FILTROS = "tdd-alumno-filtros";
+  const MIN_FILTROS = 6; // con pocos casos, los filtros solo estorban
   const numCaso = (id) => String(id).split(".").map((n) => Number(n) || 0);
   const porId = (a, b) => { const x = numCaso(a.id), y = numCaso(b.id); return (x[0] - y[0]) || ((x[1] || 0) - (y[1] || 0)); };
   function infoCaso(c) {
@@ -353,7 +362,7 @@
     return { vistas, total: s.length, done, lim, avance: s.length ? vistas / s.length : 0 };
   }
   function llenarFiltros() {
-    const cont = $("#casosFiltros"); cont.hidden = V.casos.length < 2;
+    const cont = $("#casosFiltros"); cont.hidden = V.casos.length < MIN_FILTROS;
     let guardado = {}; try { guardado = JSON.parse(localStorage.getItem(LLAVE_FILTROS) || "{}"); } catch (_) {}
     const mods = [...new Set(V.casos.map((c) => c.modulo))].sort((a, b) => (a ?? 999) - (b ?? 999));
     const fm = $("#fModulo"); fm.replaceChildren(new Option("Todos", ""), ...mods.map((m) => new Option(m != null ? `Módulo ${m}` : "Sin módulo", String(m))));
@@ -363,6 +372,7 @@
     if (!$("#fEstado").value && guardado.estado == null) $("#fEstado").value = "";
   }
   function pintarCasos() {
+    if (V.casos.length < MIN_FILTROS) { $("#fModulo").value = ""; $("#fEstado").value = ""; $("#fOrden").value = "sugerido"; $("#fBuscar").value = ""; }
     const fm = $("#fModulo").value, fe = $("#fEstado").value, fo = $("#fOrden").value || "sugerido", q = $("#fBuscar").value.trim().toLowerCase();
     try { localStorage.setItem(LLAVE_FILTROS, JSON.stringify({ modulo: fm, estado: fe, orden: fo })); } catch (_) {}
     let lista = V.casos.map((c) => ({ c, i: infoCaso(c) })).filter(({ c, i }) => {
@@ -483,14 +493,18 @@
     sec.classList.toggle("solo", !m.participa);
     $("#marcador .board-side h3").textContent = m.participa ? "Top 5" : "Top 5 · así lo ve tu grupo";
     if (!m.participa) {  // cuenta docente: solo el Top 5
-      main.hidden = true; $("#aliasForm").hidden = true; return;
+      main.hidden = true; $("#aliasForm").hidden = true; $("#aliasCaja").hidden = true; return;
     }
-    main.hidden = false; $("#aliasForm").hidden = false;
+    main.hidden = false; $("#aliasForm").hidden = false; $("#aliasCaja").hidden = false;
+    $("#aliasResumen").textContent = `Apareces como «${m.alias || "Participante"}»`;
     $("#bitsVal").textContent = String(m.bits);
+    // Con 0 bits, una sola línea que dice cómo ganar el primero en vez del marcador completo.
+    main.classList.toggle("cero", !m.bits);
     const badge = $("#bandaBadge"); badge.className = `band-badge b-${m.banda}`;
     badge.textContent = `${BANDAS[m.banda]} · lugar ${m.posicion} de ${m.participantes}`;
     const sig = $("#siguiente"); sig.replaceChildren();
-    if (!m.siguiente) sig.textContent = "Vas en primer lugar. Cada reto que aciertes amplía tu ventaja.";
+    if (!m.bits) sig.append(document.createTextNode("Ganas tu primer bit al resolver una sección de tu caso. Cada reto que aciertas vale de 8 a 24 bits, y tus bits son tu calificación."));
+    else if (!m.siguiente) sig.textContent = "Vas en primer lugar. Cada reto que aciertes amplía tu ventaja.";
     else if (m.siguiente.meta === "subir") sig.append(document.createTextNode("Te faltan "), el("b", null, `${m.siguiente.bits_faltantes} bits`), document.createTextNode(" para subir un lugar."));
     else sig.append(document.createTextNode("Te faltan "), el("b", null, `${m.siguiente.bits_faltantes} bits`), document.createTextNode(` para entrar al ${BANDAS[m.siguiente.meta]}.`));
     const nivel = ORDEN.indexOf(m.banda);
@@ -577,9 +591,10 @@
       return;
     }
     soloVista("#vistaAvance"); $("#ayuda").hidden = false;
+    document.querySelectorAll("#ayuda .solo-colab").forEach((li) => { li.hidden = !colabYa(clases); });
     // Práctica tipo Duolingo (0.15): racha, bits de la semana y repasos. En bases anteriores la tarjeta no aparece.
     rpc("mi_practica").then((p) => {
-      if (!p) return;
+      if (!p || (!p.disponibles && !p.repasos)) return; // sin micro-casos abiertos no hay nada que practicar
       $("#practica").hidden = false;
       if (p.repasos) { $("#practicaKicker").textContent = "Práctica · tienes repaso"; $("#practicaTitulo").textContent = `${p.repasos} micro-caso${p.repasos === 1 ? "" : "s"} por repasar`; }
       else if (p.racha) $("#practicaKicker").textContent = `Práctica · racha de ${p.racha} día${p.racha === 1 ? "" : "s"}`;
@@ -596,6 +611,7 @@
       const btn = e.currentTarget; btn.disabled = true;
       try {
         V.retros = await cargarRespuestas(uid).catch(() => null);
+        V.abrir = (V.retros || []).find((r) => r.modelo) || null;
         pintarEstadoRespuestas(); pintarCasos();
       } finally { btn.disabled = false; }
     };
@@ -608,7 +624,7 @@
     $("#vistaDocente").hidden = !docente;
   }
 
-  // ---------- Continuar misión ----------
+  // ---------- Qué sigue ----------
   // Usa el último evento guardado en la base: si ese caso sigue abierto, regresa ahí y nombra la siguiente sección;
   // si ya lo entregó (o no hay registros), propone el primer caso sin terminar, en el orden de las clases.
   function pintarContinuar(casos, ultimo) {
@@ -620,7 +636,7 @@
     if (!caso) caso = casos.slice().sort((a, b) => inicioClase(a) - inicioClase(b)).find((c) => !terminado(c));
     const btn = $("#continuarBtn");
     if (!caso) {
-      $("#continuarKicker").textContent = "Misiones al día";
+      $("#continuarKicker").textContent = "Casos al día";
       $("#continuarTitulo").textContent = "Entregaste todos los casos publicados";
       $("#continuarNota").textContent = "Cuando tu profesor publique el siguiente, aparecerá aquí.";
       btn.hidden = true; caja.hidden = false; return;
@@ -628,18 +644,18 @@
     const secciones = Array.isArray(caso.secciones) ? caso.secciones : [];
     const vistas = vistasDe(caso);
     const sigue = secciones.find((s) => !vistas.has(s));
-    $("#continuarKicker").textContent = retoma ? "Continuar misión · donde te quedaste" : vistas.size ? "Continuar misión" : "Siguiente misión";
+    $("#continuarKicker").textContent = retoma ? "Qué sigue · donde te quedaste" : "Qué sigue";
     $("#continuarTitulo").textContent = `Caso ${caso.id} · ${caso.titulo}`;
     const partes = [`${vistas.size} de ${secciones.length} secciones`];
     if (sigue) partes.push(`sigue: ${etiqueta(sigue)}`);
     if (retoma && ultimo.creado) partes.push(`último registro ${relativo(ultimo.creado)}`);
     $("#continuarNota").textContent = partes.join(" · ");
-    // Sin avance, la misión empieza por su intro; con avance, se continúa donde se resuelve (página o Colab).
+    // Sin avance, el caso empieza por su intro; con avance, se continúa donde se resuelve (página o Colab).
     const pagina = EN_PAGINA[caso.id];
     const enlace = pagina || caso.cuaderno_url || CUADERNOS[caso.id];
-    if (!vistas.size && INTROS[caso.id]) { btn.href = INTROS[caso.id]; btn.removeAttribute("target"); btn.textContent = "Empezar misión"; btn.hidden = false; }
-    else if (pagina) { btn.href = pagina; btn.removeAttribute("target"); btn.textContent = "Continuar misión"; btn.hidden = false; }
-    else if (enlace) { btn.href = enlace; btn.target = "_blank"; btn.textContent = vistas.size ? "Continuar misión" : "Empezar misión"; btn.hidden = false; }
+    if (!vistas.size && INTROS[caso.id]) { btn.href = INTROS[caso.id]; btn.removeAttribute("target"); btn.textContent = "Empezar el caso"; btn.hidden = false; }
+    else if (pagina) { btn.href = pagina; btn.removeAttribute("target"); btn.textContent = "Continuar el caso"; btn.hidden = false; }
+    else if (enlace) { btn.href = enlace; btn.target = "_blank"; btn.textContent = vistas.size ? "Continuar el caso" : "Empezar el caso"; btn.hidden = false; }
     else btn.hidden = true;
     caja.hidden = false;
   }
@@ -649,7 +665,9 @@
   const plazo = (iso) => new Date(iso).toLocaleString("es-MX", { timeZone: TZ, weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", hour12: false });
   const diaCuota = (d) => new Date(`${d}T12:00:00`).toLocaleDateString("es-MX", { day: "numeric", month: "long" });
   function pintarPago(i) {
-    const box = $("#pago"); box.hidden = true; box.className = "pay"; box.replaceChildren();
+    let box = $("#pago");
+    if (!box) { box = el("section", "pay"); box.id = "pago"; box.setAttribute("aria-live", "polite"); }
+    box.hidden = true; box.className = "pay"; box.replaceChildren(); $("#pagoPlegado").hidden = true;
     if (!i || !i.estado || i.plan === "manual") return;
     const texto = el("div"), acciones = [];
     const pagar = () => { if (!i.url_pago) return; const a = el("a", "btn btn-accent", "Pagar ahora"); a.href = i.url_pago; a.target = "_blank"; a.rel = "noopener"; acciones.push(a); };
@@ -676,6 +694,10 @@
         el("span", null, "Quien se inscriba con él tiene 10 % de descuento, y tú recibes 10 % del precio de vuelta por cada persona (hasta 30 %)."));
     }
     box.append(texto, ...acciones); box.hidden = false;
+    // Arriba solo si hay algo que hacer (cobro fallido o acceso en pausa); al corriente baja plegado con el código.
+    const urge = box.classList.contains("crit") || box.classList.contains("warn");
+    if (urge) $("#pagoArriba").append(box);
+    else { $("#pagoPlegado").append(box); $("#pagoPlegado").hidden = false; }
   }
 
   // ---------- Acceso a Colab: el alumno genera su TDD_CLAVE (Edge Function tdd-inscripcion) ----------
@@ -688,10 +710,19 @@
     const c5 = lista.find((k) => Number(k.numero) === COLAB_DESDE_CLASE);
     return !!c5 && new Date(c5.inicio).getTime() - Date.now() <= 7 * 24 * 3600 * 1000;
   }
+  function colabUrge(clases) {
+    const c5 = (Array.isArray(clases) ? clases : []).find((k) => Number(k.numero) === COLAB_DESDE_CLASE);
+    if (!c5) return false;
+    const ahora = Date.now();
+    return new Date(c5.inicio).getTime() - ahora <= 7 * 24 * 3600 * 1000 && ahora < new Date(c5.fin).getTime();
+  }
   function pintarAccesoColab(usuario, perfil, docente, clases) {
     const sec = $("#acceso-colab");
     sec.hidden = !(perfil && !docente && colabYa(clases));
     if (sec.hidden) return;
+    const urge = colabUrge(clases);
+    sec.open = urge;
+    if (urge) $("#clases").after(sec); else $("#pagoPlegado").before(sec);
     const correo = (usuario.email || "").toLowerCase();
     const tddId = correo.endsWith("@alumnos.taqueriadedatos.mx") ? perfil.alumno_id : correo;
     $("#miTddId").textContent = tddId;
@@ -714,9 +745,9 @@
   }
 
   function ejemplo() {
-    const caso = { id: "4.1", modulo: 4, titulo: "Semmelweis y la fiebre puerperal", secciones: ["preparacion", "hipotesis", "clinicas", "azar", "sospechosos", "explicacion", "pista", "revelacion", "laboratorio", "cierre"], entrega_limite: null };
+    const caso = { id: "1.1", modulo: 1, titulo: "¿Dónde conviene blindar los aviones?", secciones: ["preparacion", "apuesta", "registro", "asistente", "faltantes", "verificacion", "firma", "revelacion", "laboratorio", "cierre"], entrega_limite: null };
     const card = tarjetaCaso(caso, null, new Set(caso.secciones.slice(0, 6)));
-    card.querySelector(".case-foot").replaceChildren(el("span", "due", "Entrega: la fija tu profesor"), el("span", "btn btn-line", "Continuar en Colab"));
+    card.querySelector(".case-foot").replaceChildren(el("span", "due", "Entrega: la fija tu profesor"), el("span", "btn btn-line", "Continuar el caso"));
     $("#ejemplo").append(card);
   }
 
