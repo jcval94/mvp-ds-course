@@ -5,7 +5,7 @@
   "decision_question": "Si sospechas que la inflación oficial de un país no es real, ¿cómo la mides sin acceso a los datos del gobierno?",
   "naive_answer": "Confiar en la cifra oficial o en encuestas de opinión.",
   "ingenious_move": "Recolectar todos los días los precios publicados en línea por los supermercados y construir un índice propio que se pueda comparar con el oficial.",
-  "status": "candidate",
+  "status": "verified",
   "access": "public",
   "concepts": [
     "data-provenance",
@@ -25,17 +25,25 @@
       "sources": [
         "https://dspace.mit.edu/handle/1721.1/107462"
       ]
+    },
+    {
+      "claim": "De octubre de 2007 a marzo de 2011, la inflación anual promedio del índice en línea de supermercados en Argentina fue 20.14 %, contra 8.38 % del índice oficial de supermercados y 8.53 % del IPC oficial; en Chile fue 3.00 % en línea contra 3.19 % oficial (Cavallo, Journal of Monetary Economics 60(2), 2013, cuadro 2).",
+      "sources": [
+        "https://dspace.mit.edu/bitstream/1721.1/107462/1/Paper-Arg%20-%20Final.pdf"
+      ]
     }
   ],
   "uncertainties": [
-    "Falta verificar con una segunda fuente las cifras anuales exactas de cada índice.",
-    "Los precios en línea de un supermercado no cubren servicios ni todos los bienes del índice oficial."
+    "Los precios en línea de un supermercado no cubren servicios ni todos los bienes del índice oficial; por eso la comparación justa es contra el índice oficial de supermercados.",
+    "Falta confirmar la licencia de los datos del Billion Prices Project antes de usarlos con alumnos."
   ],
   "myths_to_avoid": [
     "Los precios en línea demuestran fraude por sí solos: muestran una discrepancia; la comparación con otros países es lo que la vuelve sospechosa."
   ],
   "sources": [
+    "https://dspace.mit.edu/bitstream/1721.1/107462/1/Paper-Arg%20-%20Final.pdf",
     "https://dspace.mit.edu/handle/1721.1/107462",
+    "https://ideas.repec.org/a/eee/moneco/v60y2013i2p152-165.html",
     "https://www.npr.org/transcripts/nx-s1-5500542"
   ],
   "dataset": null

@@ -21,22 +21,33 @@
       ]
     },
     {
-      "claim": "La alerta se emite cuando la magnitud estimada ronda o supera 6 y al menos dos estaciones confirman la estimación; da decenas de segundos de aviso y a veces suena con sismos de baja intensidad.",
+      "claim": "El Sistema de Alerta Sísmica de la Ciudad de México inició su funcionamiento experimental en agosto de 1991 y se hizo público el 14 de mayo de 1993; emitía alerta «Preventiva» si pronosticaba magnitud entre 5 y 6, y «Pública» si pronosticaba más de 6. Hasta octubre de 2009 había emitido 13 alertas públicas y 53 preventivas para la Ciudad de México y Toluca.",
       "sources": [
-        "https://www.infobae.com/mexico/2022/09/19/como-se-activa-la-alerta-sismica-de-la-cdmx/"
+        "https://www.revista.unam.mx/vol.11/num1/art03/art03.pdf"
+      ]
+    },
+    {
+      "claim": "Según el CIRES, para cada ciudad la alerta suena si en los primeros segundos al menos dos estaciones rebasan los niveles de energía preestablecidos y si la magnitud estimada y la distancia cumplen umbrales del tipo: más de 5 cerca de la ciudad, más de 5.5 a no más de 350 km y más de 6 a más de 350 km.",
+      "sources": [
+        "https://www.bloomberglinea.com/latinoamerica/mexico/cuales-son-los-niveles-que-debe-superar-un-temblor-para-activar-la-alerta-sismica-en-mexico/",
+        "https://www.unotv.com/ciencia-y-tecnologia/como-funciona-la-alerta-sismica-que-suena-en-altavoces-y-celulares-durante-un-sismo/"
       ]
     }
   ],
   "uncertainties": [
-    "Falta una fuente técnica del CIRES con el criterio exacto de activación y su historial de falsas alarmas.",
+    "Las fuentes periodísticas dan distancias distintas para el umbral de magnitud 5 (200 o 250 km), y en 2024 el CIRES modificó parámetros; falta leer el criterio vigente directamente en el sitio del CIRES.",
+    "Falta una fuente primaria con el historial de falsas alarmas; la evaluación de 2009 contratada por el gobierno de la ciudad solo se conoce por reportes de prensa.",
     "El tiempo de aviso depende de la distancia del epicentro; para sismos cercanos puede no haber aviso."
   ],
   "myths_to_avoid": [
     "La alerta predice sismos: solo detecta uno que ya empezó y avisa antes de que llegue la onda fuerte."
   ],
   "sources": [
+    "https://politica.expansion.mx/cdmx/2025/09/19/alerta-sismica-de-mexico-primera-en-el-mundo",
+    "https://www.bloomberglinea.com/latinoamerica/mexico/cuales-son-los-niveles-que-debe-superar-un-temblor-para-activar-la-alerta-sismica-en-mexico/",
     "https://www.infobae.com/mexico/2022/09/19/como-se-activa-la-alerta-sismica-de-la-cdmx/",
-    "https://politica.expansion.mx/cdmx/2025/09/19/alerta-sismica-de-mexico-primera-en-el-mundo"
+    "https://www.revista.unam.mx/vol.11/num1/art03/art03.pdf",
+    "https://www.unotv.com/ciencia-y-tecnologia/como-funciona-la-alerta-sismica-que-suena-en-altavoces-y-celulares-durante-un-sismo/"
   ],
   "dataset": null
 }

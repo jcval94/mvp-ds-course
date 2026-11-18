@@ -21,22 +21,27 @@
       ]
     },
     {
-      "claim": "Según el estudio publicado en Health Affairs, las compras bajaron 5.5 % el primer año y en promedio 9.7 % en los dos primeros años, ajustando por factores como inflación y cambios de población.",
+      "claim": "Colchero, Rivera-Dommarco, Popkin y Ng (Health Affairs 36(3), 2017) compararon las compras de 6,645 hogares urbanos (panel de Nielsen, 2012 a 2015) contra lo que predecían las tendencias previas al impuesto: las compras de bebidas gravadas bajaron 5.5 % en 2014 y 9.7 % en 2015, y las de bebidas sin impuesto subieron 2.1 %; la mayor baja fue en los hogares de menor nivel socioeconómico.",
       "sources": [
-        "https://sph.unc.edu/?p=286197"
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5442881",
+        "https://www.cpc.unc.edu/resources/publications/bib/9930/"
       ]
     }
   ],
   "uncertainties": [
-    "Los reportes de la industria daban resultados distintos; falta citar uno para presentar la discusión completa.",
-    "El efecto en salud (obesidad, diabetes) no se mide en esta fuente."
+    "Los reportes de la industria daban resultados distintos; falta leer y citar uno directamente (hoy solo se conoce por fuentes que los refutan).",
+    "El promedio de los dos años aparece como 7.6 % en el resumen de la revista y como 8.2 % en el manuscrito de PMC; usar las cifras por año (5.5 % y 9.7 %), que coinciden.",
+    "El efecto en salud (obesidad, diabetes) no se mide en esta fuente.",
+    "El mismo año entró un impuesto a alimentos con alta densidad calórica, que también pudo influir."
   ],
   "myths_to_avoid": [
     "El impuesto redujo la obesidad: la fuente mide compras, no salud."
   ],
   "sources": [
+    "https://blogs.iadb.org/salud/es/impuesto-a-las-bebidas-azucaradas",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5442881",
     "https://sph.unc.edu/?p=286197",
-    "https://blogs.iadb.org/salud/es/impuesto-a-las-bebidas-azucaradas"
+    "https://www.cpc.unc.edu/resources/publications/bib/9930/"
   ],
   "dataset": null
 }

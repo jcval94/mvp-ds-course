@@ -5,7 +5,7 @@
   "decision_question": "Santiago de Chile rediseña todo su transporte público. ¿Se lanza de golpe o por etapas?",
   "naive_answer": "Lanzar todo el mismo día, como dice el plan.",
   "ingenious_move": "Revisar si los supuestos del diseño (infraestructura, operación, pago) ya se cumplen antes de lanzar, y lanzar por etapas lo que no.",
-  "status": "candidate",
+  "status": "verified",
   "access": "public",
   "concepts": [
     "planning-assumptions",
@@ -25,18 +25,39 @@
       "sources": [
         "https://en.cedeus.cl/?p=3457"
       ]
+    },
+    {
+      "claim": "Transantiago empezó a operar el 10 de febrero de 2007, antes de tener listos varios elementos clave del diseño, y de inmediato tuvo problemas muy serios (Muñoz, Ortúzar y Gschwender, 2008).",
+      "sources": [
+        "https://www.ing.uc.cl/?p=324705"
+      ]
+    },
+    {
+      "claim": "El plan operativo inicial consideraba 5,600 autobuses; en 2007 operaron en promedio 4,489 y en 2008 subieron a 6,399 (Muñoz, Batarce e Hidalgo, 2013).",
+      "sources": [
+        "https://wctrs-society.com/wp-content/uploads/abstracts/rio/general/3583.pdf"
+      ]
+    },
+    {
+      "claim": "Entre febrero de 2007 y febrero de 2009, la espera promedio por viaje bajó de 11.9 a 5.6 minutos, el tiempo promedio de viaje de 57.3 a 43.5 minutos y los pasajeros que esperaban más de 20 minutos de 4.4 % a 0.7 % (Muñoz y de Grange, Thredbo 11, 2009).",
+      "sources": [
+        "https://core.ac.uk/download/41234081.pdf"
+      ]
     }
   ],
   "uncertainties": [
-    "Faltan cifras verificadas de flota, tiempos de espera y demanda en el lanzamiento; la fuente citada solo da el resumen.",
+    "Las cifras de flota del lanzamiento varían según la fuente y la fecha de medición (unos 4,000 en operación el día del inicio, 4,489 en promedio en 2007): el caso debe decir cuál usa.",
     "Las causas exactas siguen en discusión: diseño, contratos y tecnología de pago."
   ],
   "myths_to_avoid": [
     "El problema fue solo la tarjeta de pago."
   ],
   "sources": [
+    "https://core.ac.uk/download/41234081.pdf",
     "https://en.cedeus.cl/?p=3457",
-    "https://repositorio.uchile.cl/handle/2250/143824"
+    "https://repositorio.uchile.cl/handle/2250/143824",
+    "https://wctrs-society.com/wp-content/uploads/abstracts/rio/general/3583.pdf",
+    "https://www.ing.uc.cl/?p=324705"
   ],
   "dataset": null
 }

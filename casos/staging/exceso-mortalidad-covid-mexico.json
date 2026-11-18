@@ -5,7 +5,7 @@
   "decision_question": "Las cifras oficiales cuentan muertes confirmadas por COVID-19. ¿Es esa la cifra para decidir?",
   "naive_answer": "Usar el conteo oficial de defunciones confirmadas.",
   "ingenious_move": "Contar las muertes por todas las causas y compararlas con las que se esperaban sin pandemia (exceso de mortalidad).",
-  "status": "candidate",
+  "status": "verified",
   "access": "public",
   "concepts": [
     "excess-mortality",
@@ -21,20 +21,35 @@
       ]
     },
     {
-      "claim": "Un estudio de exceso de mortalidad publicado en The Lancet estimó entre 741,000 y 867,000 muertes en exceso de enero de 2020 a diciembre de 2021, unas 2.4 veces la cifra oficial.",
+      "claim": "Sánchez-Carrillo y colaboradoras (Advances in Public Health, 2024), con datos públicos del gobierno, estimaron 751,371 muertes en exceso en México de enero de 2020 a diciembre de 2021 (IC 95 %: 709,948 a 792,794), frente al promedio de 2015 a 2019.",
       "sources": [
-        "https://politica.expansion.mx/mexico/2022/03/18/covid-a-dos-anos-mas-de-321-000-decesos-oficiales-pero-serian-2-4-veces-mas"
+        "https://cris.ute.edu.ec/entities/publication/3cacd5f7-be51-4a75-99f9-39da25513f77"
+      ]
+    },
+    {
+      "claim": "Palacio-Mejía y colaboradores (The Lancet Regional Health – Americas, 2022) reportan que en 2020 México tuvo 325,415 muertes en exceso, 34.4 % de ellas no relacionadas directamente con COVID-19, y que la COVID-19 fue la primera causa de muerte en 2020 y 2021 (439,582 muertes según los certificados).",
+      "sources": [
+        "https://doaj.org/article/bbe038ac876a4c2b80ce563189e8b4d5"
+      ]
+    },
+    {
+      "claim": "Para 2020 a 2022, el INEGI estimó un exceso de entre 673,000 (modelo cuasi-Poisson) y 808,000 muertes (canales endémicos), según lo reporta Comas-García y Erdely (2023).",
+      "sources": [
+        "https://arxiv.org/html/2311.15483v2"
       ]
     }
   ],
   "uncertainties": [
-    "Falta citar directamente el artículo de The Lancet y su método antes de aprobar.",
-    "El exceso de mortalidad incluye muertes indirectas (atención médica postergada); no todas son por el virus."
+    "Las estimaciones cambian con el método y el periodo (de 673,000 a 808,000 para 2020-2022): el caso debe mostrar que el número depende de la línea base elegida.",
+    "El exceso de mortalidad incluye muertes indirectas (atención médica postergada, otras causas); no todas son por el virus."
   ],
   "myths_to_avoid": [
     "Todas las muertes en exceso fueron por COVID-19."
   ],
   "sources": [
+    "https://arxiv.org/html/2311.15483v2",
+    "https://cris.ute.edu.ec/entities/publication/3cacd5f7-be51-4a75-99f9-39da25513f77",
+    "https://doaj.org/article/bbe038ac876a4c2b80ce563189e8b4d5",
     "https://politica.expansion.mx/mexico/2022/03/18/covid-a-dos-anos-mas-de-321-000-decesos-oficiales-pero-serian-2-4-veces-mas",
     "https://www.elfinanciero.com.mx/salud/2022/05/05/covid-19-en-mexico-oms-estima-que-muertes-fueron-el-doble-de-las-reportadas-por-el-gobierno/"
   ],
