@@ -1,5 +1,7 @@
 # AI Discovery Labs · integración V2
 
+La ampliación candidata más reciente y su commit fijo se describen en [AI Discovery Labs V3](AI_DISCOVERY_LABS_V3.md). Este documento conserva la línea base V2 y su alcance original.
+
 Estado: sistema de investigación implementado en DataCollectionMov; integración curricular propuesta, sin publicación ni modificación de las 22 clases. Corte: 16 de noviembre de 2026.
 
 ## Propósito y alcance
