@@ -7,8 +7,8 @@
   // Cuadernos de cada caso en Drive. Desde el esquema 0.8 el enlace viene de la base (casos.cuaderno_url);
   // estos quedan como respaldo para bases anteriores.
   const CUADERNOS = {
-    "4.1": "https://colab.research.google.com/drive/1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD",
-    "4.2": "https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG",
+    "4.1": "https://colab.research.google.com/drive/1FDzSRkcmVMEQfqrs2Q2MKSXPcZt5HsNT",
+    "4.2": "https://colab.research.google.com/drive/1CLjP6uv1SOg-pBDUEfU-gMqNADigZjrw",
   };
   // Intro animada de cada caso (gancho de 1 minuto, pública): site/casos/<id>/.
   const INTROS = { "1.1": "casos/1-1/", "1.2": "casos/1-2/", "1.4": "casos/1-4/", "13.11": "casos/13-11/", "2.1": "casos/2-1/", "2.3": "casos/2-3/", "4.1": "casos/4-1/", "4.2": "casos/4-2/" };

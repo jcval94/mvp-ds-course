@@ -190,7 +190,7 @@
     transiciones: { 1: 'sobres', 2: 'giro', 3: 'barrido', 4: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: '44 CONTRA 35',
     volver: '../../index.html',
-    colab: 'https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG',
+    colab: 'https://colab.research.google.com/drive/1CLjP6uv1SOg-pBDUEfU-gMqNADigZjrw',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
     despues: ['Se abre Google Colab en otra pestaña.',
