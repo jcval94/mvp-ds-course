@@ -105,7 +105,7 @@
     transiciones: { 1: 'puerta', 2: 'giro', 3: 'mosaico', 4: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: 'LAS DOS SALAS',
     volver: '../../index.html',
-    colab: 'https://colab.research.google.com/drive/1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD',
+    colab: 'https://colab.research.google.com/drive/1FDzSRkcmVMEQfqrs2Q2MKSXPcZt5HsNT',
     duracionIntro: '~1 min',
     duracionCuaderno: '~50 min',
     despues: ['Se abre Google Colab en otra pestaña.',
