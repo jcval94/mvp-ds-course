@@ -1,0 +1,2 @@
+# Los CSV de casos/data llevan su SHA-256 declarado: siempre con LF, también en Windows.
+*.csv text eol=lf
