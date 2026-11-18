@@ -1,7 +1,6 @@
 # ¿Página o Colab? · Reparto de los casos de las clases 5 a 22
 
-**Estado:** PROPUESTA del 13 de noviembre de 2026 (tablero u10, encargo E-14). **No está aprobada:** el autor la aprueba
-o la cambia contestando la sección 7. Mientras tanto no cambia ningún otro documento ni se construye nada con base en ella.
+**Estado:** APROBADA por el autor el 13 de noviembre de 2026 («de acuerdo con tus recomendaciones»); ver la sección 8.
 
 **Qué decide:** para cada caso principal y cada caso de «el costo del error» de las clases 5 a 22, si se resuelve en la
 página, en Colab o en los dos (mixto). Las clases 1 a 4 ya están decididas (página, `docs/CASO_EN_PAGINA.md`).
@@ -170,9 +169,9 @@ Lo que la cuenta no incluye:
   repetición entre ambas. Por eso la regla 5 lo limita a uno por clase.
 - **El backend:** la apuesta registrada en la página y los retos en el cuaderno deben contar como un solo caso.
 
-## 6. Qué habría que cambiar en otros documentos si se aprueba
+## 6. Documentos actualizados al aprobarse (13 nov 2026)
 
-Solo la lista; esta tarea no los toca.
+Cambiados en el mismo PR, salvo la skill, que se propone aparte para que el autor la guarde.
 
 - Skill `tads-caso-reparto-pagina-colab`: el desempate («si dudas, va a Colab»), «la apuesta vive solo en Colab» y la
   tabla de decisión.
@@ -213,3 +212,18 @@ Contesta cada una con «sí» o «cambio: …».
 10. **Datos por verificar antes de construir.** Las filas de confianza baja (E16, S06, 8.1 y 8.4) y las de licencia
     por confirmar (S18, 7.1, D04, 10.3 y 14.1) se revisan contra el tablero de casos antes de abrir sus encargos; lo
     que no tenga datos reales con licencia se queda en la página o usa cuaderno «taquería». ¿Sí?
+
+## 8. Respuestas del autor (13 nov 2026)
+
+Sí a las diez decisiones, con las recomendaciones de este documento, y «elimina las contradicciones con tu criterio». Cómo
+se resolvió lo que quedaba abierto:
+
+- **Decisión 6 (dónde corre el código de Codex):** el autor no lo precisó. Supuesto de trabajo: en los cuadernos de
+  Colab, que es lo que ya instala la Sesión 0 y lo que pueden revisar el profesor y el registro de bits. El repositorio
+  del alumno en GitHub queda para el proyecto final. Si el autor prefiere otra cosa, se revisan las clases 12 a 21.
+- **Decisión 9 (calificación):** corregidos los términos publicados (`site/terminos.html`, fecha 13 nov), la fila de
+  `DECISIONES_GENERACION_1.md` y la regla de `ESTRUCTURA_GENERACION_1.md`.
+- **Reglas que contradecían la propuesta:** «un caso, un lugar» (`CASO_EN_PAGINA.md`) pasa a «un caso, una estafeta»;
+  «la apuesta vive en Colab» (`CRITERIO_PRIMERO.md`) pasa a «la apuesta se registra donde se resuelve el caso»; la
+  sección 1.1 de `docs/agents/COLABORADOR.md` ya no dice «en revisión». La skill `tads-caso-reparto-pagina-colab`
+  (desempate, «la apuesta vive solo en Colab» y tabla) se actualiza con una propuesta aparte.

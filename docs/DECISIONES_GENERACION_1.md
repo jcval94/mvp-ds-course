@@ -25,14 +25,18 @@ Registro de lo que José Carlos confirmó para la oferta publicada en learningla
 | Precio de fundador | Solo para la Generación 1 | 24 oct 2026 | Inicio, inscripción, términos |
 | Código de recomendación | Cada alumno pagado recibe un código. **Cualquiera** puede usarlo (menos su dueño): 10 % de descuento que **se multiplica** con el de contado ($9,900 × 0.9 × 0.9 = $8,019). Quien recomienda recibe de vuelta 10 % del precio por persona, **tope 30 %**, como reembolso parcial que administración hace desde Stripe (admin.html → Inscripciones → Recomendaciones). No se combina con códigos de promoción de Stripe | 1 nov 2026 | Inicio, inscripción, términos, Mi avance, bienvenida |
 | Clase que no se da | Se repone todo el tiempo que no se dio **agregando semanas al final** del curso, en el mismo horario | 1 nov 2026 | Términos |
-| Calificación | **Solo bits** de los cuadernos de Colab. El proyecto final no pondera: es requisito de la constancia. Las misiones web no cuentan | 1 nov 2026 | Términos, Mi avance |
+| Calificación | **Solo bits** de los casos, en la página o en Colab. Las prácticas de la taquería dan bits pero no cuentan. El proyecto final no pondera: es requisito de la constancia. Las misiones web no cuentan | 1 nov 2026 · 13 nov 2026 | Términos, Mi avance |
 | Constancia | No depende de la asistencia ni de la calificación: se emite con el **proyecto final en GitHub**, individual, con datos reales, un problema real y un video breve. El repositorio puede ser **privado con acceso al profesor**; hacerlo público o desplegar para el CV es opcional | 1 nov 2026 · 2 nov 2026 | Términos |
 | Retención de avance | Guardar avance, respuestas, bits y calificaciones hasta **dos años desde la conclusión efectiva de la generación**, incluidas reposiciones. Al término, borrar/anonimizar salvo conservación legal. **Pendiente comprobar que lo implemente el backend.** | 2 nov 2026 | Aviso de privacidad | 
 | Reembolsos | Procesar y ordenar devoluciones procedentes por el mismo medio de pago en **máximo 15 días hábiles** desde solicitud procedente o aviso de cancelación; distinguir tiempo de acreditación bancario y respetar derechos irrenunciables. **Pendiente validar con Stripe y abogado mexicano.** | 2 nov 2026 | Términos | 
-| Domicilio y contacto | **Código postal 06900** para el domicilio ya publicado. **No hay teléfono de atención por ahora**; conservar correo, sin inventar teléfono, pendiente solución comercial/legal. | 2 nov 2026 | Términos, aviso de privacidad | 
+| Domicilio y contacto | **Código postal 06900** para el domicilio ya publicado. Canal de atención: **WhatsApp del negocio + augmentedlearninglabs@gmail.com, respuesta en máximo 24 h hábiles**. Falta el número para publicarlo en términos, pie e inscripción (`docs/revisiones/p24-revision-2026-11-13.md`, A1) | 2 nov 2026 · 13 nov 2026 | Términos, aviso de privacidad, inscripción |
 | Difusión | Facebook Ads, LinkedIn, WhatsApp y, más adelante, YouTube. Público: estudiantes, profesionistas que buscan cambiar de carrera y gente interesada en IA. Plan en `docs/DIFUSION_G1.md` | 24 oct 2026 | — |
 | Presupuesto de Facebook Ads | **50 USD** por ahora, repartidos por semana hasta el cierre del 8 ene: 15 de prueba, 20 al público ganador, pausa en diciembre y 15 de cierre (plan en `docs/DIFUSION_G1.md`) | 30 oct 2026 | — |
 | Clase abierta gratuita | **No habrá** por ahora | 30 oct 2026 | — |
+| Facebook Ads | **En pausa** desde el 13 nov 2026; se retoma cuando el autor lo indique | 13 nov 2026 | — |
+| Casos en la página: invitados | Quien entra sin sesión **no registra nada** en la página; en clase trabaja en pareja con alguien con sesión | 13 nov 2026 | Mi avance, guion de clase |
+| Casos en la página: revelación | **Sin firma no hay revelación**, tampoco para invitados | 13 nov 2026 | Casos en la página |
+| Práctica de la taquería | Nombre visible «Práctica de la taquería»; ids `T5`, `T12`…; dan bits con dificultad 1 pero **no cuentan para la calificación**; por ahora solo existe la de la clase 5 | 13 nov 2026 | Cuadernos, Mi avance, términos |
 
 ## Cómo se calculan precio y fechas en el sitio
 

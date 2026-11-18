@@ -26,8 +26,10 @@ Retroalimentación de alumnos: no les gustó pasar de la intro de la página a C
 final de algunas celdas aparece un JSON y, si Colab se desconecta, no saben que tienen que volver a ejecutar la primera
 celda.
 
-- **En revisión (tablero u01):** que los casos de los Módulos 1 y 2 (clases 1 a 4) se resuelvan en la página, sin Colab,
-  y que Colab entre en el Módulo 3. Mientras el autor decide, no construyas cuadernos nuevos de esos módulos.
+- **Decidido (u01):** los casos de las clases 1 a 4 se resuelven en la página, sin Colab; Colab entra al inicio de la
+  clase 5 con 4.1 Semmelweis.
+- **Decidido el 13 nov (u10):** desde la clase 5, si hay duda el caso va en la página; los que necesitan código son mixtos
+  (página + un tramo corto de Colab). Reparto caso por caso en `docs/PAGINA_O_COLAB.md`.
 - **Decidido:** los cuadernos que ya no apliquen se rehacen en la página y se quitan de Mi avance (por ahora 1.1 Wald); en
   Mi avance la intro va antes que Colab.
 - **Decidido:** dos tipos de cuaderno, «taquería» (práctica con los datos de Tacos Don Juan) y «caso» (caso real).
