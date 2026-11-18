@@ -87,6 +87,13 @@ Reglas:
   `motor.css` las importa con una ruta relativa que funciona en el sitio publicado (`dist/`), donde `design/` queda junto
   a `casos/`. Para ver una intro en local, construye primero (`python -m harness all`) y sirve `dist/`.
 
+## Narración con voz (`voz/`)
+- Un MP3 por línea, llamado como el hash de su texto, y `voz/indice.json` con cada línea, su hash y su archivo.
+  Voz `onyx` de OpenAI TTS (`gpt-4o-mini-tts`), recomprimida a mono 48 kbps. Límite: 2 MB por intro.
+- Si cambias, agregas o quitas una línea, regenera en el mismo cambio: `python scripts/tts_intros <id>` (o `--todos`).
+  Solo pide las líneas nuevas, borra las que ya no existen y necesita `OPENAI_API_KEY` en el entorno (nunca en el repo).
+- `python -m harness all` falla si alguna línea no tiene su audio al día, si sobran audios o si la intro pasa de 2 MB.
+
 ## Qué hace dinámica cada escena
 Cada escena combina un **plano** (la cámara se mueve o hay capas con parallax), un **gesto** (algo se mueve solo: gente
 que camina, reloj, pájaros, monedas), una **sorpresa** (sello que golpea, sacudida, cascada de cuadros, contador que
@@ -115,6 +122,9 @@ y `pintar(k, fase, t, op)`, donde `k` va de 0 a 1 al cubrir y de 1 a 0 al descub
 ## Controles y accesibilidad
 - **AUTO: SI/NO** pausa el avance automático (WCAG 2.2.2). Tocar un elemento de la escena también lo detiene.
 - **SONIDO** apagado por defecto. **SALTAR** lleva a la ficha final. Teclado: flechas, Enter y Espacio sobre lo tocable.
+- **VOZ** apagada por defecto: lee cada línea con su audio de `voz/` (o con la voz es-MX del navegador si falta).
+  Mientras habla, el sonido 8 bits baja y el avance automático espera a que termine la línea. La ficha avisa que es
+  voz sintética.
 - `prefers-reduced-motion`: sin animación ni máquina de escribir, sin avance automático; todo queda en su estado final.
 - Texto real en el DOM con región `aria-live`, contraste alto, `noscript` con el resumen y el enlace a Colab.
 

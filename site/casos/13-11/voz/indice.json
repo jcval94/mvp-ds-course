@@ -1,0 +1,54 @@
+{
+  "caso": "13.11",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "429106b03eec",
+      "t": "Montreal, 23 de julio de 1983.",
+      "archivo": "429106b03eec.mp3"
+    },
+    {
+      "hash": "5410715f99fe",
+      "t": "Un Boeing 767 va a volar a Edmonton, con escala en Ottawa.",
+      "archivo": "5410715f99fe.mp3"
+    },
+    {
+      "hash": "5d0a07a0076a",
+      "t": "Toca el avión para ver su matrícula.",
+      "archivo": "5d0a07a0076a.mp3"
+    },
+    {
+      "hash": "e1ca4d4d6fbd",
+      "t": "En la cabina, los indicadores de combustible están en blanco.",
+      "archivo": "e1ca4d4d6fbd.mp3"
+    },
+    {
+      "hash": "7df53c84ea78",
+      "t": "Se mide a mano, con una varilla. El plan de vuelo pide 22,300 kilos.",
+      "archivo": "7df53c84ea78.mp3"
+    },
+    {
+      "hash": "0f9f1042c948",
+      "t": "Toca la varilla para leerla.",
+      "archivo": "0f9f1042c948.mp3"
+    },
+    {
+      "hash": "4b1bc62d2e9e",
+      "t": "Alguien tiene que decidir cuánto cargar.",
+      "archivo": "4b1bc62d2e9e.mp3"
+    },
+    {
+      "hash": "d8e1d452eccb",
+      "t": "Y alguien tiene que firmar.",
+      "archivo": "d8e1d452eccb.mp3"
+    },
+    {
+      "hash": "7cfa0e70103b",
+      "t": "¿Con qué comprobarías una cuenta que ya hizo otra persona?",
+      "archivo": "7cfa0e70103b.mp3"
+    }
+  ]
+}

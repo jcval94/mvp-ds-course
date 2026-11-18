@@ -1,0 +1,64 @@
+{
+  "caso": "2.1",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "d5efc1c49624",
+      "t": "Londres, finales de agosto de 1854.",
+      "archivo": "d5efc1c49624.mp3"
+    },
+    {
+      "hash": "6faea669c745",
+      "t": "En Soho, mucha gente saca el agua de bombas en la calle.",
+      "archivo": "6faea669c745.mp3"
+    },
+    {
+      "hash": "d474df2187df",
+      "t": "John Snow es médico y vive cerca.",
+      "archivo": "d474df2187df.mp3"
+    },
+    {
+      "hash": "449f93bf5b3a",
+      "t": "Casi todos sus colegas creen que el cólera viaja en el aire sucio.",
+      "archivo": "449f93bf5b3a.mp3"
+    },
+    {
+      "hash": "2df97b19835d",
+      "t": "El jueves 31 de agosto estalla un brote en unas cuantas manzanas.",
+      "archivo": "2df97b19835d.mp3"
+    },
+    {
+      "hash": "fc61dc5c159e",
+      "t": "En diez días mueren más de quinientas personas.",
+      "archivo": "fc61dc5c159e.mp3"
+    },
+    {
+      "hash": "8162f1381cfa",
+      "t": "En el barrio hay varias bombas, y por fuera todas se ven iguales.",
+      "archivo": "8162f1381cfa.mp3"
+    },
+    {
+      "hash": "a84cd6b7206d",
+      "t": "Toca dos bombas para ver en qué calle está cada una.",
+      "archivo": "a84cd6b7206d.mp3"
+    },
+    {
+      "hash": "b76ad58cc88c",
+      "t": "El 7 de septiembre, Snow pide hablar con la junta de la parroquia.",
+      "archivo": "b76ad58cc88c.mp3"
+    },
+    {
+      "hash": "35b4dd4ed48e",
+      "t": "Trae una petición que a casi todos les parece rara.",
+      "archivo": "35b4dd4ed48e.mp3"
+    },
+    {
+      "hash": "8b9a73f5b895",
+      "t": "¿Qué tendrías que ver para creerle?",
+      "archivo": "8b9a73f5b895.mp3"
+    }
+  ]
+}
