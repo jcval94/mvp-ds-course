@@ -43,6 +43,7 @@
 
   window.CASO = {
     id: '1.2',
+    transiciones: { 1: { tipo: 'periodico', texto: 'LITERARY DIGEST' }, 2: 'persiana', 3: 'barrido', 4: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: '2.4 MILLONES DE BOLETAS',
     volver: '../../index.html',
     resolver: 'caso.html',

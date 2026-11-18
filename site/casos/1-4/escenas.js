@@ -45,6 +45,7 @@
 
   window.CASO = {
     id: '1.4',
+    transiciones: { 1: 'apagon', 2: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: 'LA ISLA A OSCURAS',
     volver: '../../index.html',
     resolver: 'caso.html',

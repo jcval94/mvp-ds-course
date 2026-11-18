@@ -93,6 +93,25 @@ que camina, reloj, pájaros, monedas), una **sorpresa** (sello que golpea, sacud
 sube) y, cada ~20 s, una **acción del alumno** que nunca se califica. La narración son líneas cortas que avanzan solas y
 cada línea dispara un cambio visual. Entre escenas, una persiana de 16 tiras.
 
+## Transiciones entre escenas
+Cada escena elige cómo se entra a ella. El motor busca, en orden: `transicion` en la escena, `CASO.transiciones[n]`,
+`CASO.transicion` y, si no hay nada, `persiana`. El valor es un nombre o un objeto con opciones:
+`{ tipo: 'iris', x: 80, y: 45 }`, `{ tipo: 'titulo', texto: 'CASO 4.1' }` (por omisión «CASO <id>»).
+
+| Nombre | Para qué | Dura (cubrir + pausa) |
+| --- | --- | --- |
+| `persiana`, `mosaico`, `barrido`, `giro` | Generales: cambio de lugar, de personas a cifras, de pizarrón a mapa | 360–420 ms + 60–80 ms |
+| `iris` | Cerrar sobre un punto de interés (`x`, `y` en coordenadas de pantalla) | 480 + 100 ms |
+| `titulo` | Barras de cine y título; se usa para entrar al expediente final | 380 + 900 ms |
+| `puerta` (4.1), `periodico` (1.2), `humo` (1.1), `agua` (2.1), `apagon` (1.4), `cabina` (13.11), `escarcha` (2.3), `sobres` (4.2) | Ligadas a un caso: usan algo de su historia | 520–760 + 140–200 ms |
+
+Reglas: cada caso usa la suya al menos una vez (hoy, al entrar a la escena 2) y `titulo` al entrar al expediente.
+Una transición de caso nunca adelanta el giro ni contradice un dato (la de 13.11 deja los indicadores en blanco, como
+en la cabina real; no muestra una aguja que cae). Se dibujan en una capa encima del escenario con `var(--tq-…)`,
+sin destellos ni parpadeo rápido; con movimiento reducido la escena cambia en seco. Si `Px` o `requestAnimationFrame`
+no están, el motor usa la cortina de CSS de antes. Para una nueva: agrégala a `TRANS` en `motor.js` con `ms`, `pausa`
+y `pintar(k, fase, t, op)`, donde `k` va de 0 a 1 al cubrir y de 1 a 0 al descubrir.
+
 ## Controles y accesibilidad
 - **AUTO: SI/NO** pausa el avance automático (WCAG 2.2.2). Tocar un elemento de la escena también lo detiene.
 - **SONIDO** apagado por defecto. **SALTAR** lleva a la ficha final. Teclado: flechas, Enter y Espacio sobre lo tocable.

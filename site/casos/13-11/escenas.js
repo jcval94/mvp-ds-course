@@ -33,6 +33,7 @@
 
   window.CASO = {
     id: '13.11',
+    transiciones: { 1: 'cabina', 2: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: 'VUELO 143',
     volver: '../../index.html',
     resolver: 'caso.html',

@@ -165,6 +165,7 @@
   /* ---------- guion ---------- */
   window.CASO = {
     id: '1.1',
+    transiciones: { 1: 'humo', 2: 'giro', 3: 'barrido', 4: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: 'EL MAPA DE AGUJEROS',
     volver: '../../index.html',
     /* Desde el 4 nov 2026 el caso se resuelve en el sitio (docs/CASO_EN_PAGINA.md), no en Colab. */
