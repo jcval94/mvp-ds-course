@@ -66,6 +66,7 @@
 
   window.CASO = {
     id: '2.1',
+    transiciones: { 1: 'agua', 2: 'persiana', 3: 'barrido', 4: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: 'LA BOMBA DE LA CALLE',
     volver: '../../index.html',
     resolver: 'caso.html',

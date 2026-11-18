@@ -1,6 +1,6 @@
 /* motor.js v2 — cinemática jugable · The Agentic Data Scientist
    Lee window.CASO (definido en casos/<id>/escenas.js) y arma la intro tipo videojuego:
-   líneas de narración que avanzan solas, cámara con parallax, transiciones de persiana,
+   líneas de narración que avanzan solas, cámara con parallax, transiciones pixel (ligadas a cada caso),
    partículas, sacudidas, contadores, sonido 8 bits (apagado por defecto) e interacciones.
    Sin dependencias, sin cuentas, sin guardar nada: lo que el alumno elige aquí no sale de su navegador.
    La hipótesis que cuenta para calificar se registra en el cuaderno de Colab, no aquí.
@@ -573,14 +573,243 @@
     setTimeout(function () { if (dir === 'abre' && c.parentNode) c.parentNode.removeChild(c); if (fin) fin(); }, 320 + 16 * 14);
   }
 
+  /* ---------- transiciones pixel entre escenas ----------
+     Cada escena elige cómo se entra a ella: e.transicion, o CASO.transiciones[n], o CASO.transicion, o 'persiana'.
+     Valor: un nombre ('giro') o un objeto ({ tipo: 'iris', x: 80, y: 45, texto: 'CASO 4.1' }).
+     Todas se dibujan en una capa encima del escenario (160 x 90, coordenadas de pantalla): primero cubren
+     (k de 0 a 1), se monta la escena nueva debajo y después descubren (k de 1 a 0).
+     Sin movimiento reducido no hay transición: la escena cambia en seco. Sin destellos ni parpadeo rápido. */
+  var R_ = function (x, y, w, h, c, extra) { return window.Px.R(x, y, w, h, c, extra); };
+  function plano(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase(); }
+  function azarT(s) { s = s || 7; return function () { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+  function escalon(k, n) { return Math.round(Math.max(0, Math.min(1, k)) * n) / n; }
+  var BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+  function papel() {
+    var h = R_(-60, -40, 120, 80, 'var(--tq-papel)') + R_(-60, 38, 120, 2, 'var(--tq-papel-sombra)') + R_(-54, -34, 108, 12, 'var(--tq-tinta)');
+    for (var i = 0; i < 6; i++) h += R_(-54, -12 + i * 7, 50, 3, 'var(--tq-papel-sombra)') + R_(4, -12 + i * 7, 50, 3, 'var(--tq-papel-sombra)');
+    return h + R_(-54, 30, 108, 4, 'var(--tq-salsa)');
+  }
+
+  var TRANS = {
+    /* ----- generales ----- */
+    persiana: { ms: 360, pausa: 80, pintar: function (k) {
+      var o = '', q = escalon(k, 24);
+      for (var i = 0; i < 16; i++) {
+        var h = Math.round(Math.max(0, Math.min(1, q * 1.6 - i * 0.04)) * 90);
+        if (h > 0) o += R_(i * 10, i % 2 ? 90 - h : 0, 10, h, i % 2 ? 'var(--tq-noche)' : 'var(--tq-sombra)');
+      }
+      return o;
+    } },
+    mosaico: { ms: 420, pausa: 80, pintar: function (k) {
+      var o = '', q = escalon(k, 20), az = azarT(19);
+      for (var y = 0; y < 18; y++) {
+        var x0 = -1;
+        for (var x = 0; x <= 32; x++) {
+          var on = x < 32 && (BAYER[(y % 4) * 4 + (x % 4)] / 16 * 0.75 + az() * 0.25) < q;
+          if (on && x0 < 0) x0 = x;
+          if (!on && x0 >= 0) { o += R_(x0 * 5, y * 5, (x - x0) * 5, 5, 'var(--tq-sombra)'); x0 = -1; }
+        }
+      }
+      return o;
+    } },
+    iris: { ms: 480, pausa: 100, pintar: function (k, f, t, op) {
+      var cx = op.x != null ? op.x : 80, cy = op.y != null ? op.y : 45, q = escalon(k, 22);
+      var rMax = Math.ceil(Math.sqrt(Math.pow(Math.max(cx, 160 - cx), 2) + Math.pow(Math.max(cy, 90 - cy), 2))) + 2;
+      var r = Math.round((1 - q) * rMax), o = '';
+      if (r <= 0) return R_(0, 0, 160, 90, 'var(--tq-sombra)');
+      for (var y = 0; y < 90; y += 2) {
+        var dy = y + 1 - cy;
+        if (Math.abs(dy) >= r) { o += R_(0, y, 160, 2, 'var(--tq-sombra)'); continue; }
+        var hw = Math.round(Math.sqrt(r * r - dy * dy) / 2) * 2;
+        if (cx - hw > 0) o += R_(0, y, cx - hw, 2, 'var(--tq-sombra)');
+        if (cx + hw < 160) o += R_(cx + hw, y, 160 - cx - hw, 2, 'var(--tq-sombra)');
+      }
+      return o;
+    } },
+    barrido: { ms: 420, pausa: 60, pintar: function (k, fase) {
+      var q = escalon(k, 30), o = '', borde, j, y;
+      if (fase === 'cubre') {
+        borde = Math.round((q * 176 - 8) / 2) * 2;
+        if (borde > 0) o += R_(0, 0, borde, 90, 'var(--tq-sombra)');
+        for (j = 0; j < 4; j++) for (y = 0; y < 90; y += 2) if (((y / 2) + j) % (j + 2) === 0) o += R_(borde + j * 2, y, 2, 2, 'var(--tq-sombra)');
+        if (borde > 0 && borde < 160) o += R_(borde - 1, 0, 1, 90, 'var(--tq-comal)');
+      } else {
+        borde = Math.round(((1 - q) * 176 - 8) / 2) * 2;
+        if (borde < 160) o += R_(Math.max(0, borde), 0, 160 - Math.max(0, borde), 90, 'var(--tq-sombra)');
+        for (j = 0; j < 4; j++) for (y = 0; y < 90; y += 2) if (((y / 2) + j) % (j + 2) === 0) o += R_(borde - 2 - j * 2, y, 2, 2, 'var(--tq-sombra)');
+        if (borde > 0 && borde < 160) o += R_(borde, 0, 1, 90, 'var(--tq-comal)');
+      }
+      return o;
+    } },
+    giro: { ms: 360, pausa: 60, pintar: function (k) {
+      var w = Math.round(escalon(k, 10) * 80);
+      if (w <= 0) return '';
+      return R_(0, 0, w, 90, 'var(--tq-sombra)') + R_(160 - w, 0, w, 90, 'var(--tq-sombra)') +
+        (w < 80 ? R_(w, 0, 1, 90, 'var(--tq-comal)') + R_(159 - w, 0, 1, 90, 'var(--tq-comal)') : R_(79, 0, 2, 90, 'var(--tq-comal)'));
+    } },
+    titulo: { ms: 380, pausa: 900, pintar: function (k, f, t, op) {
+      var h = Math.round(escalon(k, 15) * 45), o = '';
+      if (h <= 0) return '';
+      o = R_(0, 0, 160, h, 'var(--tq-sombra)') + R_(0, 90 - h, 160, h, 'var(--tq-sombra)');
+      if (h < 45) return o + R_(0, h - 1, 160, 1, 'var(--tq-comal)') + R_(0, 90 - h, 160, 1, 'var(--tq-comal)');
+      if (op.texto) o += window.Px.texto(80, 47, plano(op.texto), 7, 'var(--tq-crema)') + R_(56, 53, 48, 1, 'var(--tq-comal)');
+      return o;
+    } },
+
+    /* ----- ligadas a un caso ----- */
+    puerta: { ms: 520, pausa: 140, son: 'puerta', pintar: function (k) {
+      var w = Math.round(escalon(k, 16) * 80), o = '';
+      if (w <= 0) return '';
+      [0, 1].forEach(function (lado) {
+        var x = lado ? 160 - w : 0;
+        o += R_(x, 0, w, 90, 'var(--tq-madera)');
+        for (var px = 0; px < 2; px++) {
+          var bx = lado ? x + 10 + px * 34 : x + w - 70 + px * 34;
+          if (bx > x - 4 && bx + 26 < x + w + 4) o += R_(bx, 12, 26, 28, 'var(--tq-cafe)') + R_(bx + 2, 14, 22, 24, 'var(--tq-madera)') + R_(bx, 52, 26, 28, 'var(--tq-cafe)') + R_(bx + 2, 54, 22, 24, 'var(--tq-madera)');
+        }
+        if (w > 6) o += R_(lado ? x + 3 : x + w - 6, 44, 3, 6, 'var(--tq-comal)');
+      });
+      o += R_(0, 0, 160, 4, 'var(--tq-piedra)') + R_(0, 86, 160, 4, 'var(--tq-piedra)');
+      if (w >= 80) o += R_(79, 0, 2, 90, 'var(--tq-cafe)');
+      return o;
+    } },
+    periodico: { ms: 600, pausa: 160, pintar: function (k, f, t, op) {
+      var paso = Math.round(escalon(k, 16) * 16);
+      if (paso === 0) return '';
+      var s = (0.1 + (paso / 16) * 1.6).toFixed(2);
+      return '<g transform="translate(80 45) rotate(' + paso * 45 + ') scale(' + s + ')">' + papel() +
+        window.Px.texto(0, -25, plano(op.texto || 'EL DIARIO'), 6, 'var(--tq-papel)') + '</g>';
+    } },
+    humo: { ms: 620, pausa: 140, pintar: function (k, fase) {
+      var q = escalon(k, 24), o = '', tonos = ['var(--tq-crema-suave)', 'var(--tq-papel-sombra)', 'var(--tq-papel)'];
+      for (var j = 0; j < 3; j++) for (var i = 0; i < 5; i++) {
+        var n = j * 5 + i, r = Math.round(Math.max(0, Math.min(1, q * 1.35 - ((n * 7) % 5) * 0.06)) * 27);
+        if (r > 1) o += window.Px.disco(16 + i * 32 + (j % 2) * 8, 14 + j * 31, r, tonos[n % 3]);
+      }
+      var ax = fase === 'cubre' ? Math.round(-40 + k * 110) : Math.round(70 + (1 - k) * 130), ay = 30;
+      o += '<g transform="translate(' + ax + ' ' + ay + ')">' + R_(0, 4, 30, 5, 'var(--tq-noche)') + R_(26, 2, 6, 5, 'var(--tq-noche)') +
+        R_(8, 0, 12, 13, 'var(--tq-noche)') + R_(-2, 0, 4, 6, 'var(--tq-noche)') + R_(22, 5, 4, 2, 'var(--tq-vidrio)') + '</g>';
+      return o;
+    } },
+    agua: { ms: 600, pausa: 140, pintar: function (k, f, t) {
+      var h = Math.round(escalon(k, 26) * 104), o = '', fase = Math.round(t / 120);
+      if (h <= 0) return '';
+      for (var i = 0; i < 40; i++) {
+        var y = 90 - h + Math.round(2 * Math.sin(i * 0.7 + fase * 0.6));
+        o += R_(i * 4, y, 4, 2, 'var(--tq-vidrio)') + R_(i * 4, y + 2, 4, Math.max(0, 92 - y), 'var(--tq-anil)');
+        if (i % 7 === 3 && h > 20) o += R_(i * 4 + 1, y + 10 + ((fase * 3 + i * 5) % Math.max(1, h - 14)), 2, 2, 'var(--tq-vidrio)');
+      }
+      return o;
+    } },
+    apagon: { ms: 700, pausa: 200, pintar: function (k) {
+      var paso = Math.round(escalon(k, 30) * 30), o, az = azarT(41);
+      if (paso === 0) return '';
+      o = R_(0, 0, 160, 90, 'var(--tq-sombra)', 'opacity="' + Math.min(1, paso / 18).toFixed(2) + '"');
+      o += R_(18, 46, 124, 14, 'var(--tq-noche)') + R_(30, 42, 96, 4, 'var(--tq-noche)') + R_(10, 50, 8, 6, 'var(--tq-noche)');
+      for (var i = 0; i < 46; i++) {
+        var x = 20 + Math.floor(az() * 120), y = 44 + Math.floor(az() * 14), umbral = 6 + Math.floor(az() * 22);
+        if (paso < umbral) o += R_(x, y, 1, 1, 'var(--tq-comal)');
+      }
+      return o;
+    } },
+    /* 13.11: los indicadores se quedan en blanco uno a uno (el de combustible primero, como en la cabina real) y todo se apaga */
+    cabina: { ms: 760, pausa: 160, pintar: function (k, fase, t) {
+      var paso = Math.round(escalon(k, 24) * 24), o = '';
+      if (paso === 0) return '';
+      if (fase === 'descubre') return R_(0, 0, 160, 90, 'var(--tq-sombra)', 'opacity="' + (paso / 24).toFixed(2) + '"');
+      o = '<g opacity="' + Math.min(1, paso / 6).toFixed(2) + '">' + R_(0, 0, 160, 90, 'var(--tq-panel)') + R_(0, 0, 160, 10, 'var(--tq-noche)') + R_(0, 70, 160, 20, 'var(--tq-noche)');
+      [[40, 'FUEL'], [80, 'ALT'], [120, 'SPD']].forEach(function (gg, i) {
+        var vivo = i === 0 ? paso < 5 : paso < 12 + i * 3;
+        o += window.Px.disco(gg[0], 40, 16, 'var(--tq-noche)') + window.Px.disco(gg[0], 40, 14, vivo ? 'var(--tq-ventana-noche)' : 'var(--tq-sombra)');
+        if (vivo) {
+          var ang = [10, 30, -20][i], rad = (ang - 90) * Math.PI / 180;
+          for (var r = 2; r < 12; r += 2) o += R_(Math.round(gg[0] + Math.cos(rad) * r), Math.round(40 + Math.sin(rad) * r), 2, 2, 'var(--tq-comal)');
+        }
+        o += window.Px.texto(gg[0], 64, gg[1], 4, vivo ? 'var(--tq-crema-suave)' : 'var(--tq-vacio)');
+      });
+      o += '</g>';
+      if (paso >= 18) o += R_(0, 0, 160, 90, 'var(--tq-sombra)', 'opacity="' + ((paso - 17) / 7).toFixed(2) + '"');
+      return o;
+    } },
+    escarcha: { ms: 640, pausa: 160, pintar: function (k, f, t, op) {
+      var paso = Math.round(escalon(k, 28) * 28), o, az = azarT(23);
+      if (paso === 0) return '';
+      var q = paso / 28;
+      o = R_(0, 0, 160, 90, 'var(--tq-vidrio)', 'opacity="' + (0.15 + 0.35 * q).toFixed(2) + '"');
+      for (var b = 0; b < 4; b++) {
+        var cx = b % 2 ? 160 : 0, cy = b > 1 ? 90 : 0, sx = b % 2 ? -1 : 1, sy = b > 1 ? -1 : 1;
+        for (var n = 0; n < 16; n++) {
+          var ang = az() * Math.PI / 2, largo = Math.round((24 + az() * 70) * q), dx = Math.cos(ang) * sx, dy = Math.sin(ang) * sy;
+          for (var r = 0; r < largo; r += 3) {
+            var x = Math.round(cx + dx * r), y = Math.round(cy + dy * r);
+            o += R_(x, y, 2, 2, r % 9 === 0 ? 'var(--tq-papel)' : 'var(--tq-crema-suave)');
+            if (r % 12 === 6) o += R_(x - 2, y + 1, 2, 1, 'var(--tq-papel)') + R_(x + 2, y - 1, 2, 1, 'var(--tq-papel)');
+          }
+        }
+      }
+      if (paso >= 26) o += R_(0, 0, 160, 90, 'var(--tq-crema-suave)', 'opacity=".85"') + (op.texto ? window.Px.texto(80, 49, plano(op.texto), 8, 'var(--tq-ventana-noche)') : '');
+      return o;
+    } },
+    sobres: { ms: 640, pausa: 140, pintar: function (k, fase) {
+      var q = escalon(k, 30), o = '', az = azarT(77);
+      for (var i = 0; i < 110; i++) {
+        var x = Math.floor(az() * 150) - 4, yf = Math.floor(az() * 96) - 8, ret = az() * 0.45, col = az() < 0.5;
+        var tt = Math.min(1, Math.max(0, (q - ret) / 0.55));
+        if (tt <= 0) continue;
+        var y = fase === 'cubre' ? Math.round(-20 + (yf + 20) * (1 - Math.pow(1 - tt, 3))) : Math.round(yf - (1 - tt) * 120);
+        var ladeo = Math.round((1 - tt) * 6) * (i % 2 ? 1 : -1);
+        o += '<g transform="translate(' + x + ' ' + y + ') rotate(' + ladeo + ' 10 7)">' + R_(0, 0, 22, 14, 'var(--tq-papel)') + R_(0, 13, 22, 1, 'var(--tq-papel-sombra)') +
+          R_(1, 1, 10, 1, 'var(--tq-papel-sombra)') + R_(11, 1, 10, 1, 'var(--tq-papel-sombra)') + R_(9, 6, 4, 4, col ? 'var(--tq-anil)' : 'var(--tq-comal)') + '</g>';
+      }
+      if (q >= 1) o = R_(0, 0, 160, 90, 'var(--tq-papel-sombra)') + o;
+      return o;
+    } }
+  };
+
+  var capaT = null, rafT = 0;
+  function opcionesTrans(n) {
+    var e = C.escenas[n] || {}, v = e.transicion || (C.transiciones && C.transiciones[n]) || C.transicion || 'persiana';
+    var op = typeof v === 'string' ? { tipo: v } : v;
+    if (!TRANS[op.tipo]) op = { tipo: 'persiana' };
+    return op;
+  }
+  function correrTrans(op, fase, fin) {
+    var tr = TRANS[op.tipo];
+    if (!capaT || !capaT.parentNode) {
+      capaT = document.createElement('div'); capaT.className = 'trans'; capaT.setAttribute('aria-hidden', 'true');
+      capaT.innerHTML = '<svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice"></svg>';
+      esce.appendChild(capaT);
+    }
+    var svg = capaT.firstChild, t0 = null, ult = null;
+    cancelAnimationFrame(rafT);
+    function paso(now) {
+      if (t0 === null) t0 = now;
+      var u = Math.min(1, (now - t0) / tr.ms), k = fase === 'cubre' ? u : 1 - u;
+      var html = tr.pintar(k, fase, now - t0, op);
+      if (html !== ult) { svg.innerHTML = html; ult = html; }
+      if (u < 1) { rafT = requestAnimationFrame(paso); return; }
+      if (fase === 'descubre' && capaT && capaT.parentNode) { capaT.parentNode.removeChild(capaT); capaT = null; }
+      if (fin) fin();
+    }
+    rafT = requestAnimationFrame(paso);
+  }
+  function transicion(n, entre) {
+    var op = opcionesTrans(n), tr = TRANS[op.tipo];
+    if (op.tipo === 'titulo' && !op.texto) op.texto = 'CASO ' + C.id;
+    sfx(tr.son || 'whoosh');
+    correrTrans(op, 'cubre', function () {
+      setTimeout(function () { entre(); correrTrans(op, 'descubre'); }, tr.pausa || 100);
+    });
+  }
+
   function ir(n) {
     if (n < 0 || n >= C.escenas.length) return;
     if (S && S.trans) return;
     if (!S || reducir) { montarEscena(n, false); return; }
     S.trans = true;
     pararCuenta();
-    sfx('whoosh');
-    cortina('cierra', function () { montarEscena(n, true); cortina('abre'); });
+    if (window.Px && window.requestAnimationFrame) transicion(n, function () { montarEscena(n, true); });
+    else { sfx('whoosh'); cortina('cierra', function () { montarEscena(n, true); cortina('abre'); }); }
   }
 
   /* ---------- toques sobre el dibujo (ratón, dedo o teclado) ---------- */

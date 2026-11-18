@@ -33,6 +33,7 @@
 
   window.CASO = {
     id: '2.3',
+    transiciones: { 1: 'escarcha', 2: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: 'LA VISPERA',
     volver: '../../index.html',
     resolver: 'caso.html',

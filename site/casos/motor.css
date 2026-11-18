@@ -93,6 +93,8 @@ svg text.px{font-family:"Press Start 2P","Courier New",monospace}
 .cortina i{display:block;background:var(--tq-sombra)}
 .cortina.cierra i{transform:scaleX(0);transform-origin:left;animation:cierra .32s steps(6) forwards;animation-delay:calc(var(--i) * 14ms)}
 .cortina.abre i{transform:scaleX(1);transform-origin:right;animation:abre .32s steps(6) forwards;animation-delay:calc(var(--i) * 14ms)}
+.trans{position:absolute;inset:0;z-index:7;pointer-events:none}
+.trans svg{width:100%;height:100%;display:block;shape-rendering:crispEdges}
 @keyframes cierra{to{transform:scaleX(1)}}
 @keyframes abre{to{transform:scaleX(0)}}
 .cuenta{height:6px;background:var(--vacio);display:none}
@@ -206,5 +208,5 @@ svg text.px{font-family:"Press Start 2P","Courier New",monospace}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .portada,.cortina,.flash{display:none!important}
+  .portada,.cortina,.trans,.flash{display:none!important}
 }

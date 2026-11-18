@@ -102,6 +102,7 @@
   /* ---------- guion ---------- */
   window.CASO = {
     id: '4.1',
+    transiciones: { 1: 'puerta', 2: 'giro', 3: 'mosaico', 4: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: 'LAS DOS SALAS',
     volver: '../../index.html',
     colab: 'https://colab.research.google.com/drive/1RU-0cMrnGaZ0BcnfXdkOaOyDBoO78UAD',

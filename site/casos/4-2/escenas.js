@@ -187,6 +187,7 @@
   /* ---------- guion ---------- */
   window.CASO = {
     id: '4.2',
+    transiciones: { 1: 'sobres', 2: 'giro', 3: 'barrido', 4: 'titulo' }, /* cómo se entra a cada escena (motor.js, TRANS) */
     titulo: '44 CONTRA 35',
     volver: '../../index.html',
     colab: 'https://colab.research.google.com/drive/1dTrByn08HxKMfNRSDoy44FqGrCGS97qG',
