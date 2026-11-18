@@ -1,0 +1,69 @@
+{
+  "caso": "1.2",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "8f0790b2a9f6",
+      "t": "Nueva York, otoño de 1936.",
+      "archivo": "8f0790b2a9f6.mp3"
+    },
+    {
+      "hash": "17d65e4b7008",
+      "t": "Cada mañana llegan más sacos de correo a una revista.",
+      "archivo": "17d65e4b7008.mp3"
+    },
+    {
+      "hash": "f653e686308e",
+      "t": "Adentro vienen postales con una sola pregunta: ¿por quién vas a votar?",
+      "archivo": "f653e686308e.mp3"
+    },
+    {
+      "hash": "1c46a94156da",
+      "t": "Se elige presidente: Franklin D. Roosevelt, que busca reelegirse, contra Alf Landon, gobernador de Kansas.",
+      "archivo": "1c46a94156da.mp3"
+    },
+    {
+      "hash": "509549381f4f",
+      "t": "La revista hace esta encuesta desde hace años, y en las últimas elecciones acertó.",
+      "archivo": "509549381f4f.mp3"
+    },
+    {
+      "hash": "f3be87c6e577",
+      "t": "El conteo final: 2,376,523 boletas.",
+      "archivo": "f3be87c6e577.mp3"
+    },
+    {
+      "hash": "d5651cac16c0",
+      "t": "Landon, 1,293,669. Roosevelt, 972,897.",
+      "archivo": "d5651cac16c0.mp3"
+    },
+    {
+      "hash": "86ae884c2efe",
+      "t": "Una cifra enorme para cualquier encuesta.",
+      "archivo": "86ae884c2efe.mp3"
+    },
+    {
+      "hash": "207ff830e90c",
+      "t": "Toca un saco para ver qué trae.",
+      "archivo": "207ff830e90c.mp3"
+    },
+    {
+      "hash": "add5ec57bd7b",
+      "t": "El 31 de octubre la revista publica su pronóstico: gana Landon.",
+      "archivo": "add5ec57bd7b.mp3"
+    },
+    {
+      "hash": "d9ff1884cd6d",
+      "t": "Faltan unos días para la elección.",
+      "archivo": "d9ff1884cd6d.mp3"
+    },
+    {
+      "hash": "f8754434789f",
+      "t": "¿Qué harías tú con este expediente?",
+      "archivo": "f8754434789f.mp3"
+    }
+  ]
+}

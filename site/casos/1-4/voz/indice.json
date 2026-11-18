@@ -1,0 +1,44 @@
+{
+  "caso": "1.4",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "e1bbe1c88cf0",
+      "t": "20 de septiembre de 2017. El huracán María cruza Puerto Rico.",
+      "archivo": "e1bbe1c88cf0.mp3"
+    },
+    {
+      "hash": "7466733609ca",
+      "t": "Toca la isla para ver el antes y el después.",
+      "archivo": "7466733609ca.mp3"
+    },
+    {
+      "hash": "f30140b929b8",
+      "t": "En diciembre, la cifra oficial de muertes es 64.",
+      "archivo": "f30140b929b8.mp3"
+    },
+    {
+      "hash": "b39ffe8f8470",
+      "t": "Toca la carpeta para ver qué pasó después.",
+      "archivo": "b39ffe8f8470.mp3"
+    },
+    {
+      "hash": "84c64bec07c3",
+      "t": "Un número oficial. Un registro de defunciones.",
+      "archivo": "84c64bec07c3.mp3"
+    },
+    {
+      "hash": "48001d463d40",
+      "t": "Nadie sabe todavía cuál dice la verdad.",
+      "archivo": "48001d463d40.mp3"
+    },
+    {
+      "hash": "aea93c90ad81",
+      "t": "¿Qué tendrías que revisar antes de creerle a una cifra oficial?",
+      "archivo": "aea93c90ad81.mp3"
+    }
+  ]
+}

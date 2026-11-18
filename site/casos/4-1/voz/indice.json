@@ -1,0 +1,79 @@
+{
+  "caso": "4.1",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "158bec2a09e9",
+      "t": "Viena, 1847. Un hospital enorme, de noche.",
+      "archivo": "158bec2a09e9.mp3"
+    },
+    {
+      "hash": "3b0743981098",
+      "t": "Dentro hay dos salas de maternidad.",
+      "archivo": "3b0743981098.mp3"
+    },
+    {
+      "hash": "42e148a3f762",
+      "t": "Elige una y cruza la puerta: toca la 1 o la 2.",
+      "archivo": "42e148a3f762.mp3"
+    },
+    {
+      "hash": "20b213b2ee3f",
+      "t": "Clínica 1: la atienden médicos y estudiantes de medicina.",
+      "archivo": "20b213b2ee3f.mp3"
+    },
+    {
+      "hash": "a59c59c7e607",
+      "t": "Clínica 2: la atienden parteras.",
+      "archivo": "a59c59c7e607.mp3"
+    },
+    {
+      "hash": "fbff5a9f60ef",
+      "t": "Mismo hospital, dos equipos distintos. Toca a las personas.",
+      "archivo": "fbff5a9f60ef.mp3"
+    },
+    {
+      "hash": "52c98368b4ec",
+      "t": "Año 1846. Cada cuadro es una madre que ingresa al hospital.",
+      "archivo": "52c98368b4ec.mp3"
+    },
+    {
+      "hash": "23bfb8d3368e",
+      "t": "Cien madres en cada sala. Pulsa JUGAR y mira qué pasó.",
+      "archivo": "23bfb8d3368e.mp3"
+    },
+    {
+      "hash": "35aefa0963b3",
+      "t": "Un hospital. Dos resultados.",
+      "archivo": "35aefa0963b3.mp3"
+    },
+    {
+      "hash": "ca2f0869109a",
+      "t": "Por cada madre que moría en la clínica 2, morían unas cuatro en la clínica 1.",
+      "archivo": "ca2f0869109a.mp3"
+    },
+    {
+      "hash": "4bab4fd10dac",
+      "t": "En 1847, nadie en Viena sabía por qué.",
+      "archivo": "4bab4fd10dac.mp3"
+    },
+    {
+      "hash": "f74d0ff04466",
+      "t": "Este caso sigue sin resolverse.",
+      "archivo": "f74d0ff04466.mp3"
+    },
+    {
+      "hash": "6dc76e97421d",
+      "t": "Tu turno, detective.",
+      "archivo": "6dc76e97421d.mp3"
+    },
+    {
+      "hash": "8413f6bb2073",
+      "t": "¿Puedes encontrar la causa con los mismos datos que tuvieron en 1847?",
+      "archivo": "8413f6bb2073.mp3"
+    }
+  ]
+}

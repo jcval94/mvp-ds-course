@@ -1,0 +1,69 @@
+{
+  "caso": "4.2",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "899adf29d501",
+      "t": "Berkeley, California. Otoño de 1973.",
+      "archivo": "899adf29d501.mp3"
+    },
+    {
+      "hash": "4ce860eb2e2f",
+      "t": "Miles de personas esperan una respuesta: sí o no.",
+      "archivo": "4ce860eb2e2f.mp3"
+    },
+    {
+      "hash": "0731d8f3825a",
+      "t": "Cada solicitud termina en un sobre. Ábrelos.",
+      "archivo": "0731d8f3825a.mp3"
+    },
+    {
+      "hash": "354cea251103",
+      "t": "Dos filas: los hombres a un lado, las mujeres al otro.",
+      "archivo": "354cea251103.mp3"
+    },
+    {
+      "hash": "7a3eeb728401",
+      "t": "Todos esperan lo mismo: un sobre cerrado.",
+      "archivo": "7a3eeb728401.mp3"
+    },
+    {
+      "hash": "fca982182131",
+      "t": "Dentro de cada uno: un sí o un no.",
+      "archivo": "fca982182131.mp3"
+    },
+    {
+      "hash": "d144aaaa565f",
+      "t": "Cada cuadro es una persona que solicitó entrar a un posgrado.",
+      "archivo": "d144aaaa565f.mp3"
+    },
+    {
+      "hash": "86ebe2b03baf",
+      "t": "Abre los sobres y cuenta cuántos entraron.",
+      "archivo": "86ebe2b03baf.mp3"
+    },
+    {
+      "hash": "c0d58ebf5527",
+      "t": "Ponle números a la balanza: toca cada platillo.",
+      "archivo": "c0d58ebf5527.mp3"
+    },
+    {
+      "hash": "7f193e50559f",
+      "t": "Un número no basta para condenar a nadie.",
+      "archivo": "7f193e50559f.mp3"
+    },
+    {
+      "hash": "d8fb832f32e6",
+      "t": "Tu turno, analista.",
+      "archivo": "d8fb832f32e6.mp3"
+    },
+    {
+      "hash": "485dc905f1b5",
+      "t": "Antes de decidir, ¿qué le preguntarías a los datos?",
+      "archivo": "485dc905f1b5.mp3"
+    }
+  ]
+}

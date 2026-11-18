@@ -1,0 +1,79 @@
+{
+  "caso": "1.1",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "a3eb2df3a9de",
+      "t": "1943. Los aviones vuelven de su misión.",
+      "archivo": "a3eb2df3a9de.mp3"
+    },
+    {
+      "hash": "e4c4e9d81eae",
+      "t": "Los mecánicos revisan cada uno al aterrizar.",
+      "archivo": "e4c4e9d81eae.mp3"
+    },
+    {
+      "hash": "e4f8ecc2e371",
+      "t": "Toca cada avión para revisarlo.",
+      "archivo": "e4f8ecc2e371.mp3"
+    },
+    {
+      "hash": "a36a5353e532",
+      "t": "En Nueva York, un grupo de matemáticos trabaja para la guerra.",
+      "archivo": "a36a5353e532.mp3"
+    },
+    {
+      "hash": "774a58ae59c7",
+      "t": "Del ejército les llegan preguntas con datos.",
+      "archivo": "774a58ae59c7.mp3"
+    },
+    {
+      "hash": "97b80b88aacd",
+      "t": "Esta vez llega el registro de los agujeros. Asómate a la ventana.",
+      "archivo": "97b80b88aacd.mp3"
+    },
+    {
+      "hash": "2d560e70f816",
+      "t": "Cada agujero de los aviones que volvieron va a un mapa.",
+      "archivo": "2d560e70f816.mp3"
+    },
+    {
+      "hash": "cb17f41eab15",
+      "t": "Pulsa MARCAR para ponerlos todos.",
+      "archivo": "cb17f41eab15.mp3"
+    },
+    {
+      "hash": "3de71754ceb3",
+      "t": "El blindaje pesa: solo alcanza para unas pocas zonas.",
+      "archivo": "3de71754ceb3.mp3"
+    },
+    {
+      "hash": "0cbe4f21a5d1",
+      "t": "La idea más obvia: ponerlo donde hay más agujeros.",
+      "archivo": "0cbe4f21a5d1.mp3"
+    },
+    {
+      "hash": "7e8ad723eeda",
+      "t": "Antes de ordenarlo, conviene mirar los datos otra vez.",
+      "archivo": "7e8ad723eeda.mp3"
+    },
+    {
+      "hash": "fdcb1872a98a",
+      "t": "El blindaje alcanza para pocas zonas.",
+      "archivo": "fdcb1872a98a.mp3"
+    },
+    {
+      "hash": "d8fb832f32e6",
+      "t": "Tu turno, analista.",
+      "archivo": "d8fb832f32e6.mp3"
+    },
+    {
+      "hash": "1c9e648d2506",
+      "t": "Tienes el mapa de cada agujero. ¿Te alcanza para decidir?",
+      "archivo": "1c9e648d2506.mp3"
+    }
+  ]
+}

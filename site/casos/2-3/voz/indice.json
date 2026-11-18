@@ -1,0 +1,49 @@
+{
+  "caso": "2.3",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "ed3aef422d20",
+      "t": "Florida, enero de 1986. El Challenger espera en la plataforma.",
+      "archivo": "ed3aef422d20.mp3"
+    },
+    {
+      "hash": "d937ff46474a",
+      "t": "Para la hora del lanzamiento se pronostican unos 26 °F.",
+      "archivo": "d937ff46474a.mp3"
+    },
+    {
+      "hash": "4dc8e172f31b",
+      "t": "Ningún vuelo había despegado con tanto frío. Toca el agua.",
+      "archivo": "4dc8e172f31b.mp3"
+    },
+    {
+      "hash": "764ca7e2ff20",
+      "t": "27 de enero, de noche. NASA llama a Morton Thiokol, que fabrica los cohetes.",
+      "archivo": "764ca7e2ff20.mp3"
+    },
+    {
+      "hash": "1698490d5e79",
+      "t": "Toca el teléfono para ver la hora de la llamada.",
+      "archivo": "1698490d5e79.mp3"
+    },
+    {
+      "hash": "5b636bf9fc60",
+      "t": "Hay un historial de vuelos anteriores.",
+      "archivo": "5b636bf9fc60.mp3"
+    },
+    {
+      "hash": "b596f22e5913",
+      "t": "La decisión se toma esta noche.",
+      "archivo": "b596f22e5913.mp3"
+    },
+    {
+      "hash": "bf6e3f37f29c",
+      "t": "¿Qué tendrías que ver antes de decir sí o no?",
+      "archivo": "bf6e3f37f29c.mp3"
+    }
+  ]
+}

@@ -11,6 +11,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
+from .voz import validate_case_voice
 from .config import (
     FORBIDDEN_TRACKED_PREFIXES,
     FORBIDDEN_TRACKED_SUFFIXES,
@@ -363,6 +364,7 @@ def run(root: Path = ROOT) -> dict[str, Any]:
     errors += validate_design_tokens(root)
     errors += validate_color_literals(root)
     errors += validate_case_media(root)
+    errors += validate_case_voice(root)
     errors += validate_notebook_links(root)
     hygiene_errors, report = validate_repo_hygiene(load_course(root), root)
     errors += hygiene_errors

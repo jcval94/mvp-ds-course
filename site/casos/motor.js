@@ -51,8 +51,14 @@
     pregunta: [[330, 0.12, 'square'], [392, 0.12, 'square', 0.12], [494, 0.24, 'square', 0.24]],
     moneda: [[988, 0.05, 'square'], [1319, 0.1, 'square', 0.05]]
   };
+  var maestro = null;
   function asegurarAudio() {
-    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    if (!audio) {
+      audio = new (window.AudioContext || window.webkitAudioContext)();
+      maestro = audio.createGain();
+      maestro.gain.value = voz.habla ? 0.25 : 1;
+      maestro.connect(audio.destination);
+    }
     if (audio.state === 'suspended') audio.resume();
   }
   function tono(f, d, tipo, retraso) {
@@ -64,7 +70,7 @@
       o.type = tipo || 'square'; o.frequency.value = f;
       g.gain.setValueAtTime(0.035, t0);
       g.gain.exponentialRampToValueAtTime(0.0001, t0 + d);
-      o.connect(g); g.connect(audio.destination);
+      o.connect(g); g.connect(maestro);
       o.start(t0); o.stop(t0 + d);
     } catch (e) { /* sin audio: no pasa nada */ }
   }
@@ -75,7 +81,7 @@
       for (var i = 0; i < ch.length; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / ch.length);
       var s = audio.createBufferSource(), g = audio.createGain(), f = audio.createBiquadFilter();
       s.buffer = buf; g.gain.value = vol; f.type = 'lowpass'; f.frequency.value = filtro || 800;
-      s.connect(f); f.connect(g); g.connect(audio.destination);
+      s.connect(f); f.connect(g); g.connect(maestro);
       s.start(audio.currentTime + (retraso || 0));
     } catch (e) { /* sin audio */ }
   }
@@ -86,6 +92,59 @@
     });
   }
 
+  /* ---------- voz narrada (apagada por defecto) ----------
+     Cada línea tiene su audio en voz/<hash>.mp3, listado en voz/indice.json (lo genera scripts/tts_intros).
+     Si falta el audio o no carga, lee la voz es-MX del navegador. Mientras habla, el sonido 8 bits baja
+     y el avance automático espera a que termine la línea. */
+  var voz = { on: false, habla: false, pista: {}, el: null, n: 0, luego: [] };
+  function bajarSonido(si) {
+    voz.habla = si;
+    if (maestro) maestro.gain.setTargetAtTime(si ? 0.25 : 1, audio.currentTime, 0.08);
+  }
+  function callar(seguir) {
+    voz.n += 1;
+    if (voz.el) { voz.el.onended = voz.el.onerror = null; voz.el.pause(); voz.el = null; }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    var pend = voz.luego; voz.luego = [];
+    bajarSonido(false);
+    if (seguir) pend.forEach(function (f) { f(); });
+  }
+  function hablar(textos) {
+    callar();
+    if (!voz.on || !textos.length) return;
+    var n = voz.n, cola = textos.slice();
+    bajarSonido(true);
+    function decirUno() {
+      var t = cola.shift(), hecho = false, guardia = 0;
+      function acabar() {
+        if (hecho || voz.n !== n) return;
+        hecho = true; clearTimeout(guardia); voz.el = null;
+        if (cola.length) { decirUno(); return; }
+        callar(true);
+      }
+      function navegador() {
+        var ss = window.speechSynthesis;
+        if (!ss || !window.SpeechSynthesisUtterance) { acabar(); return; }
+        var u = new window.SpeechSynthesisUtterance(t), vs = ss.getVoices();
+        u.lang = 'es-MX';
+        u.voice = vs.filter(function (v) { return v.lang === 'es-MX'; })[0] || vs.filter(function (v) { return /^es/i.test(v.lang); })[0] || null;
+        u.onend = u.onerror = acabar;
+        ss.speak(u);
+      }
+      /* si el navegador nunca avisa que terminó, el guion no se queda atorado */
+      guardia = setTimeout(acabar, 3000 + t.length * 120);
+      var src = voz.pista[t];
+      if (!src || !window.Audio) { navegador(); return; }
+      var el = voz.el = new window.Audio(src), fallo = false;
+      var plan = function () { if (fallo || hecho || voz.n !== n) return; fallo = true; voz.el = null; navegador(); };
+      el.onended = acabar; el.onerror = plan;
+      var p = el.play(); if (p && p.catch) p.catch(plan);
+    }
+    decirUno();
+  }
+  /* corre fn cuando la voz termina la línea (de inmediato si no está hablando) */
+  function trasVoz(fn) { if (voz.habla) voz.luego.push(fn); else fn(); }
+
   /* ---------- armazón ---------- */
   raiz.innerHTML =
     '<div class="sup">' +
@@ -93,6 +152,7 @@
       '<div class="fila">' +
         '<button class="mini" id="aut" type="button" aria-pressed="false">AUTO: SI</button>' +
         '<button class="mini" id="snd" type="button" aria-pressed="false">SONIDO: NO</button>' +
+        '<button class="mini" id="voz" type="button" aria-pressed="false">VOZ: NO</button>' +
       '</div>' +
     '</div>' +
     '<div class="meta">' +
@@ -117,7 +177,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var esce = $('escenario'), lienzo = $('lienzo'), caja = $('caja'), extra = $('extra'), sr = $('sr'), pips = $('pips');
   var cuenta = $('cuenta'), vis = caja.querySelector('.vis'), fan = caja.querySelector('.fan');
-  var atras = $('atras'), sig = $('sig'), saltar = $('saltar'), snd = $('snd'), aut = $('aut');
+  var atras = $('atras'), sig = $('sig'), saltar = $('saltar'), snd = $('snd'), aut = $('aut'), bvoz = $('voz');
   aut.textContent = 'AUTO: ' + (auto ? 'SI' : 'NO');
   aut.setAttribute('aria-pressed', String(auto));
   C.escenas.forEach(function () { pips.appendChild(document.createElement('span')).className = 'pip'; });
@@ -310,6 +370,7 @@
     decir: function (t) {
       if (S.timerLinea) { clearTimeout(S.timerLinea); S.timerLinea = 0; }
       pararCuenta();
+      callar();
       escribir(t);
     },
     enTocar: function (fn) { S.alTocar = fn; },
@@ -412,6 +473,14 @@
   /* ---------- narración por líneas ---------- */
   function dwell(t) { return 1000 + t.length * 38; }
 
+  /* pausa de lectura tras escribir la línea i; con VOZ espera además a que la voz la termine */
+  function esperarLectura(i) {
+    var tok = S.tok, faltan = 2;
+    function uno() { if (--faltan === 0 && S && S.tok === tok && S.linea === i) mostrarLinea(i + 1); }
+    S.timerLinea = setTimeout(uno, voz.on ? 600 : dwell(S.e.lineas[i].t));
+    trasVoz(function () { setTimeout(uno, voz.on ? 350 : 0); });
+  }
+
   function pararCuenta() {
     if (S.timerCuenta) { clearTimeout(S.timerCuenta); S.timerCuenta = 0; }
     var i = cuenta.firstChild; i.style.transition = 'none'; i.style.width = '0';
@@ -423,12 +492,12 @@
     S.linea = i;
     if (S.e.final) sig.hidden = i >= S.e.lineas.length - 1;
     if (S.timerLinea) { clearTimeout(S.timerLinea); S.timerLinea = 0; }
-    var tok = S.tok;
+    hablar([l.t]);
     escribir(l.t, function () {
       var ultima = S.e.lineas.length - 1;
       if (S.e.final && i >= Math.min(auto ? 1 : 0, ultima) && !extra.querySelector('.ficha')) fichaFinal();
       if (i < ultima) {
-        if (auto) S.timerLinea = setTimeout(function () { if (S && S.tok === tok) mostrarLinea(i + 1); }, dwell(l.t));
+        if (auto) esperarLectura(i);
       } else {
         S.fin = true;
         if (S.e.final) return;
@@ -440,7 +509,9 @@
 
   function preparaAvance() {
     if (!auto) { sig.classList.add('late'); return; }
-    var tok = S.tok, ms = Math.max(2200, dwell(S.texto) * 0.6);
+    var tok = S.tok;
+    if (voz.habla) { trasVoz(function () { if (S && S.tok === tok && auto) preparaAvance(); }); return; }
+    var ms = Math.max(2200, dwell(S.texto) * 0.6);
     var i = cuenta.firstChild;
     cuenta.classList.add('on');
     i.style.transition = 'none'; i.style.width = '0'; void i.offsetWidth;
@@ -502,6 +573,7 @@
       '<dl class="tiempos"><div><dt>INTRO</dt><dd>' + esc(C.duracionIntro) + '</dd></div>' +
       '<div><dt>' + (C.resolver ? 'CASO' : 'CUADERNO') + '</dt><dd>' + esc(C.duracionCaso || C.duracionCuaderno) + '</dd></div></dl>' +
       herr + despues + (C.aviso ? '<p class="nota"><b>Aviso de contenido.</b> ' + esc(C.aviso) + '</p>' : '') + cta +
+      '<p class="nota">La narración (botón VOZ) es voz sintética, generada con OpenAI TTS; si falta un audio, lee la voz de tu navegador.</p>' +
       (fuentes ? '<details class="fuentes"><summary>Fuentes de las cifras</summary><ul>' + fuentes + '</ul></details>' : '') +
       (creditos ? '<details class="fuentes"><summary>Material de archivo y créditos</summary><ul>' + creditos + '</ul></details>' : '') +
       '<button class="enlace" id="repetir" type="button">Ver la intro otra vez</button>';
@@ -511,6 +583,7 @@
 
   /* ---------- escenas y transiciones ---------- */
   function limpiar() {
+    callar();
     tweens.length = 0;
     parts.forEach(function (q) { if (q.el.parentNode) q.el.parentNode.removeChild(q.el); });
     parts.length = 0;
@@ -551,6 +624,7 @@
     var empezar = function () {
       if (reducir) {
         escribir(e.lineas.map(function (l) { return l.t; }).join(' '));
+        hablar(e.lineas.map(function (l) { return l.t; }));
         e.lineas.forEach(function (l) { if (l.al) l.al(g); });
         S.fin = true;
         if (!e.final && !e.interactiva) sig.classList.add('late');
@@ -612,6 +686,13 @@
     snd.setAttribute('aria-pressed', String(sonidoOn));
     sfx('pop');
   });
+  bvoz.addEventListener('click', function () {
+    voz.on = !voz.on;
+    bvoz.textContent = 'VOZ: ' + (voz.on ? 'SI' : 'NO');
+    bvoz.setAttribute('aria-pressed', String(voz.on));
+    /* al encenderla lee la línea en pantalla; al apagarla, el guion sigue sin esperar */
+    if (voz.on && S && S.texto) hablar(reducir ? S.e.lineas.map(function (l) { return l.t; }) : [S.texto]); else callar(true);
+  });
   aut.addEventListener('click', function () {
     auto = !auto;
     aut.textContent = 'AUTO: ' + (auto ? 'SI' : 'NO');
@@ -622,7 +703,7 @@
       if (S.fin && !S.e.final) sig.classList.add('late');
     } else if (S && !S.tecleo) {
       if (S.fin && !S.e.interactiva && !S.e.final) preparaAvance();
-      else if (!S.fin) { var l = S.e.lineas[S.linea]; var tok = S.tok; S.timerLinea = setTimeout(function () { if (S && S.tok === tok) mostrarLinea(S.linea + 1); }, dwell(l.t)); }
+      else if (!S.fin) esperarLectura(S.linea);
     }
   });
   document.addEventListener('keydown', function (e) {
@@ -637,6 +718,11 @@
   window.__intro = { ir: ir, g: g, estado: function () { return S; }, medios: function () { return MED_LISTA.slice(); } };
 
   /* arranque: si el caso declara su material real, se carga antes de la primera escena (máximo 1.5 s de espera) */
+  if (window.fetch) {
+    fetch('voz/indice.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (ix) {
+      ((ix && ix.lineas) || []).forEach(function (l) { if (l && l.t && l.archivo) voz.pista[l.t] = 'voz/' + l.archivo; });
+    }).catch(function () { /* sin audios: la voz del navegador lee las líneas */ });
+  }
   var arrancado = false;
   function arrancar() { if (arrancado) return; arrancado = true; ir(0); }
   if (C.medios && window.fetch) {
