@@ -47,6 +47,9 @@ cada clase. El tablero interactivo con todos los indicadores de cada caso vive e
 
 | Clase | Título | Temas de la clase | Caso principal (hábito) | Costo del error (hábito) | Opciones secundarias |
 | --- | --- | --- | --- | --- | --- |
+> Ids de los casos de costo del Módulo 1: **E64** es el caso **1.4** Puerto Rico y **E48** es el **13.11** Vuelo 143 (Gimli);
+> las carpetas de `site/casos/`, el SQL y las fichas usan 1.4 y 13.11.
+
 | 1 · vie 8 ene | **¿Qué aviones no volvieron?** | Sesgo de supervivencia, Faltantes no aleatorios, Proceso generador de datos, Definir la variable, Exceso sobre lo esperado | 1.1 Abraham Wald y los bombarderos (`faltan`) | E64 Puerto Rico: 64 o 2,975 (`mide`) | N01 (calentamiento), 1.3, E02, E03, E04 |
 | 2 · sáb 9 ene | **2.4 millones de boletas equivocadas** | Marco muestral y no respuesta, Tamaño frente a representatividad, Unidades y factores de conversión, Validar rangos, Totales de control | 1.2 La encuesta del Literary Digest (`faltan`) | E48 El planeador de Gimli (`verificar`) | 13.7 (tarea), E44 (tarea), E01, 13.1 |
 
