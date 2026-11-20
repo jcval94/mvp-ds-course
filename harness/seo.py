@@ -16,6 +16,10 @@ from .config import HarnessError, load_missions
 SITEMAP_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
 ROBOTS = "User-agent: *\nAllow: /\n"
 TODO_DESCRIPTION = "TODO: derivar descripción del contenido de esta página."
+# Imagen para compartir (WhatsApp, LinkedIn): la genera scripts/imagen_social/generar.py.
+SOCIAL_IMAGE = "assets/compartir.png"
+SOCIAL_IMAGE_ALT = "The Agentic Data Scientist: ciencia de datos e IA desde cero, con casos reales"
+SITE_NAME = "The Agentic Data Scientist"
 
 
 def base_url(course: dict[str, Any]) -> str:
@@ -47,6 +51,7 @@ class PageMetadata(HTMLParser):
         self.descriptions: list[tuple[dict, bool, int, int]] = []
         self.noindex = False
         self.redirect = False
+        self.sociales: dict[str, tuple[dict, bool, int, int]] = {}
         self.titles: list[str] = []
         self.headings: list[str] = []
         self.capture: str | None = None
@@ -75,6 +80,9 @@ class PageMetadata(HTMLParser):
                 self.noindex |= bool(re.search(r"\b(noindex|none)\b", data.get("content") or "", re.I))
             if self.in_head and (data.get("http-equiv") or "").lower() == "refresh":
                 self.redirect = True
+            clave = (data.get("property") or data.get("name") or "").lower()
+            if self.in_head and (clave.startswith("og:") or clave.startswith("twitter:")):
+                self.sociales.setdefault(clave, entry)
         if tag in {"script", "style", "template"}:
             self.hidden_depth += 1
         if not self.hidden_depth and (tag == "title" or (tag == "h1" and not any(self.headings))):
@@ -162,9 +170,79 @@ def public_pages(course: dict[str, Any], root: Path, dist: Path) -> list[str]:
     return pages
 
 
+def social_tags(base: str, relative: str, metadata: PageMetadata) -> dict[str, str]:
+    """Lo que una página pública debe declarar para verse bien al compartirla."""
+    def actual(clave: str) -> str:
+        entry = metadata.sociales.get(clave)
+        return (entry[0].get("content") or "").strip() if entry else ""
+    description = next((tag[0].get("content", "").strip() for tag in metadata.descriptions if tag[1]), "")
+    title = next((value for value in metadata.titles if value), "") or SITE_NAME
+    return {
+        "og:type": actual("og:type") or "website",
+        "og:locale": actual("og:locale") or "es_MX",
+        "og:site_name": actual("og:site_name") or SITE_NAME,
+        "og:title": actual("og:title") or title,
+        "og:description": actual("og:description") or description,
+        "og:url": page_url(base, relative),
+        "og:image": f"{base}/{SOCIAL_IMAGE}",
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:image:alt": SOCIAL_IMAGE_ALT,
+        "twitter:card": "summary_large_image",
+    }
+
+
+def inject_social(course: dict[str, Any], root: Path, dist: Path) -> None:
+    """Agrega solo las etiquetas que faltan; og:url y og:image se fijan desde build.base_url."""
+    base = base_url(course)
+    for relative in public_pages(course, root, dist):
+        page = dist / relative
+        text = page.read_text(encoding="utf-8")
+        metadata = PageMetadata(text)
+        wanted = social_tags(base, relative, metadata)
+        edits = []
+        for clave in ("og:url", "og:image", "og:image:width", "og:image:height", "twitter:card"):
+            entry = metadata.sociales.get(clave)
+            if entry and (entry[0].get("content") or "") != wanted[clave]:
+                edits.append((entry[2], entry[3], ""))
+        lines = []
+        for clave, valor in wanted.items():
+            entry = metadata.sociales.get(clave)
+            if entry and (entry[0].get("content") or "") == valor:
+                continue
+            if entry and clave not in {"og:url", "og:image", "og:image:width", "og:image:height", "twitter:card"}:
+                continue
+            attr = "name" if clave.startswith("twitter:") else "property"
+            lines.append(f'<meta {attr}="{clave}" content="{escape(valor, quote=True)}">\n')
+        if not lines and not edits:
+            continue
+        edits.append((metadata.head_end, metadata.head_end, "".join(lines)))
+        for start, end, replacement in sorted(edits, reverse=True):
+            text = text[:start] + replacement + text[end:]
+        page.write_text(text, encoding="utf-8")
+
+
+def check_social(course: dict[str, Any], root: Path, dist: Path) -> list[str]:
+    base = base_url(course)
+    errors = []
+    if not (dist / SOCIAL_IMAGE).is_file():
+        errors.append(f"{SOCIAL_IMAGE}: falta la imagen para compartir")
+    for relative in public_pages(course, root, dist):
+        metadata = PageMetadata((dist / relative).read_text(encoding="utf-8"))
+        wanted = social_tags(base, relative, metadata)
+        for clave in ("og:title", "og:description", "og:url", "og:image", "twitter:card"):
+            entry = metadata.sociales.get(clave)
+            if not entry or not (entry[0].get("content") or "").strip():
+                errors.append(f"{relative}: falta {clave} para compartir el enlace")
+            elif clave in {"og:url", "og:image", "twitter:card"} and entry[0].get("content") != wanted[clave]:
+                errors.append(f"{relative}: {clave} debe ser «{wanted[clave]}»")
+    return errors
+
+
 def write_seo(course: dict[str, Any], root: Path, dist: Path) -> list[str]:
     base = base_url(course)
     todos = inject_metadata(dist, base)
+    inject_social(course, root, dist)
     urls = [page_url(base, page) for page in public_pages(course, root, dist)]
     # No Sitemap directive in robots: the absolute base is permitted only in
     # canonical and sitemap. /sitemap.xml remains at the conventional location.
@@ -209,9 +287,14 @@ def portability_text(text: str, relative: str, base: str) -> str:
     """Mask only the exact canonical URL slot / valid sitemap loc slots for scans."""
     if relative.endswith(".html"):
         metadata = PageMetadata(text)
-        for attrs, in_head, start, end in reversed(metadata.canonicals):
-            if in_head and attrs == {"rel": "canonical", "href": page_url(base, relative)}:
-                text = text[:start] + text[end:]
+        slots = [(start, end) for attrs, in_head, start, end in metadata.canonicals
+                 if in_head and attrs == {"rel": "canonical", "href": page_url(base, relative)}]
+        for clave, valor in (("og:url", page_url(base, relative)), ("og:image", f"{base}/{SOCIAL_IMAGE}")):
+            entry = metadata.sociales.get(clave)
+            if entry and entry[0].get("content") == valor:
+                slots.append((entry[2], entry[3]))
+        for start, end in sorted(slots, reverse=True):
+            text = text[:start] + text[end:]
     elif relative == "sitemap.xml":
         # Only loc text in the sitemap namespace is an authorized URL slot.
         try:

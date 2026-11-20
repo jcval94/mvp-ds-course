@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from .config import DIST, HOST_CONFIG_FILES, LEGACY_BUILD, ROOT, HarnessError, load_course, load_missions
-from .seo import base_url, inject_metadata, write_seo
+from .seo import base_url, inject_metadata, inject_social, write_seo
 
 PUBLIC_MISSION_STATES = {"ready", "published"}
 NON_PUBLISHED_NAMES = {"README.md", "AGENTS.md", "CLAUDE.md", "REFERENCE.md"}
@@ -145,6 +145,7 @@ def build(root: Path = ROOT, dist: Path | None = None, *, docente: bool = False)
         seo_base = base_url(course)
         # Preserve factory/dist metadata parity only for the published student build.
         inject_metadata(root / LEGACY_BUILD.name, seo_base)
+        inject_social(course, root, root / LEGACY_BUILD.name)
     if not docente:
         # Accesibilidad no visual solo para páginas generadas y cápsulas (site/ se corrige en su marcado).
         from .a11y.inject import inject
