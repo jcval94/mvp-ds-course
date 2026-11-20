@@ -461,7 +461,7 @@
     }
     if (S.esquema) {
       const nunca = A.filter((a) => !a.ultimo_acceso);
-      if (nunca.length) alerta(`${plural(nunca.length, "alumno nunca ha entrado", "alumnos nunca han entrado")}`, "Ni a Colab ni a Mi avance: revisa que tengan sus secretos.", nunca.length > n / 3, ["Ver quiénes", verAlumnos("sin_entrar")]);
+      if (nunca.length) alerta(`${plural(nunca.length, "alumno nunca ha entrado", "alumnos nunca han entrado")}`, "Ni a Mi avance ni a un caso. Revisa que entren con el Gmail con el que se inscribieron.", nunca.length > n / 3, ["Ver quiénes", verAlumnos("sin_entrar")]);
     }
     const inactivos = A.filter((a) => a.ultima && !activo(a, 7 * DIA));
     if (inactivos.length) alerta(`${inactivos.length} sin actividad en 7 días`, inactivos.slice(0, 3).map((a) => a.nombre).join(", ") + (inactivos.length > 3 ? "…" : ""), false, ["Ver lista", verAlumnos("inactivos")]);
@@ -493,7 +493,10 @@
       else if (Date.now() - new Date(respaldo.creado) > 7 * DIA) alerta(`Último respaldo ${relativo(respaldo.creado)}`, "Corre el paso 10 del instalador.", Date.now() - new Date(respaldo.creado) > 14 * DIA);
     }
     $("#alertasNota").textContent = ul.children.length ? plural(ul.children.length, "punto", "puntos") : "";
-    if (!ul.children.length) alerta("Todo en orden", "Sin pendientes por ahora.", false);
+    if (!ul.children.length) {
+      if (!n) alerta("Todavía no hay alumnos aquí", ADMIN ? "Las alertas aparecen cuando des de alta alumnos en un grupo." : "Las alertas aparecen cuando la administración te asigne alumnos.", false, ADMIN ? ["Ver alumnos", () => irA("alumnos")] : null);
+      else alerta("Sin alertas por ahora", ADMIN ? "Se revisan grupos, accesos, actividad, entregas, retos, respuestas por calificar y respaldo." : "Se revisan accesos, actividad, entregas, retos y respuestas por calificar.", false);
+    }
   }
 
   // ---------- Alumnos ----------
