@@ -311,8 +311,7 @@
         ctx.h3('LA MISMA IDEA EN LA TAQUERIA');
         cuerpo.appendChild(ctx.tabla(['EN LA TAQUERIA', 'EN 1855'], [
           ['Don Juan vendió 30 tacos entre las 2 y las 3 de la tarde', 'En enero murieron unos 85 de cada 1,000 soldados por enfermedad'],
-          ['Dice: «a este ritmo, son 720 al día»', 'La tabla dice: 1,022.8 por cada 1,000, al año'],
-          ['Es el ritmo de una hora llevado a 24', 'Es el ritmo de un mes llevado a 12']], { caja: 'La misma idea en la taquería' }));
+          ['Dice: «a este ritmo, son 720 al día»', 'La tabla dice: 1,022.8 por cada 1,000, al año']], { caja: 'La misma idea en la taquería' }));
         ctx.reto({ id: 'reto_taqueria_ritmo', titulo: '★ RETO 6', dificultad: 1, tipo: 'opcion',
           pregunta: '¿Qué mide el 720 de Don Juan?',
           opciones: ['Lo que vendería si todo el día fuera como esa hora', 'Lo que vendió ese día', 'Lo que vende en promedio cada día', 'Lo que venderá mañana a la misma hora'],
