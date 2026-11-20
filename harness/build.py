@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from .config import DIST, HOST_CONFIG_FILES, LEGACY_BUILD, ROOT, HarnessError, load_course, load_missions
+from .marcas import limpiar as limpiar_marcas
 from .seo import base_url, inject_metadata, inject_social, write_seo
 
 PUBLIC_MISSION_STATES = {"ready", "published"}
@@ -143,6 +144,8 @@ def build(root: Path = ROOT, dist: Path | None = None, *, docente: bool = False)
         build_factory(root)
     if not docente:
         seo_base = base_url(course)
+        # Marcas viejas fuera antes del SEO: una descripción que solo decía la marca se deriva del h1.
+        limpiar_marcas(root / LEGACY_BUILD.name)
         # Preserve factory/dist metadata parity only for the published student build.
         inject_metadata(root / LEGACY_BUILD.name, seo_base)
         inject_social(course, root, root / LEGACY_BUILD.name)
@@ -169,6 +172,7 @@ def build(root: Path = ROOT, dist: Path | None = None, *, docente: bool = False)
     publish_mission_apps(missions, course, root, dist)
     if not docente:
         inject(dist)
+        limpiar_marcas(dist)
     _write_json(dist / "missions.json", {"schema_version": 1, "course": course["course"]["id"], "missions": missions})
 
     # The offline instructor output is never indexed or checked as a public site.
