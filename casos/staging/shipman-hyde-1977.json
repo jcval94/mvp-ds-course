@@ -1,0 +1,90 @@
+{
+ "schema_version": 1,
+ "id": "shipman-hyde-1977",
+ "title": "Shipman y el gráfico que nadie hizo (Hyde, 1977-1998)",
+ "decision_question": "Con los certificados de defunción que firmó cada médico de Hyde, año por año, ¿cuándo habría sonado una alarma que comparara a un médico con lo esperado para sus pacientes, y qué harías al sonar?",
+ "naive_answer": "Comparar conteos (un médico firma más porque tiene más pacientes o pacientes más viejos) o mirar cada año por separado: ningún año, solo, parece imposible, así que todo parece variación normal.",
+ "ingenious_move": "Calcular lo esperado para su lista con la tasa de los demás médicos y sumar año con año lo observado menos lo esperado: casi todos los años quedan arriba y la suma crece sin parar. Una línea de alarma sobre esa suma (un gráfico de control) lo habría señalado años antes, a cambio de alarmas falsas que hay que revisar.",
+ "status": "candidate",
+ "access": "public",
+ "concepts": [
+  "observed-vs-expected",
+  "cumulative-sum",
+  "control-chart",
+  "false-alarms"
+ ],
+ "level_hint": 2,
+ "verified_claims": [
+  {
+   "claim": "Harold Shipman fue condenado el 31 de enero de 2000 en Preston por el asesinato de 15 de sus pacientes y por falsificar un testamento.",
+   "sources": [
+    "https://discovery.nationalarchives.gov.uk/details/r/C16350"
+   ]
+  },
+  {
+   "claim": "El primer informe de la investigación pública (19 de julio de 2002) concluyó que mató al menos a 215 pacientes (171 mujeres y 44 hombres) entre 1975 y 1998, con sospecha real en 45 muertes más; el sexto (27 de enero de 2005) estimó unos 250 entre 1971 y 1998, 218 identificados.",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC1123718",
+    "https://discovery.nationalarchives.gov.uk/details/r/C16350"
+   ]
+  },
+  {
+   "claim": "La auditoría del Chief Medical Officer (Baker, 2001) encontró que Shipman firmó 521 certificados de defunción, 499 en Hyde; el máximo de los seis médicos de comparación de Hyde fue 210; el exceso fue de 297 (IC 95 % 254 a 345) y de 236 en muertes en casa (198 a 277), visible desde sus primeros años.",
+   "sources": [
+    "https://gosportpanel.independent.gov.uk/media/panel_documents/IMI000470.pdf"
+   ]
+  },
+  {
+   "claim": "La Tabla 8.1 de la auditoría da, por año, los certificados de Shipman, sus pacientes, los de los médicos de comparación y lo esperado (tasa de los médicos de comparación por cada 1,000 pacientes por los pacientes de Shipman); suma 521 observados y 245.7 esperados.",
+   "sources": [
+    "https://serialkillersinfo.com/blog/wp-content/uploads/2018/02/shipman-clinical-practice.pdf"
+   ]
+  },
+  {
+   "claim": "Según los formularios de cremación, 55 % de sus pacientes murieron entre las 13:00 y las 19:00 contra 25 % en los médicos de comparación, y él estuvo presente en 19.5 % de las muertes contra 0.8 %.",
+   "sources": [
+    "https://serialkillersinfo.com/blog/wp-content/uploads/2018/02/shipman-clinical-practice.pdf",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC1125127"
+   ]
+  },
+  {
+   "claim": "Un CUSUM ajustado por riesgo lo habría detectado, en teoría, al final de 1985, 13 años antes de su arresto; en un estudio con 1,009 médicos, 12 dieron señal entre 1993 y 1999, uno era Shipman y las otras señales se explicaban sobre todo por pacientes en residencias.",
+   "sources": [
+    "https://tommasorigon.github.io/StatI/approfondimenti/Spiegelhalter2004.pdf"
+   ]
+  },
+  {
+   "claim": "En marzo de 1998 la policía investigó las sospechas y no descubrió sus crímenes (segundo informe de la investigación pública).",
+   "sources": [
+    "https://www.pslhub.org/learn/investigations-risk-management-and-legal-issues/investigations-and-complaints/investigation-reports/other-reports-and-enquiries/the-shipman-inquiry-2002-2005-r867/"
+   ]
+  }
+ ],
+ "uncertainties": [
+  "La Tabla 8.1 se leyó en una copia del informe completo que no es oficial (la oficial del Departamento de Salud ya no existe); las sumas coinciden con los totales impresos y con el resumen oficial. Falta cotejarla con un ejemplar impreso.",
+  "Dos detalles de la tabla impresa: 1978 (4.9 × 2.853 da 14.0; la tabla dice 13.8) y 1986 (15 entre 2,853 da 5.3 por mil; la tabla dice 5.6). Se usan las cifras impresas.",
+  "Los pacientes de Shipman antes de 1987 son una estimación de la auditoría.",
+  "Lo esperado de la Tabla 8.1 solo ajusta por el tamaño de la lista; el exceso de 297 ajusta además por edad y sexo."
+ ],
+ "myths_to_avoid": [
+  "«Los números lo atraparon.» Se descubrió en 1998 por un testamento falsificado; el monitoreo se diseñó después.",
+  "«Un gráfico de control prueba un delito.» Es un filtro para revisar: la mayoría de sus alarmas son de médicos inocentes.",
+  "«Firmar más certificados es sospechoso.» Depende de cuántos pacientes y de qué edad tiene cada médico."
+ ],
+ "sources": [
+  "https://gosportpanel.independent.gov.uk/media/panel_documents/IMI000470.pdf",
+  "https://discovery.nationalarchives.gov.uk/details/r/C16350",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC1123718",
+  "https://pmc.ncbi.nlm.nih.gov/articles/PMC1125127",
+  "https://tommasorigon.github.io/StatI/approfondimenti/Spiegelhalter2004.pdf"
+ ],
+ "dataset": {
+  "kind": "real",
+  "path": "casos/data/shipman-hyde-1977/certificados.csv",
+  "provenance": "Tabla 8.1 de Baker (2001), filas de Hyde de 1977 a 1998, con las cifras impresas. Detalle en casos/data/shipman-hyde-1977/README.md.",
+  "license": "CC0-1.0 (compilación); cifras de un informe con derechos de la Corona",
+  "sha256": "316d7e004f1c1b3e83c7cbd5caf5d28fb31ba64bc8dd852cea411dd8cf27c942"
+ },
+ "story_bridge": "Don Juan compara cada mes las quejas de cada sucursal con las que espera por sus ventas: una que siempre sale un poco arriba, mes tras mes, dice más que un solo mes malo.",
+ "analogy_limits": "Las cifras son reales. La cuenta del caso solo ajusta por el tamaño de la lista de pacientes; la auditoría también ajustó por edad y sexo. Una alarma estadística no prueba un delito."
+}
