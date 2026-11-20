@@ -1,6 +1,6 @@
 # Guion docente · clases 1 y 2 (Módulo 1 · Datos que mienten)
 
-**Estado:** propuesta del 6 nov 2026 para el autor; clase 1 revisada el 7 nov. Es material docente: vive en `docs/` y no
+**Estado:** propuesta del 6 nov 2026 para el autor; clase 1 revisada el 7 nov y clase 2 el 19 nov. Es material docente: vive en `docs/` y no
 entra a `dist/`. Aquí no hay claves de retos ni rúbricas (están en el backend privado y en el panel docente). Plan de la
 clase: `MODULO_1_EJERCICIOS.md`. Qué caso va en cada clase: `ESTRUCTURA_GENERACION_1.md`.
 
@@ -13,7 +13,7 @@ en papel.
 | Cuándo | Qué | Dónde |
 | --- | --- | --- |
 | 2 semanas antes | Calendario del grupo cargado (las 22 clases con su liga de Meet). Sin calendario, la práctica abre todo el banco a la vez | `admin.html` → Clases |
-| 2 semanas antes | Esquema 0.15 y SQL de los casos 1.1, 1.4, 1.2 y 13.11 cargados; banco de micro-casos cargado (`sql/practica/microcasos.sql`) | Supabase → SQL Editor |
+| 2 semanas antes | Esquema 0.16 y SQL de los casos 1.1, 1.4, 1.2 y 13.11 cargados; banco de micro-casos cargado (`sql/practica/microcasos.sql`) | Supabase → SQL Editor |
 | 1 semana antes | Recordatorio a los inscritos: Sesión 0 (`instalacion.html`) y entrar una vez a Mi avance con su Gmail | Correo o Mi avance → Mensajes |
 | 1 día antes | Recorrer 1.1 y 1.4 de punta a punta con una cuenta de prueba en el celular y en la laptop | `casos/1-1/`, `casos/1-4/` |
 | 1 día antes | Abrir `practica/vivo.html`, elegir el grupo y probar «Calentamiento de la clase 1» con una cuenta de alumno | `practica/vivo.html` |
@@ -36,21 +36,31 @@ Hábitos del día: `faltan` (¿qué falta en mis datos?) y `mide` (¿qué mide e
 | 145–160 | Primera práctica en vivo | `practica/vivo.html` → ELEGIR MICRO-CASOS, filtro «Clase 1», marcar 5 y EMPEZAR CON LOS ELEGIDOS («5 de lo que ya vio el grupo» solo toma micro-casos de clases anteriores: en la clase 1 responde «No hay micro-casos para esta ronda») | Contesta desde el celular | Mano alzada |
 | 160–180 | Cierre | Las frases del día (el criterio en una frase de cada caso). Tarea: 3 sesiones de práctica antes del viernes y lo que no cupo | — | — |
 
-## Clase 2 · sáb 9 ene · «2.4 millones de boletas equivocadas»
+## Antes de la clase 2
 
-Hábitos del día: `faltan` (marco muestral y no respuesta) y `verificar` (unidades, rangos y totales de control).
+| Cuándo | Qué | Dónde |
+| --- | --- | --- |
+| Vie, al terminar la clase 1 | Quién no terminó Wald: le toca como tarea antes de la clase 2, porque 1.2 lo da por visto | Panel docente → avance por sección |
+| Vie en la noche | Recorrer 1.2 y 13.11 de punta a punta con la cuenta de prueba, en el celular y en la laptop | `casos/1-2/`, `casos/13-11/` |
+| 30 min antes | Las mismas dos pestañas de la clase 1 (`practica/vivo.html` en el proyector y el panel docente) y el chat de Meet abierto para la encuesta en vivo | — |
 
-| Min | Bloque | Qué hace el docente | Qué hace el alumno |
-| ---: | --- | --- | --- |
-| 0–10 | Recuperación sin notas | `practica/vivo.html` → «5 de lo que ya vio el grupo» (empieza por lo que más le costó al grupo) | Contesta desde el celular |
-| 10–55 | **1.2 Literary Digest** en la página | Igual que Wald | Resuelve el caso |
-| 55–65 | Descanso | | |
-| 65–80 | Encuesta sesgada en vivo y laboratorio de alfabetización | Pregunta al grupo algo cuya respuesta dependa de quién contesta | Laboratorio en el sitio |
-| 80–110 | **13.11 Vuelo 143** en la página | Igual que Wald | Resuelve el caso |
-| 110–120 | Descanso | | |
-| 120–135 | Laboratorio de tipos de variables | Parejas | Laboratorio |
-| 135–155 | Transferir | Piezas 3 y 4 de «Mi decisión» | En el sitio |
-| 155–180 | Cierre del módulo | Repasa los tres hábitos con la tabla «Cómo va la práctica del grupo» de `practica/vivo.html` | — |
+## Clase 2 · sáb 9 ene · «2.4 millones de boletas equivocadas» (180 min con dos descansos de 10)
+
+Hábitos del día: `faltan` (quién no aparece en la lista y quién no contestó) y `verificar` (unidades, rangos y totales de
+control). Los dos casos son de datos reales; 13.11 no tuvo muertos y no lleva aviso de contenido.
+
+| Min | Bloque | Qué hace el docente | Qué hace el alumno | Si algo falla |
+| ---: | --- | --- | --- | --- |
+| 0–15 | Entrada y recuperación sin notas | Mientras entran, revisa en el chat quién no pudo entrar a Mi avance el viernes. `practica/vivo.html` → «5 de lo que ya vio el grupo»: toma micro-casos de la clase 1 y empieza por lo que más le costó al grupo | Contesta desde el celular, sin notas | Mano alzada. Quien sigue sin cuenta trabaja en pareja, igual que en la clase 1 |
+| 15–60 | **1.2 Literary Digest** en la página (~42 min) | Proyecta la intro (1 min) y deja que cada quien entre al caso. Camina el panel docente. El reto 3 (★★★, lo que haría falta entre los que no contestaron) es un cálculo hipotético: si varios se atoran, pregunta en voz alta «¿cuántos no contestaron?» y no da la cuenta | Resuelve el caso: apuesta, conteo y error del asistente, los que no contestaron, la otra encuesta, verificación, firma, revelación y laboratorio | Si no alcanza el tiempo, el laboratorio de la sección 9 y el cierre pasan a la tarea; la firma y la revelación se hacen en clase. El mínimo de la clase es 1.2 |
+| 60–70 | Descanso | | | |
+| 70–85 | Encuesta sesgada en vivo | En el chat de Meet: «Contesta solo si te gusta contestar encuestas: ¿cuántas contestaste este mes?». Saca el promedio en voz alta y pregunta: «¿esto describe al grupo?», «¿quién no está en esta cuenta?» y «¿qué pasaría si fuéramos 2 millones?». Cierra con la frase de 1.2: más respuestas no corrigen quién llega a tu tabla | Contesta (o no) y discute. Quien quiera repasa después el laboratorio de alfabetización, que es opcional y no cuenta para la calificación | Si el chat no responde, la misma pregunta a mano alzada |
+| 85–120 | **13.11 Vuelo 143** en la página (~30 min) | Proyecta la intro (40 s). Mismo modo que Wald. Si preguntan qué es una densidad, devuelve la pregunta: «¿qué unidad tiene cada número de la hoja?» | Resuelve el caso: apuesta, las cuentas, el visto bueno del asistente, lo que pesa de verdad, antes de despegar, revelación | Si no alcanza el tiempo, 13.11 pasa a la tarea de la semana |
+| 120–130 | Descanso | | | |
+| 130–145 | Laboratorio de tipos de variables | Forma parejas | Laboratorio en el sitio (`labs/level-1/tipos-variables.html`) | Si ya terminaron, que comparen su firma de 13.11 con la de su pareja |
+| 145–160 | Transferir | Pregunta: «¿qué es una fila en los datos de tu trabajo y quién no aparece?» y «¿qué número de tu trabajo viene en otra unidad o formato?». Dos o tres voluntarios | Comparte las piezas 3 y 4 de «Mi decisión», que escribió al cerrar 1.2 y 13.11; quien no llegó a un cierre la escribe ahí | Si la discusión se seca, usa la taquería de cada caso |
+| 160–170 | Práctica en vivo | `practica/vivo.html` → ELEGIR MICRO-CASOS, filtro «Clase 2», marcar 5 y EMPEZAR CON LOS ELEGIDOS (hay unos 15 de la clase 2, dos tercios de `verificar`) | Contesta desde el celular | Mano alzada |
+| 170–180 | Cierre del Módulo 1 | Repasa los tres hábitos (`faltan`, `mide` y `verificar`) con la tabla «Cómo va la práctica del grupo» y lee las frases del día. Tarea: 3 sesiones de práctica antes del viernes y lo que no cupo de 1.2 o 13.11 | — | — |
 
 ## Plan sin internet (si se cae la conexión del grupo)
 
