@@ -1,0 +1,102 @@
+{
+ "schema_version": 1,
+ "id": "nightingale-crimea-1854",
+ "title": "Florence Nightingale en Crimea (1854-1856)",
+ "decision_question": "Con la tabla de muertes del ejército británico en Oriente, mes por mes, ¿qué le recomiendas a la comisión que investiga la salud del ejército, y con qué gráfica honesta se lo muestras?",
+ "naive_answer": "Leer «1,174 muertes por cada 1,000 soldados» como si hubiera muerto todo el ejército en enero de 1855, comparar meses por conteos aunque la tropa cambió de 8,571 a 47,751 soldados, y dibujar una rosa con el radio proporcional a la tasa, que hace ver el peor mes más del doble de grande de lo que fue.",
+ "ingenious_move": "Preguntar qué mide el número: la tasa de la tabla es mensual multiplicada por 12 (el ritmo de un año si todos los meses fueran como ese), y por cada 1,000 soldados para comparar meses con tropas distintas. En una rosa honesta el área, no el radio, sigue a la tasa, como corrigió Nightingale en su segunda versión.",
+ "status": "candidate",
+ "access": "public",
+ "concepts": [
+  "rates-vs-counts",
+  "annualized-rate",
+  "standardization",
+  "honest-graphics"
+ ],
+ "level_hint": 2,
+ "verified_claims": [
+  {
+   "claim": "La tabla mensual del ejército británico en Oriente, de abril de 1854 a marzo de 1856, trae la tropa promedio estimada y las muertes por enfermedades zimóticas, heridas y otras causas; sus tasas anuales por cada 1,000 son 12 × 1,000 × muertes ÷ tropa.",
+   "sources": [
+    "https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/doc/HistData/Nightingale.html",
+    "https://understandinguncertainty.org/node/214"
+   ]
+  },
+  {
+   "claim": "En enero de 1855 murieron 2,761 soldados por enfermedades contagiosas, 83 por heridas y 324 por otras causas (3,168), con una tropa de 32,393; Nightingale calculó una tasa anual de 1,174 por cada 1,000, 1,023 por enfermedad.",
+   "sources": [
+    "https://www.nielsen.sites.oasis.unc.edu/soci708/cdocs/cohen.html"
+   ]
+  },
+  {
+   "claim": "Nightingale salió de Inglaterra el 21 de octubre de 1854 con 38 enfermeras y llegó a Scutari el 5 de noviembre de 1854.",
+   "sources": [
+    "https://www.nielsen.sites.oasis.unc.edu/soci708/cdocs/cohen.html"
+   ]
+  },
+  {
+   "claim": "Las muertes por enfermedad empezaron a bajar después de que llegó una comisión sanitaria en marzo de 1855.",
+   "sources": [
+    "https://www.sciencenews.org/article/florence-nightingale-passionate-statistician",
+    "https://www.radstats.org.uk/no128/McDonald128.pdf",
+    "https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/doc/HistData/Nightingale.html"
+   ]
+  },
+  {
+   "claim": "La Comisión Real sobre la salud del ejército se estableció en mayo de 1857; William Farr guio a Nightingale con los datos y las tablas.",
+   "sources": [
+    "https://www.nielsen.sites.oasis.unc.edu/soci708/cdocs/cohen.html"
+   ]
+  },
+  {
+   "claim": "El «Diagram of the causes of mortality in the army in the East» se publicó en Notes on Matters Affecting the Health, Efficiency, and Hospital Administration of the British Army (1858); su leyenda dice que las cuñas azules representan, área por área, las muertes por enfermedades zimóticas prevenibles o mitigables.",
+   "sources": [
+    "https://en.wikipedia.org/wiki/Zymotic_disease",
+    "https://homes.cs.washington.edu/~jheer/talks/interactive-analysis/crimea.html",
+    "https://wellcomecollection.org/works/jxwtskzc"
+   ]
+  },
+  {
+   "claim": "En una primera versión («bat's wing») el radio de cada mes era proporcional a la tasa aunque el texto daba a entender que lo era el área; Nightingale notó el error, agregó una fe de erratas y en los documentos posteriores la reemplazó por las cuñas, donde el área representa la tasa.",
+   "sources": [
+    "https://www.york.ac.uk/depts/maths/histstat/small.htm",
+    "https://encyclopediaofmath.org/images/d/d6/FlorenceNIGHTINGALE.pdf"
+   ]
+  },
+  {
+   "claim": "Nightingale no reunió las estadísticas durante la guerra ni se le puede atribuir la baja de las muertes a la enfermería: las gráficas marcan la llegada de la comisión sanitaria en marzo de 1855, no el inicio de la enfermería en noviembre de 1854.",
+   "sources": [
+    "https://www.radstats.org.uk/no128/McDonald128.pdf",
+    "https://nightingalesociety.com/papers/the-real-goods-and-the-oversell/"
+   ]
+  }
+ ],
+ "uncertainties": [
+  "La tabla se leyó en la transcripción de Pearson y Short (HistData), no en el escaneo de 1858 (Wellcome, b20387118); la fila de enero de 1855 coincide con Cohen (1984). Falta cotejar el escaneo.",
+  "La tropa de cada mes es una estimación de la época («estimated average monthly strength»).",
+  "Cuánto de la baja de 1855 se debe al saneamiento y cuánto a mejor abasto, ropa y refugio: McDonald atribuye el cambio a las comisiones sanitaria y de abastos juntas.",
+  "Los historiadores discuten si el hospital de Scutari tuvo la mortalidad más alta de la guerra (Small, 1998, contra McDonald, 2021). El caso no lo afirma."
+ ],
+ "myths_to_avoid": [
+  "«La enfermería de Nightingale bajó las muertes en Scutari.» Bajaron después de la comisión sanitaria de marzo de 1855.",
+  "«Nightingale juntó las estadísticas en el hospital.» Las analizó después de la guerra con datos oficiales y con William Farr.",
+  "«Nightingale inventó las gráficas estadísticas o la gráfica de pastel.» Farr ya usaba gráficas parecidas; su aporte fue usarlas para convencer.",
+  "«1,174 por cada 1,000 quiere decir que murió todo el ejército.» Es el ritmo de un mes llevado a un año."
+ ],
+ "sources": [
+  "https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/HistData/Nightingale.csv",
+  "https://www.nielsen.sites.oasis.unc.edu/soci708/cdocs/cohen.html",
+  "https://www.york.ac.uk/depts/maths/histstat/small.htm",
+  "https://www.radstats.org.uk/no128/McDonald128.pdf",
+  "https://wellcomecollection.org/works/jxwtskzc"
+ ],
+ "dataset": {
+  "kind": "real",
+  "path": "casos/data/nightingale-crimea-1854/meses.csv",
+  "provenance": "Tabla mensual de Nightingale (1858), transcrita por Pearson y Short (2007) en HistData::Nightingale; sin las tasas, que calcula el alumno. Detalle en casos/data/nightingale-crimea-1854/README.md.",
+  "license": "CC0-1.0 (compilación); obra de Nightingale de dominio público",
+  "sha256": "1f5ac28721bb36329201890779a323b9b262a91411277fe729413b9934520ace"
+ },
+ "story_bridge": "Don Juan vendió 30 tacos entre las 2 y las 3 de la tarde y dice que a ese ritmo vende 720 al día: antes de creerle, pregunta qué mide ese número y por cuánto tiempo.",
+ "analogy_limits": "Las cifras son reales. La tasa anual de un mes no es lo que pasó en el año; la rosa del asistente es una reconstrucción con un error plantado, avisado."
+}

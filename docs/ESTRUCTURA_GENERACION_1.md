@@ -75,7 +75,7 @@ Por qué cada caso:
 Por qué cada caso:
 
 - **Clase 3.** 2.1 John Snow y el cólera: Un mapa y una tasa por compañía de agua: análisis exploratorio que cambió una decisión. 2.3 El transbordador Challenger: La gráfica del Challenger sin los vuelos sin falla: lo omitido costó siete vidas.
-- **Clase 4.** 2.2 Florence Nightingale en Crimea: Una gráfica bien hecha cambió la política sanitaria: tasas frente a conteos. E29 Shipman y el gráfico que nadie hizo: El gráfico de control que nadie hizo: comparar a un médico con lo esperado habría detenido a Shipman.
+- **Clase 4.** 2.2 Florence Nightingale en Crimea: Una gráfica bien hecha cambió la política sanitaria: tasas frente a conteos. E29 Shipman y el gráfico que nadie hizo: El gráfico de control que nadie hizo: comparar a un médico con lo esperado habría detenido a Shipman. En el sitio y la base, E29 es el caso 2.4 (`site/casos/2-4/`).
 
 ## Módulo 3 · Apostar con incertidumbre
 

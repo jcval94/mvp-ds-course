@@ -1,0 +1,9 @@
+id,valor,unidad,tipo,fuente
+ene1855_tasa_enfermedad,1022.8,por cada 1000 soldados al año,impresa,"Nightingale (1858), tasa anual por enfermedades zimóticas de enero de 1855; Cohen (1984) la redondea a 1,023; HistData::Nightingale (Pearson y Short 2007)"
+ene1855_tasa_total,1174,por cada 1000 soldados al año,impresa,"Cohen, I. B. (1984). Florence Nightingale. Scientific American 250(3)"
+ene1855_muertes_total,3168,muertes,impresa,"Cohen (1984): 2,761 por enfermedades contagiosas, 83 por heridas y 324 por otras causas"
+llegada_scutari,1854-11-05,fecha,publicada,"Cohen (1984): llega a Scutari el 5 de noviembre de 1854, el día de la batalla de Inkerman"
+enfermeras,38,personas,publicada,"Cohen (1984): sale de Inglaterra el 21 de octubre de 1854 con 38 enfermeras"
+comision_sanitaria,1855-03,mes,publicada,"HistData::Nightingale (documentación); Rehmeyer, Science News (26 nov 2008); McDonald, Radical Statistics 128 (2021)"
+comision_real,1857-05,mes,publicada,"Cohen (1984): la Comisión Real sobre la salud del ejército se estableció en mayo de 1857"
+civiles_tasa,11,por cada 1000 al año,citada,"Cohen (1984) cita a Nightingale: la mortalidad civil era «solo de 11 por 1,000»; soldados en Inglaterra en tiempos de paz, de 17 a 20"

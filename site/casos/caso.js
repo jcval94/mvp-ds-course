@@ -492,13 +492,14 @@
     function valor() { return parseFloat(texto.replace(/,/g, '')) || 0; }
     function operar(a, b, o) { return o === '+' ? a + b : o === '−' ? a - b : o === '×' ? a * b : o === '÷' ? (b === 0 ? NaN : a / b) : b; }
     function salida(x) { if (!isFinite(x)) return 'ERROR'; var r = Math.round(x * 1e6) / 1e6; return String(r); }
-    ['7', '8', '9', '÷', '4', '5', '6', '×', '1', '2', '3', '−', '0', '.', '=', '+', 'C'].forEach(function (k) {
+    ['7', '8', '9', '÷', '4', '5', '6', '×', '1', '2', '3', '−', '0', '.', '=', '+', 'C', '√'].forEach(function (k) {
       var b = el('button', /[0-9.]/.test(k) ? '' : 'op', k); b.type = 'button';
-      b.setAttribute('aria-label', { '÷': 'entre', '×': 'por', '−': 'menos', '+': 'más', '=': 'igual', 'C': 'borrar', '.': 'punto' }[k] || k);
+      b.setAttribute('aria-label', { '÷': 'entre', '×': 'por', '−': 'menos', '+': 'más', '=': 'igual', 'C': 'borrar', '.': 'punto', '√': 'raíz cuadrada' }[k] || k);
       b.addEventListener('click', function () {
         if (/[0-9]/.test(k)) { mostrar(nuevo || texto === '0' ? k : (texto + k).slice(0, 14)); nuevo = false; }
         else if (k === '.') { if (nuevo) { mostrar('0.'); nuevo = false; } else if (texto.indexOf('.') < 0) mostrar(texto + '.'); }
         else if (k === 'C') { ac = 0; op = null; nuevo = true; mostrar('0'); }
+        else if (k === '√') { mostrar(salida(valor() < 0 ? NaN : Math.sqrt(valor()))); nuevo = true; anunciar('Raíz cuadrada: ' + texto); }
         else if (k === '=') { if (op) { mostrar(salida(operar(ac, valor(), op))); op = null; nuevo = true; anunciar('Resultado: ' + texto); } }
         else { if (op && !nuevo) { ac = operar(ac, valor(), op); mostrar(salida(ac)); } else ac = valor(); op = k; nuevo = true; }
       });

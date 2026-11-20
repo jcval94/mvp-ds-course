@@ -18,8 +18,8 @@ anotan cuando el repo público las documenta; los enlaces de Drive no van aquí.
 | 2 | E48 (13.11) El planeador de Gimli | costo | — | página | — | — | sí (0/1 medios listos) | sí | verified | medios reales (k02) |
 | 3 | 2.1 John Snow y el cólera | principal | m02-snow (prevista) | página | — | — | sí (0/2 medios listos) | sí | verified | medios reales (k02) |
 | 3 | 2.3 El transbordador Challenger | costo | — | página | — | — | sí (0/1 medios listos) | sí | verified | medios reales (k02) |
-| 4 | 2.2 Florence Nightingale en Crimea | principal | — | página | — | — | no | no | sin ficha | intro, caso en la página, ficha verificada |
-| 4 | E29 Shipman y el gráfico que nadie hizo | costo | — | página | — | — | no | no | sin ficha | intro, caso en la página, ficha verificada |
+| 4 | 2.2 Florence Nightingale en Crimea | principal | — | página | — | — | sí (0/1 medios listos) | sí | candidate | voz de la intro, revisión independiente, medios reales (k02) |
+| 4 | E29 (2.4) Shipman y el gráfico que nadie hizo | costo | — | página | — | — | sí (0/1 medios listos) | sí | candidate | voz de la intro, revisión independiente, medios reales (k02) |
 | 5 | 4.1 Semmelweis y el lavado de manos | principal | m03-semmelweis (prevista) | colab | Caso (completo) | v1.4 en Drive; v1.5 en backend #42 | sí (1/1 medios listos) | — (Colab) | verificado en el backend | nada |
 | 5 | 3.1 El caso Sally Clark | costo | — | página | — | — | no | no | sin ficha | intro, caso en la página, ficha verificada |
 | 6 | 3.3 La búsqueda del vuelo 447 de Air France | principal | — | página | — | — | no | no | sin ficha | intro, caso en la página, ficha verificada |
@@ -62,7 +62,9 @@ anotan cuando el repo público las documenta; los enlaces de Drive no van aquí.
 - **44 casos** (22 clases × principal y costo). **Listo de punta a punta: 1** (4.1 Semmelweis).
 - **Clases 1 a 3:** los seis casos ya tienen intro, caso en la página y ficha verificada; solo les falta el material real
   (k02, desde tu equipo).
-- **Clase 4** (2.2 Nightingale y E29 Shipman): falta todo; es el siguiente bloque (s05).
+- **Clase 4** (2.2 Nightingale y E29 Shipman, que en el sitio y la base es 2.4): intro, caso en la página y ficha con
+  cifras verificadas (20 nov); faltan la voz de las dos intros, la revisión independiente para pasar las fichas a
+  `verified` y el material real (k02).
 - **Clases 5 a 8:** 4.1 y 4.2 están construidos (a 4.2 le falta una pieza de material real); los otros seis casos no
   tienen intro ni ficha. Los Módulos 1 a 3 (clases 1 a 6) debían estar listos el 20 de diciembre.
 - **Misiones ancla:** solo `m01-wald` está registrada en `course.yaml`; las demás viven en `docs/CASE_MISSION_MAP.md`. Como
@@ -70,8 +72,8 @@ anotan cuando el repo público las documenta; los enlaces de Drive no van aquí.
 
 ## Inconsistencias encontradas
 
-1. **Ids dobles.** La estructura usa `E64` y `E48` para Puerto Rico y Gimli; las carpetas, el SQL y la ficha usan `1.4` y
-   `13.11` (`ESTRUCTURA_GENERACION_1.md`, filas de las clases 1 y 2). Propuesta: anotar el alias en la estructura.
+1. **Ids dobles.** La estructura usa `E64`, `E48` y `E29` para Puerto Rico, Gimli y Shipman; las carpetas, el SQL y la
+   ficha usan `1.4`, `13.11` y `2.4` (`ESTRUCTURA_GENERACION_1.md`, filas de las clases 1 y 2). Propuesta: anotar el alias en la estructura.
 2. **`casos/cases.jsonl` está vacío**: ningún caso está `approved`. Wald es el primero en camino (sitio #98).
 3. **Versión de los cuadernos:** Drive tiene 4.1 v1.4 y 4.2 v2.6; el backend #42 los sube a v1.5 y v2.7. Al subirlos
    (s11), actualizar esta tabla.
