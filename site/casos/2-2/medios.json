@@ -1,0 +1,19 @@
+{
+  "caso": "2.2",
+  "pendiente": "Abrir en Wellcome Collection la ficha del grabado «Crimean War: panoramic view of the Barrack Hospital, Scutari, Turkey» (Whitehead según R. P. Leit, referencia 21287i), confirmar la licencia (la serie de la época está con marca de dominio público), bajarlo a medios/hospital-scutari.webp de 1200 px y hasta 350 KB y cambiarlo a «listo». Si no se confirma, hay una alternativa con marca de dominio público confirmada: «Hospital and cemetery at Scutari», litografía de E. Walker según W. Simpson (21430i), recortada sin el cementerio. La escena funciona igual sin la pieza.",
+  "items": [
+    {
+      "id": "hospital-scutari",
+      "tipo": "grabado",
+      "estado": "candidato",
+      "archivo": "medios/hospital-scutari.webp",
+      "alt": "Grabado de mediados del siglo XIX con el cuartel de Scutari convertido en hospital británico, visto desde el agua.",
+      "pie": "El cuartel de Scutari, hospital británico, hacia 1855",
+      "credito": "Whitehead según R. P. Leit · Wellcome Collection (21287i)",
+      "licencia": "Dominio público (por confirmar en la ficha de Wellcome)",
+      "fuente": "https://wellcomecollection.org/concepts/sc36ujh4",
+      "escena": 1,
+      "spoiler": "Un edificio visto de lejos, sin heridos, sin enfermos, sin cifras y sin gráficas: no dice de qué murieron."
+    }
+  ]
+}

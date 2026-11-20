@@ -21,8 +21,11 @@ HERRAMIENTA = {"1-1": ("faltantes", ["sesgo de supervivencia", "sesgo de sobrevi
                                     "definicion de la variable"]),
                "2-1": ("sur", ["tasa por poblacion expuesta", "poblacion expuesta", "razon de tasas", "riesgo relativo",
                                "experimento natural", "grupo de comparacion"]),
+               "2-2": ("anual", ["tasa anualizada", "anualizar", "anualizada", "estandarizar", "estandarizacion", "misma base"]),
                "2-3": ("vuelos", ["lo que una grafica deja fuera", "lo que la grafica deja fuera", "sesgo de seleccion",
                                   "extrapolar", "extrapolacion"]),
+               "2-4": ("acumulado", ["suma acumulada", "grafico de control", "cusum", "observado menos esperado",
+                                     "control estadistico", "linea de alarma"]),
                "13-11": ("kilos", ["factor de conversion", "factores de conversion", "validar rangos", "validar el rango",
                                    "validacion de rangos", "analisis dimensional", "unidades de medida"])}
 # Ids de secciones y de retos, en orden, tal como están registrados en la base del curso.
@@ -36,8 +39,14 @@ RECORRIDO = {"1-1": (["preparacion", "apuesta", "registro", "asistente", "faltan
                       "laboratorio", "cierre"],
                      ["reto_mapa_deja_fuera", "reto_tasa_sv", "reto_cuantas_veces", "reto_error_grafica", "reto_peor_caso",
                       "reto_taqueria_expuestos"]),
+             "2-2": (["preparacion", "apuesta", "tabla", "anual", "asistente", "honesta", "firma", "revelacion",
+                      "laboratorio", "cierre"],
+                     ["reto_enfermedad_heridas", "reto_por_doce", "reto_tasa_marzo", "reto_error_rosa", "reto_radio_honesto",
+                      "reto_taqueria_ritmo"]),
              "2-3": (["preparacion", "apuesta", "grafica", "vuelos", "asistente", "firma", "revelacion", "cierre"],
                      ["reto_grafica_patron", "reto_vuelos_calidos", "reto_fuera_de_rango", "reto_error_sin_ceros"]),
+             "2-4": (["preparacion", "apuesta", "esperado", "asistente", "acumulado", "firma", "revelacion", "cierre"],
+                     ["reto_esperado_1984", "reto_error_reporte", "reto_acumulado_1985"]),
              "13-11": (["preparacion", "apuesta", "cuentas", "asistente", "kilos", "firma", "revelacion", "cierre"],
                        ["reto_litros_total", "reto_error_factor", "reto_kilos_reales"])}
 
@@ -155,6 +164,52 @@ def test_snow_usa_los_datos_reales() -> None:
     for prohibido in ("315", "8.4", "37.5", "138.5", "60.3"):
         assert prohibido not in (ROOT / "site/casos/2-1/caso-escenas.js").read_text(encoding="utf-8") + texto
     assert "Aviso de contenido" in (ROOT / "site/casos/2-1/caso-escenas.js").read_text(encoding="utf-8")
+
+
+def test_nightingale_usa_los_datos_reales() -> None:
+    import csv
+    texto = (ROOT / "site/casos/2-2/datos.js").read_text(encoding="utf-8")
+    d = json.loads(texto[texto.index("=") + 1: texto.rindex(";")])
+    base = ROOT / "casos/data/nightingale-crimea-1854"
+    with (base / "meses.csv").open(encoding="utf-8", newline="") as f:
+        meses = [{"mes": r["mes"], **{k: int(r[k]) for k in ("tropa", "enfermedad", "heridas", "otras")}} for r in csv.DictReader(f)]
+    assert d["meses"] == meses and len(meses) == 24
+    with (base / "cifras.csv").open(encoding="utf-8", newline="") as f:
+        cifras = {r["id"]: r["valor"] for r in csv.DictReader(f)}
+    nombres = {"tasa_impresa_ene1855": "ene1855_tasa_enfermedad", "llegada": "llegada_scutari", "enfermeras": "enfermeras",
+               "comision_sanitaria": "comision_sanitaria", "comision_real": "comision_real", "civiles_tasa": "civiles_tasa"}
+    assert set(d["cifras"]) == set(nombres)
+    for k, v in d["cifras"].items():
+        assert str(v) == cifras[nombres[k]] or float(v) == float(cifras[nombres[k]]), k
+    # Sin las respuestas de los retos (las tasas de marzo y el radio honesto las calcula el alumno).
+    caso = (ROOT / "site/casos/2-2/caso-escenas.js").read_text(encoding="utf-8")
+    for prohibido in ("480.3", "54.8"):
+        assert prohibido not in caso + texto
+    assert "Aviso de contenido" in caso and "aviso:" in (ROOT / "site/casos/2-2/escenas.js").read_text(encoding="utf-8")
+
+
+def test_shipman_usa_los_datos_reales() -> None:
+    import csv
+    texto = (ROOT / "site/casos/2-4/datos.js").read_text(encoding="utf-8")
+    d = json.loads(texto[texto.index("=") + 1: texto.rindex(";")])
+    base = ROOT / "casos/data/shipman-hyde-1977"
+    with (base / "certificados.csv").open(encoding="utf-8", newline="") as f:
+        filas = list(csv.DictReader(f))
+    assert [a["anio"] for a in d["anios"]] == [int(r["anio"]) for r in filas] == list(range(1977, 1999))
+    for a, r in zip(d["anios"], filas):
+        assert (a["certificados"], a["pacientes"], a["cert_comp"], a["pac_comp"]) == tuple(
+            int(r[k]) for k in ("certificados", "pacientes", "certificados_comparacion", "pacientes_comparacion"))
+        assert a["diferencia"] == float(r["diferencia_auditoria"]) and a["parcial"] == (r["anio_parcial"] == "si")
+        # el caso obtiene lo esperado como certificados menos diferencia: debe dar lo que imprimió la auditoría
+        assert round(a["certificados"] - a["diferencia"], 1) == float(r["esperado_auditoria"]), r["anio"]
+    assert sum(a["certificados"] for a in d["anios"]) == d["cifras"]["certificados_hyde"] == 499
+    with (base / "cifras.csv").open(encoding="utf-8", newline="") as f:
+        cifras = {r["id"]: r["valor"] for r in csv.DictReader(f)}
+    assert {k: str(v) for k, v in d["cifras"].items()} == cifras
+    caso = (ROOT / "site/casos/2-4/caso-escenas.js").read_text(encoding="utf-8")
+    for prohibido in ("12.8", "88.7"):
+        assert prohibido not in caso + texto
+    assert "Aviso de contenido" in caso and "aviso:" in (ROOT / "site/casos/2-4/escenas.js").read_text(encoding="utf-8")
 
 
 def test_challenger_usa_los_vuelos_reales() -> None:

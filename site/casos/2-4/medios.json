@@ -1,0 +1,19 @@
+{
+  "caso": "2.4",
+  "pendiente": "Abrir en Wikimedia Commons «File:Hyde from Werneth Low.jpg» (Janine Cook, vía geograph.org.uk), confirmar en esa página la licencia CC BY-SA 2.0 (se leyó en un espejo de Commons), bajarla a medios/hyde-werneth-low.webp de 1200 px y hasta 350 KB y cambiarla a «listo». La escena funciona igual sin la pieza.",
+  "items": [
+    {
+      "id": "hyde-werneth-low",
+      "tipo": "foto",
+      "estado": "candidato",
+      "archivo": "medios/hyde-werneth-low.webp",
+      "alt": "Vista de Hyde desde la colina de Werneth Low: casas, el ayuntamiento y, en el horizonte, los Peninos.",
+      "pie": "Hyde desde Werneth Low",
+      "credito": "Janine Cook · geograph.org.uk vía Wikimedia Commons",
+      "licencia": "CC BY-SA 2.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Hyde_from_Werneth_Low.jpg",
+      "escena": 1,
+      "spoiler": "Es el pueblo visto de lejos: no muestra al médico, su consultorio, personas ni cifras."
+    }
+  ]
+}
