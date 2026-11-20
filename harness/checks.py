@@ -10,7 +10,8 @@ from typing import Any
 from urllib.parse import unquote, urlsplit
 
 from .config import DIST, HOST_CONFIG_FILES, HOST_COUPLING_MARKERS, ROOT, HarnessError, load_course
-from .seo import base_url, check_seo, portability_text
+from .marcas import revisar as revisar_marcas
+from .seo import base_url, check_seo, check_social, portability_text
 
 MB = 1024 * 1024
 URL_ATTRIBUTES = {"href", "src", "poster", "data"}
@@ -189,7 +190,9 @@ def run(root: Path = ROOT, dist: Path | None = None) -> dict[str, Any]:
     course = load_course(root)
     errors = check_links(dist) + check_portability(dist, course) + check_level_themes(root, dist)
     errors += check_seo(course, root, dist)
+    errors += check_social(course, root, dist)
     errors += check_student_levels(dist)
+    errors += revisar_marcas(dist)
     budget_errors, report = check_budgets(course, dist)
     errors += budget_errors
     if errors:
