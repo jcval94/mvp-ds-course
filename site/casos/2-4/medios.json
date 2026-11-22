@@ -1,6 +1,6 @@
 {
   "caso": "2.4",
-  "pendiente": "Abrir en Wikimedia Commons «File:Hyde from Werneth Low.jpg» (Janine Cook, vía geograph.org.uk), confirmar en esa página la licencia CC BY-SA 2.0 (se leyó en un espejo de Commons), bajarla a medios/hyde-werneth-low.webp de 1200 px y hasta 350 KB y cambiarla a «listo». La escena funciona igual sin la pieza.",
+  "pendiente": "Licencia CC BY-SA 2.0 confirmada en Commons el 21 nov 2026 (autora Janine Cook, geograph.org.uk/photo/1038627). Falta decidir el tamaño: el original solo mide 640×480 y la regla pide 1200 px de ancho; no se escaló. Opciones: aceptar 640 px, escalarla a 1200 px o buscar otra foto de Hyde. La escena funciona igual sin la pieza.",
   "items": [
     {
       "id": "hyde-werneth-low",
@@ -13,7 +13,8 @@
       "licencia": "CC BY-SA 2.0",
       "fuente": "https://commons.wikimedia.org/wiki/File:Hyde_from_Werneth_Low.jpg",
       "escena": 1,
-      "spoiler": "Es el pueblo visto de lejos: no muestra al médico, su consultorio, personas ni cifras."
+      "spoiler": "Es el pueblo visto de lejos: no muestra al médico, su consultorio, personas ni cifras.",
+      "autor": "Janine Cook"
     }
   ]
 }
