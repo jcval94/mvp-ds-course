@@ -1,6 +1,6 @@
 {
   "caso": "1.2",
-  "pendiente": "Conseguir un escaneo de la página del 31 de octubre de 1936 (HathiTrust, Internet Archive o una biblioteca) y recortar solo el titular; bajar la foto de Harris & Ewing de la Library of Congress (LCCN 2016878441) a 1200 px y ≤ 350 KB. Cambiar cada una a «listo».",
+  "pendiente": "Titular de The Literary Digest del 31 oct 1936: no se encontró un escaneo en Internet Archive ni en HathiTrust (dos intentos). Sigue como candidato.",
   "items": [
     {
       "id": "titular",
@@ -19,15 +19,16 @@
     {
       "id": "campana",
       "tipo": "foto",
-      "estado": "candidato",
+      "estado": "listo",
       "archivo": "medios/campana.webp",
       "alt": "John Hamilton, jefe de campaña de Landon, habla en el National Press Club de Washington en septiembre de 1936.",
       "pie": "John Hamilton, jefe de campaña de Landon, 10 de septiembre de 1936",
       "credito": "Harris & Ewing · Library of Congress",
-      "licencia": "Dominio público",
+      "licencia": "Dominio público («No known restrictions on publication», confirmado en la ficha de la Library of Congress el 21 nov 2026)",
       "fuente": "https://www.loc.gov/item/2016878441/",
       "escena": 2,
-      "spoiler": "Muestra la confianza de una campaña, no el resultado ni el mecanismo."
+      "spoiler": "Muestra la confianza de una campaña, no el resultado ni el mecanismo.",
+      "autor": "Harris & Ewing"
     }
   ]
 }

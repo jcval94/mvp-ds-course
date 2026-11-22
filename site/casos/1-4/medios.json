@@ -1,19 +1,21 @@
 {
   "caso": "1.4",
-  "pendiente": "Descargar la imagen nocturna de NASA Earth Observatory (dominio público, crédito NASA) como medios/luces-pr-2017.webp de 1200 px y hasta 350 KB; recortar solo el titular de NBC News y el encabezado del documento del Registro Demográfico (sin cifras); cambiar cada una a «listo». Las escenas funcionan igual sin ellas.",
+  "pendiente": "Titular de NBC News: sin licencia clara; no se descargó. Alternativas: redibujar el titular en estilo 8 bits sin el logo, o citar la orden del gobernador desde un documento público. Decisión del autor: usar o no el encabezado del Registro en la escena final.",
   "items": [
     {
       "id": "luces-pr-2017",
       "tipo": "foto",
-      "estado": "candidato",
+      "estado": "listo",
       "archivo": "medios/luces-pr-2017.webp",
       "alt": "Imagen de satélite de Puerto Rico de noche: antes del huracán, la isla llena de luces; una semana después, casi a oscuras.",
       "pie": "Luces de Puerto Rico antes de María y el 27–28 de septiembre de 2017",
       "credito": "NASA Earth Observatory (Joshua Stevens, con datos de Miguel Román y Andrew Molthan)",
-      "licencia": "Dominio público",
+      "licencia": "Dominio público (imagen de NASA; crédito indicado en la ficha, confirmado el 21 nov 2026)",
       "fuente": "https://science.nasa.gov/earth/earth-observatory/pinpointing-where-lights-went-out-in-puerto-rico-91044",
       "escena": 1,
-      "spoiler": "Es un lugar, sin personas ni daños: muestra que la isla quedó a oscuras, no cómo se cuentan las muertes."
+      "spoiler": "Es un lugar, sin personas ni daños: muestra que la isla quedó a oscuras, no cómo se cuentan las muertes.",
+      "autor": "Joshua Stevens (NASA Earth Observatory)",
+      "nota": "Las dos imágenes de la ficha apiladas: arriba antes del huracán (línea base 2017), abajo el 27–28 de septiembre de 2017."
     },
     {
       "id": "titular-revision-2017",
@@ -32,15 +34,17 @@
     {
       "id": "registro-demografico-2018",
       "tipo": "documento",
-      "estado": "candidato",
+      "estado": "listo",
       "archivo": "medios/registro-demografico-2018.webp",
       "alt": "Encabezado de un documento del Registro Demográfico del Departamento de Salud de Puerto Rico, sin cifras.",
       "pie": "Registro Demográfico de Puerto Rico, 2018 (solo el encabezado)",
       "credito": "Registro Demográfico, Departamento de Salud de Puerto Rico; copia en c2-d2/pr_mort_official",
-      "licencia": "CC BY 3.0",
+      "licencia": "CC BY 3.0 (licencia de los datos del repositorio c2-d2/pr_mort_official, confirmada en su README el 21 nov 2026)",
       "fuente": "https://github.com/c2-d2/pr_mort_official/blob/master/data/RD-Mortality-Report_2015-18-180531.pdf",
       "escena": 3,
-      "spoiler": "Sin cifras visibles: dice que existe un registro, no qué muestra."
+      "spoiler": "Sin cifras visibles: dice que existe un registro, no qué muestra.",
+      "autor": "Registro Demográfico, Departamento de Salud de Puerto Rico",
+      "nota": "Solo la línea de encabezado de la página 1, sin fecha ni cifras, centrada en un marco 4:3. Ninguna escena lo usa todavía: decisión del autor."
     }
   ]
 }
