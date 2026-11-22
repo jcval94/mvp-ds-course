@@ -1,0 +1,44 @@
+{
+  "caso": "2.4",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "f355d22837d2",
+      "t": "Hyde, cerca de Mánchester, 1977 a 1998.",
+      "archivo": "f355d22837d2.mp3"
+    },
+    {
+      "hash": "794629b7ab2b",
+      "t": "Un médico de familia atiende a unos 3,000 pacientes.",
+      "archivo": "794629b7ab2b.mp3"
+    },
+    {
+      "hash": "23cc431e54af",
+      "t": "Después, una auditoría oficial cuenta sus certificados de defunción.",
+      "archivo": "23cc431e54af.mp3"
+    },
+    {
+      "hash": "d9d9fa28adad",
+      "t": "Toca los dos cajones del archivo.",
+      "archivo": "d9d9fa28adad.mp3"
+    },
+    {
+      "hash": "57e30a092bfe",
+      "t": "En 2000 lo condenaron por matar a 15 pacientes.",
+      "archivo": "57e30a092bfe.mp3"
+    },
+    {
+      "hash": "324b3da80700",
+      "t": "Nadie vigilaba las muertes de los pacientes de cada médico.",
+      "archivo": "324b3da80700.mp3"
+    },
+    {
+      "hash": "6ab13ab23b54",
+      "t": "¿Cuántas muertes de más hacen falta para que alguien lo note?",
+      "archivo": "6ab13ab23b54.mp3"
+    }
+  ]
+}

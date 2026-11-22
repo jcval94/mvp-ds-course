@@ -1,0 +1,69 @@
+{
+  "caso": "2.2",
+  "modelo": "gpt-4o-mini-tts",
+  "voz": "onyx",
+  "instrucciones": "Narrador de documental en español de México, tono sereno y misterioso, ritmo pausado, pronunciación clara.",
+  "sintetica": true,
+  "lineas": [
+    {
+      "hash": "0cd736585f4b",
+      "t": "Scutari, frente a Constantinopla, noviembre de 1854.",
+      "archivo": "0cd736585f4b.mp3"
+    },
+    {
+      "hash": "d4c611624a92",
+      "t": "Un cuartel enorme es ahora el hospital del ejército británico.",
+      "archivo": "d4c611624a92.mp3"
+    },
+    {
+      "hash": "f471b4f5f986",
+      "t": "Toca la puerta del hospital.",
+      "archivo": "f471b4f5f986.mp3"
+    },
+    {
+      "hash": "65e27d93370b",
+      "t": "El 5 de noviembre llegan Florence Nightingale y 38 enfermeras.",
+      "archivo": "65e27d93370b.mp3"
+    },
+    {
+      "hash": "438b030aa954",
+      "t": "Toca la lámpara para alumbrar la sala.",
+      "archivo": "438b030aa954.mp3"
+    },
+    {
+      "hash": "6b52548447ba",
+      "t": "Ese invierno, el registro del ejército se llena mes tras mes.",
+      "archivo": "6b52548447ba.mp3"
+    },
+    {
+      "hash": "71b13047b05c",
+      "t": "Toca el libro para abrirlo en enero de 1855.",
+      "archivo": "71b13047b05c.mp3"
+    },
+    {
+      "hash": "2feedd66fe83",
+      "t": "Después de la guerra, Nightingale saca la cuenta de enero.",
+      "archivo": "2feedd66fe83.mp3"
+    },
+    {
+      "hash": "05c2f4ea1dd4",
+      "t": "Toca la última columna de su tabla.",
+      "archivo": "05c2f4ea1dd4.mp3"
+    },
+    {
+      "hash": "84d82672c9ef",
+      "t": "1857: una comisión investiga por qué murieron tantos.",
+      "archivo": "84d82672c9ef.mp3"
+    },
+    {
+      "hash": "f70da9040e7b",
+      "t": "Nightingale y William Farr ordenan los números.",
+      "archivo": "f70da9040e7b.mp3"
+    },
+    {
+      "hash": "1a5fd3cd02ae",
+      "t": "¿Qué mide en realidad ese 1,174?",
+      "archivo": "1a5fd3cd02ae.mp3"
+    }
+  ]
+}
