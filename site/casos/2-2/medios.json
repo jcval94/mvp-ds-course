@@ -1,0 +1,19 @@
+{
+  "caso": "2.2",
+  "items": [
+    {
+      "id": "hospital-scutari",
+      "tipo": "grabado",
+      "estado": "listo",
+      "archivo": "medios/hospital-scutari.webp",
+      "alt": "Grabado de mediados del siglo XIX con el cuartel de Scutari convertido en hospital británico, visto desde el agua.",
+      "pie": "El cuartel de Scutari, hospital británico, hacia 1855",
+      "credito": "Whitehead según R. P. Leit · Wellcome Collection (21287i)",
+      "licencia": "Dominio público (Public Domain Mark, confirmada en la ficha de Wellcome Collection el 21 nov 2026)",
+      "fuente": "https://wellcomecollection.org/works/akrvu9w4",
+      "escena": 1,
+      "spoiler": "Un edificio visto de lejos, sin heridos, sin enfermos, sin cifras y sin gráficas: no dice de qué murieron.",
+      "autor": "Whitehead según R. P. Leit"
+    }
+  ]
+}

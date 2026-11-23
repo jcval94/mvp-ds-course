@@ -1,0 +1,20 @@
+{
+  "caso": "2.4",
+  "pendiente": "Licencia CC BY-SA 2.0 confirmada en Commons el 21 nov 2026 (autora Janine Cook, geograph.org.uk/photo/1038627). Falta decidir el tamaño: el original solo mide 640×480 y la regla pide 1200 px de ancho; no se escaló. Opciones: aceptar 640 px, escalarla a 1200 px o buscar otra foto de Hyde. La escena funciona igual sin la pieza.",
+  "items": [
+    {
+      "id": "hyde-werneth-low",
+      "tipo": "foto",
+      "estado": "candidato",
+      "archivo": "medios/hyde-werneth-low.webp",
+      "alt": "Vista de Hyde desde la colina de Werneth Low: casas, el ayuntamiento y, en el horizonte, los Peninos.",
+      "pie": "Hyde desde Werneth Low",
+      "credito": "Janine Cook · geograph.org.uk vía Wikimedia Commons",
+      "licencia": "CC BY-SA 2.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Hyde_from_Werneth_Low.jpg",
+      "escena": 1,
+      "spoiler": "Es el pueblo visto de lejos: no muestra al médico, su consultorio, personas ni cifras.",
+      "autor": "Janine Cook"
+    }
+  ]
+}
