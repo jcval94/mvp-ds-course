@@ -336,6 +336,7 @@ def test_check_only_visits_student_output_by_default(repo: Path, monkeypatch) ->
     monkeypatch.setattr(checks, "check_level_themes", lambda root, dist: [])
     monkeypatch.setattr(checks, "check_student_levels", lambda dist: [])
     monkeypatch.setattr(checks, "check_seo", lambda course, root, dist: visited.append(dist) or [])
+    monkeypatch.setattr(checks, "check_social", lambda course, root, dist: [])
     monkeypatch.setattr(checks, "check_budgets", lambda course, dist: ([], {}))
     checks.run(repo)
     assert visited == [repo / "dist"]
