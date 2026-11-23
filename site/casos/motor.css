@@ -36,6 +36,9 @@ svg text.px{font-family:"Press Start 2P","Courier New",monospace}
 
 .juego{max-width:900px;margin:0 auto;padding:14px 16px 40px;display:grid;gap:14px}
 .sup{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sup .mini{white-space:nowrap}
+.sup #volver{flex:none}
+.sup .fila{justify-content:flex-end}
 .mini{font-size:9px;line-height:1.4;color:var(--tinta-suave);background:none;border:3px solid var(--tinta-suave);
   padding:7px 9px;text-decoration:none;cursor:pointer}
 .mini:hover{color:var(--tinta);border-color:var(--tinta)}
