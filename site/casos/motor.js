@@ -85,8 +85,21 @@
       s.start(audio.currentTime + (retraso || 0));
     } catch (e) { /* sin audio */ }
   }
+  /* sonoteca 8 bits: se carga con import() la primera vez que se enciende SONIDO; si falla, queda el sintetizador */
+  var sono = null, sonoCargando = false;
+  function cargarSonoteca() {
+    if (sono || sonoCargando || reducir) return;
+    sonoCargando = true;
+    import('./sonoteca.js').then(function (m) { return m.crear(C.id); }).then(function (s) {
+      sono = s;
+      if (voz.habla) sono.voz(true);
+      if (sonidoOn) sono.escena(idx); else sono.apagar();
+    }).catch(function () { /* sin sonoteca: el sintetizador de abajo sigue sonando */ });
+  }
   function sfx(n) {
-    if (!sonidoOn || !SFX[n]) return;
+    if (!sonidoOn) return;
+    if (sono && sono.sfx(n)) return;
+    if (!SFX[n]) return;
     SFX[n].forEach(function (p) {
       if (p[0] === 'r') ruido(p[1], p[2], p[3], p[4]); else tono(p[0], p[1], p[2], p[3]);
     });
@@ -100,6 +113,7 @@
   function bajarSonido(si) {
     voz.habla = si;
     if (maestro) maestro.gain.setTargetAtTime(si ? 0.25 : 1, audio.currentTime, 0.08);
+    if (sono) sono.voz(si);
   }
   function callar(seguir) {
     voz.n += 1;
@@ -601,6 +615,7 @@
     token += 1;
     limpiar();
     idx = n;
+    if (sono && sonidoOn) sono.escena(n);
     var e = C.escenas[n];
     if (!e.lineas) e.lineas = [{ t: e.texto }];
     var cam = e.camara || { x: 0, y: 0, w: 160 };
@@ -909,10 +924,14 @@
   sig.addEventListener('click', siguiente);
   atras.addEventListener('click', function () { ir(idx - 1); });
   saltar.addEventListener('click', function () { ir(C.escenas.length - 1); });
+  /* con movimiento reducido no hay sonido 8 bits */
+  if (reducir) snd.disabled = true;
   snd.addEventListener('click', function () {
+    if (reducir) return;
     sonidoOn = !sonidoOn;
     snd.textContent = 'SONIDO: ' + (sonidoOn ? 'SI' : 'NO');
     snd.setAttribute('aria-pressed', String(sonidoOn));
+    if (sonidoOn) { if (sono) sono.escena(idx); else cargarSonoteca(); } else if (sono) sono.apagar();
     sfx('pop');
   });
   bvoz.addEventListener('click', function () {
