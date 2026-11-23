@@ -147,12 +147,12 @@
         </div>
         <dl>
           <div><dt>Inicio</dt><dd data-o="inicio">Viernes 8 de enero de 2027</dd></div>
-          <div><dt>Horario</dt><dd>Viernes 18:00–21:00 y sábados 8:00–11:00 (Ciudad de México)</dd></div>
+          <div><dt>Horario</dt><dd data-o="horario">Viernes 18:00–21:00 y sábados 8:00–11:00 (Ciudad de México)</dd></div>
           <div><dt>Duración</dt><dd>11 semanas · 22 clases de 3 horas · 66 horas en vivo</dd></div>
           <div><dt>Inscripciones hasta</dt><dd data-o="cierre">El día de inicio</dd></div>
           <div><dt>Precio</dt><dd><span data-o="precio">$9,900</span> MXN con IVA · precio regular <s data-o="regular">$14,900</s></dd></div>
         </dl>
-        <p class="nota">El precio de fundador es solo para la Generación 1. El grupo abre con un mínimo de <span data-o="minimo">6</span> personas; si no se llega, te devolvemos el 100 % de lo pagado y el grupo se reprograma para un mes después. Reembolso total si lo pides antes de que termine la segunda clase.</p>
+        <p class="nota">El precio de fundador es solo para la Generación 1. El grupo abre con un mínimo de <span data-o="minimo">6</span> <span data-o="personas">personas</span>; si no se llega, te devolvemos el 100 % de lo pagado y el grupo se reprograma para un mes después. Reembolso total si lo pides antes de que termine la segunda clase.</p>
       </aside>
     </div>
   </main>
@@ -190,7 +190,8 @@
       function pintarOferta(o) {
         oferta = o;
         poner("nombre", o.nombre); poner("contado", pesos(o.contado)); poner("msi", pesos(o.msi ?? o.precio)); poner("cuota", pesos(o.cuota)); poner("precio", pesos(o.precio));
-        if (o.minimo) poner("minimo", String(o.minimo));
+        if (o.minimo) { poner("minimo", String(o.minimo)); poner("personas", Number(o.minimo) === 1 ? "persona" : "personas"); }
+        if (o.horario) poner("horario", o.horario);
         if (Array.isArray(o.fechas_cuotas) && o.fechas_cuotas.length) poner("fechas", fechasCortas(o.fechas_cuotas));
         const ini = dia(o.inicio, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
         poner("inicio", ini.charAt(0).toUpperCase() + ini.slice(1));

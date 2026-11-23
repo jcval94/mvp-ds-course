@@ -16,7 +16,7 @@
   async function arrancar() {
     let rol;
     try { rol = await TDD.rpc('mi_rol'); } catch (e) { error(msg(e)); ver('vEntrar'); return; }
-    if (!rol || !(rol.docente || rol.admin)) { ver('vNoDocente'); return; }
+    if (!rol || !(rol.docente || rol.admin)) { $('#panelDocente').hidden = true; ver('vNoDocente'); return; }
     let grupos = rol.grupos || [];
     if (rol.admin) { try { grupos = (await TDD.rpc('admin_grupos')) || grupos; } catch (_) {} }
     const sel = $('#grupo'); sel.innerHTML = '';
