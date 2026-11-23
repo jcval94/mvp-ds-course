@@ -1,6 +1,6 @@
 {
   "caso": "13.11",
-  "pendiente": "Recortar del informe Lockwood (Internet Archive 31761116358912) solo el encabezado corto «Final Report of the Board of Inquiry · Air Canada Boeing 767 C-GAUN», sin la mención de Gimli, como medios/informe-lockwood-1985.webp, y cambiarlo a «listo». Foto del avión: la de Ted Quackenbush es GFDL 1.2 (no admitida); revisar a mano «Air_Canada_Boeing_767-233;_C-GAUN@SFO;17.02.1985_(5702291035).jpg» en Wikimedia Commons (posible CC BY-SA 2.0). Las escenas funcionan igual sin ellas: el avión va en pixeles.",
+  "pendiente": "Recortar del informe Lockwood (Internet Archive 31761116358912) solo el encabezado corto «Final Report of the Board of Inquiry · Air Canada Boeing 767 C-GAUN», sin la mención de Gimli, como medios/informe-lockwood-1985.webp, y cambiarlo a «listo». Foto del avión: lista (CC BY-SA 2.0, Andrew Thomas), pero ninguna escena la usa todavía; decisión del autor.",
   "items": [
     {
       "id": "informe-lockwood-1985",
@@ -15,6 +15,21 @@
       "escena": 2,
       "spoiler": "Recortado al título corto: no menciona Gimli ni el aterrizaje de emergencia.",
       "nota": "Solo el encabezado corto del informe, para mostrar que hubo una investigación oficial; el título completo menciona Gimli y no se muestra."
+    },
+    {
+      "id": "avion-c-gaun-1984",
+      "tipo": "foto",
+      "estado": "listo",
+      "archivo": "medios/avion-c-gaun-1984.webp",
+      "alt": "Boeing 767 de Air Canada con matrícula C-GAUN rodando en el aeropuerto de Toronto en 1984.",
+      "pie": "El Boeing 767 C-GAUN en Toronto, julio de 1984",
+      "credito": "Andrew Thomas · Wikimedia Commons",
+      "autor": "Andrew Thomas",
+      "licencia": "CC BY-SA 2.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:C-GAUN_604_Boeing_767-233_Air_Canada,_the_%22Gimli_Glider%22,_Toronto,_July_14_1984._(5530418110).jpg",
+      "escena": 2,
+      "spoiler": "Es el avión en tierra un año antes, sin daños ni combustible: no dice qué pasó.",
+      "nota": "Licencia confirmada en Commons el 21 nov 2026. El nombre del archivo en Commons dice «Gimli Glider»; el pie no lo menciona. Ninguna escena la usa todavía."
     }
   ]
 }
