@@ -1,0 +1,82 @@
+/* Intro del curso («Alguien tuvo que decidir»): puntos de luz que se reorganizan en cada decisión.
+   Pantalla completa, tipografía del sitio y colores solo desde design/tokens. */
+@import url("../design/tokens/tokens.css");
+
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--hero);color:var(--hero-text)}
+body{font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+.intro{position:fixed;inset:0;overflow:hidden;background:
+  radial-gradient(70% 55% at 50% 38%,color-mix(in srgb,var(--accent) 9%,transparent) 0,transparent 70%),var(--hero)}
+#lienzo{position:absolute;inset:0;width:100%;height:100%;display:block}
+#lienzo[hidden]{display:none}
+
+/* El año: enorme, en contorno, detrás de los puntos. Entra de golpe y luego deriva despacio. */
+.ano{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-weight:800;font-size:min(40vw,46vh);line-height:1;letter-spacing:-.04em;
+  color:transparent;-webkit-text-stroke:2px color-mix(in srgb,var(--hero-text) 16%,transparent);white-space:nowrap;pointer-events:none;user-select:none}
+.ano.entra{animation:ano-entra .7s cubic-bezier(.16,1,.3,1) both,ano-deriva 6s linear .7s both}
+@keyframes ano-entra{from{opacity:0;transform:translate(-50%,-50%) scale(1.7);letter-spacing:.2em}to{opacity:1;transform:translate(-50%,-50%) scale(1);letter-spacing:-.04em}}
+@keyframes ano-deriva{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-53%,-50%) scale(1.06)}}
+
+.destello{position:absolute;inset:0;background:var(--hero-text);opacity:0;pointer-events:none}
+.destello.va{animation:destello .45s ease-out}
+@keyframes destello{from{opacity:.22}to{opacity:0}}
+
+.barra{position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px}
+.barra h1{margin:0;font-size:13px;font-weight:700;letter-spacing:.02em}
+.barra a,.enlace{color:color-mix(in srgb,var(--hero-text) 70%,transparent);font-size:13px}
+.barra a:hover,.enlace:hover{color:var(--accent)}
+
+/* Narración: cada palabra sube a su lugar; la pregunta llega en ámbar y más grande. */
+.linea{position:absolute;left:50%;top:69%;transform:translateX(-50%);width:min(92vw,820px);margin:0;text-align:center;
+  font-size:clamp(20px,3.4vw,34px);font-weight:600;line-height:1.25;letter-spacing:-.01em;text-wrap:balance}
+.linea span{display:inline-block;opacity:0;transform:translateY(.7em);animation:palabra .5s cubic-bezier(.16,1,.3,1) forwards}
+.linea .q{display:block;margin-top:.25em;color:var(--accent);font-size:1.35em;font-weight:800;letter-spacing:-.02em}
+.linea .q span{transform:translateY(.4em) scale(.9)}
+@keyframes palabra{to{opacity:1;transform:none}}
+
+.cierre{position:absolute;inset:0;display:grid;align-content:center;justify-items:center;gap:14px;padding:24px 24px 34vh;text-align:center}
+.cierre[hidden]{display:none}
+.cierre>*{margin:0;opacity:0;transform:translateY(18px);animation:palabra .7s cubic-bezier(.16,1,.3,1) forwards}
+.cierre>:nth-child(2){animation-delay:.15s}.cierre>:nth-child(3){animation-delay:.3s}.cierre>:nth-child(4){animation-delay:.45s}
+.marca{font-size:clamp(38px,8.5vw,92px);font-weight:800;line-height:1;letter-spacing:-.035em}
+.lema{font-size:clamp(18px,2.6vw,26px);font-weight:600;color:var(--accent)}
+.acciones{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;border-radius:var(--r-pill);border:1px solid var(--accent);
+  background:var(--accent);color:var(--on-accent);font:700 16px var(--font);text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--accent-hover)}
+.btn[hidden]{display:none}
+.btn.sec{background:transparent;color:var(--hero-text);border-color:color-mix(in srgb,var(--hero-text) 40%,transparent)}
+.btn.sec:hover{border-color:var(--hero-text);background:color-mix(in srgb,var(--hero-text) 8%,transparent)}
+
+.pie{position:absolute;left:0;right:0;bottom:0;padding:0 20px calc(14px + env(safe-area-inset-bottom))}
+.avance{height:3px;background:color-mix(in srgb,var(--hero-text) 14%,transparent);border-radius:var(--r-pill);overflow:hidden}
+.avance i{display:block;height:100%;width:0;background:var(--accent)}
+.controles{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
+.controles button,.fuentes summary{min-height:44px;padding:0 14px;border-radius:var(--r-pill);border:1px solid color-mix(in srgb,var(--hero-text) 22%,transparent);
+  background:transparent;color:color-mix(in srgb,var(--hero-text) 80%,transparent);font:600 13px var(--font);cursor:pointer}
+.controles button:hover,.fuentes summary:hover{border-color:var(--hero-text);color:var(--hero-text)}
+.controles button:disabled{opacity:.35;cursor:default}
+.controles button[hidden]{display:none}
+.fuentes{margin-left:auto;position:relative}
+.fuentes summary{display:flex;align-items:center;list-style:none}
+.fuentes summary::-webkit-details-marker{display:none}
+.fuentes p{position:absolute;right:0;bottom:52px;width:min(80vw,340px);margin:0;padding:14px 16px;border-radius:var(--r-control);background:var(--hero-text);color:var(--text);font-size:14px;line-height:1.5}
+.fuentes p a{color:var(--accent-text);font-weight:700}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.guion{position:absolute;left:50%;top:62%;transform:translateX(-50%);width:min(92vw,640px);margin:0;padding-left:22px;display:grid;gap:6px;font-size:15px;line-height:1.45}
+.guion[hidden]{display:none}
+.sin-js{position:absolute;left:20px;right:20px;top:40%;text-align:center}
+.sin-js a{color:var(--accent)}
+
+@media (max-width:600px){
+  .linea{top:66%}
+  .barra{padding:12px 14px}.pie{padding-inline:14px}
+  .ano{font-size:min(46vw,34vh);top:38%}
+}
+@media (prefers-reduced-motion:reduce){
+  .ano.entra,.destello.va,.linea span,.cierre>*{animation:none;opacity:1;transform:none}
+  .ano.entra{transform:translate(-50%,-50%)}
+  .cierre{align-content:start;padding:9vh 24px 0}
+  .guion{top:auto;bottom:84px}
+}
