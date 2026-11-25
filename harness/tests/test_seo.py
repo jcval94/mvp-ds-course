@@ -45,10 +45,10 @@ def test_seo_is_deterministic_and_preserves_visible_content(site):
     first = {p.relative_to(dist): p.read_bytes() for p in dist.rglob("*") if p.is_file()}
     seo.write_seo(course, root, dist)
     assert first == {p.relative_to(dist): p.read_bytes() for p in dist.rglob("*") if p.is_file()}
-    metadata = seo.PageMetadata(page.read_text())
+    metadata = seo.PageMetadata(page.read_text(encoding="utf-8"))
     assert metadata.descriptions[0][0]["content"] == "Descripción existente & exacta."
     assert metadata.canonicals[0][0]["href"] == seo.base_url(course) + "/nested/"
-    assert page.read_text().split("<body>")[1] == source.split("<body>")[1]
+    assert page.read_text(encoding="utf-8").split("<body>")[1] == source.split("<body>")[1]
     assert seo.check_seo(course, root, dist) == []
     assert checks.check_portability(dist, course) == []
     assert checks.check_links(dist) == []
@@ -61,8 +61,8 @@ def test_base_is_configurable_and_only_appears_in_authorized_slots(site, base):
     seo.write_seo(course, root, dist)
     assert seo.check_seo(course, root, dist) == []
     assert checks.check_portability(dist, course) == []
-    assert base.rstrip("/") + "/" in (dist / "sitemap.xml").read_text()
-    assert base not in (dist / "robots.txt").read_text()
+    assert base.rstrip("/") + "/" in (dist / "sitemap.xml").read_text(encoding="utf-8")
+    assert base not in (dist / "robots.txt").read_text(encoding="utf-8")
 
 
 def test_description_derivation_and_explicit_todo(site):
@@ -73,7 +73,7 @@ def test_description_derivation_and_explicit_todo(site):
     todos = seo.write_seo(course, root, dist)
     assert todos == ["empty.html"]
     for name, expected in [("heading", "Decidir con evidencia"), ("title", "Título verificable & literal"), ("empty", seo.TODO_DESCRIPTION)]:
-        assert seo.PageMetadata((dist / f"{name}.html").read_text()).descriptions[0][0]["content"] == expected
+        assert seo.PageMetadata((dist / f"{name}.html").read_text(encoding="utf-8")).descriptions[0][0]["content"] == expected
 
 
 @pytest.mark.parametrize("access,status,allowed", [
@@ -92,7 +92,7 @@ def test_sitemap_filters_missions_from_source_manifests_even_if_html_leaks(site,
     write(dist / "private.html", html(head='<meta name="robots" content="noindex,follow">'))
     write(dist / "redirect.html", html(head='<meta http-equiv="refresh" content="0;url=index.html">'))
     seo.write_seo(course, root, dist)
-    sitemap = (dist / "sitemap.xml").read_text()
+    sitemap = (dist / "sitemap.xml").read_text(encoding="utf-8")
     assert ("/missions/m01-test/" in sitemap) is allowed
     assert ("/missions/m01-test/details.html" in sitemap) is allowed
     assert "/private.html" not in sitemap and "/404.html" not in sitemap and "/redirect.html" not in sitemap
@@ -111,7 +111,7 @@ def test_check_command_fails_when_seo_is_missing(site, missing):
         (dist / missing).unlink()
     else:
         page = dist / "index.html"
-        text = page.read_text()
+        text = page.read_text(encoding="utf-8")
         metadata = seo.PageMetadata(text)
         entries = metadata.canonicals if missing == "canonical" else metadata.descriptions
         _, _, start, end = entries[0]
@@ -124,7 +124,7 @@ def test_check_command_fails_when_seo_is_missing(site, missing):
 def test_invalid_metadata_is_rejected(site, change):
     course, root, dist = site
     page = dist / "index.html"
-    text = page.read_text()
+    text = page.read_text(encoding="utf-8")
     if change == "wrong-url":
         text = text.replace(seo.base_url(course) + "/", "https://wrong.example/", 1)
     elif change == "duplicate":
@@ -161,7 +161,7 @@ def test_portability_rejects_base_everywhere_except_exact_seo_slots(site, target
     # Also guard a custom domain, not just the historical provider markers.
     course["build"]["base_url"] = "https://course.example/curso"
     path = dist / target
-    text = path.read_text() if path.exists() else ""
+    text = path.read_text(encoding="utf-8") if path.exists() else ""
     write(path, text + addition.format(base=seo.base_url(course)))
     assert any(target in error for error in checks.check_portability(dist, course))
 
@@ -198,12 +198,12 @@ def test_sitemap_uses_configured_free_levels_and_preserves_all_metadata(site, fr
         for suffix in ["/index.html", "/details.html", "/nested/index.html", "-v2/index.html"]:
             write(dist / f"labs/level-{level}{suffix}", html())
     seo.write_seo(course, root, dist)
-    sitemap = (dist / "sitemap.xml").read_text()
+    sitemap = (dist / "sitemap.xml").read_text(encoding="utf-8")
     for page in dist.glob("labs/**/*.html"):
         relative = page.relative_to(dist).as_posix()
         level = int(relative.split("level-")[1].split("/")[0].split("-")[0])
         assert (seo.page_url(seo.base_url(course), relative) in sitemap) is (level in free_levels)
-        metadata = seo.PageMetadata(page.read_text())
+        metadata = seo.PageMetadata(page.read_text(encoding="utf-8"))
         assert len(metadata.canonicals) == len(metadata.descriptions) == 1
     assert seo.check_seo(course, root, dist) == []
     # A paid URL injected into an otherwise valid sitemap must fail harness check.
@@ -228,7 +228,7 @@ def test_build_wires_metadata_sitemap_and_todo_inventory(site, monkeypatch):
     second = build.build(root)
     assert first["content_sha256"] == second["content_sha256"]
     assert first["seo_description_todos"] == ["empty.html"]
-    assert json.loads((dist / "build-info.json").read_text())["seo_description_todos"] == ["empty.html"]
+    assert json.loads((dist / "build-info.json").read_text(encoding="utf-8"))["seo_description_todos"] == ["empty.html"]
     assert (dist / "index.html").read_bytes() == (legacy / "index.html").read_bytes()
     assert seo.check_seo(course, root, dist) == []
 
@@ -239,5 +239,5 @@ def test_js_shell_description_uses_exact_published_catalog_block_title(site):
     write(dist / "catalog.json", json.dumps({"levels": [{"status": "published", "blocks": [
         {"href": "shell.html", "title": "Alfabetización de datos"}]}]}))
     assert seo.write_seo(course, root, dist) == []
-    assert seo.PageMetadata((dist / "shell.html").read_text()).descriptions[0][0]["content"] == "Alfabetización de datos"
+    assert seo.PageMetadata((dist / "shell.html").read_text(encoding="utf-8")).descriptions[0][0]["content"] == "Alfabetización de datos"
     assert seo.check_seo(course, root, dist) == []
