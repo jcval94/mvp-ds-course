@@ -301,11 +301,11 @@ def test_student_gate_rejects_docente_html_and_missing_student_profile(tmp_path:
 
 
 def test_docente_build_preserves_sources_without_public_seo(repo: Path, monkeypatch) -> None:
-    course = yaml.safe_load((repo / "course.yaml").read_text())
+    course = yaml.safe_load((repo / "course.yaml").read_text(encoding="utf-8"))
     for component in course["components"].values():
         if isinstance(component, dict):
             component["publish"] = False
-    (repo / "course.yaml").write_text(yaml.safe_dump(course))
+    (repo / "course.yaml").write_text(yaml.safe_dump(course), encoding="utf-8")
     _write(repo / "dist" / "index.html", "Alumno intacto")
     _write(repo / "_site" / "index.html", "Fábrica alumno intacta")
     source = repo / "_site_docente"
@@ -320,11 +320,11 @@ def test_docente_build_preserves_sources_without_public_seo(repo: Path, monkeypa
     build.build(repo, docente=True)
     output = repo / "dist-docente"
     assert calls == [True]
-    assert (output / "labs/level-1/docs/guion.md").read_text() == "Guion docente intacto"
+    assert (output / "labs/level-1/docs/guion.md").read_text(encoding="utf-8") == "Guion docente intacto"
     assert not (output / "robots.txt").exists()
     assert not (output / "sitemap.xml").exists()
-    assert (repo / "dist/index.html").read_text() == "Alumno intacto"
-    assert (repo / "_site/index.html").read_text() == "Fábrica alumno intacta"
+    assert (repo / "dist/index.html").read_text(encoding="utf-8") == "Alumno intacto"
+    assert (repo / "_site/index.html").read_text(encoding="utf-8") == "Fábrica alumno intacta"
 
 
 def test_check_only_visits_student_output_by_default(repo: Path, monkeypatch) -> None:
